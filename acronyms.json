@@ -644,5 +644,377 @@
             {"name": "Wikipedia", "url": "https://en.wikipedia.org/wiki/Computer_security_incident_response_team"},
             {"name": "Official Site", "url": "https://www.us-cert.gov/"}
         ]
+    },
+    "ABAC": {
+        "definition": "Attribute-Based Access Control",
+        "sources": [
+            {"name": "Wikipedia", "url": "https://en.wikipedia.org/wiki/Attribute-based_access_control"}
+        ]
+    },
+    "AICPA": {
+        "definition": "American Institute of Certified Public Accountants",
+        "sources": [
+            {"name": "Wikipedia", "url": "https://en.wikipedia.org/wiki/American_Institute_of_Certified_Public_Accountants"}
+        ]
+    },
+    "API": {
+        "definition": "Application Programming Interface",
+        "sources": [
+            {"name": "Wikipedia", "url": "https://en.wikipedia.org/wiki/API"}
+        ]
+    },
+    "ARP": {
+        "definition": "Address Resolution Protocol",
+        "sources": [
+            {"name": "Wikipedia", "url": "https://en.wikipedia.org/wiki/Address_Resolution_Protocol"}
+        ]
+    },
+    "BCP": {
+        "definition": "Business Continuity Plan",
+        "sources": [
+            {"name": "Wikipedia", "url": "https://en.wikipedia.org/wiki/Business_continuity_planning"}
+        ]
+    },
+    "BIA": {
+        "definition": "Business Impact Analysis",
+        "sources": [
+            {"name": "Wikipedia", "url": "https://en.wikipedia.org/wiki/Business_impact_analysis"}
+        ]
+    },
+    "BLE": {
+        "definition": "Bluetooth Low Energy",
+        "sources": [
+            {"name": "Wikipedia", "url": "https://en.wikipedia.org/wiki/Bluetooth_Low_Energy"}
+        ]
+    },
+    "BYOK": {
+        "definition": "Bring Your Own Key",
+        "sources": [
+            {"name": "Wikipedia", "url": "https://en.wikipedia.org/wiki/Bring_your_own_key"}
+        ]
+    },
+    "CAIQ": {
+        "definition": "Consensus Assessments Initiative Questionnaire",
+        "sources": [
+            {"name": "Wikipedia", "url": "https://en.wikipedia.org/wiki/Consensus_Assessments_Initiative_Questionnaire"}
+        ]
+    },
+    "CASB": {
+        "definition": "Cloud Access Security Broker",
+        "sources": [
+            {"name": "Wikipedia", "url": "https://en.wikipedia.org/wiki/Cloud_access_security_broker"}
+        ]
+    },
+    "CIS": {
+        "definition": "Center for Internet Security",
+        "sources": [
+            {"name": "Wikipedia", "url": "https://en.wikipedia.org/wiki/Center_for_Internet_Security"}
+        ]
+    },
+    "CKL": {
+        "definition": "Checklist",
+        "sources": [
+            {"name": "Wikipedia", "url": "https://en.wikipedia.org/wiki/Checklist"}
+        ]
+    },
+    "CKMS": {
+        "definition": "Cryptographic Key Management System",
+        "sources": [
+            {"name": "Wikipedia", "url": "https://en.wikipedia.org/wiki/Cryptographic_Key_Management_System"}
+        ]
+    },
+    "CRL": {
+        "definition": "Certificate Revocation List",
+        "sources": [
+            {"name": "Wikipedia", "url": "https://en.wikipedia.org/wiki/Certificate_revocation_list"}
+        ]
+    },
+    "CSC": {
+        "definition": "Critical Security Controls",
+        "sources": [
+            {"name": "Wikipedia", "url": "https://en.wikipedia.org/wiki/Critical_Security_Controls"}
+        ]
+    },
+    "CSP": {
+        "definition": "Cloud Service Provider",
+        "sources": [
+            {"name": "Wikipedia", "url": "https://en.wikipedia.org/wiki/Cloud_service_provider"}
+        ]
+    },
+    "COSO": {
+        "definition": "Committee of Sponsoring Organizations",
+        "sources": [
+            {"name": "Wikipedia", "url": "https://en.wikipedia.org/wiki/Committee_of_Sponsoring_Organizations_of_the_Treadway_Commission"}
+        ]
+    },
+    "DAST": {
+        "definition": "Dynamic Application Security Testing",
+        "sources": [
+            {"name": "Wikipedia", "url": "https://en.wikipedia.org/wiki/Dynamic_application_security_testing"}
+        ]
+    },
+    "DLP": {
+        "definition": "Data Loss Prevention",
+        "sources": [
+            {"name": "Wikipedia", "url": "https://en.wikipedia.org/wiki/Data_loss_prevention_software"}
+        ]
+    },
+    "DPIA": {
+        "definition": "Data Protection Impact Assessment",
+        "sources": [
+            {"name": "Wikipedia", "url": "https://en.wikipedia.org/wiki/Data_protection_impact_assessment"}
+        ]
+    },
+    "DR": {
+        "definition": "Disaster Recovery",
+        "sources": [
+            {"name": "Wikipedia", "url": "https://en.wikipedia.org/wiki/Disaster_recovery"}
+        ]
+    },
+    "EMI": {
+        "definition": "Electromagnetic Interference",
+        "sources": [
+            {"name": "Wikipedia", "url": "https://en.wikipedia.org/wiki/Electromagnetic_interference"}
+        ]
+    },
+    "ERM": {
+        "definition": "Enterprise Risk Management",
+        "sources": [
+            {"name": "Wikipedia", "url": "https://en.wikipedia.org/wiki/Enterprise_risk_management"}
+        ]
+    },
+    "FEDRAMP": {
+        "definition": "Federal Risk and Authorization Management Program",
+        "sources": [
+            {"name": "Wikipedia", "url": "https://en.wikipedia.org/wiki/FedRAMP"}
+        ]
+    },
+    "FIM": {
+        "definition": "File Integrity Monitoring",
+        "sources": [
+            {"name": "Wikipedia", "url": "https://en.wikipedia.org/wiki/File_integrity_monitoring"}
+        ]
+    },
+    "HSM": {
+        "definition": "Hardware Security Module",
+        "sources": [
+            {"name": "Wikipedia", "url": "https://en.wikipedia.org/wiki/Hardware_security_module"}
+        ]
+    },
+    "IDaaS": {
+        "definition": "Identity as a Service",
+        "sources": [
+            {"name": "Wikipedia", "url": "https://en.wikipedia.org/wiki/Identity_as_a_service"}
+        ]
+    },
+    "IDE": {
+        "definition": "Integrated Development Environment",
+        "sources": [
+            {"name": "Wikipedia", "url": "https://en.wikipedia.org/wiki/Integrated_development_environment"}
+        ]
+    },
+    "IaaS": {
+        "definition": "Infrastructure as a Service",
+        "sources": [
+            {"name": "Wikipedia", "url": "https://en.wikipedia.org/wiki/Infrastructure_as_a_service"}
+        ]
+    },
+    "IAST": {
+        "definition": "Interactive Application Security Testing",
+        "sources": [
+            {"name": "Wikipedia", "url": "https://en.wikipedia.org/wiki/Interactive_application_security_testing"}
+        ]
+    },
+    "ICMP": {
+        "definition": "Internet Control Message Protocol",
+        "sources": [
+            {"name": "Wikipedia", "url": "https://en.wikipedia.org/wiki/Internet_Control_Message_Protocol"}
+        ]
+    },
+    "ISO": {
+        "definition": "International Organization for Standardization",
+        "sources": [
+            {"name": "Wikipedia", "url": "https://en.wikipedia.org/wiki/International_Organization_for_Standardization"}
+        ]
+    },
+    "IEC": {
+        "definition": "International Electrotechnical Commission",
+        "sources": [
+            {"name": "Wikipedia", "url": "https://en.wikipedia.org/wiki/International_Electrotechnical_Commission"}
+        ]
+    },
+    "ITIL": {
+        "definition": "Information Technology Infrastructure Library",
+        "sources": [
+            {"name": "Wikipedia", "url": "https://en.wikipedia.org/wiki/ITIL"}
+        ]
+    },
+    "KPI": {
+        "definition": "Key Performance Indicator",
+        "sources": [
+            {"name": "Wikipedia", "url": "https://en.wikipedia.org/wiki/Performance_indicator"}
+        ]
+    },
+    "KRI": {
+        "definition": "Key Risk Indicator",
+        "sources": [
+            {"name": "Wikipedia", "url": "https://en.wikipedia.org/wiki/Risk_management#Key_risk_indicator"}
+        ]
+    },
+    "OS": {
+        "definition": "Operating System",
+        "sources": [
+            {"name": "Wikipedia", "url": "https://en.wikipedia.org/wiki/Operating_system"}
+        ]
+    },
+    "OWASP": {
+        "definition": "Open Web Application Security Project",
+        "sources": [
+            {"name": "Wikipedia", "url": "https://en.wikipedia.org/wiki/OWASP"}
+        ]
+    },
+    "PaaS": {
+        "definition": "Platform as a Service",
+        "sources": [
+            {"name": "Wikipedia", "url": "https://en.wikipedia.org/wiki/Platform_as_a_service"}
+        ]
+    },
+    "PAM": {
+        "definition": "Privileged Access Management",
+        "sources": [
+            {"name": "Wikipedia", "url": "https://en.wikipedia.org/wiki/Privileged_access_management"}
+        ]
+    },
+    "PII": {
+        "definition": "Personally Identifiable Information",
+        "sources": [
+            {"name": "Wikipedia", "url": "https://en.wikipedia.org/wiki/Personally_identifiable_information"}
+        ]
+    },
+    "PPTP": {
+        "definition": "Point-to-Point Tunneling Protocol",
+        "sources": [
+            {"name": "Wikipedia", "url": "https://en.wikipedia.org/wiki/Point-to-Point_Tunneling_Protocol"}
+        ]
+    },
+    "RBAC": {
+        "definition": "Role-Based Access Control",
+        "sources": [
+            {"name": "Wikipedia", "url": "https://en.wikipedia.org/wiki/Role-based_access_control"}
+        ]
+    },
+    "RBG": {
+        "definition": "Random Bit Generator",
+        "sources": [
+            {"name": "Wikipedia", "url": "https://en.wikipedia.org/wiki/Random_bit_generator"}
+        ]
+    },
+    "ROI": {
+        "definition": "Return on Investment",
+        "sources": [
+            {"name": "Wikipedia", "url": "https://en.wikipedia.org/wiki/Return_on_investment"}
+        ]
+    },
+    "RPO": {
+        "definition": "Recovery Point Objective",
+        "sources": [
+            {"name": "Wikipedia", "url": "https://en.wikipedia.org/wiki/Recovery_point_objective"}
+        ]
+    },
+    "RTO": {
+        "definition": "Recovery Time Objective",
+        "sources": [
+            {"name": "Wikipedia", "url": "https://en.wikipedia.org/wiki/Recovery_time_objective"}
+        ]
+    },
+    "SaaS": {
+        "definition": "Software as a Service",
+        "sources": [
+            {"name": "Wikipedia", "url": "https://en.wikipedia.org/wiki/Software_as_a_service"}
+        ]
+    },
+    "SAST": {
+        "definition": "Static Application Security Testing",
+        "sources": [
+            {"name": "Wikipedia", "url": "https://en.wikipedia.org/wiki/Static_application_security_testing"}
+        ]
+    },
+    "SCA": {
+        "definition": "Software Composition Analysis",
+        "sources": [
+            {"name": "Wikipedia", "url": "https://en.wikipedia.org/wiki/Software_composition_analysis"}
+        ]
+    },
+    "SDK": {
+        "definition": "Software Development Kit",
+        "sources": [
+            {"name": "Wikipedia", "url": "https://en.wikipedia.org/wiki/Software_development_kit"}
+        ]
+    },
+    "SDLC": {
+        "definition": "Software Development Life Cycle",
+        "sources": [
+            {"name": "Wikipedia", "url": "https://en.wikipedia.org/wiki/Systems_development_life_cycle"}
+        ]
+    },
+    "SLA": {
+        "definition": "Service-Level Agreement",
+        "sources": [
+            {"name": "Wikipedia", "url": "https://en.wikipedia.org/wiki/Service-level_agreement"}
+        ]
+    },
+    "SLO": {
+        "definition": "Service-Level Objective",
+        "sources": [
+            {"name": "Wikipedia", "url": "https://en.wikipedia.org/wiki/Service-level_objective"}
+        ]
+    },
+    "SME": {
+        "definition": "Subject Matter Expert",
+        "sources": [
+            {"name": "Wikipedia", "url": "https://en.wikipedia.org/wiki/Subject-matter_expert"}
+        ]
+    },
+    "SSDLC": {
+        "definition": "Secure Software Development Life Cycle",
+        "sources": [
+            {"name": "Wikipedia", "url": "https://en.wikipedia.org/wiki/Systems_development_life_cycle#Secure_SDLC"}
+        ]
+    },
+    "SSH": {
+        "definition": "Secure Shell",
+        "sources": [
+            {"name": "Wikipedia", "url": "https://en.wikipedia.org/wiki/Secure_Shell"}
+        ]
+    },
+    "SSRM": {
+        "definition": "Security, Stability, and Resiliency Management",
+        "sources": [
+            {"name": "Wikipedia", "url": "https://en.wikipedia.org/wiki/Security,_stability,_and_resiliency_management"}
+        ]
+    },
+    "TPRM": {
+        "definition": "Third-Party Risk Management",
+        "sources": [
+            {"name": "Wikipedia", "url": "https://en.wikipedia.org/wiki/Third-party_risk_management"}
+        ]
+    },
+    "vTPM": {
+        "definition": "Virtual Trusted Platform Module",
+        "sources": [
+            {"name": "Wikipedia", "url": "https://en.wikipedia.org/wiki/Trusted_Platform_Module#Virtual_TPM"}
+        ]
+    },
+    "VDP": {
+        "definition": "Vulnerability Disclosure Program",
+        "sources": [
+            {"name": "Wikipedia", "url": "https://en.wikipedia.org/wiki/Vulnerability_disclosure"}
+        ]
+    },
+    "XaaS": {
+        "definition": "Anything as a Service",
+        "sources": [
+            {"name": "Wikipedia", "url": "https://en.wikipedia.org/wiki/Anything_as_a_service"}
+        ]
     }
 }
