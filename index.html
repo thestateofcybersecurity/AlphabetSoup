@@ -63,7 +63,7 @@
 </head>
 <body>
     <h1>Cybersecurity Acronym Finder</h1>
-    <input type="text" id="acronym" placeholder="Enter acronym (e.g., CISSP)">
+    <input type="text" id="acronym" placeholder="Enter acronym (e.g., CISSP)" onkeypress="checkEnter(event)">
     <button onclick="getDefinition()">Find Definition</button>
     <div id="result"></div>
 
@@ -99,6 +99,12 @@
                     ${data.sources.map(source => `<li><a href="${source.url}" target="_blank">${source.name}</a></li>`).join('')}
                 </ul>
             `;
+        }
+
+        function checkEnter(event) {
+            if (event.key === 'Enter') {
+                getDefinition();
+            }
         }
     </script>
 </body>
