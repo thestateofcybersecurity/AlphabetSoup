@@ -75,7 +75,7 @@
                 return;
             }
             try {
-                const response = await fetch('acronym.json');
+                const response = await fetch('acronyms.json');
                 if (!response.ok) {
                     throw new Error(`HTTP error! status: ${response.status}`);
                 }
