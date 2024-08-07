@@ -6,131 +6,113 @@
     <title>Cybersecurity Alphabet Soup</title>
     <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://apis.google.com; style-src 'self' 'unsafe-inline'; img-src 'self'; font-src 'self';">
     <style>
-        :root {
-            --background-color-light: #f4f4f4;
-            --text-color-light: #333;
-            --input-bg-light: #fff;
-            --input-border-light: #ccc;
-            --button-bg-light: #007bff;
-            --button-hover-bg-light: #0056b3;
-            --result-bg-light: #fff;
-            --result-text-light: #555;
-
-            --background-color-dark: #121212;
-            --text-color-dark: #f0f0f0;
-            --input-bg-dark: #333;
-            --input-border-dark: #555;
-            --button-bg-dark: #bb86fc;
-            --button-hover-bg-dark: #3700b3;
-            --result-bg-dark: #333;
-            --result-text-dark: #bbb;
-        }
-
         body {
-            font-family: 'Arial', sans-serif;
+            font-family: Arial, sans-serif;
             text-align: center;
             margin: 50px;
-            background-color: var(--background-color-light);
-            color: var(--text-color-light);
             transition: background-color 0.3s, color 0.3s;
         }
-
         h1 {
-            color: var(--text-color-light);
+            color: #333;
         }
-
         input[type="text"] {
             width: 300px;
             padding: 10px;
             margin: 20px 0;
             font-size: 16px;
-            background-color: var(--input-bg-light);
-            border: 1px solid var(--input-border-light);
+            border: 1px solid #ccc;
             border-radius: 4px;
-            color: var(--text-color-light);
             transition: background-color 0.3s, border-color 0.3s, color 0.3s;
         }
-
         button {
             padding: 10px 20px;
             font-size: 16px;
             color: #fff;
-            background-color: var(--button-bg-light);
+            background-color: #007bff;
             border: none;
             border-radius: 4px;
             cursor: pointer;
             transition: background-color 0.3s;
         }
-
         button:hover {
-            background-color: var(--button-hover-bg-light);
+            background-color: #0056b3;
         }
-
         #result {
             margin-top: 20px;
             text-align: left;
-            background-color: var(--result-bg-light);
+            background-color: #fff;
             padding: 20px;
             border-radius: 4px;
             transition: background-color 0.3s, color 0.3s;
         }
-
         #result h2 {
-            color: var(--button-bg-light);
+            color: #007bff;
         }
-
         #result p {
             font-size: 18px;
-            color: var(--result-text-light);
+            color: #555;
         }
-
         #result ul {
             list-style-type: none;
             padding: 0;
         }
-
         #result ul li {
             margin: 5px 0;
         }
-
         #result ul li a {
-            color: var(--button-bg-light);
+            color: #007bff;
             text-decoration: none;
         }
-
         #result ul li a:hover {
             text-decoration: underline;
         }
-
         .dark-mode {
-            --background-color-light: var(--background-color-dark);
-            --text-color-light: var(--text-color-dark);
-            --input-bg-light: var(--input-bg-dark);
-            --input-border-light: var(--input-border-dark);
-            --button-bg-light: var(--button-bg-dark);
-            --button-hover-bg-light: var(--button-hover-bg-dark);
-            --result-bg-light: var(--result-bg-dark);
-            --result-text-light: var(--result-text-dark);
+            background-color: #121212;
+            color: #f0f0f0;
         }
-
+        .dark-mode input[type="text"] {
+            background-color: #333;
+            border: 1px solid #555;
+            color: #f0f0f0;
+        }
+        .dark-mode button {
+            background-color: #bb86fc;
+        }
+        .dark-mode button:hover {
+            background-color: #3700b3;
+        }
+        .dark-mode #result {
+            background-color: #333;
+            color: #bbb;
+        }
+        .dark-mode #result h2 {
+            color: #bb86fc;
+        }
+        .dark-mode #result ul li a {
+            color: #bb86fc;
+        }
         .toggle-container {
             display: flex;
             justify-content: flex-end;
             margin-bottom: 20px;
         }
-
         .toggle-button {
             cursor: pointer;
-            background-color: var(--button-bg-light);
+            background-color: #007bff;
             border: none;
             color: #fff;
             padding: 10px 20px;
             border-radius: 4px;
             transition: background-color 0.3s;
         }
-
         .toggle-button:hover {
-            background-color: var(--button-hover-bg-light);
+            background-color: #0056b3;
+        }
+        .dark-mode .toggle-button {
+            background-color: #bb86fc;
+        }
+        .dark-mode .toggle-button:hover {
+            background-color: #3700b3;
         }
     </style>
 </head>
