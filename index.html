@@ -95,16 +95,6 @@
     <button onclick="getDefinition()">Find Definition</button>
     <div id="result"></div>
 
-    <div id="submit-form">
-        <h2>Submit a New Acronym</h2>
-        <form action="https://forms.gle/YOUR_GOOGLE_FORM_ID" target="_blank" onsubmit="return validateForm()">
-            <input type="text" id="new-acronym" name="entry.YOUR_ACRONYM_FIELD_ID" placeholder="Acronym">
-            <input type="text" id="new-definition" name="entry.YOUR_DEFINITION_FIELD_ID" placeholder="Definition">
-            <input type="text" id="new-source" name="entry.YOUR_SOURCE_FIELD_ID" placeholder="Source URL">
-            <button type="submit">Submit Acronym</button>
-        </form>
-    </div>
-
     <script>
         let acronymData = {};
 
