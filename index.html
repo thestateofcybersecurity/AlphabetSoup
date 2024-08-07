@@ -6,19 +6,27 @@
     <title>Cybersecurity Alphabet Soup</title>
     <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://apis.google.com; style-src 'self' 'unsafe-inline'; img-src 'self'; font-src 'self';">
     <style>
-        body {
-            font-family: 'Helvetica Neue', Arial, sans-serif;
-            text-align: center;
+        html, body {
+            height: 100%;
             margin: 0;
             padding: 0;
-            background-color: #ffffff;
-            color: #333333;
-            height: 100vh;
+            font-family: 'Helvetica Neue', Arial, sans-serif;
+        }
+        body {
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
+            background-color: #ffffff;
+            color: #333333;
             transition: background-color 0.3s, color 0.3s;
+            overflow: auto;
+        }
+        .container {
+            width: 100%;
+            max-width: 800px;
+            padding: 20px;
+            text-align: center;
         }
         h1 {
             font-size: 2.5rem;
@@ -52,8 +60,6 @@
         #result {
             margin-top: 20px;
             text-align: left;
-            max-width: 600px;
-            width: 100%;
             background-color: #f9f9f9;
             padding: 20px;
             border-radius: 8px;
@@ -81,15 +87,15 @@
         #result ul li a:hover {
             text-decoration: underline;
         }
-        
         @media (prefers-color-scheme: dark) {
             body {
-                background-color: #1b1b1b;
+                background-color: #121212;
                 color: #f0f0f0;
             }
             input[type="text"] {
                 background-color: #333;
                 color: #f0f0f0;
+                border: 1px solid #555;
             }
             button {
                 background-color: #bb86fc;
@@ -99,10 +105,13 @@
             }
             #result {
                 background-color: #333;
-                color: #bbb;
+                color: #f0f0f0;
             }
             #result h2 {
                 color: #bb86fc;
+            }
+            #result p {
+                color: #f0f0f0;
             }
             #result ul li a {
                 color: #bb86fc;
@@ -111,10 +120,12 @@
     </style>
 </head>
 <body>
-    <h1>Cybersecurity Alphabet Soup</h1>
-    <input type="text" id="acronym" placeholder="Enter acronym (e.g., CISSP)">
-    <button onclick="getDefinition()">Find Definition</button>
-    <div id="result"></div>
+    <div class="container">
+        <h1>Cybersecurity Alphabet Soup</h1>
+        <input type="text" id="acronym" placeholder="Enter acronym (e.g., CISSP)">
+        <button onclick="getDefinition()">Find Definition</button>
+        <div id="result"></div>
+    </div>
     <script src="scripts.js"></script>
 </body>
 </html>
