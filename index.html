@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cybersecurity Alphabet Soup</title>
+    <title>Cybersecurity Acronym Finder</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -89,10 +89,20 @@
     </style>
 </head>
 <body>
-    <h1>Cybersecurity Alphabet Soup</h1>
+    <h1>Cybersecurity Acronym Finder</h1>
     <input type="text" id="acronym" placeholder="Enter acronym (e.g., CISSP)">
     <button onclick="getDefinition()">Find Definition</button>
     <div id="result"></div>
+
+    <div id="submit-form">
+        <h2>Submit a New Acronym</h2>
+        <form action="https://forms.gle/YOUR_GOOGLE_FORM_ID" target="_blank" onsubmit="return validateForm()">
+            <input type="text" id="new-acronym" name="entry.YOUR_ACRONYM_FIELD_ID" placeholder="Acronym">
+            <input type="text" id="new-definition" name="entry.YOUR_DEFINITION_FIELD_ID" placeholder="Definition">
+            <input type="text" id="new-source" name="entry.YOUR_SOURCE_FIELD_ID" placeholder="Source URL">
+            <button type="submit">Submit Acronym</button>
+        </form>
+    </div>
 
     <script>
         let acronymData = {};
@@ -114,12 +124,17 @@
 
         async function getDefinition() {
             const acronym = document.getElementById('acronym').value.trim().toUpperCase();
-            if (!acronym) {
-                alert('Please enter an acronym.');
+            if (!acronym || !isValidInput(acronym)) {
+                alert('Please enter a valid acronym.');
                 return;
             }
             const results = findMatchingAcronyms(acronym);
             displayResults(acronym, results);
+        }
+
+        function isValidInput(input) {
+            const regex = /^[a-zA-Z0-9\s\-]+$/;
+            return regex.test(input);
         }
 
         function findMatchingAcronyms(query) {
@@ -157,6 +172,26 @@
         }
 
         document.getElementById('acronym').addEventListener('keypress', checkEnter);
+
+        function validateForm() {
+            const acronym = document.getElementById('new-acronym').value.trim().toUpperCase();
+            const definition = document.getElementById('new-definition').value.trim();
+            const source = document.getElementById('new-source').value.trim();
+            if (!acronym || !definition || !source) {
+                alert('Please fill in all fields.');
+                return false;
+            }
+            if (!isValidInput(acronym) || !isValidInput(definition) || !isValidURL(source)) {
+                alert('Please enter valid data.');
+                return false;
+            }
+            return true;
+        }
+
+        function isValidURL(url) {
+            const regex = /^(https?|ftp):\/\/[^\s/$.?#].[^\s]*$/;
+            return regex.test(url);
+        }
 
         // Load the acronym data when the page loads
         window.onload = loadAcronymData;
