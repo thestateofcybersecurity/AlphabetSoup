@@ -7,50 +7,64 @@
     <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://apis.google.com; style-src 'self' 'unsafe-inline'; img-src 'self'; font-src 'self';">
     <style>
         body {
-            font-family: Arial, sans-serif;
+            font-family: 'Helvetica Neue', Arial, sans-serif;
             text-align: center;
-            margin: 50px;
-            transition: background-color 0.3s, color 0.3s;
+            margin: 0;
+            padding: 0;
+            background-color: #1b1b1b;
+            color: #fff;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
         }
         h1 {
-            color: #333;
+            font-size: 2.5rem;
+            margin-bottom: 20px;
         }
         input[type="text"] {
-            width: 300px;
-            padding: 10px;
+            width: 100%;
+            max-width: 600px;
+            padding: 15px;
             margin: 20px 0;
-            font-size: 16px;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-            transition: background-color 0.3s, border-color 0.3s, color 0.3s;
+            font-size: 1.2rem;
+            border: none;
+            border-radius: 25px;
+            outline: none;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+            color: #333;
         }
         button {
-            padding: 10px 20px;
-            font-size: 16px;
+            padding: 15px 30px;
+            font-size: 1.2rem;
             color: #fff;
-            background-color: #007bff;
+            background-color: #de5833;
             border: none;
-            border-radius: 4px;
+            border-radius: 25px;
             cursor: pointer;
             transition: background-color 0.3s;
         }
         button:hover {
-            background-color: #0056b3;
+            background-color: #e37157;
         }
         #result {
             margin-top: 20px;
             text-align: left;
-            background-color: #fff;
+            max-width: 600px;
+            width: 100%;
+            background-color: #333;
             padding: 20px;
-            border-radius: 4px;
-            transition: background-color 0.3s, color 0.3s;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+            overflow-wrap: break-word;
         }
         #result h2 {
-            color: #007bff;
+            color: #de5833;
         }
         #result p {
-            font-size: 18px;
-            color: #555;
+            font-size: 1.1rem;
+            color: #ddd;
         }
         #result ul {
             list-style-type: none;
@@ -60,19 +74,35 @@
             margin: 5px 0;
         }
         #result ul li a {
-            color: #007bff;
+            color: #de5833;
             text-decoration: none;
         }
         #result ul li a:hover {
             text-decoration: underline;
         }
+        .toggle-container {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+        }
+        .toggle-button {
+            cursor: pointer;
+            background-color: #de5833;
+            border: none;
+            color: #fff;
+            padding: 10px 20px;
+            border-radius: 25px;
+            transition: background-color 0.3s;
+        }
+        .toggle-button:hover {
+            background-color: #e37157;
+        }
         .dark-mode {
-            background-color: #121212;
+            background-color: #333;
             color: #f0f0f0;
         }
         .dark-mode input[type="text"] {
-            background-color: #333;
-            border: 1px solid #555;
+            background-color: #555;
             color: #f0f0f0;
         }
         .dark-mode button {
@@ -82,7 +112,7 @@
             background-color: #3700b3;
         }
         .dark-mode #result {
-            background-color: #333;
+            background-color: #444;
             color: #bbb;
         }
         .dark-mode #result h2 {
@@ -90,23 +120,6 @@
         }
         .dark-mode #result ul li a {
             color: #bb86fc;
-        }
-        .toggle-container {
-            display: flex;
-            justify-content: flex-end;
-            margin-bottom: 20px;
-        }
-        .toggle-button {
-            cursor: pointer;
-            background-color: #007bff;
-            border: none;
-            color: #fff;
-            padding: 10px 20px;
-            border-radius: 4px;
-            transition: background-color 0.3s;
-        }
-        .toggle-button:hover {
-            background-color: #0056b3;
         }
         .dark-mode .toggle-button {
             background-color: #bb86fc;
