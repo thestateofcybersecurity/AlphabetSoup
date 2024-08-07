@@ -137,13 +137,6 @@
             {"name": "Official Site", "url": "https://iapp.org/certify/cipt/"}
         ]
     },
-    "CIPM": {
-        "definition": "Certified Information Privacy Manager",
-        "sources": [
-            {"name": "Wikipedia", "url": "https://en.wikipedia.org/wiki/Certified_Information_Privacy_Manager"},
-            {"name": "Official Site", "url": "https://iapp.org/certify/cipm/"}
-        ]
-    },
     "CCNA": {
         "definition": "Cisco Certified Network Associate",
         "sources": [
@@ -272,13 +265,6 @@
         "sources": [
             {"name": "Wikipedia", "url": "https://en.wikipedia.org/wiki/Certified_Information_Privacy_Professional"},
             {"name": "Official Site", "url": "https://iapp.org/certify/cippe/"}
-        ]
-    },
-    "CIPM": {
-        "definition": "Certified Information Privacy Manager",
-        "sources": [
-            {"name": "Wikipedia", "url": "https://en.wikipedia.org/wiki/Certified_Information_Privacy_Manager"},
-            {"name": "Official Site", "url": "https://iapp.org/certify/cipm/"}
         ]
     },
     "CIPP/EU": {
@@ -953,13 +939,6 @@
         "sources": [
             {"name": "Wikipedia", "url": "https://en.wikipedia.org/wiki/Certified_Information_Privacy_Professional"},
             {"name": "Official Site", "url": "https://iapp.org/certify/cippe/"}
-        ]
-    },
-    "CIPM": {
-        "definition": "Certified Information Privacy Manager",
-        "sources": [
-            {"name": "Wikipedia", "url": "https://en.wikipedia.org/wiki/Certified_Information_Privacy_Manager"},
-            {"name": "Official Site", "url": "https://iapp.org/certify/cipm/"}
         ]
     },
     "VPN": {
