@@ -80,6 +80,7 @@ function checkEnter(event) {
 }
 
 document.getElementById('acronym').addEventListener('keypress', checkEnter);
+document.getElementById('searchButton').addEventListener('click', getDefinition);
 
 // Load the acronym data when the page loads
 window.onload = loadAcronymData;
