@@ -82,5 +82,26 @@ function checkEnter(event) {
 document.getElementById('acronym').addEventListener('keypress', checkEnter);
 document.getElementById('searchButton').addEventListener('click', getDefinition);
 
+// Display Soup of the Day
+function displaySoupOfTheDay() {
+    const today = new Date().toISOString().slice(0, 10);
+    let soupOfTheDay = JSON.parse(localStorage.getItem('soupOfTheDay'));
+
+    if (!soupOfTheDay || soupOfTheDay.date !== today) {
+        const acronyms = Object.keys(acronymData);
+        const randomAcronym = acronyms[Math.floor(Math.random() * acronyms.length)];
+        soupOfTheDay = {
+            date: today,
+            acronym: randomAcronym,
+            definition: acronymData[randomAcronym].definition,
+            sources: acronymData[randomAcronym].sources
+        };
+        localStorage.setItem('soupOfTheDay', JSON.stringify(soupOfTheDay));
+    }
+
+    const soupAcronym = document.getElementById('soupAcronym');
+    soupAcronym.innerHTML = `<strong>${soupOfTheDay.acronym}</strong>: ${soupOfTheDay.definition}`;
+}
+
 // Load the acronym data when the page loads
 window.onload = loadAcronymData;
