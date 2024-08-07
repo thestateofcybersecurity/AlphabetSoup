@@ -89,24 +89,36 @@
                 alert('Please enter an acronym.');
                 return;
             }
-            const result = acronymData[acronym] || { definition: 'Not found', sources: [] };
-            displayResult(acronym, result);
+            const results = findMatchingAcronyms(acronym);
+            displayResults(acronym, results);
         }
 
-        function displayResult(acronym, data) {
+        function findMatchingAcronyms(query) {
+            const results = [];
+            for (const key in acronymData) {
+                if (key.includes(query)) {
+                    results.push({ acronym: key, ...acronymData[key] });
+                }
+            }
+            return results;
+        }
+
+        function displayResults(query, results) {
             const resultDiv = document.getElementById('result');
-            if (data.definition === 'Not found') {
-                resultDiv.innerHTML = `<p>Definition for <strong>${acronym}</strong> not found.</p>`;
+            if (results.length === 0) {
+                resultDiv.innerHTML = `<p>No matches found for <strong>${query}</strong>.</p>`;
                 return;
             }
-            resultDiv.innerHTML = `
-                <h2>${acronym}</h2>
-                <p>${data.definition}</p>
-                <h3>Sources:</h3>
-                <ul>
-                    ${data.sources.map(source => `<li><a href="${source.url}" target="_blank">${source.name}</a></li>`).join('')}
-                </ul>
-            `;
+            resultDiv.innerHTML = results.map(result => `
+                <div>
+                    <h2>${result.acronym}</h2>
+                    <p>${result.definition}</p>
+                    <h3>Sources:</h3>
+                    <ul>
+                        ${result.sources.map(source => `<li><a href="${source.url}" target="_blank">${source.name}</a></li>`).join('')}
+                    </ul>
+                </div>
+            `).join('');
         }
 
         function checkEnter(event) {
