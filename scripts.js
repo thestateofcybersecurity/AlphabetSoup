@@ -12,6 +12,7 @@ async function loadAcronymData() {
         }
         acronymData = await response.json();
         console.log('Acronym data loaded:', acronymData);
+        displaySoupOfTheDay();
     } catch (error) {
         console.error('Error loading acronym data:', error);
         alert(`Error loading acronym data: ${error.message}. Please try again later.`);
