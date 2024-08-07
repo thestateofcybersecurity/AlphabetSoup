@@ -1,0 +1,119 @@
+{
+    "CISSP": {
+        "definition": "Certified Information Systems Security Professional",
+        "sources": [
+            {"name": "Wikipedia", "url": "https://en.wikipedia.org/wiki/Certified_Information_Systems_Security_Professional"},
+            {"name": "Official Site", "url": "https://www.isc2.org/Certifications/CISSP"}
+        ]
+    },
+    "CEH": {
+        "definition": "Certified Ethical Hacker",
+        "sources": [
+            {"name": "Wikipedia", "url": "https://en.wikipedia.org/wiki/Certified_Ethical_Hacker"},
+            {"name": "Official Site", "url": "https://www.eccouncil.org/programs/certified-ethical-hacker-ceh/"}
+        ]
+    },
+    "CISM": {
+        "definition": "Certified Information Security Manager",
+        "sources": [
+            {"name": "Wikipedia", "url": "https://en.wikipedia.org/wiki/Certified_Information_Security_Manager"},
+            {"name": "Official Site", "url": "https://www.isaca.org/credentialing/cism"}
+        ]
+    },
+    "CISA": {
+        "definition": "Certified Information Systems Auditor",
+        "sources": [
+            {"name": "Wikipedia", "url": "https://en.wikipedia.org/wiki/Certified_Information_Systems_Auditor"},
+            {"name": "Official Site", "url": "https://www.isaca.org/credentialing/cisa"}
+        ]
+    },
+    "OSCP": {
+        "definition": "Offensive Security Certified Professional",
+        "sources": [
+            {"name": "Wikipedia", "url": "https://en.wikipedia.org/wiki/Offensive_Security_Certified_Professional"},
+            {"name": "Official Site", "url": "https://www.offensive-security.com/pwk-oscp/"}
+        ]
+    },
+    "SSCP": {
+        "definition": "Systems Security Certified Practitioner",
+        "sources": [
+            {"name": "Wikipedia", "url": "https://en.wikipedia.org/wiki/Systems_Security_Certified_Practitioner"},
+            {"name": "Official Site", "url": "https://www.isc2.org/Certifications/SSCP"}
+        ]
+    },
+    "CHFI": {
+        "definition": "Computer Hacking Forensic Investigator",
+        "sources": [
+            {"name": "Wikipedia", "url": "https://en.wikipedia.org/wiki/Computer_Hacking_Forensic_Investigator"},
+            {"name": "Official Site", "url": "https://www.eccouncil.org/programs/computer-hacking-forensic-investigator-chfi/"}
+        ]
+    },
+    "GSEC": {
+        "definition": "GIAC Security Essentials Certification",
+        "sources": [
+            {"name": "Wikipedia", "url": "https://en.wikipedia.org/wiki/GIAC"},
+            {"name": "Official Site", "url": "https://www.giac.org/certification/security-essentials-gsec"}
+        ]
+    },
+    "GCIH": {
+        "definition": "GIAC Certified Incident Handler",
+        "sources": [
+            {"name": "Wikipedia", "url": "https://en.wikipedia.org/wiki/GIAC"},
+            {"name": "Official Site", "url": "https://www.giac.org/certification/certified-incident-handler-gcih"}
+        ]
+    },
+    "GPEN": {
+        "definition": "GIAC Penetration Tester",
+        "sources": [
+            {"name": "Wikipedia", "url": "https://en.wikipedia.org/wiki/GIAC"},
+            {"name": "Official Site", "url": "https://www.giac.org/certification/penetration-tester-gpen"}
+        ]
+    },
+    "GCFA": {
+        "definition": "GIAC Certified Forensic Analyst",
+        "sources": [
+            {"name": "Wikipedia", "url": "https://en.wikipedia.org/wiki/GIAC"},
+            {"name": "Official Site", "url": "https://www.giac.org/certification/certified-forensic-analyst-gcfa"}
+        ]
+    },
+    "CCSP": {
+        "definition": "Certified Cloud Security Professional",
+        "sources": [
+            {"name": "Wikipedia", "url": "https://en.wikipedia.org/wiki/Certified_Cloud_Security_Professional"},
+            {"name": "Official Site", "url": "https://www.isc2.org/Certifications/CCSP"}
+        ]
+    },
+    "CRISC": {
+        "definition": "Certified in Risk and Information Systems Control",
+        "sources": [
+            {"name": "Wikipedia", "url": "https://en.wikipedia.org/wiki/Certified_in_Risk_and_Information_Systems_Control"},
+            {"name": "Official Site", "url": "https://www.isaca.org/credentialing/crisc"}
+        ]
+    },
+    "CGEIT": {
+        "definition": "Certified in the Governance of Enterprise IT",
+        "sources": [
+            {"name": "Wikipedia", "url": "https://en.wikipedia.org/wiki/Certified_in_the_Governance_of_Enterprise_IT"},
+            {"name": "Official Site", "url": "https://www.isaca.org/credentialing/cgeit"}
+        ]
+    },
+    "ECSA": {
+        "definition": "EC-Council Certified Security Analyst",
+        "sources": [
+            {"name": "Wikipedia", "url": "https://en.wikipedia.org/wiki/EC-Council_Certified_Security_Analyst"},
+            {"name": "Official Site", "url": "https://www.eccouncil.org/programs/ec-council-certified-security-analyst-ecsa/"}
+        ]
+    },
+    "CPT": {
+        "definition": "Certified Penetration Tester",
+        "sources": [
+            {"name": "Official Site", "url": "https://www.eccouncil.org/programs/certified-penetration-tester-cpt/"}
+        ]
+    },
+    "LPT": {
+        "definition": "Licensed Penetration Tester",
+        "sources": [
+            {"name": "Official Site", "url": "https://www.eccouncil.org/programs/licensed-penetration-tester-lpt/"}
+        ]
+    }
+}
