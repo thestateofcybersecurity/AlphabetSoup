@@ -483,9 +483,7 @@
             {"name": "Wikipedia", "url": "https://en.wikipedia.org/wiki/Security_information_and_event_management"},
             {"name": "Official Site", "url": "https://www.sans.org/reading-room/whitepapers/logging/security-information-event-management-siem-35757"}
         ]
-    }
-}
-{
+    },
     "CCPA": {
         "definition": "California Consumer Privacy Act",
         "sources": [
@@ -681,9 +679,7 @@
             {"name": "Wikipedia", "url": "https://en.wikipedia.org/wiki/Security_information_and_event_management"},
             {"name": "Official Site", "url": "https://www.sans.org/reading-room/whitepapers/logging/security-information-event-management-siem-35757"}
         ]
-    }
-}
-{
+    },
     "CISSP": {
         "definition": "Certified Information Systems Security Professional",
         "sources": [
@@ -965,9 +961,7 @@
             {"name": "Wikipedia", "url": "https://en.wikipedia.org/wiki/Certified_Information_Privacy_Manager"},
             {"name": "Official Site", "url": "https://iapp.org/certify/cipm/"}
         ]
-    }
-}
-{
+    },
     "VPN": {
         "definition": "Virtual Private Network",
         "sources": [
