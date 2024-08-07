@@ -1,4 +1,11 @@
 {
+    "PT": {
+        "definition": "Penetration Test",
+        "sources": [
+            {"name": "Wikipedia", "url": "https://en.wikipedia.org/wiki/Penetration_test"},
+            {"name": "Official Site", "url": "https://richeymay.com/cybersecurity-services/"}
+        ]
+    },
     "CISSP": {
         "definition": "Certified Information Systems Security Professional",
         "sources": [
