@@ -59,6 +59,33 @@
         #result ul li a:hover {
             text-decoration: underline;
         }
+        #submit-form {
+            margin-top: 50px;
+            text-align: left;
+        }
+        #submit-form h2 {
+            color: #333;
+        }
+        #submit-form input[type="text"] {
+            width: 300px;
+            padding: 10px;
+            margin: 5px 0;
+            font-size: 16px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        #submit-form button {
+            padding: 10px 20px;
+            font-size: 16px;
+            color: #fff;
+            background-color: #28a745;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        #submit-form button:hover {
+            background-color: #218838;
+        }
     </style>
 </head>
 <body>
@@ -67,16 +94,28 @@
     <button onclick="getDefinition()">Find Definition</button>
     <div id="result"></div>
 
+    <div id="submit-form">
+        <h2>Submit a New Acronym</h2>
+        <form action="https://forms.gle/W5bAUxCMkRFZYjBUA" target="_blank">
+            <input type="text" name="entry.YOUR_ACRONYM_FIELD_ID" placeholder="Acronym">
+            <input type="text" name="entry.YOUR_DEFINITION_FIELD_ID" placeholder="Definition">
+            <input type="text" name="entry.YOUR_SOURCE_FIELD_ID" placeholder="Source URL">
+            <button type="submit">Submit Acronym</button>
+        </form>
+    </div>
+
     <script>
         let acronymData = {};
 
         async function loadAcronymData() {
             try {
+                console.log('Fetching acronym data...');
                 const response = await fetch('acronyms.json');
                 if (!response.ok) {
                     throw new Error(`HTTP error! status: ${response.status}`);
                 }
                 acronymData = await response.json();
+                console.log('Acronym data loaded:', acronymData);
             } catch (error) {
                 console.error('Error loading acronym data:', error);
                 alert(`Error loading acronym data: ${error.message}. Please try again later.`);
