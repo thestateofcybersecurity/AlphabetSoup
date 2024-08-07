@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cybersecurity Acronym Finder</title>
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://apis.google.com; style-src 'self' 'unsafe-inline'; img-src 'self'; font-src 'self';">
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -122,8 +123,14 @@
             }
         }
 
+        function sanitizeHTML(str) {
+            var temp = document.createElement('div');
+            temp.textContent = str;
+            return temp.innerHTML;
+        }
+
         async function getDefinition() {
-            const acronym = document.getElementById('acronym').value.trim().toUpperCase();
+            const acronym = sanitizeHTML(document.getElementById('acronym').value.trim().toUpperCase());
             if (!acronym || !isValidInput(acronym)) {
                 alert('Please enter a valid acronym.');
                 return;
@@ -159,7 +166,7 @@
                     <p>${result.definition}</p>
                     <h3>Sources:</h3>
                     <ul>
-                        ${result.sources.map(source => `<li><a href="${source.url}" target="_blank">${source.name}</a></li>`).join('')}
+                        ${result.sources.map(source => `<li><a href="${source.url}" target="_blank" rel="noopener noreferrer">${source.name}</a></li>`).join('')}
                     </ul>
                 </div>
             `).join('');
@@ -174,9 +181,9 @@
         document.getElementById('acronym').addEventListener('keypress', checkEnter);
 
         function validateForm() {
-            const acronym = document.getElementById('new-acronym').value.trim().toUpperCase();
-            const definition = document.getElementById('new-definition').value.trim();
-            const source = document.getElementById('new-source').value.trim();
+            const acronym = sanitizeHTML(document.getElementById('new-acronym').value.trim().toUpperCase());
+            const definition = sanitizeHTML(document.getElementById('new-definition').value.trim());
+            const source = sanitizeHTML(document.getElementById('new-source').value.trim());
             if (!acronym || !definition || !source) {
                 alert('Please fill in all fields.');
                 return false;
