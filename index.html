@@ -60,33 +60,6 @@
         #result ul li a:hover {
             text-decoration: underline;
         }
-        #submit-form {
-            margin-top: 50px;
-            text-align: left;
-        }
-        #submit-form h2 {
-            color: #333;
-        }
-        #submit-form input[type="text"] {
-            width: 300px;
-            padding: 10px;
-            margin: 5px 0;
-            font-size: 16px;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-        }
-        #submit-form button {
-            padding: 10px 20px;
-            font-size: 16px;
-            color: #fff;
-            background-color: #28a745;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-        }
-        #submit-form button:hover {
-            background-color: #218838;
-        }
     </style>
 </head>
 <body>
@@ -98,6 +71,7 @@
     <script>
         let acronymData = {};
 
+        // Load acronym data from acronyms.json
         async function loadAcronymData() {
             try {
                 console.log('Fetching acronym data...');
@@ -113,12 +87,14 @@
             }
         }
 
+        // Sanitize user input to prevent XSS
         function sanitizeHTML(str) {
             var temp = document.createElement('div');
             temp.textContent = str;
             return temp.innerHTML;
         }
 
+        // Get definition of the entered acronym
         async function getDefinition() {
             const acronym = sanitizeHTML(document.getElementById('acronym').value.trim().toUpperCase());
             if (!acronym || !isValidInput(acronym)) {
@@ -129,11 +105,13 @@
             displayResults(acronym, results);
         }
 
+        // Validate input to allow only alphanumeric characters, spaces, and hyphens
         function isValidInput(input) {
             const regex = /^[a-zA-Z0-9\s\-]+$/;
             return regex.test(input);
         }
 
+        // Find matching acronyms
         function findMatchingAcronyms(query) {
             const results = [];
             for (const key in acronymData) {
@@ -144,6 +122,7 @@
             return results;
         }
 
+        // Display search results
         function displayResults(query, results) {
             const resultDiv = document.getElementById('result');
             if (results.length === 0) {
@@ -162,6 +141,7 @@
             `).join('');
         }
 
+        // Trigger search on Enter key press
         function checkEnter(event) {
             if (event.key === 'Enter') {
                 getDefinition();
@@ -169,26 +149,6 @@
         }
 
         document.getElementById('acronym').addEventListener('keypress', checkEnter);
-
-        function validateForm() {
-            const acronym = sanitizeHTML(document.getElementById('new-acronym').value.trim().toUpperCase());
-            const definition = sanitizeHTML(document.getElementById('new-definition').value.trim());
-            const source = sanitizeHTML(document.getElementById('new-source').value.trim());
-            if (!acronym || !definition || !source) {
-                alert('Please fill in all fields.');
-                return false;
-            }
-            if (!isValidInput(acronym) || !isValidInput(definition) || !isValidURL(source)) {
-                alert('Please enter valid data.');
-                return false;
-            }
-            return true;
-        }
-
-        function isValidURL(url) {
-            const regex = /^(https?|ftp):\/\/[^\s/$.?#].[^\s]*$/;
-            return regex.test(url);
-        }
 
         // Load the acronym data when the page loads
         window.onload = loadAcronymData;
