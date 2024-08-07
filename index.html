@@ -63,7 +63,7 @@
 </head>
 <body>
     <h1>Cybersecurity Acronym Finder</h1>
-    <input type="text" id="acronym" placeholder="Enter acronym (e.g., CISSP)" onkeypress="checkEnter(event)">
+    <input type="text" id="acronym" placeholder="Enter acronym (e.g., CISSP)">
     <button onclick="getDefinition()">Find Definition</button>
     <div id="result"></div>
 
@@ -109,6 +109,8 @@
                 getDefinition();
             }
         }
+
+        document.getElementById('acronym').addEventListener('keypress', checkEnter);
     </script>
 </body>
 </html>
