@@ -56,8 +56,10 @@ function findMatchingAcronyms(query) {
 function displayResults(query, results) {
     const resultDiv = document.getElementById('result');
     if (results.length === 0) {
-    resultDiv.textContent = `No matches found for ${query}.`;
-    return;
+        resultDiv.textContent = `No matches found for ${query}.`;
+        }
+    }
+    return results;
 }
     resultDiv.innerHTML = results.map(result => `
         <div>
