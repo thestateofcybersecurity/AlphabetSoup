@@ -143,5 +143,11 @@
             <p id="soupAcronym"></p>
     </div>
     <script src="scripts.js"></script>
+              
+<p>${escape(result.definition)}</p>
+<h3>Sources:</h3>
+<ul>
+    ${result.sources.map(source => `<li><a href="${escape(source.url)}" target="_blank" rel="noopener noreferrer">${escape(source.name)}</a></li>`).join('')}
+</ul>
 </body>
 </html>
