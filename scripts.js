@@ -53,31 +53,48 @@ function findMatchingAcronyms(query) {
 }
 
 // Display search results
-function escapeHTML(str) {
-    var temp = document.createElement('div');
-    temp.textContent = str;
-    return temp.innerHTML;
-}
-
 function displayResults(query, results) {
     const resultDiv = document.getElementById('result');
+    resultDiv.textContent = ''; // Clear any previous results
+
     if (results.length === 0) {
-        resultDiv.innerHTML = `No matches found for ${escapeHTML(query)}.`;
+        const noMatch = document.createElement('p');
+        noMatch.textContent = `No matches found for ${query}.`;
+        resultDiv.appendChild(noMatch);
         return;
     }
-    
-    resultDiv.innerHTML = results.map(result => `
-        <div>
-            <h2>${escapeHTML(result.acronym)}</h2>
-            <p>${escapeHTML(result.definition)}</p>
-            <h3>Sources:</h3>
-            <ul>
-                ${result.sources.map(source => `<li><a href="${escapeHTML(source.url)}" target="_blank" rel="noopener noreferrer">${escapeHTML(source.name)}</a></li>`).join('')}
-            </ul>
-        </div>
-    `).join('');
-}
 
+    results.forEach(result => {
+        const resultContainer = document.createElement('div');
+
+        const acronymElement = document.createElement('h2');
+        acronymElement.textContent = result.acronym;
+        resultContainer.appendChild(acronymElement);
+
+        const definitionElement = document.createElement('p');
+        definitionElement.textContent = result.definition;
+        resultContainer.appendChild(definitionElement);
+
+        const sourcesHeader = document.createElement('h3');
+        sourcesHeader.textContent = 'Sources:';
+        resultContainer.appendChild(sourcesHeader);
+
+        const sourcesList = document.createElement('ul');
+        result.sources.forEach(source => {
+            const listItem = document.createElement('li');
+            const link = document.createElement('a');
+            link.href = source.url;
+            link.target = '_blank';
+            link.rel = 'noopener noreferrer';
+            link.textContent = source.name;
+            listItem.appendChild(link);
+            sourcesList.appendChild(listItem);
+        });
+        resultContainer.appendChild(sourcesList);
+
+        resultDiv.appendChild(resultContainer);
+    });
+}
 
 // Trigger search on Enter key press
 function checkEnter(event) {
@@ -90,12 +107,6 @@ document.getElementById('acronym').addEventListener('keypress', checkEnter);
 document.getElementById('searchButton').addEventListener('click', getDefinition);
 
 // Display Soup of the Day
-function escapeHTML(str) {
-    var temp = document.createElement('div');
-    temp.textContent = str;
-    return temp.innerHTML;
-}
-
 function displaySoupOfTheDay() {
     const today = new Date().toISOString().slice(0, 10);
     let soupOfTheDay = JSON.parse(localStorage.getItem('soupOfTheDay'));
@@ -113,7 +124,17 @@ function displaySoupOfTheDay() {
     }
 
     const soupAcronym = document.getElementById('soupAcronym');
-    soupAcronym.innerHTML = `<strong>${escapeHTML(soupOfTheDay.acronym)}</strong>: ${escapeHTML(soupOfTheDay.definition)}`;
+    
+    // Clear any previous content
+    soupAcronym.textContent = '';
+
+    // Create the elements safely
+    const strongElement = document.createElement('strong');
+    strongElement.textContent = soupOfTheDay.acronym;
+    soupAcronym.appendChild(strongElement);
+
+    const textNode = document.createTextNode(`: ${soupOfTheDay.definition}`);
+    soupAcronym.appendChild(textNode);
 }
 
 // Load the acronym data when the page loads
