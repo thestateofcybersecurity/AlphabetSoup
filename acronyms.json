@@ -1460,5 +1460,359 @@
         "sources": [
             {"name": "Wikipedia", "url": "https://en.wikipedia.org/wiki/YARA"}
         ]
+    },
+    "ACAS": {
+        "definition": "Assured Compliance Assessment Solution",
+        "sources": [
+            {"name": "Wikipedia", "url": "https://en.wikipedia.org/wiki/Assured_Compliance_Assessment_Solution"}
+        ]
+    },
+    "ACK": {
+        "definition": "Acknowledgment",
+        "sources": [
+            {"name": "Wikipedia", "url": "https://en.wikipedia.org/wiki/Acknowledgement_(data_networks)"}
+        ]
+    },
+    "AMSI": {
+        "definition": "Antimalware Scan Interface",
+        "sources": [
+            {"name": "Wikipedia", "url": "https://en.wikipedia.org/wiki/Antimalware_Scan_Interface"}
+        ]
+    },
+    "BAC": {
+        "definition": "Business Associate Contract",
+        "sources": [
+            {"name": "Wikipedia", "url": "https://en.wikipedia.org/wiki/Business_Associate_Agreement"}
+        ]
+    },
+    "BIOS": {
+        "definition": "Basic Input/Output System",
+        "sources": [
+            {"name": "Wikipedia", "url": "https://en.wikipedia.org/wiki/BIOS"}
+        ]
+    },
+    "BPA": {
+        "definition": "Business Partnership Agreement",
+        "sources": [
+            {"name": "Wikipedia", "url": "https://en.wikipedia.org/wiki/Business_Partnership_Agreement"}
+        ]
+    },
+    "CaaS": {
+        "definition": "Containers as a Service",
+        "sources": [
+            {"name": "Wikipedia", "url": "https://en.wikipedia.org/wiki/Containers_as_a_service"}
+        ]
+    },
+    "CAP": {
+        "definition": "Corrective Action Plan",
+        "sources": [
+            {"name": "Wikipedia", "url": "https://en.wikipedia.org/wiki/Corrective_Action_Plan"}
+        ]
+    },
+    "CBT": {
+        "definition": "Computer-Based Training",
+        "sources": [
+            {"name": "Wikipedia", "url": "https://en.wikipedia.org/wiki/Computer-based_training"}
+        ]
+    },
+    "CCMP": {
+        "definition": "Counter Mode with Cipher Block Chaining Message Authentication Code Protocol",
+        "sources": [
+            {"name": "Wikipedia", "url": "https://en.wikipedia.org/wiki/CCMP_(cryptography)"}
+        ]
+    },
+    "CDM": {
+        "definition": "Continuous Diagnostics and Mitigation",
+        "sources": [
+            {"name": "Wikipedia", "url": "https://en.wikipedia.org/wiki/Continuous_Diagnostics_and_Mitigation"}
+        ]
+    },
+    "vCISO": {
+        "definition": "Virtual Chief Information Security Officer",
+        "sources": [
+            {"name": "Offical Site", "url": "https://richeymay.com/cybersecurity-services/vciso-services/"}
+        ]
+    },
+    "CISO": {
+        "definition": "Chief Information Security Officer",
+        "sources": [
+            {"name": "Wikipedia", "url": "https://en.wikipedia.org/wiki/Chief_information_security_officer"}
+        ]
+    },
+    "CNSSI": {
+        "definition": "Committee on National Security Systems Instruction",
+        "sources": [
+            {"name": "Wikipedia", "url": "https://en.wikipedia.org/wiki/Committee_on_National_Security_Systems"}
+        ]
+    },
+    "COOP": {
+        "definition": "Continuity of Operations Plan",
+        "sources": [
+            {"name": "Wikipedia", "url": "https://en.wikipedia.org/wiki/Continuity_of_operations"}
+        ]
+    },
+    "CTO": {
+        "definition": "Chief Technology Officer",
+        "sources": [
+            {"name": "Wikipedia", "url": "https://en.wikipedia.org/wiki/Chief_technology_officer"}
+        ]
+    },
+    "DAC": {
+        "definition": "Discretionary Access Control",
+        "sources": [
+            {"name": "Wikipedia", "url": "https://en.wikipedia.org/wiki/Discretionary_access_control"}
+        ]
+    },
+    "DBIR": {
+        "definition": "Data Breach Investigations Report",
+        "sources": [
+            {"name": "Wikipedia", "url": "https://en.wikipedia.org/wiki/Data_breach"}
+        ]
+    },
+    "DEP": {
+        "definition": "Data Execution Prevention",
+        "sources": [
+            {"name": "Wikipedia", "url": "https://en.wikipedia.org/wiki/Data_Execution_Prevention"}
+        ]
+    },
+    "DHCP": {
+        "definition": "Dynamic Host Configuration Protocol",
+        "sources": [
+            {"name": "Wikipedia", "url": "https://en.wikipedia.org/wiki/Dynamic_Host_Configuration_Protocol"}
+        ]
+    },
+    "DNS": {
+        "definition": "Domain Name System",
+        "sources": [
+            {"name": "Wikipedia", "url": "https://en.wikipedia.org/wiki/Domain_Name_System"}
+        ]
+    },
+    "DRP": {
+        "definition": "Disaster Recovery Plan",
+        "sources": [
+            {"name": "Wikipedia", "url": "https://en.wikipedia.org/wiki/Disaster_recovery_plan"}
+        ]
+    },
+    "DSS": {
+        "definition": "Decision Support System",
+        "sources": [
+            {"name": "Wikipedia", "url": "https://en.wikipedia.org/wiki/Decision_support_system"}
+        ]
+    },
+    "ECC": {
+        "definition": "Elliptic Curve Cryptography",
+        "sources": [
+            {"name": "Wikipedia", "url": "https://en.wikipedia.org/wiki/Elliptic-curve_cryptography"}
+        ]
+    },
+    "FDE": {
+        "definition": "Full Disk Encryption",
+        "sources": [
+            {"name": "Wikipedia", "url": "https://en.wikipedia.org/wiki/Disk_encryption"}
+        ]
+    },
+    "FTP": {
+        "definition": "File Transfer Protocol",
+        "sources": [
+            {"name": "Wikipedia", "url": "https://en.wikipedia.org/wiki/File_Transfer_Protocol"}
+        ]
+    },
+    "GRC": {
+        "definition": "Governance, Risk, and Compliance",
+        "sources": [
+            {"name": "Wikipedia", "url": "https://en.wikipedia.org/wiki/Governance,_risk_management,_and_compliance"}
+        ]
+    },
+    "IoT": {
+        "definition": "Internet of Things",
+        "sources": [
+            {"name": "Wikipedia", "url": "https://en.wikipedia.org/wiki/Internet_of_things"}
+        ]
+    },
+    "IR": {
+        "definition": "Incident Response",
+        "sources": [
+            {"name": "Wikipedia", "url": "https://en.wikipedia.org/wiki/Incident_response"}
+        ]
+    },
+    "ITGC": {
+        "definition": "IT General Controls",
+        "sources": [
+            {"name": "Wikipedia", "url": "https://en.wikipedia.org/wiki/General_computer_controls"}
+        ]
+    },
+    "IVR": {
+        "definition": "Interactive Voice Response",
+        "sources": [
+            {"name": "Wikipedia", "url": "https://en.wikipedia.org/wiki/Interactive_voice_response"}
+        ]
+    },
+    "MDM": {
+        "definition": "Mobile Device Management",
+        "sources": [
+            {"name": "Wikipedia", "url": "https://en.wikipedia.org/wiki/Mobile_device_management"}
+        ]
+    },
+    "NAS": {
+        "definition": "Network-Attached Storage",
+        "sources": [
+            {"name": "Wikipedia", "url": "https://en.wikipedia.org/wiki/Network-attached_storage"}
+        ]
+    },
+    "NAT": {
+        "definition": "Network Address Translation",
+        "sources": [
+            {"name": "Wikipedia", "url": "https://en.wikipedia.org/wiki/Network_address_translation"}
+        ]
+    },
+    "NDA": {
+        "definition": "Non-Disclosure Agreement",
+        "sources": [
+            {"name": "Wikipedia", "url": "https://en.wikipedia.org/wiki/Non-disclosure_agreement"}
+        ]
+    },
+    "NIPS": {
+        "definition": "Network Intrusion Prevention System",
+        "sources": [
+            {"name": "Wikipedia", "url": "https://en.wikipedia.org/wiki/Intrusion_prevention_system"}
+        ]
+    },
+    "NOC": {
+        "definition": "Network Operations Center",
+        "sources": [
+            {"name": "Wikipedia", "url": "https://en.wikipedia.org/wiki/Network_operations_center"}
+        ]
+    },
+    "NTFS": {
+        "definition": "New Technology File System",
+        "sources": [
+            {"name": "Wikipedia", "url": "https://en.wikipedia.org/wiki/NTFS"}
+        ]
+    },
+    "OEM": {
+        "definition": "Original Equipment Manufacturer",
+        "sources": [
+            {"name": "Wikipedia", "url": "https://en.wikipedia.org/wiki/Original_equipment_manufacturer"}
+        ]
+    },
+    "OID": {
+        "definition": "Object Identifier",
+        "sources": [
+            {"name": "Wikipedia", "url": "https://en.wikipedia.org/wiki/Object_identifier"}
+        ]
+    },
+    "OVAL": {
+        "definition": "Open Vulnerability and Assessment Language",
+        "sources": [
+            {"name": "Wikipedia", "url": "https://en.wikipedia.org/wiki/Open_Vulnerability_and_Assessment_Language"}
+        ]
+    },
+    "PBX": {
+        "definition": "Private Branch Exchange",
+        "sources": [
+            {"name": "Wikipedia", "url": "https://en.wikipedia.org/wiki/Private_branch_exchange"}
+        ]
+    },
+    "PKCS": {
+        "definition": "Public Key Cryptography Standards",
+        "sources": [
+            {"name": "Wikipedia", "url": "https://en.wikipedia.org/wiki/PKCS"}
+        ]
+    },
+    "QR": {
+        "definition": "Quick Response",
+        "sources": [
+            {"name": "Wikipedia", "url": "https://en.wikipedia.org/wiki/QR_code"}
+        ]
+    },
+    "RADIUS": {
+        "definition": "Remote Authentication Dial-In User Service",
+        "sources": [
+            {"name": "Wikipedia", "url": "https://en.wikipedia.org/wiki/RADIUS"}
+        ]
+    },
+    "RDP": {
+        "definition": "Remote Desktop Protocol",
+        "sources": [
+            {"name": "Wikipedia", "url": "https://en.wikipedia.org/wiki/Remote_Desktop_Protocol"}
+        ]
+    },
+    "RFID": {
+        "definition": "Radio Frequency Identification",
+        "sources": [
+            {"name": "Wikipedia", "url": "https://en.wikipedia.org/wiki/Radio-frequency_identification"}
+        ]
+    },
+    "RTOS": {
+        "definition": "Real-Time Operating System",
+        "sources": [
+            {"name": "Wikipedia", "url": "https://en.wikipedia.org/wiki/Real-time_operating_system"}
+        ]
+    },
+    "SAAS": {
+        "definition": "Software as a Service",
+        "sources": [
+            {"name": "Wikipedia", "url": "https://en.wikipedia.org/wiki/Software_as_a_service"}
+        ]
+    },
+    "SCADA": {
+        "definition": "Supervisory Control and Data Acquisition",
+        "sources": [
+            {"name": "Wikipedia", "url": "https://en.wikipedia.org/wiki/SCADA"}
+        ]
+    },
+    "SCEP": {
+        "definition": "Simple Certificate Enrollment Protocol",
+        "sources": [
+            {"name": "Wikipedia", "url": "https://en.wikipedia.org/wiki/Simple_Certificate_Enrollment_Protocol"}
+        ]
+    },
+    "SDN": {
+        "definition": "Software-Defined Networking",
+        "sources": [
+            {"name": "Wikipedia", "url": "https://en.wikipedia.org/wiki/Software-defined_networking"}
+        ]
+    },
+    "SOA": {
+        "definition": "Service-Oriented Architecture",
+        "sources": [
+            {"name": "Wikipedia", "url": "https://en.wikipedia.org/wiki/Service-oriented_architecture"}
+        ]
+    },
+    "TACACS": {
+        "definition": "Terminal Access Controller Access-Control System",
+        "sources": [
+            {"name": "Wikipedia", "url": "https://en.wikipedia.org/wiki/TACACS"}
+        ]
+    },
+    "TKIP": {
+        "definition": "Temporal Key Integrity Protocol",
+        "sources": [
+            {"name": "Wikipedia", "url": "https://en.wikipedia.org/wiki/Temporal_Key_Integrity_Protocol"}
+        ]
+    },
+    "TOTP": {
+        "definition": "Time-Based One-Time Password",
+        "sources": [
+            {"name": "Wikipedia", "url": "https://en.wikipedia.org/wiki/Time-based_One-time_Password_algorithm"}
+        ]
+    },
+    "UPS": {
+        "definition": "Uninterruptible Power Supply",
+        "sources": [
+            {"name": "Wikipedia", "url": "https://en.wikipedia.org/wiki/Uninterruptible_power_supply"}
+        ]
+    },
+    "VLAN": {
+        "definition": "Virtual Local Area Network",
+        "sources": [
+            {"name": "Wikipedia", "url": "https://en.wikipedia.org/wiki/Virtual_LAN"}
+        ]
+    },
+    "VOIP": {
+        "definition": "Voice over Internet Protocol",
+        "sources": [
+            {"name": "Wikipedia", "url": "https://en.wikipedia.org/wiki/Voice_over_IP"}
+        ]
     }
 }
