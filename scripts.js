@@ -15,7 +15,6 @@ async function loadAcronymData() {
         displaySoupOfTheDay();
     } catch (error) {
         console.error('Error loading acronym data:', error);
-        alert(`Error loading acronym data: ${error.message}. Please try again later.`);
     }
 }
 
@@ -30,7 +29,6 @@ function sanitizeHTML(str) {
 async function getDefinition() {
     const acronym = sanitizeHTML(document.getElementById('acronym').value.trim().toUpperCase());
     if (!acronym || !isValidInput(acronym)) {
-        alert('Please enter a valid acronym.');
         return;
     }
     const results = findMatchingAcronyms(acronym);
