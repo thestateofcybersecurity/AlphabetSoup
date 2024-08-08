@@ -25,12 +25,6 @@ function sanitizeHTML(str) {
     temp.textContent = str;
     return temp.innerHTML;
     }
-function displayResults(query, results) {
-    const resultDiv = document.getElementById('result');
-    if (results.length === 0) {
-    resultDiv.textContent = `No matches found for ${query}.`;
-    return;
-}
 
 // Get definition of the entered acronym
 async function getDefinition() {
@@ -64,16 +58,16 @@ function findMatchingAcronyms(query) {
 function displayResults(query, results) {
     const resultDiv = document.getElementById('result');
     if (results.length === 0) {
-        resultDiv.innerHTML = `<p>No matches found for <strong>${query}</strong>.</p>`;
-        return;
-    }
+    resultDiv.textContent = `No matches found for ${query}.`;
+    return;
+}
     resultDiv.innerHTML = results.map(result => `
         <div>
             <h2>${result.acronym}</h2>
             <p>${result.definition}</p>
             <h3>Sources:</h3>
             <ul>
-                ${result.sources.map(source => `<li><a href="${source.url}" target="_blank" rel="noopener noreferrer">${source.name}</a></li>`).join('')}
+                ${result.sources.map(source => `<li><a href="${escape(source.url)}" target="_blank" rel="noopener noreferrer">${escape(source.name)}</a></li>`).join('')}
             </ul>
         </div>
     `).join('');
