@@ -1016,5 +1016,449 @@
         "sources": [
             {"name": "Wikipedia", "url": "https://en.wikipedia.org/wiki/Anything_as_a_service"}
         ]
+    },
+    "ASLR": {
+        "definition": "Address Space Layout Randomization",
+        "sources": [
+            {"name": "Wikipedia", "url": "https://en.wikipedia.org/wiki/Address_space_layout_randomization"}
+        ]
+    },
+    "AV": {
+        "definition": "Antivirus",
+        "sources": [
+            {"name": "Wikipedia", "url": "https://en.wikipedia.org/wiki/Antivirus_software"}
+        ]
+    },
+    "AWS": {
+        "definition": "Amazon Web Services",
+        "sources": [
+            {"name": "Wikipedia", "url": "https://en.wikipedia.org/wiki/Amazon_Web_Services"}
+        ]
+    },
+    "BGP": {
+        "definition": "Border Gateway Protocol",
+        "sources": [
+            {"name": "Wikipedia", "url": "https://en.wikipedia.org/wiki/Border_Gateway_Protocol"}
+        ]
+    },
+    "BSS": {
+        "definition": "Basic Service Set",
+        "sources": [
+            {"name": "Wikipedia", "url": "https://en.wikipedia.org/wiki/Basic_service_set"}
+        ]
+    },
+    "C2": {
+        "definition": "Command and Control",
+        "sources": [
+            {"name": "Wikipedia", "url": "https://en.wikipedia.org/wiki/Command_and_control"}
+        ]
+    },
+    "CA": {
+        "definition": "Certificate Authority",
+        "sources": [
+            {"name": "Wikipedia", "url": "https://en.wikipedia.org/wiki/Certificate_authority"}
+        ]
+    },
+    "CAPTCHA": {
+        "definition": "Completely Automated Public Turing test to tell Computers and Humans Apart",
+        "sources": [
+            {"name": "Wikipedia", "url": "https://en.wikipedia.org/wiki/CAPTCHA"}
+        ]
+    },
+    "CC": {
+        "definition": "Common Criteria",
+        "sources": [
+            {"name": "Wikipedia", "url": "https://en.wikipedia.org/wiki/Common_Criteria"}
+        ]
+    },
+    "CORS": {
+        "definition": "Cross-Origin Resource Sharing",
+        "sources": [
+            {"name": "Wikipedia", "url": "https://en.wikipedia.org/wiki/Cross-origin_resource_sharing"}
+        ]
+    },
+    "CTF": {
+        "definition": "Capture The Flag",
+        "sources": [
+            {"name": "Wikipedia", "url": "https://en.wikipedia.org/wiki/Capture_the_flag_(cybersecurity)"}
+        ]
+    },
+    "CVV": {
+        "definition": "Card Verification Value",
+        "sources": [
+            {"name": "Wikipedia", "url": "https://en.wikipedia.org/wiki/Card_security_code"}
+        ]
+    },
+    "DGA": {
+        "definition": "Domain Generation Algorithm",
+        "sources": [
+            {"name": "Wikipedia", "url": "https://en.wikipedia.org/wiki/Domain_generation_algorithm"}
+        ]
+    },
+    "DMZ": {
+        "definition": "Demilitarized Zone",
+        "sources": [
+            {"name": "Wikipedia", "url": "https://en.wikipedia.org/wiki/DMZ_(computing)"}
+        ]
+    },
+    "DNSSEC": {
+        "definition": "Domain Name System Security Extensions",
+        "sources": [
+            {"name": "Wikipedia", "url": "https://en.wikipedia.org/wiki/Domain_Name_System_Security_Extensions"}
+        ]
+    },
+    "EAP": {
+        "definition": "Extensible Authentication Protocol",
+        "sources": [
+            {"name": "Wikipedia", "url": "https://en.wikipedia.org/wiki/Extensible_Authentication_Protocol"}
+        ]
+    },
+    "EDR": {
+        "definition": "Endpoint Detection and Response",
+        "sources": [
+            {"name": "Wikipedia", "url": "https://en.wikipedia.org/wiki/Endpoint_detection_and_response"}
+        ]
+    },
+    "EFS": {
+        "definition": "Encrypting File System",
+        "sources": [
+            {"name": "Wikipedia", "url": "https://en.wikipedia.org/wiki/Encrypting_File_System"}
+        ]
+    },
+    "FIDO": {
+        "definition": "Fast Identity Online",
+        "sources": [
+            {"name": "Wikipedia", "url": "https://en.wikipedia.org/wiki/FIDO_Alliance"}
+        ]
+    },
+    "FIPS": {
+        "definition": "Federal Information Processing Standards",
+        "sources": [
+            {"name": "Wikipedia", "url": "https://en.wikipedia.org/wiki/Federal_Information_Processing_Standards"}
+        ]
+    },
+    "FTPS": {
+        "definition": "File Transfer Protocol Secure",
+        "sources": [
+            {"name": "Wikipedia", "url": "https://en.wikipedia.org/wiki/FTPS"}
+        ]
+    },
+    "GPG": {
+        "definition": "GNU Privacy Guard",
+        "sources": [
+            {"name": "Wikipedia", "url": "https://en.wikipedia.org/wiki/GNU_Privacy_Guard"}
+        ]
+    },
+    "HIDS": {
+        "definition": "Host-based Intrusion Detection System",
+        "sources": [
+            {"name": "Wikipedia", "url": "https://en.wikipedia.org/wiki/Host-based_intrusion_detection_system"}
+        ]
+    },
+    "IAP": {
+        "definition": "Identity-Aware Proxy",
+        "sources": [
+            {"name": "Wikipedia", "url": "https://en.wikipedia.org/wiki/Identity-Aware_Proxy"}
+        ]
+    },
+    "IMAP": {
+        "definition": "Internet Message Access Protocol",
+        "sources": [
+            {"name": "Wikipedia", "url": "https://en.wikipedia.org/wiki/Internet_Message_Access_Protocol"}
+        ]
+    },
+    "IOC": {
+        "definition": "Indicator of Compromise",
+        "sources": [
+            {"name": "Wikipedia", "url": "https://en.wikipedia.org/wiki/Indicator_of_compromise"}
+        ]
+    },
+    "IPFS": {
+        "definition": "InterPlanetary File System",
+        "sources": [
+            {"name": "Wikipedia", "url": "https://en.wikipedia.org/wiki/InterPlanetary_File_System"}
+        ]
+    },
+    "ISP": {
+        "definition": "Internet Service Provider",
+        "sources": [
+            {"name": "Wikipedia", "url": "https://en.wikipedia.org/wiki/Internet_service_provider"}
+        ]
+    },
+    "ISSO": {
+        "definition": "Information Systems Security Officer",
+        "sources": [
+            {"name": "Wikipedia", "url": "https://en.wikipedia.org/wiki/Information_security_analyst"}
+        ]
+    },
+    "JSON": {
+        "definition": "JavaScript Object Notation",
+        "sources": [
+            {"name": "Wikipedia", "url": "https://en.wikipedia.org/wiki/JSON"}
+        ]
+    },
+    "KMS": {
+        "definition": "Key Management Service",
+        "sources": [
+            {"name": "Wikipedia", "url": "https://en.wikipedia.org/wiki/Key_management"}
+        ]
+    },
+    "LFI": {
+        "definition": "Local File Inclusion",
+        "sources": [
+            {"name": "Wikipedia", "url": "https://en.wikipedia.org/wiki/File_inclusion_vulnerability"}
+        ]
+    },
+    "LUKS": {
+        "definition": "Linux Unified Key Setup",
+        "sources": [
+            {"name": "Wikipedia", "url": "https://en.wikipedia.org/wiki/Linux_Unified_Key_Setup"}
+        ]
+    },
+    "MAC": {
+        "definition": "Mandatory Access Control",
+        "sources": [
+            {"name": "Wikipedia", "url": "https://en.wikipedia.org/wiki/Mandatory_access_control"}
+        ]
+    },
+    "MITM": {
+        "definition": "Man-In-The-Middle",
+        "sources": [
+            {"name": "Wikipedia", "url": "https://en.wikipedia.org/wiki/Man-in-the-middle_attack"}
+        ]
+    },
+    "ML": {
+        "definition": "Machine Learning",
+        "sources": [
+            {"name": "Wikipedia", "url": "https://en.wikipedia.org/wiki/Machine_learning"}
+        ]
+    },
+    "MOTD": {
+        "definition": "Message of the Day",
+        "sources": [
+            {"name": "Wikipedia", "url": "https://en.wikipedia.org/wiki/Motd_(Unix)"}
+        ]
+    },
+    "MSSP": {
+        "definition": "Managed Security Service Provider",
+        "sources": [
+            {"name": "Wikipedia", "url": "https://en.wikipedia.org/wiki/Managed_security_service"}
+        ]
+    },
+    "MTTR": {
+        "definition": "Mean Time To Recovery",
+        "sources": [
+            {"name": "Wikipedia", "url": "https://en.wikipedia.org/wiki/Mean_time_to_recovery"}
+        ]
+    },
+    "NAC": {
+        "definition": "Network Access Control",
+        "sources": [
+            {"name": "Wikipedia", "url": "https://en.wikipedia.org/wiki/Network_Access_Control"}
+        ]
+    },
+    "NGFW": {
+        "definition": "Next-Generation Firewall",
+        "sources": [
+            {"name": "Wikipedia", "url": "https://en.wikipedia.org/wiki/Next-generation_firewall"}
+        ]
+    },
+    "NIDS": {
+        "definition": "Network Intrusion Detection System",
+        "sources": [
+            {"name": "Wikipedia", "url": "https://en.wikipedia.org/wiki/Intrusion_detection_system"}
+        ]
+    },
+    "OCSP": {
+        "definition": "Online Certificate Status Protocol",
+        "sources": [
+            {"name": "Wikipedia", "url": "https://en.wikipedia.org/wiki/Online_Certificate_Status_Protocol"}
+        ]
+    },
+    "OTP": {
+        "definition": "One-Time Password",
+        "sources": [
+            {"name": "Wikipedia", "url": "https://en.wikipedia.org/wiki/One-time_password"}
+        ]
+    },
+    "PFS": {
+        "definition": "Perfect Forward Secrecy",
+        "sources": [
+            {"name": "Wikipedia", "url": "https://en.wikipedia.org/wiki/Forward_secrecy"}
+        ]
+    },
+    "PSK": {
+        "definition": "Pre-Shared Key",
+        "sources": [
+            {"name": "Wikipedia", "url": "https://en.wikipedia.org/wiki/Pre-shared_key"}
+        ]
+    },
+    "PTES": {
+        "definition": "Penetration Testing Execution Standard",
+        "sources": [
+            {"name": "Wikipedia", "url": "https://en.wikipedia.org/wiki/Penetration_Testing_Execution_Standard"}
+        ]
+    },
+    "PTP": {
+        "definition": "Precision Time Protocol",
+        "sources": [
+            {"name": "Wikipedia", "url": "https://en.wikipedia.org/wiki/Precision_Time_Protocol"}
+        ]
+    },
+    "RA": {
+        "definition": "Registration Authority",
+        "sources": [
+            {"name": "Wikipedia", "url": "https://en.wikipedia.org/wiki/Registration_authority"}
+        ]
+    },
+    "RAID": {
+        "definition": "Redundant Array of Independent Disks",
+        "sources": [
+            {"name": "Wikipedia", "url": "https://en.wikipedia.org/wiki/RAID"}
+        ]
+    },
+    "RFC": {
+        "definition": "Request for Comments",
+        "sources": [
+            {"name": "Wikipedia", "url": "https://en.wikipedia.org/wiki/Request_for_Comments"}
+        ]
+    },
+    "RFI": {
+        "definition": "Remote File Inclusion",
+        "sources": [
+            {"name": "Wikipedia", "url": "https://en.wikipedia.org/wiki/File_inclusion_vulnerability"}
+        ]
+    },
+    "RNG": {
+        "definition": "Random Number Generator",
+        "sources": [
+            {"name": "Wikipedia", "url": "https://en.wikipedia.org/wiki/Random_number_generation"}
+        ]
+    },
+    "RPM": {
+        "definition": "Revolutions Per Minute",
+        "sources": [
+            {"name": "Wikipedia", "url": "https://en.wikipedia.org/wiki/Revolutions_per_minute"}
+        ]
+    },
+    "SAML": {
+        "definition": "Security Assertion Markup Language",
+        "sources": [
+            {"name": "Wikipedia", "url": "https://en.wikipedia.org/wiki/SAML_2.0"}
+        ]
+    },
+    "SCAP": {
+        "definition": "Security Content Automation Protocol",
+        "sources": [
+            {"name": "Wikipedia", "url": "https://en.wikipedia.org/wiki/Security_Content_Automation_Protocol"}
+        ]
+    },
+    "SIM": {
+        "definition": "Subscriber Identity Module",
+        "sources": [
+            {"name": "Wikipedia", "url": "https://en.wikipedia.org/wiki/Subscriber_identity_module"}
+        ]
+    },
+    "SMS": {
+        "definition": "Short Message Service",
+        "sources": [
+            {"name": "Wikipedia", "url": "https://en.wikipedia.org/wiki/SMS"}
+        ]
+    },
+    "SMTP": {
+        "definition": "Simple Mail Transfer Protocol",
+        "sources": [
+            {"name": "Wikipedia", "url": "https://en.wikipedia.org/wiki/Simple_Mail_Transfer_Protocol"}
+        ]
+    },
+    "SNMP": {
+        "definition": "Simple Network Management Protocol",
+        "sources": [
+            {"name": "Wikipedia", "url": "https://en.wikipedia.org/wiki/Simple_Network_Management_Protocol"}
+        ]
+    },
+    "SOAR": {
+        "definition": "Security Orchestration, Automation, and Response",
+        "sources": [
+            {"name": "Wikipedia", "url": "https://en.wikipedia.org/wiki/Security_orchestration,_automation,_and_response"}
+        ]
+    },
+    "SPF": {
+        "definition": "Sender Policy Framework",
+        "sources": [
+            {"name": "Wikipedia", "url": "https://en.wikipedia.org/wiki/Sender_Policy_Framework"}
+        ]
+    },
+    "TACACS+": {
+        "definition": "Terminal Access Controller Access-Control System Plus",
+        "sources": [
+            {"name": "Wikipedia", "url": "https://en.wikipedia.org/wiki/TACACS%2B"}
+        ]
+    },
+    "TPM": {
+        "definition": "Trusted Platform Module",
+        "sources": [
+            {"name": "Wikipedia", "url": "https://en.wikipedia.org/wiki/Trusted_Platform_Module"}
+        ]
+    },
+    "URL": {
+        "definition": "Uniform Resource Locator",
+        "sources": [
+            {"name": "Wikipedia", "url": "https://en.wikipedia.org/wiki/URL"}
+        ]
+    },
+    "USB": {
+        "definition": "Universal Serial Bus",
+        "sources": [
+            {"name": "Wikipedia", "url": "https://en.wikipedia.org/wiki/USB"}
+        ]
+    },
+    "UTM": {
+        "definition": "Unified Threat Management",
+        "sources": [
+            {"name": "Wikipedia", "url": "https://en.wikipedia.org/wiki/Unified_threat_management"}
+        ]
+    },
+    "UUID": {
+        "definition": "Universally Unique Identifier",
+        "sources": [
+            {"name": "Wikipedia", "url": "https://en.wikipedia.org/wiki/Universally_unique_identifier"}
+        ]
+    },
+    "WAF": {
+        "definition": "Web Application Firewall",
+        "sources": [
+            {"name": "Wikipedia", "url": "https://en.wikipedia.org/wiki/Web_application_firewall"}
+        ]
+    },
+    "WAN": {
+        "definition": "Wide Area Network",
+        "sources": [
+            {"name": "Wikipedia", "url": "https://en.wikipedia.org/wiki/Wide_area_network"}
+        ]
+    },
+    "WAP": {
+        "definition": "Wireless Access Point",
+        "sources": [
+            {"name": "Wikipedia", "url": "https://en.wikipedia.org/wiki/Wireless_access_point"}
+        ]
+    },
+    "WPA3": {
+        "definition": "Wi-Fi Protected Access 3",
+        "sources": [
+            {"name": "Wikipedia", "url": "https://en.wikipedia.org/wiki/Wi-Fi_Protected_Access"}
+        ]
+    },
+    "XSS": {
+        "definition": "Cross-Site Scripting",
+        "sources": [
+            {"name": "Wikipedia", "url": "https://en.wikipedia.org/wiki/Cross-site_scripting"}
+        ]
+    },
+    "YARA": {
+        "definition": "Yet Another Recursive Acronym",
+        "sources": [
+            {"name": "Wikipedia", "url": "https://en.wikipedia.org/wiki/YARA"}
+        ]
     }
 }
