@@ -24,6 +24,12 @@ function sanitizeHTML(str) {
     var temp = document.createElement('div');
     temp.textContent = str;
     return temp.innerHTML;
+    }
+function displayResults(query, results) {
+    const resultDiv = document.getElementById('result');
+    if (results.length === 0) {
+    resultDiv.textContent = `No matches found for ${query}.`;
+    return;
 }
 
 // Get definition of the entered acronym
