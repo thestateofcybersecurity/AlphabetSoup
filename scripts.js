@@ -105,6 +105,7 @@ function checkEnter(event) {
 
 document.getElementById('acronym').addEventListener('keypress', checkEnter);
 document.getElementById('searchButton').addEventListener('click', getDefinition);
+document.getElementById('allAcronymsButton').addEventListener('click', displayAllAcronyms);
 
 // Display Soup of the Day
 function displaySoupOfTheDay() {
@@ -135,6 +136,45 @@ function displaySoupOfTheDay() {
 
     const textNode = document.createTextNode(`: ${soupOfTheDay.definition}`);
     soupAcronym.appendChild(textNode);
+}
+
+// Display All Acronyms
+function displayAllAcronyms() {
+    const resultDiv = document.getElementById('result');
+    resultDiv.textContent = ''; // Clear any previous results
+
+    const acronyms = Object.keys(acronymData);
+    
+    acronyms.forEach(acronym => {
+        const resultContainer = document.createElement('div');
+
+        const acronymElement = document.createElement('h2');
+        acronymElement.textContent = acronym;
+        resultContainer.appendChild(acronymElement);
+
+        const definitionElement = document.createElement('p');
+        definitionElement.textContent = acronymData[acronym].definition;
+        resultContainer.appendChild(definitionElement);
+
+        const sourcesHeader = document.createElement('h3');
+        sourcesHeader.textContent = 'Sources:';
+        resultContainer.appendChild(sourcesHeader);
+
+        const sourcesList = document.createElement('ul');
+        acronymData[acronym].sources.forEach(source => {
+            const listItem = document.createElement('li');
+            const link = document.createElement('a');
+            link.href = source.url;
+            link.target = '_blank';
+            link.rel = 'noopener noreferrer';
+            link.textContent = source.name;
+            listItem.appendChild(link);
+            sourcesList.appendChild(listItem);
+        });
+        resultContainer.appendChild(sourcesList);
+
+        resultDiv.appendChild(resultContainer);
+    });
 }
 
 // Load the acronym data when the page loads
