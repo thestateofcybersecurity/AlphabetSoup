@@ -147,50 +147,6 @@
             <footer id="acronymCount"></footer>
 
     <script>
-        const acronymData = {
-            "PT": { "definition": "Penetration Test", "sources": [ { "name": "Wikipedia", "url": "https://en.wikipedia.org/wiki/Penetration_test" }, { "name": "Official Site", "url": "https://richeymay.com/cybersecurity-services/" } ] },
-            "CISSP": { "definition": "Certified Information Systems Security Professional", "sources": [ { "name": "Wikipedia", "url": "https://en.wikipedia.org/wiki/Certified_Information_Systems_Security_Professional" }, { "name": "Official Site", "url": "https://www.isc2.org/Certifications/CISSP" } ] },
-            // Add all the other acronyms here
-        };
-
-        function searchAcronym() {
-            const query = document.getElementById('searchInput').value.trim().toUpperCase();
-            const resultDiv = document.getElementById('result');
-            const results = [];
-
-            for (const acronym in acronymData) {
-                if (acronym.includes(query)) {
-                    results.push({ acronym, ...acronymData[acronym] });
-                }
-            }
-
-            if (results.length === 0) {
-                resultDiv.textContent = `No matches found for ${query}.`;
-            } else {
-                resultDiv.innerHTML = results.map(result => `
-                    <div>
-                        <h2>${result.acronym}</h2>
-                        <p>${result.definition}</p>
-                        <h3>Sources:</h3>
-                        <ul>
-                            ${result.sources.map(source => `<li><a href="${escapeHTML(source.url)}" target="_blank" rel="noopener noreferrer">${escapeHTML(source.name)}</a></li>`).join('')}
-                        </ul>
-                    </div>
-                `).join('');
-            }
-        }
-
-        function escapeHTML(str) {
-            const temp = document.createElement('div');
-            temp.textContent = str;
-            return temp.innerHTML;
-        }
-
-        function updateAcronymCount() {
-            const acronymCount = Object.keys(acronymData).length;
-            document.getElementById('acronymCount').textContent = `Number of acronyms in the database: ${acronymCount}`;
-        }
-
         // Update the acronym count on page load
         updateAcronymCount();
     </script>
