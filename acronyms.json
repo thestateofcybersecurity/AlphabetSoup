@@ -2,7 +2,7 @@
     "PT": {
         "definition": "Penetration Test",
         "sources": [
-            {"name": "Definition", "url": "https://cybersecurityalphabetsoup.com/definitions/penetration-test"},
+            {"name": "Definition", "url": "https://cybersecurityalphabetsoup.com/definitions/pt"},
             {"name": "Official Site", "url": "https://richeymay.com/cybersecurity-services/"}
         ]
     },
