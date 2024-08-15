@@ -75,34 +75,31 @@ footer {
 }
 
 /* Social Media Sharing Section */
-.social-share {
-    margin-top: 30px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 15px;
+.share-footer {
+    margin-top: 40px;
+    text-align: center;
 }
 
-.social-share a {
+.share-buttons p {
+    margin-bottom: 10px;
+    font-size: 1rem;
+    color: #333;
+}
+
+.share-buttons a {
     display: inline-block;
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
-    background-color: #de5833;
-    color: #fff;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    margin: 0 10px;
     text-decoration: none;
-    transition: background-color 0.3s;
 }
 
-.social-share a:hover {
-    background-color: #e37157;
+.share-buttons img {
+    width: 32px;
+    height: 32px;
+    transition: transform 0.2s;
 }
 
-.social-share i {
-    font-size: 1.5rem;
+.share-buttons img:hover {
+    transform: scale(1.2);
 }
 
 @media (prefers-color-scheme: dark) {
@@ -131,12 +128,8 @@ footer {
     .soup-of-the-day h2 {
         color: #f0f0f0;
     }
-    
-    .social-share a {
-        background-color: #bb86fc;
-    }
-    
-    .social-share a:hover {
-        background-color: #3700b3;
+
+    .share-buttons p {
+        color: #f0f0f0;
     }
 }
