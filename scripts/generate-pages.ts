@@ -16,6 +16,18 @@ const legacy = JSON.parse(readFileSync(`${root}src/data/legacy-slugs.json`, 'utf
   definitions: string[];
   root: string[];
 };
+const csfToCis = JSON.parse(readFileSync(`${root}src/data/csf-cis-map.json`, 'utf8')) as Record<
+  string,
+  string[]
+>;
+const cisToCsf = new Map<string, string[]>();
+for (const [csfId, cisIds] of Object.entries(csfToCis)) {
+  for (const cisId of cisIds) {
+    const list = cisToCsf.get(cisId) ?? [];
+    list.push(csfId);
+    cisToCsf.set(cisId, list);
+  }
+}
 
 /** Acronym keys whose definition pages link to a framework translation section. */
 const FRAMEWORK_LINKS: Record<string, { path: string; label: string }> = {
@@ -259,6 +271,9 @@ interface FrameworkPageInput {
   next?: string;
   accent: string;
   accentDark: string;
+  /** Cross-framework mapping links (unofficial). */
+  mapped?: Array<{ label: string; href: string }>;
+  mappedLabel?: string;
 }
 
 function frameworkPage(input: FrameworkPageInput): string {
@@ -317,6 +332,13 @@ ${FW_EXTRA_CSS}</style>
     <div class="metaphor"><span class="label">Think of it like</span>${esc(input.metaphor)}</div>
     <h2>In plain English</h2>
     <p>${esc(input.translation)}</p>
+    ${
+      input.mapped?.length
+        ? `<h2>${esc(input.mappedLabel ?? 'Related')}</h2>\n    <div class="related">${input.mapped
+            .map((m) => `<a href="${esc(m.href)}">${esc(m.label)}</a>`)
+            .join('')}</div>`
+        : ''
+    }
     <nav class="pager">${pager}</nav>
     <footer>
       <p class="play">Learn the language too: <a href="../../">browse the acronym glossary</a> or <a href="${CYBERDLE}" rel="noopener">play Cyberdle &rarr;</a></p>
@@ -347,6 +369,11 @@ csfIds.forEach((id, i) => {
       next: csfIds[i + 1],
       accent: '#2c6e91',
       accentDark: '#5da4c9',
+      mappedLabel: 'Related CIS safeguards (unofficial mapping)',
+      mapped: (csfToCis[id] ?? []).map((cisId) => ({
+        label: `CIS ${cisId}: ${cis[cisId].title}`,
+        href: `../cis/${frameworkSlug(cisId)}.html`,
+      })),
     }),
   );
 });
@@ -374,6 +401,11 @@ cisIds.forEach((id, i) => {
       next: cisIds[i + 1],
       accent: '#3e7d4f',
       accentDark: '#6fb383',
+      mappedLabel: 'Related CSF subcategories (unofficial mapping)',
+      mapped: (cisToCsf.get(id) ?? []).sort().map((csfId) => ({
+        label: csfId,
+        href: `../nist-csf/${frameworkSlug(csfId)}.html`,
+      })),
     }),
   );
 });

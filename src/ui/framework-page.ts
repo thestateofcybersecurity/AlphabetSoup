@@ -3,6 +3,12 @@ import type { FrameworkRecord } from '../lib/framework-search';
 import { dailyIndex, dayNumber, localDateString } from '../lib/daily';
 import { frameworkSlug } from '../lib/frameworks';
 
+export interface RelatedLink {
+  label: string;
+  href: string;
+  title?: string;
+}
+
 export interface FrameworkPageConfig {
   /** Records in canonical order. */
   records: FrameworkRecord[];
@@ -11,6 +17,9 @@ export interface FrameworkPageConfig {
   /** Per-record kicker line, e.g. "Govern / Organizational Context". */
   kicker: (record: FrameworkRecord) => string;
   countNoun: string;
+  /** Cross-framework links shown on each card (unofficial mapping). */
+  related?: (record: FrameworkRecord) => RelatedLink[];
+  relatedLabel?: string;
 }
 
 const RESULT_CAP = 60;
@@ -45,6 +54,18 @@ export function initFrameworkPage(config: FrameworkPageConfig): void {
     quote.appendChild(el('p', undefined, record.metaphor));
     article.appendChild(quote);
     article.appendChild(el('p', 'fw-translation', record.translation));
+    const relatedLinks = config.related?.(record) ?? [];
+    if (relatedLinks.length > 0) {
+      const map = el('div', 'map-links');
+      map.appendChild(el('span', 'map-label', config.relatedLabel ?? 'Related'));
+      for (const rel of relatedLinks) {
+        const link = el('a', 'map-chip', rel.label);
+        link.href = rel.href;
+        if (rel.title) link.title = rel.title;
+        map.appendChild(link);
+      }
+      article.appendChild(map);
+    }
     const links = el('div', 'entry-links');
     const permalink = el('a', 'permalink', 'permalink');
     permalink.href = `${frameworkSlug(record.id)}.html`;

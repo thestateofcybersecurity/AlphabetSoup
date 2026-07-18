@@ -116,22 +116,79 @@ function letterFilter(): SearchFilter {
   return { category: state.category, difficulty: state.difficulty, letter: state.letter };
 }
 
+type CrossSearchModule = typeof import('./lib/global-search') & {
+  csf: import('./lib/frameworks').CsfData;
+  cis: import('./lib/frameworks').CisData;
+  decks: import('./lib/quiz').DeckMeta[];
+};
+
+let crossModule: CrossSearchModule | null = null;
+let crossLoading: Promise<CrossSearchModule> | null = null;
+
+function loadCrossSearch(): Promise<CrossSearchModule> {
+  if (crossModule) return Promise.resolve(crossModule);
+  crossLoading ??= Promise.all([
+    import('./lib/global-search'),
+    import('./data/nist-csf.json'),
+    import('./data/cis.json'),
+    import('./data/quiz/index.json'),
+  ]).then(([module, csfData, cisData, deckData]) => {
+    crossModule = {
+      ...module,
+      csf: csfData.default as CrossSearchModule['csf'],
+      cis: cisData.default as CrossSearchModule['cis'],
+      decks: deckData.default as CrossSearchModule['decks'],
+    };
+    return crossModule;
+  });
+  return crossLoading;
+}
+
 function renderFrameworkHint(): void {
   const hint = byId('framework-hint');
-  const detected = detectFrameworkQuery(state.query);
-  if (!detected) {
+  const query = state.query.trim();
+  if (query.length < 2) {
     hint.hidden = true;
     return;
   }
-  const href = `frameworks/${detected === 'csf' ? 'nist-csf' : 'cis'}/?q=${encodeURIComponent(state.query.trim())}`;
-  const label = detected === 'csf' ? 'NIST CSF 2.0' : 'CIS Controls v8';
-  hint.innerHTML = '';
-  hint.append('That looks like a framework control. ');
-  const link = document.createElement('a');
-  link.href = href;
-  link.textContent = `See "${state.query.trim()}" translated in plain English in ${label} →`;
-  hint.appendChild(link);
-  hint.hidden = false;
+  void loadCrossSearch().then((module) => {
+    if (state.query.trim() !== query) return; // stale keystroke
+    const hits = module.crossSearch(query, module.csf, module.cis, module.decks);
+    if (hits.length === 0) {
+      const detected = detectFrameworkQuery(query);
+      if (!detected) {
+        hint.hidden = true;
+        return;
+      }
+      hint.innerHTML = '';
+      hint.append('That looks like a framework control. ');
+      const link = document.createElement('a');
+      link.href = `frameworks/${detected === 'csf' ? 'nist-csf' : 'cis'}/?q=${encodeURIComponent(query)}`;
+      link.textContent = `Look for "${query}" in the framework translations →`;
+      hint.appendChild(link);
+      hint.hidden = false;
+      return;
+    }
+    hint.innerHTML = '';
+    const label = document.createElement('div');
+    label.className = 'hint-label';
+    label.textContent = 'Elsewhere in the soup';
+    hint.appendChild(label);
+    for (const hit of hits) {
+      const row = document.createElement('div');
+      row.className = 'hint-row';
+      const section = document.createElement('span');
+      section.className = 'hint-section';
+      section.textContent = hit.section;
+      row.appendChild(section);
+      const link = document.createElement('a');
+      link.href = hit.href;
+      link.textContent = `${hit.label}: ${hit.detail.length > 70 ? hit.detail.slice(0, 70) + '...' : hit.detail}`;
+      row.appendChild(link);
+      hint.appendChild(row);
+    }
+    hint.hidden = false;
+  });
 }
 
 function render(): void {

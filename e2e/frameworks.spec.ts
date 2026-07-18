@@ -41,9 +41,10 @@ test('homepage hints framework queries and nav links both ways', async ({ page }
   await page.locator('#search').fill('8.1');
   const hint = page.locator('#framework-hint');
   await expect(hint).toBeVisible();
-  await hint.locator('a').click();
-  await expect(page).toHaveURL(/frameworks\/cis\/\?q=8\.1/);
-  await expect(page.locator('.fw-card').first().locator('.fw-id')).toHaveText('8.1');
-  await page.locator('.site-nav a', { hasText: 'Acronyms' }).click();
+  // Cross-search returns direct safeguard links; the exact id ranks first.
+  await hint.locator('a').first().click();
+  await expect(page).toHaveURL(/frameworks\/cis\/8-1\.html/);
+  await expect(page.locator('h1')).toHaveText('8.1');
+  await page.locator('.gnav a', { hasText: 'Acronyms' }).click();
   await expect(page.locator('.title')).toContainText('Alphabet Soup');
 });

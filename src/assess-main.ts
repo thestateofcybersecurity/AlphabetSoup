@@ -5,10 +5,12 @@ import {
   cisControlFromReference,
   cisIg1Assessment,
   cisSafeguardFromReference,
+  latestDelta,
   readinessBand,
+  recordSnapshot,
   scoreAssessment,
 } from './lib/assessment';
-import type { Answers, AssessmentData, Tier } from './lib/assessment';
+import type { Answers, AssessmentData, Snapshot, Tier } from './lib/assessment';
 import type { CisData } from './lib/frameworks';
 import { frameworkSlug } from './lib/frameworks';
 
@@ -64,6 +66,46 @@ function saveAnswers(): void {
   } catch {
     // Private mode: the assessment still works within the session.
   }
+}
+
+const historyKey = () => `alphabetsoup:assessment-history:${current.id}`;
+
+function loadHistory(): Snapshot[] {
+  try {
+    return JSON.parse(localStorage.getItem(historyKey()) ?? '[]') as Snapshot[];
+  } catch {
+    return [];
+  }
+}
+
+function todayString(): string {
+  const now = new Date();
+  const m = String(now.getMonth() + 1).padStart(2, '0');
+  const d = String(now.getDate()).padStart(2, '0');
+  return `${now.getFullYear()}-${m}-${d}`;
+}
+
+function sparkline(history: Snapshot[]): SVGSVGElement {
+  const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+  svg.setAttribute('viewBox', '0 0 120 36');
+  svg.setAttribute('class', 'spark');
+  svg.setAttribute('aria-label', 'Score history');
+  const points = history
+    .map((snapshot, index) => {
+      const x = history.length === 1 ? 60 : (index / (history.length - 1)) * 112 + 4;
+      const y = 32 - (snapshot.overall / 100) * 28;
+      return `${x.toFixed(1)},${y.toFixed(1)}`;
+    })
+    .join(' ');
+  const line = document.createElementNS('http://www.w3.org/2000/svg', 'polyline');
+  line.setAttribute('points', points);
+  line.setAttribute('fill', 'none');
+  line.setAttribute('stroke', 'currentColor');
+  line.setAttribute('stroke-width', '2');
+  line.setAttribute('stroke-linecap', 'round');
+  line.setAttribute('stroke-linejoin', 'round');
+  svg.appendChild(line);
+  return svg;
 }
 
 function el<K extends keyof HTMLElementTagNameMap>(
@@ -248,6 +290,14 @@ function renderResults(): void {
   top.appendChild(print);
   results.appendChild(top);
 
+  // Auto-snapshot once per day for trend tracking.
+  const history = recordSnapshot(loadHistory(), result.overallPercent, todayString());
+  try {
+    localStorage.setItem(historyKey(), JSON.stringify(history));
+  } catch {
+    // ignore
+  }
+
   const headline = el('div', 'assess-card');
   const score = el('div', 'quiz-score');
   score.appendChild(el('span', 'quiz-score-big', `${result.overallPercent}%`));
@@ -255,6 +305,24 @@ function renderResults(): void {
   bandBox.appendChild(el('div', 'assess-band', band.label));
   bandBox.appendChild(el('div', 'deck-sub', `${result.answered} of ${result.total} questions answered`));
   score.appendChild(bandBox);
+  if (history.length >= 2) {
+    const trend = el('div', 'trend');
+    trend.appendChild(sparkline(history));
+    const delta = latestDelta(history);
+    if (delta) {
+      const sign = delta.delta > 0 ? 'up' : delta.delta < 0 ? 'down' : 'even';
+      trend.appendChild(
+        el(
+          'div',
+          'deck-sub trend-delta',
+          sign === 'even'
+            ? `unchanged since ${delta.since}`
+            : `${sign} ${Math.abs(delta.delta)} since ${delta.since}`,
+        ),
+      );
+    }
+    score.appendChild(trend);
+  }
   headline.appendChild(score);
   headline.appendChild(el('p', undefined, band.blurb));
 

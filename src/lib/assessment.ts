@@ -93,6 +93,31 @@ export function readinessBand(overallPercent: number): ReadinessBand {
   };
 }
 
+/* ------------------------------ history ------------------------------- */
+
+export interface Snapshot {
+  /** YYYY-MM-DD local date. */
+  date: string;
+  overall: number;
+}
+
+const HISTORY_CAP = 24;
+
+/** Add or update today's snapshot; one per day, oldest dropped past the cap. */
+export function recordSnapshot(history: Snapshot[], overall: number, date: string): Snapshot[] {
+  const kept = history.filter((snapshot) => snapshot.date !== date);
+  const next = [...kept, { date, overall }].sort((a, b) => a.date.localeCompare(b.date));
+  return next.slice(-HISTORY_CAP);
+}
+
+/** Change since the previous snapshot, or null with fewer than two. */
+export function latestDelta(history: Snapshot[]): { delta: number; since: string } | null {
+  if (history.length < 2) return null;
+  const last = history[history.length - 1];
+  const previous = history[history.length - 2];
+  return { delta: last.overall - previous.overall, since: previous.date };
+}
+
 /** Extract a CIS control number from a reference string like "CIS Control 11 - Data Recovery". */
 export function cisControlFromReference(reference: string): number | null {
   const match = reference.match(/CIS Control (\d{1,2})/i);
