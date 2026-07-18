@@ -195,12 +195,12 @@
       "q": "Which of the following is a method used to obfuscate code in penetration testing?",
       "choices": [
         "Encoding",
-        "Load testing",
+        "Hashing",
         "Compression",
         "Steganography"
       ],
       "correctIndex": 0,
-      "why": "Encoding, such as Base64, transforms code into another representation to hide its intent while staying reversible without a key. Compression shrinks data and steganography hides data in other files; neither is the standard code obfuscation choice here."
+      "why": "Encoding, such as Base64, transforms code into another representation to hide its intent while staying reversible without a key. Hashing is one-way, and compression and steganography serve other purposes, so encoding is the obfuscation choice here."
     },
     {
       "q": "Which of the following is a common technique for evading IDS/IPS during penetration testing?",

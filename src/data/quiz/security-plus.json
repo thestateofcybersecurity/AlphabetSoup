@@ -40,24 +40,24 @@
     {
       "q": "What does the acronym CIA stand for in the context of information security?",
       "choices": [
-        "Central Intelligence Agency",
+        "Confidentiality, Integrity, Authentication",
         "Confidentiality, Integrity, Availability",
-        "Certified Information Auditor",
-        "Cyber Intelligence Agency"
+        "Confidentiality, Isolation, Availability",
+        "Control, Integrity, Availability"
       ],
       "correctIndex": 1,
-      "why": "In information security, CIA is the core triad of goals: Confidentiality (keep data secret), Integrity (keep data accurate), and Availability (keep data accessible)."
+      "why": "The CIA triad is Confidentiality, Integrity, and Availability. Authentication, isolation, and control are real security ideas, but the third pillar is Availability, keeping data accessible."
     },
     {
       "q": "Which of the following is an example of a strong password?",
       "choices": [
-        "password123",
+        "football",
         "P@ssw0rd!",
-        "123456",
-        "admin"
+        "Winter2023",
+        "qwerty123"
       ],
       "correctIndex": 1,
-      "why": "Of the options, only P@ssw0rd! mixes upper and lower case, numbers, and symbols; the others are short common dictionary passwords. Note that even this pattern appears in cracking wordlists, so long unique passphrases are stronger in practice."
+      "why": "Only P@ssw0rd! combines upper and lower case, a number, and a symbol; the others rely on a dictionary word, a predictable year, or a keyboard pattern with fewer character types. Even this pattern is in cracking wordlists, so long passphrases are stronger."
     },
     {
       "q": "Which of the following is used to verify the integrity of a file?",
