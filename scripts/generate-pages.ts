@@ -362,6 +362,7 @@ const urls = [
   `${SITE}/frameworks/cis/`,
   `${SITE}/quiz/`,
   `${SITE}/assess/`,
+  `${SITE}/roadmap/`,
   ...keys.map((key) => `${SITE}/definitions/${slugForKey(key)}.html`),
   ...csfIds.map((id) => `${SITE}/frameworks/nist-csf/${frameworkSlug(id)}.html`),
   ...cisIds.map((id) => `${SITE}/frameworks/cis/${frameworkSlug(id)}.html`),

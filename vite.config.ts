@@ -13,6 +13,7 @@ export default defineConfig({
         cis: 'frameworks/cis/index.html',
         quiz: 'quiz/index.html',
         assess: 'assess/index.html',
+        roadmap: 'roadmap/index.html',
       },
     },
   },

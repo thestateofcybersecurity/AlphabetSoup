@@ -1,0 +1,151 @@
+import type { CisData, CsfData } from './frameworks';
+import { CSF_FUNCTIONS } from './frameworks';
+
+export type Quarter = 'Onboarding' | 'Q1' | 'Q2' | 'Q3' | 'Q4';
+export type TaskStatus = 'planned' | 'in-progress' | 'done';
+
+export interface RoadmapTask {
+  id: string;
+  label: string;
+  group: string;
+  detail: string;
+  defaultQuarter: Quarter;
+  /** Relative link to related site content, if any. */
+  link?: string;
+  hours?: number;
+}
+
+export interface TaskState {
+  quarter: Quarter;
+  status: TaskStatus;
+}
+
+export type PlanState = Record<string, TaskState>;
+
+export const QUARTERS: Quarter[] = ['Onboarding', 'Q1', 'Q2', 'Q3', 'Q4'];
+export const STATUS_CYCLE: TaskStatus[] = ['planned', 'in-progress', 'done'];
+
+/** One task per CSF 2.0 category, spread across the year by function. */
+export function csfPlan(csf: CsfData): RoadmapTask[] {
+  const functionQuarter: Record<string, Quarter> = {
+    GV: 'Q1',
+    ID: 'Q1',
+    PR: 'Q2',
+    DE: 'Q3',
+    RS: 'Q3',
+    RC: 'Q4',
+  };
+  const seen = new Map<string, { name: string; fn: string; count: number }>();
+  for (const id of Object.keys(csf).sort()) {
+    const entry = csf[id];
+    const existing = seen.get(entry.categoryCode);
+    if (existing) {
+      existing.count += 1;
+    } else {
+      seen.set(entry.categoryCode, { name: entry.category, fn: entry.functionCode, count: 1 });
+    }
+  }
+  const functionOrder = CSF_FUNCTIONS.map(([code]) => code);
+  return [...seen.entries()]
+    .sort(
+      (a, b) =>
+        functionOrder.indexOf(a[1].fn) - functionOrder.indexOf(b[1].fn) ||
+        a[0].localeCompare(b[0]),
+    )
+    .map(([code, info]) => ({
+      id: code,
+      label: `${code}: ${info.name}`,
+      group: CSF_FUNCTIONS.find(([c]) => c === info.fn)?.[1] ?? info.fn,
+      detail: `${info.count} subcategories`,
+      defaultQuarter: functionQuarter[info.fn] ?? 'Q4',
+      link: `../frameworks/nist-csf/?q=${code.toLowerCase()}`,
+    }));
+}
+
+/** One task per CIS control, scoped to an implementation group. */
+export function cisPlan(cis: CisData, igMap: Record<string, number>, ig: 1 | 2 | 3): RoadmapTask[] {
+  const controls = new Map<number, { name: string; inScope: number; total: number }>();
+  for (const id of Object.keys(cis)) {
+    const entry = cis[id];
+    const record = controls.get(entry.control) ?? { name: entry.controlName, inScope: 0, total: 0 };
+    record.total += 1;
+    if ((igMap[id] ?? 3) <= ig) record.inScope += 1;
+    controls.set(entry.control, record);
+  }
+  const quarterFor = (control: number): Quarter =>
+    control <= 6 ? 'Q1' : control <= 12 ? 'Q2' : control <= 16 ? 'Q3' : 'Q4';
+  return [...controls.entries()]
+    .sort((a, b) => a[0] - b[0])
+    .filter(([, info]) => info.inScope > 0)
+    .map(([control, info]) => ({
+      id: String(control),
+      label: `Control ${control}: ${info.name}`,
+      group: `IG${ig} scope`,
+      detail: `${info.inScope} of ${info.total} safeguards in IG${ig}`,
+      defaultQuarter: quarterFor(control),
+      link: `../frameworks/cis/?q=${control}.`,
+    }));
+}
+
+export interface VcisoTask {
+  task: string;
+  description: string;
+  hours: number;
+  package: 'Small' | 'Medium' | 'Large';
+  quarter: string;
+}
+
+const PACKAGE_RANK = { Small: 1, Medium: 2, Large: 3 } as const;
+
+/** vCISO engagement template; packages are cumulative (Large includes all). */
+export function vcisoPlan(tasks: VcisoTask[], pkg: 'Small' | 'Medium' | 'Large'): RoadmapTask[] {
+  const quarterMap: Record<string, Quarter> = {
+    Onboarding: 'Onboarding',
+    'First Quarter': 'Q1',
+    'Second Quarter': 'Q2',
+    'Third Quarter': 'Q3',
+    'Fourth Quarter': 'Q4',
+  };
+  return tasks
+    .filter((task) => PACKAGE_RANK[task.package] <= PACKAGE_RANK[pkg])
+    .map((task, index) => ({
+      id: `v${index}`,
+      label: task.task,
+      group: `${task.package} package`,
+      detail: task.description,
+      defaultQuarter: quarterMap[task.quarter] ?? 'Q1',
+      hours: task.hours,
+    }));
+}
+
+export function totalHours(tasks: RoadmapTask[]): number {
+  return Math.round(tasks.reduce((sum, task) => sum + (task.hours ?? 0), 0) * 10) / 10;
+}
+
+export function planProgress(tasks: RoadmapTask[], state: PlanState): { done: number; total: number } {
+  const done = tasks.filter((task) => state[task.id]?.status === 'done').length;
+  return { done, total: tasks.length };
+}
+
+export function nextStatus(status: TaskStatus): TaskStatus {
+  return STATUS_CYCLE[(STATUS_CYCLE.indexOf(status) + 1) % STATUS_CYCLE.length];
+}
+
+const csvEscape = (value: string): string =>
+  /[",\n]/.test(value) ? `"${value.replace(/"/g, '""')}"` : value;
+
+export function planToCsv(tasks: RoadmapTask[], state: PlanState): string {
+  const rows = [['id', 'task', 'group', 'quarter', 'status', 'hours']];
+  for (const task of tasks) {
+    const taskState = state[task.id] ?? { quarter: task.defaultQuarter, status: 'planned' };
+    rows.push([
+      task.id,
+      task.label,
+      task.group,
+      taskState.quarter,
+      taskState.status,
+      task.hours != null ? String(task.hours) : '',
+    ]);
+  }
+  return rows.map((row) => row.map(csvEscape).join(',')).join('\n') + '\n';
+}

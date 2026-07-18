@@ -690,6 +690,147 @@ body {
   }
 }
 
+.theme-roadmap {
+  --tomato: #a3622b;
+  --tomato-deep: #82491c;
+  --broth: #d8a35a;
+}
+
+@media (prefers-color-scheme: dark) {
+  .theme-roadmap {
+    --tomato: #d69a56;
+    --tomato-deep: #e4b57e;
+    --broth: #9a6c33;
+  }
+}
+
+/* ------------------------------ roadmap ---------------------------- */
+
+.ladle-wide {
+  max-width: 1180px;
+}
+
+.plan-controls {
+  display: flex;
+  align-items: end;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-bottom: 10px;
+}
+
+.plan-summary {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+  margin-bottom: 14px;
+}
+
+.board {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+  gap: 12px;
+  align-items: start;
+}
+
+.board-col {
+  border: 1.5px solid var(--line);
+  border-radius: 12px;
+  background: color-mix(in srgb, var(--paper-raised) 60%, transparent);
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.board-col-head {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+  margin: 2px 4px 4px;
+}
+
+.task-card {
+  border: 1.5px solid var(--line);
+  border-radius: 10px;
+  background: var(--paper-raised);
+  padding: 10px 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.task-card.is-done {
+  opacity: 0.65;
+}
+
+.task-card.is-in-progress {
+  border-color: var(--tomato);
+}
+
+.status-chip {
+  appearance: none;
+  align-self: flex-start;
+  font-family: var(--font-mono);
+  font-size: 0.62rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  border: 1.5px solid var(--line);
+  border-radius: 999px;
+  background: transparent;
+  color: var(--ink-soft);
+  padding: 3px 10px;
+  cursor: pointer;
+}
+
+.is-in-progress .status-chip {
+  border-color: var(--tomato);
+  color: var(--tomato);
+}
+
+.is-done .status-chip {
+  background: var(--tomato);
+  border-color: var(--tomato);
+  color: #fff;
+}
+
+.task-label {
+  font-size: 0.88rem;
+  font-weight: 600;
+  line-height: 1.4;
+}
+
+.task-label a {
+  color: var(--ink);
+  text-decoration: none;
+  border-bottom: 1px dashed var(--line);
+}
+
+.task-label a:hover {
+  color: var(--tomato);
+  border-bottom-color: var(--tomato);
+}
+
+.task-detail {
+  font-size: 0.74rem;
+  color: var(--ink-soft);
+  line-height: 1.45;
+}
+
+.quarter-select {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  background: var(--paper);
+  color: var(--ink-soft);
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  padding: 3px 6px;
+  align-self: flex-start;
+}
+
 /* ----------------------------- assessment -------------------------- */
 
 .assess-card {

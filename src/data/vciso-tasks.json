@@ -1,0 +1,625 @@
+[
+  {
+    "task": "Workplan Presentation",
+    "description": "The vCISO will present the comprehensive security roadmap to the customer, outlining planned activities, timelines, responsibilities, and expected outcomes to ensure alignment and set clear expectations.",
+    "hours": 1.0,
+    "package": "Small",
+    "quarter": "Onboarding"
+  },
+  {
+    "task": "Review Compliance Requirements",
+    "description": "Verify and document all relevant compliance obligations, including standards, regulations, legal, contractual, and statutory requirements applicable to the organization. This ensures that all security initiatives align with mandatory compliance needs and prepares the organization for potential audits and assessments.",
+    "hours": 1.0,
+    "package": "Small",
+    "quarter": "Onboarding"
+  },
+  {
+    "task": "Cloud Configuration Assessment",
+    "description": "The vCISO SecOps team will conduct a thorough review of the organization's cloud environment to assess current configurations, identify misconfigurations or vulnerabilities, and recommend appropriate controls and best practices to enhance security posture and compliance.",
+    "hours": 14.0,
+    "package": "Small",
+    "quarter": "Onboarding"
+  },
+  {
+    "task": "Roadmap and Workplan Creation",
+    "description": "Develop a detailed security roadmap and workplan based on initial assessments, customer priorities, and identified risks. This plan will serve as a strategic guide for implementing security initiatives over the defined period.",
+    "hours": 29.0,
+    "package": "Small",
+    "quarter": "Onboarding"
+  },
+  {
+    "task": "External Vulnerability Scans",
+    "description": "Perform comprehensive scans of the organization's external attack surface using provided IPs and URLs to identify potential vulnerabilities and weaknesses that could be exploited by external threat actors. Findings will be analyzed, and remediation plans will be developed accordingly.",
+    "hours": 7.0,
+    "package": "Small",
+    "quarter": "Onboarding"
+  },
+  {
+    "task": "Enterprise Risk Assessment",
+    "description": "Conduct a systematic risk assessment to identify and evaluate potential threats, assess the likelihood and impact of various security events, and prioritize risks based on their significance to the organization. This forms the basis for developing effective risk mitigation strategies.",
+    "hours": 21.0,
+    "package": "Small",
+    "quarter": "Onboarding"
+  },
+  {
+    "task": "Workspace Hardening (Google/AAD)",
+    "description": "Perform a CIS (Center for Internet Security) benchmark-based hardening review of the organization's identity providers (e.g., Google Workspace, Azure Active Directory) to ensure configurations adhere to industry best practices and reduce the risk of unauthorized access and data breaches.",
+    "hours": 21.0,
+    "package": "Small",
+    "quarter": "Onboarding"
+  },
+  {
+    "task": "Security Framework Gap Assessment",
+    "description": "Evaluate the organization's current security controls and practices against selected frameworks (e.g., ISO 27001, NIST CSF, CIS Controls) to identify gaps and areas for improvement. This assessment informs the development of targeted action plans to achieve compliance and enhance security maturity.",
+    "hours": 21.0,
+    "package": "Small",
+    "quarter": "Onboarding"
+  },
+  {
+    "task": "Ransomware Assessment",
+    "description": "Analyze the organization's susceptibility to ransomware attacks by reviewing existing controls, backup strategies, user awareness, and incident response capabilities. Provide recommendations to strengthen defenses and prepare effective response strategies in case of a ransomware incident.",
+    "hours": 7.0,
+    "package": "Small",
+    "quarter": "Onboarding"
+  },
+  {
+    "task": "Account Inventory",
+    "description": "Compile a comprehensive inventory of all user and service accounts across systems and applications, identifying inactive, redundant, or privileged accounts that may pose security risks. Implement processes for regular review and maintenance of account hygiene.",
+    "hours": 3.0,
+    "package": "Small",
+    "quarter": "Onboarding"
+  },
+  {
+    "task": "Data Inventory",
+    "description": "Identify and catalog all types of data within the organization, including sensitive and regulated data. Understand data flows, storage locations, and access controls to ensure proper data protection measures are in place and compliance requirements are met.",
+    "hours": 3.0,
+    "package": "Small",
+    "quarter": "Onboarding"
+  },
+  {
+    "task": "Security Logging and Alerting Review",
+    "description": "Assess the current security logging and monitoring infrastructure to ensure that all critical systems and applications are adequately covered. Review alerting mechanisms for effectiveness and recommend enhancements to promptly detect and respond to security incidents.",
+    "hours": 3.0,
+    "package": "Small",
+    "quarter": "Onboarding"
+  },
+  {
+    "task": "Asset Inventory",
+    "description": "Develop and maintain a detailed inventory of all hardware and software assets within the organization. This includes tracking asset ownership, configurations, and lifecycle status to support effective security management and vulnerability assessment efforts.",
+    "hours": 3.0,
+    "package": "Small",
+    "quarter": "Onboarding"
+  },
+  {
+    "task": "Software Inventory",
+    "description": "Create an exhaustive list of all software applications and versions used within the organization. Identify unauthorized or outdated software that may introduce security risks and establish procedures for regular updates and patch management.",
+    "hours": 3.0,
+    "package": "Small",
+    "quarter": "Onboarding"
+  },
+  {
+    "task": "SDLC Review",
+    "description": "Evaluate the organization's Software Development Life Cycle (SDLC) processes to ensure that security is integrated at every stage of development. Recommend practices such as secure coding standards, code reviews, and security testing to enhance the security of developed applications.",
+    "hours": 7.0,
+    "package": "Small",
+    "quarter": "Onboarding"
+  },
+  {
+    "task": "Third-Party Risk Assessment*",
+    "description": "Evaluate the security posture of third-party vendors and partners to identify potential risks arising from external relationships. Establish processes for assessing, monitoring, and managing third-party risks throughout the vendor lifecycle.",
+    "hours": 14.0,
+    "package": "Small",
+    "quarter": "Onboarding"
+  },
+  {
+    "task": "Security Awareness Training Program*",
+    "description": "Develop and initiate a comprehensive security awareness training program tailored to the organization's needs, educating employees about security policies, best practices, and how to recognize and respond to common threats such as phishing and social engineering attacks.",
+    "hours": 3.0,
+    "package": "Small",
+    "quarter": "Onboarding"
+  },
+  {
+    "task": "Policies and Procedures",
+    "description": "Establish, document, approve, communicate, and maintain comprehensive audit and assurance policies and procedures. Ensure they are aligned with industry standards and regulatory requirements. Regularly review and update these documents (at least annually) to reflect changes in the organizational structure, technology, and threat landscape.",
+    "hours": 21.0,
+    "package": "Small",
+    "quarter": "First Quarter"
+  },
+  {
+    "task": "Audit Management Process",
+    "description": "Define and implement a structured Audit Management process that supports effective audit planning, risk analysis, security control assessments, issue tracking, remediation scheduling, report generation, and historical review. This process ensures audits are conducted efficiently and findings are systematically addressed.",
+    "hours": 3.0,
+    "package": "Small",
+    "quarter": "First Quarter"
+  },
+  {
+    "task": "BCP Documentation",
+    "description": "Develop and maintain detailed Business Continuity Plan (BCP) documentation that outlines procedures for maintaining and restoring business operations in the event of disruptions. Ensure documentation is accessible to authorized stakeholders and includes roles, responsibilities, recovery strategies, and communication plans.",
+    "hours": 3.0,
+    "package": "Small",
+    "quarter": "First Quarter"
+  },
+  {
+    "task": "Information Security Program",
+    "description": "Develop and implement a comprehensive Information Security Program encompassing all relevant security domains outlined in the Cloud Controls Matrix (CCM) or equivalent frameworks. This program should define security objectives, strategies, policies, controls, and metrics to protect organizational assets and information.",
+    "hours": 3.0,
+    "package": "Small",
+    "quarter": "First Quarter"
+  },
+  {
+    "task": "Roadmap Updates & Maintenance",
+    "description": "Continuously update and maintain the security roadmap based on findings from ongoing assessments, changes in the threat landscape, and evolving business priorities. Ensure the roadmap remains aligned with industry best practices and compliance requirements, providing a clear path for ongoing security improvements.",
+    "hours": 12.0,
+    "package": "Small",
+    "quarter": "First Quarter"
+  },
+  {
+    "task": "Risk Management Program",
+    "description": "Establish a formal, documented, and leadership-endorsed Enterprise Risk Management (ERM) program that outlines processes for identifying, evaluating, mitigating, and monitoring security and privacy risks. Integrate risk management into organizational decision-making and ensure accountability for risk ownership and treatment.",
+    "hours": 7.0,
+    "package": "Small",
+    "quarter": "First Quarter"
+  },
+  {
+    "task": "Governance Responsibility Model",
+    "description": "Define and document a clear governance model that outlines roles, responsibilities, and accountability for information security across the organization. Establish committees or forums as needed to oversee security initiatives, policies, and compliance efforts, ensuring effective decision-making and stakeholder engagement.",
+    "hours": 3.0,
+    "package": "Small",
+    "quarter": "First Quarter"
+  },
+  {
+    "task": "Policy Exception Process",
+    "description": "Develop a formal process for requesting, reviewing, approving, and documenting exceptions to established security policies and standards. Ensure that exceptions are granted based on justified business needs, assessed risks, and include defined expiration dates and compensating controls where necessary.",
+    "hours": 1.0,
+    "package": "Small",
+    "quarter": "First Quarter"
+  },
+  {
+    "task": "Corrective Action Plan",
+    "description": "Create and manage a Corrective Action Plan (CAP) to systematically address and remediate identified security gaps, vulnerabilities, and audit findings. Assign responsibilities, set timelines, and monitor progress to ensure effective and timely resolution of security issues.",
+    "hours": 21.0,
+    "package": "Small",
+    "quarter": "First Quarter"
+  },
+  {
+    "task": "SIEM and Managed SOC Deployment",
+    "description": "Implement a Security Information and Event Management (SIEM) system integrated with a Managed Security Operations Center (SOC) to provide real-time monitoring, detection, and response capabilities for security incidents across the organization's infrastructure and applications.",
+    "hours": 14.0,
+    "package": "Small",
+    "quarter": "First Quarter"
+  },
+  {
+    "task": "Quarterly External Vulnerability Scans",
+    "description": "Conduct quarterly Authorized Scanning Vendor (ASV) vulnerability scans on validated external URLs and IP addresses. Analyze scan results, communicate findings to relevant stakeholders, and develop remediation plans with defined target dates. The client is responsible for providing updated URLs/IPs and implementing remediation efforts.",
+    "hours": 7.0,
+    "package": "Small",
+    "quarter": "First Quarter"
+  },
+  {
+    "task": "Quarterly Steering Committee Leadership",
+    "description": "Facilitate quarterly meetings with high-level members of the client's organization to review security program progress, discuss emerging risks, and make strategic decisions. These sessions ensure executive alignment, resource support, and guidance for the ongoing success of the security program.",
+    "hours": 3.0,
+    "package": "Small",
+    "quarter": "First Quarter"
+  },
+  {
+    "task": "Quarterly Phishing Campaigns",
+    "description": "Plan and execute quarterly phishing simulation campaigns targeting selected user groups. Customize scenarios to reflect realistic threats, track user responses, and provide detailed reports on campaign outcomes. Use results to inform and enhance security awareness training and reduce susceptibility to phishing attacks.",
+    "hours": 3.0,
+    "package": "Small",
+    "quarter": "First Quarter"
+  },
+  {
+    "task": "Quarterly Admin and User Account Review/Audit",
+    "description": "Perform quarterly reviews and audits of all administrative and user accounts to identify and address issues such as unnecessary privileges, orphaned accounts, and compliance with access control policies. Ensure proper account management practices are upheld to minimize the risk of unauthorized access.",
+    "hours": 3.0,
+    "package": "Small",
+    "quarter": "First Quarter"
+  },
+  {
+    "task": "Quarterly Application Security Scans",
+    "description": "Conduct quarterly security scans of critical applications using tools such as Static Application Security Testing (SAST) and Dynamic Application Security Testing (DAST) to identify vulnerabilities in the code and application behavior. Prioritize and coordinate remediation efforts to maintain a strong application security posture.",
+    "hours": 7.0,
+    "package": "Small",
+    "quarter": "First Quarter"
+  },
+  {
+    "task": "Quarterly Security Awareness Training",
+    "description": "Deliver quarterly security awareness training sessions to reinforce key security concepts, address emerging threats, and educate employees based on recent security incidents and assessment findings. Tailor training content to be relevant and engaging, fostering a strong security culture within the organization.",
+    "hours": 3.0,
+    "package": "Small",
+    "quarter": "First Quarter"
+  },
+  {
+    "task": "Data Protection Impact Assessment (DPIA)*",
+    "description": "Conduct DPIAs to assess and mitigate risks associated with processing sensitive or personal data, ensuring compliance with data protection regulations such as GDPR. Document findings and implement recommended controls to safeguard data privacy and security.",
+    "hours": 50.0,
+    "package": "Medium",
+    "quarter": "First Quarter"
+  },
+  {
+    "task": "Network Segmentation Review and Implementation*",
+    "description": "Assess the current network architecture and implement segmentation strategies to limit the spread of potential breaches and enhance control over data flows. Define and enforce network access controls based on the principle of least privilege.",
+    "hours": 7.0,
+    "package": "Small",
+    "quarter": "First Quarter"
+  },
+  {
+    "task": "Encryption Standards Implementation*",
+    "description": "Develop and enforce encryption standards for data at rest and in transit across all systems and applications. Ensure that robust cryptographic protocols and key management practices are in place to protect sensitive information.",
+    "hours": 3.0,
+    "package": "Small",
+    "quarter": "First Quarter"
+  },
+  {
+    "task": "Patch Management Process Establishment*",
+    "description": "Define and implement a comprehensive patch management process to ensure timely identification, testing, and deployment of security patches across all systems and applications. Monitor compliance and effectiveness of the process through regular reporting and audits.",
+    "hours": 7.0,
+    "package": "Small",
+    "quarter": "First Quarter"
+  },
+  {
+    "task": "External Infrastructure Penetration Testing",
+    "description": "Conduct thorough penetration testing on the organization's external network infrastructure to identify security weaknesses and potential entry points that could be exploited by attackers. Provide a detailed report of findings along with prioritized remediation recommendations to strengthen external defenses.",
+    "hours": 40.0,
+    "package": "Large",
+    "quarter": "Second Quarter"
+  },
+  {
+    "task": "Internal Infrastructure Penetration Testing",
+    "description": "Perform comprehensive penetration testing of internal network infrastructure to uncover vulnerabilities and misconfigurations that could be leveraged by internal or compromised actors. Assess the effectiveness of existing security controls and provide actionable recommendations to enhance internal network security.",
+    "hours": 40.0,
+    "package": "Large",
+    "quarter": "Second Quarter"
+  },
+  {
+    "task": "Lunch and Learn",
+    "description": "Organize interactive \"Lunch and Learn\" sessions focused on various security topics to promote continuous education and awareness among employees. These informal sessions encourage engagement and discussion, fostering a proactive security culture within the organization.",
+    "hours": 7.0,
+    "package": "Medium",
+    "quarter": "Second Quarter"
+  },
+  {
+    "task": "Supply Chain Data Security Assessment",
+    "description": "Evaluate the security practices and controls of key suppliers and partners to identify risks associated with the supply chain. Assess how third-party security measures impact the organization's data security and develop strategies to manage and mitigate identified risks effectively.",
+    "hours": 14.0,
+    "package": "Medium",
+    "quarter": "Second Quarter"
+  },
+  {
+    "task": "Incident Response Plans",
+    "description": "Develop comprehensive Incident Response Plans (IRPs) outlining procedures for identifying, containing, eradicating, and recovering from security incidents. Define roles and responsibilities, communication protocols, and escalation paths to ensure swift and effective response to various incident scenarios.",
+    "hours": 7.0,
+    "package": "Medium",
+    "quarter": "Second Quarter"
+  },
+  {
+    "task": "Cloud Configuration Assessment",
+    "description": "Reassess the organization's cloud environments to ensure ongoing compliance with security best practices and address any new vulnerabilities or configuration issues. Update recommendations and remediation plans based on the latest cloud security developments and organizational changes.",
+    "hours": 7.0,
+    "package": "Medium",
+    "quarter": "Second Quarter"
+  },
+  {
+    "task": "BCP Documentation",
+    "description": "Review and update Business Continuity Plan (BCP) documentation to reflect changes in business operations, technology, and external factors. Ensure that the BCP remains relevant and effective in addressing potential disruptions and maintaining critical business functions.",
+    "hours": 7.0,
+    "package": "Medium",
+    "quarter": "Second Quarter"
+  },
+  {
+    "task": "Business Continuity Strategy",
+    "description": "Develop and refine comprehensive business continuity strategies that outline how the organization will maintain and restore operations during and after disruptive events. Align strategies with organizational objectives, risk assessments, and resource capabilities to ensure resilience and operational continuity. This includes Business Impact Assessments (BIA).",
+    "hours": 21.0,
+    "package": "Medium",
+    "quarter": "Second Quarter"
+  },
+  {
+    "task": "Backup Restore Test",
+    "description": "Conduct tests of backup and restore procedures to verify the integrity and availability of critical data. Identify and address any issues in backup processes, ensuring that data can be successfully recovered in the event of data loss or system failures.",
+    "hours": 1.0,
+    "package": "Medium",
+    "quarter": "Second Quarter"
+  },
+  {
+    "task": "Data Classification Scheme",
+    "description": "Develop and implement a data classification scheme that categorizes data based on sensitivity and criticality. Define handling, storage, and access requirements for each classification level to ensure appropriate protection measures are applied consistently across the organization.",
+    "hours": 7.0,
+    "package": "Medium",
+    "quarter": "Second Quarter"
+  },
+  {
+    "task": "Data Segmentation Planning",
+    "description": "Plan and implement data segmentation strategies to isolate and protect sensitive data within the organization's networks and systems. Define access controls and monitoring mechanisms to prevent unauthorized access and reduce the potential impact of data breaches.",
+    "hours": 14.0,
+    "package": "Medium",
+    "quarter": "Second Quarter"
+  },
+  {
+    "task": "Quarterly External Vulnerability Scans",
+    "description": "Continue conducting quarterly ASV vulnerability scans on validated external assets, analyzing results, communicating findings, and coordinating remediation efforts to maintain a strong security posture against external threats.",
+    "hours": 7.0,
+    "package": "Small",
+    "quarter": "Second Quarter"
+  },
+  {
+    "task": "Quarterly Steering Committee Leadership",
+    "description": "Lead quarterly meetings with organizational leadership to review progress, discuss emerging security challenges, assess the effectiveness of implemented controls, and adjust strategies as needed to ensure ongoing alignment with business objectives and risk tolerance.",
+    "hours": 3.0,
+    "package": "Small",
+    "quarter": "Second Quarter"
+  },
+  {
+    "task": "Roadmap Maintenance",
+    "description": "Update and adjust the security roadmap based on insights from recent assessments, testing results, and changes in organizational priorities or threat landscapes. Ensure that the roadmap remains a dynamic and actionable guide for future security initiatives.",
+    "hours": 12.0,
+    "package": "Small",
+    "quarter": "Second Quarter"
+  },
+  {
+    "task": "Quarterly Phishing Campaigns",
+    "description": "Execute targeted phishing simulation exercises, analyze outcomes, and provide feedback and training to improve employee awareness and resilience against social engineering attacks. Tailor scenarios to address specific threats relevant to the organization's context.",
+    "hours": 3.0,
+    "package": "Small",
+    "quarter": "Second Quarter"
+  },
+  {
+    "task": "Quarterly Admin and User Account Review/Audit",
+    "description": "Perform systematic reviews of user and administrative accounts to ensure compliance with access control policies, identify and remediate privilege creep, and remove inactive or unnecessary accounts. Document findings and corrective actions taken to maintain robust identity and access management.",
+    "hours": 3.0,
+    "package": "Small",
+    "quarter": "Second Quarter"
+  },
+  {
+    "task": "Quarterly Application Security Scans",
+    "description": "Conduct regular security assessments of applications through automated and manual testing methods to detect and remediate vulnerabilities. Prioritize high-risk issues and track remediation progress to continuously improve application security.",
+    "hours": 7.0,
+    "package": "Small",
+    "quarter": "Second Quarter"
+  },
+  {
+    "task": "Quarterly Security Awareness Training",
+    "description": "Deliver updated and engaging security awareness training sessions incorporating lessons learned from recent incidents, assessments, and industry trends. Reinforce key security practices and promote a culture of security mindfulness among all employees.",
+    "hours": 3.0,
+    "package": "Small",
+    "quarter": "Second Quarter"
+  },
+  {
+    "task": "Mobile Device Management (MDM) Assessment and Implementation*",
+    "description": "Evaluate current mobile device usage and security controls within the organization. Implement or enhance MDM solutions to enforce security policies, manage device configurations, and protect organizational data accessed through mobile devices.",
+    "hours": 7.0,
+    "package": "Medium",
+    "quarter": "Second Quarter"
+  },
+  {
+    "task": "Privileged Access Management (PAM) Implementation*",
+    "description": "Deploy a Privileged Access Management solution to secure, control, and monitor access to critical systems and data by privileged users. Establish processes for granting, revoking, and auditing privileged access to reduce the risk of insider threats and unauthorized activities.",
+    "hours": 21.0,
+    "package": "Medium",
+    "quarter": "Second Quarter"
+  },
+  {
+    "task": "Secure Configuration Baseline Development*",
+    "description": "Create and enforce secure configuration baselines for all critical systems and applications based on industry standards and best practices. Regularly assess configurations for compliance and address deviations to maintain a consistent and secure operational environment.",
+    "hours": 7.0,
+    "package": "Medium",
+    "quarter": "Second Quarter"
+  },
+  {
+    "task": "Application Penetration Testing",
+    "description": "Perform in-depth penetration testing on critical applications to identify and exploit potential security vulnerabilities. The testing should cover both web and mobile applications, focusing on areas such as authentication, authorization, input validation, and business logic vulnerabilities. Detailed reports should guide remediation efforts.",
+    "hours": 40.0,
+    "package": "Large",
+    "quarter": "Third Quarter"
+  },
+  {
+    "task": "Social Engineering",
+    "description": "Carry out social engineering assessments, including pretexting, baiting, and other techniques, to gauge how susceptible the organization's employees are to manipulation. The results should be used to improve security awareness training and to implement additional controls to reduce the risk of successful social engineering attacks.",
+    "hours": 21.0,
+    "package": "Medium",
+    "quarter": "Third Quarter"
+  },
+  {
+    "task": "Secure Application Design",
+    "description": "Review and update secure application design practices across the development teams to ensure that security is considered at every stage of the software development lifecycle. This includes implementing secure coding standards, threat modeling, and code review processes to prevent the introduction of vulnerabilities.",
+    "hours": 12.0,
+    "package": "Medium",
+    "quarter": "Third Quarter"
+  },
+  {
+    "task": "Internal Compliance Testing",
+    "description": "Conduct internal compliance testing to ensure that the organization adheres to its internal security policies and procedures. This testing should be aligned with the requirements of relevant regulatory standards and should include a review of documentation, processes, and security controls to identify areas of non-compliance.",
+    "hours": 7.0,
+    "package": "Medium",
+    "quarter": "Third Quarter"
+  },
+  {
+    "task": "Audit Log Review",
+    "description": "Perform a comprehensive review of audit logs across critical systems to detect any signs of unauthorized access, data exfiltration, or other malicious activities. Ensure that logs are being properly collected, stored, and analyzed to support incident detection and response efforts.",
+    "hours": 7.0,
+    "package": "Medium",
+    "quarter": "Third Quarter"
+  },
+  {
+    "task": "Audit Management Process",
+    "description": "Continue refining the Audit Management process, incorporating feedback from recent audits and ensuring that all audit activities are well-documented and aligned with organizational goals. This process should support continuous improvement in the organization’s security posture by identifying gaps and tracking remediation efforts.",
+    "hours": 21.0,
+    "package": "Large",
+    "quarter": "Third Quarter"
+  },
+  {
+    "task": "Endpoint Management Plan",
+    "description": "Develop an Endpoint Management Plan that outlines the strategies and tools used to secure all endpoints within the organization. This plan should include policies for endpoint detection and response (EDR), patch management, and the secure configuration of devices.",
+    "hours": 3.0,
+    "package": "Large",
+    "quarter": "Third Quarter"
+  },
+  {
+    "task": "Secure Configuration Procedure",
+    "description": "Implement a Secure Configuration Procedure to ensure that all systems and applications are configured according to security best practices. This procedure should be documented, regularly reviewed, and enforced across the organization to prevent configuration-related vulnerabilities.",
+    "hours": 7.0,
+    "package": "Large",
+    "quarter": "Third Quarter"
+  },
+  {
+    "task": "EDR Configuration Review",
+    "description": "Review and optimize the configuration of Endpoint Detection and Response (EDR) systems to ensure that they are effectively detecting, preventing, and responding to threats across all endpoints. This includes tuning alerts, updating threat intelligence feeds, and ensuring that EDR coverage is comprehensive.",
+    "hours": 7.0,
+    "package": "Large",
+    "quarter": "Third Quarter"
+  },
+  {
+    "task": "IDS/IPS Deployment",
+    "description": "Deploy Intrusion Detection Systems (IDS) and Intrusion Prevention Systems (IPS) across the organization’s network to monitor and block malicious activities. The deployment should include the configuration of rules, alerts, and response actions to protect against both internal and external threats.",
+    "hours": 14.0,
+    "package": "Large",
+    "quarter": "Third Quarter"
+  },
+  {
+    "task": "MDM Deployment",
+    "description": "Implement a Mobile Device Management (MDM) solution to secure and manage all mobile devices used within the organization. This includes enforcing security policies, managing device configurations, and ensuring that all mobile devices are regularly updated with the latest security patches.",
+    "hours": 7.0,
+    "package": "Large",
+    "quarter": "Third Quarter"
+  },
+  {
+    "task": "Incident Response Planning",
+    "description": "Update and refine Incident Response Plans (IRPs) to address any gaps identified during the previous quarter’s testing and exercises. Ensure that the plans remain aligned with the organization’s risk profile and business continuity objectives.",
+    "hours": 7.0,
+    "package": "Large",
+    "quarter": "Third Quarter"
+  },
+  {
+    "task": "Vendor Management Procedures",
+    "description": "Establish or update Vendor Management Procedures to ensure that third-party vendors comply with the organization’s security requirements. This includes conducting regular security assessments of vendors, managing contracts, and enforcing compliance with data protection standards.",
+    "hours": 7.0,
+    "package": "Large",
+    "quarter": "Third Quarter"
+  },
+  {
+    "task": "Quarterly External Vulnerability Scans",
+    "description": "Continue conducting quarterly ASV vulnerability scans on validated external assets, analyzing results, communicating findings, and coordinating remediation efforts to maintain a strong security posture against external threats.",
+    "hours": 7.0,
+    "package": "Small",
+    "quarter": "Third Quarter"
+  },
+  {
+    "task": "Quarterly Steering Committee Leadership",
+    "description": "Lead quarterly meetings with organizational leadership to review progress, discuss emerging security challenges, assess the effectiveness of implemented controls, and adjust strategies as needed to ensure ongoing alignment with business objectives and risk tolerance.",
+    "hours": 3.0,
+    "package": "Small",
+    "quarter": "Third Quarter"
+  },
+  {
+    "task": "Roadmap Maintenance",
+    "description": "Update and adjust the security roadmap based on insights from recent assessments, testing results, and changes in organizational priorities or threat landscapes. Ensure that the roadmap remains a dynamic and actionable guide for future security initiatives.",
+    "hours": 12.0,
+    "package": "Small",
+    "quarter": "Third Quarter"
+  },
+  {
+    "task": "Quarterly Phishing Campaigns",
+    "description": "Execute targeted phishing simulation exercises, analyze outcomes, and provide feedback and training to improve employee awareness and resilience against social engineering attacks. Tailor scenarios to address specific threats relevant to the organization's context.",
+    "hours": 3.0,
+    "package": "Small",
+    "quarter": "Third Quarter"
+  },
+  {
+    "task": "Quarterly Admin and User Account Review/Audit",
+    "description": "Perform systematic reviews of user and administrative accounts to ensure compliance with access control policies, identify and remediate privilege creep, and remove inactive or unnecessary accounts. Document findings and corrective actions taken to maintain robust identity and access management.",
+    "hours": 3.0,
+    "package": "Small",
+    "quarter": "Third Quarter"
+  },
+  {
+    "task": "Quarterly Application Security Scans",
+    "description": "Conduct regular security assessments of applications through automated and manual testing methods to detect and remediate vulnerabilities. Prioritize high-risk issues and track remediation progress to continuously improve application security.",
+    "hours": 7.0,
+    "package": "Small",
+    "quarter": "Third Quarter"
+  },
+  {
+    "task": "Quarterly Security Awareness Training",
+    "description": "Deliver updated and engaging security awareness training sessions incorporating lessons learned from recent incidents, assessments, and industry trends. Reinforce key security practices and promote a culture of security mindfulness among all employees.",
+    "hours": 3.0,
+    "package": "Small",
+    "quarter": "Third Quarter"
+  },
+  {
+    "task": "Annual Audit",
+    "description": "Coordinate and conduct the annual security audit, ensuring that all aspects of the organization's security program are reviewed for compliance with internal policies and external regulations. The audit should cover areas such as data protection, access control, incident response, and risk management, with a focus on continuous improvement.",
+    "hours": 40.0,
+    "package": "Large",
+    "quarter": "Fourth Quarter"
+  },
+  {
+    "task": "Business Continuity Exercise",
+    "description": "Organize and conduct a full-scale Business Continuity Exercise to test the effectiveness of the organization’s Business Continuity Plan (BCP). The exercise should simulate a significant disruption to critical operations, allowing the organization to evaluate its response capabilities and identify areas for improvement.",
+    "hours": 12.0,
+    "package": "Large",
+    "quarter": "Fourth Quarter"
+  },
+  {
+    "task": "Incident Response Test",
+    "description": "Conduct a comprehensive Incident Response Test to evaluate the organization’s ability to respond to various types of security incidents, such as data breaches, ransomware attacks, and insider threats. The test should involve all relevant stakeholders and should be followed by a detailed analysis and update of the Incident Response Plan (IRP).",
+    "hours": 12.0,
+    "package": "Large",
+    "quarter": "Fourth Quarter"
+  },
+  {
+    "task": "Quarterly External Vulnerability Scans",
+    "description": "Continue with the quarterly external vulnerability scans, ensuring that all findings are addressed promptly. The scans should be followed by detailed reports that outline the risks identified, the potential impact on the organization, and the steps taken to mitigate these risks. Regular scans help maintain a strong security posture.",
+    "hours": 7.0,
+    "package": "Small",
+    "quarter": "Fourth Quarter"
+  },
+  {
+    "task": "Quarterly Steering Committee Leadership",
+    "description": "Lead the final Steering Committee meeting of the year, focusing on reviewing the year’s security initiatives, assessing the progress made towards the organization’s security goals, and planning for the next year. This meeting should also involve setting new security objectives based on emerging threats and changes in the business environment.",
+    "hours": 3.0,
+    "package": "Small",
+    "quarter": "Fourth Quarter"
+  },
+  {
+    "task": "Roadmap Maintenance",
+    "description": "Review and update the security roadmap to reflect the progress made during the year and to incorporate any new initiatives or changes in priorities for the upcoming year. This ensures that the roadmap remains a living document that guides the organization’s security strategy effectively.",
+    "hours": 12.0,
+    "package": "Small",
+    "quarter": "Fourth Quarter"
+  },
+  {
+    "task": "Quarterly Phishing Campaigns",
+    "description": "Execute the final phishing campaign of the year, focusing on advanced phishing techniques and new threat vectors. The results should be analyzed to identify any persistent vulnerabilities, and the outcomes should inform the security awareness training program for the following year. This helps to continuously improve the organization’s defenses.",
+    "hours": 3.0,
+    "package": "Small",
+    "quarter": "Fourth Quarter"
+  },
+  {
+    "task": "Quarterly Admin and User Account Review/Audit",
+    "description": "Perform the final quarterly review and audit of administrative and user accounts for the year, ensuring that all accounts are properly managed and that any security risks are mitigated. This review should also include planning for any changes in account management practices that may be necessary for the following year.",
+    "hours": 3.0,
+    "package": "Small",
+    "quarter": "Fourth Quarter"
+  },
+  {
+    "task": "Quarterly Application Security Scans",
+    "description": "Conduct the final application security scans of the year, focusing on ensuring that all critical applications are free from vulnerabilities. The findings should be used to plan remediation efforts for the following year and to update the security roadmap with any necessary adjustments.",
+    "hours": 7.0,
+    "package": "Small",
+    "quarter": "Fourth Quarter"
+  },
+  {
+    "task": "Quarterly Security Awareness Training",
+    "description": "Deliver the final security awareness training session of the year, summarizing the key lessons learned throughout the year and focusing on areas where improvement is needed. This training should also introduce employees to any new security policies or initiatives planned for the next year, ensuring a smooth transition and continuous improvement.",
+    "hours": 3.0,
+    "package": "Small",
+    "quarter": "Fourth Quarter"
+  },
+  {
+    "task": "Physical Penetration Test",
+    "description": "A Physical Penetration Test is a security assessment designed to evaluate the effectiveness of an organization’s physical security controls by simulating real-world intrusion scenarios. The primary goal of this test is to identify vulnerabilities in physical security measures, such as access controls, surveillance systems, and security personnel protocols, that could be exploited by malicious actors.",
+    "hours": 40.0,
+    "package": "Large",
+    "quarter": "Fourth Quarter"
+  }
+]
