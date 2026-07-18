@@ -26,6 +26,8 @@ jobs:
           node-version: 22
           cache: npm
       - run: npm ci
+      # Fail the build on known dependency vulnerabilities (moderate and up).
+      - run: npm audit --audit-level=moderate
       - run: npm run validate:data
       - run: npm test
       - run: npm run build

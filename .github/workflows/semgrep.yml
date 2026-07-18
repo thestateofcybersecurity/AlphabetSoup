@@ -1,0 +1,44 @@
+name: Semgrep
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  schedule:
+    - cron: '31 3 * * 1' # Mondays 03:31 UTC
+
+jobs:
+  semgrep:
+    name: Scan
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      security-events: write
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Install Semgrep
+        run: pip install semgrep
+
+      # Public OSS rulesets; no Semgrep Cloud account or token required.
+      - name: Scan
+        continue-on-error: true
+        run: >
+          semgrep scan
+          --config=p/security-audit
+          --config=p/secrets
+          --config=p/javascript
+          --config=p/typescript
+          --sarif --output=semgrep.sarif
+
+      - name: Upload SARIF to code scanning
+        if: always()
+        uses: github/codeql-action/upload-sarif@v3
+        with:
+          sarif_file: semgrep.sarif
