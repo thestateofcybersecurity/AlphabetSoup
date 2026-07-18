@@ -159,15 +159,15 @@
       "why": "Cloud data may be stored across data centers in multiple countries, raising jurisdiction and legal access problems. Knowing and reaching the data's physical location is the core challenge."
     },
     {
-      "q": "What does the acronym 'ACPO' stand for in digital forensics?",
+      "q": "What does the ACPO Good Practice Guide primarily provide for digital forensics?",
       "choices": [
-        "Association of Chief Police Officers",
-        "American Cybersecurity Protection Organization",
-        "Advanced Cyber Protection Officer",
-        "Association of Cybercrime Prevention Officers"
+        "Principles for handling digital evidence so it stays admissible",
+        "A standard file format for storing forensic disk images",
+        "A certification program for forensic examiners",
+        "A software tool for imaging mobile devices"
       ],
       "correctIndex": 0,
-      "why": "ACPO stands for the Association of Chief Police Officers, whose good practice guide shaped digital evidence handling in the UK. Its four principles are still widely cited in forensics."
+      "why": "The ACPO Good Practice Guide sets out principles, such as not altering data on a seized device, that keep digital evidence admissible in court. Evidence file formats, examiner certifications, and imaging tools are separate things."
     },
     {
       "q": "Which of the following describes a 'dead' forensic acquisition?",

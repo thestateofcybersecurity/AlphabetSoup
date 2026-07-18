@@ -37,7 +37,7 @@
     "mode": "choice",
     "certKey": "CYSA",
     "retired": false,
-    "count": 53
+    "count": 50
   },
   {
     "slug": "gsec",
@@ -53,7 +53,7 @@
     "mode": "choice",
     "certKey": "SSCP",
     "retired": false,
-    "count": 54
+    "count": 50
   },
   {
     "slug": "lpt",

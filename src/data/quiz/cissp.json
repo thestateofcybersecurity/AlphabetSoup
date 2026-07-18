@@ -87,10 +87,10 @@
         "Discretionary access control (DAC)",
         "Mandatory access control (MAC)",
         "Role-based access control (RBAC)",
-        "Responsive access control (RAC)"
+        "Clark-Wilson model"
       ],
       "correctIndex": 3,
-      "why": "DAC, MAC, and RBAC are all established access control models. Responsive access control (RAC) is a made-up term and does not exist as a recognized model."
+      "why": "DAC, MAC, and RBAC are established access control models. Clark-Wilson is a real model too, but it enforces data integrity through well-formed transactions rather than being an access control type, so it is the odd one out."
     },
     {
       "q": "Which of the following is a characteristic of asymmetric encryption?",
