@@ -64,6 +64,13 @@ mkdirSync(`${dist}/frameworks/cis`, { recursive: true });
 const esc = (value: string): string =>
   value.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
 
+/**
+ * Serialize an object for embedding in an inline <script type="application/ld+json">.
+ * JSON.stringify does not neutralize a literal "</script>" inside string fields, so
+ * escape "<" as its JSON unicode form to prevent breaking out of the script element.
+ */
+const jsonLdScript = (obj: unknown): string => JSON.stringify(obj).replace(/</g, '\\u003c');
+
 const PAGE_CSS = `
 :root{--paper:#f7efe2;--paper-raised:#fdf8ee;--ink:#23303a;--ink-soft:#5c6a72;--tomato:#c8401f;--line:#ded1bb}
 @media(prefers-color-scheme:dark){:root{--paper:#191410;--paper-raised:#221c16;--ink:#ede4d3;--ink-soft:#a89d8a;--tomato:#e86a45;--line:#3a3227}}
@@ -126,7 +133,7 @@ function definitionPage(key: string, entry: AcronymEntry): string {
   const slug = slugForKey(key);
   const url = `${SITE}/definitions/${slug}.html`;
   const description = esc(entry.explanation.split('. ')[0] + '.');
-  const jsonLd = JSON.stringify({
+  const jsonLd = jsonLdScript({
     '@context': 'https://schema.org',
     '@type': 'DefinedTerm',
     name: entry.display,
@@ -290,7 +297,7 @@ function frameworkPage(input: FrameworkPageInput): string {
   const slug = frameworkSlug(input.id);
   const url = `${SITE}/frameworks/${input.sectionPath}/${slug}.html`;
   const description = esc(input.translation.split('. ')[0] + '.');
-  const jsonLd = JSON.stringify({
+  const jsonLd = jsonLdScript({
     '@context': 'https://schema.org',
     '@type': 'DefinedTerm',
     name: input.id,
