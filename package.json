@@ -11,7 +11,8 @@
     "test:watch": "vitest",
     "test:e2e": "playwright test",
     "validate:data": "tsx scripts/validate-data.ts",
-    "check:links": "tsx scripts/check-links.ts"
+    "check:links": "tsx scripts/check-links.ts",
+    "shots": "vite preview --port 4188 --strictPort & sleep 3 && OUT=./shots BASE=http://localhost:4188 node scripts/shots.mjs; kill %1"
   },
   "devDependencies": {
     "@playwright/test": "^1.49.0",
