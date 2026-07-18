@@ -1,0 +1,558 @@
+{
+  "name": "CRISC",
+  "mode": "choice",
+  "certKey": "CRISC",
+  "retired": false,
+  "questions": [
+    {
+      "q": "A risk practitioner is establishing IT risk governance. Which document should MOST directly guide the acceptable level of risk the enterprise is willing to take to meet objectives?",
+      "choices": [
+        "Vulnerability assessment report",
+        "Business impact analysis",
+        "Risk appetite statement",
+        "Incident response plan"
+      ],
+      "correctIndex": 2,
+      "why": "Risk appetite defines the broad amount of risk the enterprise is willing to accept in pursuit of its objectives, guiding governance decisions."
+    },
+    {
+      "q": "Who is BEST positioned to own the risk associated with a critical financial application and accept residual risk on its behalf?",
+      "choices": [
+        "The IT security manager",
+        "The internal audit lead",
+        "The system administrator",
+        "The business process owner"
+      ],
+      "correctIndex": 3,
+      "why": "Risk ownership belongs to the business process owner who derives value from the asset and has authority to accept residual risk."
+    },
+    {
+      "q": "An enterprise's risk appetite is set high but its risk tolerance for regulatory compliance is very low. What does this MOST likely indicate?",
+      "choices": [
+        "The appetite statement is misconfigured and must be lowered",
+        "Tolerance can vary by risk category even under a broad appetite",
+        "Tolerance and appetite must always be numerically identical",
+        "Compliance risk should be excluded from the risk register"
+      ],
+      "correctIndex": 1,
+      "why": "Tolerance is the acceptable variation around appetite and can be tightened for specific categories like compliance while overall appetite stays broad."
+    },
+    {
+      "q": "The board wants assurance that IT risk management aligns with enterprise strategy. Which governance mechanism BEST provides this alignment?",
+      "choices": [
+        "Rotating administrator passwords more often",
+        "Deploying additional endpoint detection tools",
+        "Integrating IT risk into the enterprise risk management framework",
+        "Increasing the frequency of penetration testing"
+      ],
+      "correctIndex": 2,
+      "why": "Embedding IT risk into enterprise risk management ensures decisions align with strategy rather than being handled in a technical silo."
+    },
+    {
+      "q": "Which of the following BEST demonstrates that a risk culture is embedded in an organization?",
+      "choices": [
+        "Antivirus signatures update automatically each day",
+        "Employees escalate risk concerns without fear of reprisal",
+        "The firewall ruleset is reviewed every quarter",
+        "The data center has redundant power supplies"
+      ],
+      "correctIndex": 1,
+      "why": "A mature risk culture is evidenced by open escalation of concerns, showing risk awareness is embedded in behavior, not just tools."
+    },
+    {
+      "q": "A risk practitioner must align IT risk activities with the three lines model. In which line does the operational management that owns and manages risk sit?",
+      "choices": [
+        "Third line",
+        "External assurance",
+        "First line",
+        "Second line"
+      ],
+      "correctIndex": 2,
+      "why": "In the three lines model, operational management that owns and controls risk is the first line; risk functions are second and audit is third."
+    },
+    {
+      "q": "Senior management asks how IT risk decisions should be authorized. Which structure BEST supports accountable risk decision making?",
+      "choices": [
+        "A shared mailbox monitored by the help desk",
+        "A rotating on-call schedule for administrators",
+        "An annual all-hands security awareness session",
+        "A defined RACI with clear risk ownership and escalation paths"
+      ],
+      "correctIndex": 3,
+      "why": "A RACI defining accountable owners and escalation paths ensures risk decisions are authorized by parties with proper authority."
+    },
+    {
+      "q": "An organization updates its risk appetite after entering a new regulated market. What should the practitioner do NEXT?",
+      "choices": [
+        "Delegate appetite decisions to the IT department",
+        "Reassess existing risk responses against the revised appetite",
+        "Suspend all mitigation projects until year end",
+        "Archive the risk register and start a new one"
+      ],
+      "correctIndex": 1,
+      "why": "When appetite changes, existing responses must be re-evaluated to confirm residual risk still falls within the revised boundaries."
+    },
+    {
+      "q": "Which factor is MOST important to consider when defining IT risk management policies to ensure enterprise-wide adoption?",
+      "choices": [
+        "The technical preferences of the security team",
+        "The vendor with the lowest tooling cost",
+        "Alignment with the organization's business objectives",
+        "The number of controls in a competitor's program"
+      ],
+      "correctIndex": 2,
+      "why": "Policies aligned with business objectives gain executive support and enterprise adoption, whereas technically driven policies are often resisted."
+    },
+    {
+      "q": "A risk governance committee is being formed. Which composition BEST enables balanced IT risk decisions?",
+      "choices": [
+        "Only senior IT infrastructure engineers",
+        "Only external cybersecurity consultants",
+        "Only the internal audit department",
+        "Cross-functional representation from business, IT, and risk"
+      ],
+      "correctIndex": 3,
+      "why": "Cross-functional membership balances business context, technical insight, and risk expertise, producing decisions aligned to enterprise goals."
+    },
+    {
+      "q": "During risk identification for a new cloud migration, which approach is MOST effective for generating relevant IT risk scenarios?",
+      "choices": [
+        "Relying solely on the antivirus console alerts",
+        "Facilitated workshops using threat and business context",
+        "Copying scenarios from an unrelated industry checklist",
+        "Waiting for incidents to occur and then documenting them"
+      ],
+      "correctIndex": 1,
+      "why": "Facilitated workshops that combine threat sources with business context produce scenarios relevant to the actual environment being assessed."
+    },
+    {
+      "q": "A risk scenario states: 'A malicious insider exfiltrates customer data via USB.' Which element is the threat actor?",
+      "choices": [
+        "The exfiltration event",
+        "The customer data",
+        "The USB device",
+        "The malicious insider"
+      ],
+      "correctIndex": 3,
+      "why": "In a risk scenario the threat actor is the source initiating the event; here the malicious insider is the actor, data is the asset."
+    },
+    {
+      "q": "Inherent risk for a legacy system is rated high. After compensating controls are applied, what does the remaining risk represent?",
+      "choices": [
+        "Threat likelihood",
+        "Risk appetite",
+        "Residual risk",
+        "Inherent risk"
+      ],
+      "correctIndex": 2,
+      "why": "Residual risk is what remains after controls are applied; inherent risk is the exposure before any controls are considered."
+    },
+    {
+      "q": "A practitioner performs quantitative analysis. A server valued at $200,000 faces a threat that would destroy 25% of its value, occurring once every 4 years. What is the annualized loss expectancy?",
+      "choices": [
+        "$50,000",
+        "$6,250",
+        "$12,500",
+        "$200,000"
+      ],
+      "correctIndex": 2,
+      "why": "SLE = $200,000 x 0.25 = $50,000; ARO = 0.25; ALE = SLE x ARO = $50,000 x 0.25 = $12,500."
+    },
+    {
+      "q": "In quantitative risk analysis, which value is calculated as asset value multiplied by exposure factor?",
+      "choices": [
+        "Annualized rate of occurrence",
+        "Return on security investment",
+        "Annualized loss expectancy",
+        "Single loss expectancy"
+      ],
+      "correctIndex": 3,
+      "why": "SLE equals asset value times exposure factor; ARO is frequency, and ALE combines SLE with ARO over a year."
+    },
+    {
+      "q": "A qualitative risk assessment uses a heat map. What is the PRIMARY advantage of this approach over quantitative analysis?",
+      "choices": [
+        "It is faster and works when reliable loss data is scarce",
+        "It always produces exact monetary loss figures",
+        "It removes the need for expert judgment",
+        "It eliminates uncertainty from the assessment"
+      ],
+      "correctIndex": 0,
+      "why": "Qualitative methods are quicker and usable when hard financial data is unavailable, trading numeric precision for speed and simplicity."
+    },
+    {
+      "q": "Which input is MOST critical when estimating the likelihood component of an IT risk scenario?",
+      "choices": [
+        "Threat frequency and existing control effectiveness",
+        "The color scheme of the risk heat map",
+        "The purchase price of the affected hardware",
+        "The number of employees in the IT department"
+      ],
+      "correctIndex": 0,
+      "why": "Likelihood depends on how often the threat materializes and how well current controls reduce that frequency."
+    },
+    {
+      "q": "A newly discovered vulnerability affects a system with no exploit available and no exposed attack path. How should this MOST appropriately affect the risk rating?",
+      "choices": [
+        "Impact alone determines the rating regardless of exposure",
+        "Lower likelihood reduces the overall risk rating",
+        "Risk is automatically critical due to the vulnerability",
+        "The vulnerability should be ignored entirely"
+      ],
+      "correctIndex": 1,
+      "why": "With no exploit and no attack path, likelihood is low, which reduces the overall risk even if the vulnerability exists."
+    },
+    {
+      "q": "When assessing risk, why is it important to distinguish a threat from a vulnerability?",
+      "choices": [
+        "Threats are always internal and vulnerabilities external",
+        "A threat exploits a vulnerability to cause an impact",
+        "Vulnerabilities cause threats to disappear",
+        "They are interchangeable terms in risk analysis"
+      ],
+      "correctIndex": 1,
+      "why": "Risk arises when a threat source exploits a vulnerability; distinguishing them clarifies where controls should be applied."
+    },
+    {
+      "q": "A practitioner is prioritizing which risk scenarios to analyze in depth. Which criterion BEST supports prioritization?",
+      "choices": [
+        "How recently the scenario was added to the register",
+        "The alphabetical order of the scenario titles",
+        "The seniority of the person who reported them",
+        "Alignment with the enterprise's most critical business processes"
+      ],
+      "correctIndex": 3,
+      "why": "Scenarios tied to the most critical business processes carry the greatest potential impact and warrant deeper analysis first."
+    },
+    {
+      "q": "During assessment, aggregated low-severity risks combine to threaten a key process. What concept does this illustrate?",
+      "choices": [
+        "Aggregate risk exceeding tolerance",
+        "Risk transfer to a third party",
+        "Inherent risk being eliminated",
+        "A false positive in scanning"
+      ],
+      "correctIndex": 0,
+      "why": "Individually minor risks can aggregate to breach tolerance, so practitioners must assess combined exposure, not only isolated items."
+    },
+    {
+      "q": "Which technique BEST helps a practitioner validate that assessed likelihood reflects current conditions rather than outdated assumptions?",
+      "choices": [
+        "Reusing likelihood ratings from three years ago",
+        "Corroborating estimates with recent incident and threat data",
+        "Setting all likelihoods to medium by default",
+        "Averaging ratings from an unrelated business unit"
+      ],
+      "correctIndex": 1,
+      "why": "Current incident and threat intelligence grounds likelihood estimates in present conditions instead of stale assumptions."
+    },
+    {
+      "q": "A risk assessment reveals that two controls address the same risk redundantly at high cost. What should the practitioner recommend?",
+      "choices": [
+        "Transfer the risk to cyber insurance",
+        "Add a third control to be safe",
+        "Immediately accept the risk without analysis",
+        "Evaluate whether one control can be removed or optimized"
+      ],
+      "correctIndex": 3,
+      "why": "Redundant high-cost controls warrant optimization; efficiency review ensures control cost stays proportional to risk reduction."
+    },
+    {
+      "q": "When performing an IT risk assessment, why should asset valuation include both tangible and intangible value?",
+      "choices": [
+        "Intangible value cannot influence business decisions",
+        "Reputational and regulatory impacts affect true loss magnitude",
+        "Tangible value alone always overstates the risk",
+        "Only hardware replacement cost matters for risk"
+      ],
+      "correctIndex": 1,
+      "why": "Impact magnitude includes intangibles like reputation and compliance penalties, which often exceed hardware replacement costs."
+    },
+    {
+      "q": "A practitioner must choose a risk response for a low-likelihood, catastrophic-impact scenario that is too costly to fully mitigate. Which response is MOST appropriate?",
+      "choices": [
+        "Avoid the activity by shutting down the enterprise",
+        "Transfer the risk, for example through insurance",
+        "Accept the risk with no further action",
+        "Ignore it because likelihood is low"
+      ],
+      "correctIndex": 1,
+      "why": "Transferring low-likelihood, high-impact risk via insurance shares the financial burden when mitigation is not cost effective."
+    },
+    {
+      "q": "Management decides to stop offering a product line because its regulatory risk is unacceptable and cannot be reduced. Which risk response is this?",
+      "choices": [
+        "Risk transfer",
+        "Risk mitigation",
+        "Risk acceptance",
+        "Risk avoidance"
+      ],
+      "correctIndex": 3,
+      "why": "Discontinuing the activity that generates the risk is avoidance, chosen when the exposure cannot be reduced to an acceptable level."
+    },
+    {
+      "q": "A residual risk remains above appetite after mitigation. What is the CORRECT next step for the risk practitioner?",
+      "choices": [
+        "Escalate to the risk owner for a formal decision",
+        "Delete the risk from the register",
+        "Reclassify it as an audit finding only",
+        "Automatically accept it since controls exist"
+      ],
+      "correctIndex": 0,
+      "why": "Residual risk above appetite must be escalated to the accountable owner to decide on further response or formal acceptance."
+    },
+    {
+      "q": "Which of the following is the BEST reason to document formal risk acceptance rather than informally tolerating a risk?",
+      "choices": [
+        "It records accountability and the rationale for the decision",
+        "It permanently removes the risk from consideration",
+        "It transfers the risk to the audit function",
+        "It guarantees the risk will never materialize"
+      ],
+      "correctIndex": 0,
+      "why": "Formal acceptance documents who accepted the risk and why, preserving accountability and supporting later review."
+    },
+    {
+      "q": "A key risk indicator for failed login attempts has crossed its threshold. What is the PRIMARY purpose this KRI serves?",
+      "choices": [
+        "Replacing the need for a risk assessment",
+        "Measuring the return on the security budget",
+        "Confirming that a control has been decommissioned",
+        "Providing an early warning that risk is increasing"
+      ],
+      "correctIndex": 3,
+      "why": "KRIs give early warning of rising risk exposure so management can act before the risk fully materializes."
+    },
+    {
+      "q": "When selecting key risk indicators, which characteristic is MOST important for them to be useful?",
+      "choices": [
+        "They are difficult to calculate and rarely change",
+        "They are measurable and predictive of the risk",
+        "They are unrelated to any specific risk scenario",
+        "They only report events after major losses occur"
+      ],
+      "correctIndex": 1,
+      "why": "Effective KRIs are measurable and predictive, signaling changes in exposure before losses occur rather than merely after the fact."
+    },
+    {
+      "q": "A risk report to executives shows only technical metrics like patch counts. How should the practitioner improve it?",
+      "choices": [
+        "Limit the report to the security team only",
+        "Add more detailed packet capture statistics",
+        "Remove all context and show raw log excerpts",
+        "Translate metrics into business impact and risk to objectives"
+      ],
+      "correctIndex": 3,
+      "why": "Executive reporting must connect technical data to business impact and objectives so leaders can make informed risk decisions."
+    },
+    {
+      "q": "What distinguishes a key performance indicator from a key risk indicator in risk reporting?",
+      "choices": [
+        "A KPI measures achievement while a KRI signals rising exposure",
+        "A KPI predicts future risk and a KRI measures the past",
+        "They measure exactly the same thing",
+        "A KRI can only be expressed in monetary terms"
+      ],
+      "correctIndex": 0,
+      "why": "KPIs measure performance against goals; KRIs forecast increasing risk, so the two serve complementary reporting purposes."
+    },
+    {
+      "q": "A risk register entry has been mitigated and its residual risk accepted. How should it be handled going forward?",
+      "choices": [
+        "Reassign ownership to an external auditor",
+        "Delete it permanently from all records",
+        "Keep it in the register and monitor for changes",
+        "Move it to the incident response runbook"
+      ],
+      "correctIndex": 2,
+      "why": "Accepted risks remain in the register and are monitored, since changing conditions can push residual risk back above appetite."
+    },
+    {
+      "q": "Which element is MOST essential to include in a risk register entry to support ongoing tracking?",
+      "choices": [
+        "The IP address of every affected workstation",
+        "A list of unrelated closed incidents",
+        "Risk owner, current response, and residual risk level",
+        "The vendor's marketing brochure"
+      ],
+      "correctIndex": 2,
+      "why": "Owner, response status, and residual level are core register fields enabling accountability and monitoring over time."
+    },
+    {
+      "q": "A KRI has never triggered in two years despite known incidents in that risk area. What is the MOST likely conclusion?",
+      "choices": [
+        "The risk area no longer needs any monitoring",
+        "The KRI proves controls are perfect",
+        "The KRI threshold or metric may be poorly designed",
+        "Incidents in that area should be ignored"
+      ],
+      "correctIndex": 2,
+      "why": "A KRI that never fires despite real incidents suggests the threshold or measure is misaligned and needs recalibration."
+    },
+    {
+      "q": "When reporting risk trends over time, which visualization BEST helps management see whether exposure is improving or worsening?",
+      "choices": [
+        "A single snapshot with no historical context",
+        "A raw export of firewall logs",
+        "A trend line of residual risk levels across reporting periods",
+        "An alphabetical list of every control name"
+      ],
+      "correctIndex": 2,
+      "why": "Trend lines across periods reveal the direction of exposure, letting management judge whether risk is improving or worsening."
+    },
+    {
+      "q": "A risk practitioner wants control monitoring to detect when a mitigating control stops functioning. Which approach is BEST?",
+      "choices": [
+        "Continuous control monitoring with automated alerting",
+        "Waiting for the next external audit",
+        "An annual manual review only",
+        "Relying on employees to notice failures"
+      ],
+      "correctIndex": 0,
+      "why": "Continuous monitoring with automated alerts detects control failure promptly, minimizing the window of unmitigated exposure."
+    },
+    {
+      "q": "During risk response, management chooses to reduce likelihood by deploying multi-factor authentication. Which response option is this?",
+      "choices": [
+        "Risk avoidance",
+        "Risk acceptance",
+        "Risk transfer",
+        "Risk mitigation"
+      ],
+      "correctIndex": 3,
+      "why": "Applying a control such as MFA to reduce likelihood or impact is mitigation, the most common IT risk response."
+    },
+    {
+      "q": "A practitioner is designing a control for segregation of duties in a payment system. What risk does this control PRIMARILY address?",
+      "choices": [
+        "A single individual completing and concealing fraud",
+        "Slow network performance during peak hours",
+        "Hardware failure of the payment server",
+        "Excessive electricity consumption"
+      ],
+      "correctIndex": 0,
+      "why": "Segregation of duties prevents one person from both executing and concealing a fraudulent transaction by splitting responsibilities."
+    },
+    {
+      "q": "A detective control has been implemented for a threat. Which additional control type BEST complements it to reduce impact after detection?",
+      "choices": [
+        "A corrective control to restore normal operations",
+        "A marketing control for brand image",
+        "A control with no defined objective",
+        "A duplicate detective control"
+      ],
+      "correctIndex": 0,
+      "why": "Corrective controls restore operations after a detective control identifies an event, together reducing overall impact."
+    },
+    {
+      "q": "A cloud service provider will manage a control on the enterprise's behalf. What must the risk practitioner ensure regarding accountability?",
+      "choices": [
+        "Accountability for the risk remains with the enterprise",
+        "No accountability is needed once outsourced",
+        "Accountability fully transfers to the provider",
+        "The provider assumes the enterprise's risk appetite"
+      ],
+      "correctIndex": 0,
+      "why": "Operational control can be outsourced but accountability for the risk stays with the enterprise, requiring oversight of the provider."
+    },
+    {
+      "q": "Which practice BEST ensures that a newly deployed security control actually reduces risk as intended?",
+      "choices": [
+        "Measuring only how many users complained",
+        "Documenting the control and never revisiting it",
+        "Testing control effectiveness against defined objectives",
+        "Assuming effectiveness because it was expensive"
+      ],
+      "correctIndex": 2,
+      "why": "Testing against defined objectives verifies the control operates effectively and truly reduces the targeted risk."
+    },
+    {
+      "q": "An enterprise adopts a new emerging technology with limited operational history. What is the GREATEST challenge for IT risk assessment?",
+      "choices": [
+        "Complete absence of any business benefit",
+        "Too many mature controls already available",
+        "Scarcity of reliable data on threats and impacts",
+        "Excessive historical loss data to analyze"
+      ],
+      "correctIndex": 2,
+      "why": "Emerging technologies lack historical threat and loss data, making likelihood and impact estimation more uncertain."
+    },
+    {
+      "q": "A practitioner reviews data classification before assessing risk. Why is classification a prerequisite for effective control selection?",
+      "choices": [
+        "All data must receive identical maximum protection",
+        "Classification is only relevant to physical assets",
+        "Controls should be proportional to data sensitivity",
+        "Classification eliminates the need for any controls"
+      ],
+      "correctIndex": 2,
+      "why": "Classification lets the enterprise apply controls proportional to sensitivity, avoiding both over- and under-protection of data."
+    },
+    {
+      "q": "Which factor is MOST important when evaluating third-party vendor risk for a system processing sensitive data?",
+      "choices": [
+        "The vendor's control environment and right to audit",
+        "The number of years the vendor has been named",
+        "The vendor's social media follower count",
+        "The vendor's office location relative to headquarters"
+      ],
+      "correctIndex": 0,
+      "why": "Assessing the vendor's controls and securing audit rights lets the enterprise verify that outsourced risk is adequately managed."
+    },
+    {
+      "q": "A change to a production system bypassed the change management process. From a risk perspective, what is the PRIMARY concern?",
+      "choices": [
+        "Change management always slows innovation",
+        "The change was documented too thoroughly",
+        "Production systems never require change control",
+        "Unassessed changes can introduce unmanaged risk"
+      ],
+      "correctIndex": 3,
+      "why": "Bypassing change control means the change was not risk-assessed or tested, potentially introducing unmanaged vulnerabilities."
+    },
+    {
+      "q": "When defining recovery time objectives for critical systems, which risk domain consideration is MOST directly informed?",
+      "choices": [
+        "Impact tolerance for availability disruptions",
+        "The color of the data center racks",
+        "The number of social media accounts",
+        "The marketing budget for the quarter"
+      ],
+      "correctIndex": 0,
+      "why": "RTOs are set based on how much availability disruption the business can tolerate, reflecting impact analysis for continuity."
+    },
+    {
+      "q": "A practitioner finds that encryption keys are stored on the same server as the encrypted data. What is the PRIMARY risk?",
+      "choices": [
+        "Backups will run more slowly",
+        "A single compromise exposes both keys and data",
+        "The data can no longer be classified",
+        "Encryption becomes computationally impossible"
+      ],
+      "correctIndex": 1,
+      "why": "Co-locating keys with encrypted data means one breach yields both, negating the protective value of the encryption."
+    },
+    {
+      "q": "An organization must balance security control strength against business usability. Which principle should guide this decision?",
+      "choices": [
+        "Control cost and friction should be proportional to risk",
+        "Maximum security regardless of business impact",
+        "Minimum security to maximize convenience always",
+        "Controls should be chosen at random for coverage"
+      ],
+      "correctIndex": 0,
+      "why": "Controls should be proportional to risk, balancing protection against cost and usability rather than defaulting to extremes."
+    },
+    {
+      "q": "A practitioner notices the risk register has not been updated in 12 months despite major infrastructure changes. What is the PRIMARY risk of this stale register?",
+      "choices": [
+        "Risk decisions are based on outdated exposure information",
+        "Auditors will praise the stability of the entries",
+        "The register file consumes too much storage",
+        "Controls automatically expire after one year"
+      ],
+      "correctIndex": 0,
+      "why": "A stale register misrepresents current exposure, leading management to make risk decisions on outdated and inaccurate information."
+    }
+  ]
+}

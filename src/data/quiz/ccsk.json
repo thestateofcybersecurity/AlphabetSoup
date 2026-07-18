@@ -1,0 +1,558 @@
+{
+  "name": "CCSK",
+  "mode": "choice",
+  "certKey": "CCSK",
+  "retired": false,
+  "questions": [
+    {
+      "q": "In the CSA shared responsibility model, which party is always responsible for classifying and protecting the data placed in a cloud service?",
+      "choices": [
+        "The cloud provider",
+        "The CSA STAR registry",
+        "The underlying IaaS hypervisor vendor",
+        "The cloud customer"
+      ],
+      "correctIndex": 3,
+      "why": "Data ownership, classification, and governance always remain the customer's responsibility across IaaS, PaaS, and SaaS."
+    },
+    {
+      "q": "What does the CSA Cloud Controls Matrix (CCM) primarily provide?",
+      "choices": [
+        "A contractual SLA template for negotiating with providers",
+        "A live vulnerability scanner for cloud workloads",
+        "A penetration testing methodology for containers",
+        "A cloud-specific control framework mapped to other standards and regulations"
+      ],
+      "correctIndex": 3,
+      "why": "The CCM is a cybersecurity control framework for cloud computing, with mappings to standards like ISO 27001, NIST, and PCI DSS."
+    },
+    {
+      "q": "The Consensus Assessments Initiative Questionnaire (CAIQ) is best described as what?",
+      "choices": [
+        "A set of yes/no questions letting customers assess a provider's security against the CCM",
+        "A binding audit report signed by an accredited third party",
+        "A cloud incident notification standard",
+        "A runtime configuration baseline enforced by the provider"
+      ],
+      "correctIndex": 0,
+      "why": "The CAIQ offers standardized questions aligned to CCM controls so customers can document provider security posture."
+    },
+    {
+      "q": "The CSA STAR registry Level 1 is based on what type of assessment?",
+      "choices": [
+        "Provider self-assessment using CAIQ or CCM",
+        "Continuous automated monitoring by CSA",
+        "A third-party audit against SOC 2",
+        "A government-issued FedRAMP authorization"
+      ],
+      "correctIndex": 0,
+      "why": "STAR Level 1 is a self-assessment where providers publish a completed CAIQ or CCM; higher levels add third-party attestation."
+    },
+    {
+      "q": "Which cloud service model gives the customer the most responsibility for securing the operating system and applications?",
+      "choices": [
+        "Infrastructure as a Service (IaaS)",
+        "Software as a Service (SaaS)",
+        "Function as a Service managed entirely by the provider",
+        "Platform as a Service (PaaS)"
+      ],
+      "correctIndex": 0,
+      "why": "In IaaS the provider secures the physical and virtualization layers while the customer manages OS, runtime, and apps."
+    },
+    {
+      "q": "According to CSA guidance, what is the essential characteristic that most distinguishes cloud from traditional hosting?",
+      "choices": [
+        "The use of virtual machines instead of physical servers",
+        "Broad network access, resource pooling, and on-demand self-service",
+        "A fixed monthly billing contract",
+        "Mandatory encryption of all data at rest"
+      ],
+      "correctIndex": 1,
+      "why": "NIST and CSA define cloud by essential characteristics including on-demand self-service, resource pooling, and rapid elasticity."
+    },
+    {
+      "q": "In cloud data security, what is the primary benefit of the customer holding the encryption keys rather than the provider?",
+      "choices": [
+        "It removes the need to encrypt data in transit",
+        "It shifts breach liability entirely to the provider",
+        "It preserves customer control and can prevent provider access to plaintext",
+        "It automatically satisfies all compliance requirements"
+      ],
+      "correctIndex": 2,
+      "why": "Customer-managed keys, including BYOK and HYOK models, let the customer control access and limit provider visibility into plaintext."
+    },
+    {
+      "q": "What is the main purpose of a cloud access security broker (CASB)?",
+      "choices": [
+        "To provide visibility and policy enforcement between users and cloud services",
+        "To act as the primary key management server for the provider",
+        "To generate STAR registry attestations automatically",
+        "To replace the provider's hypervisor security controls"
+      ],
+      "correctIndex": 0,
+      "why": "CASBs sit between users and cloud services to enforce security policy, discover shadow IT, and give usage visibility."
+    },
+    {
+      "q": "Under ENISA cloud risk guidance, which is identified as a top risk unique to the cloud outsourcing model?",
+      "choices": [
+        "Paper document mishandling",
+        "Local power outages at the customer office",
+        "Loss of governance over data and operations",
+        "Physical theft of employee laptops"
+      ],
+      "correctIndex": 2,
+      "why": "ENISA highlights loss of governance as a top cloud risk because the customer cedes some control to the provider."
+    },
+    {
+      "q": "What does vendor lock-in risk in cloud primarily threaten?",
+      "choices": [
+        "The customer's ability to migrate data and workloads to another provider",
+        "The accuracy of the CCM control mappings",
+        "The provider's uptime SLA guarantees",
+        "The encryption strength of data at rest"
+      ],
+      "correctIndex": 0,
+      "why": "Lock-in stems from proprietary formats and APIs that make portability and migration difficult, an ENISA and CSA-cited risk."
+    },
+    {
+      "q": "In CSA guidance, what is the recommended first step when moving a workload to the cloud?",
+      "choices": [
+        "Identify the asset and evaluate its sensitivity and required controls",
+        "Encrypt every field with a unique key",
+        "Purchase a STAR Level 2 attestation",
+        "Select the cheapest provider available"
+      ],
+      "correctIndex": 0,
+      "why": "CSA's process starts by identifying the asset and its value, then mapping it to potential deployment and service models."
+    },
+    {
+      "q": "Which IAM concept is most critical when federating identities into a cloud provider?",
+      "choices": [
+        "Sharing a single root account across teams",
+        "Disabling multi-factor authentication for automation accounts",
+        "Storing all user passwords in the provider's database",
+        "Establishing trust and secure token exchange between identity provider and relying party"
+      ],
+      "correctIndex": 3,
+      "why": "Federation relies on a trusted identity provider issuing assertions or tokens that the cloud service consumes as the relying party."
+    },
+    {
+      "q": "What is the principle of least privilege as applied to cloud entitlements?",
+      "choices": [
+        "Give every service account full API access by default",
+        "Grant identities only the permissions required to perform their tasks",
+        "Grant all users administrator rights to reduce support tickets",
+        "Rotate keys only when a breach is confirmed"
+      ],
+      "correctIndex": 1,
+      "why": "Least privilege limits each identity to the minimum entitlements needed, reducing blast radius in cloud environments."
+    },
+    {
+      "q": "In cloud incident response, why is provider cooperation and contractual clarity important?",
+      "choices": [
+        "Encryption makes customer-side response unnecessary",
+        "The provider is legally required to handle all customer incidents",
+        "The customer often lacks direct access to underlying logs and forensic data",
+        "The CCM prohibits customers from investigating incidents"
+      ],
+      "correctIndex": 2,
+      "why": "Customers depend on providers for lower-layer telemetry and forensics, so response roles must be defined in the contract or SLA."
+    },
+    {
+      "q": "What is a key challenge for digital forensics in multi-tenant cloud environments?",
+      "choices": [
+        "The impossibility of encrypting evidence",
+        "The absence of any logging capability in cloud",
+        "The requirement to physically seize the provider's servers",
+        "Isolating one tenant's data without exposing other tenants' data"
+      ],
+      "correctIndex": 3,
+      "why": "Multi-tenancy complicates evidence collection because resources are shared and one tenant's forensics must not compromise others."
+    },
+    {
+      "q": "Which practice best supports secure application development in cloud (DevSecOps)?",
+      "choices": [
+        "Relying solely on the provider to patch application code",
+        "Integrating automated security testing into the CI/CD pipeline",
+        "Deferring all security testing until after production release",
+        "Disabling logging to improve deployment speed"
+      ],
+      "correctIndex": 1,
+      "why": "Embedding security testing into CI/CD pipelines shifts security left and matches CSA application security guidance."
+    },
+    {
+      "q": "What does the term 'management plane' refer to in cloud security?",
+      "choices": [
+        "The interfaces and APIs used to configure and control cloud resources",
+        "The physical network cabling in the data center",
+        "The customer's on-premises firewall cluster",
+        "The billing dashboard only"
+      ],
+      "correctIndex": 0,
+      "why": "The management plane is the control interface for provisioning and managing resources, and compromising it can affect the whole account."
+    },
+    {
+      "q": "Why is securing the cloud management plane considered especially critical?",
+      "choices": [
+        "It is not accessible over the network",
+        "It is fully managed by the customer's ISP",
+        "Its compromise can grant broad control over all hosted resources",
+        "It is the only component that stores encryption keys"
+      ],
+      "correctIndex": 2,
+      "why": "The management plane's broad reach means a compromise can affect every workload, so strong access control and MFA are essential."
+    },
+    {
+      "q": "What is 'tokenization' as a data protection technique in cloud?",
+      "choices": [
+        "Hashing passwords with a salt",
+        "Encrypting data with a rotating symmetric key",
+        "Splitting a file across multiple regions",
+        "Replacing sensitive data with non-sensitive substitute values"
+      ],
+      "correctIndex": 3,
+      "why": "Tokenization swaps sensitive values for tokens with no exploitable meaning, often to reduce compliance scope like PCI DSS."
+    },
+    {
+      "q": "In the CSA data security lifecycle, which phase focuses on removing data no longer needed?",
+      "choices": [
+        "Share",
+        "Store",
+        "Create",
+        "Destroy"
+      ],
+      "correctIndex": 3,
+      "why": "The CSA data security lifecycle phases are create, store, use, share, archive, and destroy; destroy handles secure disposal."
+    },
+    {
+      "q": "What is a primary concern when a cloud provider subcontracts services to a fourth party?",
+      "choices": [
+        "Guaranteed compliance with all regulations",
+        "Elimination of the shared responsibility model",
+        "Automatic improvement of the provider's SLA",
+        "Extended supply chain risk and reduced transparency over data handling"
+      ],
+      "correctIndex": 3,
+      "why": "Nested subcontracting lengthens the supply chain, so customers must understand fourth-party dependencies and their controls."
+    },
+    {
+      "q": "Why does CSA recommend reviewing a provider's SOC 2 or ISO 27001 attestations alongside the CAIQ?",
+      "choices": [
+        "They automatically encrypt customer data",
+        "They are required to access the management plane",
+        "They replace the need for any contractual agreement",
+        "They provide independent third-party validation of controls the CAIQ self-reports"
+      ],
+      "correctIndex": 3,
+      "why": "Independent audit reports corroborate the self-reported CAIQ, giving stronger assurance of the provider's control environment."
+    },
+    {
+      "q": "What is the security implication of cloud 'elasticity' and auto-scaling?",
+      "choices": [
+        "Security controls become unnecessary at scale",
+        "New instances must inherit hardened, consistent security configurations automatically",
+        "Auto-scaling disables all logging",
+        "Elasticity prevents any misconfiguration from spreading"
+      ],
+      "correctIndex": 1,
+      "why": "Rapid scaling means insecure images or misconfigurations propagate quickly, so baselines and automation must enforce hardening."
+    },
+    {
+      "q": "In the context of cloud, what does 'data residency' concern?",
+      "choices": [
+        "The retention period before deletion",
+        "The encryption algorithm used at rest",
+        "The number of replicas kept for redundancy",
+        "The geographic location where data is stored and processed"
+      ],
+      "correctIndex": 3,
+      "why": "Data residency addresses legal and regulatory requirements about where data physically resides across provider regions."
+    },
+    {
+      "q": "What is a virtual private cloud (VPC) primarily used for?",
+      "choices": [
+        "Logically isolating a customer's network resources within a public cloud",
+        "Providing a dedicated physical data center to one customer",
+        "Managing the provider's billing",
+        "Encrypting all data at the application layer"
+      ],
+      "correctIndex": 0,
+      "why": "A VPC gives logically isolated networking with customer-controlled subnets, routing, and segmentation inside shared infrastructure."
+    },
+    {
+      "q": "Why is microsegmentation valuable in cloud network security?",
+      "choices": [
+        "It removes the need to patch operating systems",
+        "It limits lateral movement by enforcing granular traffic policies between workloads",
+        "It guarantees zero downtime",
+        "It eliminates the need for identity management"
+      ],
+      "correctIndex": 1,
+      "why": "Microsegmentation applies fine-grained policies so a compromised workload cannot freely move laterally to others."
+    },
+    {
+      "q": "According to CSA, what is the risk of relying only on a provider's default configurations?",
+      "choices": [
+        "Defaults may prioritize usability over security, leaving gaps the customer must close",
+        "Defaults are always fully compliant with every regulation",
+        "Defaults automatically enable customer-managed keys",
+        "Defaults transfer all responsibility to the provider"
+      ],
+      "correctIndex": 0,
+      "why": "Provider defaults often favor ease of use, so customers must review and harden configurations to meet their requirements."
+    },
+    {
+      "q": "What is the main goal of Cloud Security Posture Management (CSPM) tooling?",
+      "choices": [
+        "Encrypting all data in transit",
+        "Replacing the provider's physical security",
+        "Issuing STAR attestations",
+        "Continuously detecting misconfigurations and compliance drift across cloud accounts"
+      ],
+      "correctIndex": 3,
+      "why": "CSPM continuously assesses cloud configurations against benchmarks and policies to catch misconfigurations and drift."
+    },
+    {
+      "q": "In cloud governance, what should a cloud security policy be aligned to first?",
+      "choices": [
+        "The cheapest available service tier",
+        "The provider's marketing recommendations",
+        "The most restrictive setting regardless of impact",
+        "The organization's overall risk tolerance and business objectives"
+      ],
+      "correctIndex": 3,
+      "why": "Governance must flow from enterprise risk appetite and business goals so cloud controls support rather than hinder the mission."
+    },
+    {
+      "q": "What does 'crypto-shredding' accomplish for cloud data disposal?",
+      "choices": [
+        "Physically degaussing the provider's drives",
+        "Compressing data before deletion",
+        "Rendering data unrecoverable by destroying the encryption keys",
+        "Overwriting physical disk sectors seven times"
+      ],
+      "correctIndex": 2,
+      "why": "When customers cannot physically wipe shared media, deleting the keys makes the ciphertext permanently unreadable."
+    },
+    {
+      "q": "Why are hardware security modules (HSMs) used in cloud key management?",
+      "choices": [
+        "They provide tamper-resistant generation and storage of cryptographic keys",
+        "They accelerate network throughput for all traffic",
+        "They replace the need for IAM policies",
+        "They store application source code securely"
+      ],
+      "correctIndex": 0,
+      "why": "HSMs protect keys in tamper-resistant hardware, and cloud HSM services let customers meet strong key protection requirements."
+    },
+    {
+      "q": "What is the significance of API security in cloud environments?",
+      "choices": [
+        "APIs are only used for billing and pose little risk",
+        "API security is entirely the provider's responsibility",
+        "APIs cannot be authenticated in cloud",
+        "APIs are the primary interface to cloud resources, so weak API security exposes the whole environment"
+      ],
+      "correctIndex": 3,
+      "why": "Cloud is API-driven; insecure keys, tokens, or endpoints can expose management and data planes to attackers."
+    },
+    {
+      "q": "In the CSA guidance, what is 'immutable infrastructure'?",
+      "choices": [
+        "Infrastructure that can never be deleted",
+        "Infrastructure that is replaced rather than modified in place when changes are needed",
+        "Storage that cannot be encrypted",
+        "Servers that block all inbound traffic permanently"
+      ],
+      "correctIndex": 1,
+      "why": "Immutable infrastructure redeploys new hardened instances instead of patching running ones, improving consistency and auditability."
+    },
+    {
+      "q": "Which factor most increases the difficulty of compliance auditing in cloud?",
+      "choices": [
+        "Mandatory on-site inspection of all providers",
+        "The absence of any logging in cloud services",
+        "The prohibition of third-party audits",
+        "Limited customer visibility into provider-controlled layers"
+      ],
+      "correctIndex": 3,
+      "why": "Customers cannot directly audit provider-managed layers, so they rely on attestations, the STAR registry, and contractual reporting."
+    },
+    {
+      "q": "What is the purpose of a Business Continuity and Disaster Recovery (BC/DR) plan for cloud workloads?",
+      "choices": [
+        "To transfer all recovery duties to the customer's ISP",
+        "To eliminate the need for backups",
+        "To replace the shared responsibility model",
+        "To maintain and restore operations across regions or providers during disruptions"
+      ],
+      "correctIndex": 3,
+      "why": "BC/DR planning uses multi-region or multi-provider strategies and tested backups to meet recovery objectives during outages."
+    },
+    {
+      "q": "Why should organizations avoid using the cloud root or master account for daily operations?",
+      "choices": [
+        "It holds unrestricted privileges and should be reserved and tightly protected",
+        "It is billed at a higher rate than other accounts",
+        "It cannot be assigned multi-factor authentication",
+        "It is automatically deleted after 90 days"
+      ],
+      "correctIndex": 0,
+      "why": "The root account has full control, so it should be locked down with MFA and used only for tasks requiring it, not routine work."
+    },
+    {
+      "q": "What does 'ephemeral' compute (such as containers or functions) imply for logging?",
+      "choices": [
+        "Logs persist automatically forever",
+        "Logs must be shipped off the instance before it is destroyed",
+        "Ephemeral workloads never need monitoring",
+        "Logging is impossible for short-lived workloads"
+      ],
+      "correctIndex": 1,
+      "why": "Short-lived resources vanish quickly, so telemetry and logs must be centralized externally to preserve audit and forensic value."
+    },
+    {
+      "q": "In cloud, what is the main risk associated with overly permissive storage bucket policies?",
+      "choices": [
+        "Unintended public exposure of sensitive data",
+        "Increased latency for authorized users",
+        "Loss of provider SLA credits",
+        "Automatic key rotation failures"
+      ],
+      "correctIndex": 0,
+      "why": "Misconfigured public buckets are a common cause of cloud data breaches, so access should default to private and least privilege."
+    },
+    {
+      "q": "Which CSA-recommended control helps detect anomalous privileged activity in cloud accounts?",
+      "choices": [
+        "Centralized logging with monitoring and alerting on management plane events",
+        "Removing MFA from privileged accounts",
+        "Disabling all audit trails to reduce noise",
+        "Sharing admin credentials to simplify tracking"
+      ],
+      "correctIndex": 0,
+      "why": "Aggregating and monitoring management plane logs enables detection of unusual privileged actions and rapid response."
+    },
+    {
+      "q": "What is the primary advantage of infrastructure as code (IaC) for cloud security?",
+      "choices": [
+        "Configurations are version-controlled, reviewable, and repeatable",
+        "It disables the management plane",
+        "It guarantees the provider assumes all risk",
+        "It removes the need for any access controls"
+      ],
+      "correctIndex": 0,
+      "why": "IaC makes infrastructure declarative and auditable, so security can be reviewed, tested, and enforced before deployment."
+    },
+    {
+      "q": "Why is 'right to audit' language important in a cloud contract?",
+      "choices": [
+        "It waives all provider liability",
+        "It replaces the need for encryption",
+        "It defines the customer's ability to verify provider security controls",
+        "It grants the provider access to customer data"
+      ],
+      "correctIndex": 2,
+      "why": "Right-to-audit clauses, or acceptable substitutes like third-party reports, let customers gain assurance over provider controls."
+    },
+    {
+      "q": "In cloud IAM, what is the benefit of using temporary, scoped credentials for workloads?",
+      "choices": [
+        "They eliminate the need for authorization policies",
+        "They grant permanent administrator access",
+        "They make logging unnecessary",
+        "They reduce the risk from long-lived static keys if exposed"
+      ],
+      "correctIndex": 3,
+      "why": "Short-lived, narrowly scoped credentials limit the window and scope of misuse compared to static long-lived keys."
+    },
+    {
+      "q": "What does ENISA identify as a risk from shared technology and multi-tenancy?",
+      "choices": [
+        "Isolation failure allowing one tenant to affect another",
+        "Automatic compliance with GDPR",
+        "Elimination of insider threats",
+        "Guaranteed performance for every tenant"
+      ],
+      "correctIndex": 0,
+      "why": "ENISA cites isolation failure, where a flaw in shared components lets one tenant impact or access another, as a key cloud risk."
+    },
+    {
+      "q": "Which approach best addresses secrets management in cloud applications?",
+      "choices": [
+        "Emailing keys to developers as needed",
+        "Embedding secrets in container image layers",
+        "Hardcoding credentials in source code repositories",
+        "Storing secrets in a dedicated vault and injecting them at runtime"
+      ],
+      "correctIndex": 3,
+      "why": "Dedicated secrets managers or vaults centralize, rotate, and control access to credentials rather than exposing them in code."
+    },
+    {
+      "q": "What is the main purpose of the CSA Security Guidance document?",
+      "choices": [
+        "To certify individual cloud providers annually",
+        "To scan customer workloads for vulnerabilities",
+        "To serve as a legally binding regulation",
+        "To provide foundational best practices across cloud security domains"
+      ],
+      "correctIndex": 3,
+      "why": "The CSA Security Guidance organizes cloud security best practices into domains and is a core source for the CCSK exam."
+    },
+    {
+      "q": "Why should encryption of data in transit be enforced even within a provider's network?",
+      "choices": [
+        "Because provider networks are never trusted by regulation",
+        "To protect against interception on shared and internal network paths",
+        "Because it is required to create a VPC",
+        "To reduce storage costs"
+      ],
+      "correctIndex": 1,
+      "why": "Assuming zero trust, traffic can traverse shared segments, so TLS or equivalent protects confidentiality and integrity in transit."
+    },
+    {
+      "q": "In cloud incident response, what is the value of pre-establishing provider contacts and escalation paths?",
+      "choices": [
+        "It transfers legal liability to the provider",
+        "It reduces delay when coordinating response for provider-controlled layers",
+        "It automatically preserves all forensic evidence",
+        "It removes the need for an internal IR team"
+      ],
+      "correctIndex": 1,
+      "why": "Knowing who to contact and how to escalate at the provider speeds coordination during incidents involving shared responsibility."
+    },
+    {
+      "q": "What distinguishes STAR Level 2 from STAR Level 1 in the CSA registry?",
+      "choices": [
+        "Level 2 is a self-assessment while Level 1 is audited",
+        "Level 2 adds independent third-party assessment or certification",
+        "Level 2 is only for government agencies",
+        "Level 2 removes the need to complete the CCM"
+      ],
+      "correctIndex": 1,
+      "why": "STAR Level 2 builds on Level 1 by requiring third-party attestation or certification such as STAR Certification or Attestation."
+    },
+    {
+      "q": "Why is 'zero trust' architecture increasingly recommended for cloud environments?",
+      "choices": [
+        "It verifies every request regardless of network location instead of trusting the perimeter",
+        "It assumes internal traffic is always safe",
+        "It eliminates the need for identity verification",
+        "It relies solely on firewalls at the network edge"
+      ],
+      "correctIndex": 0,
+      "why": "Zero trust removes implicit network trust and continuously authenticates and authorizes each request, fitting distributed cloud."
+    },
+    {
+      "q": "In a SaaS deployment, which security responsibility still typically remains with the customer?",
+      "choices": [
+        "Securing the physical data center",
+        "Maintaining the hypervisor and host OS",
+        "Patching the underlying application code",
+        "Managing user access, identities, and data classification"
+      ],
+      "correctIndex": 3,
+      "why": "Even in SaaS the customer retains responsibility for identity, access management, and how its data is used and classified."
+    }
+  ]
+}

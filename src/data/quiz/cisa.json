@@ -1,0 +1,668 @@
+{
+  "name": "CISA",
+  "mode": "choice",
+  "certKey": "CISA",
+  "retired": false,
+  "questions": [
+    {
+      "q": "An IS auditor is planning the annual audit schedule. What should drive which areas receive the most audit attention?",
+      "choices": [
+        "A risk-based assessment ranking auditable units by risk",
+        "The alphabetical order of business units",
+        "Requests received from individual department managers",
+        "The areas that were not audited in the prior year"
+      ],
+      "correctIndex": 0,
+      "why": "A risk-based approach directs limited audit resources to the highest-risk areas, which is the accepted basis for audit planning.",
+      "domain": 1
+    },
+    {
+      "q": "During fieldwork an auditor gathers several types of evidence. Which is generally considered the most reliable?",
+      "choices": [
+        "Evidence obtained directly by the auditor through observation and reperformance",
+        "Management's written representation letter",
+        "A copy of a report produced by the auditee",
+        "A verbal assurance from the process owner"
+      ],
+      "correctIndex": 0,
+      "why": "Evidence the auditor obtains directly is more reliable than evidence supplied by the auditee, because independence from the source reduces bias.",
+      "domain": 1
+    },
+    {
+      "q": "An IS auditor wants each sampled item to have an equal and known chance of selection. Which sampling method achieves this?",
+      "choices": [
+        "Judgmental sampling",
+        "Statistical sampling",
+        "Block sampling",
+        "Haphazard sampling"
+      ],
+      "correctIndex": 1,
+      "why": "Statistical sampling gives every item a known, non-zero probability of selection, allowing results to be projected to the population objectively.",
+      "domain": 1
+    },
+    {
+      "q": "What is the PRIMARY purpose of establishing materiality when planning an IS audit?",
+      "choices": [
+        "To decide which staff auditors are assigned to the engagement",
+        "To calculate the audit fee charged to the client",
+        "To set the retention period for audit working papers",
+        "To determine the significance of findings and the extent of testing required"
+      ],
+      "correctIndex": 3,
+      "why": "Materiality helps the auditor judge whether an error or weakness is significant enough to affect decisions, guiding testing depth and reporting.",
+      "domain": 1
+    },
+    {
+      "q": "An auditor's brother is the manager of the department scheduled for review. What is the appropriate action to preserve audit independence?",
+      "choices": [
+        "Continue the audit since family relationships do not affect objectivity",
+        "Reduce the scope so only low-risk areas are tested",
+        "Proceed but have the brother review the final report",
+        "Disclose the relationship and reassign the auditor to a different engagement"
+      ],
+      "correctIndex": 3,
+      "why": "A close family relationship impairs independence in appearance and fact; disclosure and reassignment protect the objectivity of the engagement.",
+      "domain": 1
+    },
+    {
+      "q": "An IS auditor identifies a control weakness during a walkthrough. What should be done before reporting it as a finding?",
+      "choices": [
+        "Immediately escalate it to the audit committee",
+        "Corroborate the weakness with sufficient and appropriate evidence",
+        "Recommend that the process owner be terminated",
+        "Remove the control from the audit scope"
+      ],
+      "correctIndex": 1,
+      "why": "Findings must be supported by sufficient appropriate evidence before reporting; a single walkthrough observation should be corroborated.",
+      "domain": 1
+    },
+    {
+      "q": "The risk that an IS auditor's substantive procedures fail to detect a material error is known as what?",
+      "choices": [
+        "Business risk",
+        "Control risk",
+        "Detection risk",
+        "Inherent risk"
+      ],
+      "correctIndex": 2,
+      "why": "Detection risk is the risk that the auditor's own procedures will not catch a material misstatement that exists; it is the component the auditor directly controls.",
+      "domain": 1
+    },
+    {
+      "q": "An auditor is deciding whether to rely on an automated application control. What should be verified FIRST?",
+      "choices": [
+        "That the application has a modern user interface",
+        "That the relevant IT general controls over the application are effective",
+        "That the application vendor is financially stable",
+        "That end users are satisfied with the application"
+      ],
+      "correctIndex": 1,
+      "why": "Automated application controls can only be relied upon if the surrounding IT general controls, such as change and access management, are working.",
+      "domain": 1
+    },
+    {
+      "q": "What is the MOST important reason for an IS auditor to prepare and retain working papers?",
+      "choices": [
+        "To support the audit conclusions and provide evidence of work performed",
+        "To satisfy the curiosity of the auditee's staff",
+        "To replace the need for a formal audit report",
+        "To serve as a marketing document for future engagements"
+      ],
+      "correctIndex": 0,
+      "why": "Working papers document the evidence, analysis, and reasoning that support the auditor's conclusions and allow the work to be reviewed.",
+      "domain": 1
+    },
+    {
+      "q": "An auditee disagrees with a reported finding. How should the IS auditor handle the disagreement in the final report?",
+      "choices": [
+        "Report only findings that management accepts",
+        "Change the finding to match management's opinion",
+        "Remove the finding to avoid conflict",
+        "Include management's response alongside the finding without altering the facts"
+      ],
+      "correctIndex": 3,
+      "why": "The auditor reports facts objectively and includes management's response, but does not suppress or alter valid findings to gain agreement.",
+      "domain": 1
+    },
+    {
+      "q": "A continuous auditing approach is being considered. What is its PRIMARY benefit compared to a traditional annual audit?",
+      "choices": [
+        "It eliminates the need for any manual controls",
+        "It removes the requirement for management oversight",
+        "Control exceptions are identified closer to the time they occur",
+        "It reduces the qualifications required of the audit staff"
+      ],
+      "correctIndex": 2,
+      "why": "Continuous auditing detects anomalies in near real time, shortening the window between an exception occurring and its identification.",
+      "domain": 1
+    },
+    {
+      "q": "What is the PRIMARY objective of an IT governance framework such as COBIT?",
+      "choices": [
+        "To replace the organization's financial accounting system",
+        "To align IT investments and activities with business objectives",
+        "To provide detailed programming standards for developers",
+        "To define the physical wiring of the data center"
+      ],
+      "correctIndex": 1,
+      "why": "IT governance frameworks ensure IT supports and enables enterprise objectives, delivering value while managing risk and resources.",
+      "domain": 2
+    },
+    {
+      "q": "An IS auditor reviews the IT steering committee. What is its MAIN responsibility?",
+      "choices": [
+        "Performing daily system backups",
+        "Conducting penetration tests of the network",
+        "Prioritizing and approving major IT investments in line with strategy",
+        "Writing the source code for new applications"
+      ],
+      "correctIndex": 2,
+      "why": "The steering committee provides direction and prioritization for IT initiatives, ensuring investments align with business strategy and are properly resourced.",
+      "domain": 2
+    },
+    {
+      "q": "When auditing IT strategy, what is the BEST indicator that IT is aligned with the business?",
+      "choices": [
+        "IT staff hold the most industry certifications",
+        "The IT department has the newest available hardware",
+        "The CIO reports the largest budget in the organization",
+        "The IT strategic plan is derived from and supports the business strategy"
+      ],
+      "correctIndex": 3,
+      "why": "Alignment is demonstrated when the IT plan traces directly to business goals, ensuring technology investment supports enterprise priorities.",
+      "domain": 2
+    },
+    {
+      "q": "An organization outsources its data center. Which responsibility can NOT be transferred to the service provider?",
+      "choices": [
+        "Execution of routine backups",
+        "Accountability for the risk and control environment",
+        "Day-to-day operation of the servers",
+        "Physical maintenance of hardware"
+      ],
+      "correctIndex": 1,
+      "why": "Operations can be outsourced, but ultimate accountability for risk and controls remains with the organization's management.",
+      "domain": 2
+    },
+    {
+      "q": "What should an IS auditor examine to assess whether IT risk is being managed at the enterprise level?",
+      "choices": [
+        "The seating arrangement of the IT staff",
+        "A risk register linked to risk owners, ratings, and treatment plans",
+        "The brand of antivirus software installed",
+        "The number of help desk tickets closed each month"
+      ],
+      "correctIndex": 1,
+      "why": "A maintained risk register showing ownership, assessment, and treatment demonstrates a structured, accountable risk management process.",
+      "domain": 2
+    },
+    {
+      "q": "An IS auditor finds that IT policies exist but have not been reviewed in five years. What is the PRIMARY concern?",
+      "choices": [
+        "Policies may no longer reflect current risks, technology, or regulations",
+        "Employees have memorized the old policies",
+        "The policies are printed on outdated letterhead",
+        "The policies are too short to be useful"
+      ],
+      "correctIndex": 0,
+      "why": "Policies must be reviewed periodically so they stay relevant to evolving threats, technologies, and legal requirements.",
+      "domain": 2
+    },
+    {
+      "q": "Segregation of duties is a key governance control. In an IT department, which combination represents an inappropriate lack of segregation?",
+      "choices": [
+        "A developer who can also move their own code into production",
+        "An operator who runs jobs and a separate DBA who tunes the database",
+        "A developer who writes code and a separate team that tests it",
+        "A help desk agent who resets passwords after identity verification"
+      ],
+      "correctIndex": 0,
+      "why": "Allowing a developer to promote their own code to production removes an independent check and enables unauthorized or untested changes.",
+      "domain": 2
+    },
+    {
+      "q": "What is the PRIMARY purpose of a service level agreement (SLA) with an IT vendor?",
+      "choices": [
+        "To transfer legal accountability for compliance to the vendor",
+        "To grant the vendor ownership of the organization's data",
+        "To define measurable performance expectations and responsibilities",
+        "To eliminate the organization's need to monitor the vendor"
+      ],
+      "correctIndex": 2,
+      "why": "An SLA establishes agreed, measurable service levels and responsibilities so performance can be monitored and enforced.",
+      "domain": 2
+    },
+    {
+      "q": "An IS auditor evaluates enterprise architecture. What is its PRIMARY governance value?",
+      "choices": [
+        "It specifies the exact salary of each IT employee",
+        "It provides a blueprint linking business processes to supporting technology",
+        "It documents only the physical network cabling",
+        "It replaces the organization's project management office"
+      ],
+      "correctIndex": 1,
+      "why": "Enterprise architecture maps how business functions and IT components fit together, guiding consistent, aligned technology decisions.",
+      "domain": 2
+    },
+    {
+      "q": "During a governance review, an auditor notes that IT performance is not measured. What should be recommended?",
+      "choices": [
+        "Outsource all IT functions immediately",
+        "Increase the IT budget without any measurement",
+        "Establish key performance indicators tied to business objectives",
+        "Stop reporting to the board entirely"
+      ],
+      "correctIndex": 2,
+      "why": "Defined KPIs linked to objectives allow IT performance to be measured, monitored, and improved against business needs.",
+      "domain": 2
+    },
+    {
+      "q": "Which document defines how an organization will respond to and recover from a disruptive incident affecting the whole business?",
+      "choices": [
+        "Software licensing agreement",
+        "Business continuity plan",
+        "Data classification standard",
+        "Acceptable use policy"
+      ],
+      "correctIndex": 1,
+      "why": "The business continuity plan sets out how critical operations continue and recover after a disruption; it is broader than an IT-only recovery plan.",
+      "domain": 2
+    },
+    {
+      "q": "An IS auditor reviews a systems development project. When is it MOST cost-effective to correct a defect?",
+      "choices": [
+        "During the requirements and design phases",
+        "During post-implementation review",
+        "After users report the defect in operations",
+        "After the system is deployed to production"
+      ],
+      "correctIndex": 0,
+      "why": "Defects are cheapest to fix early; the cost of correction rises sharply as the project moves toward and past implementation.",
+      "domain": 3
+    },
+    {
+      "q": "What is the PRIMARY purpose of user acceptance testing (UAT) before a system goes live?",
+      "choices": [
+        "To verify that the source code compiles without errors",
+        "To test the physical security of the server room",
+        "To confirm the system meets business requirements from the user perspective",
+        "To measure the salary impact of the new system"
+      ],
+      "correctIndex": 2,
+      "why": "UAT validates that the delivered system satisfies the agreed business requirements, giving users a basis to accept it.",
+      "domain": 3
+    },
+    {
+      "q": "An IS auditor is reviewing change management. What is the BEST evidence that a production change was authorized?",
+      "choices": [
+        "An email thread discussing the change idea",
+        "The presence of the change in the production environment",
+        "An approved change request traceable to the implemented change",
+        "A verbal confirmation from the programmer"
+      ],
+      "correctIndex": 2,
+      "why": "A documented, approved change request linked to the actual change provides an audit trail proving proper authorization.",
+      "domain": 3
+    },
+    {
+      "q": "Which application control ensures that data entered falls within a predefined acceptable range?",
+      "choices": [
+        "A hash total on a backup file",
+        "A batch total reconciliation",
+        "A range or limit check",
+        "A parity check on the network"
+      ],
+      "correctIndex": 2,
+      "why": "A range or limit check is an input validation control that rejects values outside acceptable boundaries, preventing erroneous data entry.",
+      "domain": 3
+    },
+    {
+      "q": "During acquisition of a software package, what should an IS auditor confirm regarding the vendor selection?",
+      "choices": [
+        "Selection was based on documented requirements and objective criteria",
+        "The vendor is located nearest to the head office",
+        "The decision was made solely by the IT help desk",
+        "The vendor offered the most expensive product available"
+      ],
+      "correctIndex": 0,
+      "why": "A sound acquisition uses documented requirements and objective evaluation criteria so the chosen package best fits business needs.",
+      "domain": 3
+    },
+    {
+      "q": "What is the PRIMARY risk of migrating data to a new system without adequate reconciliation controls?",
+      "choices": [
+        "Users will need less training on the new system",
+        "Data may be lost, duplicated, or corrupted during conversion",
+        "The old system cannot be decommissioned early",
+        "The new system will run faster than expected"
+      ],
+      "correctIndex": 1,
+      "why": "Without reconciliation between source and target, converted data may be incomplete or altered, undermining the integrity of the new system.",
+      "domain": 3
+    },
+    {
+      "q": "An IS auditor reviews program change controls and finds developers have direct write access to production libraries. What is the PRIMARY concern?",
+      "choices": [
+        "Developers may work longer hours than necessary",
+        "The production library will consume more disk space",
+        "Unauthorized or untested code could be introduced into production",
+        "Documentation will become too detailed"
+      ],
+      "correctIndex": 2,
+      "why": "Developer write access to production bypasses change controls and segregation of duties, allowing unapproved or untested changes to go live.",
+      "domain": 3
+    },
+    {
+      "q": "What is the MAIN purpose of a post-implementation review after a system goes live?",
+      "choices": [
+        "To retrain the entire IT department",
+        "To assess whether the project met its objectives and delivered expected benefits",
+        "To immediately begin building a replacement system",
+        "To assign blame for any defects found"
+      ],
+      "correctIndex": 1,
+      "why": "A post-implementation review evaluates whether the delivered system achieved its objectives and expected benefits and captures lessons learned.",
+      "domain": 3
+    },
+    {
+      "q": "An organization uses agile development. What should an IS auditor verify about controls in this environment?",
+      "choices": [
+        "Key controls such as approvals and testing are embedded in each iteration",
+        "That developers self-approve all their own changes",
+        "That controls are only applied to the final release years later",
+        "That no documentation of any kind is produced"
+      ],
+      "correctIndex": 0,
+      "why": "Agile still requires controls; the auditor confirms that approvals, testing, and reviews are built into iterative delivery rather than skipped.",
+      "domain": 3
+    },
+    {
+      "q": "Which control best detects that a batch of transactions was processed completely and without loss?",
+      "choices": [
+        "A firewall rule review",
+        "A biometric access log",
+        "An antivirus signature update",
+        "Reconciliation of run-to-run control totals"
+      ],
+      "correctIndex": 3,
+      "why": "Run-to-run control totals compare record counts and amounts across processing stages to confirm completeness and detect lost transactions.",
+      "domain": 3
+    },
+    {
+      "q": "When auditing a project's business case, what should the IS auditor primarily evaluate?",
+      "choices": [
+        "Whether expected benefits, costs, and risks justify the investment",
+        "Whether the project sponsor has a corner office",
+        "Whether the newest programming language was chosen",
+        "Whether the project team prefers remote work"
+      ],
+      "correctIndex": 0,
+      "why": "A business case should demonstrate that projected benefits outweigh costs and risks, justifying the use of organizational resources.",
+      "domain": 3
+    },
+    {
+      "q": "An IS auditor reviews the recovery point objective (RPO) for a critical system. What does the RPO define?",
+      "choices": [
+        "The maximum time allowed to restore the system",
+        "The maximum acceptable amount of data loss measured in time",
+        "The number of staff required in the recovery team",
+        "The physical distance to the backup site"
+      ],
+      "correctIndex": 1,
+      "why": "The RPO specifies how much data, expressed as a time interval, the organization can afford to lose, driving backup frequency.",
+      "domain": 4
+    },
+    {
+      "q": "The recovery time objective (RTO) for a payroll system is four hours. What does this mean?",
+      "choices": [
+        "The system may lose up to four hours of data",
+        "The system must be restored to operation within four hours of disruption",
+        "Backups must be taken every four hours",
+        "The recovery team must arrive within four hours"
+      ],
+      "correctIndex": 1,
+      "why": "The RTO is the target duration within which a business process or system must be restored after an outage to avoid unacceptable impact.",
+      "domain": 4
+    },
+    {
+      "q": "Which type of disaster recovery site can be operational in the shortest time?",
+      "choices": [
+        "A cold site with only space and utilities",
+        "A warm site with hardware but no current data",
+        "A hot site with equipment and current data ready",
+        "A reciprocal agreement with another company"
+      ],
+      "correctIndex": 2,
+      "why": "A hot site is fully equipped and kept current, so it can take over operations quickly, giving the shortest recovery time.",
+      "domain": 4
+    },
+    {
+      "q": "An IS auditor reviews backup procedures. What is the MOST important test of backup effectiveness?",
+      "choices": [
+        "Periodic restoration tests confirming data can be recovered",
+        "Confirming the backup software has a modern interface",
+        "Verifying the color coding of the tape labels",
+        "Counting how many backup tapes are stored"
+      ],
+      "correctIndex": 0,
+      "why": "Backups are only useful if they can be restored; regular restoration testing is the definitive evidence of backup effectiveness.",
+      "domain": 4
+    },
+    {
+      "q": "What is the PRIMARY purpose of a business impact analysis (BIA) in continuity planning?",
+      "choices": [
+        "To select the vendor for new servers",
+        "To determine employee vacation schedules",
+        "To design the corporate logo",
+        "To identify critical processes and the impact of their disruption over time"
+      ],
+      "correctIndex": 3,
+      "why": "The BIA identifies critical processes and quantifies the impact of disruption, providing the basis for recovery priorities and objectives.",
+      "domain": 4
+    },
+    {
+      "q": "An IS auditor observes that the DR plan has never been tested. What is the PRIMARY risk?",
+      "choices": [
+        "The plan document will take up storage space",
+        "Staff will read the plan too frequently",
+        "The plan may fail to work as intended during an actual disaster",
+        "The plan will become popular with auditors"
+      ],
+      "correctIndex": 2,
+      "why": "An untested plan may contain gaps or outdated assumptions that only surface during a real event, when it is too late to fix them.",
+      "domain": 4
+    },
+    {
+      "q": "Which incident management activity should occur FIRST when a major system outage is detected?",
+      "choices": [
+        "Identify and classify the incident by severity and impact",
+        "Archive the incident for future training",
+        "Award the response team a bonus",
+        "Write the final root cause report"
+      ],
+      "correctIndex": 0,
+      "why": "Detecting, identifying, and classifying the incident by severity comes first so the appropriate response and resources can be mobilized.",
+      "domain": 4
+    },
+    {
+      "q": "An IS auditor reviews capacity management. What is its PRIMARY objective?",
+      "choices": [
+        "To increase the number of servers regardless of need",
+        "To reduce the number of IT staff",
+        "To slow down system performance intentionally",
+        "To ensure IT resources meet current and future demand efficiently"
+      ],
+      "correctIndex": 3,
+      "why": "Capacity management ensures resources are sufficient to meet demand cost-effectively, avoiding both shortages and wasteful over-provisioning.",
+      "domain": 4
+    },
+    {
+      "q": "When reviewing IT operations, what is the BEST control to detect unauthorized changes to production job schedules?",
+      "choices": [
+        "Painting the data center walls",
+        "Increasing the office temperature",
+        "A monthly team lunch meeting",
+        "Review of scheduler logs against approved change records"
+      ],
+      "correctIndex": 3,
+      "why": "Comparing scheduler activity logs to approved changes detects any unauthorized modifications to production job schedules.",
+      "domain": 4
+    },
+    {
+      "q": "An IS auditor evaluates offsite storage of backup media. What is the MOST important consideration?",
+      "choices": [
+        "The offsite site has the same street name",
+        "The offsite staff wear matching uniforms",
+        "The offsite location is far enough to avoid the same disaster yet accessible",
+        "The offsite building has an attractive lobby"
+      ],
+      "correctIndex": 2,
+      "why": "Offsite storage must be far enough that a regional disaster does not destroy both copies, while remaining accessible for timely recovery.",
+      "domain": 4
+    },
+    {
+      "q": "Which metric best measures the reliability of a critical production system for an operations audit?",
+      "choices": [
+        "The number of stickers on the monitors",
+        "The age of the server chassis",
+        "System availability or uptime against agreed targets",
+        "The number of coffee breaks taken by operators"
+      ],
+      "correctIndex": 2,
+      "why": "Availability measured against agreed targets shows whether the system is reliably meeting operational and service commitments.",
+      "domain": 4
+    },
+    {
+      "q": "An IS auditor reviews access controls and applies the principle of least privilege. What does this principle require?",
+      "choices": [
+        "Users choose their own access levels",
+        "Users are granted only the access needed to perform their duties",
+        "Access is granted permanently and never reviewed",
+        "All users receive administrator rights for convenience"
+      ],
+      "correctIndex": 1,
+      "why": "Least privilege limits each user to the minimum access necessary for their role, reducing the risk of misuse and error.",
+      "domain": 5
+    },
+    {
+      "q": "What is the PRIMARY purpose of a periodic user access review?",
+      "choices": [
+        "To confirm access rights remain appropriate for current job responsibilities",
+        "To reset the network switches",
+        "To upgrade the email client for all users",
+        "To increase the total number of user accounts"
+      ],
+      "correctIndex": 0,
+      "why": "Access reviews detect excessive, stale, or orphaned rights so that privileges continue to match users' current responsibilities.",
+      "domain": 5
+    },
+    {
+      "q": "An IS auditor examines data classification. What is its PRIMARY benefit for protecting information assets?",
+      "choices": [
+        "It makes all data publicly available",
+        "It encrypts only the least sensitive data",
+        "It ensures controls are applied commensurate with data sensitivity",
+        "It deletes data that is rarely used"
+      ],
+      "correctIndex": 2,
+      "why": "Classification lets the organization apply protection proportional to sensitivity, avoiding both under-protection and wasteful over-protection.",
+      "domain": 5
+    },
+    {
+      "q": "Which control provides accountability by ensuring actions can be traced to a specific individual?",
+      "choices": [
+        "Unique user IDs combined with logging",
+        "A single password posted at each desk",
+        "Anonymous guest access",
+        "Shared generic accounts for the whole team"
+      ],
+      "correctIndex": 0,
+      "why": "Unique IDs plus activity logging tie actions to individuals, establishing accountability; shared accounts destroy traceability.",
+      "domain": 5
+    },
+    {
+      "q": "During a review of privileged accounts, what is the BEST practice an IS auditor should expect to find?",
+      "choices": [
+        "Privileged activity is logged and independently monitored",
+        "Privileged access is granted without approval",
+        "All staff share one administrator password",
+        "Administrators disable logging to improve speed"
+      ],
+      "correctIndex": 0,
+      "why": "Because privileged accounts carry high risk, their activity should be logged and independently monitored to detect misuse.",
+      "domain": 5
+    },
+    {
+      "q": "An IS auditor assesses physical access to the data center. Which control best restricts entry to authorized personnel?",
+      "choices": [
+        "Badge access with logging and an entry authorization list",
+        "A decorative gate that is always open",
+        "A suggestion box near the door",
+        "A sign asking visitors to be quiet"
+      ],
+      "correctIndex": 0,
+      "why": "Badge-controlled entry with logging enforces and records who is authorized to enter the data center, deterring and detecting unauthorized access.",
+      "domain": 5
+    },
+    {
+      "q": "What is the PRIMARY security concern when an employee is terminated?",
+      "choices": [
+        "Updating the company phone directory design",
+        "Scheduling a farewell lunch",
+        "Recovering the employee's office chair",
+        "Timely revocation of all logical and physical access"
+      ],
+      "correctIndex": 3,
+      "why": "Prompt removal of access on termination prevents a former employee from retaining the ability to access systems or facilities.",
+      "domain": 5
+    },
+    {
+      "q": "An IS auditor reviews multi-factor authentication. Which combination represents true multi-factor authentication?",
+      "choices": [
+        "Two different passwords entered in sequence",
+        "A password plus a one-time code from a hardware token",
+        "A password plus a security question",
+        "A username plus a password"
+      ],
+      "correctIndex": 1,
+      "why": "MFA requires factors from different categories; a password (something you know) plus a token (something you have) qualifies, while two passwords do not.",
+      "domain": 5
+    },
+    {
+      "q": "An IS auditor evaluates a firewall rule set. What is the BEST configuration principle to verify?",
+      "choices": [
+        "Rules chosen at random each week",
+        "Default deny, permitting only explicitly authorized traffic",
+        "Default allow, blocking only known bad traffic",
+        "All ports open for maximum flexibility"
+      ],
+      "correctIndex": 1,
+      "why": "A default-deny stance permits only explicitly required traffic, minimizing the attack surface compared with a default-allow approach.",
+      "domain": 5
+    },
+    {
+      "q": "When auditing log management, what is the MOST important control to preserve the integrity of audit logs?",
+      "choices": [
+        "Allowing every user to edit the logs freely",
+        "Storing logs on a protected system where administrators cannot alter them",
+        "Deleting logs daily to save space",
+        "Printing logs and discarding the originals"
+      ],
+      "correctIndex": 1,
+      "why": "Logs must be protected from tampering, ideally on a separate system, so administrators cannot alter records of their own actions.",
+      "domain": 5
+    },
+    {
+      "q": "An IS auditor reviews handling of personally identifiable information (PII). What is the PRIMARY control objective?",
+      "choices": [
+        "Ensuring PII is collected, used, and retained per privacy requirements",
+        "Retaining PII indefinitely regardless of need",
+        "Sharing PII with any requesting party",
+        "Publishing all PII on the public website"
+      ],
+      "correctIndex": 0,
+      "why": "Protecting PII means limiting collection, use, and retention to what is lawful and necessary under applicable privacy requirements.",
+      "domain": 5
+    }
+  ]
+}

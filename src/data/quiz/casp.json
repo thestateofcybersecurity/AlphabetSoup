@@ -1,0 +1,668 @@
+{
+  "name": "CASP+ / SecurityX",
+  "mode": "choice",
+  "certKey": "CASP",
+  "retired": false,
+  "questions": [
+    {
+      "q": "An enterprise adopts zero trust and must decide where policy enforcement occurs for east-west traffic between microservices. Which approach best aligns with zero trust principles?",
+      "choices": [
+        "A flat VLAN with host-based antivirus on each container node",
+        "A service mesh with mutual TLS and per-request authorization at each sidecar proxy",
+        "A perimeter firewall with stateful inspection at the datacenter edge",
+        "A VPN concentrator requiring authentication before entering the cluster"
+      ],
+      "correctIndex": 1,
+      "why": "Zero trust enforces identity and authorization per request at the workload level, which a mesh with mTLS sidecars provides for east-west traffic.",
+      "domain": "architecture"
+    },
+    {
+      "q": "A security architect designs a hybrid cloud where sensitive workloads must never share physical hosts with other tenants. Which cloud deployment control satisfies this requirement?",
+      "choices": [
+        "A transit gateway peering the workload VPC to on-premises",
+        "Encrypted EBS volumes attached to standard shared instances",
+        "Security groups restricting inbound ports to the workload",
+        "Dedicated or bare-metal instances with single-tenancy hardware isolation"
+      ],
+      "correctIndex": 3,
+      "why": "Dedicated tenancy or bare-metal guarantees no co-residency, preventing side-channel and noisy-neighbor risks from shared physical hosts.",
+      "domain": "architecture"
+    },
+    {
+      "q": "An OT environment running legacy PLCs cannot be patched without vendor recertification. Which compensating control best reduces exposure while maintaining availability?",
+      "choices": [
+        "Forcing weekly firmware updates during maintenance windows",
+        "Enabling TLS 1.3 on the Modbus communication channel",
+        "Network segmentation with a unidirectional gateway isolating the OT zone",
+        "Deploying an EDR agent directly onto each PLC controller"
+      ],
+      "correctIndex": 2,
+      "why": "Unpatchable OT devices are protected by segmentation and data diodes that restrict flow, since agents and forced patching are not viable on PLCs.",
+      "domain": "architecture"
+    },
+    {
+      "q": "A company wants to allow contractors limited access to internal apps without extending the corporate network. Which architecture minimizes lateral movement risk?",
+      "choices": [
+        "Zero Trust Network Access brokering per-application sessions",
+        "A jump host in the DMZ with shared credentials",
+        "A site-to-site IPsec tunnel to the contractor office",
+        "Split-tunnel VPN with full network routing"
+      ],
+      "correctIndex": 0,
+      "why": "ZTNA grants app-specific access without placing contractors on the network, unlike VPNs that expose broad routes enabling lateral movement.",
+      "domain": "architecture"
+    },
+    {
+      "q": "An architect must protect an API gateway serving mobile clients against credential replay while keeping tokens short-lived. Which combination is most appropriate?",
+      "choices": [
+        "SAML assertions embedded in each mobile request header",
+        "Long-lived JWTs signed with a shared HMAC secret",
+        "OAuth 2.0 with PKCE and short-lived access tokens plus refresh token rotation",
+        "Basic authentication over TLS with a static API key per client"
+      ],
+      "correctIndex": 2,
+      "why": "PKCE prevents authorization code interception on public clients, and rotating refresh tokens with short access tokens limits replay value.",
+      "domain": "architecture"
+    },
+    {
+      "q": "A design calls for isolating a highly sensitive analytics workload so a compromise of the shared identity provider cannot grant access. Which control provides defense in depth here?",
+      "choices": [
+        "A separate identity domain with independent break-glass and step-up MFA",
+        "A shared service account scoped to the analytics database",
+        "Federating the workload to the same IdP with SCIM provisioning",
+        "Reusing the corporate SSO with conditional access policies"
+      ],
+      "correctIndex": 0,
+      "why": "An independent identity domain contains blast radius so an IdP compromise does not cascade, unlike reusing the shared corporate SSO.",
+      "domain": "architecture"
+    },
+    {
+      "q": "An enterprise deploys thousands of IoT sensors that must prove identity to a cloud broker at scale. Which provisioning approach is most secure and manageable?",
+      "choices": [
+        "A shared pre-shared key baked into the firmware image",
+        "Per-device X.509 certificates provisioned via a secure element at manufacture",
+        "MAC address allowlisting at the broker ingress",
+        "Username and password stored in device NVRAM"
+      ],
+      "correctIndex": 1,
+      "why": "Per-device certificates rooted in a hardware secure element give unique, revocable identity at scale, unlike shared keys or spoofable MACs.",
+      "domain": "architecture"
+    },
+    {
+      "q": "A SaaS provider must let enterprise customers bring their own encryption keys so the provider cannot decrypt tenant data unilaterally. Which model achieves this?",
+      "choices": [
+        "Customer-managed keys in an external HSM with hold-your-own-key control",
+        "Provider-managed KMS keys with per-tenant key rotation",
+        "Transparent database encryption with keys in the provider KMS",
+        "Envelope encryption using provider-owned master keys"
+      ],
+      "correctIndex": 0,
+      "why": "Hold-your-own-key with an external HSM keeps key custody with the customer, so the provider cannot decrypt without customer participation.",
+      "domain": "architecture"
+    },
+    {
+      "q": "An architect evaluates SASE for a distributed workforce. Which statement best captures SASE's core value over traditional hub-and-spoke backhaul?",
+      "choices": [
+        "It eliminates the need for identity in access decisions",
+        "It converges networking and security at the edge, applying policy near the user",
+        "It replaces endpoint protection with cloud antivirus scanning",
+        "It centralizes all traffic through a single datacenter for inspection"
+      ],
+      "correctIndex": 1,
+      "why": "SASE delivers converged network and security functions at distributed edges, avoiding latency from backhauling all traffic to a central hub.",
+      "domain": "architecture"
+    },
+    {
+      "q": "A microservices platform needs secrets delivered to workloads without embedding them in images or environment files. Which approach is best?",
+      "choices": [
+        "A secrets manager with dynamic, short-lived credentials injected at runtime",
+        "Passing secrets as command-line arguments to the container",
+        "Storing secrets in a shared ConfigMap referenced by pods",
+        "Encrypting secrets in the container image with a build-time key"
+      ],
+      "correctIndex": 0,
+      "why": "Dynamic short-lived secrets from a vault avoid persistent embedded credentials and shrink the exposure window if a workload is compromised.",
+      "domain": "architecture"
+    },
+    {
+      "q": "A cloud architect must prevent data exfiltration from workloads that legitimately need internet access for updates. Which control is most effective?",
+      "choices": [
+        "A NAT gateway providing outbound connectivity",
+        "A CDN in front of the application",
+        "An egress proxy with domain allowlisting and TLS inspection",
+        "Security groups permitting all outbound ports"
+      ],
+      "correctIndex": 2,
+      "why": "An egress proxy with allowlisting constrains outbound destinations and inspects TLS, blocking exfiltration channels a plain NAT would allow.",
+      "domain": "architecture"
+    },
+    {
+      "q": "An organization designs a resilient multi-region deployment. To meet a strict RPO of near zero for a transactional database, which replication strategy fits?",
+      "choices": [
+        "Synchronous replication to a second region within a low-latency footprint",
+        "Asynchronous log shipping with hourly apply intervals",
+        "Manual failover using restored backups on demand",
+        "Nightly snapshot backups shipped to the secondary region"
+      ],
+      "correctIndex": 0,
+      "why": "Synchronous replication commits writes in both regions, giving near-zero RPO, while asynchronous or snapshot methods risk losing recent transactions.",
+      "domain": "architecture"
+    },
+    {
+      "q": "A CISO wants continuous validation that segmentation between PCI and corporate zones holds. Which practice provides ongoing assurance rather than a point-in-time check?",
+      "choices": [
+        "A one-time architecture review during design",
+        "Quarterly firewall rule reviews by the network team",
+        "Automated breach and attack simulation testing segmentation paths",
+        "An annual penetration test of the cardholder environment"
+      ],
+      "correctIndex": 2,
+      "why": "Breach and attack simulation continuously exercises segmentation, catching drift that annual pentests or periodic reviews would miss.",
+      "domain": "operations"
+    },
+    {
+      "q": "During IR, analysts find an attacker used a valid service account across many hosts. Which containment action best limits damage without tipping off the adversary prematurely?",
+      "choices": [
+        "Immediately shut down every host the account touched",
+        "Delete the service account and its associated resources",
+        "Broadcast an all-staff notice about the compromise",
+        "Rotate the service account credential and monitor for the attacker's reaction"
+      ],
+      "correctIndex": 3,
+      "why": "Rotating the credential cuts access while monitoring reveals attacker behavior, whereas mass shutdowns or deletions destroy evidence and alert them.",
+      "domain": "operations"
+    },
+    {
+      "q": "A forensic examiner must preserve volatile evidence from a running compromised server before shutdown. Which order of collection follows the order of volatility?",
+      "choices": [
+        "Disk images first, then RAM, then network state",
+        "Log files first, then disk, then volatile memory",
+        "Archived backups first, then live memory, then registers",
+        "CPU registers and cache, then RAM, then disk, then archived logs"
+      ],
+      "correctIndex": 3,
+      "why": "The order of volatility collects the most ephemeral data first: registers and cache, then memory, then disk, then archival media.",
+      "domain": "operations"
+    },
+    {
+      "q": "A SOC drowning in alerts wants to reduce mean time to respond for known attack patterns. Which capability most directly achieves this?",
+      "choices": [
+        "Lengthening alert retention in cold storage",
+        "Adding more raw log sources to the SIEM",
+        "Increasing the SIEM correlation window to days",
+        "SOAR playbooks that automate triage and containment for defined patterns"
+      ],
+      "correctIndex": 3,
+      "why": "SOAR automation executes consistent triage and response for known patterns, cutting MTTR far more than adding log volume or retention.",
+      "domain": "operations"
+    },
+    {
+      "q": "Threat hunters want to proactively find adversaries already inside the network. Which approach best supports hypothesis-driven hunting?",
+      "choices": [
+        "Running an authenticated vulnerability scan of all hosts",
+        "Waiting for the SIEM to raise correlated signature alerts",
+        "Reviewing the annual risk register for known gaps",
+        "Mapping observed telemetry to MITRE ATT&CK techniques to test hypotheses"
+      ],
+      "correctIndex": 3,
+      "why": "ATT&CK-aligned hunting forms and tests hypotheses about adversary techniques in telemetry, unlike passive signature alerting or scanning.",
+      "domain": "operations"
+    },
+    {
+      "q": "An analyst enriches an IOC feed but finds many false positives disrupting operations. Which practice improves signal quality?",
+      "choices": [
+        "Scoring indicators by confidence and context before automated blocking",
+        "Ignoring the feed and relying on endpoint AV alone",
+        "Extending indicator time-to-live indefinitely",
+        "Blocking every indicator in the feed immediately"
+      ],
+      "correctIndex": 0,
+      "why": "Confidence and context scoring filters low-quality indicators before enforcement, reducing false positives that blanket blocking would cause.",
+      "domain": "operations"
+    },
+    {
+      "q": "A large enterprise cannot forward full packet captures from every segment to central storage due to cost. Which monitoring design preserves investigative value at scale?",
+      "choices": [
+        "Retain full PCAP from all segments for ninety days",
+        "Sample one percent of packets randomly across all links",
+        "Capture flow metadata everywhere and full packets selectively at chokepoints",
+        "Disable logging on low-risk segments entirely"
+      ],
+      "correctIndex": 2,
+      "why": "Ubiquitous flow metadata plus targeted full capture at chokepoints balances cost and forensic depth better than full PCAP everywhere.",
+      "domain": "operations"
+    },
+    {
+      "q": "After a ransomware event, the team must decide recovery order. Which sequencing principle governs restoration to avoid reinfection?",
+      "choices": [
+        "Reconnect production to the network before validating integrity",
+        "Restore all systems from the most recent backup immediately",
+        "Rebuild clean infrastructure, validate backups are malware-free, then restore",
+        "Pay to obtain the decryptor and decrypt in place"
+      ],
+      "correctIndex": 2,
+      "why": "Restoring onto validated clean infrastructure prevents reintroducing dormant malware that recent unvalidated backups may still contain.",
+      "domain": "operations"
+    },
+    {
+      "q": "A detection engineer wants to reduce dwell time for credential misuse. Which analytic is most effective for detecting compromised accounts?",
+      "choices": [
+        "Signature matching on known malware hashes",
+        "User and entity behavior analytics baselining normal access patterns",
+        "A static blocklist of known malicious IP addresses",
+        "Weekly manual review of authentication logs"
+      ],
+      "correctIndex": 1,
+      "why": "UEBA baselines behavior and flags anomalous access indicating credential misuse, which static blocklists and hash signatures cannot detect.",
+      "domain": "operations"
+    },
+    {
+      "q": "An investigation requires preserving cloud provider logs that roll over quickly. Which action best maintains admissibility and completeness?",
+      "choices": [
+        "Copy logs manually to an analyst workstation",
+        "Rely on the provider's default seven-day retention",
+        "Take screenshots of the console log viewer as needed",
+        "Enable immutable log export to a write-once bucket with documented chain of custody"
+      ],
+      "correctIndex": 3,
+      "why": "Immutable export to WORM storage with chain of custody preserves integrity and completeness that screenshots or default retention cannot ensure.",
+      "domain": "operations"
+    },
+    {
+      "q": "A SOC integrates threat intelligence to prioritize patching. Which model best links intelligence to actionable defensive priorities?",
+      "choices": [
+        "Patching strictly in CVSS base score order",
+        "Deferring all patches to a fixed quarterly cycle",
+        "Patching only vulnerabilities disclosed in the last week",
+        "Correlating exploited-in-the-wild intel with asset exposure and criticality"
+      ],
+      "correctIndex": 3,
+      "why": "Prioritizing by active exploitation combined with asset exposure and criticality targets real risk better than CVSS-only or calendar-based patching.",
+      "domain": "operations"
+    },
+    {
+      "q": "An enterprise wants tamper-evident audit logging across distributed services so a compromised host cannot silently alter its own logs. Which design fits?",
+      "choices": [
+        "Emailing daily log summaries to administrators",
+        "Storing logs locally on each host with restrictive file permissions",
+        "Rotating local logs daily and compressing them",
+        "Streaming logs to a central append-only store with cryptographic chaining"
+      ],
+      "correctIndex": 3,
+      "why": "Central append-only storage with hash chaining makes tampering evident, whereas local logs can be altered by a host-level compromise.",
+      "domain": "operations"
+    },
+    {
+      "q": "A red team exercise reveals defenders never detected lateral movement via WMI. Which improvement most directly closes this gap?",
+      "choices": [
+        "Deploy additional network firewalls between subnets",
+        "Increase password complexity requirements",
+        "Add a warning banner to remote login screens",
+        "Enable and forward detailed process and WMI activity logging to the SIEM"
+      ],
+      "correctIndex": 3,
+      "why": "Lateral movement via WMI is detectable only when process and WMI telemetry is captured and analyzed, which firewalls or banners do not provide.",
+      "domain": "operations"
+    },
+    {
+      "q": "A board asks the CISO to express cyber risk in financial terms for investment decisions. Which method best supports quantified risk-based prioritization?",
+      "choices": [
+        "Annualized loss expectancy derived from asset value and event frequency",
+        "A count of open vulnerabilities by severity",
+        "The number of security incidents reported last quarter",
+        "A qualitative red-amber-green heat map of top risks"
+      ],
+      "correctIndex": 0,
+      "why": "ALE monetizes risk using asset value and frequency, giving the financial basis boards need that qualitative heat maps or raw counts lack.",
+      "domain": "grc"
+    },
+    {
+      "q": "An organization must demonstrate that controls map to a recognized framework for a customer audit. Which approach efficiently supports multiple regulatory obligations at once?",
+      "choices": [
+        "Deferring mapping until each audit is scheduled",
+        "Adopting a control crosswalk that maps one control set to several frameworks",
+        "Maintaining separate independent control sets per regulation",
+        "Documenting controls only against the strictest single regulation"
+      ],
+      "correctIndex": 1,
+      "why": "A crosswalk maps unified controls to multiple frameworks, avoiding duplicated effort of maintaining separate per-regulation control sets.",
+      "domain": "grc"
+    },
+    {
+      "q": "A vendor providing a critical SaaS service refuses to share a full penetration test report. Which artifact offers the best independent assurance of their control environment?",
+      "choices": [
+        "The vendor's marketing security whitepaper",
+        "A current SOC 2 Type II report from an independent auditor",
+        "The vendor's internal policy documents",
+        "A signed statement that the vendor is secure"
+      ],
+      "correctIndex": 1,
+      "why": "A SOC 2 Type II attests to control effectiveness over time via an independent auditor, unlike self-attestations or marketing material.",
+      "domain": "grc"
+    },
+    {
+      "q": "A company acquires a firm with unknown security posture and must gauge supply-chain and integration risk quickly. Which activity yields the most decision-relevant insight first?",
+      "choices": [
+        "A full asset inventory of every workstation before any decision",
+        "Migrating all systems to the parent domain before assessment",
+        "A prioritized due-diligence assessment of critical assets and third-party dependencies",
+        "Rewriting all of the acquired firm's policies immediately"
+      ],
+      "correctIndex": 2,
+      "why": "Risk-based due diligence on critical assets and dependencies surfaces the highest-impact issues fastest, before exhaustive inventory or migration.",
+      "domain": "grc"
+    },
+    {
+      "q": "Regulators require that personal data of EU residents processed by a US SaaS meets cross-border transfer obligations. Which mechanism most directly addresses lawful transfer?",
+      "choices": [
+        "Obtaining ISO 27001 certification for the platform",
+        "Standard Contractual Clauses with a transfer impact assessment",
+        "A privacy policy posted on the company website",
+        "Encrypting the data at rest in the US datacenter"
+      ],
+      "correctIndex": 1,
+      "why": "SCCs plus a transfer impact assessment provide the lawful basis for cross-border transfer, which encryption or certifications alone do not satisfy.",
+      "domain": "grc"
+    },
+    {
+      "q": "A risk committee debates whether to accept, transfer, mitigate, or avoid a residual risk that exceeds appetite but is costly to fully remediate. Which action reflects risk transfer?",
+      "choices": [
+        "Discontinuing the risky business activity",
+        "Deploying additional controls to lower likelihood",
+        "Purchasing cyber insurance to offset potential financial loss",
+        "Documenting acceptance and monitoring the risk"
+      ],
+      "correctIndex": 2,
+      "why": "Cyber insurance shifts financial impact to a third party, the defining trait of risk transfer, distinct from mitigation, avoidance, or acceptance.",
+      "domain": "grc"
+    },
+    {
+      "q": "An enterprise must ensure open-source components in its software have no undisclosed known vulnerabilities before release. Which control best supports supply-chain assurance?",
+      "choices": [
+        "Running the application through a WAF in production",
+        "Signing the final release artifact only",
+        "Generating an SBOM and continuously scanning dependencies against advisories",
+        "Trusting the maintainers' reputation for each library"
+      ],
+      "correctIndex": 2,
+      "why": "An SBOM with continuous dependency scanning reveals vulnerable components, which reputation, a WAF, or release signing alone cannot detect.",
+      "domain": "grc"
+    },
+    {
+      "q": "A business impact analysis must set recovery priorities. Which pair of metrics primarily drives the design of the recovery strategy?",
+      "choices": [
+        "Recovery time objective and recovery point objective",
+        "Mean time between failures and mean time to detect",
+        "Annualized rate of occurrence and single loss expectancy",
+        "Total cost of ownership and return on investment"
+      ],
+      "correctIndex": 0,
+      "why": "RTO and RPO define how fast systems must recover and how much data loss is tolerable, directly shaping the recovery strategy.",
+      "domain": "grc"
+    },
+    {
+      "q": "An organization wants contractual assurance that a cloud provider will meet security and availability commitments with defined remedies. Which document governs this?",
+      "choices": [
+        "A memorandum of understanding outlining intentions",
+        "A non-disclosure agreement covering shared data",
+        "A service level agreement with measurable metrics and penalties",
+        "An interconnection security agreement for connectivity"
+      ],
+      "correctIndex": 2,
+      "why": "An SLA specifies measurable commitments and remedies for missed targets, unlike an MOU's non-binding intent or an NDA's confidentiality scope.",
+      "domain": "grc"
+    },
+    {
+      "q": "A privacy program must limit exposure if a breach occurs by ensuring collected data cannot easily be tied to individuals. Which technique best reduces re-identification risk while retaining analytic value?",
+      "choices": [
+        "Retaining all fields but restricting query permissions",
+        "Storing full records encrypted with a single shared key",
+        "Pseudonymization with tokenization and separated re-identification keys",
+        "Masking data only in the user interface layer"
+      ],
+      "correctIndex": 2,
+      "why": "Pseudonymization with separated keys breaks direct linkage while allowing analytics, reducing re-identification impact if data is exposed.",
+      "domain": "grc"
+    },
+    {
+      "q": "A CISO must select a control framework focused specifically on managing and improving an information security management system with continual improvement. Which fits best?",
+      "choices": [
+        "PCI DSS for cardholder data protection",
+        "NIST SP 800-53 as a control catalog for federal systems",
+        "ISO/IEC 27001 with its plan-do-check-act management cycle",
+        "OWASP Top 10 for web application risks"
+      ],
+      "correctIndex": 2,
+      "why": "ISO 27001 defines an ISMS with continual improvement via PDCA, whereas PCI, 800-53, and OWASP are scoped to specific domains.",
+      "domain": "grc"
+    },
+    {
+      "q": "A public key infrastructure at enterprise scale must keep the root CA highly protected yet issue many certificates. Which design best balances security and operational need?",
+      "choices": [
+        "An offline root CA that signs online issuing subordinate CAs",
+        "Multiple independent self-signed roots per department",
+        "An online root CA stored on a shared file server",
+        "A single online root CA issuing all certificates directly"
+      ],
+      "correctIndex": 0,
+      "why": "Keeping the root offline and delegating issuance to online subordinate CAs limits root exposure while supporting high-volume certificate issuance.",
+      "domain": "engineering"
+    },
+    {
+      "q": "An architect must choose how clients learn whether a certificate is revoked with minimal privacy leakage and good performance at scale. Which mechanism is preferred?",
+      "choices": [
+        "OCSP stapling where the server presents a signed freshness proof",
+        "Disabling revocation checking to improve speed",
+        "Clients querying an OCSP responder for every connection",
+        "Downloading the full certificate revocation list per handshake"
+      ],
+      "correctIndex": 0,
+      "why": "OCSP stapling delivers a signed status from the server, avoiding per-client responder queries that leak browsing and add latency.",
+      "domain": "engineering"
+    },
+    {
+      "q": "A team must protect long-term archived data against the future threat of quantum computers breaking current asymmetric algorithms. Which strategy is most prudent now?",
+      "choices": [
+        "Increase RSA key length to 8192 bits indefinitely",
+        "Adopt crypto-agility and pilot post-quantum algorithms for key establishment",
+        "Assume no action is needed until quantum computers exist",
+        "Rely solely on AES-128 for all confidentiality"
+      ],
+      "correctIndex": 1,
+      "why": "Crypto-agility with post-quantum key establishment addresses harvest-now-decrypt-later risk, which larger RSA keys do not durably solve.",
+      "domain": "engineering"
+    },
+    {
+      "q": "A design requires that even if a session key is later compromised, past recorded sessions remain confidential. Which property must the key exchange provide?",
+      "choices": [
+        "Static RSA key transport for session keys",
+        "Pre-shared symmetric keys reused across sessions",
+        "Key escrow held by a trusted third party",
+        "Perfect forward secrecy via ephemeral Diffie-Hellman key exchange"
+      ],
+      "correctIndex": 3,
+      "why": "Ephemeral DH gives forward secrecy so compromising a long-term key cannot decrypt past sessions, unlike static RSA key transport.",
+      "domain": "engineering"
+    },
+    {
+      "q": "An engineer must store user passwords resistant to offline cracking with GPUs and ASICs. Which choice is most appropriate?",
+      "choices": [
+        "A memory-hard function such as Argon2 with tuned parameters",
+        "Unsalted SHA-256 hashing",
+        "AES encryption of the plaintext password",
+        "Fast MD5 with a per-user salt"
+      ],
+      "correctIndex": 0,
+      "why": "Memory-hard functions like Argon2 resist GPU and ASIC cracking, while fast hashes are cheap to brute-force and encryption is reversible.",
+      "domain": "engineering"
+    },
+    {
+      "q": "A high-assurance system must generate and protect cryptographic keys so they never exist in plaintext outside dedicated hardware. Which component provides this?",
+      "choices": [
+        "A cloud object store with server-side encryption",
+        "The operating system credential manager",
+        "A FIPS 140-3 validated hardware security module",
+        "A software keystore encrypted with a passphrase"
+      ],
+      "correctIndex": 2,
+      "why": "A validated HSM generates and stores keys in tamper-resistant hardware so plaintext keys never leave the boundary, unlike software keystores.",
+      "domain": "engineering"
+    },
+    {
+      "q": "A protocol designer needs authenticated encryption that provides confidentiality and integrity in a single operation. Which construction fits?",
+      "choices": [
+        "AES-GCM providing authenticated encryption with associated data",
+        "AES-ECB for block confidentiality",
+        "AES-CBC without an accompanying MAC",
+        "RC4 stream cipher with a static key"
+      ],
+      "correctIndex": 0,
+      "why": "AES-GCM is an AEAD mode delivering confidentiality and integrity together, unlike raw CBC or ECB which lack built-in authentication.",
+      "domain": "engineering"
+    },
+    {
+      "q": "An enterprise wants to rotate encryption keys regularly without re-encrypting massive datasets each time. Which key management pattern enables this?",
+      "choices": [
+        "Using a single static key for the data lifetime",
+        "Envelope encryption where data keys are wrapped by a rotatable master key",
+        "Storing keys alongside the ciphertext they protect",
+        "Encrypting all data directly with the master key"
+      ],
+      "correctIndex": 1,
+      "why": "Envelope encryption rotates the master key by rewrapping data keys, avoiding re-encryption of the underlying bulk data.",
+      "domain": "engineering"
+    },
+    {
+      "q": "A mutual authentication requirement between two services must resist impersonation even if one endpoint's transport is proxied. Which mechanism is strongest?",
+      "choices": [
+        "IP allowlisting between the services",
+        "HTTP basic authentication over TLS",
+        "Mutual TLS with certificate-based client and server authentication",
+        "Server-only TLS with a shared bearer token"
+      ],
+      "correctIndex": 2,
+      "why": "Mutual TLS cryptographically authenticates both endpoints with certificates, resisting impersonation better than bearer tokens or IP checks.",
+      "domain": "engineering"
+    },
+    {
+      "q": "An engineer must ensure firmware loaded on a device is authentic and unmodified from boot. Which mechanism establishes this chain of trust?",
+      "choices": [
+        "A checksum comparison performed after the OS loads",
+        "Secure boot verifying each stage's signature rooted in hardware",
+        "Storing firmware on an encrypted partition",
+        "Antivirus scanning the firmware image at runtime"
+      ],
+      "correctIndex": 1,
+      "why": "Secure boot validates signatures at each stage from a hardware root of trust, ensuring only authentic firmware executes before the OS.",
+      "domain": "engineering"
+    },
+    {
+      "q": "A system needs to prove data integrity and non-repudiation of origin for messages between partners. Which primitive provides both?",
+      "choices": [
+        "A CRC32 checksum appended to the message",
+        "Symmetric encryption of the message body",
+        "A digital signature using the sender's private key",
+        "An HMAC computed with a shared secret"
+      ],
+      "correctIndex": 2,
+      "why": "A digital signature binds origin to a private key, giving integrity and non-repudiation, which a shared-secret HMAC cannot provide.",
+      "domain": "engineering"
+    },
+    {
+      "q": "A certificate architect wants to reduce impact if a subordinate CA key is compromised while keeping trust chains valid for many clients. Which practice helps most?",
+      "choices": [
+        "Constraining subordinate CAs with name and path length constraints",
+        "Using a single wildcard certificate everywhere",
+        "Embedding the private key in each issued certificate",
+        "Issuing all certificates with ten-year validity"
+      ],
+      "correctIndex": 0,
+      "why": "Name and path length constraints limit what a subordinate CA can issue, containing the damage if its key is compromised.",
+      "domain": "engineering"
+    },
+    {
+      "q": "A developer must protect data in use during processing so that even a privileged host administrator cannot read it. Which technology addresses this?",
+      "choices": [
+        "Full-disk encryption on the host",
+        "Database-level encryption at rest",
+        "Confidential computing using hardware trusted execution environments",
+        "TLS for data in transit to the host"
+      ],
+      "correctIndex": 2,
+      "why": "Confidential computing runs workloads in a hardware TEE, shielding data in use even from privileged host admins, unlike at-rest or in-transit encryption.",
+      "domain": "engineering"
+    },
+    {
+      "q": "An architect integrates a legacy application that only supports SAML with a modern API-first identity ecosystem using OIDC. Which component bridges these protocols?",
+      "choices": [
+        "A password vault synchronizing credentials",
+        "A shared LDAP directory queried by both systems",
+        "An identity broker that translates between SAML and OIDC tokens",
+        "A reverse proxy that strips authentication headers"
+      ],
+      "correctIndex": 2,
+      "why": "An identity broker federates and translates between SAML and OIDC, letting legacy and modern systems interoperate without protocol rewrites.",
+      "domain": "architecture"
+    },
+    {
+      "q": "A security team must decide how to handle a zero-day being actively exploited against an internet-facing app with no vendor patch. Which immediate action best reduces risk?",
+      "choices": [
+        "Apply a virtual patch via WAF or IPS rule targeting the exploit pattern",
+        "Increase logging verbosity and take no protective action",
+        "Reboot the affected servers on a schedule",
+        "Wait for the vendor to release an official patch"
+      ],
+      "correctIndex": 0,
+      "why": "A virtual patch at the WAF or IPS blocks the exploit pattern immediately, buying time until a vendor fix, unlike passive waiting.",
+      "domain": "operations"
+    },
+    {
+      "q": "An enterprise wants to grant developers just-in-time elevated access to production only when an approved change is active. Which model enforces least privilege over time?",
+      "choices": [
+        "Standing administrator group membership for the dev team",
+        "Just-in-time privileged access with time-bound, approval-gated elevation",
+        "Permanent sudo rights logged for later review",
+        "A shared root account with a rotated password"
+      ],
+      "correctIndex": 1,
+      "why": "Just-in-time access grants time-bound privileges tied to approvals, minimizing standing rights that permanent membership or shared accounts create.",
+      "domain": "engineering"
+    },
+    {
+      "q": "A global enterprise must align disparate business units under one measurable security strategy tied to organizational objectives. Which governance instrument best drives this alignment?",
+      "choices": [
+        "An annual awareness training completion metric",
+        "A collection of standalone technical standards per business unit",
+        "A security program governed by a risk-tolerance-driven policy framework with defined KPIs",
+        "A shared spreadsheet tracking open firewall tickets"
+      ],
+      "correctIndex": 2,
+      "why": "A policy framework tied to risk tolerance with KPIs aligns units to shared objectives and makes progress measurable, unlike siloed standards.",
+      "domain": "grc"
+    },
+    {
+      "q": "An architect must secure serverless functions that call downstream services, avoiding over-permissioned execution roles. Which practice best limits blast radius?",
+      "choices": [
+        "A single shared execution role reused by all functions",
+        "Embedding long-lived API keys in the function code",
+        "Per-function least-privilege roles scoped to only required resources",
+        "Granting functions broad administrator permissions for simplicity"
+      ],
+      "correctIndex": 2,
+      "why": "Scoping each function to a minimal role limits what a compromised function can reach, unlike a shared broad role that widens blast radius.",
+      "domain": "architecture"
+    },
+    {
+      "q": "An engineer must validate that a downloaded software update genuinely came from the vendor and was not tampered with in transit or on a mirror. Which combination provides this assurance?",
+      "choices": [
+        "Verifying a detached signature against the vendor's published public key",
+        "Checking that the filename matches the release version",
+        "Confirming the download used an HTTPS connection only",
+        "Comparing the file size to the vendor's listed size"
+      ],
+      "correctIndex": 0,
+      "why": "A signature verified against the vendor's public key proves authenticity and integrity, which HTTPS transport or size checks alone cannot guarantee.",
+      "domain": "engineering"
+    }
+  ]
+}
