@@ -5,19 +5,25 @@ import { dailyIndex, dayNumber, localDateString } from './lib/daily';
 import { detectFrameworkQuery } from './lib/framework-search';
 import { slugForKey } from './lib/slug';
 import { CATEGORIES } from './lib/types';
-import type { Category, Difficulty } from './lib/types';
+import type { Category } from './lib/types';
 
 const data = allData();
 const byId = (id: string) => document.getElementById(id) as HTMLElement;
 
-const state: { query: string; category: Category | ''; difficulty: Difficulty | ''; letter: string } = {
+const state: { query: string; category: Category | ''; letter: string } = {
   query: '',
   category: '',
-  difficulty: '',
   letter: '',
 };
 
-const RESULT_CAP = 60;
+const PAGE_SIZE = 60;
+/** How many results are currently revealed; grows via "Show more". */
+let shownCount = PAGE_SIZE;
+
+/** Reset paging to the first page whenever the result set changes. */
+function resetPaging(): void {
+  shownCount = PAGE_SIZE;
+}
 
 function el<K extends keyof HTMLElementTagNameMap>(
   tag: K,
@@ -51,6 +57,7 @@ function renderPills(): void {
   const all = el('button', 'pill active', 'all');
   all.addEventListener('click', () => {
     state.category = '';
+    resetPaging();
     syncPills();
     render();
   });
@@ -60,6 +67,7 @@ function renderPills(): void {
     pill.dataset.category = category;
     pill.addEventListener('click', () => {
       state.category = state.category === category ? '' : category;
+      resetPaging();
       syncPills();
       render();
     });
@@ -86,6 +94,7 @@ function renderAzStrip(): void {
     btn.disabled = !hasAny;
     btn.addEventListener('click', () => {
       state.letter = state.letter === ch ? '' : ch;
+      resetPaging();
       strip.querySelectorAll('.az').forEach((b) => b.classList.remove('active'));
       if (state.letter) btn.classList.add('active');
       render();
@@ -112,8 +121,8 @@ function renderSoupOfTheDay(): void {
 
 function letterFilter(): SearchFilter {
   // '#' bucket: any digit-leading key
-  if (state.letter === '0') return { category: state.category, difficulty: state.difficulty };
-  return { category: state.category, difficulty: state.difficulty, letter: state.letter };
+  if (state.letter === '0') return { category: state.category };
+  return { category: state.category, letter: state.letter };
 }
 
 type CrossSearchModule = typeof import('./lib/global-search') & {
@@ -199,13 +208,16 @@ function render(): void {
   }
   const meta = byId('result-meta');
   const results = byId('results');
-  const shown = keys.slice(0, RESULT_CAP);
+  const visible = Math.min(shownCount, keys.length);
+  const shown = keys.slice(0, visible);
   const total = Object.keys(data).length;
+  const filtering = Boolean(state.query || state.category || state.letter);
 
-  byId('sotd').hidden = Boolean(state.query || state.category || state.difficulty || state.letter);
-  meta.textContent = state.query || state.category || state.difficulty || state.letter
-    ? `${keys.length} match${keys.length === 1 ? '' : 'es'}${keys.length > RESULT_CAP ? `, showing first ${RESULT_CAP}` : ''}`
+  byId('sotd').hidden = filtering;
+  const label = filtering
+    ? `${keys.length} match${keys.length === 1 ? '' : 'es'}`
     : `browsing all ${total}`;
+  meta.textContent = keys.length > visible ? `${label} · showing ${visible}` : label;
 
   results.innerHTML = '';
   if (keys.length === 0) {
@@ -251,6 +263,16 @@ function render(): void {
   if (shown.length === 1) {
     (results.firstElementChild as HTMLDetailsElement).open = true;
   }
+
+  if (keys.length > visible) {
+    const remaining = keys.length - visible;
+    const more = el('button', 'show-more', `Show more (${remaining} more)`);
+    more.addEventListener('click', () => {
+      shownCount += PAGE_SIZE;
+      render();
+    });
+    results.appendChild(more);
+  }
 }
 
 function initSearch(): void {
@@ -264,12 +286,14 @@ function initSearch(): void {
   input.addEventListener('input', () => {
     state.query = input.value;
     clear.hidden = input.value === '';
+    resetPaging();
     render();
   });
   clear.addEventListener('click', () => {
     input.value = '';
     state.query = '';
     clear.hidden = true;
+    resetPaging();
     input.focus();
     render();
   });

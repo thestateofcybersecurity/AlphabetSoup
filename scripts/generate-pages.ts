@@ -106,7 +106,7 @@ function navHtml(prefix: string): string {
   ];
   return `<nav class="gnav">${links
     .map(([href, label]) => `<a href="${href}">${label}</a>`)
-    .join('')}<a href="${MITRE_NAV}" rel="noopener">MITRE ATT&amp;CK</a><a class="play-link" href="${CYBERDLE_NAV}" rel="noopener">Cyberdle</a></nav>`;
+    .join('')}<a href="${MITRE_NAV}" rel="noopener" target="_blank">MITRE ATT&amp;CK</a><a class="play-link" href="${CYBERDLE_NAV}" rel="noopener" target="_blank">Cyberdle</a></nav>`;
 }
 
 function relatedKeys(key: string): string[] {
@@ -192,7 +192,7 @@ function definitionPage(key: string, entry: AcronymEntry): string {
         : ''
     }
     <footer>
-      <p class="play">Think you could have guessed it? <a href="${CYBERDLE}" rel="noopener">Play Cyberdle, the daily acronym game &rarr;</a></p>
+      <p class="play">Think you could have guessed it? <a href="${CYBERDLE}" rel="noopener" target="_blank">Play Cyberdle, the daily acronym game &rarr;</a></p>
       <p>Part of <a href="../">Cybersecurity Alphabet Soup</a>, a plain-English dictionary of ${Object.keys(data).length} cybersecurity acronyms.</p>
     </footer>
   </div>
@@ -351,7 +351,7 @@ ${FW_EXTRA_CSS}</style>
     }
     <nav class="pager">${pager}</nav>
     <footer>
-      <p class="play">Learn the language too: <a href="../../">browse the acronym glossary</a> or <a href="${CYBERDLE}" rel="noopener">play Cyberdle &rarr;</a></p>
+      <p class="play">Learn the language too: <a href="../../">browse the acronym glossary</a> or <a href="${CYBERDLE}" rel="noopener" target="_blank">play Cyberdle &rarr;</a></p>
       <p>Unofficial plain-English companion. Official source: <a href="${esc(input.officialUrl)}" rel="noopener">${esc(input.officialName)}</a>.</p>
     </footer>
   </div>
