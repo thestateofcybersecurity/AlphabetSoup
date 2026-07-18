@@ -361,6 +361,7 @@ const urls = [
   `${SITE}/frameworks/nist-csf/`,
   `${SITE}/frameworks/cis/`,
   `${SITE}/quiz/`,
+  `${SITE}/assess/`,
   ...keys.map((key) => `${SITE}/definitions/${slugForKey(key)}.html`),
   ...csfIds.map((id) => `${SITE}/frameworks/nist-csf/${frameworkSlug(id)}.html`),
   ...cisIds.map((id) => `${SITE}/frameworks/cis/${frameworkSlug(id)}.html`),
