@@ -85,12 +85,14 @@ ul{padding-left:18px;margin:8px 0}
 footer{margin-top:28px;border-top:2px solid var(--ink);padding-top:16px;font-size:.85rem;color:var(--ink-soft)}
 footer .play{font-family:'Fraunces',Georgia,serif;font-style:italic;font-weight:700;font-size:1rem}
 .gnav{display:flex;flex-wrap:wrap;gap:2px;margin:0 0 18px}
-.gnav a{font-family:'IBM Plex Mono',monospace;font-size:.68rem;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-soft);text-decoration:none;padding:5px 10px;border-radius:999px}
+@media(max-width:640px){.gnav{flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none}.gnav::-webkit-scrollbar{display:none}.gnav a{flex:0 0 auto}}
+.gnav a{font-family:'IBM Plex Mono',monospace;font-size:.68rem;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-soft);text-decoration:none;padding:5px 10px;border-radius:999px;white-space:nowrap}
 .gnav a:hover{color:var(--tomato)}
 .gnav a.play-link{color:var(--tomato)}
 `.trim();
 
 const CYBERDLE_NAV = 'https://thestateofcybersecurity.github.io/cyberdle/';
+const MITRE_NAV = 'https://mitre.cybersecurityalphabetsoup.com/';
 
 /** Compact site nav for generated pages; prefix is the relative path to site root. */
 function navHtml(prefix: string): string {
@@ -104,7 +106,7 @@ function navHtml(prefix: string): string {
   ];
   return `<nav class="gnav">${links
     .map(([href, label]) => `<a href="${href}">${label}</a>`)
-    .join('')}<a class="play-link" href="${CYBERDLE_NAV}" rel="noopener">Cyberdle</a></nav>`;
+    .join('')}<a href="${MITRE_NAV}" rel="noopener">MITRE ATT&amp;CK</a><a class="play-link" href="${CYBERDLE_NAV}" rel="noopener">Cyberdle</a></nav>`;
 }
 
 function relatedKeys(key: string): string[] {
