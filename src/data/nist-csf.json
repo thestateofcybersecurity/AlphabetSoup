@@ -104,8 +104,8 @@
     "category": "Organizational Context",
     "categoryCode": "GV.OC",
     "text": "The organizational mission is understood and informs cybersecurity risk management.",
-    "metaphor": "Understanding the purpose of your family and using it to guide decisions.",
-    "translation": "The family knows what’s important to them and uses that to decide how they should handle risks and challenges."
+    "metaphor": "A family that runs a bakery out of the kitchen guards the recipe box and the cash drawer, not just the front door. What the home is for shapes what you protect.",
+    "translation": "Because the family runs a business from home, they know the recipe box and register matter as much as the doors, and they set their protections around what the household actually exists to do."
   },
   "GV.OC-02": {
     "function": "Govern",
@@ -114,7 +114,7 @@
     "categoryCode": "GV.OC",
     "text": "Internal and external stakeholders are understood, and their needs and expectations regarding cybersecurity risk management are understood and considered.",
     "metaphor": "Considering the needs of everyone in the household when making safety plans.",
-    "translation": "The family understands what each member needs to feel safe and considers these needs when making decisions."
+    "translation": "The family asks each person, from a nervous grandparent to a teen who wants privacy, what would make them feel safe, and builds those answers into the safety plan instead of guessing."
   },
   "GV.OC-03": {
     "function": "Govern",
@@ -123,7 +123,7 @@
     "categoryCode": "GV.OC",
     "text": "Legal, regulatory, and contractual requirements regarding cybersecurity - including privacy and civil liberties obligations - are understood and managed.",
     "metaphor": "Keeping track of legal requirements, like having a smoke detector in the house.",
-    "translation": "The family ensures they are following all the necessary rules and regulations to stay safe and compliant."
+    "translation": "The family keeps up with the safety rules the law actually requires, like working smoke detectors or pulling a permit before building a deck, and makes sure they stay in compliance."
   },
   "GV.OC-04": {
     "function": "Govern",
@@ -132,7 +132,7 @@
     "categoryCode": "GV.OC",
     "text": "Critical objectives, capabilities, and services that external stakeholders depend on or expect from the organization are understood and communicated.",
     "metaphor": "Making sure that the house’s main functions, like electricity and water, are reliable and well-maintained.",
-    "translation": "The family ensures that critical systems and services are dependable and meet the expectations of everyone living in the house."
+    "translation": "The family figures out which of its functions other people count on, like a neighbor who relies on them to watch a kid after school, keeps those dependable, and tells those people what they can count on."
   },
   "GV.OC-05": {
     "function": "Govern",
@@ -140,8 +140,8 @@
     "category": "Organizational Context",
     "categoryCode": "GV.OC",
     "text": "Outcomes, capabilities, and services that the organization depends on are understood and communicated.",
-    "metaphor": "Understanding which household services and functions are essential for everyday living.",
-    "translation": "The family knows what services and systems they rely on most and ensures they are properly maintained and functioning."
+    "metaphor": "Knowing the home depends on the power company, the well, and the internet provider, so you notice fast when one of them goes down.",
+    "translation": "The family knows exactly which outside services keep the house running, so a failure in any one of them gets caught quickly."
   },
   "GV.OV-01": {
     "function": "Govern",
@@ -150,7 +150,7 @@
     "categoryCode": "GV.OV",
     "text": "Cybersecurity risk management strategy outcomes are reviewed to inform and adjust strategy and direction.",
     "metaphor": "Reviewing the effectiveness of your home security system.",
-    "translation": "The family regularly checks if the security measures they put in place are working and makes adjustments if necessary."
+    "translation": "After a while the family asks whether the cameras and locks actually stopped anything, then adjusts the plan based on the real answer instead of assuming it all worked."
   },
   "GV.OV-02": {
     "function": "Govern",
@@ -168,7 +168,7 @@
     "categoryCode": "GV.OV",
     "text": "Organizational cybersecurity risk management performance is evaluated and reviewed for adjustments needed.",
     "metaphor": "Checking if your home safety rules are being followed.",
-    "translation": "The family periodically reviews how well everyone is following the safety rules and makes changes if they see issues."
+    "translation": "The family looks at whether the safety habits are actually sticking, and when it spots a gap, like the back door left unlocked night after night, it changes the routine or adds a reminder instead of just repeating the rule."
   },
   "GV.PO-01": {
     "function": "Govern",
@@ -176,8 +176,8 @@
     "category": "Policy",
     "categoryCode": "GV.PO",
     "text": "Policy for managing cybersecurity risks is established based on organizational context, cybersecurity strategy, and priorities and is communicated and enforced.",
-    "metaphor": "Setting house rules for safety.",
-    "translation": "The family establishes and communicates safety rules, like locking doors at night, that everyone agrees to follow."
+    "metaphor": "Posting the house rules on the fridge so everyone has actually seen them, instead of keeping them in your head.",
+    "translation": "The family writes down its safety rules, makes sure everyone has read them, and expects them to be followed."
   },
   "GV.PO-02": {
     "function": "Govern",
@@ -203,7 +203,7 @@
     "category": "Risk Management Strategy",
     "categoryCode": "GV.RM",
     "text": "Risk appetite and risk tolerance statements are established, communicated, and maintained.",
-    "metaphor": "Agreeing on household rules for safety.",
+    "metaphor": "Deciding the kids can bike to the corner store but not across the highway, drawing the line on how much risk is acceptable.",
     "translation": "The family agrees on how much risk they are willing to take, like when children can play outside alone, and everyone follows these rules."
   },
   "GV.RM-03": {
@@ -257,8 +257,8 @@
     "category": "Roles, Responsibilities, and Authorities",
     "categoryCode": "GV.RR",
     "text": "Organizational leadership is responsible and accountable for cybersecurity risk and fosters a culture that is risk-aware, ethical, and continually improving.",
-    "metaphor": "Parents ensuring safety rules are followed at home.",
-    "translation": "The parents ensure that everyone in the house follows the safety rules, integrating these into everyday routines."
+    "metaphor": "The parents do not just post the rules, they follow them out loud, so safety becomes a habit the kids catch rather than a lecture.",
+    "translation": "The parents take real responsibility for safety and model it themselves, so caution becomes part of how the household lives, not just a list on the wall."
   },
   "GV.RR-02": {
     "function": "Govern",
@@ -276,7 +276,7 @@
     "categoryCode": "GV.RR",
     "text": "Adequate resources are allocated commensurate with the cybersecurity risk strategy, roles, responsibilities, and policies.",
     "metaphor": "Setting aside money to buy safety tools like smoke detectors.",
-    "translation": "The family allocates resources to make sure they can afford important safety tools and services."
+    "translation": "The family carves out a real part of its budget for safety, so when the smoke detectors need batteries or a lock needs replacing, the money is already set aside instead of competing with everything else."
   },
   "GV.RR-04": {
     "function": "Govern",
@@ -293,8 +293,8 @@
     "category": "Cybersecurity Supply Chain Risk Management",
     "categoryCode": "GV.SC",
     "text": "A cybersecurity supply chain risk management program, strategy, objectives, policies, and processes are established and agreed to by organizational stakeholders.",
-    "metaphor": "Setting up a list of trusted service providers for home repairs.",
-    "translation": "The family agrees on which service providers to trust for repairs and maintenance to ensure the home is well taken care of."
+    "metaphor": "Writing down the family's whole approach to outside help before calling anyone: how you vet them, what you require, and who gives the final yes.",
+    "translation": "Before hiring anyone, the family has already agreed on its rules for choosing and dealing with outside helpers."
   },
   "GV.SC-02": {
     "function": "Govern",
@@ -302,8 +302,8 @@
     "category": "Cybersecurity Supply Chain Risk Management",
     "categoryCode": "GV.SC",
     "text": "Cybersecurity roles and responsibilities for suppliers, customers, and partners are established, communicated, and coordinated internally and externally.",
-    "metaphor": "Assigning chores and responsibilities for home upkeep.",
-    "translation": "The family clearly defines who is responsible for different tasks, like mowing the lawn or cleaning the gutters, and communicates this to everyone involved."
+    "metaphor": "Spelling out in the contract that the roofer tarps the roof and you clear the driveway, so neither side assumes the other did it.",
+    "translation": "The family and each hired helper agree in writing on exactly who is responsible for what, so nothing falls through the cracks."
   },
   "GV.SC-03": {
     "function": "Govern",
@@ -312,7 +312,7 @@
     "categoryCode": "GV.SC",
     "text": "Cybersecurity supply chain risk management is integrated into cybersecurity and enterprise risk management, risk assessment, and improvement processes.",
     "metaphor": "Including service provider reviews in your regular home maintenance checks.",
-    "translation": "The family makes sure that checking on the reliability of service providers is part of their regular home maintenance routine."
+    "translation": "When the family sits down to review household risks, are our contractors still trustworthy is one of the standing questions, handled right alongside everything else rather than as an afterthought."
   },
   "GV.SC-04": {
     "function": "Govern",
@@ -320,8 +320,8 @@
     "category": "Cybersecurity Supply Chain Risk Management",
     "categoryCode": "GV.SC",
     "text": "Suppliers are known and prioritized by criticality.",
-    "metaphor": "Keeping a list of everyone who works on your home and knowing which ones matter most.",
-    "translation": "The family keeps track of all the service providers they rely on, like the plumber, electrician, and lawn crew, and knows which ones are most essential to keeping the house running."
+    "metaphor": "Ranking the people who work on your home by how badly you would miss them: when a pipe bursts the plumber matters far more than the gardener, so you know who to protect and call first.",
+    "translation": "The family sorts its service providers by how critical each one is, so if something fails they already know which relationships to safeguard and which to lean on first, rather than treating every helper as equally important."
   },
   "GV.SC-05": {
     "function": "Govern",
@@ -365,8 +365,8 @@
     "category": "Cybersecurity Supply Chain Risk Management",
     "categoryCode": "GV.SC",
     "text": "Supply chain security practices are integrated into cybersecurity and enterprise risk management programs, and their performance is monitored throughout the technology product and service life cycle.",
-    "metaphor": "Regularly checking on the quality of materials used in home repairs.",
-    "translation": "The family ensures that the materials and products used in the house meet their standards and perform well over time."
+    "metaphor": "Not just buying good roof shingles, but checking every few years that they are still holding up and re-vetting the roofer before the next job.",
+    "translation": "The family keeps checking that the materials and helpers it relies on are still holding up, for as long as it uses them, not just on day one."
   },
   "GV.SC-10": {
     "function": "Govern",
@@ -446,8 +446,8 @@
     "category": "Improvement",
     "categoryCode": "ID.IM",
     "text": "Improvements are identified from evaluations.",
-    "metaphor": "After a family meeting, deciding on ways to make the home safer.",
-    "translation": "The family regularly evaluates how well things are going at home and makes decisions on how to improve safety and efficiency."
+    "metaphor": "Walking through the house, spotting the pitch-dark stairwell, and adding a light. You looked, you found the gap, you fixed it.",
+    "translation": "After deliberately reviewing how things stand, the family turns what it finds into concrete fixes."
   },
   "ID.IM-02": {
     "function": "Identify",
@@ -464,8 +464,8 @@
     "category": "Improvement",
     "categoryCode": "ID.IM",
     "text": "Improvements are identified from execution of operational processes, procedures, and activities.",
-    "metaphor": "Noticing that the new way of organizing the kitchen is more efficient and deciding to keep it that way.",
-    "translation": "The family identifies improvements based on how well things are working in the home and makes adjustments to keep things running smoothly."
+    "metaphor": "The morning rush keeps jamming at the one bathroom, so the family staggers shower times. The fix comes from living the routine, not from a formal meeting.",
+    "translation": "By paying attention to what snags in everyday routines, the family spots small changes that make things run smoother."
   },
   "ID.IM-04": {
     "function": "Identify",
@@ -537,7 +537,7 @@
     "categoryCode": "ID.RA",
     "text": "Changes and exceptions are managed, assessed for risk impact, recorded, and tracked.",
     "metaphor": "Noting any changes in the house, like new furniture, and making sure it doesn’t create new risks.",
-    "translation": "The family keeps track of any changes in the home, like adding new furniture, and assesses if it introduces any new safety concerns."
+    "translation": "Whenever something in the house changes, like a new space heater or a rug thrown over an outlet, the family stops to ask what fresh hazard it might create and adds it to the list they keep an eye on."
   },
   "ID.RA-08": {
     "function": "Identify",
@@ -564,7 +564,7 @@
     "categoryCode": "ID.RA",
     "text": "Critical suppliers are assessed prior to acquisition.",
     "metaphor": "Checking the credentials of a contractor before hiring them to work on your home.",
-    "translation": "The family ensures that anyone they hire for important work, like a contractor for home renovations, is trustworthy and capable."
+    "translation": "Before hiring someone for the jobs that really matter, like a contractor who will touch the wiring or the foundation, the family digs into their license, insurance, and past clients, checking harder the more critical the work is."
   },
   "PR.AA-01": {
     "function": "Protect",
@@ -599,8 +599,8 @@
     "category": "Identity Management, Authentication, and Access Control",
     "categoryCode": "PR.AA",
     "text": "Identity assertions are protected, conveyed, and verified.",
-    "metaphor": "Making sure a person’s ID is secure and verified when they enter your home.",
-    "translation": "The family ensures that any identification used to enter the home is securely handled and verified each time."
+    "metaphor": "When a neighbor texts to vouch that the repairman at your door is legit, you confirm the text really came from the neighbor and was not faked before you trust it.",
+    "translation": "When someone else vouches for a visitor, the family makes sure that vouching message is genuine and untampered before acting on it."
   },
   "PR.AA-05": {
     "function": "Protect",
