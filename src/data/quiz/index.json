@@ -29,7 +29,7 @@
     "mode": "choice",
     "certKey": "CHFI",
     "retired": false,
-    "count": 49
+    "count": 65
   },
   {
     "slug": "cysa",
@@ -37,7 +37,7 @@
     "mode": "choice",
     "certKey": "CYSA",
     "retired": false,
-    "count": 50
+    "count": 65
   },
   {
     "slug": "gsec",
@@ -53,7 +53,7 @@
     "mode": "choice",
     "certKey": "SSCP",
     "retired": false,
-    "count": 50
+    "count": 65
   },
   {
     "slug": "lpt",
@@ -61,7 +61,7 @@
     "mode": "choice",
     "certKey": null,
     "retired": true,
-    "count": 35
+    "count": 65
   },
   {
     "slug": "fundamentals",
@@ -70,5 +70,77 @@
     "certKey": null,
     "retired": false,
     "count": 173
+  },
+  {
+    "slug": "cism",
+    "name": "CISM",
+    "mode": "choice",
+    "certKey": "CISM",
+    "retired": false,
+    "count": 55
+  },
+  {
+    "slug": "cisa",
+    "name": "CISA",
+    "mode": "choice",
+    "certKey": "CISA",
+    "retired": false,
+    "count": 55
+  },
+  {
+    "slug": "crisc",
+    "name": "CRISC",
+    "mode": "choice",
+    "certKey": "CRISC",
+    "retired": false,
+    "count": 50
+  },
+  {
+    "slug": "ccsp",
+    "name": "CCSP",
+    "mode": "choice",
+    "certKey": "CCSP",
+    "retired": false,
+    "count": 55
+  },
+  {
+    "slug": "ccsk",
+    "name": "CCSK",
+    "mode": "choice",
+    "certKey": "CCSK",
+    "retired": false,
+    "count": 50
+  },
+  {
+    "slug": "oscp",
+    "name": "OSCP",
+    "mode": "choice",
+    "certKey": "OSCP",
+    "retired": false,
+    "count": 55
+  },
+  {
+    "slug": "pentest-plus",
+    "name": "CompTIA PenTest+",
+    "mode": "choice",
+    "certKey": null,
+    "retired": false,
+    "count": 55
+  },
+  {
+    "slug": "casp",
+    "name": "CASP+ / SecurityX",
+    "mode": "choice",
+    "certKey": "CASP",
+    "retired": false,
+    "count": 55
+  },
+  {
+    "slug": "pnpt",
+    "name": "PNPT",
+    "mode": "choice",
+    "certKey": "PNPT",
+    "retired": false,
+    "count": 50
   }
 ]

@@ -553,6 +553,171 @@
       ],
       "correctIndex": 1,
       "why": "VM escape breaks the isolation boundary, letting a compromised guest access the hypervisor host or neighboring VMs."
+    },
+    {
+      "q": "An access policy grants entry only when a user's department, device compliance status, and the time of day all satisfy defined rules. Which access control model is this?",
+      "choices": [
+        "Role-based access control",
+        "Attribute-based access control",
+        "Discretionary access control",
+        "Mandatory access control"
+      ],
+      "correctIndex": 1,
+      "why": "ABAC evaluates attributes of the subject, resource, and environment against policy, enabling fine-grained context-aware decisions."
+    },
+    {
+      "q": "A financial system must stop lower-integrity processes from corrupting higher-integrity data. Which model enforces a no-write-up rule to protect integrity?",
+      "choices": [
+        "Bell-LaPadula",
+        "Biba",
+        "Clark-Wilson",
+        "Brewer-Nash"
+      ],
+      "correctIndex": 1,
+      "why": "Biba is an integrity model whose star property forbids writing up, so low-integrity subjects cannot modify higher-integrity objects."
+    },
+    {
+      "q": "Which pair of authentication factors constitutes true multifactor authentication?",
+      "choices": [
+        "A password and a security question",
+        "A PIN and a one-time code from a hardware token",
+        "Two different passwords",
+        "A password and a passphrase"
+      ],
+      "correctIndex": 1,
+      "why": "True MFA combines different factor types; a PIN you know plus a token code you have qualifies, while two knowledge factors do not."
+    },
+    {
+      "q": "You need a cipher mode that provides both confidentiality and built-in integrity verification of the encrypted data. Which should you choose?",
+      "choices": [
+        "AES-ECB",
+        "AES-CBC",
+        "AES-GCM",
+        "AES-CTR"
+      ],
+      "correctIndex": 2,
+      "why": "GCM is an authenticated encryption mode that outputs an integrity tag with the ciphertext; ECB, CBC, and CTR provide confidentiality only."
+    },
+    {
+      "q": "To store user passwords so stolen hashes resist fast offline cracking, which function is most appropriate?",
+      "choices": [
+        "SHA-256 computed once",
+        "bcrypt with a high work factor",
+        "MD5 with a salt",
+        "CRC32"
+      ],
+      "correctIndex": 1,
+      "why": "bcrypt is a deliberately slow key-stretching function whose work factor raises the cost of offline guessing, unlike a single fast hash."
+    },
+    {
+      "q": "Two services share a secret key and must verify that messages between them are authentic and unaltered. Which mechanism fits?",
+      "choices": [
+        "HMAC",
+        "Base64 encoding",
+        "A CRC checksum",
+        "RSA encryption of the message"
+      ],
+      "correctIndex": 0,
+      "why": "HMAC combines a shared secret with a hash to prove integrity and authenticity; CRC and Base64 offer neither and encryption alone does not authenticate."
+    },
+    {
+      "q": "Administrators still manage some routers over Telnet, exposing credentials in cleartext. Which protocol should replace it for remote command-line access?",
+      "choices": [
+        "SSH",
+        "SNMP",
+        "RDP",
+        "HTTP"
+      ],
+      "correctIndex": 0,
+      "why": "SSH provides an encrypted, authenticated remote shell, protecting credentials and commands that Telnet transmits in cleartext."
+    },
+    {
+      "q": "Your monitoring uses SNMP with community strings sent in cleartext. Which version adds authentication, integrity, and encryption?",
+      "choices": [
+        "SNMPv1",
+        "SNMPv2c",
+        "SNMPv3",
+        "SMTP"
+      ],
+      "correctIndex": 2,
+      "why": "SNMPv3 adds message authentication, integrity, and encryption, while v1 and v2c rely on cleartext community strings."
+    },
+    {
+      "q": "A rogue device on the LAN is handing out IP addresses and a malicious default gateway. Which switch feature blocks this?",
+      "choices": [
+        "DHCP snooping",
+        "Spanning Tree Protocol",
+        "Port mirroring",
+        "Jumbo frames"
+      ],
+      "correctIndex": 0,
+      "why": "DHCP snooping accepts DHCP replies only from trusted ports, blocking rogue servers from assigning addresses and gateways."
+    },
+    {
+      "q": "A web app performs state-changing actions using only the session cookie, letting a malicious site trigger them on a logged-in user. Which control mitigates this?",
+      "choices": [
+        "Output encoding",
+        "Anti-CSRF synchronizer tokens",
+        "Parameterized queries",
+        "Account lockout thresholds"
+      ],
+      "correctIndex": 1,
+      "why": "A per-request anti-CSRF token the attacker cannot predict ensures state-changing requests originate from the legitimate application."
+    },
+    {
+      "q": "To protect data on stolen laptops while binding the disk encryption key to a verified boot state, which control should you deploy?",
+      "choices": [
+        "Full disk encryption using a TPM",
+        "A BIOS supervisor password",
+        "EFS on selected folders",
+        "A screen-saver lock"
+      ],
+      "correctIndex": 0,
+      "why": "Full disk encryption keyed to the TPM protects the whole volume and releases the key only when the boot state is intact."
+    },
+    {
+      "q": "Correlating an intrusion across firewall, server, and IDS logs is failing because timestamps disagree. Which service most directly fixes this?",
+      "choices": [
+        "Syslog",
+        "NTP",
+        "DNS",
+        "DHCP"
+      ],
+      "correctIndex": 1,
+      "why": "Synchronizing all devices to a common NTP source aligns timestamps so events can be correlated reliably across log sources."
+    },
+    {
+      "q": "After applying controls, an organization buys cyber insurance to cover the remaining financial loss from a breach. Which risk response is this?",
+      "choices": [
+        "Risk avoidance",
+        "Risk acceptance",
+        "Risk transference",
+        "Risk mitigation"
+      ],
+      "correctIndex": 2,
+      "why": "Purchasing insurance shifts the financial impact of the residual risk to a third party, which is risk transference."
+    },
+    {
+      "q": "Following eradication of malware from affected hosts, what best describes the goal of the recovery phase of incident response?",
+      "choices": [
+        "Identifying the root cause for the final report",
+        "Restoring systems to normal operation and confirming they are clean",
+        "Capturing volatile memory from the host",
+        "Notifying external law enforcement"
+      ],
+      "correctIndex": 1,
+      "why": "Recovery returns systems to production and validates they function normally and are free of the threat before heightened monitoring."
+    },
+    {
+      "q": "You must detect and block outbound emails containing credit card numbers before they leave the organization. Which control is designed for this?",
+      "choices": [
+        "Data loss prevention (DLP)",
+        "A network IDS",
+        "Full disk encryption",
+        "A load balancer"
+      ],
+      "correctIndex": 0,
+      "why": "DLP inspects content against patterns such as card numbers and can block or quarantine outbound data that violates policy."
     }
   ]
 }

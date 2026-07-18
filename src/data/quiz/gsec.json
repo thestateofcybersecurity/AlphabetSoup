@@ -7,12 +7,12 @@
     {
       "q": "During a TCP three-way handshake, how does the server reply to the client's initial SYN?",
       "choices": [
+        "With a FIN packet",
         "With a SYN-ACK packet",
-        "With an ACK packet only",
         "With a RST packet",
-        "With a FIN packet"
+        "With an ACK packet only"
       ],
-      "correctIndex": 0,
+      "correctIndex": 1,
       "why": "The server answers a SYN by sending SYN-ACK, acknowledging the client and offering its own sequence number. A lone ACK, RST, or FIN would not open the connection."
     },
     {
@@ -20,8 +20,8 @@
       "choices": [
         "UDP 53",
         "TCP 25",
-        "TCP 143",
-        "TCP 389"
+        "TCP 389",
+        "TCP 143"
       ],
       "correctIndex": 0,
       "why": "DNS lookups normally travel over UDP port 53, falling back to TCP for large responses. Port 25 is SMTP, 143 is IMAP, and 389 is LDAP."
@@ -29,32 +29,32 @@
     {
       "q": "A received TCP segment has only the RST flag set. What does that indicate?",
       "choices": [
-        "The connection is being reset or refused",
         "A graceful shutdown is starting",
+        "The connection is being reset or refused",
         "The receive window is now full",
         "A lost segment is being requested"
       ],
-      "correctIndex": 0,
+      "correctIndex": 1,
       "why": "An RST abruptly tears down or refuses a connection, often when a port is closed. A graceful close uses FIN, not RST."
     },
     {
       "q": "Which protocol maps a known IP address to a MAC address on the local segment?",
       "choices": [
-        "ARP",
-        "DNS",
         "DHCP",
-        "ICMP"
+        "DNS",
+        "ICMP",
+        "ARP"
       ],
-      "correctIndex": 0,
+      "correctIndex": 3,
       "why": "ARP broadcasts a request to learn the MAC that owns an IP on the same LAN. DNS resolves names, DHCP assigns addresses, and ICMP handles control messages."
     },
     {
       "q": "An analyst notices inbound traffic to TCP 3389. Which service is most likely running?",
       "choices": [
         "RDP",
+        "VNC",
         "SSH",
-        "SMB",
-        "VNC"
+        "SMB"
       ],
       "correctIndex": 0,
       "why": "TCP 3389 is the default Remote Desktop Protocol port. SSH uses 22, SMB uses 445, and VNC typically uses 5900."
@@ -73,43 +73,43 @@
     {
       "q": "Which DNS record type maps a hostname to an IPv4 address?",
       "choices": [
-        "A",
+        "PTR",
         "MX",
         "CNAME",
-        "PTR"
+        "A"
       ],
-      "correctIndex": 0,
+      "correctIndex": 3,
       "why": "An A record points a hostname to an IPv4 address. MX identifies mail servers, CNAME is an alias, and PTR does reverse lookups."
     },
     {
       "q": "How many usable host addresses does a /29 subnet provide?",
       "choices": [
-        "6",
-        "8",
         "14",
-        "30"
+        "30",
+        "8",
+        "6"
       ],
-      "correctIndex": 0,
+      "correctIndex": 3,
       "why": "A /29 has 8 total addresses, but the network and broadcast addresses are unusable, leaving 6 for hosts."
     },
     {
       "q": "Which IPv4 header field is decremented by each router and stops packets from looping forever?",
       "choices": [
-        "TTL",
+        "Fragment Offset",
         "Type of Service",
         "Header Checksum",
-        "Fragment Offset"
+        "TTL"
       ],
-      "correctIndex": 0,
+      "correctIndex": 3,
       "why": "Each router lowers the Time To Live by one and drops the packet at zero, preventing endless routing loops."
     },
     {
       "q": "A layer 2 switch forwards frames based primarily on what information?",
       "choices": [
         "The destination MAC address",
-        "The destination IP address",
+        "The DNS hostname",
         "The TCP port number",
-        "The DNS hostname"
+        "The destination IP address"
       ],
       "correctIndex": 0,
       "why": "Switches build a MAC address table and forward frames toward the port owning the destination MAC. IP and TCP details belong to higher layers."
@@ -118,9 +118,9 @@
       "q": "Why is asymmetric encryption typically used to exchange a symmetric key rather than encrypt an entire session?",
       "choices": [
         "Asymmetric operations are far slower, so symmetric handles the bulk data",
-        "Asymmetric encryption cannot protect small values",
+        "Asymmetric keys change on every packet",
         "Symmetric keys cannot be shared any other way",
-        "Asymmetric keys change on every packet"
+        "Asymmetric encryption cannot protect small values"
       ],
       "correctIndex": 0,
       "why": "Public key math is computationally expensive, so it protects the small session key while fast symmetric encryption secures the large payload."
@@ -128,21 +128,21 @@
     {
       "q": "A TLS certificate signed by a trusted CA lets a client verify what?",
       "choices": [
-        "That the server's public key is bound to its identity",
-        "That the connection cannot be intercepted",
+        "That traffic is compressed",
         "That the server has no vulnerabilities",
-        "That traffic is compressed"
+        "That the server's public key is bound to its identity",
+        "That the connection cannot be intercepted"
       ],
-      "correctIndex": 0,
+      "correctIndex": 2,
       "why": "The CA's signature vouches that the public key belongs to the named server, which is the basis for trusting the encrypted channel."
     },
     {
       "q": "Which property does a cryptographic hash provide that encryption does not?",
       "choices": [
         "A one-way fixed-length digest that cannot be reversed",
-        "A reversible transformation with a key",
         "Confidentiality of the message body",
-        "Compression of large files"
+        "Compression of large files",
+        "A reversible transformation with a key"
       ],
       "correctIndex": 0,
       "why": "A hash is a one-way function producing a fixed-length digest with no key to reverse it, unlike encryption which is designed to be decrypted."
@@ -150,89 +150,89 @@
     {
       "q": "The 256 in AES-256 refers to what?",
       "choices": [
-        "The key size in bits",
         "The block size in bytes",
+        "The key size in bits",
         "The number of rounds",
         "The digest length"
       ],
-      "correctIndex": 0,
+      "correctIndex": 1,
       "why": "AES-256 uses a 256-bit key. AES always uses a 128-bit block regardless of key length, so the number does not describe the block."
     },
     {
       "q": "What does adding a unique salt to each password before hashing accomplish?",
       "choices": [
-        "Identical passwords hash differently, defeating precomputed tables",
+        "It shortens the stored value",
         "It encrypts the resulting hash",
-        "It makes hashing run faster",
-        "It shortens the stored value"
+        "Identical passwords hash differently, defeating precomputed tables",
+        "It makes hashing run faster"
       ],
-      "correctIndex": 0,
+      "correctIndex": 2,
       "why": "A per-user salt ensures two users with the same password get different hashes, which breaks rainbow tables and precomputed attacks."
     },
     {
       "q": "An HMAC on a message provides which assurances?",
       "choices": [
+        "Guaranteed delivery",
         "Integrity and authenticity using a shared secret",
-        "Confidentiality of the payload",
         "Non-repudiation via a public key",
-        "Guaranteed delivery"
+        "Confidentiality of the payload"
       ],
-      "correctIndex": 0,
+      "correctIndex": 1,
       "why": "HMAC combines a hash with a shared secret key, proving the message was not altered and came from a party holding the key."
     },
     {
       "q": "Which key does a sender use to create a digital signature?",
       "choices": [
-        "Their own private key",
         "The recipient's public key",
-        "The recipient's private key",
-        "A shared session key"
+        "Their own private key",
+        "A shared session key",
+        "The recipient's private key"
       ],
-      "correctIndex": 0,
+      "correctIndex": 1,
       "why": "The sender signs with their private key so anyone with the matching public key can verify the signature, providing authenticity and integrity."
     },
     {
       "q": "What does perfect forward secrecy protect if a server's long-term private key is later stolen?",
       "choices": [
-        "Previously recorded session keys stay safe",
-        "The server's certificate stays valid",
         "Future sessions need no encryption",
-        "The private key regenerates itself"
+        "The server's certificate stays valid",
+        "The private key regenerates itself",
+        "Previously recorded session keys stay safe"
       ],
-      "correctIndex": 0,
+      "correctIndex": 3,
       "why": "PFS negotiates ephemeral keys per session, so compromising the long-term key does not let an attacker decrypt earlier captured traffic."
     },
     {
       "q": "What does a certificate revocation list tell a client?",
       "choices": [
-        "Which certificates are no longer trustworthy before expiry",
-        "Which CAs are approved",
         "Which certificates will renew soon",
+        "Which CAs are approved",
+        "Which certificates are no longer trustworthy before expiry",
         "Which ciphers are supported"
       ],
-      "correctIndex": 0,
+      "correctIndex": 2,
       "why": "A CRL lists certificates a CA has invalidated ahead of their expiration, such as after a key compromise, so clients can reject them."
     },
     {
       "q": "Under role-based access control, permissions are assigned to what?",
       "choices": [
-        "Roles, to which users are then assigned",
-        "Individual users directly",
         "Resource owners at their discretion",
-        "Security clearance labels"
+        "Security clearance labels",
+        "Individual users directly",
+        "Roles, to which users are then assigned"
       ],
-      "correctIndex": 0,
+      "correctIndex": 3,
       "why": "RBAC grants permissions to roles and then places users into roles, which simplifies administration. Per-user grants are unmanaged and labels describe MAC."
     },
     {
       "q": "Mandatory access control enforces access based on what?",
       "choices": [
+        "A first-come-first-served basis",
         "System-assigned security labels and clearances",
-        "Permissions set by the resource owner",
         "The user's job role only",
-        "A first-come-first-served basis"
+        "Permissions set by the resource owner"
       ],
-      "correctIndex": 0,
+      "correctIndex": 1,
       "why": "In MAC, the system compares clearance labels against object classifications, and users cannot override them. Owner-set permissions describe DAC instead."
     },
     {
@@ -249,20 +249,20 @@
     {
       "q": "After a client authenticates to Kerberos, what does it receive to reach services without resending its password?",
       "choices": [
-        "A ticket-granting ticket",
+        "A session cookie",
         "A password hash",
-        "A private key",
-        "A session cookie"
+        "A ticket-granting ticket",
+        "A private key"
       ],
-      "correctIndex": 0,
+      "correctIndex": 2,
       "why": "Kerberos issues a ticket-granting ticket that the client presents to obtain service tickets, so the password is not sent repeatedly across the network."
     },
     {
       "q": "What security benefit does separation of duties provide?",
       "choices": [
         "No single person can complete a sensitive process alone",
-        "Faster completion of critical tasks",
         "Fewer accounts to manage",
+        "Faster completion of critical tasks",
         "Automatic encryption of records"
       ],
       "correctIndex": 0,
@@ -271,21 +271,21 @@
     {
       "q": "Which Windows console configures local password, lockout, and audit policies?",
       "choices": [
-        "secpol.msc",
-        "regedit",
         "msconfig",
-        "services.msc"
+        "services.msc",
+        "regedit",
+        "secpol.msc"
       ],
-      "correctIndex": 0,
+      "correctIndex": 3,
       "why": "The Local Security Policy console, secpol.msc, manages account and audit policy. regedit edits the registry, msconfig handles startup, and services.msc manages services."
     },
     {
       "q": "Where does a standalone Windows system store its local account password hashes?",
       "choices": [
         "The SAM database",
+        "The pagefile",
         "The NTUSER.DAT file",
-        "The hosts file",
-        "The pagefile"
+        "The hosts file"
       ],
       "correctIndex": 0,
       "why": "Local credential hashes live in the Security Account Manager database. Domain hashes are stored in Active Directory instead."
@@ -293,54 +293,54 @@
     {
       "q": "What does Windows User Account Control primarily do?",
       "choices": [
-        "Prompt for consent before granting administrative privileges",
         "Encrypt user home folders",
-        "Scan downloads for malware",
-        "Manage firewall rules"
+        "Prompt for consent before granting administrative privileges",
+        "Manage firewall rules",
+        "Scan downloads for malware"
       ],
-      "correctIndex": 0,
+      "correctIndex": 1,
       "why": "UAC forces even administrators to explicitly approve elevation, limiting how easily malware can silently perform privileged actions."
     },
     {
       "q": "Which Windows event log records failed logon attempts?",
       "choices": [
+        "Application",
         "Security",
         "System",
-        "Application",
         "Setup"
       ],
-      "correctIndex": 0,
+      "correctIndex": 1,
       "why": "Logon successes and failures, such as event ID 4625, are written to the Security log. The System and Application logs track other events."
     },
     {
       "q": "How do NTFS permissions differ from share permissions in Windows?",
       "choices": [
-        "NTFS applies to both local and network access and is more granular",
         "NTFS applies only over the network",
         "Share permissions are more granular",
+        "NTFS applies to both local and network access and is more granular",
         "They are identical in effect"
       ],
-      "correctIndex": 0,
+      "correctIndex": 2,
       "why": "NTFS permissions enforce access whether a file is reached locally or over the network and offer fine-grained control, while share permissions apply only to network access."
     },
     {
       "q": "Which Windows security context runs core services with privileges beyond a normal administrator?",
       "choices": [
+        "Everyone",
         "LocalSystem (SYSTEM)",
         "Guest",
-        "Power Users",
-        "Everyone"
+        "Power Users"
       ],
-      "correctIndex": 0,
+      "correctIndex": 1,
       "why": "The SYSTEM account is used by the OS and many services and holds privileges exceeding a standard admin, which is why attackers aim to reach it."
     },
     {
       "q": "In Linux permissions, what access does mode 750 grant the group?",
       "choices": [
         "Read and execute, but not write",
-        "Full read, write, and execute",
+        "Write only",
         "No access at all",
-        "Write only"
+        "Full read, write, and execute"
       ],
       "correctIndex": 0,
       "why": "In 750 the group digit is 5, which is read plus execute (4+1) with no write. The owner gets 7 (full) and others get 0 (none)."
@@ -348,65 +348,65 @@
     {
       "q": "Which file holds hashed user passwords on a modern Linux system?",
       "choices": [
-        "/etc/shadow",
-        "/etc/passwd",
         "/etc/group",
-        "/etc/hosts"
+        "/etc/passwd",
+        "/etc/hosts",
+        "/etc/shadow"
       ],
-      "correctIndex": 0,
+      "correctIndex": 3,
       "why": "Password hashes live in /etc/shadow, readable only by root. /etc/passwd holds account details but no usable hashes on modern systems."
     },
     {
       "q": "What does the sudo mechanism allow a permitted user to do?",
       "choices": [
-        "Run specific commands with elevated privileges under policy",
-        "Reset any user's password without logging",
+        "Bypass all file permissions",
         "Disable the kernel firewall permanently",
-        "Bypass all file permissions"
+        "Run specific commands with elevated privileges under policy",
+        "Reset any user's password without logging"
       ],
-      "correctIndex": 0,
+      "correctIndex": 2,
       "why": "sudo lets defined users execute allowed commands as root or another user according to /etc/sudoers, with the actions logged for accountability."
     },
     {
       "q": "An executable with the SetUID bit set runs with whose privileges?",
       "choices": [
-        "The file owner's privileges",
-        "The calling user's privileges",
         "The root group only",
-        "Nobody, it is sandboxed"
+        "The file owner's privileges",
+        "Nobody, it is sandboxed",
+        "The calling user's privileges"
       ],
-      "correctIndex": 0,
+      "correctIndex": 1,
       "why": "SetUID makes a program run as its owner regardless of who launches it, which is powerful and risky when the owner is root."
     },
     {
       "q": "Which Linux command lists listening TCP ports and the processes bound to them?",
       "choices": [
-        "ss -tulpn",
-        "chmod -R",
+        "uptime",
         "df -h",
-        "uptime"
+        "chmod -R",
+        "ss -tulpn"
       ],
-      "correctIndex": 0,
+      "correctIndex": 3,
       "why": "ss -tulpn shows listening TCP and UDP sockets with owning processes, replacing older netstat. The others manage permissions, disk, and uptime."
     },
     {
       "q": "What is the primary purpose of iptables or nftables on Linux?",
       "choices": [
-        "Host-based packet filtering and firewall rules",
+        "Mounting filesystems",
         "Managing user accounts",
         "Scheduling cron jobs",
-        "Mounting filesystems"
+        "Host-based packet filtering and firewall rules"
       ],
-      "correctIndex": 0,
+      "correctIndex": 3,
       "why": "iptables and its successor nftables define kernel packet-filtering rules that permit or drop traffic, acting as a host firewall."
     },
     {
       "q": "What is Nmap primarily used for?",
       "choices": [
         "Discovering hosts and open ports on a network",
-        "Capturing and decoding packets",
         "Cracking password hashes",
-        "Decrypting TLS sessions"
+        "Decrypting TLS sessions",
+        "Capturing and decoding packets"
       ],
       "correctIndex": 0,
       "why": "Nmap probes networks to find live hosts, open ports, and running services. Packet analysis is Wireshark's role and hash cracking is a separate task."
@@ -414,32 +414,32 @@
     {
       "q": "Wireshark is best described as which kind of tool?",
       "choices": [
-        "A packet capture and protocol analyzer",
         "A vulnerability scanner",
         "A host firewall",
-        "A password manager"
+        "A password manager",
+        "A packet capture and protocol analyzer"
       ],
-      "correctIndex": 0,
+      "correctIndex": 3,
       "why": "Wireshark captures traffic and dissects it protocol by protocol for analysis. It does not scan for vulnerabilities or filter traffic."
     },
     {
       "q": "How does an IPS differ from an IDS?",
       "choices": [
-        "An IPS can block malicious traffic inline, not just alert",
         "An IPS only logs events for later review",
+        "An IPS can block malicious traffic inline, not just alert",
         "An IDS actively drops packets",
         "An IPS cannot inspect payloads"
       ],
-      "correctIndex": 0,
+      "correctIndex": 1,
       "why": "An IPS sits inline and can drop or reset malicious connections, while an IDS observes a copy of traffic and raises alerts without stopping it."
     },
     {
       "q": "A signature-based IDS detects threats by doing what?",
       "choices": [
         "Matching traffic against known malicious patterns",
-        "Baselining normal behavior and flagging deviations",
         "Executing files in a sandbox",
-        "Decrypting all payloads"
+        "Decrypting all payloads",
+        "Baselining normal behavior and flagging deviations"
       ],
       "correctIndex": 0,
       "why": "Signature detection compares activity to a database of known attack patterns. Flagging deviations from a baseline describes anomaly-based detection instead."
@@ -447,20 +447,20 @@
     {
       "q": "What does a network tap or SPAN port deliver to a monitoring sensor?",
       "choices": [
-        "A copy of network traffic for inspection",
-        "A blocked list of malicious IPs",
         "Encrypted management access",
-        "A backup of switch configuration"
+        "A backup of switch configuration",
+        "A blocked list of malicious IPs",
+        "A copy of network traffic for inspection"
       ],
-      "correctIndex": 0,
+      "correctIndex": 3,
       "why": "Taps and SPAN ports mirror traffic to a sensor so an IDS can inspect it without being in the forwarding path."
     },
     {
       "q": "Running tcpdump with the expression 'port 80' captures what?",
       "choices": [
         "Traffic to or from port 80",
-        "Only outbound HTTPS traffic",
         "All traffic except port 80",
+        "Only outbound HTTPS traffic",
         "Only broadcast packets"
       ],
       "correctIndex": 0,
@@ -469,75 +469,75 @@
     {
       "q": "How does segmenting a network with VLANs improve security?",
       "choices": [
-        "It limits lateral movement and separates broadcast domains",
-        "It encrypts all traffic between hosts",
         "It removes the need for firewalls",
+        "It encrypts all traffic between hosts",
+        "It limits lateral movement and separates broadcast domains",
         "It speeds up DNS resolution"
       ],
-      "correctIndex": 0,
+      "correctIndex": 2,
       "why": "VLANs isolate groups of devices so an attacker on one segment cannot freely reach others, containing broadcast traffic and lateral movement."
     },
     {
       "q": "What is the purpose of a DMZ in network design?",
       "choices": [
-        "Host internet-facing services isolated from the internal network",
-        "Store all backups offline",
+        "Replace the need for a firewall",
         "Provide a VPN endpoint for staff",
-        "Replace the need for a firewall"
+        "Host internet-facing services isolated from the internal network",
+        "Store all backups offline"
       ],
-      "correctIndex": 0,
+      "correctIndex": 2,
       "why": "A DMZ places public-facing servers in a segment separated from internal systems, so a compromise there does not directly expose the internal network."
     },
     {
       "q": "What best captures the idea of defense in depth?",
       "choices": [
-        "Layering independent controls so one failure does not breach the system",
         "Relying on one very strong perimeter control",
-        "Encrypting every file on disk",
-        "Backing up data to multiple sites"
+        "Backing up data to multiple sites",
+        "Layering independent controls so one failure does not breach the system",
+        "Encrypting every file on disk"
       ],
-      "correctIndex": 0,
+      "correctIndex": 2,
       "why": "Defense in depth stacks overlapping controls so that if one fails, others still stand. A single control, however strong, is a single point of failure."
     },
     {
       "q": "A control that is 'fail secure' behaves how when it fails?",
       "choices": [
-        "It denies access and defaults to a safe state",
-        "It keeps granting access to avoid downtime",
         "It restarts and clears all rules",
-        "It disables logging"
+        "It denies access and defaults to a safe state",
+        "It disables logging",
+        "It keeps granting access to avoid downtime"
       ],
-      "correctIndex": 0,
+      "correctIndex": 1,
       "why": "Fail secure means a failure results in denial or a locked-down state. Failing open would instead keep access available at the cost of security."
     },
     {
       "q": "What is the goal of egress filtering on a firewall?",
       "choices": [
-        "Restrict what internal traffic may leave the network",
-        "Block all inbound connections",
         "Encrypt outbound email",
-        "Cache frequently visited sites"
+        "Restrict what internal traffic may leave the network",
+        "Cache frequently visited sites",
+        "Block all inbound connections"
       ],
-      "correctIndex": 0,
+      "correctIndex": 1,
       "why": "Egress rules control outbound traffic, which helps stop data exfiltration and malware command-and-control from reaching the internet."
     },
     {
       "q": "In the SANS incident handling process, which phase directly follows Identification?",
       "choices": [
-        "Containment",
+        "Preparation",
         "Eradication",
-        "Recovery",
-        "Preparation"
+        "Containment",
+        "Recovery"
       ],
-      "correctIndex": 0,
+      "correctIndex": 2,
       "why": "The SANS phases run Preparation, Identification, Containment, Eradication, Recovery, and Lessons Learned, so Containment follows Identification."
     },
     {
       "q": "During the containment phase of incident response, the main goal is to:",
       "choices": [
         "Limit the incident's spread and damage",
-        "Rebuild systems from clean backups",
         "Write the final incident report",
+        "Rebuild systems from clean backups",
         "Patch every unrelated system"
       ],
       "correctIndex": 0,
@@ -546,54 +546,54 @@
     {
       "q": "Why does the incident handling process end with a lessons learned review?",
       "choices": [
-        "To improve preparation and prevent recurrence",
-        "To assign blame to individuals",
         "To delete all incident evidence",
-        "To close the ticket faster"
+        "To improve preparation and prevent recurrence",
+        "To close the ticket faster",
+        "To assign blame to individuals"
       ],
-      "correctIndex": 0,
+      "correctIndex": 1,
       "why": "The post-incident review feeds improvements back into preparation, strengthening defenses and response for future incidents."
     },
     {
       "q": "Why is preserving system and network logs important early in an incident?",
       "choices": [
-        "Evidence can be overwritten or lost if not captured promptly",
         "Logs slow down containment if kept",
         "It automatically removes the malware",
-        "It notifies the attacker to stop"
+        "It notifies the attacker to stop",
+        "Evidence can be overwritten or lost if not captured promptly"
       ],
-      "correctIndex": 0,
+      "correctIndex": 3,
       "why": "Logs rotate and can be tampered with, so capturing them early preserves the record needed to understand scope and support any investigation."
     },
     {
       "q": "What is an indicator of compromise?",
       "choices": [
-        "An observable artifact suggesting a breach, like a malicious hash",
         "A firewall rule that blocks attacks",
         "A signed software update",
+        "An observable artifact suggesting a breach, like a malicious hash",
         "A scheduled backup job"
       ],
-      "correctIndex": 0,
+      "correctIndex": 2,
       "why": "IoCs are forensic breadcrumbs such as malicious IPs, file hashes, or registry changes that signal a system may be compromised."
     },
     {
       "q": "What does the Common Vulnerability Scoring System (CVSS) provide?",
       "choices": [
+        "An encryption algorithm",
         "A standardized severity score for vulnerabilities",
         "A patch download service",
-        "A list of trusted certificates",
-        "An encryption algorithm"
+        "A list of trusted certificates"
       ],
-      "correctIndex": 0,
+      "correctIndex": 1,
       "why": "CVSS assigns a numeric severity score from vulnerability characteristics, helping teams prioritize remediation consistently."
     },
     {
       "q": "How does a vulnerability scan differ from a penetration test?",
       "choices": [
         "A scan identifies weaknesses without exploiting them",
-        "A scan always exploits every flaw found",
         "A scan requires no tooling",
-        "A scan only tests physical security"
+        "A scan only tests physical security",
+        "A scan always exploits every flaw found"
       ],
       "correctIndex": 0,
       "why": "Vulnerability scanning enumerates and reports weaknesses, while a penetration test goes further by actively exploiting them to prove impact."
@@ -601,78 +601,78 @@
     {
       "q": "How does patch management reduce risk?",
       "choices": [
-        "It closes known vulnerabilities before they are exploited",
-        "It encrypts data at rest",
         "It replaces the need for backups",
-        "It blocks phishing emails"
+        "It blocks phishing emails",
+        "It encrypts data at rest",
+        "It closes known vulnerabilities before they are exploited"
       ],
-      "correctIndex": 0,
+      "correctIndex": 3,
       "why": "Applying vendor patches removes known flaws attackers rely on, shrinking the window of exposure between disclosure and exploitation."
     },
     {
       "q": "In vulnerability scanning, what is a false positive?",
       "choices": [
-        "A reported flaw that does not actually exist or is not exploitable",
-        "A real flaw the scan missed",
+        "A blocked exploit attempt",
         "A patch that failed to install",
-        "A blocked exploit attempt"
+        "A real flaw the scan missed",
+        "A reported flaw that does not actually exist or is not exploitable"
       ],
-      "correctIndex": 0,
+      "correctIndex": 3,
       "why": "A false positive is a finding the scanner flags that is not truly present or exploitable. A missed real flaw is called a false negative instead."
     },
     {
       "q": "Why are credentialed vulnerability scans more accurate than unauthenticated ones?",
       "choices": [
-        "They inspect installed patches and configuration from the inside",
-        "They run faster with less network load",
         "They never produce false positives",
-        "They exploit each vulnerability found"
+        "They exploit each vulnerability found",
+        "They inspect installed patches and configuration from the inside",
+        "They run faster with less network load"
       ],
-      "correctIndex": 0,
+      "correctIndex": 2,
       "why": "Logging in lets the scanner read actual patch levels and settings, giving a truer picture than probing only from outside the host."
     },
     {
       "q": "What distinguishes a worm from a virus?",
       "choices": [
-        "A worm self-propagates across networks without a host file",
         "A worm needs a user to open an infected file",
         "A worm cannot spread between machines",
+        "A worm self-propagates across networks without a host file",
         "A worm only affects hardware"
       ],
-      "correctIndex": 0,
+      "correctIndex": 2,
       "why": "Worms replicate and spread on their own over networks, while a virus attaches to a file and needs a user or program to run it."
     },
     {
       "q": "What is a rootkit's primary purpose?",
       "choices": [
-        "Hide malicious presence and maintain privileged persistence",
         "Encrypt files for ransom",
+        "Harvest email addresses",
         "Flood a target with traffic",
-        "Harvest email addresses"
+        "Hide malicious presence and maintain privileged persistence"
       ],
-      "correctIndex": 0,
+      "correctIndex": 3,
       "why": "A rootkit conceals processes, files, and its own presence while keeping elevated access, making the compromise hard to detect and remove."
     },
     {
       "q": "How does application allowlisting reduce risk?",
       "choices": [
-        "Only approved programs are permitted to execute",
         "All programs run unless explicitly blocked",
-        "It encrypts executables on disk",
-        "It scans email attachments"
+        "Only approved programs are permitted to execute",
+        "It scans email attachments",
+        "It encrypts executables on disk"
       ],
-      "correctIndex": 0,
+      "correctIndex": 1,
       "why": "Allowlisting denies everything by default and runs only vetted applications, which blocks unknown malware even without a matching signature."
     },
     {
       "q": "What does EDR add beyond traditional signature antivirus?",
       "choices": [
-        "Continuous monitoring, detection, and response with rich telemetry",
-        "Only weekly full-disk scans",
+        "Password vaulting",
         "Network packet capture",
-        "Password vaulting"
+        "Continuous monitoring, detection, and response with rich telemetry",
+        "Only weekly full-disk scans"
       ],
-      "correctIndex": 0,
+      "correctIndex": 2,
       "why": "EDR continuously records endpoint activity and enables detection, investigation, and response to behaviors that static antivirus signatures miss."
     },
     {
@@ -680,8 +680,8 @@
       "choices": [
         "Has no patch because the vendor is not yet aware of it",
         "Has been patched but not deployed",
-        "Is known and actively being scanned for",
-        "Affects only outdated software"
+        "Affects only outdated software",
+        "Is known and actively being scanned for"
       ],
       "correctIndex": 0,
       "why": "A zero-day is unknown to the vendor, so no fix exists and defenders have had zero days to prepare. Once known and patched it is no longer a zero-day."
@@ -690,9 +690,9 @@
       "q": "What is the purpose of deploying a honeypot?",
       "choices": [
         "Lure attackers to a decoy to study and detect them",
-        "Encrypt sensitive production data",
         "Load-balance web traffic",
-        "Back up critical servers"
+        "Back up critical servers",
+        "Encrypt sensitive production data"
       ],
       "correctIndex": 0,
       "why": "A honeypot is an intentionally exposed decoy that attracts attackers, wasting their effort and revealing their tools and techniques."
@@ -700,12 +700,12 @@
     {
       "q": "Two-factor authentication is strongest when the two factors are:",
       "choices": [
-        "From different categories, like something you know and something you have",
-        "Two different passwords",
+        "A username and a password",
         "A password and a security question",
-        "A username and a password"
+        "From different categories, like something you know and something you have",
+        "Two different passwords"
       ],
-      "correctIndex": 0,
+      "correctIndex": 2,
       "why": "Real MFA combines distinct factor types such as knowledge and possession, so stealing one, like a password, is not enough to authenticate."
     }
   ]

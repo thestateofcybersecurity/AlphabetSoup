@@ -46,6 +46,14 @@ const QUIZ_LINKS: Record<string, string> = {
   CYSA: 'cysa',
   GSEC: 'gsec',
   SSCP: 'sscp',
+  CISM: 'cism',
+  CISA: 'cisa',
+  CRISC: 'crisc',
+  CCSP: 'ccsp',
+  CCSK: 'ccsk',
+  OSCP: 'oscp',
+  CASP: 'casp',
+  PNPT: 'pnpt',
 };
 
 const dist = `${root}dist`;

@@ -1,0 +1,558 @@
+{
+  "name": "PNPT",
+  "mode": "choice",
+  "certKey": "PNPT",
+  "retired": false,
+  "questions": [
+    {
+      "q": "During external OSINT for a PNPT engagement, which tool harvests employee names and email formats from search engines and public sources to seed a password-spray user list?",
+      "choices": [
+        "Responder",
+        "Rubeus",
+        "CrackMapExec",
+        "theHarvester"
+      ],
+      "correctIndex": 3,
+      "why": "theHarvester scrapes emails, subdomains, and names from public sources, ideal for building spray target lists."
+    },
+    {
+      "q": "You breach an email address list and want to check which appeared in public credential dumps to reuse passwords. Which service is designed for that lookup?",
+      "choices": [
+        "crt.sh",
+        "Have I Been Pwned / dehashed",
+        "Sublist3r",
+        "Shodan"
+      ],
+      "correctIndex": 1,
+      "why": "HIBP and dehashed map emails to breach data; dehashed exposes plaintext or hashed passwords for reuse checks."
+    },
+    {
+      "q": "Which resource is best for enumerating subdomains of a target by mining Certificate Transparency logs during external recon?",
+      "choices": [
+        "Impacket smbclient",
+        "crt.sh",
+        "BloodHound",
+        "mimikatz"
+      ],
+      "correctIndex": 1,
+      "why": "crt.sh queries CT logs, revealing subdomains from issued TLS certificates that DNS brute force may miss."
+    },
+    {
+      "q": "An external pentest finds an Outlook Web Access portal. Which technique tests many discovered usernames against one common password to avoid lockouts?",
+      "choices": [
+        "Credential stuffing with rotated proxies",
+        "Kerberoasting",
+        "Pass-the-hash",
+        "Password spraying"
+      ],
+      "correctIndex": 3,
+      "why": "Spraying tries one password across many accounts, staying under lockout thresholds unlike per-account brute force."
+    },
+    {
+      "q": "Before password spraying an on-prem AD-backed portal, why enumerate the domain account lockout policy first?",
+      "choices": [
+        "To extract Kerberos tickets for offline cracking",
+        "To determine the SMB signing configuration",
+        "To identify which users are Domain Admins",
+        "To pace attempts under the lockout threshold and reset window and avoid locking users out"
+      ],
+      "correctIndex": 3,
+      "why": "Knowing the threshold and observation window lets you time sprays so no account crosses the lockout limit."
+    },
+    {
+      "q": "On an internal network with no credentials, which Responder-based attack captures NetNTLM hashes by answering broadcast name-resolution requests?",
+      "choices": [
+        "LLMNR/NBT-NS poisoning",
+        "Kerberoasting",
+        "DCSync",
+        "AS-REP roasting"
+      ],
+      "correctIndex": 0,
+      "why": "Responder poisons LLMNR and NBT-NS queries, coercing hosts to authenticate and leaking NetNTLMv2 hashes."
+    },
+    {
+      "q": "You captured a NetNTLMv2 hash via LLMNR poisoning. What is the correct next step to obtain a usable plaintext credential?",
+      "choices": [
+        "Inject it with mimikatz sekurlsa::pth",
+        "Replay it with Rubeus asktgt",
+        "Crack it offline with hashcat mode 5600",
+        "Pass-the-hash it directly with psexec"
+      ],
+      "correctIndex": 2,
+      "why": "NetNTLMv2 is a challenge-response hash that cannot be passed; it must be cracked offline, hashcat mode 5600."
+    },
+    {
+      "q": "Why can a captured NetNTLMv2 response not be used in a pass-the-hash attack?",
+      "choices": [
+        "It only works against SMBv1 targets",
+        "It expires within 30 seconds of capture",
+        "It is encrypted with the domain controller Kerberos key",
+        "It is a salted challenge-response value, not the reusable NT hash"
+      ],
+      "correctIndex": 3,
+      "why": "Pass-the-hash needs the static NT hash; NetNTLMv2 mixes in a server challenge so it is not directly replayable."
+    },
+    {
+      "q": "SMB relay converts a poisoned authentication into access on another host. What target configuration is required for the relay to succeed?",
+      "choices": [
+        "The target must be a domain controller",
+        "SMB signing not required (disabled) on the relay target",
+        "The relayed user must be AS-REP roastable",
+        "SMB signing enforced on the relay target"
+      ],
+      "correctIndex": 1,
+      "why": "If SMB signing is not enforced, the relayed session is not integrity-checked, so ntlmrelayx can complete it."
+    },
+    {
+      "q": "When running an SMB relay attack with Impacket ntlmrelayx, why must you disable Responder's SMB and HTTP servers?",
+      "choices": [
+        "To prevent the domain controller from logging the event",
+        "To force NTLMv1 downgrade on the victim",
+        "To enable Kerberos armoring on the relay",
+        "So Responder does not answer the auth itself and instead lets ntlmrelayx relay it onward"
+      ],
+      "correctIndex": 3,
+      "why": "Responder and ntlmrelayx both bind SMB/HTTP; you disable Responder's so the coerced auth reaches the relay tool."
+    },
+    {
+      "q": "A relayed account has local admin on the target. Which ntlmrelayx option dumps the local SAM hashes over the relayed session?",
+      "choices": [
+        "--asreproast against the target",
+        "-tgt to request a Kerberos ticket",
+        "The default action gathers SAM/secrets when the relayed user is local admin",
+        "-shadow-credentials for msDS-KeyCredentialLink"
+      ],
+      "correctIndex": 2,
+      "why": "With admin over the relay, ntlmrelayx defaults to dumping the SAM database and local secrets from the target."
+    },
+    {
+      "q": "Kerberoasting targets accounts with which attribute set, allowing any authenticated user to request a crackable service ticket?",
+      "choices": [
+        "A servicePrincipalName (SPN) registered on the account",
+        "The DONT_REQ_PREAUTH flag",
+        "Membership in Protected Users",
+        "An empty msDS-AllowedToDelegateTo"
+      ],
+      "correctIndex": 0,
+      "why": "Any account with an SPN can have a TGS requested; the ticket is encrypted with the service account NT hash."
+    },
+    {
+      "q": "In a Kerberoasting attack, which part of the requested TGS is cracked offline to recover the service account password?",
+      "choices": [
+        "The ticket portion encrypted with the service account's NT hash",
+        "The PAC signature from the KDC krbtgt key",
+        "The AS-REP encrypted timestamp",
+        "The authenticator signed with the user's TGT session key"
+      ],
+      "correctIndex": 0,
+      "why": "The TGS is encrypted with the service account key, so cracking it (hashcat 13100) yields that account's password."
+    },
+    {
+      "q": "Why are RC4-encrypted (etype 23) Kerberoast tickets generally preferred by attackers over AES tickets?",
+      "choices": [
+        "RC4 hashes crack far faster because they derive directly from the NT hash",
+        "RC4 tickets bypass the account lockout policy",
+        "AES tickets are not encrypted with the service account key",
+        "AES tickets cannot be requested by normal users"
+      ],
+      "correctIndex": 0,
+      "why": "RC4 Kerberos keys equal the NT hash, so those tickets crack much faster than salted AES256 tickets."
+    },
+    {
+      "q": "AS-REP roasting is possible against accounts that have which specific setting enabled?",
+      "choices": [
+        "Do not require Kerberos preauthentication (DONT_REQ_PREAUTH)",
+        "Unconstrained delegation",
+        "A registered SPN",
+        "Password never expires"
+      ],
+      "correctIndex": 0,
+      "why": "With preauth disabled, the KDC returns an AS-REP encrypted with the user's key that can be cracked offline."
+    },
+    {
+      "q": "Which Impacket tool enumerates and requests AS-REP roastable hashes given a user list and domain?",
+      "choices": [
+        "GetNPUsers.py",
+        "GetUserSPNs.py",
+        "secretsdump.py",
+        "ntlmrelayx.py"
+      ],
+      "correctIndex": 0,
+      "why": "GetNPUsers.py finds accounts lacking preauth and outputs crackable AS-REP hashes (hashcat mode 18200)."
+    },
+    {
+      "q": "GetUserSPNs.py from Impacket is used in which attack against a domain?",
+      "choices": [
+        "AS-REP roasting preauth-disabled users",
+        "DCSync replication of secrets",
+        "LLMNR poisoning",
+        "Kerberoasting service accounts"
+      ],
+      "correctIndex": 3,
+      "why": "GetUserSPNs.py enumerates SPN accounts and requests their TGS tickets for offline Kerberoast cracking."
+    },
+    {
+      "q": "You recovered an NT hash but not the plaintext. Which technique authenticates as that user without cracking it?",
+      "choices": [
+        "Pass-the-ticket",
+        "Kerberoasting",
+        "Overpass-the-hash to AS-REP",
+        "Pass-the-hash"
+      ],
+      "correctIndex": 3,
+      "why": "Pass-the-hash uses the NT hash directly for NTLM authentication, no plaintext needed."
+    },
+    {
+      "q": "Which command demonstrates pass-the-hash across a network using CrackMapExec with an NT hash?",
+      "choices": [
+        "Rubeus asktgt /rc4:<hash> /ptt",
+        "GetUserSPNs.py -hashes <hash> spn",
+        "crackmapexec smb <targets> -u user -H <NTLM hash>",
+        "crackmapexec smb <targets> -u user -p <hash> --kerberos"
+      ],
+      "correctIndex": 2,
+      "why": "CrackMapExec accepts -H to supply the NT hash directly, spraying it across hosts to find local admin access."
+    },
+    {
+      "q": "Overpass-the-hash (pass-the-key) uses an NT hash to accomplish what, moving from NTLM to Kerberos?",
+      "choices": [
+        "Forge a golden ticket from the krbtgt hash",
+        "Request a Kerberos TGT using the hash as the RC4 key",
+        "Crack the hash into plaintext locally",
+        "Relay the hash to an LDAP server"
+      ],
+      "correctIndex": 1,
+      "why": "Overpass-the-hash feeds the NT hash as the RC4 Kerberos key to obtain a real TGT, then acts via Kerberos."
+    },
+    {
+      "q": "On a compromised host with local admin, which mimikatz command dumps plaintext passwords and hashes from LSASS memory?",
+      "choices": [
+        "kerberos::golden",
+        "token::elevate",
+        "sekurlsa::logonpasswords",
+        "lsadump::dcsync"
+      ],
+      "correctIndex": 2,
+      "why": "sekurlsa::logonpasswords reads LSASS to extract cached credentials, NT hashes, and sometimes plaintext."
+    },
+    {
+      "q": "Group Policy Preferences (GPP) passwords are a classic AD finding. Where and how are they recoverable?",
+      "choices": [
+        "In LSASS as reversibly encrypted secrets",
+        "In the NTDS.dit encrypted with the boot key only",
+        "In SYSVOL Groups.xml, AES-encrypted with a Microsoft-published static key (cpassword)",
+        "In the registry SAM hive under LSA secrets"
+      ],
+      "correctIndex": 2,
+      "why": "GPP cpassword values in SYSVOL use a public static AES key, so any domain user can decrypt them."
+    },
+    {
+      "q": "Which tool or command quickly finds and decrypts GPP cpassword values from a domain controller's SYSVOL share?",
+      "choices": [
+        "Rubeus kerberoast",
+        "GetNPUsers.py",
+        "secretsdump.py -just-dc",
+        "Get-GPPPassword / gpp-decrypt"
+      ],
+      "correctIndex": 3,
+      "why": "Get-GPPPassword (PowerSploit) or gpp-decrypt locates Groups.xml cpassword and reverses the known AES key."
+    },
+    {
+      "q": "BloodHound ingests AD data to reveal attack paths. Which component collects that data from the domain?",
+      "choices": [
+        "SharpHound",
+        "Rubeus",
+        "Responder",
+        "Impacket wmiexec"
+      ],
+      "correctIndex": 0,
+      "why": "SharpHound is the BloodHound collector, enumerating sessions, ACLs, group membership, and trusts into JSON."
+    },
+    {
+      "q": "In BloodHound, which prebuilt query is most directly useful for planning privilege escalation from an owned user?",
+      "choices": [
+        "Find computers with unconstrained delegation only",
+        "Shortest Paths to Domain Admins",
+        "Map all GPO links in the domain",
+        "List all Kerberoastable accounts only"
+      ],
+      "correctIndex": 1,
+      "why": "Shortest path to Domain Admins highlights the fewest hops from your foothold to full domain compromise."
+    },
+    {
+      "q": "BloodHound shows your user has WriteDACL over a group. How does this enable privilege escalation?",
+      "choices": [
+        "You can request a golden ticket for that group",
+        "You can dump LSASS on the group's members",
+        "You can immediately DCSync the domain",
+        "You can modify the group's ACL to add yourself as a member"
+      ],
+      "correctIndex": 3,
+      "why": "WriteDACL lets you rewrite the object's DACL to grant AddMember, then join the group and inherit its rights."
+    },
+    {
+      "q": "A BloodHound edge shows GenericAll over a user object. Which attack does this most directly enable?",
+      "choices": [
+        "Reset the target user's password or set a targeted Kerberoast SPN",
+        "Poison LLMNR for that user",
+        "Perform an SMB relay to that user",
+        "Extract the krbtgt hash immediately"
+      ],
+      "correctIndex": 0,
+      "why": "GenericAll grants full control, so you can force a password reset or add an SPN for targeted Kerberoasting."
+    },
+    {
+      "q": "Token impersonation via incognito (or Meterpreter) abuses what to escalate on a compromised Windows host?",
+      "choices": [
+        "Kerberos AS-REP responses",
+        "Unconstrained delegation on the domain controller",
+        "Delegation/impersonation tokens left in memory by other logged-on users",
+        "GPP cpassword values in SYSVOL"
+      ],
+      "correctIndex": 2,
+      "why": "If a privileged user has a token on the box, impersonating it lets you act as that account, e.g., Domain Admin."
+    },
+    {
+      "q": "You impersonate a Domain Admin token on a member server. What is a reliable next action to establish durable domain control?",
+      "choices": [
+        "Relay the token to an SMB server",
+        "AS-REP roast the impersonated account",
+        "Add a controlled account to Domain Admins or DCSync the krbtgt hash",
+        "Run Responder to poison LLMNR again"
+      ],
+      "correctIndex": 2,
+      "why": "With DA rights you can DCSync secrets or add an account to a privileged group for persistent domain access."
+    },
+    {
+      "q": "DCSync abuses which AD replication rights to pull password hashes without touching a domain controller's disk?",
+      "choices": [
+        "WriteOwner on the domain root",
+        "GenericWrite on the krbtgt account",
+        "DS-Replication-Get-Changes and DS-Replication-Get-Changes-All",
+        "SeBackupPrivilege and SeRestorePrivilege"
+      ],
+      "correctIndex": 2,
+      "why": "DCSync uses the directory replication (GetChanges/GetChangesAll) rights to request secrets via MS-DRSR."
+    },
+    {
+      "q": "Which Impacket command performs a DCSync-style dump of all domain hashes from NTDS given domain admin credentials?",
+      "choices": [
+        "secretsdump.py -just-dc <domain>/<user>@<dc>",
+        "GetNPUsers.py <domain>/ -usersfile users.txt",
+        "wmiexec.py <domain>/<user>@<host>",
+        "GetUserSPNs.py -request <domain>/<user>"
+      ],
+      "correctIndex": 0,
+      "why": "secretsdump.py -just-dc uses replication to extract every account's hash from the DC without a disk copy."
+    },
+    {
+      "q": "A golden ticket forges a TGT for arbitrary access. Which secret must an attacker possess to create one?",
+      "choices": [
+        "The local machine account password",
+        "A service account SPN hash",
+        "The target user's NetNTLMv2 hash",
+        "The krbtgt account's NT hash"
+      ],
+      "correctIndex": 3,
+      "why": "The krbtgt hash signs TGTs, so with it you can forge tickets for any user and group, including fake SIDs."
+    },
+    {
+      "q": "How does a silver ticket differ from a golden ticket in an AD attack?",
+      "choices": [
+        "A silver ticket is a cracked AS-REP hash",
+        "A silver ticket forges a TGS for one service using that service account's hash",
+        "A silver ticket requires domain admin replication rights",
+        "A silver ticket forges a TGT using the krbtgt hash"
+      ],
+      "correctIndex": 1,
+      "why": "A silver ticket is a forged service ticket signed with the service account key, granting access to that one service."
+    },
+    {
+      "q": "Unconstrained delegation on a compromised server is dangerous because it allows an attacker to do what?",
+      "choices": [
+        "Reset any user's password in the domain",
+        "Capture TGTs of any user who authenticates to the server, including a DC via coercion",
+        "Bypass SMB signing on all hosts",
+        "Decrypt GPP cpassword values automatically"
+      ],
+      "correctIndex": 1,
+      "why": "Unconstrained delegation stores incoming users' TGTs in memory; coercing a DC yields the DC's TGT for takeover."
+    },
+    {
+      "q": "After gaining a foothold on a dual-homed host, you need to reach a segmented internal subnet. Which technique routes your tools through the compromised host?",
+      "choices": [
+        "Kerberoasting the gateway",
+        "Pivoting via SOCKS proxy / port forwarding (e.g., chisel, ssh -D, proxychains)",
+        "DCSync over the WAN",
+        "LLMNR poisoning across the router"
+      ],
+      "correctIndex": 1,
+      "why": "A SOCKS proxy or port forward through the foothold lets you tunnel scans and exploits into the isolated subnet."
+    },
+    {
+      "q": "You set up chisel to reach an internal subnet. What role does proxychains play in this pivot?",
+      "choices": [
+        "It enumerates SPNs on the internal DC",
+        "It signs forged Kerberos tickets",
+        "It cracks the captured NetNTLM hashes",
+        "It forces command-line tools through the SOCKS proxy the tunnel exposes"
+      ],
+      "correctIndex": 3,
+      "why": "proxychains wraps tools like nmap or smbclient so their traffic exits through the pivot's SOCKS listener."
+    },
+    {
+      "q": "During internal enumeration with valid creds, which CrackMapExec function checks where your user has local admin across many hosts at once?",
+      "choices": [
+        "The (Pwn3d!) indicator when authenticating over SMB to each host",
+        "The kerberoasting module only",
+        "The --gpp-autologin flag",
+        "The --asreproast flag"
+      ],
+      "correctIndex": 0,
+      "why": "CrackMapExec marks hosts with (Pwn3d!) when the supplied credential grants local admin, mapping lateral options."
+    },
+    {
+      "q": "Which Impacket tool gives an interactive semi-shell over SMB using valid credentials or a hash without dropping a service binary noisily?",
+      "choices": [
+        "GetNPUsers.py",
+        "ntlmrelayx.py",
+        "ticketer.py",
+        "smbexec.py / wmiexec.py"
+      ],
+      "correctIndex": 3,
+      "why": "wmiexec and smbexec run commands via WMI/SMB with creds or hashes, quieter than psexec's service install."
+    },
+    {
+      "q": "You have a low-priv shell on Windows and check for privilege escalation. Which tool automates enumeration of misconfigurations and exploitable services?",
+      "choices": [
+        "SharpHound",
+        "gpp-decrypt",
+        "winPEAS",
+        "Responder"
+      ],
+      "correctIndex": 2,
+      "why": "winPEAS surveys the host for unquoted paths, weak service perms, credentials, and other local privesc vectors."
+    },
+    {
+      "q": "An unquoted service path with a writable intermediate directory lets an attacker do what for local privilege escalation?",
+      "choices": [
+        "Request an AS-REP for the service account",
+        "Extract the krbtgt hash from the service",
+        "Place a malicious executable that Windows runs as the service's SYSTEM account",
+        "Relay the service's authentication to a DC"
+      ],
+      "correctIndex": 2,
+      "why": "Windows parses spaces in unquoted paths, so a planted binary in a writable segment runs with service privileges."
+    },
+    {
+      "q": "Which registry-based Windows privesc looks for AlwaysInstallElevated set, allowing an MSI to run as SYSTEM?",
+      "choices": [
+        "SMB signing disabled in the registry",
+        "cpassword stored in the registry",
+        "HKLM and HKCU AlwaysInstallElevated both set to 1",
+        "DONT_REQ_PREAUTH in the registry"
+      ],
+      "correctIndex": 2,
+      "why": "When both AlwaysInstallElevated keys are 1, any user can install a crafted MSI that executes as SYSTEM."
+    },
+    {
+      "q": "Post-exploitation, you find a stored WiFi or scheduled task credential. What PNPT-appropriate action follows for cleanliness and value?",
+      "choices": [
+        "Change the account's password to lock the client out",
+        "Document the credential and test its reuse across other systems and services",
+        "Ignore it because it is out of scope by default",
+        "Immediately delete the credential from the host"
+      ],
+      "correctIndex": 1,
+      "why": "Reused credentials often unlock lateral movement; you record findings and test reuse rather than destroy evidence."
+    },
+    {
+      "q": "Which Windows post-exploitation location holds cached domain logon verifiers (DCC2) that can be extracted and cracked offline?",
+      "choices": [
+        "The SYSVOL Groups.xml file",
+        "The NTDS.dit only on the DC",
+        "The SECURITY registry hive (cached domain credentials)",
+        "The LLMNR responder cache"
+      ],
+      "correctIndex": 2,
+      "why": "Cached domain credentials live in the SECURITY hive as DCC2 hashes, crackable offline (hashcat mode 2100)."
+    },
+    {
+      "q": "In the PNPT model, what deliverable must accompany the exam beyond obtaining domain admin in the lab?",
+      "choices": [
+        "A raw Nessus scan export",
+        "A recorded video of every command",
+        "A professional penetration test report",
+        "A Metasploit resource script only"
+      ],
+      "correctIndex": 2,
+      "why": "PNPT requires a full professional report; technical access alone does not pass without proper documentation."
+    },
+    {
+      "q": "The PNPT exam uniquely includes which step after report submission?",
+      "choices": [
+        "A peer code review of your scripts",
+        "An automated grading of exploit flags",
+        "A live 15-minute debrief presenting findings to assessors",
+        "A multiple-choice knowledge quiz"
+      ],
+      "correctIndex": 2,
+      "why": "PNPT includes a live debrief where you present and defend your findings, mirroring a real client readout."
+    },
+    {
+      "q": "A well-structured pentest report ranks findings by risk. Which pairing best drives that severity rating?",
+      "choices": [
+        "The CVE publication date and vendor",
+        "The number of tools used to find it",
+        "Alphabetical order of affected hosts",
+        "Likelihood of exploitation combined with business impact"
+      ],
+      "correctIndex": 3,
+      "why": "Risk severity is derived from how likely a flaw is exploited and the damage it would cause to the business."
+    },
+    {
+      "q": "In the report, which section is written for non-technical leadership to summarize risk posture and priorities?",
+      "choices": [
+        "Appendix of raw scan output",
+        "Executive summary",
+        "Methodology and scope statement",
+        "Detailed technical findings"
+      ],
+      "correctIndex": 1,
+      "why": "The executive summary conveys overall risk and top priorities in plain language for decision-makers."
+    },
+    {
+      "q": "For each finding, why should a PNPT report include specific reproduction steps and evidence like command output or screenshots?",
+      "choices": [
+        "To increase the page count for billing",
+        "So the client can verify, reproduce, and confirm remediation of the issue",
+        "To satisfy the exam's video requirement",
+        "To demonstrate which exploits are zero-days"
+      ],
+      "correctIndex": 1,
+      "why": "Reproducible steps and evidence let the client validate the flaw and later confirm the fix actually worked."
+    },
+    {
+      "q": "When recommending remediation for LLMNR/NBT-NS poisoning found on the internal network, what is the primary control to advise?",
+      "choices": [
+        "Remove all SPNs from service accounts",
+        "Enable AS-REP preauth on all accounts",
+        "Rotate the krbtgt password twice",
+        "Disable LLMNR and NBT-NS via Group Policy and enforce SMB signing"
+      ],
+      "correctIndex": 3,
+      "why": "Disabling the legacy name-resolution protocols removes the poisoning vector, and SMB signing blocks relay follow-on."
+    },
+    {
+      "q": "On an external pentest you validate a successful password spray against OWA. What is the safest way to turn that into internal access?",
+      "choices": [
+        "Kerberoast the account from the public internet",
+        "Run Responder against the mail server",
+        "Immediately DCSync the domain over the internet",
+        "Test the credential against exposed VPN or portal services that grant a foothold"
+      ],
+      "correctIndex": 3,
+      "why": "Valid domain creds are often reused on internet-facing VPN or portals, giving a legitimate path onto the internal network."
+    }
+  ]
+}

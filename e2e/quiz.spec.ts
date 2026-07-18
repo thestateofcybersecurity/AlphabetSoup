@@ -2,10 +2,21 @@ import { expect, test } from '@playwright/test';
 
 test('quiz index lists decks and links cert glossary entries', async ({ page }) => {
   await page.goto('/quiz/');
-  await expect(page.locator('.deck-card')).toHaveCount(9);
+  await expect(page.locator('.deck-card')).toHaveCount(18);
   const cissp = page.locator('.deck-card', { hasText: 'CISSP' }).first();
   await expect(cissp.locator('a.permalink')).toHaveAttribute('href', '../definitions/cissp.html');
   await expect(page.locator('.deck-card', { hasText: 'LPT' }).locator('.chip')).toHaveText('retired cert');
+  // A newly added deck is present and cross-links to its cert glossary entry.
+  const cism = page.locator('.deck-card', { hasText: 'CISM' }).first();
+  await expect(cism.locator('a.permalink')).toHaveAttribute('href', '../definitions/cism.html');
+});
+
+test('a new cert deck plays a scored round', async ({ page }) => {
+  await page.goto('/quiz/?deck=oscp');
+  await expect(page.locator('.quiz-title')).toHaveText('OSCP');
+  await page.locator('.choice-btn').first().click();
+  await expect(page.locator('.choice-btn.right')).toHaveCount(1);
+  await expect(page.locator('.why-box')).toBeVisible();
 });
 
 test('multiple-choice round plays through with feedback and results', async ({ page }) => {

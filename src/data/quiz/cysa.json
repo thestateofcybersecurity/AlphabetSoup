@@ -553,6 +553,171 @@
       ],
       "correctIndex": 3,
       "why": "Accurate correlation requires consistent clocks; syncing every log source to NTP aligns timestamps so an incident timeline is trustworthy."
+    },
+    {
+      "q": "An analyst reviewing DNS logs sees one endpoint generating hundreds of failed lookups (NXDOMAIN) to algorithmically random domain names within minutes. What does this most likely indicate?",
+      "choices": [
+        "A domain generation algorithm (DGA) used by malware to locate its C2",
+        "Normal browser prefetching of popular sites",
+        "A misconfigured internal DNS forwarder",
+        "Standard reverse DNS lookups for logging"
+      ],
+      "correctIndex": 0,
+      "why": "Malware uses DGAs to compute many candidate C2 domains; most are unregistered, producing a burst of NXDOMAIN responses as the host hunts for a live one."
+    },
+    {
+      "q": "A domain controller logs numerous Event ID 4769 Kerberos service ticket requests from one user, many specifying RC4 encryption for service accounts. Which attack fits best?",
+      "choices": [
+        "Golden ticket forgery",
+        "Kerberoasting to crack service account passwords offline",
+        "LDAP injection",
+        "SYN flood"
+      ],
+      "correctIndex": 1,
+      "why": "Requesting many TGS tickets, especially RC4-encrypted ones, lets an attacker extract and brute-force service account hashes offline, the signature of Kerberoasting."
+    },
+    {
+      "q": "An analyst wants detections that are hardest for adversaries to change, forcing them to rebuild operations. Per the Pyramid of Pain, which indicator type should they prioritize?",
+      "choices": [
+        "File hashes",
+        "IP addresses",
+        "Domain names",
+        "Tactics, techniques, and procedures (TTPs)"
+      ],
+      "correctIndex": 3,
+      "why": "The Pyramid of Pain ranks TTPs at the top; detecting adversary behavior is far more costly to alter than swapping hashes, IPs, or domains."
+    },
+    {
+      "q": "An attacker emails a booby-trapped PDF that runs a backdoor when opened. In the Lockheed Martin Cyber Kill Chain, the moment the opened document triggers the payload maps to which phase?",
+      "choices": [
+        "Reconnaissance",
+        "Exploitation",
+        "Actions on objectives",
+        "Weaponization"
+      ],
+      "correctIndex": 1,
+      "why": "Weaponization builds the file and delivery emails it; exploitation is when the triggering action executes the code, here the user opening the malicious PDF."
+    },
+    {
+      "q": "A CVSS v3 vector shows S:C (Scope: Changed). What does this tell an analyst about the vulnerability's impact?",
+      "choices": [
+        "The exploit requires no user interaction",
+        "The vulnerable component can affect resources beyond its own security scope",
+        "The score changed since the last scan",
+        "The attacker needs elevated privileges"
+      ],
+      "correctIndex": 1,
+      "why": "Scope: Changed means exploitation impacts components outside the vulnerable one's authority, such as a VM escape reaching the host, which raises severity."
+    },
+    {
+      "q": "A SOC detects incidents quickly but takes days to fully contain and remediate them. Which metric should the team focus on lowering to close that gap?",
+      "choices": [
+        "Mean time to respond/remediate (MTTR)",
+        "Mean time to detect (MTTD)",
+        "Recovery point objective (RPO)",
+        "Annualized rate of occurrence (ARO)"
+      ],
+      "correctIndex": 0,
+      "why": "MTTR captures how long it takes to respond to and remediate an incident after detection; reducing it shrinks the window attackers stay active."
+    },
+    {
+      "q": "An inbound email claims to be from the company's own domain and passed SPF for the sending server, but DMARC still failed. What most likely caused the DMARC failure?",
+      "choices": [
+        "The message was too large",
+        "SPF or DKIM did not align with the From header domain",
+        "The recipient mailbox was full",
+        "The email lacked a subject line"
+      ],
+      "correctIndex": 1,
+      "why": "DMARC requires SPF or DKIM to pass and align with the visible From domain; a spoofed From that passes SPF for a different envelope domain fails alignment."
+    },
+    {
+      "q": "A detection engineer wants to write a log-based detection once and share it in a vendor-neutral format others can convert to their own SIEM query language. Which format fits?",
+      "choices": [
+        "YARA",
+        "Sigma",
+        "PCAP",
+        "Snort only"
+      ],
+      "correctIndex": 1,
+      "why": "Sigma is a generic, vendor-agnostic signature format for log detections that converts into many SIEM query languages. YARA targets files, not logs."
+    },
+    {
+      "q": "Firewall logs show an internal workstation repeatedly attempting outbound connections to an external IP on TCP port 4444. Why is this noteworthy?",
+      "choices": [
+        "4444 is the standard port for encrypted email",
+        "It is the default DNS resolution port",
+        "It is a common reverse-shell and C2 port used by tools like Metasploit",
+        "It indicates normal NTP synchronization"
+      ],
+      "correctIndex": 2,
+      "why": "TCP 4444 is a well-known default for Meterpreter and other reverse shells; unexplained outbound attempts to it suggest a compromised host reaching a handler."
+    },
+    {
+      "q": "An analyst must acquire evidence from a live compromised system. Following the order of volatility, what should be collected first?",
+      "choices": [
+        "Archived backup tapes",
+        "Data on the hard disk",
+        "Volatile data such as RAM and running processes",
+        "Printed configuration documents"
+      ],
+      "correctIndex": 2,
+      "why": "Order of volatility says capture the most ephemeral data first; memory and running state vanish on power-off, so they precede disk imaging."
+    },
+    {
+      "q": "A vulnerability cannot be patched before a business deadline and management chooses to tolerate it temporarily. What should the analyst ensure is documented?",
+      "choices": [
+        "A formal risk acceptance with owner sign-off and an expiration date",
+        "Nothing, since it will be patched eventually",
+        "A deletion of the finding from the scanner",
+        "A public disclosure of the flaw"
+      ],
+      "correctIndex": 0,
+      "why": "Deferring remediation requires a documented risk acceptance approved by an accountable owner with a review or expiration date, not silently suppressing it."
+    },
+    {
+      "q": "A detection engineer maps existing SIEM rules against MITRE ATT&CK and finds several techniques with no coverage. What is the primary purpose of this exercise?",
+      "choices": [
+        "To reduce log storage costs",
+        "To identify detection visibility gaps and prioritize new use cases",
+        "To rank employees by performance",
+        "To replace the incident response plan"
+      ],
+      "correctIndex": 1,
+      "why": "Overlaying detections on ATT&CK, often with the Navigator, exposes techniques you cannot currently detect, guiding where to build new rules and telemetry."
+    },
+    {
+      "q": "During static analysis of a suspicious executable, an analyst finds very high entropy across most of the file and few readable strings. What does this most likely suggest?",
+      "choices": [
+        "The file is a plain-text script",
+        "The binary is packed or encrypted to evade static detection",
+        "The file is definitely benign",
+        "The file is a valid digital certificate"
+      ],
+      "correctIndex": 1,
+      "why": "High entropy with few meaningful strings indicates compression or encryption, common in packers used to hide malicious code from signature scanners."
+    },
+    {
+      "q": "To catch obfuscated PowerShell even when attackers use EncodedCommand, which logging source records the actual deobfuscated commands as they execute?",
+      "choices": [
+        "DHCP lease logs",
+        "PowerShell script block logging (Event ID 4104)",
+        "DNS zone transfer logs",
+        "Printer spooler logs"
+      ],
+      "correctIndex": 1,
+      "why": "Script block logging captures the fully deobfuscated PowerShell at runtime under Event ID 4104, exposing encoded or obfuscated commands attackers hide."
+    },
+    {
+      "q": "Before a SIEM can correlate events from firewalls, endpoints, and web servers, it must convert their differing log formats into a consistent structure. What is this called?",
+      "choices": [
+        "Encryption",
+        "Normalization, parsing logs into a common schema",
+        "Compression",
+        "Load balancing"
+      ],
+      "correctIndex": 1,
+      "why": "Normalization parses heterogeneous log formats into common fields so the SIEM can correlate and query events consistently across diverse sources."
     }
   ]
 }

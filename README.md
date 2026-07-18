@@ -5,7 +5,7 @@ A plain-English cybersecurity reference at [cybersecurityalphabetsoup.com](https
 - **Acronym dictionary**: 545 acronyms, each with its expansion, a short explanation of what it is and why it matters, a category and difficulty, and authoritative sources.
 - **NIST CSF 2.0 in plain English** (`/frameworks/nist-csf/`): all 106 subcategories translated with household metaphors.
 - **CIS Controls v8 in plain English** (`/frameworks/cis/`): all 153 safeguards, same treatment.
-- **Practice quizzes** (`/quiz/`): 681 questions across 9 decks, from Security+ and CISSP multiple-choice rounds to fundamentals flashcards, with missed-question review.
+- **Practice quizzes** (`/quiz/`): 1,230 questions across 18 decks (Security+, CISSP, CEH, CHFI, CySA+, GSEC, SSCP, LPT, CISM, CISA, CRISC, CCSP, CCSK, OSCP, PenTest+, CASP+/SecurityX, PNPT, plus a fundamentals flip deck), with per-answer rationales, persistent progress, and missed-question review.
 - **Ransomware readiness assessment** (`/assess/`): 48 yes/no questions across ten goals and three maturity tiers, scored instantly in the browser with gap guidance linked to the CIS translations.
 - **Cross-framework mapping**: every CSF subcategory links its related CIS safeguards and vice versa (unofficial, adversarially verified), on both the interactive pages and the generated static pages.
 - **Roadmap planner** (`/roadmap/`): turn NIST CSF 2.0 (22 categories), CIS Controls v8 (18 controls, scoped by implementation group), or a vCISO engagement template (89 tasks with hour estimates) into a quarter-by-quarter plan with status tracking, CSV export, and print.

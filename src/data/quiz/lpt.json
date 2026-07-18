@@ -388,6 +388,336 @@
       ],
       "correctIndex": 0,
       "why": "Metasploit exists to develop and deliver exploits and payloads against vulnerable targets. Traffic monitoring, malware analysis, and backups are handled by other tools entirely."
+    },
+    {
+      "q": "During scoping, what does a Rules of Engagement (RoE) document primarily establish?",
+      "choices": [
+        "The permitted targets, methods, timing, and communication procedures",
+        "The exact vulnerabilities the tester expects to find",
+        "The programming languages used to write the exploits",
+        "The antivirus products installed on the target hosts"
+      ],
+      "correctIndex": 0,
+      "why": "Rules of Engagement define what is in scope, which techniques are allowed, the testing window, and escalation contacts, setting the legal and operational boundaries."
+    },
+    {
+      "q": "Why should a tester carry a signed authorization letter, sometimes called a get-out-of-jail card, during an on-site engagement?",
+      "choices": [
+        "It proves the activity is authorized if the tester is stopped or detained",
+        "It guarantees the tester will locate critical vulnerabilities",
+        "It exempts the client from paying for remediation",
+        "It legally permits bypassing every physical lock on site"
+      ],
+      "correctIndex": 0,
+      "why": "The authorization letter shows a responsible party approved the work, protecting the tester if security staff or police intervene during physical testing."
+    },
+    {
+      "q": "Before testing an application hosted on a third-party cloud platform, why might extra authorization be required?",
+      "choices": [
+        "The provider owns the shared infrastructure and sets its own testing rules",
+        "Cloud applications cannot be tested with any standard tooling",
+        "The tester must first purchase a subscription to the platform",
+        "Encryption in the cloud makes all such testing illegal"
+      ],
+      "correctIndex": 0,
+      "why": "Providers own shared infrastructure, so scanning or exploiting hosted assets may breach their acceptable use policy unless their testing terms are followed."
+    },
+    {
+      "q": "A Statement of Work (SOW) agreed before testing chiefly documents which of these?",
+      "choices": [
+        "The deliverables, timeline, and scope of the engagement",
+        "The precise vulnerabilities that will be discovered",
+        "The internal passwords used by the client",
+        "The signatures of every employee at the client"
+      ],
+      "correctIndex": 0,
+      "why": "The SOW formalizes objectives, scope, schedule, and deliverables so both parties share clear expectations before any work begins."
+    },
+    {
+      "q": "An enumeration scan finds UDP port 161 open with the default community string 'public'. What can a tester likely retrieve?",
+      "choices": [
+        "System configuration and device details through SNMP queries",
+        "A full copy of the server's hard drive",
+        "The administrator's Kerberos ticket-granting ticket",
+        "The cleartext session keys of every HTTPS connection"
+      ],
+      "correctIndex": 0,
+      "why": "A readable SNMP community string exposes interface tables, running processes, routing data, and other device details useful for mapping the target."
+    },
+    {
+      "q": "The enum4linux tool run against a Windows host is most useful for extracting what over SMB?",
+      "choices": [
+        "User accounts, groups, and shares via null or authenticated sessions",
+        "The motherboard BIOS firmware version",
+        "Wireless pre-shared keys stored on disk",
+        "The private keys backing the TLS certificate"
+      ],
+      "correctIndex": 0,
+      "why": "enum4linux queries SMB and RPC to list users, groups, password policy, and shares, often through null sessions, feeding later password attacks."
+    },
+    {
+      "q": "A tester connects to port 389 and performs an anonymous bind that returns directory objects. What does this reveal?",
+      "choices": [
+        "The LDAP server permits unauthenticated queries of directory data",
+        "The domain controller has already been fully compromised",
+        "The tester has obtained domain administrator rights",
+        "The server is actually a honeypot"
+      ],
+      "correctIndex": 0,
+      "why": "An anonymous bind that returns results means LDAP exposes directory information without credentials, disclosing users, groups, and organizational structure."
+    },
+    {
+      "q": "A successful AXFR request to a DNS server provides a tester with what?",
+      "choices": [
+        "A complete list of DNS records for the zone",
+        "Administrative access to the DNS server itself",
+        "The name server's root password hash",
+        "An interactive reverse shell on the name server"
+      ],
+      "correctIndex": 0,
+      "why": "An unrestricted zone transfer dumps every record in the zone, mapping hostnames and addresses that accelerate target discovery."
+    },
+    {
+      "q": "Forcing a web server to fetch a URL the tester supplies, such as an internal cloud metadata endpoint, is characteristic of which flaw?",
+      "choices": [
+        "Server-Side Request Forgery (SSRF)",
+        "Cross-Site Request Forgery (CSRF)",
+        "Session fixation",
+        "Clickjacking"
+      ],
+      "correctIndex": 0,
+      "why": "SSRF abuses server-side URL fetching to reach internal services or metadata endpoints that the attacker could not otherwise contact directly."
+    },
+    {
+      "q": "An application accepts a serialized object from the client and rebuilds it without validation. What is the main danger?",
+      "choices": [
+        "Insecure deserialization that can lead to remote code execution",
+        "A slightly slower database query",
+        "A broken CSS layout on the page",
+        "Temporary loss of DNS resolution"
+      ],
+      "correctIndex": 0,
+      "why": "Deserializing attacker-controlled data can instantiate malicious objects or gadget chains, frequently resulting in remote code execution."
+    },
+    {
+      "q": "Submitting XML that declares an external entity pointing to /etc/passwd targets which vulnerability class?",
+      "choices": [
+        "XML External Entity (XXE) injection",
+        "Reflected cross-site scripting",
+        "Server-side template injection",
+        "Open redirect"
+      ],
+      "correctIndex": 0,
+      "why": "A parser that resolves external entities can be coerced into reading local files or making outbound requests, which is the core of an XXE attack."
+    },
+    {
+      "q": "Capturing a victim's NTLM authentication and forwarding it to another service to authenticate as that user describes what attack?",
+      "choices": [
+        "SMB/NTLM relay",
+        "Kerberoasting",
+        "Password spraying",
+        "DNS cache poisoning"
+      ],
+      "correctIndex": 0,
+      "why": "An NTLM relay forwards captured authentication to a third host, gaining access as the victim without ever cracking the underlying password."
+    },
+    {
+      "q": "Requesting service tickets for accounts that have a Service Principal Name and cracking them offline is known as what?",
+      "choices": [
+        "Kerberoasting",
+        "Pass-the-ticket",
+        "Golden ticket forging",
+        "LLMNR poisoning"
+      ],
+      "correctIndex": 0,
+      "why": "Kerberoasting requests TGS tickets for service accounts, whose encrypted portion can be cracked offline to recover the service account password."
+    },
+    {
+      "q": "To crack WPA2-PSK, capturing which piece of data enables an offline dictionary attack?",
+      "choices": [
+        "The 4-way handshake or an exposed PMKID",
+        "The router's printed serial number",
+        "The current DHCP lease table",
+        "The access point's MAC vendor prefix"
+      ],
+      "correctIndex": 0,
+      "why": "The WPA2 4-way handshake, or an exposed PMKID, contains material that lets a tester brute force the passphrase offline without touching the AP again."
+    },
+    {
+      "q": "Standing up a rogue access point that copies a legitimate SSID to lure clients is called what?",
+      "choices": [
+        "An evil twin attack",
+        "A deauthentication flood",
+        "WPS PIN brute forcing",
+        "A war-driving survey"
+      ],
+      "correctIndex": 0,
+      "why": "An evil twin mimics a trusted SSID so clients connect to the attacker's access point, enabling traffic interception and credential capture."
+    },
+    {
+      "q": "On Windows, a service whose executable path contains spaces and is unquoted can enable escalation because Windows may do what?",
+      "choices": [
+        "Execute a malicious binary planted earlier in the path",
+        "Reveal the entire SAM database automatically",
+        "Permanently disable Windows Defender",
+        "Grant the Guest account administrator rights"
+      ],
+      "correctIndex": 0,
+      "why": "With an unquoted path containing spaces, Windows tries each fragment, so a writable earlier directory lets an attacker plant a binary run as the service account."
+    },
+    {
+      "q": "A Linux SUID-root binary that can spawn a shell, as catalogued by GTFOBins, is dangerous because a low-privilege user can do what?",
+      "choices": [
+        "Run commands with the file owner's root privileges",
+        "Encrypt the entire filesystem instantly",
+        "Reset the system BIOS password",
+        "Sniff nearby wireless traffic"
+      ],
+      "correctIndex": 0,
+      "why": "A SUID binary executes as its owner, so if it is root-owned and abusable it can be leveraged to run commands as root and escalate privileges."
+    },
+    {
+      "q": "During Linux escalation, running 'sudo -l' is useful mainly to reveal what?",
+      "choices": [
+        "Which commands the current user may run as another user",
+        "The exact kernel version and patch level",
+        "Every open network socket on the host",
+        "The full contents of /etc/shadow"
+      ],
+      "correctIndex": 0,
+      "why": "sudo -l lists the user's permitted sudo commands, exposing misconfigurations such as NOPASSWD entries that open a path to privilege escalation."
+    },
+    {
+      "q": "After compromising a dual-homed host, using SSH dynamic port forwarding with proxychains lets a tester accomplish what?",
+      "choices": [
+        "Route tools through the compromised host to reach an internal network",
+        "Crack WPA2 passphrases far faster",
+        "Disable the target's logging service",
+        "Skip the CVSS scoring requirement"
+      ],
+      "correctIndex": 0,
+      "why": "SSH dynamic forwarding opens a SOCKS proxy on the pivot host, so tools run through proxychains can reach systems routable only from that machine."
+    },
+    {
+      "q": "The Metasploit autoroute module is used after gaining a session to achieve what?",
+      "choices": [
+        "Pivot traffic to subnets reachable only through the compromised host",
+        "Automatically patch the exploited vulnerability",
+        "Generate the final client-facing report",
+        "Encrypt the Meterpreter payload in transit"
+      ],
+      "correctIndex": 0,
+      "why": "autoroute adds routes through an existing session so other Metasploit modules can target internal subnets reachable from the initial foothold."
+    },
+    {
+      "q": "A WAF blocks the string 'UNION SELECT'. Alternating case, inline comments, or URL encoding are attempts to do what?",
+      "choices": [
+        "Bypass the WAF's signature-based filtering",
+        "Improve the SQL query's performance",
+        "Fix a syntax error in the payload",
+        "Encrypt the injection for confidentiality"
+      ],
+      "correctIndex": 0,
+      "why": "Obfuscating a payload with case changes, comments, or encoding aims to evade the WAF's pattern signatures while the database still interprets it correctly."
+    },
+    {
+      "q": "Tunneling command-and-control traffic over HTTPS to a trusted CDN domain helps an operator evade defenses by doing what?",
+      "choices": [
+        "Blending C2 traffic in with legitimate encrypted web traffic",
+        "Increasing the payload's execution speed",
+        "Disabling the target's TLS inspection hardware",
+        "Removing the need for any C2 listener"
+      ],
+      "correctIndex": 0,
+      "why": "Routing C2 through HTTPS to reputable domains makes malicious traffic resemble normal browsing, complicating detection and network blocking."
+    },
+    {
+      "q": "Configuring Nmap with a very slow timing template such as -T0 or -T1 is intended to do what?",
+      "choices": [
+        "Reduce the chance that rate-based IDS thresholds trigger an alert",
+        "Scan every port on the host in under a second",
+        "Remove the need for prior authorization",
+        "Automatically exploit each discovered service"
+      ],
+      "correctIndex": 0,
+      "why": "Slower timing spreads probes out so scan-detection thresholds based on traffic rate are less likely to fire, at the cost of a much longer scan."
+    },
+    {
+      "q": "Running Mimikatz against the LSASS process on a compromised Windows host is typically done to obtain what?",
+      "choices": [
+        "Cached credentials and NTLM hashes from memory",
+        "The server's uptime statistics",
+        "A list of installed printers",
+        "The current Wi-Fi signal strength"
+      ],
+      "correctIndex": 0,
+      "why": "LSASS holds authentication material, so dumping it with Mimikatz can yield plaintext passwords, hashes, or tickets used for lateral movement."
+    },
+    {
+      "q": "Adding a Windows registry Run key entry or creating a scheduled task after exploitation serves which post-exploitation goal?",
+      "choices": [
+        "Maintaining persistence across reboots and logins",
+        "Escalating instantly from user to SYSTEM",
+        "Encrypting the attacker's payload on disk",
+        "Enumerating all open network shares"
+      ],
+      "correctIndex": 0,
+      "why": "Run keys and scheduled tasks relaunch the attacker's payload automatically, preserving access after the host restarts or the user logs off."
+    },
+    {
+      "q": "Authenticating to a remote Windows service using a captured NTLM hash, without the plaintext password, is called what?",
+      "choices": [
+        "Pass-the-hash",
+        "Kerberoasting",
+        "Credential stuffing",
+        "Rainbow table lookup"
+      ],
+      "correctIndex": 0,
+      "why": "Pass-the-hash reuses the NTLM hash directly in the challenge-response exchange, so no cracking is needed to authenticate as the compromised user."
+    },
+    {
+      "q": "In a penetration test report, the executive summary should be written primarily for whom?",
+      "choices": [
+        "Business leaders who need risk and impact in non-technical terms",
+        "Developers who need copy-paste exploit code",
+        "Only the IDS signature tuning team",
+        "Attackers looking for reusable payloads"
+      ],
+      "correctIndex": 0,
+      "why": "The executive summary conveys overall risk, business impact, and priorities to management, while deep technical detail lives in the findings section."
+    },
+    {
+      "q": "The CVSS base score included in a report conveys what about each finding?",
+      "choices": [
+        "A standardized, vendor-neutral measure of technical severity",
+        "The exact dollar cost of remediation",
+        "The client's annual security budget",
+        "The tester's billable hourly rate"
+      ],
+      "correctIndex": 0,
+      "why": "CVSS gives a repeatable severity rating derived from exploitability and impact metrics, helping clients compare and prioritize findings consistently."
+    },
+    {
+      "q": "When assigning a risk rating to a finding, testers commonly combine impact with which other factor?",
+      "choices": [
+        "The likelihood the vulnerability will actually be exploited",
+        "The number of pages in the final report",
+        "The tester's total years of experience",
+        "The color scheme of the reporting dashboard"
+      ],
+      "correctIndex": 0,
+      "why": "Risk is generally impact multiplied by likelihood, so a severe but hard-to-exploit issue may rank below an easily exploited moderate one."
+    },
+    {
+      "q": "After the client remediates reported issues, why is a retest or validation phase valuable?",
+      "choices": [
+        "It confirms fixes work and did not introduce new gaps",
+        "It automatically renews the tester's certification",
+        "It deletes the original report for confidentiality",
+        "It removes the need for a scope agreement"
+      ],
+      "correctIndex": 0,
+      "why": "Retesting verifies that remediation actually closed each vulnerability and did not create new weaknesses, properly closing out the engagement."
     }
   ]
 }

