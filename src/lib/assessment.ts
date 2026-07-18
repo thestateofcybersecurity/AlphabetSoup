@@ -1,16 +1,37 @@
 export type Tier = 'basic' | 'intermediate' | 'advanced';
 
+/**
+ * Answer states, modeled on the CISA CSET engine:
+ * yes = satisfied, no = deficient, na = not applicable (excluded from the
+ * denominator), alt = met through a compensating control (counts as satisfied).
+ */
+export type AnswerState = 'yes' | 'no' | 'na' | 'alt';
+
+export const TIER_ORDER: Tier[] = ['basic', 'intermediate', 'advanced'];
+
+export interface GuidanceLink {
+  label: string;
+  url: string;
+}
+
 export interface AssessmentQuestion {
   id: string;
   text: string;
   tier: Tier;
   group: string;
   references: string[];
+  /** Why this matters: the risk the control addresses. */
+  why?: string;
+  /** How to close the gap: the concrete first step. */
+  fix?: string;
+  /** Authoritative outbound resources. */
+  links?: GuidanceLink[];
 }
 
 export interface AssessmentCategory {
   id: string;
   name: string;
+  blurb?: string;
 }
 
 export interface AssessmentData {
@@ -18,49 +39,174 @@ export interface AssessmentData {
   questions: AssessmentQuestion[];
 }
 
-export type Answers = Record<string, 'yes' | 'no'>;
+export type Answers = Record<string, AnswerState>;
+
+/**
+ * Per-module answer configuration. `states` are the options shown; `satisfied`
+ * count toward the score; `excludeFromDenominator` (typically na) drop out of
+ * the applicable total, matching CSET's per-model answer options.
+ */
+export interface AnswerConfig {
+  states: AnswerState[];
+  satisfied: AnswerState[];
+  excludeFromDenominator: AnswerState[];
+}
+
+export const defaultAnswerConfig: AnswerConfig = {
+  states: ['yes', 'alt', 'na', 'no'],
+  satisfied: ['yes', 'alt'],
+  excludeFromDenominator: ['na'],
+};
+
+/** Per-question working-session annotations, stored apart from answers. */
+export interface Annotation {
+  note?: string;
+  flagged?: boolean;
+  reviewed?: boolean;
+}
+export type Annotations = Record<string, Annotation>;
 
 export interface GroupScore {
   id: string;
   name: string;
+  /** Satisfied (yes + alt) count. */
   yes: number;
+  /** Applicable count (excludes na). */
   total: number;
+  na: number;
   percent: number;
+}
+
+export interface AnswerDistribution {
+  yes: number;
+  alt: number;
+  no: number;
+  na: number;
+  unanswered: number;
 }
 
 export interface AssessmentResult {
   answered: number;
   total: number;
+  applicable: number;
   overallPercent: number;
   tierPercents: Record<Tier, number>;
   groups: GroupScore[];
+  distribution: AnswerDistribution;
+  /** Cumulative tier attainment: a tier is true only if it and every lower tier are fully satisfied. */
+  tierAttained: Record<Tier, boolean>;
+  /** Highest fully-attained tier, or null. */
+  attainedTier: Tier | null;
 }
 
 const pct = (yes: number, total: number): number => (total === 0 ? 0 : Math.round((yes / total) * 100));
 
-export function scoreAssessment(data: AssessmentData, answers: Answers): AssessmentResult {
-  const answered = data.questions.filter((q) => answers[q.id] === 'yes' || answers[q.id] === 'no').length;
-  const yesOf = (qs: AssessmentQuestion[]) => qs.filter((q) => answers[q.id] === 'yes').length;
+const isSatisfied = (state: AnswerState | undefined, config: AnswerConfig): boolean =>
+  state !== undefined && config.satisfied.includes(state);
+
+const isApplicable = (state: AnswerState | undefined, config: AnswerConfig): boolean =>
+  state === undefined || !config.excludeFromDenominator.includes(state);
+
+function scoreOf(
+  qs: AssessmentQuestion[],
+  answers: Answers,
+  config: AnswerConfig,
+): { yes: number; applicable: number; na: number } {
+  let yes = 0;
+  let applicable = 0;
+  let na = 0;
+  for (const q of qs) {
+    const state = answers[q.id];
+    if (!isApplicable(state, config)) {
+      na += 1;
+      continue;
+    }
+    applicable += 1;
+    if (isSatisfied(state, config)) yes += 1;
+  }
+  return { yes, applicable, na };
+}
+
+/** A tier is complete when every question is answered and every applicable answer is satisfied. */
+function tierComplete(
+  data: AssessmentData,
+  answers: Answers,
+  tier: Tier,
+  config: AnswerConfig,
+): boolean {
+  const qs = data.questions.filter((q) => q.tier === tier);
+  if (qs.length === 0) return true;
+  return qs.every((q) => {
+    const state = answers[q.id];
+    if (state === undefined) return false;
+    if (!isApplicable(state, config)) return true;
+    return isSatisfied(state, config);
+  });
+}
+
+export function scoreAssessment(
+  data: AssessmentData,
+  answers: Answers,
+  config: AnswerConfig = defaultAnswerConfig,
+): AssessmentResult {
+  const answered = data.questions.filter((q) => answers[q.id] !== undefined).length;
 
   const tierPercents = {} as Record<Tier, number>;
-  for (const tier of ['basic', 'intermediate', 'advanced'] as Tier[]) {
-    const qs = data.questions.filter((q) => q.tier === tier);
-    tierPercents[tier] = pct(yesOf(qs), qs.length);
+  const tierAttained = {} as Record<Tier, boolean>;
+  let cumulative = true;
+  for (const tier of TIER_ORDER) {
+    const s = scoreOf(data.questions.filter((q) => q.tier === tier), answers, config);
+    tierPercents[tier] = pct(s.yes, s.applicable);
+    cumulative = cumulative && tierComplete(data, answers, tier, config);
+    tierAttained[tier] = cumulative;
   }
+  const attainedTier = [...TIER_ORDER].reverse().find((t) => tierAttained[t]) ?? null;
 
   const groups: GroupScore[] = data.categories.map((category) => {
-    const qs = data.questions.filter((q) => q.group === category.id);
-    const yes = yesOf(qs);
-    return { id: category.id, name: category.name, yes, total: qs.length, percent: pct(yes, qs.length) };
+    const s = scoreOf(data.questions.filter((q) => q.group === category.id), answers, config);
+    return { id: category.id, name: category.name, yes: s.yes, total: s.applicable, na: s.na, percent: pct(s.yes, s.applicable) };
   });
 
+  const distribution: AnswerDistribution = { yes: 0, alt: 0, no: 0, na: 0, unanswered: 0 };
+  for (const q of data.questions) {
+    const state = answers[q.id];
+    if (state === undefined) distribution.unanswered += 1;
+    else distribution[state] += 1;
+  }
+
+  const overall = scoreOf(data.questions, answers, config);
   return {
     answered,
     total: data.questions.length,
-    overallPercent: pct(yesOf(data.questions), data.questions.length),
+    applicable: overall.applicable,
+    overallPercent: pct(overall.yes, overall.applicable),
     tierPercents,
     groups,
+    distribution,
+    tierAttained,
+    attainedTier,
   };
+}
+
+/**
+ * Ranked areas of concern, mirroring CSET's "suggested areas for improvement":
+ * deficient goals sorted by shortfall, and deficient questions ordered basic first.
+ */
+export function concerns(
+  data: AssessmentData,
+  answers: Answers,
+  config: AnswerConfig = defaultAnswerConfig,
+): { goals: GroupScore[]; questions: AssessmentQuestion[] } {
+  const { groups } = scoreAssessment(data, answers, config);
+  const goals = groups.filter((g) => g.total > 0 && g.percent < 100).sort((a, b) => a.percent - b.percent);
+  const rank: Record<Tier, number> = { basic: 0, intermediate: 1, advanced: 2 };
+  const questions = data.questions
+    .filter((q) => {
+      const state = answers[q.id];
+      return isApplicable(state, config) && !isSatisfied(state, config);
+    })
+    .sort((a, b) => rank[a.tier] - rank[b.tier]);
+  return { goals, questions };
 }
 
 export interface ReadinessBand {
