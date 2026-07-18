@@ -2,6 +2,7 @@ import { allData, sortedKeys } from './data';
 import { searchEntries } from './lib/search';
 import type { SearchFilter } from './lib/search';
 import { dailyIndex, dayNumber, localDateString } from './lib/daily';
+import { detectFrameworkQuery } from './lib/framework-search';
 import { slugForKey } from './lib/slug';
 import { CATEGORIES } from './lib/types';
 import type { Category, Difficulty } from './lib/types';
@@ -115,7 +116,26 @@ function letterFilter(): SearchFilter {
   return { category: state.category, difficulty: state.difficulty, letter: state.letter };
 }
 
+function renderFrameworkHint(): void {
+  const hint = byId('framework-hint');
+  const detected = detectFrameworkQuery(state.query);
+  if (!detected) {
+    hint.hidden = true;
+    return;
+  }
+  const href = `frameworks/${detected === 'csf' ? 'nist-csf' : 'cis'}/?q=${encodeURIComponent(state.query.trim())}`;
+  const label = detected === 'csf' ? 'NIST CSF 2.0' : 'CIS Controls v8';
+  hint.innerHTML = '';
+  hint.append('That looks like a framework control. ');
+  const link = document.createElement('a');
+  link.href = href;
+  link.textContent = `See "${state.query.trim()}" translated in plain English in ${label} →`;
+  hint.appendChild(link);
+  hint.hidden = false;
+}
+
 function render(): void {
+  renderFrameworkHint();
   let keys = searchEntries(data, state.query, letterFilter());
   if (state.letter === '0') {
     keys = keys.filter((key) => /[0-9]/.test(key[0]));

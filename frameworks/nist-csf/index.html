@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="color-scheme" content="light dark" />
+  <meta name="description" content="NIST CSF 2.0 in plain English: all 106 subcategories translated with household metaphors anyone can understand." />
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="NIST CSF 2.0 in plain English | Cybersecurity Alphabet Soup" />
+  <meta property="og:description" content="Every NIST CSF 2.0 subcategory translated with a household metaphor anyone can understand." />
+  <meta property="og:url" content="https://cybersecurityalphabetsoup.com/frameworks/nist-csf/" />
+  <meta property="og:image" content="https://cybersecurityalphabetsoup.com/og-image.png" />
+  <title>NIST CSF 2.0 in plain English | Cybersecurity Alphabet Soup</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,700;0,9..144,900;1,9..144,500&family=IBM+Plex+Mono:wght@500;600&family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet" />
+  <link rel="icon" href="/icon.svg" type="image/svg+xml" />
+  <link rel="stylesheet" href="/style.css" />
+</head>
+<body class="theme-csf">
+  <div class="steam" aria-hidden="true"></div>
+
+  <nav class="site-nav" aria-label="Site">
+    <a href="../../">Acronyms</a>
+    <a href="./" aria-current="page">NIST CSF</a>
+    <a href="../cis/">CIS Controls</a>
+    <a class="nav-play" href="https://thestateofcybersecurity.github.io/cyberdle/" rel="noopener">Play Cyberdle</a>
+  </nav>
+
+  <header class="hero hero-compact">
+    <p class="kicker">framework translation &middot; <span id="hero-count">106</span> subcategories</p>
+    <h1 class="title">NIST CSF 2.0<br /><em>in plain English</em></h1>
+    <p class="tagline">Every subcategory of the NIST Cybersecurity Framework, explained through a household metaphor your whole family would understand.</p>
+
+    <form class="bowl" id="search-form" role="search">
+      <svg class="bowl-icon" viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="11" cy="11" r="7"/><line x1="16.5" y1="16.5" x2="21" y2="21"/></svg>
+      <input id="search" type="search" placeholder="Try GV.OC-01, supply chain, backups..." autocomplete="off" aria-label="Search subcategories" />
+      <button type="button" class="clear-btn" id="clear-search" aria-label="Clear search" hidden>&times;</button>
+    </form>
+  </header>
+
+  <nav class="filters" aria-label="Browse filters">
+    <div class="pill-row" id="group-pills"></div>
+  </nav>
+
+  <main class="ladle">
+    <section class="soup-of-the-day" id="sotd" aria-label="Soup of the day"></section>
+    <div class="result-meta" id="result-meta" role="status"></div>
+    <section class="results" id="results" aria-label="Search results"></section>
+  </main>
+
+  <footer class="colophon">
+    <p>
+      Lost in the acronyms themselves?
+      <a class="cyberdle-link" href="../../?q=csf">Look up CSF, NIST, and friends in the glossary &rarr;</a>
+    </p>
+    <p class="fine-print">
+      Based on the NIST Cybersecurity Framework 2.0.
+      <a href="https://www.nist.gov/cyberframework" rel="noopener">Official framework at nist.gov</a>.
+    </p>
+  </footer>
+
+  <script type="module" src="/src/nist-csf-main.ts"></script>
+</body>
+</html>

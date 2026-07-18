@@ -24,6 +24,13 @@
 <body>
   <div class="steam" aria-hidden="true"></div>
 
+  <nav class="site-nav" aria-label="Site">
+    <a href="./" aria-current="page">Acronyms</a>
+    <a href="frameworks/nist-csf/">NIST CSF</a>
+    <a href="frameworks/cis/">CIS Controls</a>
+    <a class="nav-play" href="https://thestateofcybersecurity.github.io/cyberdle/" rel="noopener">Play Cyberdle</a>
+  </nav>
+
   <header class="hero">
     <div class="crouton-field" id="crouton-field" aria-hidden="true"></div>
     <p class="kicker">est. 288 acronyms &middot; now serving <span id="hero-count">545</span></p>
@@ -52,6 +59,7 @@
 
   <main class="ladle">
     <section class="soup-of-the-day" id="sotd" aria-label="Soup of the day"></section>
+    <div class="framework-hint" id="framework-hint" hidden></div>
     <div class="result-meta" id="result-meta" role="status"></div>
     <section class="results" id="results" aria-label="Search results"></section>
   </main>
