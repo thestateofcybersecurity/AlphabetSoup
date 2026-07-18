@@ -1,5 +1,7 @@
 import type { CisData, CsfData } from './frameworks';
 import { CSF_FUNCTIONS } from './frameworks';
+import { cisControlFromReference } from './assessment';
+import type { Answers, AssessmentData } from './assessment';
 
 export type Quarter = 'Onboarding' | 'Q1' | 'Q2' | 'Q3' | 'Q4';
 export type TaskStatus = 'planned' | 'in-progress' | 'done';
@@ -116,6 +118,25 @@ export function vcisoPlan(tasks: VcisoTask[], pkg: 'Small' | 'Medium' | 'Large')
       defaultQuarter: quarterMap[task.quarter] ?? 'Q1',
       hours: task.hours,
     }));
+}
+
+/** One task per assessment gap (question not answered yes), basics first. */
+export function gapsPlan(assessment: AssessmentData, answers: Answers): RoadmapTask[] {
+  const tierQuarter: Record<string, Quarter> = { basic: 'Q1', intermediate: 'Q2', advanced: 'Q3' };
+  const groupNames = new Map(assessment.categories.map((c) => [c.id, c.name]));
+  return assessment.questions
+    .filter((question) => answers[question.id] !== 'yes')
+    .map((question) => {
+      const cisRef = question.references.map(cisControlFromReference).find((c) => c !== null);
+      return {
+        id: question.id,
+        label: question.text,
+        group: groupNames.get(question.group) ?? question.group,
+        detail: `${question.tier} tier gap`,
+        defaultQuarter: tierQuarter[question.tier] ?? 'Q4',
+        ...(cisRef ? { link: `../frameworks/cis/?q=${cisRef}.` } : {}),
+      };
+    });
 }
 
 export function totalHours(tasks: RoadmapTask[]): number {

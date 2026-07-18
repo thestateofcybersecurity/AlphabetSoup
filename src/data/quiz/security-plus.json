@@ -12,7 +12,8 @@
         "Security guard",
         "Encryption"
       ],
-      "correctIndex": 2
+      "correctIndex": 2,
+      "why": "A security guard is a physical control that can stop an unauthorized person at the door. Firewalls, IDS, and encryption are technical controls that protect networks and data, not physical entry."
     },
     {
       "q": "Which type of malware is designed to gain administrator-level control over a computer system without being detected?",
@@ -22,7 +23,8 @@
         "Worm",
         "Trojan horse"
       ],
-      "correctIndex": 1
+      "correctIndex": 1,
+      "why": "A rootkit is built to obtain administrator (root) level control while hiding its presence from the operating system and security tools. A Trojan disguises itself as legitimate software but is not defined by stealthy admin control."
     },
     {
       "q": "Which protocol is used to securely browse the web?",
@@ -32,7 +34,8 @@
         "FTP",
         "SMTP"
       ],
-      "correctIndex": 1
+      "correctIndex": 1,
+      "why": "HTTPS is HTTP running over TLS, which encrypts traffic between the browser and the web server. Plain HTTP sends everything in cleartext, so it can be read by anyone on the path."
     },
     {
       "q": "What does the acronym CIA stand for in the context of information security?",
@@ -42,7 +45,8 @@
         "Certified Information Auditor",
         "Cyber Intelligence Agency"
       ],
-      "correctIndex": 1
+      "correctIndex": 1,
+      "why": "In information security, CIA is the core triad of goals: Confidentiality (keep data secret), Integrity (keep data accurate), and Availability (keep data accessible)."
     },
     {
       "q": "Which of the following is an example of a strong password?",
@@ -52,7 +56,8 @@
         "123456",
         "admin"
       ],
-      "correctIndex": 1
+      "correctIndex": 1,
+      "why": "Of the options, only P@ssw0rd! mixes upper and lower case, numbers, and symbols; the others are short common dictionary passwords. Note that even this pattern appears in cracking wordlists, so long unique passphrases are stronger in practice."
     },
     {
       "q": "Which of the following is used to verify the integrity of a file?",
@@ -62,17 +67,19 @@
         "Hashing",
         "Encryption"
       ],
-      "correctIndex": 2
+      "correctIndex": 2,
+      "why": "Hashing produces a fixed fingerprint of a file; recomputing the hash and comparing it reveals any change, which is an integrity check. A digital signature also proves integrity but adds signer authentication, so hashing is the most direct answer."
     },
     {
-      "q": "Which of the following attacks is most likely to be carried out by an insider?",
+      "q": "Which of the following attacks involves following an authorized employee through a secured entrance?",
       "choices": [
         "Phishing",
         "Tailgating",
         "DDoS",
         "Man-in-the-middle"
       ],
-      "correctIndex": 1
+      "correctIndex": 1,
+      "why": "Tailgating is a physical social engineering attack where someone slips through a secure door behind an authorized person. Phishing, DDoS, and man-in-the-middle attacks happen over networks and do not require physical entry."
     },
     {
       "q": "Which protocol provides secure file transfer capabilities?",
@@ -82,7 +89,8 @@
         "SFTP",
         "HTTP"
       ],
-      "correctIndex": 2
+      "correctIndex": 2,
+      "why": "SFTP runs file transfers through an SSH connection, so credentials and data are encrypted. FTP and TFTP transmit everything in cleartext, and HTTP is not a file transfer protocol designed for security."
     },
     {
       "q": "What type of attack involves sending an overwhelming amount of traffic to a target to render it unavailable?",
@@ -92,7 +100,8 @@
         "SQL injection",
         "Denial-of-Service (DoS)"
       ],
-      "correctIndex": 3
+      "correctIndex": 3,
+      "why": "A Denial-of-Service attack floods a target with traffic or requests until legitimate users can no longer reach it, attacking availability rather than stealing data."
     },
     {
       "q": "Which of the following is the best example of two-factor authentication?",
@@ -102,7 +111,8 @@
         "A passphrase and a security question",
         "A username and a password"
       ],
-      "correctIndex": 0
+      "correctIndex": 0,
+      "why": "A password (something you know) plus a fingerprint (something you are) uses two different factor types. A password and a PIN are both knowledge factors, so together they are still only single-factor authentication."
     },
     {
       "q": "Which of the following is a method to ensure data confidentiality?",
@@ -112,7 +122,8 @@
         "Auditing",
         "Redundancy"
       ],
-      "correctIndex": 1
+      "correctIndex": 1,
+      "why": "Encryption scrambles data so only holders of the key can read it, which is the definition of confidentiality. Hashing protects integrity, and redundancy supports availability, not secrecy."
     },
     {
       "q": "Which of the following is a characteristic of a phishing attack?",
@@ -122,7 +133,8 @@
         "It attempts to trick users into revealing sensitive information",
         "It requires access to internal systems"
       ],
-      "correctIndex": 2
+      "correctIndex": 2,
+      "why": "Phishing is social engineering: it impersonates a trusted party to trick users into handing over credentials or other sensitive data. It relies on human deception, not on breaching technical or physical controls."
     },
     {
       "q": "Which of the following cryptographic algorithms is symmetric?",
@@ -132,7 +144,8 @@
         "AES",
         "DSA"
       ],
-      "correctIndex": 2
+      "correctIndex": 2,
+      "why": "AES is a symmetric algorithm, meaning the same secret key encrypts and decrypts. RSA, ECC, and DSA are asymmetric algorithms that use a public and private key pair."
     },
     {
       "q": "Which of the following is the primary purpose of a firewall?",
@@ -142,7 +155,8 @@
         "To scan for malware",
         "To manage passwords"
       ],
-      "correctIndex": 1
+      "correctIndex": 1,
+      "why": "A firewall's core job is to filter network traffic, allowing or blocking packets based on rules such as ports, addresses, and protocols. Malware scanning and encryption are handled by other tools."
     },
     {
       "q": "Which type of malware can replicate itself and spread to other systems without any user interaction?",
@@ -152,7 +166,8 @@
         "Trojan",
         "Spyware"
       ],
-      "correctIndex": 1
+      "correctIndex": 1,
+      "why": "A worm self-replicates and spreads across networks on its own. A virus also replicates but must attach to a host file and normally needs user action, such as opening a file, to spread."
     },
     {
       "q": "What does the term 'least privilege' refer to in security?",
@@ -162,7 +177,8 @@
         "Allowing users to choose their own level of access",
         "Providing maximum access to administrators"
       ],
-      "correctIndex": 1
+      "correctIndex": 1,
+      "why": "Least privilege means each user or process gets only the minimum access rights needed to do its job. This limits the damage a compromised or malicious account can cause."
     },
     {
       "q": "Which of the following is an example of social engineering?",
@@ -172,7 +188,8 @@
         "A phishing email attempting to trick a user into revealing sensitive information",
         "A brute force attack"
       ],
-      "correctIndex": 2
+      "correctIndex": 2,
+      "why": "A phishing email is social engineering because it manipulates a person into giving up sensitive information. The other options are technical attacks against systems rather than deception aimed at humans."
     },
     {
       "q": "What is the purpose of multi-factor authentication (MFA)?",
@@ -182,7 +199,8 @@
         "To provide encryption for data",
         "To monitor network traffic"
       ],
-      "correctIndex": 1
+      "correctIndex": 1,
+      "why": "MFA authenticates users with two or more different methods (factor types), such as a password plus a token. A stolen password alone is then not enough to log in."
     },
     {
       "q": "Which of the following describes a zero-day vulnerability?",
@@ -192,7 +210,8 @@
         "A vulnerability that is actively being exploited",
         "A vulnerability that is unknown to the software vendor"
       ],
-      "correctIndex": 3
+      "correctIndex": 3,
+      "why": "A zero-day is a flaw the software vendor does not know about, so no patch exists and defenders have had zero days to fix it. A known but unpatched flaw is just an ordinary unpatched vulnerability."
     },
     {
       "q": "Which of the following is an example of two-factor authentication?",
@@ -202,7 +221,8 @@
         "Username and password",
         "Password and security question"
       ],
-      "correctIndex": 1
+      "correctIndex": 1,
+      "why": "A password (something you know) and a fingerprint (something you are) are two distinct factor types. Password plus PIN or plus security question combines two knowledge factors, which counts as only one factor."
     },
     {
       "q": "Which of the following describes the function of a honeypot?",
@@ -212,7 +232,8 @@
         "A decoy system to lure attackers away from actual targets",
         "A method for backing up data"
       ],
-      "correctIndex": 2
+      "correctIndex": 2,
+      "why": "A honeypot is a deliberately attractive decoy system that lures attackers away from real assets and lets defenders observe their techniques safely."
     },
     {
       "q": "Which of the following protocols is used to encrypt web traffic?",
@@ -222,7 +243,8 @@
         "HTTPS",
         "SNMP"
       ],
-      "correctIndex": 2
+      "correctIndex": 2,
+      "why": "HTTPS wraps web traffic in TLS encryption so it cannot be read in transit. FTP and HTTP send data in cleartext, and SNMP is a network management protocol, not a web protocol."
     },
     {
       "q": "Which of the following is a common use of social engineering?",
@@ -232,7 +254,8 @@
         "Installing malware",
         "Encrypting data"
       ],
-      "correctIndex": 1
+      "correctIndex": 1,
+      "why": "Social engineering exploits human trust to obtain confidential information such as passwords or account details. Scanning, malware installation, and encryption are technical activities, not deception of people."
     },
     {
       "q": "Which of the following is a characteristic of an asymmetric encryption algorithm?",
@@ -242,7 +265,8 @@
         "It is faster than symmetric encryption",
         "It cannot be used for digital signatures"
       ],
-      "correctIndex": 1
+      "correctIndex": 1,
+      "why": "Asymmetric encryption uses a key pair: a public key that can be shared freely and a private key kept secret. It is slower than symmetric encryption and is in fact the basis for digital signatures."
     },
     {
       "q": "Which of the following best describes a brute force attack?",
@@ -252,7 +276,8 @@
         "Flooding a network with traffic to cause a DoS",
         "Stealing credentials via social engineering"
       ],
-      "correctIndex": 0
+      "correctIndex": 0,
+      "why": "A brute force attack tries every possible combination of characters until the correct password is found. It relies on raw computing effort rather than deception or code injection."
     },
     {
       "q": "Which of the following is a common method for securing wireless networks?",
@@ -262,7 +287,8 @@
         "WPA2 encryption",
         "MAC address filtering"
       ],
-      "correctIndex": 2
+      "correctIndex": 2,
+      "why": "WPA2 provides strong AES-based encryption for wireless traffic. WEP is broken, and hiding the SSID or filtering MAC addresses only obscures the network; both are easily bypassed and do not encrypt anything."
     },
     {
       "q": "Which of the following is a characteristic of a Trojan horse?",
@@ -272,7 +298,8 @@
         "It encrypts files on the system",
         "It is used to capture network traffic"
       ],
-      "correctIndex": 1
+      "correctIndex": 1,
+      "why": "A Trojan horse pretends to be a legitimate, useful program to get the user to install it. Unlike a worm, it does not self-replicate, and encrypting files describes ransomware."
     },
     {
       "q": "What is the primary purpose of an intrusion detection system (IDS)?",
@@ -282,7 +309,8 @@
         "To encrypt sensitive data",
         "To perform data backups"
       ],
-      "correctIndex": 1
+      "correctIndex": 1,
+      "why": "An IDS monitors systems or networks and raises alerts when it sees suspicious activity. It detects rather than blocks; active blocking is the job of an IPS or firewall."
     },
     {
       "q": "Which of the following is an example of a strong encryption algorithm?",
@@ -292,7 +320,8 @@
         "MD5",
         "RC4"
       ],
-      "correctIndex": 1
+      "correctIndex": 1,
+      "why": "AES is the modern standard with key sizes up to 256 bits. DES has a small broken key size, RC4 is deprecated due to weaknesses, and MD5 is a (broken) hash function, not an encryption algorithm."
     },
     {
       "q": "Which type of attack involves intercepting and altering communications between two parties?",
@@ -302,7 +331,8 @@
         "SQL injection",
         "DoS"
       ],
-      "correctIndex": 1
+      "correctIndex": 1,
+      "why": "A man-in-the-middle attack places the attacker between two communicating parties so traffic can be secretly read or altered. Phishing deceives users directly rather than intercepting a channel."
     },
     {
       "q": "Which of the following is a technique used to strengthen the security of a password?",
@@ -312,7 +342,8 @@
         "Encryption",
         "Obfuscation"
       ],
-      "correctIndex": 0
+      "correctIndex": 0,
+      "why": "Salting adds a unique random value to each password before hashing, so identical passwords produce different hashes and precomputed rainbow tables are useless. It strengthens stored passwords beyond hashing alone."
     },
     {
       "q": "Which of the following protocols is used for secure email communication?",
@@ -322,7 +353,8 @@
         "S/MIME",
         "POP3"
       ],
-      "correctIndex": 2
+      "correctIndex": 2,
+      "why": "S/MIME adds encryption and digital signatures to email messages. SMTP and POP3 merely move mail without securing its content, and FTP is a file transfer protocol."
     },
     {
       "q": "Which of the following best describes the concept of defense in depth?",
@@ -332,7 +364,8 @@
         "Backing up data regularly",
         "Ensuring all users have administrator privileges"
       ],
-      "correctIndex": 1
+      "correctIndex": 1,
+      "why": "Defense in depth layers multiple different security measures so that if one control fails, others still protect the resource. Relying on any single measure creates a single point of failure."
     },
     {
       "q": "Which of the following is an example of multi-factor authentication?",
@@ -342,7 +375,8 @@
         "Password and smart card",
         "PIN and passphrase"
       ],
-      "correctIndex": 2
+      "correctIndex": 2,
+      "why": "A password (knowledge) plus a smart card (possession) combines two different factor types. Password and PIN, or PIN and passphrase, are all knowledge factors, so they do not qualify as multi-factor."
     },
     {
       "q": "Which of the following is a method of ensuring data availability?",
@@ -352,7 +386,8 @@
         "Hashing",
         "Access control"
       ],
-      "correctIndex": 1
+      "correctIndex": 1,
+      "why": "Replicating data across systems or sites means a copy remains reachable if one location fails, which supports availability. Encryption and access control protect confidentiality, and hashing protects integrity."
     },
     {
       "q": "Which of the following best describes a vulnerability scan?",
@@ -362,7 +397,8 @@
         "A way to monitor network traffic",
         "A technique to encrypt data"
       ],
-      "correctIndex": 1
+      "correctIndex": 1,
+      "why": "A vulnerability scan automatically detects and reports security weaknesses without exploiting them. Actually exploiting weaknesses to prove impact is a penetration test, not a scan."
     },
     {
       "q": "Which of the following is a characteristic of a symmetric encryption algorithm?",
@@ -372,7 +408,8 @@
         "It is generally slower than asymmetric encryption",
         "It cannot be used for bulk data encryption"
       ],
-      "correctIndex": 1
+      "correctIndex": 1,
+      "why": "Symmetric algorithms use one shared key for both encryption and decryption, which makes them fast and well suited to bulk data. Two-key pairs describe asymmetric encryption."
     },
     {
       "q": "Which of the following is a common way to prevent tailgating?",
@@ -382,7 +419,8 @@
         "Mantraps",
         "Data masking"
       ],
-      "correctIndex": 2
+      "correctIndex": 2,
+      "why": "A mantrap is a small vestibule with two interlocking doors that admits one person at a time, physically preventing someone from slipping in behind an authorized person. The other options are technical controls."
     },
     {
       "q": "Which of the following is the best method for securing wireless communication?",
@@ -392,7 +430,8 @@
         "WPA2",
         "MAC filtering"
       ],
-      "correctIndex": 2
+      "correctIndex": 2,
+      "why": "WPA2 offers the strongest encryption among the choices. WEP and the original WPA have known cryptographic weaknesses, and MAC filtering can be defeated by spoofing an allowed address."
     },
     {
       "q": "Which of the following is a feature of a demilitarized zone (DMZ)?",
@@ -402,7 +441,8 @@
         "It restricts all access to the internal network",
         "It is used to backup critical data"
       ],
-      "correctIndex": 0
+      "correctIndex": 0,
+      "why": "A DMZ is a buffer network segment that hosts public-facing services between the internet and the internal network, adding a layer of separation. It does not itself encrypt traffic or back up data."
     },
     {
       "q": "Which of the following is the most secure method for remote access?",
@@ -412,7 +452,8 @@
         "SSH",
         "FTP"
       ],
-      "correctIndex": 2
+      "correctIndex": 2,
+      "why": "SSH encrypts the entire remote session, protecting credentials and commands. Telnet and FTP transmit in cleartext, and RDP has a long history of exposure-related attacks, making SSH the best choice offered."
     },
     {
       "q": "Which of the following best describes the principle of least privilege?",
@@ -422,7 +463,8 @@
         "Administrators have unrestricted access to all resources",
         "Users choose their own access levels"
       ],
-      "correctIndex": 1
+      "correctIndex": 1,
+      "why": "Least privilege grants users only the minimum access required for their job duties, nothing more. This reduces both accidental damage and the value of a compromised account."
     },
     {
       "q": "Which of the following is a method for securely disposing of sensitive data?",
@@ -432,7 +474,8 @@
         "Formatting",
         "Moving to trash"
       ],
-      "correctIndex": 0
+      "correctIndex": 0,
+      "why": "Shredding physically destroys the media or documents so data cannot be reconstructed. Deleting, formatting, or moving to trash only removes references; the underlying data often remains recoverable."
     },
     {
       "q": "Which of the following is an example of an access control mechanism?",
@@ -442,7 +485,8 @@
         "Password",
         "Antivirus software"
       ],
-      "correctIndex": 2
+      "correctIndex": 2,
+      "why": "A password controls access by requiring proof of identity before granting entry to a system, the core of access control. Firewalls filter traffic and antivirus detects malware; they do not authenticate users."
     },
     {
       "q": "Which of the following is a method to protect against phishing attacks?",
@@ -452,7 +496,8 @@
         "Installing a firewall",
         "Implementing two-factor authentication"
       ],
-      "correctIndex": 1
+      "correctIndex": 1,
+      "why": "Phishing targets human judgment, so teaching users to recognize suspicious messages addresses the root cause. Firewalls and strong passwords do not stop a user from being deceived into giving data away."
     },
     {
       "q": "Which of the following is a characteristic of a man-in-the-middle attack?",
@@ -462,7 +507,8 @@
         "It intercepts and alters communication between two parties",
         "It is used to steal data through social engineering"
       ],
-      "correctIndex": 2
+      "correctIndex": 2,
+      "why": "A man-in-the-middle attack intercepts and can alter traffic between two parties without either side knowing, often remotely on a network path. It requires neither system access nor physical proximity."
     },
     {
       "q": "Which of the following best describes a sandbox?",
@@ -472,7 +518,8 @@
         "A method for encrypting sensitive information",
         "A technique for monitoring network traffic"
       ],
-      "correctIndex": 0
+      "correctIndex": 0,
+      "why": "A sandbox is an isolated environment where suspicious files or code can run without touching the real system, letting analysts observe behavior safely before allowing it into production."
     },
     {
       "q": "Which of the following protocols is used to establish a secure connection between two systems?",
@@ -482,7 +529,8 @@
         "FTP",
         "Telnet"
       ],
-      "correctIndex": 1
+      "correctIndex": 1,
+      "why": "SSH establishes an encrypted, authenticated connection between two systems. HTTP, FTP, and Telnet all send data in cleartext and provide no secure channel."
     },
     {
       "q": "Which of the following is the best way to ensure the integrity of a file?",
@@ -492,7 +540,8 @@
         "Using hashing",
         "Compressing the file"
       ],
-      "correctIndex": 2
+      "correctIndex": 2,
+      "why": "Hashing generates a fingerprint that changes if even one bit of the file changes, making tampering detectable. Encryption hides content but does not by itself reveal whether the file was modified."
     },
     {
       "q": "Which of the following is a security measure that protects against brute force attacks?",
@@ -502,7 +551,8 @@
         "Salting passwords",
         "Multi-factor authentication"
       ],
-      "correctIndex": 0
+      "correctIndex": 0,
+      "why": "An account lockout policy disables the account after a set number of failed attempts, directly defeating the endless guessing a brute force attack depends on. Complexity and MFA help but do not stop the guessing itself."
     },
     {
       "q": "Which of the following is an example of a logical access control?",
@@ -512,7 +562,8 @@
         "Password",
         "Mantrap"
       ],
-      "correctIndex": 2
+      "correctIndex": 2,
+      "why": "A password is a logical (technical) control enforced by software. Security guards, fences, and mantraps are physical controls that protect facilities rather than digital access."
     },
     {
       "q": "Which of the following is the best practice for securing a wireless network?",
@@ -522,7 +573,8 @@
         "Implementing MAC address filtering",
         "Enabling guest access"
       ],
-      "correctIndex": 1
+      "correctIndex": 1,
+      "why": "WPA2 encryption actually protects the wireless traffic. Hiding the SSID and MAC filtering are weak obscurity measures that attackers bypass easily, and guest access broadens exposure rather than reducing it."
     },
     {
       "q": "Which of the following best describes the purpose of a digital certificate?",
@@ -532,7 +584,8 @@
         "To store passwords",
         "To authenticate a network"
       ],
-      "correctIndex": 1
+      "correctIndex": 1,
+      "why": "A digital certificate binds a public key to an identity and is vouched for by a certificate authority, letting others verify who a user or device really is. It supports encryption but its purpose is identity verification."
     },
     {
       "q": "Which of the following is a method of securing data in transit?",
@@ -542,7 +595,8 @@
         "Backing up the data",
         "Compressing the data"
       ],
-      "correctIndex": 0
+      "correctIndex": 0,
+      "why": "Encrypting data while it moves across a network keeps it unreadable to anyone who intercepts it. Hashing detects changes, and backups or compression do nothing to protect data on the wire."
     },
     {
       "q": "Which of the following best describes a security incident?",
@@ -552,7 +606,8 @@
         "A routine security audit",
         "A scheduled backup of data"
       ],
-      "correctIndex": 0
+      "correctIndex": 0,
+      "why": "A security incident is any event that violates security policy or threatens confidentiality, integrity, or availability. Updates, audits, and scheduled backups are routine planned activities, not incidents."
     },
     {
       "q": "Which of the following is a characteristic of a worm?",
@@ -562,7 +617,8 @@
         "It disguises itself as legitimate software",
         "It encrypts files on the system"
       ],
-      "correctIndex": 0
+      "correctIndex": 0,
+      "why": "A worm's defining trait is self-replication and spreading without any user interaction. Malware that needs a user or disguises itself describes viruses and Trojans, and file encryption describes ransomware."
     },
     {
       "q": "Which of the following is the best method for securing sensitive data at rest?",
@@ -572,7 +628,8 @@
         "Backing up the data",
         "Compressing the data"
       ],
-      "correctIndex": 0
+      "correctIndex": 0,
+      "why": "Encryption keeps stored (at rest) data unreadable to anyone without the key, even if the disk or database is stolen. Hashing is one-way, and backups or compression do not protect confidentiality."
     },
     {
       "q": "Which of the following best describes a botnet?",
@@ -582,7 +639,8 @@
         "A method for encrypting data",
         "A technique for monitoring network traffic"
       ],
-      "correctIndex": 0
+      "correctIndex": 0,
+      "why": "A botnet is a network of malware-infected computers (bots) remotely controlled by an attacker, often used for DDoS attacks or spam. It is an attacker infrastructure, not a defensive tool."
     },
     {
       "q": "Which of the following is the most secure method of storing passwords?",
@@ -592,7 +650,8 @@
         "Using password managers",
         "Hashing and salting passwords"
       ],
-      "correctIndex": 3
+      "correctIndex": 3,
+      "why": "Hashing with a unique salt is one-way, so plaintext passwords can never be recovered even if the database leaks. Encrypted passwords can be decrypted if the key is stolen, making hashing plus salting the safest option."
     },
     {
       "q": "Which of the following is a method for ensuring the availability of data?",
@@ -602,7 +661,8 @@
         "Access control lists",
         "Redundancy"
       ],
-      "correctIndex": 3
+      "correctIndex": 3,
+      "why": "Redundancy provides duplicate systems, links, or copies of data so service continues when a component fails, which is the essence of availability. Encryption, hashing, and ACLs address confidentiality and integrity."
     },
     {
       "q": "Which of the following is the best way to protect against social engineering attacks?",
@@ -612,7 +672,8 @@
         "Implementing firewalls",
         "Using antivirus software"
       ],
-      "correctIndex": 1
+      "correctIndex": 1,
+      "why": "Social engineering attacks people, not machines, so educating users to recognize manipulation is the most effective defense. Passwords, firewalls, and antivirus cannot stop a user from being talked into cooperating."
     },
     {
       "q": "Which of the following is a type of attack that involves manipulating users into revealing confidential information?",
@@ -622,7 +683,8 @@
         "Man-in-the-middle",
         "SQL injection"
       ],
-      "correctIndex": 0
+      "correctIndex": 0,
+      "why": "Phishing manipulates users, usually via deceptive email or messages, into revealing confidential information. Brute force, MITM, and SQL injection are technical attacks that do not rely on tricking the victim."
     },
     {
       "q": "Which of the following best describes an intrusion prevention system (IPS)?",
@@ -632,7 +694,8 @@
         "A system that monitors network traffic and can block malicious activity",
         "A system that provides antivirus protection"
       ],
-      "correctIndex": 2
+      "correctIndex": 2,
+      "why": "An IPS sits inline, monitors traffic, and can automatically block malicious activity in real time. That active blocking distinguishes it from an IDS, which only detects and alerts."
     },
     {
       "q": "Which of the following is an example of physical security?",
@@ -642,7 +705,8 @@
         "Security guards",
         "Passwords"
       ],
-      "correctIndex": 2
+      "correctIndex": 2,
+      "why": "Security guards protect facilities and people in the physical world. Encryption, antivirus, and passwords are technical controls that live in software, not physical security."
     },
     {
       "q": "Which of the following is a characteristic of a rootkit?",
@@ -652,7 +716,8 @@
         "It replicates itself to spread to other systems",
         "It disguises itself as legitimate software"
       ],
-      "correctIndex": 0
+      "correctIndex": 0,
+      "why": "A rootkit's hallmark is concealment: it hides its files, processes, and network activity so it can keep privileged access undetected. Self-replication describes worms and disguise describes Trojans."
     },
     {
       "q": "Which of the following is the best way to secure data in transit?",
@@ -662,7 +727,8 @@
         "Backing up the data",
         "Compressing the data"
       ],
-      "correctIndex": 0
+      "correctIndex": 0,
+      "why": "Encryption makes intercepted network traffic unreadable to anyone without the key, which is exactly the protection data in transit needs. Hashing, backups, and compression do not hide the content."
     },
     {
       "q": "Which of the following is a common method of ensuring data availability?",
@@ -672,7 +738,8 @@
         "Encryption",
         "Access control"
       ],
-      "correctIndex": 0
+      "correctIndex": 0,
+      "why": "Replicating data to additional systems or sites keeps it accessible when one copy or location fails, directly supporting availability. Hashing, encryption, and access control serve integrity and confidentiality."
     },
     {
       "q": "Which of the following is the best practice for securing wireless networks?",
@@ -682,7 +749,8 @@
         "Implementing MAC address filtering",
         "Enabling guest access"
       ],
-      "correctIndex": 1
+      "correctIndex": 1,
+      "why": "WPA2 encrypts the wireless traffic itself, which is the real protection. SSID hiding and MAC filtering are easily bypassed obscurity measures, and enabling guest access increases exposure."
     },
     {
       "q": "Which of the following is the primary purpose of encryption?",
@@ -692,7 +760,8 @@
         "To ensure data integrity",
         "To ensure data authenticity"
       ],
-      "correctIndex": 1
+      "correctIndex": 1,
+      "why": "Encryption exists to keep data secret from anyone without the key, which is confidentiality. Integrity is served by hashing, and authenticity by signatures; encryption on its own guarantees neither."
     },
     {
       "q": "Which of the following is an example of a social engineering attack?",
@@ -702,7 +771,8 @@
         "SQL injection",
         "Brute force"
       ],
-      "correctIndex": 0
+      "correctIndex": 0,
+      "why": "Phishing works by deceiving a person into acting against their own interest, the definition of social engineering. DDoS, SQL injection, and brute force are technical attacks on systems."
     },
     {
       "q": "Which of the following is a common method of securing access to systems?",
@@ -712,7 +782,8 @@
         "Firewalls",
         "Antivirus software"
       ],
-      "correctIndex": 1
+      "correctIndex": 1,
+      "why": "Passwords are the most common mechanism for controlling who may access a system, since they require proof of identity at login. Firewalls and antivirus protect networks and hosts but do not gate user access."
     },
     {
       "q": "Which of the following is the best way to protect against brute force attacks?",
@@ -722,7 +793,8 @@
         "Encrypting data",
         "Installing firewalls"
       ],
-      "correctIndex": 0
+      "correctIndex": 0,
+      "why": "Account lockout policies cap the number of failed guesses, removing the unlimited attempts brute force needs. Strong passwords slow the attack down, but lockout stops it outright."
     }
   ]
 }

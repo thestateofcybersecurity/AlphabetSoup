@@ -493,6 +493,53 @@ body {
   font-weight: 600;
 }
 
+.hint-label {
+  font-family: var(--font-mono);
+  font-size: 0.62rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--tomato);
+  margin-bottom: 4px;
+}
+
+.hint-row {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  padding: 2px 0;
+  font-size: 0.85rem;
+}
+
+.hint-row a {
+  font-weight: 500;
+}
+
+.hint-section {
+  font-family: var(--font-mono);
+  font-size: 0.62rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+  min-width: 7em;
+}
+
+.trend {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  margin-left: auto;
+  color: var(--tomato);
+}
+
+.trend .spark {
+  width: 120px;
+  height: 36px;
+}
+
+.trend-delta {
+  text-align: right;
+}
+
 /* framework translation cards */
 
 .fw-card {
@@ -563,6 +610,37 @@ body {
   margin: 0 0 10px;
   line-height: 1.6;
   font-size: 0.93rem;
+}
+
+.map-links {
+  display: flex;
+  align-items: baseline;
+  gap: 6px;
+  flex-wrap: wrap;
+  margin: 0 0 8px;
+}
+
+.map-label {
+  font-family: var(--font-mono);
+  font-size: 0.62rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+}
+
+.map-chip {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  text-decoration: none;
+  color: var(--ink);
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  padding: 2px 9px;
+}
+
+.map-chip:hover {
+  border-color: var(--tomato);
+  color: var(--tomato);
 }
 
 /* dictionary entries */
@@ -1154,6 +1232,29 @@ body {
 
 .quiz-next {
   align-self: flex-start;
+}
+
+.why-box {
+  border-left: 3px solid var(--broth);
+  background: color-mix(in srgb, var(--broth) 10%, transparent);
+  border-radius: 0 8px 8px 0;
+  padding: 10px 14px;
+}
+
+.why-box .why-label {
+  display: block;
+  font-family: var(--font-mono);
+  font-size: 0.62rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--tomato);
+  margin-bottom: 2px;
+}
+
+.why-box p {
+  margin: 0;
+  font-size: 0.9rem;
+  line-height: 1.55;
 }
 
 .quiz-score {

@@ -12,7 +12,8 @@
         "To manage financial systems",
         "To oversee marketing campaigns"
       ],
-      "correctIndex": 1
+      "correctIndex": 1,
+      "why": "SSCP holders are hands-on practitioners who implement, monitor, and administer security controls under an organization's policies. Software development, finance, and marketing fall outside the certification's scope."
     },
     {
       "q": "Which of the following is an example of a technical control?",
@@ -22,7 +23,8 @@
         "Security awareness training",
         "Physical security"
       ],
-      "correctIndex": 0
+      "correctIndex": 0,
+      "why": "A firewall is technology that enforces security directly, which makes it a technical control. Policies and awareness training are administrative controls, while guards and locks are physical controls."
     },
     {
       "q": "What does the CIA triad stand for in information security?",
@@ -32,7 +34,8 @@
         "Control, Integrity, Availability",
         "Confidentiality, Integrity, Authorization"
       ],
-      "correctIndex": 0
+      "correctIndex": 0,
+      "why": "The CIA triad is Confidentiality, Integrity, and Availability, the three core goals of protecting information. The other options substitute terms that are not part of the triad."
     },
     {
       "q": "Which of the following best describes the principle of least privilege?",
@@ -42,7 +45,8 @@
         "Users are allowed to share their access credentials",
         "Administrators have full access to all systems"
       ],
-      "correctIndex": 0
+      "correctIndex": 0,
+      "why": "Least privilege means each user gets only the access needed to do their job, limiting damage if an account is misused. Broad access, shared credentials, and blanket admin rights all violate the principle."
     },
     {
       "q": "What is the primary purpose of encryption?",
@@ -52,7 +56,8 @@
         "To ensure data availability",
         "To ensure data redundancy"
       ],
-      "correctIndex": 0
+      "correctIndex": 0,
+      "why": "Encryption scrambles data so only parties with the key can read it, which protects confidentiality. Integrity is verified with hashing, and availability comes from redundancy and backups."
     },
     {
       "q": "Which of the following is a characteristic of asymmetric encryption?",
@@ -62,7 +67,8 @@
         "It is faster than symmetric encryption",
         "It does not use keys"
       ],
-      "correctIndex": 0
+      "correctIndex": 0,
+      "why": "Asymmetric encryption uses a public and private key pair, so different keys handle encryption and decryption. A single shared key describes symmetric encryption, which is also the faster of the two."
     },
     {
       "q": "What is the purpose of a digital signature?",
@@ -72,7 +78,8 @@
         "To generate passwords",
         "To monitor network traffic"
       ],
-      "correctIndex": 0
+      "correctIndex": 0,
+      "why": "A digital signature is made with the sender's private key, letting recipients confirm who sent the message and that it was not altered. It provides authenticity and integrity rather than encrypting the content."
     },
     {
       "q": "Which of the following is an example of a physical security control?",
@@ -82,7 +89,8 @@
         "Encryption",
         "Access control lists"
       ],
-      "correctIndex": 0
+      "correctIndex": 0,
+      "why": "Security guards physically protect facilities and people, making them a physical control. Firewalls, encryption, and access control lists are technical controls implemented in software or hardware."
     },
     {
       "q": "What is the primary purpose of an Intrusion Detection System (IDS)?",
@@ -92,7 +100,8 @@
         "To manage user identities",
         "To encrypt data"
       ],
-      "correctIndex": 0
+      "correctIndex": 0,
+      "why": "An IDS passively watches traffic or system activity and raises alerts on suspicious behavior. Actively blocking traffic is the job of an IPS or firewall, not a detection system."
     },
     {
       "q": "Which of the following best describes a vulnerability scan?",
@@ -102,7 +111,8 @@
         "A method for training employees",
         "A way to create backups"
       ],
-      "correctIndex": 0
+      "correctIndex": 0,
+      "why": "A vulnerability scan automatically checks systems for known weaknesses like missing patches and misconfigurations. It only identifies issues; it does not encrypt data, train staff, or create backups."
     },
     {
       "q": "Which of the following is a common method used to secure wireless networks?",
@@ -112,7 +122,8 @@
         "MAC address filtering",
         "Disabling SSID broadcast"
       ],
-      "correctIndex": 0
+      "correctIndex": 0,
+      "why": "WPA2 provides strong encryption and authentication for wireless traffic. WEP is broken and easily cracked, while MAC filtering and hiding the SSID are trivially bypassed and offer little real protection."
     },
     {
       "q": "What is the purpose of a Security Information and Event Management (SIEM) system?",
@@ -122,7 +133,8 @@
         "To encrypt sensitive data",
         "To manage user identities"
       ],
-      "correctIndex": 0
+      "correctIndex": 0,
+      "why": "A SIEM collects and correlates logs from across the environment so analysts can detect and investigate security events as they happen. It is a monitoring platform, not a backup, encryption, or identity tool."
     },
     {
       "q": "Which of the following best describes multi-factor authentication?",
@@ -132,7 +144,8 @@
         "A security mechanism that uses encryption only",
         "A security mechanism that relies on physical security measures"
       ],
-      "correctIndex": 0
+      "correctIndex": 0,
+      "why": "Multi-factor authentication requires two or more different forms of proof, such as something you know plus something you have or are. A password alone or encryption by itself is only a single layer."
     },
     {
       "q": "Which of the following is a hashing algorithm?",
@@ -142,7 +155,8 @@
         "RSA",
         "DES"
       ],
-      "correctIndex": 0
+      "correctIndex": 0,
+      "why": "SHA-256 is a one-way hash function that produces a fixed-length digest. AES and DES are symmetric encryption algorithms and RSA is asymmetric encryption; all three are reversible with the right key."
     },
     {
       "q": "What is the primary purpose of data encryption?",
@@ -152,7 +166,8 @@
         "To ensure data integrity",
         "To authenticate users"
       ],
-      "correctIndex": 0
+      "correctIndex": 0,
+      "why": "Encryption's main job is keeping data confidential so only key holders can read it. Availability comes from redundancy, integrity from hashing, and authentication from credentials or certificates."
     },
     {
       "q": "Which of the following best describes the principle of defense in depth?",
@@ -162,7 +177,8 @@
         "Backing up data regularly",
         "Ensuring all users have administrator privileges"
       ],
-      "correctIndex": 0
+      "correctIndex": 0,
+      "why": "Defense in depth layers multiple security controls so an attacker who defeats one still faces others. Relying on a single control, however strong, creates one point of failure."
     },
     {
       "q": "Which of the following is an effective method to prevent phishing attacks?",
@@ -172,7 +188,8 @@
         "Using complex passwords",
         "Regularly updating software"
       ],
-      "correctIndex": 0
+      "correctIndex": 0,
+      "why": "Phishing targets human judgment, so training users to recognize suspicious messages is the most effective defense. Firewalls, strong passwords, and patching do not stop a user from being tricked."
     },
     {
       "q": "Which of the following is a method used to ensure data integrity?",
@@ -182,7 +199,8 @@
         "Compression",
         "Tokenization"
       ],
-      "correctIndex": 0
+      "correctIndex": 0,
+      "why": "A hash acts as a fingerprint of data; if the data changes, the hash changes, exposing tampering. Encryption protects confidentiality, and compression and tokenization do not detect modification."
     },
     {
       "q": "What is the primary purpose of a firewall?",
@@ -192,7 +210,8 @@
         "To encrypt data",
         "To back up data"
       ],
-      "correctIndex": 0
+      "correctIndex": 0,
+      "why": "A firewall inspects traffic and allows or blocks it based on rules, controlling what enters and leaves the network. Virus scanning, encryption, and backups are handled by other tools."
     },
     {
       "q": "Which of the following is an example of a social engineering attack?",
@@ -202,7 +221,8 @@
         "Buffer overflow",
         "Man-in-the-middle attack"
       ],
-      "correctIndex": 0
+      "correctIndex": 0,
+      "why": "Phishing manipulates people into revealing information or clicking malicious links, which is the essence of social engineering. SQL injection, buffer overflows, and man-in-the-middle are technical attacks."
     },
     {
       "q": "Which of the following best describes a man-in-the-middle attack?",
@@ -212,7 +232,8 @@
         "An attacker injects malicious code into a web application",
         "An attacker floods a network with excessive traffic"
       ],
-      "correctIndex": 0
+      "correctIndex": 0,
+      "why": "In a man-in-the-middle attack the attacker secretly sits between two parties, reading or altering their traffic. The other options describe brute force, code injection, and denial-of-service attacks."
     },
     {
       "q": "Which of the following is a common method used to protect against SQL injection attacks?",
@@ -222,7 +243,8 @@
         "Network segmentation",
         "Regular backups"
       ],
-      "correctIndex": 0
+      "correctIndex": 0,
+      "why": "Input validation, along with parameterized queries, ensures user input is treated as data instead of executable SQL, stopping injection at the source. Encryption, segmentation, and backups do not address it."
     },
     {
       "q": "Which of the following best describes a brute force attack?",
@@ -232,7 +254,8 @@
         "A method of intercepting communications between two parties",
         "A method of disguising malware as legitimate software"
       ],
-      "correctIndex": 0
+      "correctIndex": 0,
+      "why": "A brute force attack systematically tries every possible password or key until one works. The other options describe injection, interception, and Trojan-style disguise attacks."
     },
     {
       "q": "Which of the following is a common method used to secure data at rest?",
@@ -242,7 +265,8 @@
         "Compression",
         "Tokenization"
       ],
-      "correctIndex": 0
+      "correctIndex": 0,
+      "why": "Encrypting stored data keeps it unreadable if disks or files are stolen, the standard protection for data at rest. Hashing is one-way, and compression and tokenization are not general-purpose protections."
     },
     {
       "q": "What does the term 'zero-day vulnerability' refer to?",
@@ -252,7 +276,8 @@
         "A vulnerability that is known but unexploited",
         "A vulnerability that is widely exploited"
       ],
-      "correctIndex": 0
+      "correctIndex": 0,
+      "why": "A zero-day is a flaw the vendor does not know about, so no patch exists and defenders have had zero days to respond. Once it is disclosed and patched, it is no longer a zero-day."
     },
     {
       "q": "Which of the following is a key feature of a honeypot?",
@@ -262,7 +287,8 @@
         "It encrypts sensitive data",
         "It performs regular backups"
       ],
-      "correctIndex": 0
+      "correctIndex": 0,
+      "why": "A honeypot is a deliberately exposed decoy that lures attackers away from real assets and lets defenders study their techniques. It is not a monitoring, encryption, or backup tool."
     },
     {
       "q": "What is the purpose of a digital certificate?",
@@ -272,7 +298,8 @@
         "To store passwords",
         "To monitor system performance"
       ],
-      "correctIndex": 0
+      "correctIndex": 0,
+      "why": "A digital certificate binds a public key to an identity, allowing others to verify who a user or device really is. The certificate enables trust in keys; it does not itself encrypt traffic or store passwords."
     },
     {
       "q": "Which of the following is a principle of information security?",
@@ -282,7 +309,8 @@
         "Centralization",
         "Consolidation"
       ],
-      "correctIndex": 0
+      "correctIndex": 0,
+      "why": "Confidentiality is one of the three pillars of the CIA triad, the foundation of information security. Creativity, centralization, and consolidation are not security principles."
     },
     {
       "q": "Which of the following best describes the purpose of an access control list (ACL)?",
@@ -292,7 +320,8 @@
         "To create encrypted communication channels",
         "To detect malware"
       ],
-      "correctIndex": 0
+      "correctIndex": 0,
+      "why": "An ACL is a list of rules specifying which users or processes may access an object and what actions they may perform. Traffic monitoring, encryption, and malware detection are separate functions."
     },
     {
       "q": "Which of the following is a common method of ensuring data availability?",
@@ -302,7 +331,8 @@
         "Encryption",
         "Access control"
       ],
-      "correctIndex": 0
+      "correctIndex": 0,
+      "why": "Replicating data across systems or sites keeps it reachable even if one copy fails, directly supporting availability. Hashing, encryption, and access control support integrity and confidentiality instead."
     },
     {
       "q": "Which of the following is an example of an endpoint security solution?",
@@ -312,7 +342,8 @@
         "SIEM",
         "IDS/IPS"
       ],
-      "correctIndex": 0
+      "correctIndex": 0,
+      "why": "Antivirus software runs on the individual device itself, which is what makes it an endpoint solution. Firewalls, SIEMs, and IDS/IPS operate at the network or monitoring layer rather than on each host."
     },
     {
       "q": "What is the primary purpose of incident response?",
@@ -322,7 +353,8 @@
         "To develop secure applications",
         "To conduct a vulnerability assessment"
       ],
-      "correctIndex": 0
+      "correctIndex": 0,
+      "why": "Incident response focuses on quickly containing an active incident and limiting its damage before recovery. Monitoring, secure development, and vulnerability assessment are proactive, separate activities."
     },
     {
       "q": "Which of the following is a method used to protect against social engineering attacks?",
@@ -332,7 +364,8 @@
         "Using antivirus software",
         "Implementing encryption"
       ],
-      "correctIndex": 0
+      "correctIndex": 0,
+      "why": "Social engineering exploits people rather than technology, so security awareness training is the primary defense. Firewalls, antivirus, and encryption cannot stop a user from being manipulated."
     },
     {
       "q": "What is the purpose of a VPN in a network?",
@@ -342,7 +375,8 @@
         "To store passwords securely",
         "To manage user identities"
       ],
-      "correctIndex": 0
+      "correctIndex": 0,
+      "why": "A VPN builds an encrypted tunnel across an untrusted network like the internet, protecting traffic in transit. It does not monitor traffic, store passwords, or manage identities."
     },
     {
       "q": "Which of the following best describes the concept of least privilege?",
@@ -352,7 +386,8 @@
         "Allowing users to share their credentials",
         "Restricting access to administrators only"
       ],
-      "correctIndex": 0
+      "correctIndex": 0,
+      "why": "Least privilege gives each user only the access their job requires, shrinking the attack surface. Full access, credential sharing, and admin-only restrictions all misstate the principle."
     },
     {
       "q": "What is the primary purpose of a vulnerability management program?",
@@ -362,7 +397,8 @@
         "To develop secure software",
         "To monitor network traffic"
       ],
-      "correctIndex": 0
+      "correctIndex": 0,
+      "why": "Vulnerability management is a continuous cycle of finding weaknesses, ranking them by risk, and fixing the important ones. Encryption, software development, and traffic monitoring sit outside that cycle."
     },
     {
       "q": "Which of the following best describes a penetration test?",
@@ -372,7 +408,8 @@
         "A method of developing secure software",
         "A method of managing user accounts"
       ],
-      "correctIndex": 0
+      "correctIndex": 0,
+      "why": "A penetration test simulates a real attack to determine whether vulnerabilities can actually be exploited. Monitoring, secure development, and account management are different disciplines."
     },
     {
       "q": "Which of the following is a method used to obscure the meaning of code?",
@@ -382,7 +419,8 @@
         "Hashing",
         "Compression"
       ],
-      "correctIndex": 0
+      "correctIndex": 0,
+      "why": "Obfuscation deliberately makes code hard for humans to read while it still runs normally. Encryption makes data unreadable without a key, hashing is one-way, and compression only reduces size."
     },
     {
       "q": "Which of the following is a method of ensuring data integrity?",
@@ -392,7 +430,8 @@
         "Compression",
         "Tokenization"
       ],
-      "correctIndex": 0
+      "correctIndex": 0,
+      "why": "Hashing produces a fingerprint that changes whenever the data changes, so it detects tampering and proves integrity. Encryption hides content but does not by itself reveal whether it was modified."
     },
     {
       "q": "Which of the following is a method of securing data in transit?",
@@ -402,7 +441,8 @@
         "Compression",
         "Tokenization"
       ],
-      "correctIndex": 0
+      "correctIndex": 0,
+      "why": "Encrypting data as it moves, for example with TLS or a VPN, keeps it confidential while crossing networks. Hashing, compression, and tokenization do not protect traffic in transit."
     },
     {
       "q": "Which of the following is a characteristic of an Advanced Persistent Threat (APT)?",
@@ -412,7 +452,8 @@
         "Random, non-targeted attacks",
         "Attacks using social engineering techniques"
       ],
-      "correctIndex": 0
+      "correctIndex": 0,
+      "why": "APTs are defined by patient, well-resourced attackers who target a specific organization and stay hidden for long periods. APTs may use social engineering, but persistence and targeting are the defining traits."
     },
     {
       "q": "Which of the following is a principle of network security?",
@@ -422,7 +463,8 @@
         "Data minimization",
         "Least resistance"
       ],
-      "correctIndex": 0
+      "correctIndex": 0,
+      "why": "Defense in depth, layering multiple controls, is a core network security principle. A single point of failure is a weakness to eliminate, and the other options are not security principles."
     },
     {
       "q": "Which of the following is an essential component of an incident response plan?",
@@ -432,7 +474,8 @@
         "Encrypting sensitive data",
         "Performing vulnerability scans"
       ],
-      "correctIndex": 0
+      "correctIndex": 0,
+      "why": "An incident response plan must define how to identify and contain a threat quickly to limit damage. Patch development, encryption, and vulnerability scanning are ongoing activities, not core response steps."
     },
     {
       "q": "Which of the following best describes a social engineering attack?",
@@ -442,7 +485,8 @@
         "Gaining unauthorized access through brute force",
         "Injecting malicious code into a web application"
       ],
-      "correctIndex": 0
+      "correctIndex": 0,
+      "why": "Social engineering means manipulating people into giving up confidential information or access. The other options describe purely technical attacks against software and systems."
     },
     {
       "q": "Which of the following is an effective method for protecting data against loss?",
@@ -452,7 +496,8 @@
         "Hashing",
         "Tokenization"
       ],
-      "correctIndex": 0
+      "correctIndex": 0,
+      "why": "Regular backups let you restore data after deletion, corruption, ransomware, or hardware failure. Encryption, hashing, and tokenization protect confidentiality or integrity but cannot recover lost data."
     },
     {
       "q": "Which of the following best describes the concept of defense in depth?",
@@ -462,7 +507,8 @@
         "Encrypting all sensitive data",
         "Backing up data regularly"
       ],
-      "correctIndex": 0
+      "correctIndex": 0,
+      "why": "Defense in depth stacks several layers of protection so no single failure exposes the organization. A lone strong control, encryption alone, or backups alone each cover only part of the picture."
     },
     {
       "q": "What is the primary purpose of a penetration test?",
@@ -472,7 +518,8 @@
         "To develop security policies",
         "To back up data"
       ],
-      "correctIndex": 0
+      "correctIndex": 0,
+      "why": "A pen test goes beyond finding weaknesses; testers actively exploit them to prove real-world impact. Monitoring, policy writing, and backups are not part of the test itself."
     },
     {
       "q": "Which of the following best describes a VPN?",
@@ -482,7 +529,8 @@
         "A type of firewall",
         "A method for encrypting emails"
       ],
-      "correctIndex": 0
+      "correctIndex": 0,
+      "why": "A VPN creates a secure, encrypted connection across a public network such as the internet. It is not a scanning tool, a firewall, or an email encryption method."
     },
     {
       "q": "Which of the following is a primary objective of reconnaissance in penetration testing?",
@@ -492,7 +540,8 @@
         "To deploy malware",
         "To recover lost data"
       ],
-      "correctIndex": 0
+      "correctIndex": 0,
+      "why": "Reconnaissance is the information-gathering phase, mapping the target's systems, people, and exposure before any attack begins. Exploitation and payload delivery come in later phases."
     },
     {
       "q": "Which of the following is a common indicator of compromise (IoC)?",
@@ -502,7 +551,8 @@
         "Unusual outbound network traffic",
         "All of the above"
       ],
-      "correctIndex": 3
+      "correctIndex": 3,
+      "why": "Unexplained high CPU usage, unexpected new accounts, and unusual outbound traffic can each signal a compromise, so all of them are indicators of compromise worth investigating."
     },
     {
       "q": "Which of the following is an example of a client-side attack?",
@@ -512,7 +562,8 @@
         "Buffer overflow",
         "Brute force"
       ],
-      "correctIndex": 0
+      "correctIndex": 0,
+      "why": "XSS executes malicious script inside the victim's browser, which makes it a client-side attack. SQL injection and buffer overflows target servers, and brute force targets authentication systems."
     },
     {
       "q": "Which of the following is an example of multi-factor authentication?",
@@ -522,7 +573,8 @@
         "A password and an email",
         "A password and a PIN"
       ],
-      "correctIndex": 0
+      "correctIndex": 0,
+      "why": "A password (something you know) plus a fingerprint (something you are) combines two different factor types, which is true MFA. A password with a PIN or security question is two of the same knowledge factor."
     },
     {
       "q": "Which of the following best describes the purpose of social engineering in penetration testing?",
@@ -532,7 +584,8 @@
         "To exploit software vulnerabilities",
         "To monitor network traffic"
       ],
-      "correctIndex": 0
+      "correctIndex": 0,
+      "why": "In a pen test, social engineering measures whether employees can be tricked into revealing information or granting access, testing the human layer. Firewall bypass and exploits test technical layers."
     },
     {
       "q": "Which of the following best describes a zero-day vulnerability?",
@@ -542,7 +595,8 @@
         "A vulnerability that is known but unpatched",
         "A vulnerability that is actively being exploited"
       ],
-      "correctIndex": 0
+      "correctIndex": 0,
+      "why": "A zero-day is a vulnerability unknown to the vendor, meaning no fix exists yet. Vulnerabilities that are already known, whether patched or not, no longer qualify as zero-days."
     }
   ]
 }

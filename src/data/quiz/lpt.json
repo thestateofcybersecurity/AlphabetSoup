@@ -12,7 +12,8 @@
         "To monitor network traffic",
         "To recover lost data"
       ],
-      "correctIndex": 0
+      "correctIndex": 0,
+      "why": "Penetration testing simulates real attacks, finding vulnerabilities and exploiting them to demonstrate actual risk. Software development, traffic monitoring, and data recovery are separate activities."
     },
     {
       "q": "Which of the following tools is commonly used for network scanning?",
@@ -22,7 +23,8 @@
         "Wireshark",
         "Nessus"
       ],
-      "correctIndex": 1
+      "correctIndex": 1,
+      "why": "Nmap is the standard tool for discovering hosts, open ports, and services on a network. Metasploit is for exploitation, Wireshark for packet analysis, and Nessus for vulnerability scanning."
     },
     {
       "q": "What is the purpose of a vulnerability assessment in penetration testing?",
@@ -32,7 +34,8 @@
         "To remove malware from systems",
         "To encrypt data"
       ],
-      "correctIndex": 1
+      "correctIndex": 1,
+      "why": "A vulnerability assessment finds and classifies weaknesses so they can be prioritized, but it stops short of exploiting them. Exploitation is what distinguishes a full penetration test."
     },
     {
       "q": "Which of the following describes a black box penetration test?",
@@ -42,7 +45,8 @@
         "The tester has limited knowledge of the system",
         "The tester has access to the source code"
       ],
-      "correctIndex": 1
+      "correctIndex": 1,
+      "why": "In a black box test the tester starts with no inside knowledge, mimicking an external attacker. Full knowledge describes white box testing and limited knowledge describes gray box."
     },
     {
       "q": "Which tool is primarily used for web application security testing?",
@@ -52,7 +56,8 @@
         "Nmap",
         "Aircrack-ng"
       ],
-      "correctIndex": 1
+      "correctIndex": 1,
+      "why": "Burp Suite intercepts and manipulates HTTP traffic, making it the go-to tool for web application testing. Nmap scans networks, Metasploit delivers exploits, and Aircrack-ng targets Wi-Fi."
     },
     {
       "q": "What is the purpose of the Metasploit Framework in penetration testing?",
@@ -62,7 +67,8 @@
         "To analyze malware",
         "To create backups"
       ],
-      "correctIndex": 1
+      "correctIndex": 1,
+      "why": "Metasploit is an exploitation framework used to build, customize, and launch exploits and payloads against targets. It is not a traffic monitor, malware analyzer, or backup tool."
     },
     {
       "q": "Which of the following is a method used to bypass authentication mechanisms?",
@@ -72,7 +78,8 @@
         "Social Engineering",
         "DNS Spoofing"
       ],
-      "correctIndex": 0
+      "correctIndex": 0,
+      "why": "A SQL injection payload can trick a login query into always returning true, defeating the authentication mechanism directly. Phishing and social engineering steal credentials instead of bypassing the mechanism itself."
     },
     {
       "q": "Which of the following best describes a 'white box' penetration test?",
@@ -82,7 +89,8 @@
         "The tester has full knowledge of the system",
         "The tester uses automated tools only"
       ],
-      "correctIndex": 2
+      "correctIndex": 2,
+      "why": "White box testing gives the tester full knowledge, often including source code and architecture, allowing the deepest coverage. No knowledge is black box and partial knowledge is gray box."
     },
     {
       "q": "Which of the following is an example of privilege escalation?",
@@ -92,7 +100,8 @@
         "Scanning a network for open ports",
         "Cracking a password"
       ],
-      "correctIndex": 0
+      "correctIndex": 0,
+      "why": "Privilege escalation means turning limited access into higher authority, such as exploiting a buffer overflow to gain root. Phishing and port scanning are ways of gaining initial access or information."
     },
     {
       "q": "What is the primary purpose of a penetration testing report?",
@@ -102,7 +111,8 @@
         "To perform continuous monitoring",
         "To install security patches"
       ],
-      "correctIndex": 0
+      "correctIndex": 0,
+      "why": "The report is the engagement's key deliverable: it documents each vulnerability, its severity, and how to fix it. Continuous monitoring and patch installation are follow-up work done by the client."
     },
     {
       "q": "Which of the following describes a gray box penetration test?",
@@ -112,7 +122,8 @@
         "The tester has limited knowledge and access to the system",
         "The tester only performs social engineering"
       ],
-      "correctIndex": 2
+      "correctIndex": 2,
+      "why": "Gray box testing sits between black and white box: the tester receives partial knowledge or limited credentials, like an insider with basic access. Full or zero access describes the other test types."
     },
     {
       "q": "Which tool is commonly used for wireless network penetration testing?",
@@ -122,7 +133,8 @@
         "Burp Suite",
         "Nikto"
       ],
-      "correctIndex": 1
+      "correctIndex": 1,
+      "why": "Aircrack-ng is a suite for capturing wireless traffic and cracking Wi-Fi encryption keys. Nmap scans networks, Burp Suite tests web applications, and Nikto scans web servers."
     },
     {
       "q": "Which type of attack is typically tested using a DNS spoofing tool?",
@@ -132,7 +144,8 @@
         "Buffer overflow",
         "Cross-site scripting"
       ],
-      "correctIndex": 0
+      "correctIndex": 0,
+      "why": "DNS spoofing redirects victims to attacker-controlled servers, placing the attacker between the user and the real destination. That interception of traffic is the definition of a man-in-the-middle attack."
     },
     {
       "q": "Which of the following best describes the purpose of social engineering in penetration testing?",
@@ -142,7 +155,8 @@
         "To exploit software vulnerabilities",
         "To monitor network traffic"
       ],
-      "correctIndex": 1
+      "correctIndex": 1,
+      "why": "Social engineering tests the human element by tricking users into revealing information or granting access. Firewalls and software flaws are technical targets addressed by other testing methods."
     },
     {
       "q": "What is the primary objective of reconnaissance in penetration testing?",
@@ -152,7 +166,8 @@
         "To deploy malware",
         "To recover lost data"
       ],
-      "correctIndex": 1
+      "correctIndex": 1,
+      "why": "Reconnaissance is the first phase of a test, quietly gathering information about the target's systems, people, and footprint. Exploitation and payload delivery happen in later phases."
     },
     {
       "q": "Which of the following is an example of a client-side attack?",
@@ -162,7 +177,8 @@
         "SQL injection",
         "Directory traversal"
       ],
-      "correctIndex": 1
+      "correctIndex": 1,
+      "why": "XSS executes malicious script inside the victim's browser, making it a client-side attack. Buffer overflows, SQL injection, and directory traversal all target the server side."
     },
     {
       "q": "Which tool is typically used for brute force password attacks?",
@@ -172,17 +188,19 @@
         "Metasploit",
         "Burp Suite"
       ],
-      "correctIndex": 0
+      "correctIndex": 0,
+      "why": "Hydra is purpose-built for fast, automated password guessing against many login services. Nmap scans networks, Metasploit delivers exploits, and Burp Suite focuses on web application testing."
     },
     {
       "q": "Which of the following is a method used to obfuscate code in penetration testing?",
       "choices": [
         "Encoding",
-        "Encryption",
+        "Load testing",
         "Compression",
         "Steganography"
       ],
-      "correctIndex": 0
+      "correctIndex": 0,
+      "why": "Encoding, such as Base64, transforms code into another representation to hide its intent while staying reversible without a key. Compression shrinks data and steganography hides data in other files; neither is the standard code obfuscation choice here."
     },
     {
       "q": "Which of the following is a common technique for evading IDS/IPS during penetration testing?",
@@ -192,7 +210,8 @@
         "DNS spoofing",
         "Phishing"
       ],
-      "correctIndex": 0
+      "correctIndex": 0,
+      "why": "Splitting malicious traffic into small fragments can prevent an IDS/IPS from reassembling and matching the attack signature. The other options are attacks in their own right, not evasion techniques."
     },
     {
       "q": "Which of the following is a critical element of a penetration test plan?",
@@ -202,7 +221,8 @@
         "Monitoring system performance",
         "Recovering lost data"
       ],
-      "correctIndex": 0
+      "correctIndex": 0,
+      "why": "A test plan must define scope, starting with which target systems are in bounds. Writing exploits happens during the test itself, and performance monitoring and data recovery are not pen test tasks."
     },
     {
       "q": "Which of the following is a common post-exploitation task?",
@@ -212,7 +232,8 @@
         "Social engineering",
         "DNS spoofing"
       ],
-      "correctIndex": 1
+      "correctIndex": 1,
+      "why": "After gaining access, testers demonstrate impact through tasks like exfiltrating data. Vulnerability scanning and social engineering happen earlier in the engagement, before exploitation."
     },
     {
       "q": "What is the purpose of privilege escalation in penetration testing?",
@@ -222,7 +243,8 @@
         "To recover deleted files",
         "To monitor network traffic"
       ],
-      "correctIndex": 0
+      "correctIndex": 0,
+      "why": "Privilege escalation moves an attacker from a low-privilege foothold to administrator or root authority, unlocking more of the system. Scanning, file recovery, and monitoring are unrelated goals."
     },
     {
       "q": "Which of the following is a primary concern when conducting a physical penetration test?",
@@ -232,7 +254,8 @@
         "Analyzing malware",
         "Encrypting sensitive data"
       ],
-      "correctIndex": 0
+      "correctIndex": 0,
+      "why": "Physical pen tests attempt to enter facilities, so evading guards, cameras, and locks without being detected is the central challenge. Exploit development and malware analysis are digital tasks."
     },
     {
       "q": "Which type of attack involves injecting malicious SQL queries into a database?",
@@ -242,7 +265,8 @@
         "Buffer overflow",
         "DNS spoofing"
       ],
-      "correctIndex": 0
+      "correctIndex": 0,
+      "why": "SQL injection inserts malicious SQL through input fields so the database executes the attacker's queries. XSS targets browsers, buffer overflows target memory, and DNS spoofing targets name resolution."
     },
     {
       "q": "Which tool is primarily used for network protocol analysis?",
@@ -252,7 +276,8 @@
         "Metasploit",
         "Burp Suite"
       ],
-      "correctIndex": 1
+      "correctIndex": 1,
+      "why": "Wireshark captures packets and decodes hundreds of protocols in detail, making it the standard protocol analyzer. Nmap scans hosts, Metasploit delivers exploits, and Burp Suite tests web applications."
     },
     {
       "q": "Which of the following describes a social engineering attack?",
@@ -262,7 +287,8 @@
         "Intercepting and altering communications between two parties",
         "Disguising malware as legitimate software"
       ],
-      "correctIndex": 1
+      "correctIndex": 1,
+      "why": "Social engineering manipulates people into giving up confidential information. Exploiting software flaws, intercepting communications, and disguising malware are technical attack techniques."
     },
     {
       "q": "Which of the following is an effective countermeasure against brute force attacks?",
@@ -272,7 +298,8 @@
         "Disabling encryption",
         "Open port scanning"
       ],
-      "correctIndex": 0
+      "correctIndex": 0,
+      "why": "Account lockout policies block further attempts after a set number of failed logins, defeating the trial-and-error approach brute force depends on. Weak passwords and disabled encryption help attackers."
     },
     {
       "q": "Which tool is commonly used for automated vulnerability scanning?",
@@ -282,7 +309,8 @@
         "Metasploit",
         "Wireshark"
       ],
-      "correctIndex": 1
+      "correctIndex": 1,
+      "why": "Nessus is a dedicated scanner that automatically checks systems against a large database of known vulnerabilities. Nmap maps networks, Metasploit exploits targets, and Wireshark analyzes packets."
     },
     {
       "q": "Which of the following is a method of data exfiltration during a penetration test?",
@@ -292,7 +320,8 @@
         "Performing SQL injection",
         "Brute force attacks"
       ],
-      "correctIndex": 0
+      "correctIndex": 0,
+      "why": "Sending stolen data out through an encrypted tunnel hides it from network monitoring, a classic exfiltration technique. Sniffing, injection, and brute force are ways to gain data or access, not to smuggle it out."
     },
     {
       "q": "Which of the following is a common method used to evade detection by antivirus software?",
@@ -302,7 +331,8 @@
         "Social engineering",
         "SQL injection"
       ],
-      "correctIndex": 0
+      "correctIndex": 0,
+      "why": "Obfuscating code changes its appearance so signature-based antivirus no longer recognizes it. Phishing and social engineering target people, and SQL injection targets databases, not antivirus detection."
     },
     {
       "q": "What is the primary goal of a penetration testing report?",
@@ -312,7 +342,8 @@
         "To encrypt sensitive data",
         "To develop exploits"
       ],
-      "correctIndex": 0
+      "correctIndex": 0,
+      "why": "The report documents every finding, rates its severity, and gives the client concrete remediation recommendations. Monitoring, encryption, and exploit development are not the report's purpose."
     },
     {
       "q": "Which of the following best describes a gray box penetration test?",
@@ -322,7 +353,8 @@
         "The tester has limited knowledge and access to the system",
         "The tester only performs network scanning"
       ],
-      "correctIndex": 2
+      "correctIndex": 2,
+      "why": "Gray box testing gives the tester partial knowledge and limited access, simulating an insider or partially informed attacker. Full access is white box and no access is black box."
     },
     {
       "q": "Which of the following is a primary objective of reconnaissance in penetration testing?",
@@ -332,7 +364,8 @@
         "To deploy malware",
         "To recover lost data"
       ],
-      "correctIndex": 1
+      "correctIndex": 1,
+      "why": "Reconnaissance means collecting information about the target, such as domains, hosts, and employees, before attacking. Exploitation and malware deployment come later in the process."
     },
     {
       "q": "Which of the following best describes a black box penetration test?",
@@ -342,7 +375,8 @@
         "The tester has partial knowledge of the system",
         "The tester has access to the source code"
       ],
-      "correctIndex": 1
+      "correctIndex": 1,
+      "why": "Black box testing starts with zero inside knowledge, simulating an external attacker who must discover everything from scratch. Full or partial knowledge describes white box and gray box tests."
     },
     {
       "q": "Which of the following best describes the purpose of the Metasploit Framework in penetration testing?",
@@ -352,7 +386,8 @@
         "To analyze malware",
         "To create backups"
       ],
-      "correctIndex": 0
+      "correctIndex": 0,
+      "why": "Metasploit exists to develop and deliver exploits and payloads against vulnerable targets. Traffic monitoring, malware analysis, and backups are handled by other tools entirely."
     }
   ]
 }

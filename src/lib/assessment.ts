@@ -93,10 +93,86 @@ export function readinessBand(overallPercent: number): ReadinessBand {
   };
 }
 
+/* ------------------------------ history ------------------------------- */
+
+export interface Snapshot {
+  /** YYYY-MM-DD local date. */
+  date: string;
+  overall: number;
+}
+
+const HISTORY_CAP = 24;
+
+/** Add or update today's snapshot; one per day, oldest dropped past the cap. */
+export function recordSnapshot(history: Snapshot[], overall: number, date: string): Snapshot[] {
+  const kept = history.filter((snapshot) => snapshot.date !== date);
+  const next = [...kept, { date, overall }].sort((a, b) => a.date.localeCompare(b.date));
+  return next.slice(-HISTORY_CAP);
+}
+
+/** Change since the previous snapshot, or null with fewer than two. */
+export function latestDelta(history: Snapshot[]): { delta: number; since: string } | null {
+  if (history.length < 2) return null;
+  const last = history[history.length - 1];
+  const previous = history[history.length - 2];
+  return { delta: last.overall - previous.overall, since: previous.date };
+}
+
 /** Extract a CIS control number from a reference string like "CIS Control 11 - Data Recovery". */
 export function cisControlFromReference(reference: string): number | null {
   const match = reference.match(/CIS Control (\d{1,2})/i);
   if (!match) return null;
   const control = Number(match[1]);
   return control >= 1 && control <= 18 ? control : null;
+}
+
+/** Extract a safeguard id from a reference like "CIS Safeguard 1.1: ...". */
+export function cisSafeguardFromReference(reference: string): string | null {
+  const match = reference.match(/CIS Safeguard (\d{1,2}\.\d{1,2})/i);
+  return match ? match[1] : null;
+}
+
+/** Lowercase a Title Case phrase while preserving acronym-like tokens (DNS, MFA, IPv6). */
+export function sentenceCase(title: string): string {
+  return title
+    .split(' ')
+    .map((word) => (/[A-Z]{2}|\d/.test(word) ? word : word.toLowerCase()))
+    .join(' ');
+}
+
+interface CisLikeEntry {
+  control: number;
+  controlName: string;
+  title: string;
+}
+
+/** A generated assessment covering every CIS v8 IG1 safeguard as a yes/no check. */
+export function cisIg1Assessment(
+  cis: Record<string, CisLikeEntry>,
+  igMap: Record<string, number>,
+): AssessmentData {
+  const ids = Object.keys(cis)
+    .filter((id) => igMap[id] === 1)
+    .sort((a, b) => {
+      const [a1, a2] = a.split('.').map(Number);
+      const [b1, b2] = b.split('.').map(Number);
+      return a1 - b1 || a2 - b2;
+    });
+  const categories: AssessmentCategory[] = [];
+  const seen = new Set<number>();
+  for (const id of ids) {
+    const control = cis[id].control;
+    if (!seen.has(control)) {
+      seen.add(control);
+      categories.push({ id: String(control), name: `Control ${control}: ${cis[id].controlName}` });
+    }
+  }
+  const questions: AssessmentQuestion[] = ids.map((id) => ({
+    id,
+    text: `Do you ${sentenceCase(cis[id].title)}?`,
+    tier: 'basic',
+    group: String(cis[id].control),
+    references: [`CIS Safeguard ${id}: ${cis[id].title}`],
+  }));
+  return { categories, questions };
 }

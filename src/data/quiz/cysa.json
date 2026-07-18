@@ -12,7 +12,8 @@
         "To design network architecture",
         "To manage user accounts"
       ],
-      "correctIndex": 1
+      "correctIndex": 1,
+      "why": "A cybersecurity analyst's core mission is finding and reducing security threats to the organization. Software development, network design, and account management are related IT roles, not the analyst's primary goal."
     },
     {
       "q": "Which of the following tools is commonly used for log analysis?",
@@ -22,7 +23,8 @@
         "Nmap",
         "Metasploit"
       ],
-      "correctIndex": 1
+      "correctIndex": 1,
+      "why": "Splunk is a log aggregation and analysis platform built to collect, index, and search log data. Wireshark captures packets, Nmap scans networks, and Metasploit is an exploitation framework."
     },
     {
       "q": "What is the purpose of a SIEM system in cybersecurity?",
@@ -32,7 +34,8 @@
         "To create network diagrams",
         "To manage user identities"
       ],
-      "correctIndex": 0
+      "correctIndex": 0,
+      "why": "A SIEM collects and correlates logs from across the environment so analysts can spot and investigate security events as they happen. It does not encrypt data or manage identities."
     },
     {
       "q": "Which of the following best describes a vulnerability scan?",
@@ -42,7 +45,8 @@
         "A way to monitor network traffic",
         "A technique to encrypt data"
       ],
-      "correctIndex": 1
+      "correctIndex": 1,
+      "why": "A vulnerability scan detects weaknesses without exploiting them. Actually exploiting weaknesses is penetration testing, which goes a step further than scanning."
     },
     {
       "q": "Which tool is primarily used for network packet capture and analysis?",
@@ -52,7 +56,8 @@
         "Splunk",
         "Nessus"
       ],
-      "correctIndex": 1
+      "correctIndex": 1,
+      "why": "Wireshark is the standard tool for capturing and inspecting network packets. Nmap maps hosts and ports, Splunk analyzes logs, and Nessus scans for vulnerabilities."
     },
     {
       "q": "What is the purpose of threat intelligence in cybersecurity?",
@@ -62,7 +67,8 @@
         "To encrypt data",
         "To perform penetration testing"
       ],
-      "correctIndex": 1
+      "correctIndex": 1,
+      "why": "Threat intelligence is the practice of gathering, analyzing, and sharing information about attackers and their methods so defenders can prepare. Monitoring traffic is a separate operational task."
     },
     {
       "q": "Which of the following is a common indicator of compromise (IoC)?",
@@ -72,7 +78,8 @@
         "Unusual outbound network traffic",
         "All of the above"
       ],
-      "correctIndex": 3
+      "correctIndex": 3,
+      "why": "Unusual outbound traffic, unexpected new accounts, and abnormal CPU usage can each signal that a system is compromised, so all three are recognized indicators of compromise."
     },
     {
       "q": "What is the primary purpose of a Security Operations Center (SOC)?",
@@ -82,7 +89,8 @@
         "To design secure software",
         "To perform audits"
       ],
-      "correctIndex": 1
+      "correctIndex": 1,
+      "why": "A SOC is the team and facility dedicated to continuous monitoring, detection, and response to security incidents. Audits, secure design, and physical policy enforcement belong to other functions."
     },
     {
       "q": "Which of the following describes the process of risk mitigation?",
@@ -92,7 +100,8 @@
         "Ignoring potential threats",
         "Transferring risk to another party"
       ],
-      "correctIndex": 1
+      "correctIndex": 1,
+      "why": "Mitigation means applying controls that lower a risk's likelihood or impact. Accepting, ignoring, or transferring risk (such as buying insurance) are different risk treatment options."
     },
     {
       "q": "Which tool is commonly used for automated vulnerability scanning?",
@@ -102,7 +111,8 @@
         "Wireshark",
         "Burp Suite"
       ],
-      "correctIndex": 0
+      "correctIndex": 0,
+      "why": "Nessus is a dedicated automated vulnerability scanner. Metasploit exploits flaws, Wireshark captures packets, and Burp Suite is mainly used for manual web application testing."
     },
     {
       "q": "What is the purpose of a firewall in a network?",
@@ -112,7 +122,8 @@
         "To analyze malware",
         "To create backups"
       ],
-      "correctIndex": 1
+      "correctIndex": 1,
+      "why": "A firewall enforces rules that allow or block traffic entering and leaving a network. It does not encrypt data, analyze malware, or create backups."
     },
     {
       "q": "Which of the following best describes a zero-day vulnerability?",
@@ -122,7 +133,8 @@
         "A vulnerability that is actively being exploited",
         "A vulnerability that is unknown to the vendor"
       ],
-      "correctIndex": 3
+      "correctIndex": 3,
+      "why": "A zero-day is a flaw the vendor does not know about yet, so no patch exists and defenders have had zero days to respond. A known but unpatched flaw is simply an unpatched vulnerability."
     },
     {
       "q": "What is the purpose of incident response in cybersecurity?",
@@ -132,7 +144,8 @@
         "To handle and mitigate the impact of security incidents",
         "To perform risk assessments"
       ],
-      "correctIndex": 2
+      "correctIndex": 2,
+      "why": "Incident response is the organized process of detecting, containing, and recovering from security incidents to limit damage. Monitoring and risk assessment are proactive activities, not response."
     },
     {
       "q": "Which of the following is a technique used to obscure the meaning of code?",
@@ -142,7 +155,8 @@
         "Hashing",
         "Compression"
       ],
-      "correctIndex": 0
+      "correctIndex": 0,
+      "why": "Obfuscation deliberately makes code hard to read while keeping it functional. Encryption also hides data, but encrypted code cannot run until decrypted, so obfuscation is the term for obscuring meaning."
     },
     {
       "q": "Which of the following is an example of a common social engineering attack?",
@@ -152,7 +166,8 @@
         "SQL injection",
         "Man-in-the-middle attack"
       ],
-      "correctIndex": 0
+      "correctIndex": 0,
+      "why": "Phishing manipulates people into clicking links or revealing credentials, which is the essence of social engineering. Brute force, SQL injection, and man-in-the-middle attacks target systems, not human trust."
     },
     {
       "q": "What does the acronym 'SIEM' stand for?",
@@ -162,7 +177,8 @@
         "Security Intelligence and Event Management",
         "Security Information and Evidence Management"
       ],
-      "correctIndex": 1
+      "correctIndex": 1,
+      "why": "SIEM stands for Security Information and Event Management, combining log collection and storage (information management) with real-time monitoring and alerting (event management)."
     },
     {
       "q": "Which of the following is a key feature of a honeypot?",
@@ -172,7 +188,8 @@
         "It encrypts sensitive data",
         "It performs regular backups"
       ],
-      "correctIndex": 0
+      "correctIndex": 0,
+      "why": "A honeypot is a deliberately exposed decoy that lures attackers away from real systems and lets defenders study their tools and techniques."
     },
     {
       "q": "Which of the following is an example of an endpoint security solution?",
@@ -182,7 +199,8 @@
         "SIEM",
         "IDS/IPS"
       ],
-      "correctIndex": 0
+      "correctIndex": 0,
+      "why": "Antivirus runs directly on individual endpoints to detect malware on that device. Network firewalls, SIEMs, and network IDS/IPS operate at the network or enterprise level rather than on the endpoint itself."
     },
     {
       "q": "What is the purpose of a penetration test?",
@@ -192,7 +210,8 @@
         "To develop secure applications",
         "To perform regular backups"
       ],
-      "correctIndex": 1
+      "correctIndex": 1,
+      "why": "A penetration test simulates real attacks so weaknesses are found and fixed before criminals exploit them. Exploitation is the technique used, but identification is the purpose."
     },
     {
       "q": "Which of the following is an effective method to prevent phishing attacks?",
@@ -202,7 +221,8 @@
         "Using complex passwords",
         "Regularly updating software"
       ],
-      "correctIndex": 0
+      "correctIndex": 0,
+      "why": "Phishing targets human judgment, so training users to spot suspicious messages addresses the root of the attack. Firewalls, strong passwords, and patching help overall but do not stop a user from being tricked."
     },
     {
       "q": "Which of the following best describes a brute force attack?",
@@ -212,17 +232,19 @@
         "A method of intercepting communications between two parties",
         "A method of disguising malware as legitimate software"
       ],
-      "correctIndex": 0
+      "correctIndex": 0,
+      "why": "A brute force attack systematically tries every possible password combination until one works. Code injection, interception, and disguised malware describe SQL injection, MITM attacks, and Trojans instead."
     },
     {
-      "q": "Which of the following is a common method of securing wireless networks?",
+      "q": "Which of the following is the most secure method for protecting a wireless network?",
       "choices": [
         "WPA2 encryption",
         "Disabling SSID broadcast",
         "MAC address filtering",
         "WEP encryption"
       ],
-      "correctIndex": 0
+      "correctIndex": 0,
+      "why": "WPA2 provides strong encryption and authentication for wireless traffic. WEP is cryptographically broken, and hiding the SSID or filtering MAC addresses are easily bypassed and add little real protection."
     },
     {
       "q": "Which of the following is a method used to ensure data integrity?",
@@ -232,7 +254,8 @@
         "Compression",
         "Tokenization"
       ],
-      "correctIndex": 0
+      "correctIndex": 0,
+      "why": "A hash produces a fixed fingerprint of data, so any change to the data changes the hash and reveals tampering. Encryption protects confidentiality, not integrity."
     },
     {
       "q": "What is the primary purpose of a vulnerability management program?",
@@ -242,7 +265,8 @@
         "To develop secure software",
         "To monitor network traffic"
       ],
-      "correctIndex": 1
+      "correctIndex": 1,
+      "why": "Vulnerability management is the ongoing cycle of finding weaknesses, ranking them by risk, and fixing them. Encryption, development, and monitoring are separate security functions."
     },
     {
       "q": "Which of the following is an example of a network-based attack?",
@@ -252,7 +276,8 @@
         "Password cracking",
         "Data exfiltration"
       ],
-      "correctIndex": 0
+      "correctIndex": 0,
+      "why": "A DDoS floods a target with traffic from many sources, making it a network-based attack by definition. Social engineering targets people and password cracking targets credentials."
     },
     {
       "q": "Which of the following best describes a threat actor?",
@@ -262,7 +287,8 @@
         "A weakness in a system that can be exploited",
         "A security feature in a system"
       ],
-      "correctIndex": 0
+      "correctIndex": 0,
+      "why": "A threat actor is the person or group behind a harmful security event. A weakness is a vulnerability and the software used is a tool or exploit, so the other choices describe different concepts."
     },
     {
       "q": "Which of the following is a common technique used in penetration testing?",
@@ -272,7 +298,8 @@
         "Developing secure software",
         "Managing user accounts"
       ],
-      "correctIndex": 0
+      "correctIndex": 0,
+      "why": "Penetration testers actively exploit vulnerabilities to prove they can be used for unauthorized access. Monitoring, development, and account management are defensive or operational tasks."
     },
     {
       "q": "Which of the following is a characteristic of an Advanced Persistent Threat (APT)?",
@@ -282,7 +309,8 @@
         "Attacks using social engineering techniques",
         "Random, non-targeted attacks"
       ],
-      "correctIndex": 1
+      "correctIndex": 1,
+      "why": "APTs are sustained campaigns by well-resourced attackers who target a specific organization and stay hidden for long periods. Short, random, or sporadic attacks are the opposite of persistent."
     },
     {
       "q": "Which of the following is an essential component of an incident response plan?",
@@ -292,7 +320,8 @@
         "Encrypting sensitive data",
         "Performing vulnerability scans"
       ],
-      "correctIndex": 0
+      "correctIndex": 0,
+      "why": "An incident response plan centers on quickly identifying an incident and containing it so damage stops spreading. Patch development and vulnerability scanning are preventive, not response, activities."
     },
     {
       "q": "Which of the following best describes the concept of defense in depth?",
@@ -302,7 +331,8 @@
         "Backing up data regularly",
         "Ensuring all users have administrator privileges"
       ],
-      "correctIndex": 1
+      "correctIndex": 1,
+      "why": "Defense in depth layers multiple controls so that if one fails, others still protect the asset. Relying on a single measure creates a single point of failure."
     },
     {
       "q": "Which of the following is a method for ensuring data availability?",
@@ -312,7 +342,8 @@
         "Encryption",
         "Access control"
       ],
-      "correctIndex": 0
+      "correctIndex": 0,
+      "why": "Redundancy keeps duplicate systems or data ready so services stay up when a component fails. Hashing protects integrity, encryption protects confidentiality, and access control governs who gets in."
     },
     {
       "q": "Which of the following is a common security control used to protect web applications?",
@@ -322,7 +353,8 @@
         "Security Information and Event Management (SIEM)",
         "Antivirus software"
       ],
-      "correctIndex": 0
+      "correctIndex": 0,
+      "why": "A WAF inspects HTTP traffic and blocks web-specific attacks like SQL injection and XSS. NIDS, SIEM, and antivirus protect networks and hosts generally, not web applications specifically."
     },
     {
       "q": "Which of the following is a common method of securing data at rest?",
@@ -332,7 +364,8 @@
         "Compression",
         "Tokenization"
       ],
-      "correctIndex": 0
+      "correctIndex": 0,
+      "why": "Encrypting stored data makes it unreadable to anyone without the key, even if the storage is stolen. Hashing is one-way and cannot recover the original data, so it does not secure data at rest."
     },
     {
       "q": "Which of the following best describes the concept of least privilege?",
@@ -342,7 +375,8 @@
         "Allowing users to choose their own level of access",
         "Providing maximum access to administrators"
       ],
-      "correctIndex": 1
+      "correctIndex": 1,
+      "why": "Least privilege gives each user only the access needed for their role, shrinking the damage a compromised account can do. Broad or user-chosen access defeats that goal."
     },
     {
       "q": "Which of the following is an example of a host-based security solution?",
@@ -352,7 +386,8 @@
         "Web Application Firewall (WAF)",
         "SIEM"
       ],
-      "correctIndex": 0
+      "correctIndex": 0,
+      "why": "A HIDS runs on the individual host and watches its logs and files for signs of intrusion. Network firewalls, WAFs, and SIEMs operate at the network or enterprise layer."
     },
     {
       "q": "Which of the following is a common method for securing data in transit?",
@@ -362,7 +397,8 @@
         "Compression",
         "Tokenization"
       ],
-      "correctIndex": 0
+      "correctIndex": 0,
+      "why": "Encryption, such as TLS, keeps data unreadable while it moves across networks. Hashing verifies integrity but does not hide the content from eavesdroppers."
     },
     {
       "q": "Which of the following is an example of multi-factor authentication?",
@@ -372,7 +408,8 @@
         "A password and a fingerprint",
         "A password and an email"
       ],
-      "correctIndex": 2
+      "correctIndex": 2,
+      "why": "A password (something you know) plus a fingerprint (something you are) uses two different factor types, which is true multi-factor. A password with a PIN or security question is two knowledge factors."
     },
     {
       "q": "Which of the following is a common method used to protect against SQL injection attacks?",
@@ -382,7 +419,8 @@
         "Network segmentation",
         "Regular backups"
       ],
-      "correctIndex": 0
+      "correctIndex": 0,
+      "why": "Validating and sanitizing user input, ideally with parameterized queries, stops attackers from injecting SQL commands. Encryption, segmentation, and backups do not prevent the injection itself."
     },
     {
       "q": "Which of the following best describes a data breach?",
@@ -392,17 +430,19 @@
         "An attack that prevents access to data",
         "A form of ransomware"
       ],
-      "correctIndex": 0
+      "correctIndex": 0,
+      "why": "A data breach is the exposure of protected information to an untrusted party, whether accidental or malicious. Phishing and ransomware are attack methods that may lead to a breach but are not the definition."
     },
     {
-      "q": "Which of the following is a method for detecting threats in a network?",
+      "q": "Which of the following is purpose-built to detect intrusions by inspecting network traffic?",
       "choices": [
         "Network Intrusion Detection System (NIDS)",
         "SIEM",
         "Firewalls",
         "Encryption"
       ],
-      "correctIndex": 0
+      "correctIndex": 0,
+      "why": "A NIDS inspects network traffic for attack signatures and anomalies, making it the purpose-built detection tool here. A SIEM correlates alerts but depends on sensors like a NIDS to detect network threats."
     },
     {
       "q": "Which of the following is a characteristic of an insider threat?",
@@ -412,7 +452,8 @@
         "A denial-of-service attack",
         "A ransomware attack"
       ],
-      "correctIndex": 0
+      "correctIndex": 0,
+      "why": "An insider threat comes from someone with legitimate access, such as an employee or contractor, who misuses it. External hackers, DoS, and ransomware describe outside attacks."
     },
     {
       "q": "Which of the following is an effective method for protecting data against loss?",
@@ -422,7 +463,8 @@
         "Hashing",
         "Tokenization"
       ],
-      "correctIndex": 0
+      "correctIndex": 0,
+      "why": "Regular backups let you restore data after deletion, corruption, or ransomware, directly protecting against loss. Encryption and hashing protect confidentiality and integrity but cannot bring lost data back."
     },
     {
       "q": "Which of the following is a common method for securing access to systems?",
@@ -432,7 +474,8 @@
         "Firewalls",
         "Intrusion detection systems"
       ],
-      "correctIndex": 0
+      "correctIndex": 0,
+      "why": "Multi-factor authentication requires more than one proof of identity, so a stolen password alone cannot unlock the account. Firewalls and intrusion detection protect networks rather than the login itself."
     },
     {
       "q": "Which of the following best describes the purpose of a digital certificate?",
@@ -442,7 +485,8 @@
         "To store passwords",
         "To authenticate a network"
       ],
-      "correctIndex": 1
+      "correctIndex": 1,
+      "why": "A digital certificate binds a public key to an identity vouched for by a certificate authority, letting others confirm who they are communicating with. Encryption may follow, but identity verification is the purpose."
     },
     {
       "q": "Which of the following is a method of securing data in transit?",
@@ -452,7 +496,8 @@
         "Backing up the data",
         "Compressing the data"
       ],
-      "correctIndex": 0
+      "correctIndex": 0,
+      "why": "Encrypting data before or during transmission keeps it confidential if intercepted. Hashing, backups, and compression do not prevent an eavesdropper from reading the traffic."
     },
     {
       "q": "Which of the following is a common method of ensuring data availability?",
@@ -462,7 +507,8 @@
         "Encryption",
         "Access control"
       ],
-      "correctIndex": 0
+      "correctIndex": 0,
+      "why": "Replication keeps live copies of data on multiple systems so it remains accessible if one fails. Hashing, encryption, and access control serve integrity, confidentiality, and authorization instead."
     },
     {
       "q": "Which of the following is an example of a strong password policy?",
@@ -472,7 +518,8 @@
         "Passwords must include only lowercase letters",
         "Passwords can be the same as the username"
       ],
-      "correctIndex": 0
+      "correctIndex": 0,
+      "why": "Requiring length plus a mix of character types makes passwords far harder to guess or crack. Reuse, lowercase-only rules, and matching the username all weaken security."
     },
     {
       "q": "Which of the following is a method used to protect against social engineering attacks?",
@@ -482,7 +529,8 @@
         "Implementing firewalls",
         "Using antivirus software"
       ],
-      "correctIndex": 1
+      "correctIndex": 1,
+      "why": "Social engineering exploits human trust, so awareness training is the control that directly counters it. Passwords, firewalls, and antivirus protect systems but cannot stop a user from being manipulated."
     },
     {
       "q": "Which of the following best describes a denial-of-service (DoS) attack?",
@@ -492,7 +540,8 @@
         "An attack that encrypts files",
         "An attack that monitors network traffic"
       ],
-      "correctIndex": 0
+      "correctIndex": 0,
+      "why": "A DoS attack overwhelms a service so legitimate users cannot reach it; availability is the target. Data theft, file encryption, and traffic monitoring describe other attack types."
     },
     {
       "q": "Which of the following is a method of ensuring data integrity?",
@@ -502,7 +551,8 @@
         "Compression",
         "Tokenization"
       ],
-      "correctIndex": 0
+      "correctIndex": 0,
+      "why": "Hashing creates a unique digest of the data; if even one bit changes, the hash no longer matches, exposing tampering. Encryption hides content but does not by itself prove it is unaltered."
     },
     {
       "q": "Which of the following is a common method of securing data in transit?",
@@ -512,7 +562,8 @@
         "Compression",
         "Tokenization"
       ],
-      "correctIndex": 0
+      "correctIndex": 0,
+      "why": "Protocols like TLS and VPNs encrypt data as it travels so intercepted traffic is unreadable. Hashing and compression change the data's form but do not keep it confidential."
     },
     {
       "q": "Which of the following is a method used to detect network intrusions?",
@@ -522,7 +573,8 @@
         "SIEM",
         "Encryption"
       ],
-      "correctIndex": 0
+      "correctIndex": 0,
+      "why": "A NIDS is designed specifically to watch network traffic and flag intrusion attempts. Firewalls enforce access rules and SIEMs aggregate alerts, but neither inspects traffic for intrusions the way a NIDS does."
     },
     {
       "q": "Which of the following is a method used to obscure the meaning of code?",
@@ -532,7 +584,8 @@
         "Hashing",
         "Compression"
       ],
-      "correctIndex": 0
+      "correctIndex": 0,
+      "why": "Obfuscation scrambles code structure and names so humans cannot easily understand it while it still executes. Encrypted code must be decrypted before running, so obfuscation is the technique for obscuring meaning."
     }
   ]
 }

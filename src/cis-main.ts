@@ -1,9 +1,20 @@
 import cisRaw from './data/cis.json';
+import mapRaw from './data/csf-cis-map.json';
 import type { CisData } from './lib/frameworks';
+import { frameworkSlug } from './lib/frameworks';
 import type { FrameworkRecord } from './lib/framework-search';
 import { initFrameworkPage } from './ui/framework-page';
 
 const cis = cisRaw as CisData;
+const csfToCis = mapRaw as Record<string, string[]>;
+const cisToCsf = new Map<string, string[]>();
+for (const [csfId, cisIds] of Object.entries(csfToCis)) {
+  for (const cisId of cisIds) {
+    const list = cisToCsf.get(cisId) ?? [];
+    list.push(csfId);
+    cisToCsf.set(cisId, list);
+  }
+}
 
 const ids = Object.keys(cis).sort((a, b) => {
   const [a1, a2] = a.split('.').map(Number);
@@ -31,4 +42,10 @@ initFrameworkPage({
   })),
   kicker: (record) => `Control ${cis[record.id].control} / ${cis[record.id].controlName}`,
   countNoun: 'safeguards',
+  relatedLabel: 'Related CSF subcategories (unofficial)',
+  related: (record) =>
+    (cisToCsf.get(record.id) ?? []).sort().map((csfId) => ({
+      label: csfId,
+      href: `../nist-csf/${frameworkSlug(csfId)}.html`,
+    })),
 });
