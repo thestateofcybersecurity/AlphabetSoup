@@ -134,7 +134,7 @@
     "display": "AiTM",
     "category": "attacks",
     "difficulty": "medium",
-    "explanation": "Adversary-in-the-Middle is the modern, vendor-neutral term for interception attacks where an attacker sits between a victim and a legitimate service. A common form uses a reverse-proxy phishing site that relays a real login page, capturing passwords and session cookies to bypass multi-factor authentication. It matters because it defeats many traditional MFA methods, driving adoption of phishing-resistant authentication.",
+    "explanation": "Adversary-in-the-Middle is the modern, vendor-neutral term for interception attacks where an attacker sits between a victim and a legitimate service. A common form uses a reverse-proxy phishing site that relays a real login page, capturing passwords and session cookies to bypass multi-factor authentication.",
     "sources": [
       {
         "name": "MITRE ATT&CK T1557",
@@ -285,7 +285,7 @@
     "display": "ATT&CK",
     "category": "operations",
     "difficulty": "easy",
-    "explanation": "MITRE ATT&CK is a free, globally used knowledge base of real-world adversary behavior, organized into tactics (the attacker's goals) and techniques (how they achieve them). Defenders use it to map detection coverage, emulate threat actors, and describe incidents in a shared language. It matters because it turned scattered threat reporting into a common framework the whole industry can reference.",
+    "explanation": "MITRE ATT&CK is a free, globally used knowledge base of real-world adversary behavior, organized into tactics (the attacker's goals) and techniques (how they achieve them). It turned scattered threat reporting into a common framework the whole industry references. Defenders use it to map detection coverage, emulate threat actors, and describe incidents in a shared language.",
     "sources": [
       {
         "name": "MITRE ATT&CK",
@@ -328,7 +328,7 @@
     "display": "BCDR",
     "category": "operations",
     "difficulty": "medium",
-    "explanation": "BCDR combines two related disciplines: business continuity keeps critical operations running during a disruption, while disaster recovery restores IT systems and data afterward. Together they cover everything from ransomware and data center failures to natural disasters, guided by targets like RTO and RPO. It matters because resilience, not just prevention, determines whether an organization survives a major incident.",
+    "explanation": "BCDR combines two related disciplines: business continuity keeps critical operations running during a disruption, while disaster recovery restores IT systems and data afterward. Together they cover everything from ransomware and data center failures to natural disasters, guided by targets like RTO and RPO. The emphasis is on resilience, not just prevention, since recovery capability often determines whether an organization survives a major incident.",
     "sources": [
       {
         "name": "NIST SP 800-34",
@@ -648,7 +648,7 @@
     "display": "CCISO",
     "category": "certifications",
     "difficulty": "hard",
-    "explanation": "An EC-Council certification aimed at executive-level security leadership. It covers governance, security program management, vendor management, and strategic planning. It targets current and aspiring CISOs who need to demonstrate executive management capability rather than hands-on technical skill.",
+    "explanation": "EC-Council's executive credential for security leadership, and one of the few that gates on seniority: candidates must show five years of experience in each of its five domains, or apply for a waiver. Rather than testing hands-on technical skill, it validates governance, program management, and strategic decision-making. It is built for sitting and aspiring CISOs.",
     "sources": [
       {
         "name": "EC-Council",
@@ -674,7 +674,7 @@
     "display": "CCNP",
     "category": "certifications",
     "difficulty": "easy",
-    "explanation": "Cisco's professional-level certification track for network security. It validates skills in securing networks with Cisco technologies, covering firewalls, VPNs, identity services, and secure network design. The CCNP name is familiar to nearly anyone in IT networking, and the Security track is the standard path for engineers who secure Cisco-based infrastructure.",
+    "explanation": "CCNP is Cisco's professional-level certification, one tier below the expert CCIE. It is not a single exam but a family of tracks (Enterprise, Security, Data Center, Service Provider, Collaboration); the Security track validates configuring and troubleshooting Cisco firewalls, VPNs, and secure network access. It is a widely recognized mid-career credential for network and network-security engineers.",
     "sources": [
       {
         "name": "Cisco",
@@ -739,7 +739,7 @@
     "display": "CDM",
     "category": "operations",
     "difficulty": "hard",
-    "explanation": "CDM is a CISA program that gives US federal civilian agencies tools and dashboards to continuously monitor what is on their networks, who is on them, and what is happening on them. Agencies use it to maintain real-time visibility into assets, users, and vulnerabilities instead of relying on periodic manual reports. It matters because it shifted federal cybersecurity from snapshot compliance audits toward continuous, data-driven risk management.",
+    "explanation": "CDM is a CISA program that gives US federal civilian agencies tools and dashboards to continuously monitor what is on their networks, who is on them, and what is happening on them. It shifted federal cybersecurity from snapshot compliance audits toward continuous, data-driven risk management. Agencies use it to maintain real-time visibility into assets, users, and vulnerabilities instead of relying on periodic manual reports.",
     "sources": [
       {
         "name": "CISA CDM Program",
@@ -765,7 +765,7 @@
     "display": "CDPSE",
     "category": "certifications",
     "difficulty": "hard",
-    "explanation": "An ISACA certification focused on implementing privacy by design in technology platforms. It covers privacy governance, privacy architecture, and the data lifecycle. It is aimed at engineers and technologists who build systems that must comply with privacy regulations like GDPR.",
+    "explanation": "CDPSE is ISACA's certification for the engineers who actually build privacy into systems, not the lawyers who interpret the rules. It covers privacy-by-design, privacy architecture, and managing data through its lifecycle so platforms can satisfy laws like GDPR by construction. It fills the gap between legal privacy roles and hands-on engineering, and overlaps heavily with IAPP's more product-focused CIPT.",
     "sources": [
       {
         "name": "ISACA",
@@ -808,7 +808,7 @@
     "display": "CGEIT",
     "category": "certifications",
     "difficulty": "hard",
-    "explanation": "An ISACA certification for professionals who manage and advise on enterprise IT governance. It covers governance frameworks, strategic alignment, benefits realization, and risk optimization. It targets senior leaders such as CIOs, directors, and consultants who ensure IT supports business strategy.",
+    "explanation": "ISACA's senior credential for the people who run or advise on enterprise IT governance, not the engineers who implement it. It sits above most technical certs in seniority, validating that IT strategy stays aligned with business goals and delivers measurable value. Typical holders are CIOs, directors, and governance consultants.",
     "sources": [
       {
         "name": "ISACA",
@@ -847,7 +847,7 @@
     "display": "CHFI",
     "category": "certifications",
     "difficulty": "medium",
-    "explanation": "An EC-Council certification in digital forensics. It covers evidence acquisition, forensic analysis of systems and networks, and preparing findings for legal proceedings. It is aimed at forensic investigators, law enforcement personnel, and incident responders who need to investigate cybercrime.",
+    "explanation": "CHFI is EC-Council's digital forensics certification, covering evidence acquisition, disk and network analysis, and documenting findings so they hold up in court. It targets forensic investigators, law enforcement, and incident responders who must reconstruct cybercrime. Its emphasis on legally defensible process, chain of custody, and courtroom-ready reporting is what separates forensic work from routine incident handling.",
     "sources": [
       {
         "name": "EC-Council",
@@ -920,7 +920,7 @@
     "display": "CIPM",
     "category": "certifications",
     "difficulty": "hard",
-    "explanation": "An IAPP certification focused on operating a privacy program day to day. It covers building privacy team structures, developing frameworks, and measuring program performance. It targets privacy program managers and data protection officers who run privacy operations rather than interpret law.",
+    "explanation": "The operations half of IAPP's privacy pairing: where the law-focused CIPP covers what the rules require, CIPM covers how to run a privacy program that meets them day to day. It validates building privacy team structures, standing up frameworks, and measuring program performance. Data protection officers and privacy program managers commonly hold it alongside a CIPP.",
     "sources": [
       {
         "name": "IAPP",
@@ -959,7 +959,7 @@
     "display": "CIPT",
     "category": "certifications",
     "difficulty": "hard",
-    "explanation": "An IAPP certification for technologists who implement privacy in systems and products. It covers privacy by design, data minimization techniques, and privacy-enhancing technologies. It is aimed at engineers, architects, and developers who must translate privacy requirements into working systems.",
+    "explanation": "IAPP's privacy cert for the engineers who build data protection into systems, distinct from the manager-oriented CIPM and the law-oriented CIPP. It validates privacy by design, data minimization, and privacy-enhancing technologies applied in real products. It is aimed at architects, developers, and other technologists, and often pairs with a CIPP for the legal context.",
     "sources": [
       {
         "name": "IAPP",
@@ -972,7 +972,7 @@
     "display": "CIRT",
     "category": "operations",
     "difficulty": "hard",
-    "explanation": "CIRT is another common name for the internal team that investigates and responds to security incidents, essentially synonymous with CSIRT. Organizations pick one label, but the mission is the same: contain the damage, restore operations, and learn from what happened. Knowing the term matters because job postings, policies, and frameworks use these names interchangeably.",
+    "explanation": "A CIRT is an organization's designated team for investigating and containing security incidents, from malware outbreaks to data breaches. The name is used interchangeably with CSIRT; some groups just swap 'incident' for 'security' with no real difference in mission: detect, contain, eradicate, recover, and learn. Knowing the term matters because policies, job postings, and frameworks pick one label or the other for the same function.",
     "sources": [
       {
         "name": "NIST CSRC Glossary",
@@ -1102,7 +1102,7 @@
     "display": "CMMC",
     "category": "governance",
     "difficulty": "medium",
-    "explanation": "The US Department of Defense program that requires defense contractors to prove they meet cybersecurity requirements before winning contracts. It builds on NIST SP 800-171 controls for protecting controlled unclassified information, with tiered levels and third-party assessments. It matters because it turns cybersecurity from a self-attested checkbox into a verified condition of doing business with the DoD.",
+    "explanation": "The US Department of Defense program that requires defense contractors to prove they meet cybersecurity requirements before winning contracts. It builds on NIST SP 800-171 controls for protecting controlled unclassified information, with tiered levels and third-party assessments.",
     "sources": [
       {
         "name": "DoD CIO",
@@ -1154,7 +1154,7 @@
     "display": "CND",
     "category": "certifications",
     "difficulty": "medium",
-    "explanation": "An EC-Council certification focused on protecting, detecting, and responding to network threats. It covers network defense fundamentals, perimeter security, monitoring, and incident response. It targets network administrators transitioning into defensive security roles.",
+    "explanation": "CND is EC-Council's certification for defenders who protect and monitor networks rather than attack them, covering perimeter defense, traffic monitoring, and incident response. It targets network administrators moving into blue-team roles. It is a foundational-level credential, useful as a stepping stone before deeper defensive certs like GIAC's GCIA or CompTIA's CySA+.",
     "sources": [
       {
         "name": "EC-Council",
@@ -1210,7 +1210,7 @@
     "display": "COPE",
     "category": "network",
     "difficulty": "hard",
-    "explanation": "COPE is a device ownership model where the company buys and controls the device but allows employees to use it for personal purposes. It gives the organization stronger security control than BYOD, since it owns the hardware, while still offering users flexibility. It is a common middle ground in mobile fleet strategy discussions.",
+    "explanation": "COPE is a device model where the company owns and fully manages the hardware but lets employees use it for personal tasks too. Because the organization controls the device, it can enforce encryption, patching, and remote wipe more strictly than under BYOD, without the friction of banning personal use. The tradeoff is higher hardware cost and thornier privacy questions about monitoring personal activity on a corporate device.",
     "sources": [
       {
         "name": "NIST CSRC Glossary",
@@ -1275,7 +1275,7 @@
     "display": "CPE",
     "category": "operations",
     "difficulty": "hard",
-    "explanation": "CPE is a standardized naming scheme for identifying software, operating systems, and hardware, such as a specific version of Apache on Linux. Vulnerability databases use CPE names to state exactly which products a CVE affects. It matters because matching your asset inventory against CPE names is how scanners figure out which vulnerabilities apply to you.",
+    "explanation": "CPE is a standardized naming scheme for identifying software, operating systems, and hardware, such as a specific version of Apache on Linux. Vulnerability databases use CPE names to state exactly which products a CVE affects, and scanners match your asset inventory against those names to figure out which vulnerabilities apply to you.",
     "sources": [
       {
         "name": "NIST NVD CPE",
@@ -1353,7 +1353,7 @@
     "display": "CRISC",
     "category": "certifications",
     "difficulty": "medium",
-    "explanation": "An ISACA certification focused on IT risk management. It covers identifying, assessing, and responding to risk, plus designing and monitoring controls. It is popular with risk analysts, control professionals, and anyone bridging the gap between IT risk and business objectives.",
+    "explanation": "ISACA's IT risk credential, focused on identifying, assessing, and responding to risk and on designing the controls that keep it in check. It is frequently paired with ISACA's CISM, giving risk-and-security professionals both the risk and management sides. It suits risk analysts and control owners who connect IT risk to business objectives.",
     "sources": [
       {
         "name": "ISACA",
@@ -1457,7 +1457,7 @@
     "display": "CSIRT",
     "category": "operations",
     "difficulty": "medium",
-    "explanation": "A CSIRT is the formally designated team responsible for handling security incidents within an organization or community. When a breach happens, the CSIRT coordinates containment, eradication, recovery, and communication. It matters because incident response done ad hoc leads to chaos; a trained team with defined roles responds faster and makes fewer mistakes.",
+    "explanation": "A CSIRT is the formally designated team responsible for handling security incidents within an organization or community. When a breach happens, the CSIRT coordinates containment, eradication, recovery, and communication. A trained team with defined roles responds faster and makes fewer mistakes than incident response improvised ad hoc.",
     "sources": [
       {
         "name": "NIST CSRC Glossary",
@@ -1539,7 +1539,7 @@
     "display": "CSSLP",
     "category": "certifications",
     "difficulty": "hard",
-    "explanation": "An ISC2 certification for professionals who build security into every phase of the software development lifecycle. It covers secure design, coding, testing, and deployment practices. It is aimed at developers, architects, and application security engineers who want to prove they can ship secure software, not just find flaws afterward.",
+    "explanation": "ISC2's credential for building security into every phase of the software development lifecycle, from design through deployment. Where the SSCP targets operations staff and the CISSP targets managers, CSSLP is aimed squarely at developers, architects, and application security engineers. It proves you can ship secure software rather than just find flaws after the fact.",
     "sources": [
       {
         "name": "ISC2",
@@ -1552,7 +1552,7 @@
     "display": "CTAP",
     "category": "identity",
     "difficulty": "hard",
-    "explanation": "CTAP is the FIDO Alliance protocol that lets a browser or operating system talk to an external authenticator such as a security key or a phone over USB, NFC, or Bluetooth. Together with WebAuthn it forms the FIDO2 standard behind passkeys and hardware key login. It matters because it enables phishing-resistant, passwordless authentication using keys that never leave the device.",
+    "explanation": "CTAP is the FIDO Alliance protocol that lets a browser or operating system talk to an external authenticator such as a security key or a phone over USB, NFC, or Bluetooth. Together with WebAuthn it forms the FIDO2 standard behind passkeys and hardware key login.",
     "sources": [
       {
         "name": "FIDO Alliance CTAP 2.1 Specification",
@@ -1565,7 +1565,7 @@
     "display": "CTEM",
     "category": "operations",
     "difficulty": "hard",
-    "explanation": "CTEM is a program approach, coined by Gartner, for continuously discovering, prioritizing, validating, and fixing an organization's security exposures rather than running periodic one-off assessments. It cycles through scoping, discovery, prioritization, validation, and mobilization to keep exposure work aligned with real business risk. It matters because attack surfaces change daily, and point-in-time vulnerability scans quickly go stale.",
+    "explanation": "CTEM is a program approach, coined by Gartner, for continuously discovering, prioritizing, validating, and fixing an organization's security exposures rather than running periodic one-off assessments. It cycles through scoping, discovery, prioritization, validation, and mobilization to keep exposure work aligned with real business risk. The continuous model exists because attack surfaces change daily, and point-in-time vulnerability scans quickly go stale.",
     "sources": [
       {
         "name": "Gartner",
@@ -1595,7 +1595,7 @@
     "display": "CTI",
     "category": "operations",
     "difficulty": "medium",
-    "explanation": "CTI is analyzed information about threat actors, their capabilities, and their intentions. SOC and IR teams use CTI to prioritize defenses, enrich alerts with context, and hunt for adversaries known to target their industry. It matters because knowing who is likely to attack you and how lets you defend proactively instead of reactively.",
+    "explanation": "CTI is analyzed information about threat actors, their capabilities, and their intentions. Knowing who is likely to attack you and how lets you defend proactively instead of reactively. SOC and IR teams use CTI to prioritize defenses, enrich alerts with context, and hunt for adversaries known to target their industry.",
     "sources": [
       {
         "name": "NIST CSRC Glossary",
@@ -1612,7 +1612,7 @@
     "display": "CTIA",
     "category": "certifications",
     "difficulty": "hard",
-    "explanation": "An EC-Council certification for threat intelligence professionals. It covers the intelligence lifecycle from planning and collection through analysis and dissemination. It targets analysts who turn raw threat data into actionable intelligence for their organizations.",
+    "explanation": "CTIA is EC-Council's entry-to-mid-level threat intelligence certification, walking through the intelligence lifecycle from planning and collection to analysis and dissemination. It suits analysts early in a CTI career, or SOC staff who want to formalize how they research adversaries. It sits below hands-on, analysis-heavy credentials like GIAC's GCTI in depth and reputation.",
     "sources": [
       {
         "name": "EC-Council",
@@ -1672,7 +1672,7 @@
     "display": "CVE",
     "category": "operations",
     "difficulty": "easy",
-    "explanation": "CVE is the global system for assigning a unique identifier, like CVE-2021-44228, to each publicly known vulnerability. Everyone from vendors to scanners to news articles uses CVE IDs so there is no confusion about which flaw is being discussed. It matters because a shared naming scheme is the foundation of all vulnerability management.",
+    "explanation": "CVE is the global system for assigning a unique identifier, like CVE-2021-44228 (Log4Shell), to each publicly known vulnerability. Everyone from vendors to scanners to news articles uses CVE IDs so there is no confusion about which flaw is being discussed. This shared naming scheme is the foundation of all vulnerability management.",
     "sources": [
       {
         "name": "MITRE CVE Program",
@@ -1689,7 +1689,7 @@
     "display": "CVSS",
     "category": "operations",
     "difficulty": "medium",
-    "explanation": "CVSS assigns vulnerabilities a severity score from 0 to 10 based on factors like exploitability and impact. Security teams use the score as a starting point for deciding which patches to prioritize. It matters because organizations face thousands of vulnerabilities and need a consistent way to compare their severity, though score alone should not be the only factor.",
+    "explanation": "CVSS assigns vulnerabilities a severity score from 0 to 10 based on factors like exploitability and impact. Organizations face thousands of vulnerabilities and need a consistent way to compare their severity, so teams use the score as a starting point for deciding which patches to prioritize. Score alone should not be the only factor.",
     "sources": [
       {
         "name": "FIRST CVSS",
@@ -1702,7 +1702,7 @@
     "display": "CWE",
     "category": "operations",
     "difficulty": "medium",
-    "explanation": "CWE is a catalog of software and hardware weakness types, like buffer overflows or SQL injection, maintained by MITRE. While a CVE names one specific bug, a CWE names the underlying class of mistake that caused it. It matters because tracking weaknesses by category helps teams fix root causes and prevent whole families of future vulnerabilities.",
+    "explanation": "CWE is a catalog of software and hardware weakness types, like buffer overflows or SQL injection, maintained by MITRE. While a CVE names one specific bug, a CWE names the underlying class of mistake that caused it. Tracking weaknesses by category helps teams fix root causes and prevent whole families of future vulnerabilities.",
     "sources": [
       {
         "name": "MITRE CWE",
@@ -1728,7 +1728,7 @@
     "display": "CWSP",
     "category": "certifications",
     "difficulty": "hard",
-    "explanation": "A vendor-neutral certification from CWNP focused on securing wireless networks. It covers WLAN security protocols, authentication systems, monitoring, and attack techniques against Wi-Fi. It is aimed at network engineers and security professionals responsible for enterprise wireless deployments.",
+    "explanation": "CWSP is CWNP's vendor-neutral certification for securing enterprise Wi-Fi, covering WLAN authentication, encryption, monitoring, and the attacks that target wireless. What sets it apart is its focus purely on the radio layer, where threats like rogue access points and evil-twin attacks bypass wired defenses entirely. It is the standard credential for engineers who design or audit corporate wireless security.",
     "sources": [
       {
         "name": "CWNP",
@@ -1741,7 +1741,7 @@
     "display": "CySA+",
     "category": "certifications",
     "difficulty": "medium",
-    "explanation": "A CompTIA certification focused on defensive security analysis. It covers threat detection, vulnerability management, log analysis, and incident response. It targets SOC analysts and blue-team practitioners, sitting between Security+ and CompTIA's advanced certifications in the vendor's pathway.",
+    "explanation": "CompTIA's CySA+ is a blue-team analyst cert covering threat detection, vulnerability management, and incident response. In CompTIA's pathway it sits above Security+ and below the advanced CASP+/SecurityX, and it appears on the US DoD 8570 approved list for certain roles. Typical holders work in security operations centers.",
     "sources": [
       {
         "name": "CompTIA",
@@ -1754,7 +1754,7 @@
     "display": "D3FEND",
     "category": "operations",
     "difficulty": "hard",
-    "explanation": "D3FEND is a MITRE knowledge base that catalogs defensive techniques and maps them to the offensive techniques in ATT&CK. Security architects and detection engineers use it to answer which countermeasures actually address a given attacker behavior. It matters because it gives defenders a shared, structured vocabulary for defense, just as ATT&CK did for offense.",
+    "explanation": "D3FEND is a MITRE knowledge base that catalogs defensive techniques and maps them to the offensive techniques in ATT&CK. It gives defenders a shared, structured vocabulary for defense, just as ATT&CK did for offense. Security architects and detection engineers use it to answer which countermeasures actually address a given attacker behavior.",
     "sources": [
       {
         "name": "MITRE D3FEND",
@@ -1871,7 +1871,7 @@
     "display": "DFIR",
     "category": "operations",
     "difficulty": "medium",
-    "explanation": "DFIR combines two disciplines: forensics, which reconstructs what happened from digital evidence, and incident response, which contains and remediates active attacks. DFIR practitioners image disks, analyze memory, and trace attacker actions to answer how a breach happened and what was taken. It matters because you cannot fully recover from or learn from an incident you do not understand.",
+    "explanation": "DFIR combines two disciplines: forensics, which reconstructs what happened from digital evidence, and incident response, which contains and remediates active attacks. DFIR practitioners image disks, analyze memory, and trace attacker actions to answer how a breach happened and what was taken, since you cannot fully recover from or learn from an incident you do not understand.",
     "sources": [
       {
         "name": "NIST CSRC Glossary",
@@ -2225,7 +2225,7 @@
     "display": "DSS",
     "category": "crypto",
     "difficulty": "hard",
-    "explanation": "DSS is the NIST federal standard (FIPS 186) that specifies which digital signature algorithms US government systems may use. The current revision approves RSA, ECDSA, and EdDSA. It matters because it drives which signature algorithms are considered acceptable across government and much of industry.",
+    "explanation": "DSS is the NIST federal standard (FIPS 186) that specifies which digital signature algorithms US government systems may use. The current revision approves RSA, ECDSA, and EdDSA.",
     "sources": [
       {
         "name": "NIST FIPS 186-5",
@@ -2355,7 +2355,7 @@
     "display": "ECIH",
     "category": "certifications",
     "difficulty": "hard",
-    "explanation": "An EC-Council certification covering the incident handling and response process. It addresses preparing for, detecting, containing, and recovering from security incidents across various threat types. It is aimed at incident responders, SOC analysts, and administrators involved in incident management.",
+    "explanation": "ECIH is EC-Council's certification covering the incident-handling process from preparation through containment and recovery. It is a vendor-neutral, mid-level credential for responders and SOC analysts who want a structured methodology across malware, insider, and network incidents. Compared with GIAC's more hands-on GCIH, it leans toward process and framework knowledge over deep technical exercises.",
     "sources": [
       {
         "name": "EC-Council",
@@ -2385,7 +2385,7 @@
     "display": "EDR",
     "category": "operations",
     "difficulty": "medium",
-    "explanation": "EDR software runs on laptops, servers, and workstations to record activity and detect malicious behavior that traditional antivirus misses. SOC teams use it to investigate what happened on a machine and to isolate or remediate compromised endpoints remotely. It matters because most attacks eventually touch an endpoint, making it a critical place to watch.",
+    "explanation": "EDR software runs on laptops, servers, and workstations to record activity and detect malicious behavior that traditional antivirus misses. Because most attacks eventually touch an endpoint, it is a critical place to watch. SOC teams use it to investigate what happened on a machine and to isolate or remediate compromised endpoints remotely.",
     "sources": [
       {
         "name": "NIST CSRC Glossary",
@@ -2463,7 +2463,7 @@
     "display": "EPSS",
     "category": "operations",
     "difficulty": "hard",
-    "explanation": "EPSS uses data-driven modeling to estimate the probability that a vulnerability will be exploited in the wild within the next 30 days. Teams combine EPSS with CVSS and the KEV list to focus patching effort where exploitation is most likely. It matters because it helps answer the practical question of what attackers will actually go after, not just what could theoretically be bad.",
+    "explanation": "EPSS uses data-driven modeling to estimate the probability that a vulnerability will be exploited in the wild within the next 30 days. It helps answer the practical question of what attackers will actually go after, not just what could theoretically be bad. Teams combine EPSS with CVSS and the KEV list to focus patching effort where exploitation is most likely.",
     "sources": [
       {
         "name": "FIRST EPSS",
@@ -2623,7 +2623,7 @@
     "display": "FIM",
     "category": "operations",
     "difficulty": "medium",
-    "explanation": "FIM tools watch critical files and configurations and alert when they change unexpectedly. SOC teams use it to detect tampering with system binaries, web content, or configuration files, which often signals an intrusion. It matters because attackers frequently modify files to hide, persist, or plant malicious code, and FIM is also required by standards like PCI DSS.",
+    "explanation": "FIM tools watch critical files and configurations and alert when they change unexpectedly. Attackers frequently modify files to hide, persist, or plant malicious code, so SOC teams use FIM to detect tampering with system binaries, web content, or configuration files, which often signals an intrusion. It is also required by standards like PCI DSS.",
     "sources": [
       {
         "name": "NIST CSRC Glossary",
@@ -2649,7 +2649,7 @@
     "display": "FIRST",
     "category": "operations",
     "difficulty": "medium",
-    "explanation": "FIRST is the global association that connects computer security incident response teams from government, industry, and academia so they can cooperate across borders during incidents. It also maintains widely used standards including CVSS for scoring vulnerabilities, EPSS for predicting exploitation, and TLP for labeling information sharing. It matters because cyber incidents routinely span countries, and FIRST provides the trusted network that makes coordinated response possible.",
+    "explanation": "FIRST is the global association that connects computer security incident response teams from government, industry, and academia so they can cooperate across borders during incidents. Because cyber incidents routinely span countries, this trusted network is what makes coordinated response possible. It also maintains widely used standards including CVSS for scoring vulnerabilities, EPSS for predicting exploitation, and TLP for labeling information sharing.",
     "sources": [
       {
         "name": "FIRST",
@@ -2740,7 +2740,7 @@
     "display": "GCIH",
     "category": "certifications",
     "difficulty": "medium",
-    "explanation": "A GIAC certification focused on detecting, responding to, and resolving security incidents. It covers common attack techniques, incident handling processes, and hands-on defensive skills. It is one of the most popular GIAC certifications and is widely held by security operations and incident response staff.",
+    "explanation": "GIAC's incident-handling cert, aligned with the SANS SEC504 course and built around hands-on detection and response to live attacks. It is one of GIAC's most widely held credentials; its more process-oriented rival is EC-Council's ECIH. SOC and incident-response staff make up most holders.",
     "sources": [
       {
         "name": "GIAC",
@@ -2779,7 +2779,7 @@
     "display": "GCTI",
     "category": "certifications",
     "difficulty": "hard",
-    "explanation": "A GIAC certification validating skills in cyber threat intelligence analysis. It covers intelligence tradecraft, analyzing adversary campaigns, and producing intelligence that defenders can act on. It is aimed at CTI analysts and incident responders who study threat actors.",
+    "explanation": "GCTI is GIAC's certification for cyber threat intelligence analysts, aligned with the SANS FOR578 course. It goes beyond collecting indicators to teach structured analysis of adversary campaigns, attribution, and the tradecraft of turning raw data into intelligence leadership can act on. It is one of the more respected CTI credentials because its exam rewards applied analytic reasoning over tool memorization.",
     "sources": [
       {
         "name": "GIAC",
@@ -2809,7 +2809,7 @@
     "display": "GICSP",
     "category": "certifications",
     "difficulty": "hard",
-    "explanation": "A GIAC certification bridging IT security and industrial control systems. It covers securing operational technology such as SCADA systems, PLCs, and industrial networks. It is designed for engineers and security professionals protecting critical infrastructure like power grids and manufacturing plants.",
+    "explanation": "GIAC's industrial control systems cert, bridging traditional IT security with operational technology such as SCADA systems and PLCs. Unusually, it is aimed jointly at IT security staff, OT engineers, and plant operators, reflecting how critical-infrastructure defense crosses those roles. Holders typically protect power grids, manufacturing, and similar environments.",
     "sources": [
       {
         "name": "GIAC",
@@ -2848,7 +2848,7 @@
     "display": "GPEN",
     "category": "certifications",
     "difficulty": "medium",
-    "explanation": "A GIAC certification validating the ability to conduct penetration tests using a process-oriented methodology. It covers reconnaissance, exploitation, password attacks, and reporting. It is aimed at penetration testers, red teamers, and auditors who assess networks the way attackers would.",
+    "explanation": "GIAC's penetration-testing cert, aligned with the SANS SEC560 course and organized around a repeatable testing methodology. Among its peers, OSCP is more hands-on with a 24-hour practical exam and CEH leans more theoretical, while GPEN balances methodology with technique. It suits penetration testers, red teamers, and auditors.",
     "sources": [
       {
         "name": "GIAC",
@@ -2917,7 +2917,7 @@
     "display": "GREM",
     "category": "certifications",
     "difficulty": "hard",
-    "explanation": "A GIAC certification for analysts who dissect malicious software. It covers analyzing malicious executables, documents, and scripts using both behavioral and code-level techniques. It is a specialist credential for malware analysts and threat researchers.",
+    "explanation": "GIAC's reverse-engineering cert, aligned with the SANS FOR610 course and focused on dissecting malicious executables, documents, and scripts. It is a niche, deeply technical credential rather than a broad one, combining behavioral and code-level analysis. Malware analysts and threat researchers are its core audience.",
     "sources": [
       {
         "name": "GIAC",
@@ -2943,7 +2943,7 @@
     "display": "GSLC",
     "category": "certifications",
     "difficulty": "hard",
-    "explanation": "A GIAC certification for security leaders and managers. It covers governance, risk, security program management, and enough technical depth to lead technical teams credibly. It targets managers, directors, and executives with security oversight responsibilities.",
+    "explanation": "GSLC is GIAC's certification for security managers who need real technical grounding, not just governance vocabulary. It blends leadership topics like program management and risk with enough hands-on depth to make credible decisions and challenge their engineers. That technical-plus-managerial mix is what distinguishes it from purely strategic credentials like CISM.",
     "sources": [
       {
         "name": "GIAC",
@@ -2956,7 +2956,7 @@
     "display": "GWAPT",
     "category": "certifications",
     "difficulty": "hard",
-    "explanation": "A GIAC certification focused on finding and exploiting vulnerabilities in web applications. It covers injection attacks, authentication flaws, session issues, and client-side attacks. It is aimed at penetration testers who specialize in web application security assessments.",
+    "explanation": "GWAPT is GIAC's certification for penetration testers who specialize in web applications, covering injection, authentication and session flaws, and client-side attacks. Unlike broad pentest credentials, it drills into the web stack specifically, mapping closely to the bug classes in the OWASP Top 10. It suits testers whose engagements center on web apps rather than networks.",
     "sources": [
       {
         "name": "GIAC",
@@ -2982,7 +2982,7 @@
     "display": "HBSS",
     "category": "network",
     "difficulty": "hard",
-    "explanation": "HBSS was the US Department of Defense's standardized suite of endpoint security software deployed across military networks, bundling firewall, intrusion prevention, and policy auditing on each host. It gave the DoD centralized visibility and control over millions of endpoints. The program has since evolved into newer endpoint initiatives, but the acronym remains well known in defense circles.",
+    "explanation": "HBSS was the US Department of Defense's mandated endpoint security suite, bundling host firewall, intrusion prevention, and policy auditing to give central visibility across millions of military machines. It became the DoD standard for host defense through the 2000s and 2010s. The department has since moved toward its Endpoint Security Solutions program, but the HBSS name still appears constantly in defense job postings and clearance-required roles.",
     "sources": [
       {
         "name": "NIST CSRC Glossary",
@@ -3021,7 +3021,7 @@
     "display": "HIPS",
     "category": "network",
     "difficulty": "medium",
-    "explanation": "A HIPS is agent software on an endpoint that can block malicious behavior on that machine, such as suspicious process injection or unauthorized file changes. It acts as a last line of defense when network controls miss an attack. Modern endpoint protection suites often include HIPS-style capabilities.",
+    "explanation": "A HIPS is endpoint agent software that actively blocks malicious behavior on the host, such as suspicious process injection, memory tampering, or unauthorized changes to system files. Unlike a HIDS, which only alerts, a HIPS can terminate the offending action in real time, making it a last line of defense when network controls miss an attack. Its logic now usually lives inside modern EDR and endpoint protection suites rather than as a standalone product.",
     "sources": [
       {
         "name": "NIST CSRC Glossary",
@@ -3445,7 +3445,7 @@
     "display": "IPS",
     "category": "operations",
     "difficulty": "easy",
-    "explanation": "An IPS sits inline on the network and actively blocks traffic that matches attack signatures or malicious behavior, rather than just alerting like an IDS. SOC teams tune IPS rules to stop known exploits automatically while avoiding false positives that break legitimate traffic. It matters because it stops routine attacks at machine speed before a human ever sees them.",
+    "explanation": "An IPS sits inline on the network and actively blocks traffic that matches attack signatures or malicious behavior, rather than just alerting like an IDS. This stops routine attacks at machine speed before a human ever sees them. SOC teams tune IPS rules to stop known exploits automatically while avoiding false positives that break legitimate traffic.",
     "sources": [
       {
         "name": "NIST CSRC Glossary",
@@ -3471,7 +3471,7 @@
     "display": "IRP",
     "category": "operations",
     "difficulty": "medium",
-    "explanation": "An IRP is the documented playbook that defines roles, communication channels, and step-by-step procedures for handling security incidents. Teams rehearse it in tabletop exercises so that when a real breach hits, no one is improvising under pressure. It matters because the first hours of an incident are chaotic, and a practiced plan is the difference between a controlled response and a scramble.",
+    "explanation": "An IRP is the documented playbook that defines roles, communication channels, and step-by-step procedures for handling security incidents. Teams rehearse it in tabletop exercises so that when a real breach hits, no one is improvising under pressure. The first hours of an incident are chaotic, and a practiced plan is the difference between a controlled response and a scramble.",
     "sources": [
       {
         "name": "NIST CSRC Glossary",
@@ -3484,7 +3484,7 @@
     "display": "ISAC",
     "category": "operations",
     "difficulty": "hard",
-    "explanation": "An ISAC is a sector-specific organization, such as FS-ISAC for financial services, where member companies share threat intelligence and best practices. Threat intel teams use ISAC feeds and alerts to learn about attacks hitting their industry before those attacks reach them. It matters because attackers reuse campaigns across an industry, and shared warning gives everyone else time to prepare.",
+    "explanation": "An ISAC is a sector-specific organization, such as FS-ISAC for financial services, where member companies share threat intelligence and best practices. Because attackers reuse campaigns across an industry, shared warning gives everyone else time to prepare. Threat intel teams use ISAC feeds and alerts to learn about attacks hitting their industry before those attacks reach them.",
     "sources": [
       {
         "name": "CISA",
@@ -3536,7 +3536,7 @@
     "display": "ISSAP",
     "category": "certifications",
     "difficulty": "hard",
-    "explanation": "An ISC2 concentration that CISSP holders can earn to demonstrate deep expertise in security architecture. It covers designing security into infrastructure, applications, and identity systems at an enterprise scale. It is aimed at chief security architects and analysts who translate business requirements into security designs.",
+    "explanation": "One of the three concentrations ISC2 offers on top of the CISSP, so candidates must hold an active CISSP before pursuing it. ISSAP is the architecture track, validating deep expertise in designing security across infrastructure, applications, and identity at enterprise scale. It suits chief security architects who turn business requirements into security designs.",
     "sources": [
       {
         "name": "ISC2",
@@ -3562,7 +3562,7 @@
     "display": "ISSMP",
     "category": "certifications",
     "difficulty": "hard",
-    "explanation": "An ISC2 concentration for CISSP holders who lead security programs. It covers leadership, program management, incident handling, and business continuity from a management perspective. It targets CISOs and senior managers who run security organizations rather than hands-on technical work.",
+    "explanation": "The management concentration ISC2 layers on top of the CISSP, requiring an active CISSP first (its siblings are the architecture-focused ISSAP and engineering-focused ISSEP). It validates leadership, program management, incident handling, and business continuity from a management vantage point. It targets CISOs and senior managers who run security organizations.",
     "sources": [
       {
         "name": "ISC2",
@@ -3748,7 +3748,7 @@
     "display": "KEV",
     "category": "operations",
     "difficulty": "medium",
-    "explanation": "The KEV catalog, maintained by CISA, lists vulnerabilities that attackers are actively exploiting in the real world. Vulnerability management teams use it to prioritize patching, since a flaw on the KEV list is a proven risk, not a theoretical one. It matters because most CVEs are never exploited, and KEV tells you which ones actually are.",
+    "explanation": "Fewer than 5 percent of CVEs are ever exploited in the wild; the KEV catalog, maintained by CISA, is the list of the ones that have been. Vulnerability management teams use it to prioritize patching, since a flaw on the KEV list is a proven risk, not a theoretical one. US federal civilian agencies must patch KEV entries on a deadline under Binding Operational Directive 22-01.",
     "sources": [
       {
         "name": "CISA KEV Catalog",
@@ -4020,7 +4020,7 @@
     "display": "MDR",
     "category": "operations",
     "difficulty": "medium",
-    "explanation": "MDR is an outsourced service where a vendor's analysts monitor your environment, hunt threats, and respond to incidents on your behalf. Organizations without the budget or staff for a 24x7 SOC use MDR to get around-the-clock coverage. It matters because attackers do not keep business hours, and many companies cannot staff a full security team alone.",
+    "explanation": "MDR is an outsourced service where a vendor's analysts monitor your environment, hunt threats, and respond to incidents on your behalf. Since attackers do not keep business hours, organizations without the budget or staff for a 24x7 SOC use MDR to get around-the-clock coverage.",
     "sources": [
       {
         "name": "CISA",
@@ -4145,7 +4145,7 @@
     "display": "MSSP",
     "category": "operations",
     "difficulty": "medium",
-    "explanation": "An MSSP is a vendor that operates security services for clients, such as monitoring firewalls, managing SIEM platforms, and watching alerts around the clock. Smaller organizations use MSSPs to get enterprise-grade security operations without building their own SOC. It matters because the security talent shortage means many companies simply cannot hire enough skilled defenders in-house.",
+    "explanation": "An MSSP is a vendor that operates security services for clients, such as monitoring firewalls, managing SIEM platforms, and watching alerts around the clock. Smaller organizations use MSSPs to get enterprise-grade security operations without building their own SOC. The persistent security talent shortage means many companies simply cannot hire enough skilled defenders in-house.",
     "sources": [
       {
         "name": "NIST CSRC Glossary",
@@ -4210,7 +4210,7 @@
     "display": "MTTR",
     "category": "operations",
     "difficulty": "medium",
-    "explanation": "MTTR measures the average time it takes a team to respond to and resolve a security incident after it is detected. SOC leaders track it to judge how efficient their processes and tooling are, and to justify investments in automation. It matters because the longer an attacker stays active, the more damage they can do.",
+    "explanation": "MTTR measures the average time it takes a team to respond to and resolve a security incident after it is detected. The longer an attacker stays active, the more damage they can do, so SOC leaders track MTTR to judge how efficient their processes and tooling are and to justify investments in automation.",
     "sources": [
       {
         "name": "NIST CSRC Glossary",
@@ -4383,7 +4383,7 @@
     "display": "NSM",
     "category": "operations",
     "difficulty": "hard",
-    "explanation": "NSM is the practice of collecting and analyzing network data, including flows, sessions, and full packets, to detect and investigate intrusions. Unlike simple alerting, NSM emphasizes keeping rich network evidence so analysts can reconstruct attacker activity after the fact. It matters because detection will never be perfect, and NSM ensures you have the data to investigate what your alerts missed.",
+    "explanation": "NSM is the practice of collecting and analyzing network data, including flows, sessions, and full packets, to detect and investigate intrusions. Unlike simple alerting, NSM emphasizes keeping rich network evidence so analysts can reconstruct attacker activity after the fact. Because detection will never be perfect, this ensures you have the data to investigate what your alerts missed.",
     "sources": [
       {
         "name": "NIST CSRC Glossary",
@@ -4435,7 +4435,7 @@
     "display": "NVD",
     "category": "operations",
     "difficulty": "medium",
-    "explanation": "The NVD is the U.S. government repository, run by NIST, that enriches CVE records with severity scores, affected product data, and references. Vulnerability scanners and management tools pull from the NVD constantly to keep their databases current. It matters because it is the authoritative free source that most of the vulnerability management ecosystem is built on.",
+    "explanation": "The NVD is the U.S. government repository, run by NIST, that enriches CVE records with severity scores, affected product data, and references. It is the authoritative free source that most of the vulnerability management ecosystem is built on. Vulnerability scanners and management tools pull from the NVD constantly to keep their databases current.",
     "sources": [
       {
         "name": "NIST NVD",
@@ -4504,7 +4504,7 @@
     "display": "OODA",
     "category": "operations",
     "difficulty": "medium",
-    "explanation": "The OODA loop is a decision-making cycle developed by Air Force Colonel John Boyd: observe the situation, orient by interpreting what it means, decide on a course of action, and act. Security teams apply it to incident response and threat hunting, where the side that cycles through the loop faster gains the advantage. It matters because defense is a contest of speed, and getting inside the attacker's loop lets defenders disrupt an intrusion before it succeeds.",
+    "explanation": "The OODA loop is a decision-making cycle developed by Air Force Colonel John Boyd: observe the situation, orient by interpreting what it means, decide on a course of action, and act. Security teams apply it to incident response and threat hunting, where the side that cycles through the loop faster gains the advantage. Getting inside the attacker's loop lets defenders disrupt an intrusion before it succeeds.",
     "sources": [
       {
         "name": "Air University Press - A Discourse on Winning and Losing (John Boyd)",
@@ -4582,7 +4582,7 @@
     "display": "OSINT",
     "category": "operations",
     "difficulty": "medium",
-    "explanation": "OSINT is intelligence gathered from publicly available sources such as websites, social media, public records, and code repositories. Threat intel analysts use it to research adversaries, while defenders use it to see what information about their own organization is exposed. It matters because attackers use the same public data to plan phishing and social engineering campaigns.",
+    "explanation": "OSINT is intelligence gathered from publicly available sources such as websites, social media, public records, and code repositories. Threat intel analysts use it to research adversaries, while defenders use it to see what information about their own organization is exposed. That defensive use matters because attackers use the same public data to plan phishing and social engineering campaigns.",
     "sources": [
       {
         "name": "NIST CSRC Glossary",
@@ -4729,7 +4729,7 @@
     "display": "PAP",
     "category": "operations",
     "difficulty": "hard",
-    "explanation": "PAP is a companion scheme to TLP that tells recipients what they may do with threat intelligence, such as whether they can actively probe attacker infrastructure or only use it passively. It uses similar color codes to keep handling rules simple and consistent. It matters because acting carelessly on shared intel, like scanning an attacker's server, can tip off the adversary and burn an investigation.",
+    "explanation": "PAP is a companion scheme to TLP that tells recipients what they may do with threat intelligence, such as whether they can actively probe attacker infrastructure or only use it passively. It uses similar color codes to keep handling rules simple and consistent. Acting carelessly on shared intel, like scanning an attacker's server, can tip off the adversary and burn an investigation.",
     "sources": [
       {
         "name": "MISP Project Taxonomies (PAP)",
@@ -4768,7 +4768,7 @@
     "display": "PBAC",
     "category": "identity",
     "difficulty": "hard",
-    "explanation": "PBAC centralizes authorization logic into written policies that are evaluated at access time, often combining roles, attributes, and context. Policies are typically expressed in a policy language and enforced by a decision engine rather than hardcoded in each application. It supports dynamic, fine-grained authorization across large environments.",
+    "explanation": "PBAC pulls authorization decisions out of individual applications and into centrally written policies that a decision engine evaluates at request time, weighing roles, attributes, and context together. Instead of each app hardcoding its own access rules, one policy set governs many systems, keeping authorization consistent and auditable. It matters most in large environments where scattered, inconsistent access logic becomes a security and compliance liability.",
     "sources": [
       {
         "name": "NIST Computer Security Resource Center Glossary",
@@ -4794,7 +4794,7 @@
     "display": "PCAP",
     "category": "operations",
     "difficulty": "medium",
-    "explanation": "A PCAP is a recorded copy of raw network traffic, saved packet by packet for later analysis. Incident responders replay PCAPs in tools like Wireshark to see exactly what data crossed the network during an attack. It matters because full packet data is the ground truth of network activity; logs summarize, but PCAPs show everything.",
+    "explanation": "A PCAP is a recorded copy of raw network traffic, saved packet by packet for later analysis. Incident responders replay PCAPs in tools like Wireshark to see exactly what data crossed the network during an attack. Full packet data is the ground truth of network activity; logs summarize, but PCAPs show everything.",
     "sources": [
       {
         "name": "NIST CSRC Glossary",
@@ -5139,7 +5139,7 @@
     "display": "PSIRT",
     "category": "operations",
     "difficulty": "hard",
-    "explanation": "A PSIRT handles vulnerability reports and security incidents affecting a company's own products rather than its internal network. When a researcher reports a flaw in a vendor's software, the PSIRT triages it, coordinates a fix, and publishes an advisory. It matters because responsible vulnerability handling protects every customer who runs the affected product.",
+    "explanation": "A PSIRT handles vulnerability reports and security incidents affecting a company's own products rather than its internal network. When a researcher reports a flaw in a vendor's software, the PSIRT triages it, coordinates a fix, and publishes an advisory, protecting every customer who runs the affected product.",
     "sources": [
       {
         "name": "FIRST",
@@ -5178,7 +5178,7 @@
     "display": "PtT",
     "category": "attacks",
     "difficulty": "hard",
-    "explanation": "Pass the Ticket is a technique where attackers steal Kerberos tickets from a compromised machine and reuse them to authenticate as that user elsewhere in the domain. Variants like golden and silver tickets let attackers forge credentials with long-lasting, elevated access. It matters because it abuses the trust fabric of Active Directory itself, making cleanup after a breach difficult.",
+    "explanation": "Pass the Ticket is a technique where attackers steal Kerberos tickets from a compromised machine and reuse them to authenticate as that user elsewhere in the domain. Variants like golden and silver tickets let attackers forge credentials with long-lasting, elevated access.",
     "sources": [
       {
         "name": "MITRE ATT&CK T1550.003",
@@ -5325,7 +5325,7 @@
     "display": "RCA",
     "category": "operations",
     "difficulty": "medium",
-    "explanation": "RCA is the structured investigation done after an incident to identify the underlying cause, not just the visible symptoms. IR teams conduct RCA during post-incident review to answer why the breach was possible and what systemic fix prevents a repeat. It matters because patching one compromised server without fixing the root cause invites the same attack next month.",
+    "explanation": "RCA is the structured investigation done after an incident to identify the underlying cause, not just the visible symptoms. IR teams conduct RCA during post-incident review to answer why the breach was possible and what systemic fix prevents a repeat. Patching one compromised server without fixing the root cause invites the same attack next month.",
     "sources": [
       {
         "name": "NIST CSRC Glossary",
@@ -5653,7 +5653,7 @@
     "display": "SCAP",
     "category": "operations",
     "difficulty": "hard",
-    "explanation": "SCAP is a NIST-maintained suite of specifications that lets tools automatically check systems for vulnerabilities and misconfigurations in a standardized, machine-readable way. It bundles component standards like CVE, CVSS, OVAL, and XCCDF so a scanner from one vendor can consume checklists written by another. It matters because manually auditing thousands of machines against security baselines is impossible; SCAP makes compliance checking automatable and repeatable.",
+    "explanation": "SCAP is a NIST-maintained suite of specifications that lets tools automatically check systems for vulnerabilities and misconfigurations in a standardized, machine-readable way. It bundles component standards like CVE, CVSS, OVAL, and XCCDF so a scanner from one vendor can consume checklists written by another. Manually auditing thousands of machines against security baselines is impossible, so SCAP makes compliance checking automatable and repeatable.",
     "sources": [
       {
         "name": "NIST SCAP Project",
@@ -5757,7 +5757,7 @@
     "display": "SECaaS",
     "category": "cloud",
     "difficulty": "hard",
-    "explanation": "SECaaS delivers security capabilities like email filtering, identity management, web security, and SIEM from the cloud on a subscription basis. Instead of buying and maintaining security appliances, organizations consume protection as a service that scales with them. The Cloud Security Alliance has published guidance defining the major SECaaS categories.",
+    "explanation": "SECaaS is the model of consuming security functions like email filtering, web security, identity, and SIEM from the cloud on subscription rather than buying and running appliances. It lets organizations scale protection up or down without capital investment or in-house maintenance, which is why smaller teams lean on it heavily. The tradeoff is dependence on the provider's coverage and uptime, so vendor due diligence becomes its own control.",
     "sources": [
       {
         "name": "Cloud Security Alliance: SecaaS Defined Categories of Service",
@@ -5848,7 +5848,7 @@
     "display": "SIEM",
     "category": "operations",
     "difficulty": "medium",
-    "explanation": "A SIEM collects and correlates logs and events from across an organization's systems into one searchable platform. SOC analysts use it to spot patterns that indicate attacks, investigate incidents, and meet compliance logging requirements. It matters because no human can watch thousands of log sources manually; the SIEM makes that data usable.",
+    "explanation": "A SIEM collects and correlates logs and events from across an organization's systems into one searchable platform. No human can watch thousands of log sources manually, so SOC analysts use the SIEM to spot patterns that indicate attacks, investigate incidents, and meet compliance logging requirements.",
     "sources": [
       {
         "name": "NIST CSRC Glossary",
@@ -6021,7 +6021,7 @@
     "display": "SOC",
     "category": "operations",
     "difficulty": "easy",
-    "explanation": "A SOC is the central team and facility where an organization monitors, detects, and responds to security threats around the clock. Analysts watch alerts from tools like SIEM and EDR, triage suspicious activity, and escalate confirmed incidents. It matters because it is the front line that turns raw security telemetry into actual defense.",
+    "explanation": "A SOC is the central team and facility where an organization monitors, detects, and responds to security threats around the clock. Analysts watch alerts from tools like SIEM and EDR, triage suspicious activity, and escalate confirmed incidents. It is the front line that turns raw security telemetry into actual defense.",
     "sources": [
       {
         "name": "NIST CSRC Glossary",
@@ -6328,7 +6328,7 @@
     "display": "SSVC",
     "category": "operations",
     "difficulty": "hard",
-    "explanation": "SSVC is a decision-tree framework, developed by Carnegie Mellon's SEI with CISA, that helps organizations decide what to do about a vulnerability rather than just scoring its severity. It walks through questions like whether exploitation is active, how automatable an attack is, and what the impact would be, ending in a concrete action such as track, attend, or act now. It matters because a raw CVSS number does not tell a specific organization whether to patch tonight or next quarter.",
+    "explanation": "SSVC is a decision-tree framework, developed by Carnegie Mellon's SEI with CISA, that helps organizations decide what to do about a vulnerability rather than just scoring its severity. It walks through questions like whether exploitation is active, how automatable an attack is, and what the impact would be, ending in a concrete action such as track, attend, or act now. A raw CVSS number does not tell a specific organization whether to patch tonight or next quarter.",
     "sources": [
       {
         "name": "CERT/CC SSVC",
@@ -6384,7 +6384,7 @@
     "display": "STIX",
     "category": "operations",
     "difficulty": "hard",
-    "explanation": "STIX is a standardized language for describing threat intelligence, such as indicators, threat actors, and attack patterns, in machine-readable form. Teams use it so their tools can automatically ingest and share intel without manual reformatting. It matters because standardized formats let the whole defender community exchange threat data at machine speed.",
+    "explanation": "STIX is a standardized language for describing threat intelligence, such as indicators, threat actors, and attack patterns, in machine-readable form. Standardized formats let the whole defender community exchange threat data at machine speed. Teams use STIX so their tools can automatically ingest and share intel without manual reformatting.",
     "sources": [
       {
         "name": "OASIS CTI Documentation",
@@ -6423,7 +6423,7 @@
     "display": "syslog",
     "category": "operations",
     "difficulty": "easy",
-    "explanation": "Syslog is the long-standing standard for sending log messages from servers, network gear, and applications to a central collector. SOC teams rely on syslog forwarding to feed events from across the environment into their SIEM. It matters because centralized logging is the raw material of detection; without it, evidence stays scattered on individual devices where attackers can erase it.",
+    "explanation": "Syslog is the long-standing standard for sending log messages from servers, network gear, and applications to a central collector. SOC teams rely on syslog forwarding to feed events from across the environment into their SIEM. Centralized logging is the raw material of detection; without it, evidence stays scattered on individual devices where attackers can erase it.",
     "sources": [
       {
         "name": "NIST CSRC Glossary",
@@ -6449,7 +6449,7 @@
     "display": "TAXII",
     "category": "operations",
     "difficulty": "hard",
-    "explanation": "TAXII is the transport protocol that delivers threat intelligence, usually formatted as STIX, between servers and clients. Organizations subscribe to TAXII feeds to automatically pull fresh indicators into their security tools. It matters because automated sharing means defenses update in near real time instead of waiting for someone to email a spreadsheet.",
+    "explanation": "TAXII is the transport protocol that delivers threat intelligence, usually formatted as STIX, between servers and clients. Organizations subscribe to TAXII feeds to automatically pull fresh indicators into their security tools, so defenses update in near real time instead of waiting for someone to email a spreadsheet.",
     "sources": [
       {
         "name": "OASIS CTI Documentation",
@@ -6518,7 +6518,7 @@
     "display": "TIP",
     "category": "operations",
     "difficulty": "hard",
-    "explanation": "A TIP is software that aggregates, normalizes, and manages threat intelligence feeds from many sources in one place. Analysts use it to deduplicate indicators, add context, and push curated intelligence into the SIEM and other defenses. It matters because raw intel feeds are noisy, and a TIP turns that flood into something operational.",
+    "explanation": "A TIP is software that aggregates, normalizes, and manages threat intelligence feeds from many sources in one place. Raw intel feeds are noisy, and a TIP turns that flood into something operational. Analysts use it to deduplicate indicators, add context, and push curated intelligence into the SIEM and other defenses.",
     "sources": [
       {
         "name": "ENISA: Threat Intelligence Platforms report",
@@ -6531,7 +6531,7 @@
     "display": "TLP",
     "category": "operations",
     "difficulty": "medium",
-    "explanation": "TLP is a labeling scheme that marks how widely shared information may be spread, using colors like RED, AMBER, GREEN, and CLEAR. Threat intel analysts attach TLP labels to reports so recipients know whether they can forward them, share within their organization, or publish freely. It matters because trusted sharing collapses if sensitive intelligence leaks beyond its intended audience.",
+    "explanation": "TLP is a labeling scheme that marks how widely shared information may be spread, using colors like RED, AMBER, GREEN, and CLEAR. Threat intel analysts attach TLP labels to reports so recipients know whether they can forward them, share within their organization, or publish freely. Trusted sharing collapses if sensitive intelligence leaks beyond its intended audience.",
     "sources": [
       {
         "name": "FIRST TLP",
@@ -6634,7 +6634,7 @@
     "display": "TTX",
     "category": "operations",
     "difficulty": "medium",
-    "explanation": "A TTX is a discussion-based exercise where a team walks through a simulated incident scenario, such as a ransomware outbreak, without touching real systems. Participants talk through their roles, decisions, and escalation paths to find gaps in the incident response plan before a real crisis. It matters because plans that look fine on paper often fall apart the first time people actually rehearse them.",
+    "explanation": "A TTX is a discussion-based exercise where a team walks through a simulated incident scenario, such as a ransomware outbreak, without touching real systems. Participants talk through their roles, decisions, and escalation paths to find gaps in the incident response plan before a real crisis. Plans that look fine on paper often fall apart the first time people actually rehearse them.",
     "sources": [
       {
         "name": "NIST CSRC Glossary",
@@ -6694,7 +6694,7 @@
     "display": "UBA",
     "category": "operations",
     "difficulty": "hard",
-    "explanation": "UBA is the earlier form of behavior analytics focused only on human user accounts, before the field expanded to cover devices and services as UEBA. It profiles how each user normally works and alerts when activity breaks that pattern. It matters historically and in vendor terminology, since many tools and papers still use the older name.",
+    "explanation": "UBA is a detection approach that builds a baseline of how each user account normally behaves, then flags deviations such as odd login times or unusual data access. It watches only human accounts, which is what distinguishes it from the broader UEBA that later added devices and service accounts. The term still appears in older tools and documentation, so recognizing it helps when comparing vendor detection capabilities.",
     "sources": [
       {
         "name": "IBM: What Is User Behavior Analytics (UBA)",
@@ -6733,7 +6733,7 @@
     "display": "UEBA",
     "category": "operations",
     "difficulty": "medium",
-    "explanation": "UEBA tools build baselines of normal behavior for users, hosts, and service accounts, then flag deviations like a login from a strange country or a sudden mass download. SOC teams use it to catch insider threats and compromised accounts that rule-based detection misses. It matters because stolen credentials look legitimate, and behavior is often the only tell.",
+    "explanation": "UEBA tools build baselines of normal behavior for users, hosts, and service accounts, then flag deviations like a login from a strange country or a sudden mass download. Stolen credentials look legitimate, and behavior is often the only tell, so SOC teams use UEBA to catch insider threats and compromised accounts that rule-based detection misses.",
     "sources": [
       {
         "name": "NIST CSRC Glossary",
@@ -7165,7 +7165,7 @@
     "display": "XaaS",
     "category": "cloud",
     "difficulty": "medium",
-    "explanation": "XaaS is an umbrella term for the growing family of cloud delivery models, where the X stands for almost anything: software, platforms, desktops, disaster recovery, even security. It reflects the broader shift from owning technology to consuming it as a subscription. The term is useful shorthand when discussing cloud strategy across many service types.",
+    "explanation": "XaaS is a catch-all for the expanding menu of cloud delivery models, where the X stands for software, platform, infrastructure, desktops, security, or nearly anything consumed as a subscription. The security takeaway is that each 'aaS' shifts the provider-versus-customer responsibility line differently, so the label alone tells you little about who secures what. Pinning down the specific service model behind an XaaS pitch is the first step in any cloud risk assessment.",
     "sources": [
       {
         "name": "IBM: What Is XaaS (Anything as a Service)?",
@@ -7195,7 +7195,7 @@
     "display": "XCCDF",
     "category": "operations",
     "difficulty": "hard",
-    "explanation": "XCCDF is an XML-based language for writing security checklists and configuration benchmarks in a structured, machine-readable form. Hardening guides like DISA STIGs and CIS Benchmarks are published in XCCDF so compliance tools can automatically test systems against them and score the results. It matters because it turns dense hardening documents into content that scanners can execute directly.",
+    "explanation": "XCCDF is an XML-based language for writing security checklists and configuration benchmarks in a structured, machine-readable form. Hardening guides like DISA STIGs and CIS Benchmarks are published in XCCDF so compliance tools can automatically test systems against them and score the results. It turns dense hardening documents into content that scanners can execute directly.",
     "sources": [
       {
         "name": "NIST XCCDF Specification",
@@ -7208,7 +7208,7 @@
     "display": "XDR",
     "category": "operations",
     "difficulty": "medium",
-    "explanation": "XDR extends the EDR idea beyond endpoints, correlating telemetry from email, cloud, identity, and network sources into unified detections. Instead of stitching alerts together by hand, analysts see one incident that spans multiple layers of the environment. It matters because modern attacks cross many systems, and siloed tools miss the full picture.",
+    "explanation": "XDR extends the EDR idea beyond endpoints, correlating telemetry from email, cloud, identity, and network sources into unified detections. Because modern attacks cross many systems, siloed tools miss the full picture. Instead of stitching alerts together by hand, analysts see one incident that spans multiple layers of the environment.",
     "sources": [
       {
         "name": "Microsoft Security 101: What Is XDR",
@@ -7277,7 +7277,7 @@
     "display": "XXE",
     "category": "attacks",
     "difficulty": "medium",
-    "explanation": "An XML External Entity attack abuses XML parsers that process external entity references embedded in submitted documents. Attackers can use it to read local files, probe internal networks, or cause denial of service. It matters because XML is still widely used in enterprise integrations, and the fix is simply disabling external entity processing in the parser.",
+    "explanation": "An XML External Entity attack abuses XML parsers that process external entity references embedded in submitted documents. Attackers can use it to read local files, probe internal networks, or cause denial of service.",
     "sources": [
       {
         "name": "OWASP",
