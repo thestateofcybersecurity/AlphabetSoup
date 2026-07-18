@@ -5,6 +5,7 @@ A plain-English cybersecurity reference at [cybersecurityalphabetsoup.com](https
 - **Acronym dictionary**: 545 acronyms, each with its expansion, a short explanation of what it is and why it matters, a category and difficulty, and authoritative sources.
 - **NIST CSF 2.0 in plain English** (`/frameworks/nist-csf/`): all 106 subcategories translated with household metaphors.
 - **CIS Controls v8 in plain English** (`/frameworks/cis/`): all 153 safeguards, same treatment.
+- **Practice quizzes** (`/quiz/`): 681 questions across 9 decks, from Security+ and CISSP multiple-choice rounds to fundamentals flashcards, with missed-question review.
 
 The acronym dataset is shared with [Cyberdle](https://github.com/thestateofcybersecurity/cyberdle), the daily acronym guessing game.
 

@@ -1,0 +1,358 @@
+{
+  "name": "LPT (retired)",
+  "mode": "choice",
+  "certKey": null,
+  "retired": true,
+  "questions": [
+    {
+      "q": "What is the primary goal of penetration testing?",
+      "choices": [
+        "To find and exploit vulnerabilities",
+        "To develop software",
+        "To monitor network traffic",
+        "To recover lost data"
+      ],
+      "correctIndex": 0
+    },
+    {
+      "q": "Which of the following tools is commonly used for network scanning?",
+      "choices": [
+        "Metasploit",
+        "Nmap",
+        "Wireshark",
+        "Nessus"
+      ],
+      "correctIndex": 1
+    },
+    {
+      "q": "What is the purpose of a vulnerability assessment in penetration testing?",
+      "choices": [
+        "To exploit vulnerabilities",
+        "To identify and classify vulnerabilities in systems",
+        "To remove malware from systems",
+        "To encrypt data"
+      ],
+      "correctIndex": 1
+    },
+    {
+      "q": "Which of the following describes a black box penetration test?",
+      "choices": [
+        "The tester has full knowledge of the system",
+        "The tester has no prior knowledge of the system",
+        "The tester has limited knowledge of the system",
+        "The tester has access to the source code"
+      ],
+      "correctIndex": 1
+    },
+    {
+      "q": "Which tool is primarily used for web application security testing?",
+      "choices": [
+        "Metasploit",
+        "Burp Suite",
+        "Nmap",
+        "Aircrack-ng"
+      ],
+      "correctIndex": 1
+    },
+    {
+      "q": "What is the purpose of the Metasploit Framework in penetration testing?",
+      "choices": [
+        "To monitor network traffic",
+        "To develop exploits and payloads",
+        "To analyze malware",
+        "To create backups"
+      ],
+      "correctIndex": 1
+    },
+    {
+      "q": "Which of the following is a method used to bypass authentication mechanisms?",
+      "choices": [
+        "SQL Injection",
+        "Phishing",
+        "Social Engineering",
+        "DNS Spoofing"
+      ],
+      "correctIndex": 0
+    },
+    {
+      "q": "Which of the following best describes a 'white box' penetration test?",
+      "choices": [
+        "The tester has no knowledge of the system",
+        "The tester has partial knowledge of the system",
+        "The tester has full knowledge of the system",
+        "The tester uses automated tools only"
+      ],
+      "correctIndex": 2
+    },
+    {
+      "q": "Which of the following is an example of privilege escalation?",
+      "choices": [
+        "Exploiting a buffer overflow vulnerability to gain root access",
+        "Sending a phishing email",
+        "Scanning a network for open ports",
+        "Cracking a password"
+      ],
+      "correctIndex": 0
+    },
+    {
+      "q": "What is the primary purpose of a penetration testing report?",
+      "choices": [
+        "To document vulnerabilities and recommend remediation",
+        "To provide source code analysis",
+        "To perform continuous monitoring",
+        "To install security patches"
+      ],
+      "correctIndex": 0
+    },
+    {
+      "q": "Which of the following describes a gray box penetration test?",
+      "choices": [
+        "The tester has full access to the system",
+        "The tester has no access to the system",
+        "The tester has limited knowledge and access to the system",
+        "The tester only performs social engineering"
+      ],
+      "correctIndex": 2
+    },
+    {
+      "q": "Which tool is commonly used for wireless network penetration testing?",
+      "choices": [
+        "Nmap",
+        "Aircrack-ng",
+        "Burp Suite",
+        "Nikto"
+      ],
+      "correctIndex": 1
+    },
+    {
+      "q": "Which type of attack is typically tested using a DNS spoofing tool?",
+      "choices": [
+        "Man-in-the-middle",
+        "Brute force",
+        "Buffer overflow",
+        "Cross-site scripting"
+      ],
+      "correctIndex": 0
+    },
+    {
+      "q": "Which of the following best describes the purpose of social engineering in penetration testing?",
+      "choices": [
+        "To bypass network firewalls",
+        "To trick users into revealing sensitive information",
+        "To exploit software vulnerabilities",
+        "To monitor network traffic"
+      ],
+      "correctIndex": 1
+    },
+    {
+      "q": "What is the primary objective of reconnaissance in penetration testing?",
+      "choices": [
+        "To exploit vulnerabilities",
+        "To gather information about the target",
+        "To deploy malware",
+        "To recover lost data"
+      ],
+      "correctIndex": 1
+    },
+    {
+      "q": "Which of the following is an example of a client-side attack?",
+      "choices": [
+        "Buffer overflow",
+        "Cross-site scripting (XSS)",
+        "SQL injection",
+        "Directory traversal"
+      ],
+      "correctIndex": 1
+    },
+    {
+      "q": "Which tool is typically used for brute force password attacks?",
+      "choices": [
+        "Hydra",
+        "Nmap",
+        "Metasploit",
+        "Burp Suite"
+      ],
+      "correctIndex": 0
+    },
+    {
+      "q": "Which of the following is a method used to obfuscate code in penetration testing?",
+      "choices": [
+        "Encoding",
+        "Encryption",
+        "Compression",
+        "Steganography"
+      ],
+      "correctIndex": 0
+    },
+    {
+      "q": "Which of the following is a common technique for evading IDS/IPS during penetration testing?",
+      "choices": [
+        "Packet fragmentation",
+        "Man-in-the-middle attacks",
+        "DNS spoofing",
+        "Phishing"
+      ],
+      "correctIndex": 0
+    },
+    {
+      "q": "Which of the following is a critical element of a penetration test plan?",
+      "choices": [
+        "Identifying target systems",
+        "Developing software exploits",
+        "Monitoring system performance",
+        "Recovering lost data"
+      ],
+      "correctIndex": 0
+    },
+    {
+      "q": "Which of the following is a common post-exploitation task?",
+      "choices": [
+        "Vulnerability scanning",
+        "Data exfiltration",
+        "Social engineering",
+        "DNS spoofing"
+      ],
+      "correctIndex": 1
+    },
+    {
+      "q": "What is the purpose of privilege escalation in penetration testing?",
+      "choices": [
+        "To gain unauthorized access to higher levels of authority",
+        "To scan for vulnerabilities",
+        "To recover deleted files",
+        "To monitor network traffic"
+      ],
+      "correctIndex": 0
+    },
+    {
+      "q": "Which of the following is a primary concern when conducting a physical penetration test?",
+      "choices": [
+        "Avoiding detection by physical security measures",
+        "Developing software exploits",
+        "Analyzing malware",
+        "Encrypting sensitive data"
+      ],
+      "correctIndex": 0
+    },
+    {
+      "q": "Which type of attack involves injecting malicious SQL queries into a database?",
+      "choices": [
+        "SQL Injection",
+        "Cross-site scripting (XSS)",
+        "Buffer overflow",
+        "DNS spoofing"
+      ],
+      "correctIndex": 0
+    },
+    {
+      "q": "Which tool is primarily used for network protocol analysis?",
+      "choices": [
+        "Nmap",
+        "Wireshark",
+        "Metasploit",
+        "Burp Suite"
+      ],
+      "correctIndex": 1
+    },
+    {
+      "q": "Which of the following describes a social engineering attack?",
+      "choices": [
+        "Gaining unauthorized access by exploiting a software vulnerability",
+        "Tricking users into revealing confidential information",
+        "Intercepting and altering communications between two parties",
+        "Disguising malware as legitimate software"
+      ],
+      "correctIndex": 1
+    },
+    {
+      "q": "Which of the following is an effective countermeasure against brute force attacks?",
+      "choices": [
+        "Account lockout policies",
+        "Using weak passwords",
+        "Disabling encryption",
+        "Open port scanning"
+      ],
+      "correctIndex": 0
+    },
+    {
+      "q": "Which tool is commonly used for automated vulnerability scanning?",
+      "choices": [
+        "Nmap",
+        "Nessus",
+        "Metasploit",
+        "Wireshark"
+      ],
+      "correctIndex": 1
+    },
+    {
+      "q": "Which of the following is a method of data exfiltration during a penetration test?",
+      "choices": [
+        "Using encrypted tunnels",
+        "Sniffing network traffic",
+        "Performing SQL injection",
+        "Brute force attacks"
+      ],
+      "correctIndex": 0
+    },
+    {
+      "q": "Which of the following is a common method used to evade detection by antivirus software?",
+      "choices": [
+        "Code obfuscation",
+        "Phishing",
+        "Social engineering",
+        "SQL injection"
+      ],
+      "correctIndex": 0
+    },
+    {
+      "q": "What is the primary goal of a penetration testing report?",
+      "choices": [
+        "To document findings and provide recommendations",
+        "To perform continuous monitoring",
+        "To encrypt sensitive data",
+        "To develop exploits"
+      ],
+      "correctIndex": 0
+    },
+    {
+      "q": "Which of the following best describes a gray box penetration test?",
+      "choices": [
+        "The tester has no access to the system",
+        "The tester has full access to the system",
+        "The tester has limited knowledge and access to the system",
+        "The tester only performs network scanning"
+      ],
+      "correctIndex": 2
+    },
+    {
+      "q": "Which of the following is a primary objective of reconnaissance in penetration testing?",
+      "choices": [
+        "To exploit vulnerabilities",
+        "To gather information about the target",
+        "To deploy malware",
+        "To recover lost data"
+      ],
+      "correctIndex": 1
+    },
+    {
+      "q": "Which of the following best describes a black box penetration test?",
+      "choices": [
+        "The tester has full knowledge of the system",
+        "The tester has no prior knowledge of the system",
+        "The tester has partial knowledge of the system",
+        "The tester has access to the source code"
+      ],
+      "correctIndex": 1
+    },
+    {
+      "q": "Which of the following best describes the purpose of the Metasploit Framework in penetration testing?",
+      "choices": [
+        "To develop exploits and payloads",
+        "To monitor network traffic",
+        "To analyze malware",
+        "To create backups"
+      ],
+      "correctIndex": 0
+    }
+  ]
+}

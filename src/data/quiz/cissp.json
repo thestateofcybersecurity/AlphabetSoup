@@ -1,0 +1,1188 @@
+{
+  "name": "CISSP",
+  "mode": "choice",
+  "certKey": "CISSP",
+  "retired": false,
+  "questions": [
+    {
+      "q": "Which of the following is the most important aspect of a security awareness program?",
+      "choices": [
+        "Training sessions",
+        "User participation",
+        "Executive support",
+        "Policy enforcement"
+      ],
+      "correctIndex": 2
+    },
+    {
+      "q": "Which of the following is a primary objective of access control?",
+      "choices": [
+        "To prevent unauthorized access",
+        "To ensure data integrity",
+        "To detect and respond to incidents",
+        "To audit system activities"
+      ],
+      "correctIndex": 0
+    },
+    {
+      "q": "What is the best method to protect sensitive data during transmission?",
+      "choices": [
+        "Data masking",
+        "Encryption",
+        "Hashing",
+        "Tokenization"
+      ],
+      "correctIndex": 1
+    },
+    {
+      "q": "Which of the following is a key concept in the principle of least privilege?",
+      "choices": [
+        "Users are given no access by default",
+        "Users have access to all data by default",
+        "Users can share access privileges with others",
+        "Users only have the minimum access necessary to perform their jobs"
+      ],
+      "correctIndex": 3
+    },
+    {
+      "q": "Which of the following controls is a preventive control?",
+      "choices": [
+        "Audit trails",
+        "Intrusion detection systems",
+        "Encryption",
+        "Security policies"
+      ],
+      "correctIndex": 2
+    },
+    {
+      "q": "What is the purpose of a risk assessment?",
+      "choices": [
+        "To eliminate all risks",
+        "To identify, assess, and prioritize risks",
+        "To create security policies",
+        "To perform a security audit"
+      ],
+      "correctIndex": 1
+    },
+    {
+      "q": "Which of the following best describes a hot site?",
+      "choices": [
+        "A site with fully operational equipment and up-to-date data",
+        "A site with no equipment but with infrastructure ready",
+        "A site with limited equipment and data resources",
+        "A mobile unit used for temporary operations"
+      ],
+      "correctIndex": 0
+    },
+    {
+      "q": "Which of the following is NOT a type of access control?",
+      "choices": [
+        "Discretionary access control (DAC)",
+        "Mandatory access control (MAC)",
+        "Role-based access control (RBAC)",
+        "Responsive access control (RAC)"
+      ],
+      "correctIndex": 3
+    },
+    {
+      "q": "Which of the following is a characteristic of asymmetric encryption?",
+      "choices": [
+        "Uses the same key for encryption and decryption",
+        "Is faster than symmetric encryption",
+        "Uses a pair of keys: public and private",
+        "Provides non-repudiation"
+      ],
+      "correctIndex": 2
+    },
+    {
+      "q": "What is the primary purpose of a digital signature?",
+      "choices": [
+        "To encrypt a message",
+        "To verify the identity of the sender",
+        "To ensure the message is not intercepted",
+        "To protect against malware"
+      ],
+      "correctIndex": 1
+    },
+    {
+      "q": "Which of the following is the main goal of the NIST Cybersecurity Framework?",
+      "choices": [
+        "To replace existing security standards",
+        "To provide a policy framework for computer security",
+        "To assess the security level of a company",
+        "To develop a global cybersecurity standard"
+      ],
+      "correctIndex": 1
+    },
+    {
+      "q": "What is a key feature of a certificate authority (CA)?",
+      "choices": [
+        "Issuing digital certificates",
+        "Storing encryption keys",
+        "Authenticating users",
+        "Encrypting network traffic"
+      ],
+      "correctIndex": 0
+    },
+    {
+      "q": "Which type of attack involves tricking a user into clicking a link in an email?",
+      "choices": [
+        "Phishing",
+        "SQL Injection",
+        "Cross-Site Scripting (XSS)",
+        "Denial of Service (DoS)"
+      ],
+      "correctIndex": 0
+    },
+    {
+      "q": "Which of the following is NOT part of the CIA triad?",
+      "choices": [
+        "Confidentiality",
+        "Integrity",
+        "Accountability",
+        "Availability"
+      ],
+      "correctIndex": 2
+    },
+    {
+      "q": "Which lattice-based security model enforces confidentiality?",
+      "choices": [
+        "Bell-LaPadula",
+        "Biba",
+        "Clark-Wilson",
+        "Brewer-Nash"
+      ],
+      "correctIndex": 0
+    },
+    {
+      "q": "What is a key benefit of implementing a risk management process?",
+      "choices": [
+        "It eliminates all risks",
+        "It reduces the impact of security incidents",
+        "It ensures compliance with all regulations",
+        "It prevents all security breaches"
+      ],
+      "correctIndex": 1
+    },
+    {
+      "q": "Which of the following best defines the principle of least privilege?",
+      "choices": [
+        "Giving all users administrator access",
+        "Limiting access rights for users to the bare minimum permissions they need",
+        "Granting full access to users based on their role",
+        "Allowing users to access data only when supervised"
+      ],
+      "correctIndex": 1
+    },
+    {
+      "q": "Which type of malware is known for spreading itself without human interaction?",
+      "choices": [
+        "Virus",
+        "Trojan",
+        "Worm",
+        "Spyware"
+      ],
+      "correctIndex": 2
+    },
+    {
+      "q": "Which of the following is an example of a detective control?",
+      "choices": [
+        "Firewall",
+        "Encryption",
+        "Security cameras",
+        "Security policy"
+      ],
+      "correctIndex": 2
+    },
+    {
+      "q": "What is the main purpose of disaster recovery planning?",
+      "choices": [
+        "To ensure data is backed up regularly",
+        "To establish procedures to recover from a catastrophic event",
+        "To define security policies",
+        "To conduct regular security audits"
+      ],
+      "correctIndex": 1
+    },
+    {
+      "q": "Which of the following is a characteristic of the Biba model?",
+      "choices": [
+        "Focuses on confidentiality",
+        "Focuses on integrity",
+        "Focuses on availability",
+        "Focuses on authenticity"
+      ],
+      "correctIndex": 1
+    },
+    {
+      "q": "What is the primary objective of a business impact analysis (BIA)?",
+      "choices": [
+        "To identify potential risks",
+        "To assess the impact of disruptions",
+        "To develop recovery strategies",
+        "To enforce security policies"
+      ],
+      "correctIndex": 1
+    },
+    {
+      "q": "Which of the following encryption algorithms is classified as symmetric?",
+      "choices": [
+        "RSA",
+        "AES",
+        "DSA",
+        "ECC"
+      ],
+      "correctIndex": 1
+    },
+    {
+      "q": "Which of the following is the first step in the incident response process?",
+      "choices": [
+        "Containment",
+        "Identification",
+        "Eradication",
+        "Recovery"
+      ],
+      "correctIndex": 1
+    },
+    {
+      "q": "Which of the following is a key component of a risk management program?",
+      "choices": [
+        "Cost-benefit analysis",
+        "Business continuity planning",
+        "Security awareness training",
+        "Risk assessment"
+      ],
+      "correctIndex": 3
+    },
+    {
+      "q": "What is the primary goal of encryption?",
+      "choices": [
+        "To provide non-repudiation",
+        "To ensure data integrity",
+        "To protect confidentiality",
+        "To enhance availability"
+      ],
+      "correctIndex": 2
+    },
+    {
+      "q": "Which of the following is an example of a physical control?",
+      "choices": [
+        "Firewall",
+        "Encryption",
+        "Security guard",
+        "Access control list"
+      ],
+      "correctIndex": 2
+    },
+    {
+      "q": "Which security model prevents conflict of interest in access to data?",
+      "choices": [
+        "Bell-LaPadula",
+        "Biba",
+        "Clark-Wilson",
+        "Brewer-Nash"
+      ],
+      "correctIndex": 3
+    },
+    {
+      "q": "What is the purpose of security governance?",
+      "choices": [
+        "To define how security is managed across the organization",
+        "To enforce security policies",
+        "To monitor network traffic for suspicious activity",
+        "To conduct penetration testing"
+      ],
+      "correctIndex": 0
+    },
+    {
+      "q": "Which type of access control model is based on roles assigned to users?",
+      "choices": [
+        "Discretionary Access Control (DAC)",
+        "Mandatory Access Control (MAC)",
+        "Role-Based Access Control (RBAC)",
+        "Attribute-Based Access Control (ABAC)"
+      ],
+      "correctIndex": 2
+    },
+    {
+      "q": "What does the principle of separation of duties aim to prevent?",
+      "choices": [
+        "Single points of failure",
+        "Unauthorized access",
+        "Collusion and fraud",
+        "Redundant processes"
+      ],
+      "correctIndex": 2
+    },
+    {
+      "q": "Which of the following describes a brute force attack?",
+      "choices": [
+        "Using social engineering to obtain passwords",
+        "Guessing passwords systematically until the correct one is found",
+        "Exploiting software vulnerabilities",
+        "Installing malware on a victim's machine"
+      ],
+      "correctIndex": 1
+    },
+    {
+      "q": "Which of the following is a benefit of cloud computing?",
+      "choices": [
+        "Reduced risk of data breaches",
+        "Increased control over physical security",
+        "Scalability and flexibility",
+        "Guaranteed availability"
+      ],
+      "correctIndex": 2
+    },
+    {
+      "q": "Which of the following is NOT a characteristic of a public key infrastructure (PKI)?",
+      "choices": [
+        "Use of digital certificates",
+        "Symmetric key exchange",
+        "Certificate authority (CA) management",
+        "Asymmetric encryption"
+      ],
+      "correctIndex": 1
+    },
+    {
+      "q": "Which of the following best describes a denial of service (DoS) attack?",
+      "choices": [
+        "Exploiting software vulnerabilities",
+        "Intercepting and altering communications",
+        "Overwhelming a system to make it unavailable",
+        "Stealing sensitive data"
+      ],
+      "correctIndex": 2
+    },
+    {
+      "q": "Which security framework is widely used in the United States for federal information systems?",
+      "choices": [
+        "ISO/IEC 27001",
+        "COBIT",
+        "NIST SP 800-53",
+        "ITIL"
+      ],
+      "correctIndex": 2
+    },
+    {
+      "q": "Which type of attack is characterized by attackers secretly altering the communication between two parties?",
+      "choices": [
+        "Phishing",
+        "Cross-Site Scripting (XSS)",
+        "SQL Injection",
+        "Man-in-the-Middle (MitM)"
+      ],
+      "correctIndex": 3
+    },
+    {
+      "q": "Which of the following is an example of an administrative control?",
+      "choices": [
+        "Encryption",
+        "Firewalls",
+        "Security awareness training",
+        "Intrusion detection systems"
+      ],
+      "correctIndex": 2
+    },
+    {
+      "q": "Which of the following best describes two-factor authentication?",
+      "choices": [
+        "Verifying identity using two different types of credentials",
+        "Verifying identity by asking two different questions",
+        "Verifying identity using a password and username",
+        "Verifying identity by checking two forms of ID"
+      ],
+      "correctIndex": 0
+    },
+    {
+      "q": "Which of the following is a primary purpose of security auditing?",
+      "choices": [
+        "To detect intrusions",
+        "To enforce security policies",
+        "To verify compliance with regulations",
+        "To monitor user activity"
+      ],
+      "correctIndex": 2
+    },
+    {
+      "q": "Which of the following is a key component of a disaster recovery plan (DRP)?",
+      "choices": [
+        "Risk assessment",
+        "Incident response procedures",
+        "Business continuity strategies",
+        "Backup and recovery procedures"
+      ],
+      "correctIndex": 3
+    },
+    {
+      "q": "What is the primary function of a firewall?",
+      "choices": [
+        "To detect and respond to intrusions",
+        "To filter network traffic",
+        "To encrypt data in transit",
+        "To monitor network traffic for malicious activity"
+      ],
+      "correctIndex": 1
+    },
+    {
+      "q": "Which of the following is a characteristic of a cold site?",
+      "choices": [
+        "Fully equipped and ready for immediate use",
+        "Equipped with necessary hardware but no data",
+        "Equipped with infrastructure but requires setup",
+        "Operated remotely from a mobile unit"
+      ],
+      "correctIndex": 2
+    },
+    {
+      "q": "Which of the following best describes the purpose of a digital certificate?",
+      "choices": [
+        "To authenticate users",
+        "To secure data transmissions",
+        "To verify the identity of an entity",
+        "To encrypt data at rest"
+      ],
+      "correctIndex": 2
+    },
+    {
+      "q": "Which type of malware is designed to remain hidden on a system while performing malicious actions?",
+      "choices": [
+        "Trojan",
+        "Worm",
+        "Rootkit",
+        "Spyware"
+      ],
+      "correctIndex": 2
+    },
+    {
+      "q": "Which of the following is a key objective of network segmentation?",
+      "choices": [
+        "To increase network speed",
+        "To isolate sensitive data from the rest of the network",
+        "To improve network availability",
+        "To enforce security policies"
+      ],
+      "correctIndex": 1
+    },
+    {
+      "q": "Which of the following best describes a penetration test?",
+      "choices": [
+        "A simulated attack on a system to identify vulnerabilities",
+        "A review of security policies and procedures",
+        "An audit of network traffic",
+        "A method of encrypting data"
+      ],
+      "correctIndex": 0
+    },
+    {
+      "q": "Which of the following describes an attribute-based access control (ABAC) model?",
+      "choices": [
+        "Access is based on the roles assigned to users",
+        "Access is based on predefined security labels",
+        "Access is based on attributes of the user, resource, and environment",
+        "Access is determined by the data owner"
+      ],
+      "correctIndex": 2
+    },
+    {
+      "q": "Which of the following is a benefit of using multifactor authentication (MFA)?",
+      "choices": [
+        "It eliminates the need for passwords",
+        "It reduces the risk of unauthorized access",
+        "It simplifies the login process",
+        "It increases system availability"
+      ],
+      "correctIndex": 1
+    },
+    {
+      "q": "Which of the following is NOT considered a benefit of a security awareness program?",
+      "choices": [
+        "Reducing the risk of insider threats",
+        "Enhancing employee knowledge of security policies",
+        "Ensuring compliance with security regulations",
+        "Guaranteeing the prevention of all security incidents"
+      ],
+      "correctIndex": 3
+    },
+    {
+      "q": "Which of the following is a key characteristic of a honeypot?",
+      "choices": [
+        "It is a decoy system designed to attract attackers",
+        "It is a tool used to encrypt data",
+        "It is a method for detecting intrusions",
+        "It is a security policy enforcement mechanism"
+      ],
+      "correctIndex": 0
+    },
+    {
+      "q": "Which of the following is the primary function of a certificate authority (CA)?",
+      "choices": [
+        "To issue and manage digital certificates",
+        "To encrypt communications between systems",
+        "To authenticate users",
+        "To monitor network traffic for malicious activity"
+      ],
+      "correctIndex": 0
+    },
+    {
+      "q": "What is the primary objective of risk mitigation?",
+      "choices": [
+        "To eliminate all risks",
+        "To transfer risk to another party",
+        "To reduce the impact or likelihood of risks",
+        "To ignore risks that are not critical"
+      ],
+      "correctIndex": 2
+    },
+    {
+      "q": "Which of the following is a characteristic of mandatory access control (MAC)?",
+      "choices": [
+        "Access is determined by the data owner",
+        "Access is based on predefined security labels and policies",
+        "Access is based on user roles",
+        "Access is controlled by the system administrator"
+      ],
+      "correctIndex": 1
+    },
+    {
+      "q": "Which of the following is the primary purpose of data classification?",
+      "choices": [
+        "To organize data for easy retrieval",
+        "To protect data based on its level of sensitivity",
+        "To ensure data integrity",
+        "To comply with legal requirements"
+      ],
+      "correctIndex": 1
+    },
+    {
+      "q": "Which of the following is an example of a technical control?",
+      "choices": [
+        "Security policies",
+        "Firewalls",
+        "User training",
+        "Security audits"
+      ],
+      "correctIndex": 1
+    },
+    {
+      "q": "Which of the following is a common method used in social engineering attacks?",
+      "choices": [
+        "SQL Injection",
+        "Phishing",
+        "Cross-Site Scripting (XSS)",
+        "Brute force attacks"
+      ],
+      "correctIndex": 1
+    },
+    {
+      "q": "Which of the following is a benefit of using encryption for data at rest?",
+      "choices": [
+        "It ensures data integrity",
+        "It prevents unauthorized access to stored data",
+        "It increases data availability",
+        "It simplifies data management"
+      ],
+      "correctIndex": 1
+    },
+    {
+      "q": "What is the primary purpose of a business continuity plan (BCP)?",
+      "choices": [
+        "To recover from natural disasters",
+        "To maintain operations during and after a disruption",
+        "To ensure compliance with legal requirements",
+        "To protect against cyber attacks"
+      ],
+      "correctIndex": 1
+    },
+    {
+      "q": "Which of the following is an example of a preventive control?",
+      "choices": [
+        "Audit trails",
+        "Intrusion detection systems",
+        "Security cameras",
+        "Antivirus software"
+      ],
+      "correctIndex": 3
+    },
+    {
+      "q": "Which of the following best describes a virtual private network (VPN)?",
+      "choices": [
+        "A secure tunnel between two networks",
+        "A method for encrypting data at rest",
+        "A type of firewall",
+        "A software application for detecting malware"
+      ],
+      "correctIndex": 0
+    },
+    {
+      "q": "Which of the following is a key characteristic of the Clark-Wilson security model?",
+      "choices": [
+        "Focuses on confidentiality",
+        "Focuses on preventing conflict of interest",
+        "Focuses on data integrity",
+        "Focuses on role-based access control"
+      ],
+      "correctIndex": 2
+    },
+    {
+      "q": "Which of the following is the most important factor in determining the sensitivity of data?",
+      "choices": [
+        "The potential impact of unauthorized access or disclosure",
+        "The cost of storing the data",
+        "The size of the data",
+        "The age of the data"
+      ],
+      "correctIndex": 0
+    },
+    {
+      "q": "Which of the following is the best way to protect against SQL injection attacks?",
+      "choices": [
+        "Encrypting database connections",
+        "Using input validation",
+        "Implementing multifactor authentication",
+        "Regularly updating database software"
+      ],
+      "correctIndex": 1
+    },
+    {
+      "q": "Which of the following is an example of a deterrent control?",
+      "choices": [
+        "Surveillance cameras",
+        "Encryption",
+        "Backup systems",
+        "Antivirus software"
+      ],
+      "correctIndex": 0
+    },
+    {
+      "q": "Which of the following is a primary goal of security incident management?",
+      "choices": [
+        "To eliminate all risks",
+        "To prevent future incidents",
+        "To quickly respond to and mitigate incidents",
+        "To improve network performance"
+      ],
+      "correctIndex": 2
+    },
+    {
+      "q": "Which of the following best describes the role of a data owner?",
+      "choices": [
+        "The person responsible for managing data backups",
+        "The person who uses the data on a daily basis",
+        "The person accountable for the data and its protection",
+        "The person responsible for data storage"
+      ],
+      "correctIndex": 2
+    },
+    {
+      "q": "Which of the following best describes data masking?",
+      "choices": [
+        "Encrypting data to prevent unauthorized access",
+        "Replacing sensitive data with fictional data",
+        "Deleting data that is no longer needed",
+        "Backing up data to a secure location"
+      ],
+      "correctIndex": 1
+    },
+    {
+      "q": "Which of the following is a key feature of a hot site?",
+      "choices": [
+        "It is always available and fully operational",
+        "It has no equipment and requires setup",
+        "It is only used during planned maintenance",
+        "It is a mobile unit that can be deployed anywhere"
+      ],
+      "correctIndex": 0
+    },
+    {
+      "q": "Which of the following is a common method used in phishing attacks?",
+      "choices": [
+        "Sending fake emails to trick users into revealing information",
+        "Encrypting files and demanding a ransom",
+        "Overloading a server to cause a denial of service",
+        "Injecting malicious code into a website"
+      ],
+      "correctIndex": 0
+    },
+    {
+      "q": "Which of the following is the primary objective of network segmentation?",
+      "choices": [
+        "To increase network speed",
+        "To isolate sensitive data from the rest of the network",
+        "To improve network availability",
+        "To enforce security policies"
+      ],
+      "correctIndex": 1
+    },
+    {
+      "q": "Which of the following is a characteristic of a security token?",
+      "choices": [
+        "It provides a one-time password for authentication",
+        "It is used to encrypt data at rest",
+        "It is a type of firewall",
+        "It monitors network traffic for malicious activity"
+      ],
+      "correctIndex": 0
+    },
+    {
+      "q": "Which of the following best describes a zero-day vulnerability?",
+      "choices": [
+        "A vulnerability that has been known for a long time but not yet patched",
+        "A vulnerability that is unknown to the software vendor and has no patch available",
+        "A vulnerability that is only exploitable on the first day of software release",
+        "A vulnerability that is introduced by a software update"
+      ],
+      "correctIndex": 1
+    },
+    {
+      "q": "Which of the following is the best way to protect data in transit?",
+      "choices": [
+        "Encrypting the data before transmission",
+        "Backing up the data before transmission",
+        "Compressing the data before transmission",
+        "Deleting the data after transmission"
+      ],
+      "correctIndex": 0
+    },
+    {
+      "q": "Which of the following best describes the principle of defense in depth?",
+      "choices": [
+        "Using a single strong control to protect against all threats",
+        "Applying multiple layers of security controls to protect information",
+        "Using encryption as the primary security control",
+        "Relying on physical security to protect information"
+      ],
+      "correctIndex": 1
+    },
+    {
+      "q": "Which of the following is an example of a corrective control?",
+      "choices": [
+        "Firewalls",
+        "Encryption",
+        "Security cameras",
+        "Incident response procedures"
+      ],
+      "correctIndex": 3
+    },
+    {
+      "q": "Which of the following is a key characteristic of a worm?",
+      "choices": [
+        "It disguises itself as a legitimate program",
+        "It replicates itself to spread to other systems",
+        "It requires user interaction to spread",
+        "It is used to steal sensitive information"
+      ],
+      "correctIndex": 1
+    },
+    {
+      "q": "Which of the following best describes the purpose of an intrusion prevention system (IPS)?",
+      "choices": [
+        "To monitor network traffic for malicious activity",
+        "To passively log traffic for later analysis",
+        "To detect and block malicious network activity in real time",
+        "To enforce security policies"
+      ],
+      "correctIndex": 2
+    },
+    {
+      "q": "Which of the following is the primary objective of an access control policy?",
+      "choices": [
+        "To define who can access specific resources and under what conditions",
+        "To prevent unauthorized access to network resources",
+        "To monitor user activity",
+        "To enforce security policies"
+      ],
+      "correctIndex": 0
+    },
+    {
+      "q": "Which of the following best describes the concept of separation of duties?",
+      "choices": [
+        "Assigning multiple responsibilities to a single person",
+        "Ensuring that critical tasks are performed by more than one person",
+        "Limiting user access to the minimum necessary",
+        "Using multifactor authentication for all users"
+      ],
+      "correctIndex": 1
+    },
+    {
+      "q": "Which of the following is a characteristic of a public key in asymmetric encryption?",
+      "choices": [
+        "It is kept secret and used for decryption",
+        "It is shared publicly and used for encryption",
+        "It is used to authenticate users",
+        "It is used to create digital signatures"
+      ],
+      "correctIndex": 1
+    },
+    {
+      "q": "Which of the following is a primary goal of a vulnerability assessment?",
+      "choices": [
+        "To eliminate all security risks",
+        "To identify and prioritize vulnerabilities",
+        "To monitor network traffic",
+        "To enforce security policies"
+      ],
+      "correctIndex": 1
+    },
+    {
+      "q": "Which of the following best describes a social engineering attack?",
+      "choices": [
+        "Exploiting software vulnerabilities to gain unauthorized access",
+        "Using psychological manipulation to trick users into revealing sensitive information",
+        "Overloading a system to cause a denial of service",
+        "Injecting malicious code into a website"
+      ],
+      "correctIndex": 1
+    },
+    {
+      "q": "Which of the following is a key characteristic of a cold site?",
+      "choices": [
+        "It is fully operational and ready for immediate use",
+        "It has minimal equipment and requires setup before use",
+        "It is only used during planned maintenance",
+        "It is a mobile unit that can be deployed anywhere"
+      ],
+      "correctIndex": 1
+    },
+    {
+      "q": "Which of the following is the primary purpose of an audit log?",
+      "choices": [
+        "To monitor network traffic for malicious activity",
+        "To provide a record of system activity for review",
+        "To enforce security policies",
+        "To encrypt data at rest"
+      ],
+      "correctIndex": 1
+    },
+    {
+      "q": "Which of the following best describes the role of a security operations center (SOC)?",
+      "choices": [
+        "To design and implement security policies",
+        "To monitor, detect, and respond to security incidents",
+        "To conduct security audits and assessments",
+        "To manage network infrastructure"
+      ],
+      "correctIndex": 1
+    },
+    {
+      "q": "Which of the following best describes the purpose of a security information and event management (SIEM) system?",
+      "choices": [
+        "To encrypt data at rest",
+        "To monitor and analyze security events in real-time",
+        "To manage digital certificates",
+        "To conduct vulnerability assessments"
+      ],
+      "correctIndex": 1
+    },
+    {
+      "q": "Which of the following is a characteristic of multifactor authentication (MFA)?",
+      "choices": [
+        "It uses only a password to authenticate users",
+        "It requires at least two different types of authentication factors",
+        "It eliminates the need for passwords",
+        "It simplifies the login process"
+      ],
+      "correctIndex": 1
+    },
+    {
+      "q": "Which of the following is the best way to protect against brute force attacks?",
+      "choices": [
+        "Using strong, complex passwords",
+        "Implementing multifactor authentication",
+        "Limiting the number of login attempts",
+        "Regularly updating software"
+      ],
+      "correctIndex": 2
+    },
+    {
+      "q": "Which of the following best describes the purpose of a digital signature?",
+      "choices": [
+        "To encrypt a message",
+        "To verify the identity of the sender",
+        "To ensure the message is not intercepted",
+        "To protect against malware"
+      ],
+      "correctIndex": 1
+    },
+    {
+      "q": "Which of the following is the primary objective of a disaster recovery plan (DRP)?",
+      "choices": [
+        "To recover from natural disasters",
+        "To maintain operations during and after a disruption",
+        "To ensure compliance with legal requirements",
+        "To protect against cyber attacks"
+      ],
+      "correctIndex": 0
+    },
+    {
+      "q": "Which of the following is a characteristic of the Bell-LaPadula model?",
+      "choices": [
+        "Focuses on confidentiality",
+        "Focuses on integrity",
+        "Focuses on availability",
+        "Focuses on authenticity"
+      ],
+      "correctIndex": 0
+    },
+    {
+      "q": "Which of the following best describes the concept of least privilege?",
+      "choices": [
+        "Granting users the highest level of access available",
+        "Providing users only the access necessary to perform their job functions",
+        "Allowing users to access all resources within the organization",
+        "Restricting access to critical systems to only top management"
+      ],
+      "correctIndex": 1
+    },
+    {
+      "q": "Which of the following is a common method used in a denial-of-service (DoS) attack?",
+      "choices": [
+        "Encrypting data and demanding a ransom",
+        "Flooding a network with excessive traffic",
+        "Stealing user credentials through phishing",
+        "Injecting malicious code into web applications"
+      ],
+      "correctIndex": 1
+    },
+    {
+      "q": "Which of the following is the best way to protect sensitive information during transmission?",
+      "choices": [
+        "Using strong passwords",
+        "Encrypting the data",
+        "Backing up the data regularly",
+        "Storing the data on secure servers"
+      ],
+      "correctIndex": 1
+    },
+    {
+      "q": "Which of the following best describes the role of a firewall in network security?",
+      "choices": [
+        "To prevent unauthorized physical access to network hardware",
+        "To encrypt data transmitted over the network",
+        "To monitor and filter incoming and outgoing network traffic",
+        "To back up network data"
+      ],
+      "correctIndex": 2
+    },
+    {
+      "q": "Which of the following is a primary goal of encryption?",
+      "choices": [
+        "To ensure data integrity",
+        "To protect data confidentiality",
+        "To increase data availability",
+        "To enhance data accessibility"
+      ],
+      "correctIndex": 1
+    },
+    {
+      "q": "Which of the following best describes the purpose of a security policy?",
+      "choices": [
+        "To define rules for acceptable use of resources",
+        "To implement security controls",
+        "To monitor network traffic",
+        "To assess risks"
+      ],
+      "correctIndex": 0
+    },
+    {
+      "q": "Which of the following is the primary purpose of multifactor authentication (MFA)?",
+      "choices": [
+        "To simplify the login process",
+        "To reduce the risk of unauthorized access",
+        "To eliminate the need for passwords",
+        "To improve user experience"
+      ],
+      "correctIndex": 1
+    },
+    {
+      "q": "Which of the following best describes the function of a digital signature?",
+      "choices": [
+        "To encrypt data for secure transmission",
+        "To authenticate the identity of the sender",
+        "To compress data for faster transmission",
+        "To detect changes in transmitted data"
+      ],
+      "correctIndex": 1
+    },
+    {
+      "q": "Which of the following best describes the principle of separation of duties?",
+      "choices": [
+        "Assigning multiple responsibilities to a single individual",
+        "Dividing critical tasks among multiple individuals to reduce the risk of fraud",
+        "Granting administrative privileges to all users",
+        "Limiting access to sensitive data to top management"
+      ],
+      "correctIndex": 1
+    },
+    {
+      "q": "Which of the following is a primary benefit of using a virtual private network (VPN)?",
+      "choices": [
+        "Improved network speed",
+        "Encrypted communication over an insecure network",
+        "Enhanced data storage capacity",
+        "Simplified user authentication"
+      ],
+      "correctIndex": 1
+    },
+    {
+      "q": "Which of the following is a key feature of the Clark-Wilson security model?",
+      "choices": [
+        "It emphasizes confidentiality over integrity",
+        "It uses well-formed transactions and separation of duties to ensure integrity",
+        "It is primarily used to secure government documents",
+        "It focuses on availability of information"
+      ],
+      "correctIndex": 1
+    },
+    {
+      "q": "Which of the following best describes a man-in-the-middle (MitM) attack?",
+      "choices": [
+        "An attacker intercepts and potentially alters the communication between two parties",
+        "An attacker sends a large number of requests to a server to overwhelm it",
+        "An attacker gains unauthorized access to a server through a backdoor",
+        "An attacker encrypts data and demands a ransom for decryption"
+      ],
+      "correctIndex": 0
+    },
+    {
+      "q": "Which of the following is a primary goal of security auditing?",
+      "choices": [
+        "To detect vulnerabilities in the network",
+        "To ensure compliance with security policies and procedures",
+        "To implement encryption protocols",
+        "To provide secure remote access to the network"
+      ],
+      "correctIndex": 1
+    },
+    {
+      "q": "Which of the following is a primary objective of a security operations center (SOC)?",
+      "choices": [
+        "To develop security policies",
+        "To monitor, detect, and respond to security incidents",
+        "To manage network infrastructure",
+        "To conduct security awareness training"
+      ],
+      "correctIndex": 1
+    },
+    {
+      "q": "Which of the following is a key benefit of using multifactor authentication (MFA)?",
+      "choices": [
+        "Simplifies the authentication process",
+        "Reduces the risk of unauthorized access",
+        "Eliminates the need for passwords",
+        "Increases network speed"
+      ],
+      "correctIndex": 1
+    },
+    {
+      "q": "Which of the following is a characteristic of a hot site?",
+      "choices": [
+        "It is a fully operational offsite data center equipped with the latest hardware and software",
+        "It is an offsite location with minimal equipment and requires setup before use",
+        "It is a mobile unit that can be deployed during a disaster",
+        "It is an offsite facility used only for data storage and backups"
+      ],
+      "correctIndex": 0
+    },
+    {
+      "q": "Which of the following is the best way to protect against phishing attacks?",
+      "choices": [
+        "Encrypting all email communications",
+        "Regularly updating antivirus software",
+        "Implementing security awareness training",
+        "Using firewalls to filter incoming emails"
+      ],
+      "correctIndex": 2
+    },
+    {
+      "q": "Which of the following is a key objective of business continuity planning (BCP)?",
+      "choices": [
+        "To recover from natural disasters",
+        "To maintain critical operations during and after a disruption",
+        "To ensure compliance with legal requirements",
+        "To protect against cyber attacks"
+      ],
+      "correctIndex": 1
+    },
+    {
+      "q": "Which of the following best describes the concept of risk mitigation?",
+      "choices": [
+        "Eliminating all risks",
+        "Transferring risk to another party",
+        "Reducing the impact or likelihood of risks",
+        "Ignoring risks that are not critical"
+      ],
+      "correctIndex": 2
+    },
+    {
+      "q": "Which of the following best describes the role of a digital certificate?",
+      "choices": [
+        "To encrypt data for secure transmission",
+        "To verify the identity of an entity",
+        "To authenticate the user to a network",
+        "To back up important data"
+      ],
+      "correctIndex": 1
+    },
+    {
+      "q": "Which of the following is a primary goal of access control?",
+      "choices": [
+        "To prevent unauthorized access to resources",
+        "To encrypt sensitive data",
+        "To monitor network traffic",
+        "To implement firewalls"
+      ],
+      "correctIndex": 0
+    },
+    {
+      "q": "Which of the following is a characteristic of the NIST Cybersecurity Framework?",
+      "choices": [
+        "It is only applicable to government organizations",
+        "It provides a policy framework for managing cybersecurity risk",
+        "It is mandatory for all organizations",
+        "It replaces all other cybersecurity standards"
+      ],
+      "correctIndex": 1
+    },
+    {
+      "q": "Which of the following best describes a brute force attack?",
+      "choices": [
+        "An attack that uses multiple methods to overwhelm a network",
+        "An attack that systematically tries all possible password combinations to gain access",
+        "An attack that injects malicious code into a website",
+        "An attack that manipulates social engineering techniques to deceive users"
+      ],
+      "correctIndex": 1
+    },
+    {
+      "q": "Which of the following best describes the purpose of encryption in information security?",
+      "choices": [
+        "To ensure data availability",
+        "To protect the confidentiality of data",
+        "To monitor network traffic",
+        "To assess and mitigate risks"
+      ],
+      "correctIndex": 1
+    },
+    {
+      "q": "Which of the following is a characteristic of role-based access control (RBAC)?",
+      "choices": [
+        "Access is determined by the user's role within the organization",
+        "Access is determined by the data owner",
+        "Access is based on predefined security labels",
+        "Access is controlled by the system administrator"
+      ],
+      "correctIndex": 0
+    },
+    {
+      "q": "Which of the following is a key objective of risk management?",
+      "choices": [
+        "To eliminate all security risks",
+        "To identify, assess, and mitigate risks",
+        "To implement security policies",
+        "To enforce security controls"
+      ],
+      "correctIndex": 1
+    }
+  ]
+}

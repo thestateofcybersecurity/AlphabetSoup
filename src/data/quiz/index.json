@@ -1,0 +1,74 @@
+[
+  {
+    "slug": "security-plus",
+    "name": "CompTIA Security+",
+    "mode": "choice",
+    "certKey": null,
+    "retired": false,
+    "count": 72
+  },
+  {
+    "slug": "cissp",
+    "name": "CISSP",
+    "mode": "choice",
+    "certKey": "CISSP",
+    "retired": false,
+    "count": 118
+  },
+  {
+    "slug": "ceh",
+    "name": "CEH",
+    "mode": "choice",
+    "certKey": "CEH",
+    "retired": false,
+    "count": 63
+  },
+  {
+    "slug": "chfi",
+    "name": "CHFI",
+    "mode": "choice",
+    "certKey": "CHFI",
+    "retired": false,
+    "count": 49
+  },
+  {
+    "slug": "cysa",
+    "name": "CompTIA CySA+",
+    "mode": "choice",
+    "certKey": "CYSA",
+    "retired": false,
+    "count": 53
+  },
+  {
+    "slug": "gsec",
+    "name": "GSEC",
+    "mode": "choice",
+    "certKey": "GSEC",
+    "retired": false,
+    "count": 64
+  },
+  {
+    "slug": "sscp",
+    "name": "SSCP",
+    "mode": "choice",
+    "certKey": "SSCP",
+    "retired": false,
+    "count": 54
+  },
+  {
+    "slug": "lpt",
+    "name": "LPT (retired)",
+    "mode": "choice",
+    "certKey": null,
+    "retired": true,
+    "count": 35
+  },
+  {
+    "slug": "fundamentals",
+    "name": "Cybersecurity fundamentals",
+    "mode": "flip",
+    "certKey": null,
+    "retired": false,
+    "count": 173
+  }
+]

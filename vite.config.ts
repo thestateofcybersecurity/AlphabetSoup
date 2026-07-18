@@ -11,6 +11,7 @@ export default defineConfig({
         main: 'index.html',
         nistcsf: 'frameworks/nist-csf/index.html',
         cis: 'frameworks/cis/index.html',
+        quiz: 'quiz/index.html',
       },
     },
   },

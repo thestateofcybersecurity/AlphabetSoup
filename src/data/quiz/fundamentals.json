@@ -1,0 +1,700 @@
+{
+  "name": "Cybersecurity fundamentals",
+  "mode": "flip",
+  "certKey": null,
+  "retired": false,
+  "questions": [
+    {
+      "q": "What is the primary goal of information security?",
+      "a": "To protect the confidentiality, integrity, and availability of information."
+    },
+    {
+      "q": "What is the CIA triad?",
+      "a": "Confidentiality, Integrity, and Availability."
+    },
+    {
+      "q": "What does the principle of least privilege entail?",
+      "a": "Users should only have the minimum level of access necessary to perform their duties."
+    },
+    {
+      "q": "What is confidentiality?",
+      "a": "The principle that information should not be disclosed to unauthorized individuals."
+    },
+    {
+      "q": "What is integrity?",
+      "a": "The principle that information should not be altered or destroyed in an unauthorized manner."
+    },
+    {
+      "q": "What is availability?",
+      "a": "The principle that information should be accessible to authorized users when needed."
+    },
+    {
+      "q": "What is a risk?",
+      "a": "The potential for loss or harm related to the exploitation of a vulnerability."
+    },
+    {
+      "q": "What is a vulnerability?",
+      "a": "A weakness in a system that can be exploited by threats."
+    },
+    {
+      "q": "What is a threat?",
+      "a": "A potential cause of an unwanted impact to a system or organization."
+    },
+    {
+      "q": "What is risk management?",
+      "a": "The process of identifying, assessing, and mitigating risks."
+    },
+    {
+      "q": "What is a security control?",
+      "a": "A safeguard or countermeasure to reduce risk."
+    },
+    {
+      "q": "What are administrative controls?",
+      "a": "Policies, procedures, and practices to manage and reduce risk."
+    },
+    {
+      "q": "What are technical controls?",
+      "a": "Hardware or software mechanisms used to enforce security policies."
+    },
+    {
+      "q": "What are physical controls?",
+      "a": "Security measures to protect physical assets and environments."
+    },
+    {
+      "q": "What is encryption?",
+      "a": "The process of converting information into a code to prevent unauthorized access."
+    },
+    {
+      "q": "What is a firewall?",
+      "a": "A network security device that monitors and controls incoming and outgoing network traffic."
+    },
+    {
+      "q": "What is intrusion detection?",
+      "a": "The process of monitoring network or system activities for malicious activities."
+    },
+    {
+      "q": "What is authentication?",
+      "a": "The process of verifying the identity of a user or system."
+    },
+    {
+      "q": "What is multifactor authentication?",
+      "a": "A security system that requires more than one method of authentication from independent categories of credentials."
+    },
+    {
+      "q": "What is authorization?",
+      "a": "The process of determining whether a user has permission to access a resource."
+    },
+    {
+      "q": "What is auditing?",
+      "a": "The process of reviewing and examining records to ensure that security policies are being followed."
+    },
+    {
+      "q": "What is logging?",
+      "a": "The recording of events, particularly those related to security, in a system."
+    },
+    {
+      "q": "What is access control?",
+      "a": "Mechanisms that restrict access to resources to authorized users."
+    },
+    {
+      "q": "What is discretionary access control (DAC)?",
+      "a": "An access control method where resource owners decide who has access."
+    },
+    {
+      "q": "What is mandatory access control (MAC)?",
+      "a": "An access control method where access decisions are based on predefined security labels and policies."
+    },
+    {
+      "q": "What is role-based access control (RBAC)?",
+      "a": "An access control method where access rights are assigned based on roles within an organization."
+    },
+    {
+      "q": "What is an intrusion prevention system (IPS)?",
+      "a": "A network security system designed to detect and prevent security breaches."
+    },
+    {
+      "q": "What is a digital certificate?",
+      "a": "An electronic document used to prove the ownership of a public key."
+    },
+    {
+      "q": "What is a public key infrastructure (PKI)?",
+      "a": "A framework for managing digital certificates and public-key encryption."
+    },
+    {
+      "q": "What is a security policy?",
+      "a": "A formal set of rules that people within an organization must follow."
+    },
+    {
+      "q": "What is social engineering?",
+      "a": "The use of deception to manipulate individuals into divulging confidential information."
+    },
+    {
+      "q": "What is phishing?",
+      "a": "A type of social engineering attack where attackers pose as a trustworthy entity to obtain sensitive information."
+    },
+    {
+      "q": "What is spear phishing?",
+      "a": "A targeted phishing attack directed at a specific individual or organization."
+    },
+    {
+      "q": "What is ransomware?",
+      "a": "Malware that encrypts the victim's data and demands payment for the decryption key."
+    },
+    {
+      "q": "What is a denial-of-service (DoS) attack?",
+      "a": "An attack that aims to make a system or network unavailable to users."
+    },
+    {
+      "q": "What is a distributed denial-of-service (DDoS) attack?",
+      "a": "A DoS attack carried out by multiple compromised systems, often using a botnet."
+    },
+    {
+      "q": "What is a zero-day exploit?",
+      "a": "A vulnerability in software that is exploited before the vendor has released a patch."
+    },
+    {
+      "q": "What is malware?",
+      "a": "Malicious software designed to disrupt, damage, or gain unauthorized access to a system."
+    },
+    {
+      "q": "What is a virus?",
+      "a": "Malware that attaches itself to a legitimate program and replicates itself when the program is run."
+    },
+    {
+      "q": "What is a worm?",
+      "a": "Malware that replicates itself in order to spread to other systems, often over a network."
+    },
+    {
+      "q": "What is a trojan horse?",
+      "a": "Malware disguised as legitimate software that provides unauthorized access to the user's system."
+    },
+    {
+      "q": "What is spyware?",
+      "a": "Malware that gathers information about a user without their knowledge."
+    },
+    {
+      "q": "What is a botnet?",
+      "a": "A network of compromised computers controlled by an attacker to perform coordinated tasks, often malicious."
+    },
+    {
+      "q": "What is a man-in-the-middle (MITM) attack?",
+      "a": "An attack where the attacker secretly intercepts and potentially alters communication between two parties."
+    },
+    {
+      "q": "What is encryption at rest?",
+      "a": "The process of encrypting data that is stored on a device or server."
+    },
+    {
+      "q": "What is encryption in transit?",
+      "a": "The process of encrypting data as it is transmitted over a network."
+    },
+    {
+      "q": "What is a hash function?",
+      "a": "A function that converts data into a fixed-size string of characters, which is typically a digest that represents the original data."
+    },
+    {
+      "q": "What is two-factor authentication (2FA)?",
+      "a": "A security process that requires two different forms of identification to access a resource."
+    },
+    {
+      "q": "What is network segmentation?",
+      "a": "The practice of dividing a network into smaller, isolated segments to improve security."
+    },
+    {
+      "q": "What is data loss prevention (DLP)?",
+      "a": "A strategy to ensure that sensitive data is not lost, misused, or accessed by unauthorized users."
+    },
+    {
+      "q": "What is patch management?",
+      "a": "The process of managing updates for software applications and systems to address security vulnerabilities."
+    },
+    {
+      "q": "What is endpoint protection?",
+      "a": "Security solutions that protect endpoints, such as computers and mobile devices, from threats."
+    },
+    {
+      "q": "What is a security incident?",
+      "a": "An event that indicates a potential breach of security or a violation of security policies."
+    },
+    {
+      "q": "What is incident response?",
+      "a": "The process of identifying, managing, and recovering from a security incident."
+    },
+    {
+      "q": "What is business continuity planning (BCP)?",
+      "a": "The process of creating systems of prevention and recovery to deal with potential threats to a company."
+    },
+    {
+      "q": "What is disaster recovery planning (DRP)?",
+      "a": "The process of restoring normal operations after a disruptive event, such as a natural disaster or cyberattack."
+    },
+    {
+      "q": "What is a business impact analysis (BIA)?",
+      "a": "A process to determine the potential impact of disruptions to business operations."
+    },
+    {
+      "q": "What is a recovery time objective (RTO)?",
+      "a": "The maximum allowable time to restore a system or service after a disruption."
+    },
+    {
+      "q": "What is a recovery point objective (RPO)?",
+      "a": "The maximum allowable data loss in terms of time, typically referring to the age of files that must be recovered from backup storage."
+    },
+    {
+      "q": "What is a hot site?",
+      "a": "A fully operational off-site data center where an organization can relocate to continue operations in case of a disaster."
+    },
+    {
+      "q": "What is a cold site?",
+      "a": "An off-site location that has space and infrastructure but lacks the computing equipment necessary for operations."
+    },
+    {
+      "q": "What is a warm site?",
+      "a": "A compromise between a hot site and a cold site, where an off-site location has the necessary hardware and connectivity but may require additional setup."
+    },
+    {
+      "q": "What is an acceptable use policy (AUP)?",
+      "a": "A document that outlines the acceptable use of an organization's information systems."
+    },
+    {
+      "q": "What is data classification?",
+      "a": "The process of organizing data based on its level of sensitivity or confidentiality."
+    },
+    {
+      "q": "What is least privilege?",
+      "a": "The principle of giving users the minimum level of access necessary to perform their job functions."
+    },
+    {
+      "q": "What is need to know?",
+      "a": "The principle of restricting access to information only to those who need it to perform their duties."
+    },
+    {
+      "q": "What is a security awareness program?",
+      "a": "A program designed to educate employees about security policies and procedures."
+    },
+    {
+      "q": "What is whaling?",
+      "a": "A type of phishing attack that targets high-profile individuals, such as executives."
+    },
+    {
+      "q": "What is a security operations center (SOC)?",
+      "a": "A centralized unit that deals with security issues on an organizational and technical level."
+    },
+    {
+      "q": "What is threat intelligence?",
+      "a": "The process of gathering, analyzing, and responding to information about potential or current threats."
+    },
+    {
+      "q": "What is a security audit?",
+      "a": "A systematic evaluation of an organization's information system to determine if security measures are adequate."
+    },
+    {
+      "q": "What is a penetration test?",
+      "a": "A simulated cyberattack on a system to identify vulnerabilities that could be exploited by attackers."
+    },
+    {
+      "q": "What is a vulnerability assessment?",
+      "a": "The process of identifying, quantifying, and prioritizing vulnerabilities in a system."
+    },
+    {
+      "q": "What is the difference between a penetration test and a vulnerability assessment?",
+      "a": "A penetration test actively exploits vulnerabilities to assess the effectiveness of security measures, while a vulnerability assessment identifies and categorizes vulnerabilities."
+    },
+    {
+      "q": "What is a security information and event management (SIEM) system?",
+      "a": "A solution that provides real-time analysis of security alerts generated by applications and network hardware."
+    },
+    {
+      "q": "What is data encryption?",
+      "a": "The process of converting data into a format that is unreadable to unauthorized users."
+    },
+    {
+      "q": "What is a digital signature?",
+      "a": "An electronic signature that verifies the authenticity and integrity of a message or document."
+    },
+    {
+      "q": "What is a security breach?",
+      "a": "An incident where information is accessed without authorization."
+    },
+    {
+      "q": "What is a VPN?",
+      "a": "A Virtual Private Network (VPN) extends a private network across a public network, allowing users to send and receive data as if their devices were directly connected to the private network."
+    },
+    {
+      "q": "What is a honeypot?",
+      "a": "A security mechanism set to detect, deflect, or study attempts at unauthorized use of information systems."
+    },
+    {
+      "q": "What is a DMZ (Demilitarized Zone)?",
+      "a": "A physical or logical subnetwork that contains and exposes an organization's external-facing services to a larger untrusted network, typically the internet."
+    },
+    {
+      "q": "What is a certificate authority (CA)?",
+      "a": "An entity that issues digital certificates, which are used to verify the identity of entities on a network."
+    },
+    {
+      "q": "What is a risk assessment?",
+      "a": "The process of identifying, analyzing, and evaluating risks to the organization."
+    },
+    {
+      "q": "What is a business continuity plan (BCP)?",
+      "a": "A document that outlines how a business will continue operating during an unplanned disruption in service."
+    },
+    {
+      "q": "What is a service level agreement (SLA)?",
+      "a": "A contract between a service provider and a customer that specifies the service levels that will be provided."
+    },
+    {
+      "q": "What is an incident response plan (IRP)?",
+      "a": "A plan for managing the response to a security incident, with the goal of limiting damage and reducing recovery time and costs."
+    },
+    {
+      "q": "What is a security architecture?",
+      "a": "The design artifacts that describe how security controls are positioned and how they relate to the overall IT architecture."
+    },
+    {
+      "q": "What is a security baseline?",
+      "a": "A set of minimum security requirements that an organization must meet."
+    },
+    {
+      "q": "What is a security standard?",
+      "a": "A set of detailed, specific requirements or guidelines for implementing security policies."
+    },
+    {
+      "q": "What is a security guideline?",
+      "a": "A recommended practice that supports policy or standard implementation."
+    },
+    {
+      "q": "What is a security procedure?",
+      "a": "A step-by-step instruction to perform a specific task in accordance with security policy."
+    },
+    {
+      "q": "What is single sign-on (SSO)?",
+      "a": "An authentication process that allows a user to access multiple applications with one set of login credentials."
+    },
+    {
+      "q": "What is a session hijacking attack?",
+      "a": "An attack where an attacker takes control of a user's session to gain unauthorized access to information or services."
+    },
+    {
+      "q": "What is cross-site scripting (XSS)?",
+      "a": "A vulnerability that allows attackers to inject malicious scripts into web pages viewed by other users."
+    },
+    {
+      "q": "What is SQL injection?",
+      "a": "A code injection technique that exploits a security vulnerability in an application's software by injecting SQL code into a query."
+    },
+    {
+      "q": "What is a buffer overflow?",
+      "a": "A vulnerability that occurs when more data is written to a buffer than it can hold, potentially leading to arbitrary code execution."
+    },
+    {
+      "q": "What is the difference between symmetric and asymmetric encryption?",
+      "a": "Symmetric encryption uses the same key for encryption and decryption, while asymmetric encryption uses a pair of keys: a public key for encryption and a private key for decryption."
+    },
+    {
+      "q": "What is the purpose of a digital certificate?",
+      "a": "To associate the ownership of a public key with the entity that owns it, ensuring the key is trusted."
+    },
+    {
+      "q": "What is the primary function of a VPN?",
+      "a": "To create a secure, encrypted connection over a less secure network, typically the internet."
+    },
+    {
+      "q": "What is an access control list (ACL)?",
+      "a": "A list of permissions associated with a system resource that defines which users or system processes can access that resource."
+    },
+    {
+      "q": "What is multi-factor authentication (MFA)?",
+      "a": "A security system that requires more than one method of authentication to verify the user’s identity."
+    },
+    {
+      "q": "What is a zero trust model?",
+      "a": "A security concept that assumes all users, devices, and networks are untrusted by default, even if they are inside the network perimeter."
+    },
+    {
+      "q": "What is a sandbox in cybersecurity?",
+      "a": "An isolated environment used to safely run and analyze suspicious files or code without affecting the rest of the system."
+    },
+    {
+      "q": "What is an attack surface?",
+      "a": "The sum of all possible points where an unauthorized user can try to enter data to or extract data from an environment."
+    },
+    {
+      "q": "What is data at rest?",
+      "a": "Data that is stored on a physical device, such as a hard drive, and is not currently being used or transmitted."
+    },
+    {
+      "q": "What is data in transit?",
+      "a": "Data that is actively moving from one location to another, such as across the internet or through a private network."
+    },
+    {
+      "q": "What is a certificate revocation list (CRL)?",
+      "a": "A list of digital certificates that have been revoked by the certificate authority before their expiration date."
+    },
+    {
+      "q": "What is a key distribution center (KDC)?",
+      "a": "A system for securely distributing symmetric keys in a network, often used in Kerberos authentication."
+    },
+    {
+      "q": "What is a mantrap in physical security?",
+      "a": "A physical security device that consists of two interlocking doors, where the first door must close before the second door can open."
+    },
+    {
+      "q": "What is the purpose of a demilitarized zone (DMZ) in networking?",
+      "a": "To add an additional layer of security to an organization's local area network by isolating external-facing services from the internal network."
+    },
+    {
+      "q": "What is a security token?",
+      "a": "A physical or virtual device that provides authentication by generating a one-time-use password or by storing a cryptographic key."
+    },
+    {
+      "q": "What is a session key?",
+      "a": "A temporary encryption key used for a single session or transaction between two parties."
+    },
+    {
+      "q": "What is a nonce in cryptography?",
+      "a": "A random or pseudo-random number that is used only once in cryptographic communication to prevent replay attacks."
+    },
+    {
+      "q": "What is the principle of defense in depth?",
+      "a": "A layered approach to security where multiple defensive measures are implemented to protect the integrity of information."
+    },
+    {
+      "q": "What is a honeynet?",
+      "a": "A network of honeypots designed to attract and analyze attacks on an organization's IT systems."
+    },
+    {
+      "q": "What is threat modeling?",
+      "a": "A process for identifying, understanding, and prioritizing potential threats to an organization's information assets."
+    },
+    {
+      "q": "What is the purpose of network segmentation?",
+      "a": "To divide a network into smaller segments to improve security and performance by limiting the spread of security incidents."
+    },
+    {
+      "q": "What is cross-site request forgery (CSRF)?",
+      "a": "An attack that tricks the user into executing unwanted actions on a different website where they are authenticated."
+    },
+    {
+      "q": "What is input validation?",
+      "a": "The practice of ensuring that input data is properly formatted, secure, and acceptable before it is processed by an application."
+    },
+    {
+      "q": "What is a memory leak?",
+      "a": "A situation where a program incorrectly manages memory allocations, resulting in reduced performance or failure over time."
+    },
+    {
+      "q": "What is a logic bomb?",
+      "a": "Malware that is triggered by a specific event, date, or condition within a system."
+    },
+    {
+      "q": "What is an advanced persistent threat (APT)?",
+      "a": "A prolonged and targeted cyberattack in which an intruder gains access to a network and remains undetected for an extended period."
+    },
+    {
+      "q": "What is steganography?",
+      "a": "The practice of hiding data within other non-secret text or data, such as embedding a hidden message within an image."
+    },
+    {
+      "q": "What is a security policy violation?",
+      "a": "An action that goes against the established rules and protocols for safeguarding an organization’s assets."
+    },
+    {
+      "q": "What is a brute force attack?",
+      "a": "An attack where an attacker tries many different passwords or keys until the correct one is found."
+    },
+    {
+      "q": "What is a rainbow table attack?",
+      "a": "An attack that uses precomputed tables of hash values to crack password hashes."
+    },
+    {
+      "q": "What is the purpose of a security awareness training program?",
+      "a": "To educate employees about security risks and the actions they can take to protect information and systems."
+    },
+    {
+      "q": "What is the role of a data custodian?",
+      "a": "An individual responsible for the safe custody, transport, and storage of data and the implementation of business rules."
+    },
+    {
+      "q": "What is identity federation?",
+      "a": "A system where multiple organizations can share and use each other’s authentication credentials."
+    },
+    {
+      "q": "What is a social engineering attack?",
+      "a": "An attack that relies on human interaction and often involves tricking people into breaking normal security procedures."
+    },
+    {
+      "q": "What is a security framework?",
+      "a": "A structured approach for managing and reducing cybersecurity risk, such as the NIST Cybersecurity Framework."
+    },
+    {
+      "q": "What is a security posture?",
+      "a": "An organization’s overall security status based on the networks, information, and systems it uses and how well it protects them."
+    },
+    {
+      "q": "What is an incident response playbook?",
+      "a": "A documented process that outlines the steps an organization should take in response to a specific type of security incident."
+    },
+    {
+      "q": "What is the purpose of a data retention policy?",
+      "a": "To define how long data should be stored and when it should be disposed of, based on legal, regulatory, and business requirements."
+    },
+    {
+      "q": "What is tokenization in data security?",
+      "a": "The process of substituting sensitive data with a unique identifier (token) that cannot be reverse-engineered to the original data."
+    },
+    {
+      "q": "What is a digital watermark?",
+      "a": "An embedded identifier or code in digital content, such as images or videos, used to trace and protect the content."
+    },
+    {
+      "q": "What is the purpose of network sniffing?",
+      "a": "To monitor and capture data packets as they traverse a network, often used in both legitimate and malicious activities."
+    },
+    {
+      "q": "What is the purpose of a vulnerability scan?",
+      "a": "To identify security weaknesses in a system by analyzing the system's vulnerabilities before they can be exploited."
+    },
+    {
+      "q": "What is an eavesdropping attack?",
+      "a": "An attack where the attacker secretly listens to the private communication of others without their consent."
+    },
+    {
+      "q": "What is the difference between data anonymization and pseudonymization?",
+      "a": "Data anonymization removes all personal identifiers, making data non-identifiable, while pseudonymization replaces identifiers with pseudonyms that can be reversed."
+    },
+    {
+      "q": "What is a bot in cybersecurity?",
+      "a": "An automated software program that performs tasks on the internet, often used in both legitimate tasks and malicious activities like DDoS attacks."
+    },
+    {
+      "q": "What is the purpose of a security operations center (SOC)?",
+      "a": "To monitor, detect, analyze, and respond to cybersecurity incidents in real time."
+    },
+    {
+      "q": "What is a rogue access point?",
+      "a": "An unauthorized wireless access point that has been installed on a secure network without the network administrator's knowledge."
+    },
+    {
+      "q": "What is pharming?",
+      "a": "An attack that redirects a website's traffic to a fraudulent site, often used to steal login credentials."
+    },
+    {
+      "q": "What is password salting?",
+      "a": "Adding random data (salt) to a password before it is hashed, making it more difficult for attackers to crack the hash using precomputed tables."
+    },
+    {
+      "q": "What is an insider threat?",
+      "a": "A security risk that comes from within the organization, typically involving employees, former employees, or business associates."
+    },
+    {
+      "q": "What is the purpose of a jump server?",
+      "a": "A secure server used to manage and provide access to other servers in a different security zone, often used to mitigate risks."
+    },
+    {
+      "q": "What is an encryption key?",
+      "a": "A piece of information or parameter used in cryptography to encrypt or decrypt data."
+    },
+    {
+      "q": "What is a denial of service (DoS) attack?",
+      "a": "An attack aimed at making a service, network, or system unavailable to its intended users."
+    },
+    {
+      "q": "What is an application programming interface (API) security?",
+      "a": "Measures and controls to protect APIs from attacks and ensure they operate as intended."
+    },
+    {
+      "q": "What is data leakage prevention (DLP)?",
+      "a": "Strategies and tools used to prevent unauthorized access, transfer, or sharing of sensitive data."
+    },
+    {
+      "q": "What is a vulnerability disclosure program?",
+      "a": "A program that allows security researchers to report vulnerabilities they find in an organization's systems."
+    },
+    {
+      "q": "What is a backdoor in cybersecurity?",
+      "a": "A method of bypassing normal authentication to gain unauthorized access to a system, often left by attackers."
+    },
+    {
+      "q": "What is the purpose of encryption in email?",
+      "a": "To protect the confidentiality of email content by ensuring that only the intended recipient can read it."
+    },
+    {
+      "q": "What is the purpose of an access control matrix?",
+      "a": "To define the rights and permissions that users have for accessing resources within a system."
+    },
+    {
+      "q": "What is a distributed denial of service (DDoS) attack?",
+      "a": "A DoS attack that originates from multiple sources, making it harder to mitigate."
+    },
+    {
+      "q": "What is a rootkit?",
+      "a": "Malware designed to gain unauthorized root or administrative access to a system and hide its presence."
+    },
+    {
+      "q": "What is the purpose of a penetration test?",
+      "a": "To simulate an attack on a system to identify and exploit vulnerabilities before they can be exploited by attackers."
+    },
+    {
+      "q": "What is an attack vector?",
+      "a": "A method or pathway that an attacker uses to access a network or system."
+    },
+    {
+      "q": "What is the purpose of multifactor authentication (MFA)?",
+      "a": "To enhance security by requiring more than one form of authentication to verify a user's identity."
+    },
+    {
+      "q": "What is the difference between hashing and encryption?",
+      "a": "Hashing is a one-way function that transforms data into a fixed-size string, while encryption is a reversible process that secures data."
+    },
+    {
+      "q": "What is a perimeter security?",
+      "a": "Security measures to protect the outer boundaries of a network or facility."
+    },
+    {
+      "q": "What is the purpose of a security audit?",
+      "a": "To evaluate and ensure that security policies, procedures, and controls are effective and being followed."
+    },
+    {
+      "q": "What is the principle of least privilege?",
+      "a": "The practice of granting users only the permissions necessary to perform their job functions, nothing more."
+    },
+    {
+      "q": "What is a demilitarized zone (DMZ)?",
+      "a": "A physical or logical subnetwork that separates an internal network from untrusted external networks, like the internet."
+    },
+    {
+      "q": "What is a load balancer?",
+      "a": "A device or software that distributes network or application traffic across multiple servers to ensure reliability and performance."
+    },
+    {
+      "q": "What is a time-based one-time password (TOTP)?",
+      "a": "A temporary passcode generated using the current time and a shared secret, used in two-factor authentication."
+    },
+    {
+      "q": "What is the purpose of an intrusion detection system (IDS)?",
+      "a": "To monitor network traffic for suspicious activity and alert administrators of potential threats."
+    },
+    {
+      "q": "What is a software patch?",
+      "a": "A set of changes to a software program designed to update, fix, or improve it, especially in terms of security vulnerabilities."
+    },
+    {
+      "q": "What is the purpose of network encryption?",
+      "a": "To protect data transmitted across a network by converting it into a secure format that cannot be read by unauthorized users."
+    },
+    {
+      "q": "What is a cryptographic key?",
+      "a": "A string of data used to encrypt and decrypt information, ensuring confidentiality and integrity."
+    },
+    {
+      "q": "What is data sanitization?",
+      "a": "The process of securely removing sensitive data from a system so that it cannot be recovered or reconstructed."
+    },
+    {
+      "q": "What is an air gap in cybersecurity?",
+      "a": "A security measure where a system is physically isolated from other networks, making it inaccessible from the internet."
+    }
+  ]
+}
