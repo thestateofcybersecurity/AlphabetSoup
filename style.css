@@ -331,6 +331,9 @@ body {
   overflow-x: auto;
   padding-bottom: 4px;
   scrollbar-width: thin;
+  /* Fade the trailing edge so it reads as "more, scroll right" rather than a cut-off. */
+  -webkit-mask-image: linear-gradient(to right, #000 calc(100% - 22px), transparent);
+  mask-image: linear-gradient(to right, #000 calc(100% - 22px), transparent);
 }
 
 .pill {

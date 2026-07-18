@@ -7,6 +7,7 @@ import {
   recordRound,
   reviewSession,
   scorePercent,
+  shuffle,
   shuffledChoices,
 } from './lib/quiz';
 import type {
@@ -119,7 +120,7 @@ async function startDrill(meta: DeckMeta): Promise<void> {
   fullRound = false;
   roundCorrect = [];
   roundMissed = [];
-  session = { order: indexes.sort(() => Math.random() - 0.5), position: 0, correct: 0, missed: [] };
+  session = { order: shuffle(indexes), position: 0, correct: 0, missed: [] };
   renderQuestion();
 }
 
