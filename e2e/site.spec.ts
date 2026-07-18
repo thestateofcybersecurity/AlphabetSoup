@@ -11,12 +11,29 @@ test('homepage searches and expands an entry', async ({ page }) => {
   await expect(first.locator('.permalink')).toHaveAttribute('href', 'definitions/siem.html');
 });
 
-test('category pill and difficulty filters narrow results', async ({ page }) => {
+test('category pill narrows results (no difficulty dropdown)', async ({ page }) => {
   await page.goto('/');
+  await expect(page.locator('#difficulty')).toHaveCount(0);
   await page.locator('.pill', { hasText: 'crypto' }).click();
   await expect(page.locator('#result-meta')).toContainText('match');
   const chips = page.locator('.entry .cat-dot');
   await expect(chips.first()).toHaveText('crypto');
+});
+
+test('results page through with Show more', async ({ page }) => {
+  await page.goto('/');
+  // Default browse view caps at 60 and offers a Show more button.
+  await expect(page.locator('.entry')).toHaveCount(60);
+  await expect(page.locator('#result-meta')).toContainText('showing 60');
+  await page.locator('.show-more').click();
+  await expect(page.locator('.entry').first()).toBeVisible();
+  await expect(page.locator('.entry')).toHaveCount(120);
+});
+
+test('MITRE and Cyberdle nav links open in a new tab', async ({ page }) => {
+  await page.goto('/');
+  await expect(page.locator('.site-nav a', { hasText: 'MITRE' })).toHaveAttribute('target', '_blank');
+  await expect(page.locator('.site-nav a', { hasText: 'Cyberdle' })).toHaveAttribute('target', '_blank');
 });
 
 test('soup of the day links to a definition page', async ({ page }) => {

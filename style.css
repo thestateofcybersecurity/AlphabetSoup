@@ -402,14 +402,25 @@ body {
   cursor: default;
 }
 
-.difficulty-select {
+.show-more {
+  appearance: none;
+  align-self: center;
+  margin: 8px auto 0;
   font-family: var(--font-mono);
   font-size: 0.78rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--tomato);
   background: var(--paper-raised);
-  color: var(--ink);
   border: 1.5px solid var(--line);
-  border-radius: 8px;
-  padding: 6px 10px;
+  border-radius: 999px;
+  padding: 10px 22px;
+  cursor: pointer;
+  transition: border-color 0.12s;
+}
+
+.show-more:hover {
+  border-color: var(--tomato);
 }
 
 /* ------------------------------ main ------------------------------- */
