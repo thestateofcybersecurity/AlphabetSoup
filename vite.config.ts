@@ -6,6 +6,13 @@ export default defineConfig({
   base: './',
   build: {
     target: 'es2022',
+    rollupOptions: {
+      input: {
+        main: 'index.html',
+        nistcsf: 'frameworks/nist-csf/index.html',
+        cis: 'frameworks/cis/index.html',
+      },
+    },
   },
   test: {
     // Playwright specs live in e2e/ and must not run under Vitest.

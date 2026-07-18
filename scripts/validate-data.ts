@@ -1,17 +1,28 @@
 import { readFileSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
 import { validateData } from '../src/data/validate';
+import { validateCis, validateCsf } from '../src/lib/frameworks';
 import type { AcronymData } from '../src/lib/types';
+import type { CisData, CsfData } from '../src/lib/frameworks';
 
-const dataPath = fileURLToPath(new URL('../src/data/acronyms.json', import.meta.url));
-const data = JSON.parse(readFileSync(dataPath, 'utf8')) as AcronymData;
+const load = <T>(rel: string): T =>
+  JSON.parse(readFileSync(fileURLToPath(new URL(rel, import.meta.url)), 'utf8')) as T;
 
-const errors = validateData(data);
-const count = Object.keys(data).length;
+const acronyms = load<AcronymData>('../src/data/acronyms.json');
+const csf = load<CsfData>('../src/data/nist-csf.json');
+const cis = load<CisData>('../src/data/cis.json');
 
-if (errors.length > 0) {
-  console.error(`Dataset INVALID (${count} entries, ${errors.length} problems):`);
-  for (const error of errors) console.error(`  - ${error}`);
+const problems = [
+  ...validateData(acronyms).map((e) => `acronyms: ${e}`),
+  ...validateCsf(csf).map((e) => `nist-csf: ${e}`),
+  ...validateCis(cis).map((e) => `cis: ${e}`),
+];
+
+if (problems.length > 0) {
+  console.error(`Data INVALID (${problems.length} problems):`);
+  for (const problem of problems) console.error(`  - ${problem}`);
   process.exit(1);
 }
-console.log(`Dataset OK: ${count} entries.`);
+console.log(
+  `Data OK: ${Object.keys(acronyms).length} acronyms, ${Object.keys(csf).length} CSF subcategories, ${Object.keys(cis).length} CIS safeguards.`,
+);

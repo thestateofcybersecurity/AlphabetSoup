@@ -1,20 +1,35 @@
 import { mkdirSync, readFileSync, writeFileSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
 import { resolveLegacySlug, slugForKey } from '../src/lib/slug';
+import { frameworkSlug } from '../src/lib/frameworks';
 import type { AcronymData, AcronymEntry } from '../src/lib/types';
+import type { CisData, CsfData } from '../src/lib/frameworks';
 
 const SITE = 'https://cybersecurityalphabetsoup.com';
 const CYBERDLE = 'https://thestateofcybersecurity.github.io/cyberdle/';
 
 const root = fileURLToPath(new URL('..', import.meta.url));
 const data = JSON.parse(readFileSync(`${root}src/data/acronyms.json`, 'utf8')) as AcronymData;
+const csf = JSON.parse(readFileSync(`${root}src/data/nist-csf.json`, 'utf8')) as CsfData;
+const cis = JSON.parse(readFileSync(`${root}src/data/cis.json`, 'utf8')) as CisData;
 const legacy = JSON.parse(readFileSync(`${root}src/data/legacy-slugs.json`, 'utf8')) as {
   definitions: string[];
   root: string[];
 };
 
+/** Acronym keys whose definition pages link to a framework translation section. */
+const FRAMEWORK_LINKS: Record<string, { path: string; label: string }> = {
+  CSF: { path: 'nist-csf', label: 'NIST CSF 2.0 translated in plain English' },
+  NIST: { path: 'nist-csf', label: 'NIST CSF 2.0 translated in plain English' },
+  RMF: { path: 'nist-csf', label: 'NIST CSF 2.0 translated in plain English' },
+  CIS: { path: 'cis', label: 'CIS Controls v8 translated in plain English' },
+  CSC: { path: 'cis', label: 'CIS Controls v8 translated in plain English' },
+};
+
 const dist = `${root}dist`;
 mkdirSync(`${dist}/definitions`, { recursive: true });
+mkdirSync(`${dist}/frameworks/nist-csf`, { recursive: true });
+mkdirSync(`${dist}/frameworks/cis`, { recursive: true });
 
 const esc = (value: string): string =>
   value.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
@@ -109,6 +124,11 @@ function definitionPage(key: string, entry: AcronymEntry): string {
     </ul>
     <h2>More in ${entry.category}</h2>
     <div class="related">${related}</div>
+    ${
+      FRAMEWORK_LINKS[key]
+        ? `<h2>Go deeper</h2>\n    <div class="related"><a href="../frameworks/${FRAMEWORK_LINKS[key].path}/">${esc(FRAMEWORK_LINKS[key].label)} &rarr;</a></div>`
+        : ''
+    }
     <footer>
       <p class="play">Think you could have guessed it? <a href="${CYBERDLE}" rel="noopener">Play Cyberdle, the daily acronym game &rarr;</a></p>
       <p>Part of <a href="../">Cybersecurity Alphabet Soup</a>, a plain-English dictionary of ${Object.keys(data).length} cybersecurity acronyms.</p>
@@ -176,8 +196,156 @@ for (const name of legacy.root) {
   rootRedirects++;
 }
 
-// 4. Sitemap and robots.
-const urls = [`${SITE}/`, ...keys.map((key) => `${SITE}/definitions/${slugForKey(key)}.html`)];
+// 4. Framework translation pages (NIST CSF 2.0 and CIS Controls v8).
+const FW_EXTRA_CSS = `
+.metaphor{border-left:3px solid var(--tomato);background:var(--paper-raised);padding:12px 16px;border-radius:0 10px 10px 0;margin:0 0 16px;font-family:'Fraunces',Georgia,serif;font-style:italic;font-size:1.05rem}
+.metaphor .label{display:block;font-family:'IBM Plex Mono',monospace;font-style:normal;font-size:.62rem;letter-spacing:.16em;text-transform:uppercase;color:var(--tomato);margin-bottom:4px}
+.pager{display:flex;justify-content:space-between;gap:10px;margin-top:20px;font-family:'IBM Plex Mono',monospace;font-size:.8rem}
+.pager a{text-decoration:none;border:1.5px solid var(--line);border-radius:999px;padding:6px 14px;color:var(--ink)}
+.pager a:hover{border-color:var(--tomato);color:var(--tomato)}
+`.trim();
+
+interface FrameworkPageInput {
+  id: string;
+  kickerTop: string;
+  heading: string;
+  metaphor: string;
+  translation: string;
+  sectionPath: 'nist-csf' | 'cis';
+  sectionLabel: string;
+  officialName: string;
+  officialUrl: string;
+  prev?: string;
+  next?: string;
+  accent: string;
+  accentDark: string;
+}
+
+function frameworkPage(input: FrameworkPageInput): string {
+  const slug = frameworkSlug(input.id);
+  const url = `${SITE}/frameworks/${input.sectionPath}/${slug}.html`;
+  const description = esc(input.translation.split('. ')[0] + '.');
+  const jsonLd = JSON.stringify({
+    '@context': 'https://schema.org',
+    '@type': 'DefinedTerm',
+    name: input.id,
+    description: `${input.heading} In plain English: ${input.translation}`,
+    url,
+    inDefinedTermSet: { '@type': 'DefinedTermSet', name: input.sectionLabel, url: `${SITE}/frameworks/${input.sectionPath}/` },
+  });
+  const pager = `${
+    input.prev
+      ? `<a href="${frameworkSlug(input.prev)}.html">&larr; ${esc(input.prev)}</a>`
+      : '<span></span>'
+  }${
+    input.next
+      ? `<a href="${frameworkSlug(input.next)}.html">${esc(input.next)} &rarr;</a>`
+      : '<span></span>'
+  }`;
+  return `<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="color-scheme" content="light dark">
+  <title>${esc(input.id)} in plain English | ${esc(input.sectionLabel)} | Cybersecurity Alphabet Soup</title>
+  <meta name="description" content="${description}">
+  <link rel="canonical" href="${url}">
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="${esc(input.id)} in plain English">
+  <meta property="og:description" content="${description}">
+  <meta property="og:url" content="${url}">
+  <meta property="og:image" content="${SITE}/og-image.png">
+  <meta name="twitter:card" content="summary">
+  <link rel="icon" href="../../icon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,900;1,9..144,500&family=IBM+Plex+Mono:wght@500;600&family=IBM+Plex+Sans:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+  <style>${PAGE_CSS}
+:root{--tomato:${input.accent}}
+@media(prefers-color-scheme:dark){:root{--tomato:${input.accentDark}}}
+${FW_EXTRA_CSS}</style>
+  <script type="application/ld+json">${jsonLd}</script>
+</head>
+<body>
+  <div class="wrap">
+    <a class="home" href="./">&larr; ${esc(input.sectionLabel)}</a>
+    <h1>${esc(input.id)}</h1>
+    <p class="expansion">${esc(input.kickerTop)}</p>
+    <div class="card"><p>${esc(input.heading)}</p></div>
+    <div class="metaphor"><span class="label">Think of it like</span>${esc(input.metaphor)}</div>
+    <h2>In plain English</h2>
+    <p>${esc(input.translation)}</p>
+    <nav class="pager">${pager}</nav>
+    <footer>
+      <p class="play">Learn the language too: <a href="../../">browse the acronym glossary</a> or <a href="${CYBERDLE}" rel="noopener">play Cyberdle &rarr;</a></p>
+      <p>Unofficial plain-English companion. Official source: <a href="${esc(input.officialUrl)}" rel="noopener">${esc(input.officialName)}</a>.</p>
+    </footer>
+  </div>
+</body>
+</html>
+`;
+}
+
+const csfIds = Object.keys(csf).sort();
+csfIds.forEach((id, i) => {
+  const entry = csf[id];
+  writeFileSync(
+    `${dist}/frameworks/nist-csf/${frameworkSlug(id)}.html`,
+    frameworkPage({
+      id,
+      kickerTop: `${entry.function} / ${entry.category}`,
+      heading: entry.text,
+      metaphor: entry.metaphor,
+      translation: entry.translation,
+      sectionPath: 'nist-csf',
+      sectionLabel: 'NIST CSF 2.0 in plain English',
+      officialName: 'NIST Cybersecurity Framework',
+      officialUrl: 'https://www.nist.gov/cyberframework',
+      prev: csfIds[i - 1],
+      next: csfIds[i + 1],
+      accent: '#2c6e91',
+      accentDark: '#5da4c9',
+    }),
+  );
+});
+
+const cisIds = Object.keys(cis).sort((a, b) => {
+  const [a1, a2] = a.split('.').map(Number);
+  const [b1, b2] = b.split('.').map(Number);
+  return a1 - b1 || a2 - b2;
+});
+cisIds.forEach((id, i) => {
+  const entry = cis[id];
+  writeFileSync(
+    `${dist}/frameworks/cis/${frameworkSlug(id)}.html`,
+    frameworkPage({
+      id,
+      kickerTop: `Control ${entry.control} / ${entry.controlName}`,
+      heading: entry.title,
+      metaphor: entry.metaphor,
+      translation: entry.translation,
+      sectionPath: 'cis',
+      sectionLabel: 'CIS Controls v8 in plain English',
+      officialName: 'CIS Critical Security Controls',
+      officialUrl: 'https://www.cisecurity.org/controls',
+      prev: cisIds[i - 1],
+      next: cisIds[i + 1],
+      accent: '#3e7d4f',
+      accentDark: '#6fb383',
+    }),
+  );
+});
+
+// 5. Sitemap and robots.
+const urls = [
+  `${SITE}/`,
+  `${SITE}/frameworks/nist-csf/`,
+  `${SITE}/frameworks/cis/`,
+  ...keys.map((key) => `${SITE}/definitions/${slugForKey(key)}.html`),
+  ...csfIds.map((id) => `${SITE}/frameworks/nist-csf/${frameworkSlug(id)}.html`),
+  ...cisIds.map((id) => `${SITE}/frameworks/cis/${frameworkSlug(id)}.html`),
+];
 const sitemap = `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 ${urls.map((url) => `  <url><loc>${esc(url)}</loc></url>`).join('\n')}
@@ -187,5 +355,5 @@ writeFileSync(`${dist}/sitemap.xml`, sitemap);
 writeFileSync(`${dist}/robots.txt`, `User-agent: *\nAllow: /\n\nSitemap: ${SITE}/sitemap.xml\n`);
 
 console.log(
-  `Generated ${keys.length} definition pages, ${aliases} legacy aliases, ${fallbacks} search fallbacks, ${rootRedirects} root redirects, sitemap with ${urls.length} URLs.`,
+  `Generated ${keys.length} definition pages, ${csfIds.length} CSF pages, ${cisIds.length} CIS pages, ${aliases} legacy aliases, ${fallbacks} search fallbacks, ${rootRedirects} root redirects, sitemap with ${urls.length} URLs.`,
 );
