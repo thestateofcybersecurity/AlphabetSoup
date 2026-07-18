@@ -1,0 +1,648 @@
+{
+  "name": "GSEC",
+  "mode": "choice",
+  "certKey": "GSEC",
+  "retired": false,
+  "questions": [
+    {
+      "q": "What is the primary function of a firewall?",
+      "choices": [
+        "To scan for viruses",
+        "To filter incoming and outgoing network traffic",
+        "To manage encryption keys",
+        "To back up data"
+      ],
+      "correctIndex": 1
+    },
+    {
+      "q": "Which of the following best describes the principle of least privilege?",
+      "choices": [
+        "Providing users with the minimum level of access required to perform their jobs",
+        "Granting users full access to all resources",
+        "Allowing users to share their credentials",
+        "Restricting access to administrators only"
+      ],
+      "correctIndex": 0
+    },
+    {
+      "q": "What does the acronym 'CIA' stand for in information security?",
+      "choices": [
+        "Confidentiality, Integrity, Availability",
+        "Confidentiality, Integrity, Authentication",
+        "Confidentiality, Information, Availability",
+        "Control, Integrity, Authentication"
+      ],
+      "correctIndex": 0
+    },
+    {
+      "q": "Which of the following is an example of a social engineering attack?",
+      "choices": [
+        "Phishing",
+        "SQL injection",
+        "Buffer overflow",
+        "Man-in-the-middle attack"
+      ],
+      "correctIndex": 0
+    },
+    {
+      "q": "What is the primary purpose of encryption?",
+      "choices": [
+        "To ensure data confidentiality",
+        "To ensure data availability",
+        "To ensure data integrity",
+        "To ensure data authenticity"
+      ],
+      "correctIndex": 0
+    },
+    {
+      "q": "Which of the following is a hashing algorithm?",
+      "choices": [
+        "MD5",
+        "AES",
+        "RSA",
+        "DES"
+      ],
+      "correctIndex": 0
+    },
+    {
+      "q": "Which of the following is considered a strong password policy?",
+      "choices": [
+        "Using a minimum of 8 characters with a mix of letters, numbers, and symbols",
+        "Using the same password across multiple accounts",
+        "Sharing passwords with coworkers",
+        "Writing down passwords and keeping them in your wallet"
+      ],
+      "correctIndex": 0
+    },
+    {
+      "q": "Which of the following is an example of multi-factor authentication?",
+      "choices": [
+        "A password and a fingerprint",
+        "A password and a security question",
+        "A password and an email",
+        "A password and a PIN"
+      ],
+      "correctIndex": 0
+    },
+    {
+      "q": "What is a key difference between symmetric and asymmetric encryption?",
+      "choices": [
+        "Symmetric encryption uses the same key for encryption and decryption, while asymmetric encryption uses different keys",
+        "Symmetric encryption is slower than asymmetric encryption",
+        "Asymmetric encryption is less secure than symmetric encryption",
+        "Symmetric encryption does not use keys"
+      ],
+      "correctIndex": 0
+    },
+    {
+      "q": "Which of the following is an example of a denial-of-service (DoS) attack?",
+      "choices": [
+        "Flooding a network with excessive traffic to overwhelm resources",
+        "Stealing sensitive information through phishing",
+        "Injecting malicious code into a web application",
+        "Gaining unauthorized access through a brute force attack"
+      ],
+      "correctIndex": 0
+    },
+    {
+      "q": "What is the purpose of an intrusion detection system (IDS)?",
+      "choices": [
+        "To detect and alert on potential security breaches",
+        "To prevent unauthorized access",
+        "To encrypt data",
+        "To monitor network performance"
+      ],
+      "correctIndex": 0
+    },
+    {
+      "q": "Which of the following is a method of ensuring data integrity?",
+      "choices": [
+        "Hashing",
+        "Encrypting",
+        "Compressing",
+        "Backing up"
+      ],
+      "correctIndex": 0
+    },
+    {
+      "q": "What does the term 'phishing' refer to?",
+      "choices": [
+        "Sending fraudulent emails to trick recipients into revealing sensitive information",
+        "Scanning for vulnerabilities in a network",
+        "Intercepting communications between two parties",
+        "Infecting a system with malware"
+      ],
+      "correctIndex": 0
+    },
+    {
+      "q": "Which of the following is a key feature of a VPN?",
+      "choices": [
+        "It encrypts data transmitted over a public network",
+        "It scans for viruses",
+        "It filters web content",
+        "It manages user accounts"
+      ],
+      "correctIndex": 0
+    },
+    {
+      "q": "Which of the following best describes social engineering?",
+      "choices": [
+        "Manipulating people into performing actions or divulging confidential information",
+        "Exploiting software vulnerabilities",
+        "Gaining unauthorized access through a network",
+        "Conducting a brute force attack"
+      ],
+      "correctIndex": 0
+    },
+    {
+      "q": "What is the main goal of incident response?",
+      "choices": [
+        "To contain and mitigate the impact of a security incident",
+        "To monitor network traffic",
+        "To develop secure applications",
+        "To conduct a vulnerability assessment"
+      ],
+      "correctIndex": 0
+    },
+    {
+      "q": "Which of the following is a common method used in password cracking?",
+      "choices": [
+        "Brute force attack",
+        "Phishing",
+        "SQL injection",
+        "Cross-site scripting (XSS)"
+      ],
+      "correctIndex": 0
+    },
+    {
+      "q": "What is the primary purpose of data encryption?",
+      "choices": [
+        "To protect data confidentiality",
+        "To ensure data availability",
+        "To ensure data integrity",
+        "To authenticate users"
+      ],
+      "correctIndex": 0
+    },
+    {
+      "q": "Which of the following is a risk management strategy?",
+      "choices": [
+        "Risk avoidance",
+        "Risk enhancement",
+        "Risk ignoring",
+        "Risk doubling"
+      ],
+      "correctIndex": 0
+    },
+    {
+      "q": "What is the purpose of a digital certificate?",
+      "choices": [
+        "To verify the identity of a user or device",
+        "To encrypt network traffic",
+        "To store passwords",
+        "To monitor system performance"
+      ],
+      "correctIndex": 0
+    },
+    {
+      "q": "Which of the following is a commonly used hashing algorithm?",
+      "choices": [
+        "SHA-256",
+        "AES",
+        "RSA",
+        "DES"
+      ],
+      "correctIndex": 0
+    },
+    {
+      "q": "Which of the following is a principle of information security?",
+      "choices": [
+        "Confidentiality",
+        "Creativity",
+        "Centralization",
+        "Consolidation"
+      ],
+      "correctIndex": 0
+    },
+    {
+      "q": "What is the main goal of access control?",
+      "choices": [
+        "To ensure that only authorized users can access certain resources",
+        "To encrypt data",
+        "To scan for viruses",
+        "To manage network traffic"
+      ],
+      "correctIndex": 0
+    },
+    {
+      "q": "Which of the following is an example of an access control model?",
+      "choices": [
+        "Discretionary Access Control (DAC)",
+        "SQL injection",
+        "Man-in-the-middle attack",
+        "Brute force attack"
+      ],
+      "correctIndex": 0
+    },
+    {
+      "q": "What is the primary purpose of a penetration test?",
+      "choices": [
+        "To identify and exploit vulnerabilities in a system",
+        "To monitor network traffic",
+        "To develop security policies",
+        "To back up data"
+      ],
+      "correctIndex": 0
+    },
+    {
+      "q": "Which of the following best describes a VPN?",
+      "choices": [
+        "A secure connection over a public network",
+        "A network scanning tool",
+        "A type of firewall",
+        "A method for encrypting emails"
+      ],
+      "correctIndex": 0
+    },
+    {
+      "q": "Which of the following is a common method of social engineering?",
+      "choices": [
+        "Phishing",
+        "SQL injection",
+        "Brute force attack",
+        "Cross-site scripting (XSS)"
+      ],
+      "correctIndex": 0
+    },
+    {
+      "q": "What does the term 'man-in-the-middle' refer to?",
+      "choices": [
+        "An attack where the attacker intercepts and alters communications between two parties",
+        "A method of password cracking",
+        "A type of firewall",
+        "A way to encrypt data"
+      ],
+      "correctIndex": 0
+    },
+    {
+      "q": "What is the purpose of a digital signature?",
+      "choices": [
+        "To verify the authenticity and integrity of a message or document",
+        "To encrypt data",
+        "To manage user access",
+        "To monitor network traffic"
+      ],
+      "correctIndex": 0
+    },
+    {
+      "q": "Which of the following is a common method used to secure wireless networks?",
+      "choices": [
+        "WPA2 encryption",
+        "WEP encryption",
+        "MAC address filtering",
+        "Disabling SSID broadcast"
+      ],
+      "correctIndex": 0
+    },
+    {
+      "q": "Which of the following is an example of a physical security control?",
+      "choices": [
+        "Security cameras",
+        "Encryption",
+        "Firewalls",
+        "Antivirus software"
+      ],
+      "correctIndex": 0
+    },
+    {
+      "q": "What does the term 'zero-day vulnerability' refer to?",
+      "choices": [
+        "A vulnerability that is unknown to the vendor and has no patch available",
+        "A vulnerability that has been patched",
+        "A vulnerability that is known but unexploited",
+        "A vulnerability that is widely exploited"
+      ],
+      "correctIndex": 0
+    },
+    {
+      "q": "What is the primary purpose of a security information and event management (SIEM) system?",
+      "choices": [
+        "To monitor and analyze security events in real-time",
+        "To encrypt sensitive data",
+        "To manage user accounts",
+        "To create network diagrams"
+      ],
+      "correctIndex": 0
+    },
+    {
+      "q": "Which of the following is a principle of network security?",
+      "choices": [
+        "Defense in depth",
+        "Single point of failure",
+        "Data minimization",
+        "Least resistance"
+      ],
+      "correctIndex": 0
+    },
+    {
+      "q": "Which of the following is a method of ensuring data availability?",
+      "choices": [
+        "Redundancy",
+        "Hashing",
+        "Encryption",
+        "Access control"
+      ],
+      "correctIndex": 0
+    },
+    {
+      "q": "Which of the following is a method used to protect against SQL injection attacks?",
+      "choices": [
+        "Input validation",
+        "Data encryption",
+        "Network segmentation",
+        "Regular backups"
+      ],
+      "correctIndex": 0
+    },
+    {
+      "q": "Which of the following best describes a denial-of-service (DoS) attack?",
+      "choices": [
+        "An attack that aims to make a service unavailable",
+        "An attack that steals data",
+        "An attack that encrypts files",
+        "An attack that monitors network traffic"
+      ],
+      "correctIndex": 0
+    },
+    {
+      "q": "Which of the following is a method used to ensure data integrity?",
+      "choices": [
+        "Hashing",
+        "Encryption",
+        "Compression",
+        "Tokenization"
+      ],
+      "correctIndex": 0
+    },
+    {
+      "q": "Which of the following is a method used to protect against social engineering attacks?",
+      "choices": [
+        "Using strong passwords",
+        "Educating users on security best practices",
+        "Implementing firewalls",
+        "Using antivirus software"
+      ],
+      "correctIndex": 1
+    },
+    {
+      "q": "Which of the following is a common method for securing access to systems?",
+      "choices": [
+        "Multi-factor authentication",
+        "Data encryption",
+        "Firewalls",
+        "Intrusion detection systems"
+      ],
+      "correctIndex": 0
+    },
+    {
+      "q": "Which of the following best describes the purpose of a digital certificate?",
+      "choices": [
+        "To verify the identity of a user or device",
+        "To encrypt data",
+        "To store passwords",
+        "To authenticate a network"
+      ],
+      "correctIndex": 0
+    },
+    {
+      "q": "Which of the following best describes the concept of least privilege?",
+      "choices": [
+        "Providing users with the minimum level of access required to perform their jobs",
+        "Granting users full access to all resources",
+        "Allowing users to share their credentials",
+        "Restricting access to administrators only"
+      ],
+      "correctIndex": 0
+    },
+    {
+      "q": "Which of the following is a common method of ensuring data availability?",
+      "choices": [
+        "Data replication",
+        "Hashing",
+        "Encryption",
+        "Access control"
+      ],
+      "correctIndex": 0
+    },
+    {
+      "q": "Which of the following is a method of securing data in transit?",
+      "choices": [
+        "Encryption",
+        "Hashing",
+        "Compression",
+        "Tokenization"
+      ],
+      "correctIndex": 0
+    },
+    {
+      "q": "Which of the following best describes a brute force attack?",
+      "choices": [
+        "A method of guessing passwords by trying all possible combinations",
+        "A method of injecting malicious code into a web application",
+        "A method of intercepting communications between two parties",
+        "A method of disguising malware as legitimate software"
+      ],
+      "correctIndex": 0
+    },
+    {
+      "q": "What is the purpose of a firewall in a network?",
+      "choices": [
+        "To filter incoming and outgoing traffic",
+        "To encrypt data",
+        "To analyze malware",
+        "To create backups"
+      ],
+      "correctIndex": 0
+    },
+    {
+      "q": "Which of the following best describes a zero-day vulnerability?",
+      "choices": [
+        "A vulnerability that is unknown to the vendor",
+        "A vulnerability that is known and patched",
+        "A vulnerability that is known but unpatched",
+        "A vulnerability that is actively being exploited"
+      ],
+      "correctIndex": 0
+    },
+    {
+      "q": "What is the primary purpose of incident response in cybersecurity?",
+      "choices": [
+        "To handle and mitigate the impact of security incidents",
+        "To monitor network traffic",
+        "To develop secure applications",
+        "To perform risk assessments"
+      ],
+      "correctIndex": 0
+    },
+    {
+      "q": "Which of the following is a key feature of a honeypot?",
+      "choices": [
+        "It attracts attackers to a decoy system",
+        "It monitors user activities",
+        "It encrypts sensitive data",
+        "It performs regular backups"
+      ],
+      "correctIndex": 0
+    },
+    {
+      "q": "Which of the following is an example of an endpoint security solution?",
+      "choices": [
+        "Antivirus software",
+        "Network firewall",
+        "SIEM",
+        "IDS/IPS"
+      ],
+      "correctIndex": 0
+    },
+    {
+      "q": "What is the purpose of threat intelligence in cybersecurity?",
+      "choices": [
+        "To collect, analyze, and disseminate information about threats",
+        "To monitor network traffic",
+        "To encrypt data",
+        "To perform penetration testing"
+      ],
+      "correctIndex": 0
+    },
+    {
+      "q": "Which of the following is a common indicator of compromise (IoC)?",
+      "choices": [
+        "High CPU usage",
+        "A new user account created",
+        "Unusual outbound network traffic",
+        "All of the above"
+      ],
+      "correctIndex": 3
+    },
+    {
+      "q": "Which of the following best describes a vulnerability scan?",
+      "choices": [
+        "A method for detecting security weaknesses",
+        "A process of exploiting a security weakness",
+        "A way to monitor network traffic",
+        "A technique to encrypt data"
+      ],
+      "correctIndex": 0
+    },
+    {
+      "q": "Which of the following is a common method used to protect against SQL injection attacks?",
+      "choices": [
+        "Input validation",
+        "Data encryption",
+        "Network segmentation",
+        "Regular backups"
+      ],
+      "correctIndex": 0
+    },
+    {
+      "q": "Which of the following is a common method of securing data at rest?",
+      "choices": [
+        "Encryption",
+        "Hashing",
+        "Compression",
+        "Tokenization"
+      ],
+      "correctIndex": 0
+    },
+    {
+      "q": "Which of the following is a primary objective of reconnaissance in penetration testing?",
+      "choices": [
+        "To gather information about the target",
+        "To exploit vulnerabilities",
+        "To deploy malware",
+        "To recover lost data"
+      ],
+      "correctIndex": 0
+    },
+    {
+      "q": "Which of the following best describes a social engineering attack?",
+      "choices": [
+        "Tricking users into revealing confidential information",
+        "Exploiting a software vulnerability",
+        "Gaining unauthorized access through brute force",
+        "Injecting malicious code into a web application"
+      ],
+      "correctIndex": 0
+    },
+    {
+      "q": "Which of the following best describes the principle of defense in depth?",
+      "choices": [
+        "Using multiple layers of security to protect resources",
+        "Implementing a single, strong security control",
+        "Encrypting all sensitive data",
+        "Backing up data regularly"
+      ],
+      "correctIndex": 0
+    },
+    {
+      "q": "Which of the following is an example of a client-side attack?",
+      "choices": [
+        "Cross-site scripting (XSS)",
+        "SQL injection",
+        "Buffer overflow",
+        "Brute force"
+      ],
+      "correctIndex": 0
+    },
+    {
+      "q": "Which of the following best describes the purpose of social engineering in penetration testing?",
+      "choices": [
+        "To trick users into revealing sensitive information",
+        "To bypass network firewalls",
+        "To exploit software vulnerabilities",
+        "To monitor network traffic"
+      ],
+      "correctIndex": 0
+    },
+    {
+      "q": "Which of the following is a common security control used to protect web applications?",
+      "choices": [
+        "Web Application Firewall (WAF)",
+        "Network Intrusion Detection System (NIDS)",
+        "Security Information and Event Management (SIEM)",
+        "Antivirus software"
+      ],
+      "correctIndex": 0
+    },
+    {
+      "q": "Which of the following is a potential issue when collecting evidence from cloud environments?",
+      "choices": [
+        "The physical location of the data",
+        "The speed of data retrieval",
+        "The cost of the services",
+        "The availability of tools"
+      ],
+      "correctIndex": 0
+    },
+    {
+      "q": "Which of the following best describes a forensic image?",
+      "choices": [
+        "A bit-for-bit copy of the original disk",
+        "A compressed copy of the original disk",
+        "An encrypted copy of the original disk",
+        "A backup copy of the original disk"
+      ],
+      "correctIndex": 0
+    },
+    {
+      "q": "Which of the following is a method of protecting data at rest?",
+      "choices": [
+        "Encryption",
+        "Hashing",
+        "Tokenization",
+        "Compression"
+      ],
+      "correctIndex": 0
+    }
+  ]
+}

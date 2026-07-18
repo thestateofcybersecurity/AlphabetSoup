@@ -1,0 +1,638 @@
+{
+  "name": "CEH",
+  "mode": "choice",
+  "certKey": "CEH",
+  "retired": false,
+  "questions": [
+    {
+      "q": "What is the primary purpose of a vulnerability scan?",
+      "choices": [
+        "To identify security weaknesses in a system",
+        "To eliminate all security threats",
+        "To monitor network traffic",
+        "To encrypt sensitive data"
+      ],
+      "correctIndex": 0
+    },
+    {
+      "q": "Which of the following tools is commonly used for packet sniffing?",
+      "choices": [
+        "Nmap",
+        "Wireshark",
+        "Metasploit",
+        "Nessus"
+      ],
+      "correctIndex": 1
+    },
+    {
+      "q": "What does the term 'footprinting' refer to in ethical hacking?",
+      "choices": [
+        "Gaining unauthorized access to a network",
+        "Collecting information about a target system or network",
+        "Exploiting vulnerabilities in software",
+        "Installing malware on a system"
+      ],
+      "correctIndex": 1
+    },
+    {
+      "q": "Which of the following is a common use of the tool Metasploit?",
+      "choices": [
+        "Scanning for open ports",
+        "Conducting penetration tests",
+        "Encrypting network traffic",
+        "Monitoring system performance"
+      ],
+      "correctIndex": 1
+    },
+    {
+      "q": "What is the main purpose of using a firewall?",
+      "choices": [
+        "To encrypt sensitive data",
+        "To filter incoming and outgoing network traffic",
+        "To perform vulnerability assessments",
+        "To back up data regularly"
+      ],
+      "correctIndex": 1
+    },
+    {
+      "q": "Which of the following is an example of social engineering?",
+      "choices": [
+        "SQL injection",
+        "Phishing",
+        "Buffer overflow",
+        "Cross-site scripting"
+      ],
+      "correctIndex": 1
+    },
+    {
+      "q": "Which of the following tools is used for wireless network auditing?",
+      "choices": [
+        "Burp Suite",
+        "John the Ripper",
+        "Aircrack-ng",
+        "Cain & Abel"
+      ],
+      "correctIndex": 2
+    },
+    {
+      "q": "What is the primary goal of a Denial-of-Service (DoS) attack?",
+      "choices": [
+        "To steal sensitive data",
+        "To disrupt the availability of a service or network",
+        "To gain administrative access to a system",
+        "To create a backdoor in the system"
+      ],
+      "correctIndex": 1
+    },
+    {
+      "q": "Which of the following is a common method of cracking passwords?",
+      "choices": [
+        "DNS poisoning",
+        "SQL injection",
+        "Brute force attack",
+        "Man-in-the-middle attack"
+      ],
+      "correctIndex": 2
+    },
+    {
+      "q": "What is the purpose of a honeypot in network security?",
+      "choices": [
+        "To secure sensitive data",
+        "To detect and analyze potential attackers",
+        "To encrypt network traffic",
+        "To perform regular system backups"
+      ],
+      "correctIndex": 1
+    },
+    {
+      "q": "Which of the following best describes a phishing attack?",
+      "choices": [
+        "An attempt to gain unauthorized access to a system by guessing passwords",
+        "An attack that redirects users to a malicious website",
+        "An attempt to trick users into revealing sensitive information",
+        "An attack that encrypts files and demands a ransom"
+      ],
+      "correctIndex": 2
+    },
+    {
+      "q": "Which of the following is a characteristic of a Trojan horse?",
+      "choices": [
+        "It replicates itself to spread to other systems",
+        "It disguises itself as legitimate software",
+        "It monitors network traffic",
+        "It encrypts data on the system"
+      ],
+      "correctIndex": 1
+    },
+    {
+      "q": "Which of the following is a common use of the Nmap tool?",
+      "choices": [
+        "Password cracking",
+        "Network scanning",
+        "SQL injection",
+        "Data encryption"
+      ],
+      "correctIndex": 1
+    },
+    {
+      "q": "What is the purpose of using a VPN in network security?",
+      "choices": [
+        "To secure remote access to a network",
+        "To perform vulnerability assessments",
+        "To encrypt files on a system",
+        "To monitor network traffic"
+      ],
+      "correctIndex": 0
+    },
+    {
+      "q": "Which of the following is an example of a passive reconnaissance technique?",
+      "choices": [
+        "SQL injection",
+        "Sniffing network traffic",
+        "Social engineering",
+        "Scanning open ports"
+      ],
+      "correctIndex": 1
+    },
+    {
+      "q": "Which of the following is a key feature of a worm?",
+      "choices": [
+        "It requires user interaction to spread",
+        "It replicates itself without user intervention",
+        "It disguises itself as legitimate software",
+        "It encrypts files on a system"
+      ],
+      "correctIndex": 1
+    },
+    {
+      "q": "What does the acronym SQL stand for in the context of SQL injection attacks?",
+      "choices": [
+        "Secure Query Language",
+        "Standard Query Language",
+        "Structured Query Language",
+        "Sequential Query Language"
+      ],
+      "correctIndex": 2
+    },
+    {
+      "q": "Which of the following is the best defense against brute force attacks?",
+      "choices": [
+        "Strong password policies",
+        "Encrypted communication channels",
+        "Regular data backups",
+        "Firewalls"
+      ],
+      "correctIndex": 0
+    },
+    {
+      "q": "What is the primary function of a network-based intrusion detection system (NIDS)?",
+      "choices": [
+        "To prevent unauthorized access to a network",
+        "To detect malicious activity on a network",
+        "To encrypt network traffic",
+        "To perform vulnerability scans"
+      ],
+      "correctIndex": 1
+    },
+    {
+      "q": "Which of the following attacks involves intercepting and altering communications between two parties?",
+      "choices": [
+        "Phishing",
+        "SQL injection",
+        "Man-in-the-middle (MitM)",
+        "Cross-site scripting (XSS)"
+      ],
+      "correctIndex": 2
+    },
+    {
+      "q": "Which of the following is a key characteristic of a rootkit?",
+      "choices": [
+        "It is easy to detect and remove",
+        "It hides its presence and activities on the system",
+        "It encrypts data and demands a ransom",
+        "It only targets network devices"
+      ],
+      "correctIndex": 1
+    },
+    {
+      "q": "What is the primary purpose of penetration testing?",
+      "choices": [
+        "To eliminate all security threats",
+        "To assess the security of a system by simulating an attack",
+        "To back up critical data",
+        "To monitor network traffic for malicious activity"
+      ],
+      "correctIndex": 1
+    },
+    {
+      "q": "Which of the following is a common tool used for password cracking?",
+      "choices": [
+        "Wireshark",
+        "John the Ripper",
+        "Nmap",
+        "Burp Suite"
+      ],
+      "correctIndex": 1
+    },
+    {
+      "q": "Which of the following is a common method for securing a wireless network?",
+      "choices": [
+        "Using WEP encryption",
+        "Using WPA2 encryption",
+        "Disabling SSID broadcast",
+        "Enabling MAC address filtering"
+      ],
+      "correctIndex": 1
+    },
+    {
+      "q": "Which of the following is an example of a phishing attack?",
+      "choices": [
+        "Sending a malicious attachment in an email",
+        "Guessing a user's password",
+        "Redirecting users to a fake website to steal credentials",
+        "Injecting malicious code into a website"
+      ],
+      "correctIndex": 2
+    },
+    {
+      "q": "Which of the following is a key feature of a botnet?",
+      "choices": [
+        "It encrypts files on a system",
+        "It is controlled by a central command server",
+        "It spreads through email attachments",
+        "It requires user interaction to activate"
+      ],
+      "correctIndex": 1
+    },
+    {
+      "q": "Which of the following tools is commonly used for web application testing?",
+      "choices": [
+        "Nmap",
+        "Burp Suite",
+        "Wireshark",
+        "Aircrack-ng"
+      ],
+      "correctIndex": 1
+    },
+    {
+      "q": "What is the primary goal of a ransomware attack?",
+      "choices": [
+        "To steal sensitive data",
+        "To encrypt files and demand a ransom for decryption",
+        "To gain administrative access to a system",
+        "To disrupt network communications"
+      ],
+      "correctIndex": 1
+    },
+    {
+      "q": "Which of the following is a characteristic of a logic bomb?",
+      "choices": [
+        "It spreads without user interaction",
+        "It is triggered by a specific event or condition",
+        "It encrypts data on the system",
+        "It monitors network traffic"
+      ],
+      "correctIndex": 1
+    },
+    {
+      "q": "Which of the following is the primary purpose of a security policy?",
+      "choices": [
+        "To define the rules and guidelines for protecting information",
+        "To monitor network traffic for malicious activity",
+        "To encrypt sensitive data",
+        "To perform vulnerability assessments"
+      ],
+      "correctIndex": 0
+    },
+    {
+      "q": "What is a common use of the tool Cain & Abel?",
+      "choices": [
+        "Password cracking and network packet sniffing",
+        "Encrypting data on a system",
+        "Performing network scans",
+        "Monitoring network traffic"
+      ],
+      "correctIndex": 0
+    },
+    {
+      "q": "Which of the following best describes a buffer overflow attack?",
+      "choices": [
+        "An attack that fills up a system's memory to cause a crash",
+        "An attack that exploits software vulnerabilities to execute malicious code",
+        "An attack that redirects users to a malicious website",
+        "An attack that encrypts files and demands a ransom"
+      ],
+      "correctIndex": 1
+    },
+    {
+      "q": "Which of the following is an effective way to protect against social engineering attacks?",
+      "choices": [
+        "Regularly updating software",
+        "Implementing strong encryption protocols",
+        "Conducting security awareness training",
+        "Using firewalls to block malicious traffic"
+      ],
+      "correctIndex": 2
+    },
+    {
+      "q": "Which of the following is the primary function of a proxy server?",
+      "choices": [
+        "To encrypt data in transit",
+        "To filter and control access to the internet",
+        "To monitor network traffic",
+        "To perform vulnerability assessments"
+      ],
+      "correctIndex": 1
+    },
+    {
+      "q": "Which of the following tools is commonly used for network scanning?",
+      "choices": [
+        "Wireshark",
+        "Nmap",
+        "John the Ripper",
+        "Aircrack-ng"
+      ],
+      "correctIndex": 1
+    },
+    {
+      "q": "Which of the following best describes a SQL injection attack?",
+      "choices": [
+        "An attack that injects malicious code into a website",
+        "An attack that exploits vulnerabilities in web applications to execute SQL commands",
+        "An attack that redirects users to a fake website",
+        "An attack that encrypts data and demands a ransom"
+      ],
+      "correctIndex": 1
+    },
+    {
+      "q": "Which of the following is a common feature of spyware?",
+      "choices": [
+        "It encrypts files on the system",
+        "It monitors user activity and sends the information to a third party",
+        "It spreads through email attachments",
+        "It requires user interaction to activate"
+      ],
+      "correctIndex": 1
+    },
+    {
+      "q": "What is the purpose of a rootkit?",
+      "choices": [
+        "To create a backdoor for unauthorized access",
+        "To encrypt sensitive data",
+        "To monitor network traffic",
+        "To conduct penetration tests"
+      ],
+      "correctIndex": 0
+    },
+    {
+      "q": "Which of the following is a characteristic of a Distributed Denial-of-Service (DDoS) attack?",
+      "choices": [
+        "It targets a single user",
+        "It uses multiple systems to overwhelm a network or service",
+        "It encrypts files on the system",
+        "It exploits software vulnerabilities"
+      ],
+      "correctIndex": 1
+    },
+    {
+      "q": "Which of the following is a key component of a digital certificate?",
+      "choices": [
+        "Private key",
+        "Digital signature",
+        "Firewall rules",
+        "Encryption algorithm"
+      ],
+      "correctIndex": 1
+    },
+    {
+      "q": "Which of the following best describes a cross-site scripting (XSS) attack?",
+      "choices": [
+        "An attack that injects malicious scripts into web pages",
+        "An attack that redirects users to a fake website",
+        "An attack that encrypts data and demands a ransom",
+        "An attack that floods a network with traffic"
+      ],
+      "correctIndex": 0
+    },
+    {
+      "q": "Which of the following is the best defense against SQL injection attacks?",
+      "choices": [
+        "Regularly updating software",
+        "Using input validation and prepared statements",
+        "Encrypting sensitive data",
+        "Monitoring network traffic"
+      ],
+      "correctIndex": 1
+    },
+    {
+      "q": "Which of the following is an example of a DoS attack?",
+      "choices": [
+        "Stealing user credentials through phishing",
+        "Flooding a server with requests to overload it",
+        "Redirecting users to a malicious website",
+        "Injecting malicious code into a web application"
+      ],
+      "correctIndex": 1
+    },
+    {
+      "q": "Which of the following is a common use of the tool Nikto?",
+      "choices": [
+        "Password cracking",
+        "Web server vulnerability scanning",
+        "Wireless network auditing",
+        "Packet sniffing"
+      ],
+      "correctIndex": 1
+    },
+    {
+      "q": "Which of the following best describes a rainbow table?",
+      "choices": [
+        "A tool used for brute force attacks",
+        "A precomputed table of hashes used to crack passwords",
+        "A method for encrypting data",
+        "A tool for monitoring network traffic"
+      ],
+      "correctIndex": 1
+    },
+    {
+      "q": "Which of the following is a primary goal of an ethical hacker?",
+      "choices": [
+        "To perform unauthorized attacks on systems",
+        "To exploit vulnerabilities for personal gain",
+        "To identify and fix security weaknesses",
+        "To disrupt business operations"
+      ],
+      "correctIndex": 2
+    },
+    {
+      "q": "Which of the following is a common feature of ransomware?",
+      "choices": [
+        "It spreads through email attachments",
+        "It encrypts files and demands payment for decryption",
+        "It monitors user activity",
+        "It requires user interaction to spread"
+      ],
+      "correctIndex": 1
+    },
+    {
+      "q": "Which of the following best describes the use of a botnet?",
+      "choices": [
+        "To encrypt sensitive data",
+        "To conduct distributed denial-of-service (DDoS) attacks",
+        "To monitor network traffic",
+        "To perform vulnerability assessments"
+      ],
+      "correctIndex": 1
+    },
+    {
+      "q": "Which of the following is a key characteristic of spear phishing?",
+      "choices": [
+        "It targets a specific individual or organization",
+        "It spreads through email attachments",
+        "It encrypts data on the system",
+        "It requires user interaction to activate"
+      ],
+      "correctIndex": 0
+    },
+    {
+      "q": "Which of the following is a common use of the tool Hydra?",
+      "choices": [
+        "Password cracking",
+        "Network scanning",
+        "Packet sniffing",
+        "Wireless network auditing"
+      ],
+      "correctIndex": 0
+    },
+    {
+      "q": "Which of the following is a key characteristic of a Trojan horse?",
+      "choices": [
+        "It encrypts files on the system",
+        "It disguises itself as legitimate software",
+        "It spreads through network vulnerabilities",
+        "It monitors network traffic"
+      ],
+      "correctIndex": 1
+    },
+    {
+      "q": "Which of the following best describes a brute force attack?",
+      "choices": [
+        "An attack that systematically tries all possible password combinations",
+        "An attack that injects malicious code into a website",
+        "An attack that redirects users to a fake website",
+        "An attack that encrypts data and demands a ransom"
+      ],
+      "correctIndex": 0
+    },
+    {
+      "q": "Which of the following is a characteristic of a rootkit?",
+      "choices": [
+        "It hides its presence and activities on the system",
+        "It encrypts data and demands a ransom",
+        "It monitors network traffic",
+        "It spreads through email attachments"
+      ],
+      "correctIndex": 0
+    },
+    {
+      "q": "Which of the following is a common method used in social engineering attacks?",
+      "choices": [
+        "SQL injection",
+        "Phishing",
+        "Buffer overflow",
+        "Cross-site scripting"
+      ],
+      "correctIndex": 1
+    },
+    {
+      "q": "Which of the following best describes a watering hole attack?",
+      "choices": [
+        "An attack that targets a specific individual or organization",
+        "An attack that exploits vulnerabilities in popular websites",
+        "An attack that redirects users to a fake website",
+        "An attack that encrypts data and demands a ransom"
+      ],
+      "correctIndex": 1
+    },
+    {
+      "q": "Which of the following is the primary purpose of a firewall?",
+      "choices": [
+        "To encrypt sensitive data",
+        "To filter incoming and outgoing network traffic",
+        "To monitor network traffic for malicious activity",
+        "To perform vulnerability assessments"
+      ],
+      "correctIndex": 1
+    },
+    {
+      "q": "Which of the following is a common use of the tool Aircrack-ng?",
+      "choices": [
+        "Password cracking",
+        "Wireless network auditing",
+        "Network scanning",
+        "Packet sniffing"
+      ],
+      "correctIndex": 1
+    },
+    {
+      "q": "Which of the following best describes a denial-of-service (DoS) attack?",
+      "choices": [
+        "An attack that redirects users to a fake website",
+        "An attack that floods a server with traffic to overload it",
+        "An attack that encrypts data and demands a ransom",
+        "An attack that injects malicious code into a website"
+      ],
+      "correctIndex": 1
+    },
+    {
+      "q": "Which of the following best describes a man-in-the-middle (MitM) attack?",
+      "choices": [
+        "An attack that intercepts and alters communications between two parties",
+        "An attack that redirects users to a fake website",
+        "An attack that encrypts data and demands a ransom",
+        "An attack that injects malicious code into a website"
+      ],
+      "correctIndex": 0
+    },
+    {
+      "q": "Which of the following is a common tool used for web application testing?",
+      "choices": [
+        "Burp Suite",
+        "Wireshark",
+        "Aircrack-ng",
+        "Nmap"
+      ],
+      "correctIndex": 0
+    },
+    {
+      "q": "Which of the following best describes a logic bomb?",
+      "choices": [
+        "A piece of code that is triggered by a specific event or condition",
+        "A tool used for brute force attacks",
+        "A method for encrypting data",
+        "A tool for monitoring network traffic"
+      ],
+      "correctIndex": 0
+    },
+    {
+      "q": "Which of the following is a common use of the tool John the Ripper?",
+      "choices": [
+        "Password cracking",
+        "Network scanning",
+        "Packet sniffing",
+        "Wireless network auditing"
+      ],
+      "correctIndex": 0
+    },
+    {
+      "q": "Which of the following is a common method used in a DoS attack?",
+      "choices": [
+        "Flooding a server with traffic to overload it",
+        "Redirecting users to a fake website",
+        "Encrypting data and demanding a ransom",
+        "Injecting malicious code into a website"
+      ],
+      "correctIndex": 0
+    }
+  ]
+}

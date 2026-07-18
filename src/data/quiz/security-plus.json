@@ -1,0 +1,728 @@
+{
+  "name": "CompTIA Security+",
+  "mode": "choice",
+  "certKey": null,
+  "retired": false,
+  "questions": [
+    {
+      "q": "Which of the following is a security control that prevents an unauthorized individual from gaining physical access to a building?",
+      "choices": [
+        "Firewall",
+        "Intrusion detection system",
+        "Security guard",
+        "Encryption"
+      ],
+      "correctIndex": 2
+    },
+    {
+      "q": "Which type of malware is designed to gain administrator-level control over a computer system without being detected?",
+      "choices": [
+        "Virus",
+        "Rootkit",
+        "Worm",
+        "Trojan horse"
+      ],
+      "correctIndex": 1
+    },
+    {
+      "q": "Which protocol is used to securely browse the web?",
+      "choices": [
+        "HTTP",
+        "HTTPS",
+        "FTP",
+        "SMTP"
+      ],
+      "correctIndex": 1
+    },
+    {
+      "q": "What does the acronym CIA stand for in the context of information security?",
+      "choices": [
+        "Central Intelligence Agency",
+        "Confidentiality, Integrity, Availability",
+        "Certified Information Auditor",
+        "Cyber Intelligence Agency"
+      ],
+      "correctIndex": 1
+    },
+    {
+      "q": "Which of the following is an example of a strong password?",
+      "choices": [
+        "password123",
+        "P@ssw0rd!",
+        "123456",
+        "admin"
+      ],
+      "correctIndex": 1
+    },
+    {
+      "q": "Which of the following is used to verify the integrity of a file?",
+      "choices": [
+        "Firewall",
+        "Digital signature",
+        "Hashing",
+        "Encryption"
+      ],
+      "correctIndex": 2
+    },
+    {
+      "q": "Which of the following attacks is most likely to be carried out by an insider?",
+      "choices": [
+        "Phishing",
+        "Tailgating",
+        "DDoS",
+        "Man-in-the-middle"
+      ],
+      "correctIndex": 1
+    },
+    {
+      "q": "Which protocol provides secure file transfer capabilities?",
+      "choices": [
+        "FTP",
+        "TFTP",
+        "SFTP",
+        "HTTP"
+      ],
+      "correctIndex": 2
+    },
+    {
+      "q": "What type of attack involves sending an overwhelming amount of traffic to a target to render it unavailable?",
+      "choices": [
+        "Phishing",
+        "Man-in-the-middle",
+        "SQL injection",
+        "Denial-of-Service (DoS)"
+      ],
+      "correctIndex": 3
+    },
+    {
+      "q": "Which of the following is the best example of two-factor authentication?",
+      "choices": [
+        "A password and a fingerprint",
+        "A password and a PIN",
+        "A passphrase and a security question",
+        "A username and a password"
+      ],
+      "correctIndex": 0
+    },
+    {
+      "q": "Which of the following is a method to ensure data confidentiality?",
+      "choices": [
+        "Hashing",
+        "Encryption",
+        "Auditing",
+        "Redundancy"
+      ],
+      "correctIndex": 1
+    },
+    {
+      "q": "Which of the following is a characteristic of a phishing attack?",
+      "choices": [
+        "It is conducted via network traffic",
+        "It targets physical security controls",
+        "It attempts to trick users into revealing sensitive information",
+        "It requires access to internal systems"
+      ],
+      "correctIndex": 2
+    },
+    {
+      "q": "Which of the following cryptographic algorithms is symmetric?",
+      "choices": [
+        "RSA",
+        "ECC",
+        "AES",
+        "DSA"
+      ],
+      "correctIndex": 2
+    },
+    {
+      "q": "Which of the following is the primary purpose of a firewall?",
+      "choices": [
+        "To encrypt sensitive data",
+        "To filter network traffic",
+        "To scan for malware",
+        "To manage passwords"
+      ],
+      "correctIndex": 1
+    },
+    {
+      "q": "Which type of malware can replicate itself and spread to other systems without any user interaction?",
+      "choices": [
+        "Virus",
+        "Worm",
+        "Trojan",
+        "Spyware"
+      ],
+      "correctIndex": 1
+    },
+    {
+      "q": "What does the term 'least privilege' refer to in security?",
+      "choices": [
+        "Giving users full access to all resources",
+        "Restricting user access rights to the bare minimum",
+        "Allowing users to choose their own level of access",
+        "Providing maximum access to administrators"
+      ],
+      "correctIndex": 1
+    },
+    {
+      "q": "Which of the following is an example of social engineering?",
+      "choices": [
+        "A hacker installing malware on a system",
+        "An attacker guessing a user's password",
+        "A phishing email attempting to trick a user into revealing sensitive information",
+        "A brute force attack"
+      ],
+      "correctIndex": 2
+    },
+    {
+      "q": "What is the purpose of multi-factor authentication (MFA)?",
+      "choices": [
+        "To increase the complexity of passwords",
+        "To authenticate users with more than one method",
+        "To provide encryption for data",
+        "To monitor network traffic"
+      ],
+      "correctIndex": 1
+    },
+    {
+      "q": "Which of the following describes a zero-day vulnerability?",
+      "choices": [
+        "A vulnerability that is known but has not yet been patched",
+        "A vulnerability that has been publicly disclosed",
+        "A vulnerability that is actively being exploited",
+        "A vulnerability that is unknown to the software vendor"
+      ],
+      "correctIndex": 3
+    },
+    {
+      "q": "Which of the following is an example of two-factor authentication?",
+      "choices": [
+        "Password and PIN",
+        "Password and fingerprint",
+        "Username and password",
+        "Password and security question"
+      ],
+      "correctIndex": 1
+    },
+    {
+      "q": "Which of the following describes the function of a honeypot?",
+      "choices": [
+        "A device that decrypts data for analysis",
+        "A secure method for storing passwords",
+        "A decoy system to lure attackers away from actual targets",
+        "A method for backing up data"
+      ],
+      "correctIndex": 2
+    },
+    {
+      "q": "Which of the following protocols is used to encrypt web traffic?",
+      "choices": [
+        "FTP",
+        "HTTP",
+        "HTTPS",
+        "SNMP"
+      ],
+      "correctIndex": 2
+    },
+    {
+      "q": "Which of the following is a common use of social engineering?",
+      "choices": [
+        "Network scanning",
+        "Obtaining confidential information",
+        "Installing malware",
+        "Encrypting data"
+      ],
+      "correctIndex": 1
+    },
+    {
+      "q": "Which of the following is a characteristic of an asymmetric encryption algorithm?",
+      "choices": [
+        "It uses the same key for encryption and decryption",
+        "It uses a pair of keys: one public and one private",
+        "It is faster than symmetric encryption",
+        "It cannot be used for digital signatures"
+      ],
+      "correctIndex": 1
+    },
+    {
+      "q": "Which of the following best describes a brute force attack?",
+      "choices": [
+        "Attempting to guess a password by trying all possible combinations",
+        "Injecting malicious code into a web application",
+        "Flooding a network with traffic to cause a DoS",
+        "Stealing credentials via social engineering"
+      ],
+      "correctIndex": 0
+    },
+    {
+      "q": "Which of the following is a common method for securing wireless networks?",
+      "choices": [
+        "WEP encryption",
+        "Disabling SSID broadcast",
+        "WPA2 encryption",
+        "MAC address filtering"
+      ],
+      "correctIndex": 2
+    },
+    {
+      "q": "Which of the following is a characteristic of a Trojan horse?",
+      "choices": [
+        "It replicates itself to spread to other systems",
+        "It disguises itself as legitimate software",
+        "It encrypts files on the system",
+        "It is used to capture network traffic"
+      ],
+      "correctIndex": 1
+    },
+    {
+      "q": "What is the primary purpose of an intrusion detection system (IDS)?",
+      "choices": [
+        "To prevent unauthorized access",
+        "To detect and alert on potential security incidents",
+        "To encrypt sensitive data",
+        "To perform data backups"
+      ],
+      "correctIndex": 1
+    },
+    {
+      "q": "Which of the following is an example of a strong encryption algorithm?",
+      "choices": [
+        "DES",
+        "AES",
+        "MD5",
+        "RC4"
+      ],
+      "correctIndex": 1
+    },
+    {
+      "q": "Which type of attack involves intercepting and altering communications between two parties?",
+      "choices": [
+        "Phishing",
+        "Man-in-the-Middle",
+        "SQL injection",
+        "DoS"
+      ],
+      "correctIndex": 1
+    },
+    {
+      "q": "Which of the following is a technique used to strengthen the security of a password?",
+      "choices": [
+        "Salting",
+        "Hashing",
+        "Encryption",
+        "Obfuscation"
+      ],
+      "correctIndex": 0
+    },
+    {
+      "q": "Which of the following protocols is used for secure email communication?",
+      "choices": [
+        "FTP",
+        "SMTP",
+        "S/MIME",
+        "POP3"
+      ],
+      "correctIndex": 2
+    },
+    {
+      "q": "Which of the following best describes the concept of defense in depth?",
+      "choices": [
+        "Using a single strong security measure",
+        "Layering multiple security measures to protect resources",
+        "Backing up data regularly",
+        "Ensuring all users have administrator privileges"
+      ],
+      "correctIndex": 1
+    },
+    {
+      "q": "Which of the following is an example of multi-factor authentication?",
+      "choices": [
+        "Password and PIN",
+        "Username and password",
+        "Password and smart card",
+        "PIN and passphrase"
+      ],
+      "correctIndex": 2
+    },
+    {
+      "q": "Which of the following is a method of ensuring data availability?",
+      "choices": [
+        "Encryption",
+        "Data replication",
+        "Hashing",
+        "Access control"
+      ],
+      "correctIndex": 1
+    },
+    {
+      "q": "Which of the following best describes a vulnerability scan?",
+      "choices": [
+        "A process of exploiting a security weakness",
+        "A method for detecting security weaknesses",
+        "A way to monitor network traffic",
+        "A technique to encrypt data"
+      ],
+      "correctIndex": 1
+    },
+    {
+      "q": "Which of the following is a characteristic of a symmetric encryption algorithm?",
+      "choices": [
+        "It uses two keys: one public and one private",
+        "It uses the same key for both encryption and decryption",
+        "It is generally slower than asymmetric encryption",
+        "It cannot be used for bulk data encryption"
+      ],
+      "correctIndex": 1
+    },
+    {
+      "q": "Which of the following is a common way to prevent tailgating?",
+      "choices": [
+        "Encryption",
+        "Firewalls",
+        "Mantraps",
+        "Data masking"
+      ],
+      "correctIndex": 2
+    },
+    {
+      "q": "Which of the following is the best method for securing wireless communication?",
+      "choices": [
+        "WEP",
+        "WPA",
+        "WPA2",
+        "MAC filtering"
+      ],
+      "correctIndex": 2
+    },
+    {
+      "q": "Which of the following is a feature of a demilitarized zone (DMZ)?",
+      "choices": [
+        "It provides an additional layer of security between the internal network and the internet",
+        "It encrypts all incoming and outgoing traffic",
+        "It restricts all access to the internal network",
+        "It is used to backup critical data"
+      ],
+      "correctIndex": 0
+    },
+    {
+      "q": "Which of the following is the most secure method for remote access?",
+      "choices": [
+        "RDP",
+        "Telnet",
+        "SSH",
+        "FTP"
+      ],
+      "correctIndex": 2
+    },
+    {
+      "q": "Which of the following best describes the principle of least privilege?",
+      "choices": [
+        "Users are given full access to all resources",
+        "Users are given the minimum access necessary to perform their job",
+        "Administrators have unrestricted access to all resources",
+        "Users choose their own access levels"
+      ],
+      "correctIndex": 1
+    },
+    {
+      "q": "Which of the following is a method for securely disposing of sensitive data?",
+      "choices": [
+        "Shredding",
+        "Deleting",
+        "Formatting",
+        "Moving to trash"
+      ],
+      "correctIndex": 0
+    },
+    {
+      "q": "Which of the following is an example of an access control mechanism?",
+      "choices": [
+        "Firewall",
+        "Encryption",
+        "Password",
+        "Antivirus software"
+      ],
+      "correctIndex": 2
+    },
+    {
+      "q": "Which of the following is a method to protect against phishing attacks?",
+      "choices": [
+        "Using strong passwords",
+        "Educating users about recognizing phishing attempts",
+        "Installing a firewall",
+        "Implementing two-factor authentication"
+      ],
+      "correctIndex": 1
+    },
+    {
+      "q": "Which of the following is a characteristic of a man-in-the-middle attack?",
+      "choices": [
+        "It involves direct access to a system",
+        "It requires physical proximity to the target",
+        "It intercepts and alters communication between two parties",
+        "It is used to steal data through social engineering"
+      ],
+      "correctIndex": 2
+    },
+    {
+      "q": "Which of the following best describes a sandbox?",
+      "choices": [
+        "A secure area for executing suspicious files",
+        "A backup method for critical data",
+        "A method for encrypting sensitive information",
+        "A technique for monitoring network traffic"
+      ],
+      "correctIndex": 0
+    },
+    {
+      "q": "Which of the following protocols is used to establish a secure connection between two systems?",
+      "choices": [
+        "HTTP",
+        "SSH",
+        "FTP",
+        "Telnet"
+      ],
+      "correctIndex": 1
+    },
+    {
+      "q": "Which of the following is the best way to ensure the integrity of a file?",
+      "choices": [
+        "Encrypting the file",
+        "Backing up the file",
+        "Using hashing",
+        "Compressing the file"
+      ],
+      "correctIndex": 2
+    },
+    {
+      "q": "Which of the following is a security measure that protects against brute force attacks?",
+      "choices": [
+        "Account lockout policy",
+        "Password complexity requirements",
+        "Salting passwords",
+        "Multi-factor authentication"
+      ],
+      "correctIndex": 0
+    },
+    {
+      "q": "Which of the following is an example of a logical access control?",
+      "choices": [
+        "Security guard",
+        "Fence",
+        "Password",
+        "Mantrap"
+      ],
+      "correctIndex": 2
+    },
+    {
+      "q": "Which of the following is the best practice for securing a wireless network?",
+      "choices": [
+        "Disabling SSID broadcast",
+        "Using WPA2 encryption",
+        "Implementing MAC address filtering",
+        "Enabling guest access"
+      ],
+      "correctIndex": 1
+    },
+    {
+      "q": "Which of the following best describes the purpose of a digital certificate?",
+      "choices": [
+        "To encrypt data",
+        "To verify the identity of a user or device",
+        "To store passwords",
+        "To authenticate a network"
+      ],
+      "correctIndex": 1
+    },
+    {
+      "q": "Which of the following is a method of securing data in transit?",
+      "choices": [
+        "Encrypting the data",
+        "Hashing the data",
+        "Backing up the data",
+        "Compressing the data"
+      ],
+      "correctIndex": 0
+    },
+    {
+      "q": "Which of the following best describes a security incident?",
+      "choices": [
+        "A violation of security policy",
+        "An update to the security software",
+        "A routine security audit",
+        "A scheduled backup of data"
+      ],
+      "correctIndex": 0
+    },
+    {
+      "q": "Which of the following is a characteristic of a worm?",
+      "choices": [
+        "It replicates itself and spreads without user interaction",
+        "It requires user interaction to spread",
+        "It disguises itself as legitimate software",
+        "It encrypts files on the system"
+      ],
+      "correctIndex": 0
+    },
+    {
+      "q": "Which of the following is the best method for securing sensitive data at rest?",
+      "choices": [
+        "Encrypting the data",
+        "Hashing the data",
+        "Backing up the data",
+        "Compressing the data"
+      ],
+      "correctIndex": 0
+    },
+    {
+      "q": "Which of the following best describes a botnet?",
+      "choices": [
+        "A network of infected computers controlled by an attacker",
+        "A tool used for password cracking",
+        "A method for encrypting data",
+        "A technique for monitoring network traffic"
+      ],
+      "correctIndex": 0
+    },
+    {
+      "q": "Which of the following is the most secure method of storing passwords?",
+      "choices": [
+        "Encrypting passwords",
+        "Storing passwords in plain text",
+        "Using password managers",
+        "Hashing and salting passwords"
+      ],
+      "correctIndex": 3
+    },
+    {
+      "q": "Which of the following is a method for ensuring the availability of data?",
+      "choices": [
+        "Encryption",
+        "Hashing",
+        "Access control lists",
+        "Redundancy"
+      ],
+      "correctIndex": 3
+    },
+    {
+      "q": "Which of the following is the best way to protect against social engineering attacks?",
+      "choices": [
+        "Using strong passwords",
+        "Educating users on security best practices",
+        "Implementing firewalls",
+        "Using antivirus software"
+      ],
+      "correctIndex": 1
+    },
+    {
+      "q": "Which of the following is a type of attack that involves manipulating users into revealing confidential information?",
+      "choices": [
+        "Phishing",
+        "Brute force",
+        "Man-in-the-middle",
+        "SQL injection"
+      ],
+      "correctIndex": 0
+    },
+    {
+      "q": "Which of the following best describes an intrusion prevention system (IPS)?",
+      "choices": [
+        "A system that logs all network activity",
+        "A system that scans for malware",
+        "A system that monitors network traffic and can block malicious activity",
+        "A system that provides antivirus protection"
+      ],
+      "correctIndex": 2
+    },
+    {
+      "q": "Which of the following is an example of physical security?",
+      "choices": [
+        "Encryption",
+        "Antivirus software",
+        "Security guards",
+        "Passwords"
+      ],
+      "correctIndex": 2
+    },
+    {
+      "q": "Which of the following is a characteristic of a rootkit?",
+      "choices": [
+        "It hides its presence on the system",
+        "It encrypts data on the system",
+        "It replicates itself to spread to other systems",
+        "It disguises itself as legitimate software"
+      ],
+      "correctIndex": 0
+    },
+    {
+      "q": "Which of the following is the best way to secure data in transit?",
+      "choices": [
+        "Encrypting the data",
+        "Hashing the data",
+        "Backing up the data",
+        "Compressing the data"
+      ],
+      "correctIndex": 0
+    },
+    {
+      "q": "Which of the following is a common method of ensuring data availability?",
+      "choices": [
+        "Data replication",
+        "Hashing",
+        "Encryption",
+        "Access control"
+      ],
+      "correctIndex": 0
+    },
+    {
+      "q": "Which of the following is the best practice for securing wireless networks?",
+      "choices": [
+        "Disabling SSID broadcast",
+        "Using WPA2 encryption",
+        "Implementing MAC address filtering",
+        "Enabling guest access"
+      ],
+      "correctIndex": 1
+    },
+    {
+      "q": "Which of the following is the primary purpose of encryption?",
+      "choices": [
+        "To ensure data availability",
+        "To ensure data confidentiality",
+        "To ensure data integrity",
+        "To ensure data authenticity"
+      ],
+      "correctIndex": 1
+    },
+    {
+      "q": "Which of the following is an example of a social engineering attack?",
+      "choices": [
+        "Phishing",
+        "DDoS",
+        "SQL injection",
+        "Brute force"
+      ],
+      "correctIndex": 0
+    },
+    {
+      "q": "Which of the following is a common method of securing access to systems?",
+      "choices": [
+        "Encryption",
+        "Passwords",
+        "Firewalls",
+        "Antivirus software"
+      ],
+      "correctIndex": 1
+    },
+    {
+      "q": "Which of the following is the best way to protect against brute force attacks?",
+      "choices": [
+        "Implementing account lockout policies",
+        "Using strong passwords",
+        "Encrypting data",
+        "Installing firewalls"
+      ],
+      "correctIndex": 0
+    }
+  ]
+}

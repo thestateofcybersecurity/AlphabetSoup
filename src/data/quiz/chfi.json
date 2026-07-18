@@ -1,0 +1,498 @@
+{
+  "name": "CHFI",
+  "mode": "choice",
+  "certKey": "CHFI",
+  "retired": false,
+  "questions": [
+    {
+      "q": "What is the primary goal of computer forensics?",
+      "choices": [
+        "To recover lost data",
+        "To analyze network traffic",
+        "To identify, preserve, recover, and analyze digital evidence",
+        "To monitor system performance"
+      ],
+      "correctIndex": 2
+    },
+    {
+      "q": "Which of the following is a volatile data source?",
+      "choices": [
+        "Hard drive",
+        "RAM",
+        "USB drive",
+        "CD-ROM"
+      ],
+      "correctIndex": 1
+    },
+    {
+      "q": "What is the first step in the forensic investigation process?",
+      "choices": [
+        "Analysis",
+        "Preservation",
+        "Identification",
+        "Documentation"
+      ],
+      "correctIndex": 2
+    },
+    {
+      "q": "Which of the following tools is commonly used for disk imaging in a forensic investigation?",
+      "choices": [
+        "Wireshark",
+        "EnCase",
+        "Nmap",
+        "Metasploit"
+      ],
+      "correctIndex": 1
+    },
+    {
+      "q": "Which of the following is considered a best practice when handling digital evidence?",
+      "choices": [
+        "Always work on the original evidence",
+        "Create a bit-for-bit copy of the original evidence",
+        "Modify the evidence as needed",
+        "Use any available tool for analysis"
+      ],
+      "correctIndex": 1
+    },
+    {
+      "q": "What is the purpose of a write blocker in forensic investigations?",
+      "choices": [
+        "To prevent malware from spreading",
+        "To protect the original evidence from modification",
+        "To encrypt the evidence",
+        "To wipe the data on the drive"
+      ],
+      "correctIndex": 1
+    },
+    {
+      "q": "Which of the following is a hashing algorithm commonly used in forensic investigations?",
+      "choices": [
+        "MD5",
+        "RSA",
+        "DES",
+        "AES"
+      ],
+      "correctIndex": 0
+    },
+    {
+      "q": "Which of the following actions should be taken first when seizing a computer at a crime scene?",
+      "choices": [
+        "Power off the computer",
+        "Document the state of the computer",
+        "Disconnect all peripherals",
+        "Access all files on the computer"
+      ],
+      "correctIndex": 1
+    },
+    {
+      "q": "What type of attack involves an attacker manipulating a file system to gain unauthorized access?",
+      "choices": [
+        "SQL injection",
+        "Buffer overflow",
+        "Directory traversal",
+        "Cross-site scripting"
+      ],
+      "correctIndex": 2
+    },
+    {
+      "q": "Which of the following best describes the chain of custody in forensic investigations?",
+      "choices": [
+        "A record of who accessed the evidence and when",
+        "A legal agreement between two parties",
+        "A method of encrypting data",
+        "A physical chain used to secure evidence"
+      ],
+      "correctIndex": 0
+    },
+    {
+      "q": "What is the primary purpose of a forensic disk image?",
+      "choices": [
+        "To compress data",
+        "To create a backup",
+        "To capture an exact replica of the original media",
+        "To remove malware from a system"
+      ],
+      "correctIndex": 2
+    },
+    {
+      "q": "Which tool is commonly used for analyzing network traffic in a forensic investigation?",
+      "choices": [
+        "EnCase",
+        "Wireshark",
+        "FTK",
+        "Autopsy"
+      ],
+      "correctIndex": 1
+    },
+    {
+      "q": "Which file system is commonly used on Windows operating systems?",
+      "choices": [
+        "HFS+",
+        "Ext4",
+        "NTFS",
+        "FAT32"
+      ],
+      "correctIndex": 2
+    },
+    {
+      "q": "Which of the following is a primary challenge when collecting evidence from cloud environments?",
+      "choices": [
+        "The physical location of data",
+        "The size of the data",
+        "The format of the data",
+        "The cost of the data"
+      ],
+      "correctIndex": 0
+    },
+    {
+      "q": "What does the acronym 'ACPO' stand for in digital forensics?",
+      "choices": [
+        "Association of Chief Police Officers",
+        "American Cybersecurity Protection Organization",
+        "Advanced Cyber Protection Officer",
+        "Association of Cybercrime Prevention Officers"
+      ],
+      "correctIndex": 0
+    },
+    {
+      "q": "Which of the following describes a 'dead' forensic acquisition?",
+      "choices": [
+        "Capturing data from a powered-on system",
+        "Capturing data from a system that has been powered off",
+        "Analyzing data in real-time",
+        "Recovering deleted files"
+      ],
+      "correctIndex": 1
+    },
+    {
+      "q": "Which of the following best describes steganography?",
+      "choices": [
+        "The practice of hiding data within other files",
+        "The encryption of data using a key",
+        "The process of compressing files",
+        "The method of securely deleting files"
+      ],
+      "correctIndex": 0
+    },
+    {
+      "q": "Which type of forensic analysis is used to recover deleted files?",
+      "choices": [
+        "Network analysis",
+        "File system analysis",
+        "Malware analysis",
+        "Memory analysis"
+      ],
+      "correctIndex": 1
+    },
+    {
+      "q": "Which of the following is a tool used for mobile device forensics?",
+      "choices": [
+        "Wireshark",
+        "Cellebrite",
+        "EnCase",
+        "FTK"
+      ],
+      "correctIndex": 1
+    },
+    {
+      "q": "Which of the following is a method for securing the chain of custody of digital evidence?",
+      "choices": [
+        "Keeping evidence in a locked, secure location",
+        "Sharing evidence with colleagues for analysis",
+        "Allowing access to the evidence by anyone",
+        "Modifying evidence to fit the investigation"
+      ],
+      "correctIndex": 0
+    },
+    {
+      "q": "Which of the following file types is most likely to contain hidden data?",
+      "choices": [
+        "Text files",
+        "JPEG images",
+        "PDF documents",
+        "HTML files"
+      ],
+      "correctIndex": 1
+    },
+    {
+      "q": "Which of the following tools is used to analyze the Windows registry?",
+      "choices": [
+        "Autopsy",
+        "RegShot",
+        "EnCase",
+        "FTK Imager"
+      ],
+      "correctIndex": 1
+    },
+    {
+      "q": "Which file format is commonly used for forensic disk images?",
+      "choices": [
+        "PDF",
+        "JPEG",
+        "E01",
+        "DOCX"
+      ],
+      "correctIndex": 2
+    },
+    {
+      "q": "Which of the following best describes a hash value in digital forensics?",
+      "choices": [
+        "A random number assigned to a file",
+        "A unique identifier generated by an algorithm for a file",
+        "A sequence of binary data",
+        "A portion of a file"
+      ],
+      "correctIndex": 1
+    },
+    {
+      "q": "What is the primary purpose of a forensic write blocker?",
+      "choices": [
+        "To prevent the system from booting",
+        "To prevent changes to the evidence during analysis",
+        "To encrypt data on the disk",
+        "To clone the hard drive"
+      ],
+      "correctIndex": 1
+    },
+    {
+      "q": "Which of the following best describes a logical acquisition?",
+      "choices": [
+        "Capturing an image of the entire hard drive",
+        "Capturing only the files and directories visible to the user",
+        "Capturing the data in RAM",
+        "Capturing encrypted files only"
+      ],
+      "correctIndex": 1
+    },
+    {
+      "q": "Which of the following file systems is most commonly used in Linux?",
+      "choices": [
+        "NTFS",
+        "FAT32",
+        "HFS+",
+        "Ext4"
+      ],
+      "correctIndex": 3
+    },
+    {
+      "q": "What must be maintained to ensure digital evidence remains admissible in court?",
+      "choices": [
+        "Chain of custody",
+        "Data deduplication",
+        "Load balancing",
+        "Port mirroring"
+      ],
+      "correctIndex": 0
+    },
+    {
+      "q": "Which of the following describes a 'live' forensic acquisition?",
+      "choices": [
+        "Acquiring data from a powered-off system",
+        "Acquiring data from a system that is currently running",
+        "Capturing data from a backup",
+        "Restoring deleted files"
+      ],
+      "correctIndex": 1
+    },
+    {
+      "q": "Which of the following best describes a forensic investigation?",
+      "choices": [
+        "The analysis of network traffic",
+        "The process of collecting, preserving, and analyzing digital evidence",
+        "The process of performing penetration testing",
+        "The monitoring of system performance"
+      ],
+      "correctIndex": 1
+    },
+    {
+      "q": "Which of the following is used to verify the integrity of a disk image?",
+      "choices": [
+        "Encryption",
+        "Hashing",
+        "Compression",
+        "Backup"
+      ],
+      "correctIndex": 1
+    },
+    {
+      "q": "Which of the following best describes a forensic image?",
+      "choices": [
+        "A compressed copy of the original disk",
+        "A bit-for-bit copy of the original disk",
+        "An encrypted copy of the original disk",
+        "A backup copy of the original disk"
+      ],
+      "correctIndex": 1
+    },
+    {
+      "q": "Which of the following best describes the concept of steganography?",
+      "choices": [
+        "Encrypting data for secure transmission",
+        "Hiding data within other files or images",
+        "Compressing files to save space",
+        "Deleting data securely"
+      ],
+      "correctIndex": 1
+    },
+    {
+      "q": "Which of the following best describes the role of a forensic examiner?",
+      "choices": [
+        "To collect, analyze, and present digital evidence in legal proceedings",
+        "To perform penetration testing on networks",
+        "To monitor network traffic for security threats",
+        "To design and implement security policies"
+      ],
+      "correctIndex": 0
+    },
+    {
+      "q": "Which hashing algorithm was historically the most widely used for verifying forensic images?",
+      "choices": [
+        "MD5",
+        "SHA-256",
+        "AES",
+        "DES"
+      ],
+      "correctIndex": 0
+    },
+    {
+      "q": "Which of the following is a potential issue when using cloud services in forensic investigations?",
+      "choices": [
+        "The speed of data retrieval",
+        "The cost of the services",
+        "The physical location of the data",
+        "The availability of tools"
+      ],
+      "correctIndex": 2
+    },
+    {
+      "q": "Which of the following is a tool commonly used for network forensics?",
+      "choices": [
+        "EnCase",
+        "FTK",
+        "Wireshark",
+        "Autopsy"
+      ],
+      "correctIndex": 2
+    },
+    {
+      "q": "Which of the following is a key concern when handling digital evidence?",
+      "choices": [
+        "The cost of the investigation",
+        "The location of the evidence",
+        "The potential for evidence tampering",
+        "The size of the evidence"
+      ],
+      "correctIndex": 2
+    },
+    {
+      "q": "Which of the following is the purpose of a forensic analysis?",
+      "choices": [
+        "To destroy evidence",
+        "To recover data",
+        "To analyze and interpret digital evidence",
+        "To modify data for future use"
+      ],
+      "correctIndex": 2
+    },
+    {
+      "q": "Which of the following is a common file format used in digital forensics?",
+      "choices": [
+        "NTFS",
+        "FAT32",
+        "E01",
+        "HFS+"
+      ],
+      "correctIndex": 2
+    },
+    {
+      "q": "Which of the following is an important consideration when collecting digital evidence?",
+      "choices": [
+        "The size of the evidence",
+        "The speed of the collection process",
+        "The preservation of the evidence integrity",
+        "The cost of the collection process"
+      ],
+      "correctIndex": 2
+    },
+    {
+      "q": "Which of the following best describes a live forensic analysis?",
+      "choices": [
+        "Analyzing data from a system that is powered off",
+        "Analyzing data from a system that is currently running",
+        "Analyzing data from a backup",
+        "Analyzing data from a forensic image"
+      ],
+      "correctIndex": 1
+    },
+    {
+      "q": "Which of the following is a tool used for memory forensics?",
+      "choices": [
+        "EnCase",
+        "Volatility",
+        "FTK Imager",
+        "Autopsy"
+      ],
+      "correctIndex": 1
+    },
+    {
+      "q": "Which of the following best describes the chain of custody?",
+      "choices": [
+        "A record of who accessed the evidence and when",
+        "A legal agreement between two parties",
+        "A method of encrypting data",
+        "A physical chain used to secure evidence"
+      ],
+      "correctIndex": 0
+    },
+    {
+      "q": "Which of the following is a challenge when collecting evidence from cloud environments?",
+      "choices": [
+        "The speed of data retrieval",
+        "The cost of the services",
+        "The physical location of the data",
+        "The availability of tools"
+      ],
+      "correctIndex": 2
+    },
+    {
+      "q": "Which of the following best describes the purpose of a forensic write blocker?",
+      "choices": [
+        "To prevent the system from booting",
+        "To prevent changes to the evidence during analysis",
+        "To encrypt data on the disk",
+        "To clone the hard drive"
+      ],
+      "correctIndex": 1
+    },
+    {
+      "q": "Which of the following is a common method for securing the chain of custody of digital evidence?",
+      "choices": [
+        "Keeping evidence in a locked, secure location",
+        "Sharing evidence with colleagues for analysis",
+        "Allowing access to the evidence by anyone",
+        "Modifying evidence to fit the investigation"
+      ],
+      "correctIndex": 0
+    },
+    {
+      "q": "Which of the following best describes a 'dead' forensic acquisition?",
+      "choices": [
+        "Capturing data from a powered-on system",
+        "Capturing data from a system that has been powered off",
+        "Analyzing data in real-time",
+        "Recovering deleted files"
+      ],
+      "correctIndex": 1
+    },
+    {
+      "q": "Which of the following best describes a live forensic acquisition?",
+      "choices": [
+        "Acquiring data from a powered-off system",
+        "Acquiring data from a system that is currently running",
+        "Capturing data from a backup",
+        "Restoring deleted files"
+      ],
+      "correctIndex": 1
+    }
+  ]
+}

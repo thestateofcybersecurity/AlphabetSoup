@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="color-scheme" content="light dark" />
+  <meta name="description" content="Free ransomware readiness self-assessment: 48 yes/no questions across ten security goals, scored instantly in your browser. Nothing is uploaded." />
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Ransomware readiness assessment | Cybersecurity Alphabet Soup" />
+  <meta property="og:description" content="48 yes/no questions, instant scoring, zero data collection. See where you stand before ransomware checks for you." />
+  <meta property="og:url" content="https://cybersecurityalphabetsoup.com/assess/" />
+  <meta property="og:image" content="https://cybersecurityalphabetsoup.com/og-image.png" />
+  <title>Ransomware readiness assessment | Cybersecurity Alphabet Soup</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,700;0,9..144,900;1,9..144,500&family=IBM+Plex+Mono:wght@500;600&family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet" />
+  <link rel="icon" href="/icon.svg" type="image/svg+xml" />
+  <link rel="stylesheet" href="/style.css" />
+</head>
+<body class="theme-assess">
+  <div class="steam" aria-hidden="true"></div>
+
+  <nav class="site-nav" aria-label="Site">
+    <a href="../">Acronyms</a>
+    <a href="../frameworks/nist-csf/">NIST CSF</a>
+    <a href="../frameworks/cis/">CIS Controls</a>
+    <a href="../quiz/">Quiz</a>
+    <a href="./" aria-current="page">Assess</a>
+    <a href="../roadmap/">Roadmap</a>
+    <a class="nav-play" href="https://thestateofcybersecurity.github.io/cyberdle/" rel="noopener">Play Cyberdle</a>
+  </nav>
+
+  <header class="hero hero-compact">
+    <p class="kicker">self-assessment &middot; 48 questions &middot; stays in your browser</p>
+    <h1 class="title">Ransomware<br /><em>readiness check</em></h1>
+    <p class="tagline">Ten goals, three maturity tiers, instant scoring. Answer honestly; the only one reading is you.</p>
+  </header>
+
+  <main class="ladle">
+    <section id="assess-intro" class="assess-intro"></section>
+    <section id="assess-form" class="assess-form" hidden></section>
+    <section id="assess-results" class="assess-results" hidden></section>
+  </main>
+
+  <footer class="colophon">
+    <p>
+      Gaps in the vocabulary too?
+      <a class="cyberdle-link" href="../">The glossary has you covered &rarr;</a>
+    </p>
+    <p class="fine-print">
+      Modeled on ransomware readiness practice guidance (NIST, CIS, CISA). Not a substitute for a professional assessment.
+    </p>
+  </footer>
+
+  <script type="module" src="/src/assess-main.ts"></script>
+</body>
+</html>

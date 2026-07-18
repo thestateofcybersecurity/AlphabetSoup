@@ -26,6 +26,16 @@ const FRAMEWORK_LINKS: Record<string, { path: string; label: string }> = {
   CSC: { path: 'cis', label: 'CIS Controls v8 translated in plain English' },
 };
 
+/** Certification keys with a practice quiz deck. */
+const QUIZ_LINKS: Record<string, string> = {
+  CISSP: 'cissp',
+  CEH: 'ceh',
+  CHFI: 'chfi',
+  CYSA: 'cysa',
+  GSEC: 'gsec',
+  SSCP: 'sscp',
+};
+
 const dist = `${root}dist`;
 mkdirSync(`${dist}/definitions`, { recursive: true });
 mkdirSync(`${dist}/frameworks/nist-csf`, { recursive: true });
@@ -125,8 +135,16 @@ function definitionPage(key: string, entry: AcronymEntry): string {
     <h2>More in ${entry.category}</h2>
     <div class="related">${related}</div>
     ${
-      FRAMEWORK_LINKS[key]
-        ? `<h2>Go deeper</h2>\n    <div class="related"><a href="../frameworks/${FRAMEWORK_LINKS[key].path}/">${esc(FRAMEWORK_LINKS[key].label)} &rarr;</a></div>`
+      FRAMEWORK_LINKS[key] || QUIZ_LINKS[key]
+        ? `<h2>Go deeper</h2>\n    <div class="related">${
+            FRAMEWORK_LINKS[key]
+              ? `<a href="../frameworks/${FRAMEWORK_LINKS[key].path}/">${esc(FRAMEWORK_LINKS[key].label)} &rarr;</a>`
+              : ''
+          }${
+            QUIZ_LINKS[key]
+              ? `<a href="../quiz/?deck=${QUIZ_LINKS[key]}">Practice ${esc(entry.display)} questions &rarr;</a>`
+              : ''
+          }</div>`
         : ''
     }
     <footer>
@@ -342,6 +360,9 @@ const urls = [
   `${SITE}/`,
   `${SITE}/frameworks/nist-csf/`,
   `${SITE}/frameworks/cis/`,
+  `${SITE}/quiz/`,
+  `${SITE}/assess/`,
+  `${SITE}/roadmap/`,
   ...keys.map((key) => `${SITE}/definitions/${slugForKey(key)}.html`),
   ...csfIds.map((id) => `${SITE}/frameworks/nist-csf/${frameworkSlug(id)}.html`),
   ...cisIds.map((id) => `${SITE}/frameworks/cis/${frameworkSlug(id)}.html`),

@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="color-scheme" content="light dark" />
+  <meta name="description" content="Free cybersecurity roadmap planner: turn NIST CSF 2.0, CIS Controls (by implementation group), or a vCISO engagement template into a quarter-by-quarter plan. Saved in your browser." />
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Cybersecurity roadmap planner | Cybersecurity Alphabet Soup" />
+  <meta property="og:description" content="Turn NIST CSF 2.0 or CIS Controls into a quarter-by-quarter plan you can track and export." />
+  <meta property="og:url" content="https://cybersecurityalphabetsoup.com/roadmap/" />
+  <meta property="og:image" content="https://cybersecurityalphabetsoup.com/og-image.png" />
+  <title>Roadmap planner | Cybersecurity Alphabet Soup</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,700;0,9..144,900;1,9..144,500&family=IBM+Plex+Mono:wght@500;600&family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet" />
+  <link rel="icon" href="/icon.svg" type="image/svg+xml" />
+  <link rel="stylesheet" href="/style.css" />
+</head>
+<body class="theme-roadmap">
+  <div class="steam" aria-hidden="true"></div>
+
+  <nav class="site-nav" aria-label="Site">
+    <a href="../">Acronyms</a>
+    <a href="../frameworks/nist-csf/">NIST CSF</a>
+    <a href="../frameworks/cis/">CIS Controls</a>
+    <a href="../quiz/">Quiz</a>
+    <a href="../assess/">Assess</a>
+    <a href="./" aria-current="page">Roadmap</a>
+    <a class="nav-play" href="https://thestateofcybersecurity.github.io/cyberdle/" rel="noopener">Play Cyberdle</a>
+  </nav>
+
+  <header class="hero hero-compact">
+    <p class="kicker">planning mode &middot; saved in your browser</p>
+    <h1 class="title">Roadmap<br /><em>planner</em></h1>
+    <p class="tagline">Turn a framework into a quarter-by-quarter plan. Pick a source, drag nothing, click plenty, export when done.</p>
+  </header>
+
+  <main class="ladle ladle-wide">
+    <div class="plan-controls">
+      <label class="select-wrap"><span>plan source</span>
+        <select id="plan-source" class="panel-select">
+          <option value="csf">NIST CSF 2.0 (22 categories)</option>
+          <option value="cis">CIS Controls v8 (18 controls)</option>
+          <option value="vciso">vCISO engagement template</option>
+        </select>
+      </label>
+      <label class="select-wrap" id="ig-wrap"><span>implementation group</span>
+        <select id="plan-ig" class="panel-select">
+          <option value="1">IG1 (essential)</option>
+          <option value="2">IG2</option>
+          <option value="3" selected>IG3 (everything)</option>
+        </select>
+      </label>
+      <label class="select-wrap" id="pkg-wrap" hidden><span>package</span>
+        <select id="plan-pkg" class="panel-select">
+          <option value="Small">Small</option>
+          <option value="Medium">Medium</option>
+          <option value="Large" selected>Large</option>
+        </select>
+      </label>
+      <button class="ghost-btn" id="plan-export">export csv</button>
+      <button class="ghost-btn" id="plan-print">print</button>
+      <button class="ghost-btn" id="plan-reset">reset plan</button>
+    </div>
+    <div class="plan-summary" id="plan-summary"></div>
+    <div class="board" id="plan-board"></div>
+  </main>
+
+  <footer class="colophon">
+    <p>
+      Need the plain-English version of what you are planning?
+      <a class="cyberdle-link" href="../frameworks/nist-csf/">The framework translations are one click away &rarr;</a>
+    </p>
+    <p class="fine-print">
+      Plans live only in this browser. Click a task's status chip to cycle planned, in progress, done.
+    </p>
+  </footer>
+
+  <script type="module" src="/src/roadmap-main.ts"></script>
+</body>
+</html>
