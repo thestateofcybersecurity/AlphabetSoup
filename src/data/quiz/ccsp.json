@@ -1,0 +1,613 @@
+{
+  "name": "CCSP",
+  "mode": "choice",
+  "certKey": "CCSP",
+  "retired": false,
+  "questions": [
+    {
+      "q": "Under the shared responsibility model for IaaS, which component is ALWAYS the cloud customer's responsibility?",
+      "choices": [
+        "Physical security of the data center",
+        "Hypervisor hardening",
+        "Guest operating system patching and configuration",
+        "Underlying network fabric maintenance"
+      ],
+      "correctIndex": 2,
+      "why": "In IaaS the provider secures the hardware and hypervisor, but the customer owns the guest OS, its patching, and configuration."
+    },
+    {
+      "q": "As you move from IaaS to PaaS to SaaS, how does the customer's share of security responsibility change?",
+      "choices": [
+        "It shifts entirely to the customer in SaaS",
+        "It stays constant across all service models",
+        "It generally decreases as the provider assumes more of the stack",
+        "It increases because more services are exposed"
+      ],
+      "correctIndex": 2,
+      "why": "SaaS puts the most responsibility on the provider, so the customer's portion shrinks moving from IaaS to SaaS."
+    },
+    {
+      "q": "Which cloud characteristic defined by NIST allows customers to provision compute without human interaction from the provider?",
+      "choices": [
+        "Rapid elasticity",
+        "Measured service",
+        "On-demand self-service",
+        "Resource pooling"
+      ],
+      "correctIndex": 2,
+      "why": "On-demand self-service lets consumers provision capabilities automatically without requiring provider staff involvement."
+    },
+    {
+      "q": "A financial firm needs dedicated, single-tenant hardware but still wants cloud provisioning. Which deployment model best fits?",
+      "choices": [
+        "Multi-cloud brokerage",
+        "Community cloud",
+        "Private cloud",
+        "Public cloud"
+      ],
+      "correctIndex": 2,
+      "why": "A private cloud is provisioned for exclusive use by a single organization, giving single-tenant isolation with cloud provisioning."
+    },
+    {
+      "q": "What is the primary security concern that multitenancy introduces in public cloud environments?",
+      "choices": [
+        "Reduced elasticity during peak load",
+        "Isolation failure allowing one tenant to access another's data",
+        "Loss of measured service billing accuracy",
+        "Higher latency from resource pooling"
+      ],
+      "correctIndex": 1,
+      "why": "Multitenancy raises the risk that weak logical isolation lets one tenant reach another tenant's data or workloads."
+    },
+    {
+      "q": "Which term describes the risk of being unable to easily move workloads and data from one cloud provider to another?",
+      "choices": [
+        "Resource pooling",
+        "Tenant sprawl",
+        "Elastic contention",
+        "Vendor lock-in"
+      ],
+      "correctIndex": 3,
+      "why": "Vendor lock-in occurs when proprietary formats or services make migration to another provider difficult and costly."
+    },
+    {
+      "q": "In cloud reference architecture, what is the role of a cloud access broker or cloud service broker?",
+      "choices": [
+        "A device that decrypts all tenant traffic at the hypervisor",
+        "An intermediary that manages use, performance, and delivery of cloud services",
+        "A hardware appliance that stores encryption keys on-prem",
+        "A provider tool that meters billing only"
+      ],
+      "correctIndex": 1,
+      "why": "A cloud service broker mediates relationships between consumers and providers, adding value to service use and delivery."
+    },
+    {
+      "q": "Which emerging technology concern involves securely running code without managing the underlying servers?",
+      "choices": [
+        "Physical tamper detection",
+        "Serverless (Function as a Service) security",
+        "Hypervisor introspection",
+        "Bare-metal provisioning"
+      ],
+      "correctIndex": 1,
+      "why": "Serverless / FaaS abstracts servers away, shifting focus to function permissions, event triggers, and dependencies."
+    },
+    {
+      "q": "What does the term 'reversibility' refer to in cloud service agreements?",
+      "choices": [
+        "The provider's ability to roll back a failed deployment",
+        "The capacity to undo an encryption operation",
+        "The ability to retrieve data and terminate service, restoring the prior state",
+        "The customer's right to reverse a billing charge"
+      ],
+      "correctIndex": 2,
+      "why": "Reversibility is the process of reclaiming assets and data so the customer can revert to a state before the cloud engagement."
+    },
+    {
+      "q": "Which order correctly represents the phases of the cloud secure data lifecycle?",
+      "choices": [
+        "Create, Use, Store, Archive, Share, Destroy",
+        "Store, Create, Share, Use, Destroy, Archive",
+        "Ingest, Process, Encrypt, Share, Retain, Purge",
+        "Create, Store, Use, Share, Archive, Destroy"
+      ],
+      "correctIndex": 3,
+      "why": "The recognized cloud data lifecycle proceeds Create, Store, Use, Share, Archive, then Destroy."
+    },
+    {
+      "q": "In a Bring Your Own Key (BYOK) arrangement, who generates and controls the master key material?",
+      "choices": [
+        "The hypervisor derives keys automatically per tenant",
+        "The provider generates the key and shares it with the customer",
+        "A third-party escrow agent generates keys for both parties",
+        "The customer generates the key and imports it into the provider's KMS"
+      ],
+      "correctIndex": 3,
+      "why": "BYOK lets the customer create key material externally and import it into the cloud KMS, retaining more control over provenance."
+    },
+    {
+      "q": "What is the main security benefit of tokenization compared with encryption for protecting card data?",
+      "choices": [
+        "Tokens are always shorter and faster to transmit",
+        "Tokens can be reversed without any lookup table",
+        "The token has no mathematical relationship to the original value, removing systems from PCI scope",
+        "Tokenization requires no key management at all"
+      ],
+      "correctIndex": 2,
+      "why": "A token is a surrogate value with no algorithmic link to the original, so token-only systems can fall outside PCI scope."
+    },
+    {
+      "q": "Which technique lets data be processed while it remains encrypted, without decrypting it first?",
+      "choices": [
+        "Transparent data encryption",
+        "Homomorphic encryption",
+        "Format-preserving encryption",
+        "Client-side field masking"
+      ],
+      "correctIndex": 1,
+      "why": "Homomorphic encryption permits computation directly on ciphertext, producing an encrypted result matching operations on plaintext."
+    },
+    {
+      "q": "A DLP solution in the cloud is being deployed to inspect files leaving object storage. Which DLP component performs the actual policy matching?",
+      "choices": [
+        "The discovery crawler only",
+        "The tenant billing meter",
+        "The key management service",
+        "The detection/analysis engine"
+      ],
+      "correctIndex": 3,
+      "why": "DLP has discovery, monitoring, and enforcement stages; the detection engine analyzes content against policy to decide action."
+    },
+    {
+      "q": "Why is cryptographic erasure (crypto-shredding) especially useful for data destruction in the cloud?",
+      "choices": [
+        "It physically degausses the provider's shared disks",
+        "Destroying the keys renders encrypted data unrecoverable without physical media access",
+        "It guarantees NIST purge on multitenant SSDs directly",
+        "It removes the need to encrypt data at rest"
+      ],
+      "correctIndex": 1,
+      "why": "In shared storage you cannot physically destroy media, so deleting the encryption keys makes the ciphertext permanently unreadable."
+    },
+    {
+      "q": "Where does client-side encryption place the encryption operation relative to the cloud provider?",
+      "choices": [
+        "Encryption happens inside the hypervisor at write time",
+        "Data is encrypted before it reaches the provider, so the provider never sees plaintext",
+        "The KMS decrypts data for indexing then re-encrypts",
+        "The provider encrypts data as it lands in storage"
+      ],
+      "correctIndex": 1,
+      "why": "Client-side encryption performs the crypto operation before upload, keeping keys and plaintext away from the provider."
+    },
+    {
+      "q": "An Information Rights Management (IRM) solution primarily protects data by doing what?",
+      "choices": [
+        "Replacing sensitive fields with random tokens",
+        "Blocking all outbound network traffic from the tenant",
+        "Embedding access controls and usage restrictions that travel with the file",
+        "Encrypting only data at rest in object storage"
+      ],
+      "correctIndex": 2,
+      "why": "IRM binds persistent access and usage policies to the document itself so controls remain enforced wherever the file goes."
+    },
+    {
+      "q": "Which key management model gives the customer the strongest control by keeping keys entirely outside the provider's KMS?",
+      "choices": [
+        "Envelope encryption using the provider's root key",
+        "Hold Your Own Key (HYOK) with an external key store",
+        "BYOK with keys imported to the provider KMS",
+        "Provider-managed default keys"
+      ],
+      "correctIndex": 1,
+      "why": "HYOK keeps keys in a customer-controlled external HSM or key store, so the provider never possesses usable key material."
+    },
+    {
+      "q": "What is the purpose of a hardware security module (HSM) in cloud key management?",
+      "choices": [
+        "A tamper-resistant device that generates, stores, and protects cryptographic keys",
+        "A logging appliance for audit trails",
+        "A virtual switch that isolates tenant VLANs",
+        "A load balancer that distributes encrypted traffic"
+      ],
+      "correctIndex": 0,
+      "why": "An HSM is a hardened, tamper-resistant device dedicated to secure key generation, storage, and cryptographic operations."
+    },
+    {
+      "q": "In cloud infrastructure, what does the management plane primarily control?",
+      "choices": [
+        "The actual application traffic between users and workloads",
+        "The tenant's guest OS antivirus signatures",
+        "Provisioning, configuration, and orchestration of cloud resources",
+        "Physical HVAC and power in the data center"
+      ],
+      "correctIndex": 2,
+      "why": "The management plane orchestrates and configures resources; compromising it can affect the entire cloud environment."
+    },
+    {
+      "q": "Why is protecting the cloud management plane considered critical?",
+      "choices": [
+        "It only affects billing accuracy",
+        "It handles physical badge access to the facility",
+        "Its compromise can allow control over many or all tenant resources at once",
+        "It stores customer plaintext data by default"
+      ],
+      "correctIndex": 2,
+      "why": "The management plane has broad orchestration power, so a breach there can cascade across large portions of the environment."
+    },
+    {
+      "q": "Which control best mitigates the risk of a VM escape (guest breaking out to the hypervisor)?",
+      "choices": [
+        "Storing snapshots in the same tenant bucket",
+        "Increasing the guest VM's RAM allocation",
+        "Keeping the hypervisor patched and minimizing its attack surface",
+        "Disabling tenant network segmentation"
+      ],
+      "correctIndex": 2,
+      "why": "VM escape targets hypervisor flaws, so timely hypervisor patching and hardening are the primary defenses."
+    },
+    {
+      "q": "A micro-segmentation strategy in a cloud virtual network is intended to achieve what?",
+      "choices": [
+        "Automatic key rotation for at-rest data",
+        "Faster north-south internet egress",
+        "Granular east-west traffic control between workloads to limit lateral movement",
+        "Reduced storage costs through deduplication"
+      ],
+      "correctIndex": 2,
+      "why": "Micro-segmentation applies fine-grained policies between workloads, restricting lateral movement if one host is compromised."
+    },
+    {
+      "q": "What is the main goal of a cloud business continuity and disaster recovery plan's Recovery Time Objective (RTO)?",
+      "choices": [
+        "The maximum acceptable time to restore a service after disruption",
+        "The frequency of full backups",
+        "The time to rotate encryption keys",
+        "The maximum acceptable data loss measured in time"
+      ],
+      "correctIndex": 0,
+      "why": "RTO defines how quickly a service must be restored; RPO, by contrast, defines tolerable data loss."
+    },
+    {
+      "q": "Which measure defines the maximum tolerable amount of data loss, expressed as a point in time, for cloud DR?",
+      "choices": [
+        "Recovery Time Objective (RTO)",
+        "Maximum Tolerable Downtime (MTD)",
+        "Recovery Point Objective (RPO)",
+        "Mean Time to Repair (MTTR)"
+      ],
+      "correctIndex": 2,
+      "why": "RPO specifies how much data, in time, can be lost, guiding backup and replication frequency."
+    },
+    {
+      "q": "In securing container orchestration, what is a key benefit of running containers as non-root?",
+      "choices": [
+        "It removes the need for network policies",
+        "It limits the blast radius if a container is compromised",
+        "It speeds up image pull times",
+        "It encrypts the container filesystem automatically"
+      ],
+      "correctIndex": 1,
+      "why": "Running as non-root reduces privileges available to an attacker who breaks into a container, containing the impact."
+    },
+    {
+      "q": "A Cloud Security Posture Management (CSPM) tool primarily helps organizations do what?",
+      "choices": [
+        "Continuously detect misconfigurations and compliance drift across cloud resources",
+        "Provide runtime memory forensics on VMs",
+        "Tokenize cardholder data before storage",
+        "Encrypt application-layer traffic in transit"
+      ],
+      "correctIndex": 0,
+      "why": "CSPM continuously assesses cloud configurations against policy and best practice, flagging misconfigurations and drift."
+    },
+    {
+      "q": "Which physical/environmental design concept ensures a data center has no single point of failure in power and cooling?",
+      "choices": [
+        "Single-homed utility feeds",
+        "Removing environmental monitoring to reduce cost",
+        "Consolidating all UPS into one unit",
+        "Redundancy of critical infrastructure (e.g., N+1)"
+      ],
+      "correctIndex": 3,
+      "why": "Redundant designs like N+1 provide backup capacity for power and cooling, eliminating single points of failure."
+    },
+    {
+      "q": "When performing threat modeling for a cloud application, which framework categorizes threats as Spoofing, Tampering, Repudiation, Information disclosure, Denial of service, and Elevation of privilege?",
+      "choices": [
+        "OCTAVE",
+        "STRIDE",
+        "PASTA",
+        "DREAD"
+      ],
+      "correctIndex": 1,
+      "why": "STRIDE is the threat classification model covering those six categories, widely used in application threat modeling."
+    },
+    {
+      "q": "In a secure cloud SDLC, static application security testing (SAST) is best characterized as what?",
+      "choices": [
+        "Testing the running application by sending malicious inputs",
+        "Scanning container images for outdated packages only",
+        "Analyzing source or bytecode for vulnerabilities without executing it",
+        "Reviewing production logs for anomalies"
+      ],
+      "correctIndex": 2,
+      "why": "SAST inspects code statically for flaws before execution, catching issues early in development."
+    },
+    {
+      "q": "Which testing approach evaluates a running cloud application from the outside by sending inputs and observing responses?",
+      "choices": [
+        "Dynamic application security testing (DAST)",
+        "Static application security testing (SAST)",
+        "Software composition analysis (SCA)",
+        "Interactive threat modeling"
+      ],
+      "correctIndex": 0,
+      "why": "DAST tests the live application externally, probing runtime behavior without access to source code."
+    },
+    {
+      "q": "What is the primary purpose of Software Composition Analysis (SCA) in cloud application security?",
+      "choices": [
+        "Load testing the API gateway",
+        "Rotating service account credentials",
+        "Identifying vulnerabilities and license risks in open-source and third-party components",
+        "Encrypting data before it is written to storage"
+      ],
+      "correctIndex": 2,
+      "why": "SCA inventories third-party and open-source dependencies to flag known vulnerabilities and licensing concerns."
+    },
+    {
+      "q": "In the context of APIs, why is proper authentication and rate limiting important for cloud applications?",
+      "choices": [
+        "They eliminate the need for TLS on endpoints",
+        "APIs are a primary attack surface and can be abused for data exposure or DoS",
+        "They reduce the size of JSON payloads",
+        "They automatically classify data at rest"
+      ],
+      "correctIndex": 1,
+      "why": "Cloud APIs are heavily exposed; strong auth and rate limiting curb credential abuse, scraping, and denial-of-service."
+    },
+    {
+      "q": "Which OWASP concern is most directly addressed by validating and sanitizing all user input in a cloud web app?",
+      "choices": [
+        "Injection attacks",
+        "Security misconfiguration of storage",
+        "Weak key management",
+        "Insufficient logging"
+      ],
+      "correctIndex": 0,
+      "why": "Input validation and sanitization are the core defenses against injection flaws such as SQL and command injection."
+    },
+    {
+      "q": "What is the security value of using immutable infrastructure and infrastructure-as-code in cloud deployments?",
+      "choices": [
+        "It removes the need for identity management",
+        "It guarantees zero downtime during attacks",
+        "It encrypts all secrets automatically at runtime",
+        "Consistent, version-controlled configurations reduce drift and unauthorized changes"
+      ],
+      "correctIndex": 3,
+      "why": "IaC and immutable builds enforce repeatable, reviewable configurations, minimizing configuration drift and ad hoc changes."
+    },
+    {
+      "q": "A sandbox is used in cloud application development primarily to do what?",
+      "choices": [
+        "Isolate and test code or untrusted components away from production",
+        "Replace the need for code review",
+        "Store production encryption keys",
+        "Serve as the primary CDN cache"
+      ],
+      "correctIndex": 0,
+      "why": "A sandbox provides an isolated environment to test code and untrusted components without risking production systems."
+    },
+    {
+      "q": "Why should secrets like API keys never be hardcoded in application source stored in a cloud repository?",
+      "choices": [
+        "Exposed repositories can leak the secrets, enabling unauthorized access",
+        "Hardcoding increases application latency",
+        "It violates the data residency principle",
+        "Source control cannot store text values"
+      ],
+      "correctIndex": 0,
+      "why": "Hardcoded secrets in repos are frequently leaked; a secrets manager should store and inject them at runtime instead."
+    },
+    {
+      "q": "In cloud IAM, what does federated identity primarily enable?",
+      "choices": [
+        "Using a single set of credentials from a trusted identity provider across multiple services",
+        "Encrypting tokens at rest in object storage",
+        "Storing all passwords in the application database",
+        "Bypassing multi-factor authentication for admins"
+      ],
+      "correctIndex": 0,
+      "why": "Federation lets an identity provider assert authentication to relying services, enabling single sign-on across domains."
+    },
+    {
+      "q": "Which protocol is most commonly used to exchange authentication and authorization assertions between an IdP and a cloud SaaS service provider?",
+      "choices": [
+        "SCTP",
+        "SAML",
+        "SMTP",
+        "SNMP"
+      ],
+      "correctIndex": 1,
+      "why": "SAML is the XML-based standard for exchanging authentication and authorization assertions in federated SSO."
+    },
+    {
+      "q": "A CASB (Cloud Access Security Broker) sits between users and cloud services mainly to provide what?",
+      "choices": [
+        "Hypervisor patch management",
+        "Bare-metal server provisioning",
+        "Physical access control to the data center",
+        "Visibility, compliance, data security, and threat protection for cloud usage"
+      ],
+      "correctIndex": 3,
+      "why": "A CASB enforces policy between users and cloud apps across the pillars of visibility, compliance, data security, and threat protection."
+    },
+    {
+      "q": "What is the main challenge of digital forensics in a public cloud environment?",
+      "choices": [
+        "Guest VMs cannot be snapshotted",
+        "Chain of custody does not apply to virtual evidence",
+        "Limited access to underlying hardware and multitenant data commingling",
+        "Logs are never generated by cloud services"
+      ],
+      "correctIndex": 2,
+      "why": "Cloud forensics is hard because customers lack physical hardware access and data may share media with other tenants."
+    },
+    {
+      "q": "During cloud incident response, why is preserving volatile data especially difficult?",
+      "choices": [
+        "Elastic resources may be terminated automatically, destroying memory and state",
+        "Providers always block all evidence collection",
+        "Volatile data is irrelevant to cloud investigations",
+        "Cloud VMs have no memory to capture"
+      ],
+      "correctIndex": 0,
+      "why": "Auto-scaling and ephemeral instances can be torn down quickly, erasing volatile memory before it is captured."
+    },
+    {
+      "q": "Which practice ensures cloud audit logs can be trusted as evidence and are protected from tampering?",
+      "choices": [
+        "Disabling log forwarding to reduce cost",
+        "Storing logs on the same instance that generates them",
+        "Allowing administrators to edit logs for clarity",
+        "Writing logs to a separate, immutable, access-controlled store"
+      ],
+      "correctIndex": 3,
+      "why": "Centralized, immutable, access-controlled log storage preserves integrity and supports evidentiary and audit needs."
+    },
+    {
+      "q": "What is the primary purpose of a Security Information and Event Management (SIEM) system in cloud operations?",
+      "choices": [
+        "Encrypting object storage buckets automatically",
+        "Managing DNS records for tenant domains",
+        "Aggregating and correlating logs and events to detect and investigate incidents",
+        "Provisioning new virtual machines on demand"
+      ],
+      "correctIndex": 2,
+      "why": "A SIEM collects and correlates log and event data across sources to enable detection, alerting, and investigation."
+    },
+    {
+      "q": "In cloud operations, what does a change management process primarily protect against?",
+      "choices": [
+        "Unauthorized or untested modifications that could cause outages or vulnerabilities",
+        "Loss of encryption keys in the HSM",
+        "Physical theft of servers",
+        "Excessive network bandwidth billing"
+      ],
+      "correctIndex": 0,
+      "why": "Change management ensures modifications are reviewed, approved, and tested, reducing risk of outages and introduced weaknesses."
+    },
+    {
+      "q": "Why does patching in a shared cloud environment often rely on the provider for certain layers?",
+      "choices": [
+        "The provider controls the hypervisor and physical infrastructure the customer cannot touch",
+        "Customers are contractually forbidden from patching anything",
+        "Cloud systems never require patching",
+        "Patches are applied only through the billing console"
+      ],
+      "correctIndex": 0,
+      "why": "In shared responsibility, the provider patches layers like the hypervisor and hardware that customers cannot access."
+    },
+    {
+      "q": "What is the main operational benefit of using a baseline configuration for cloud virtual machines?",
+      "choices": [
+        "A known-good, hardened starting point that eases detection of deviations",
+        "It eliminates the need for identity controls",
+        "It guarantees compliance with all global laws",
+        "It removes the need for any monitoring"
+      ],
+      "correctIndex": 0,
+      "why": "A hardened baseline provides a consistent secure standard, making it easier to spot and remediate configuration deviations."
+    },
+    {
+      "q": "Which concept requires that personal data be stored and processed within a specific country's borders?",
+      "choices": [
+        "Data minimization",
+        "Data localization / data residency",
+        "Data portability",
+        "Data masking"
+      ],
+      "correctIndex": 1,
+      "why": "Data localization or residency mandates that data physically remain within defined geographic or jurisdictional boundaries."
+    },
+    {
+      "q": "Under the GDPR, an organization that determines the purposes and means of processing personal data is called the what?",
+      "choices": [
+        "Data processor",
+        "Data subject",
+        "Data controller",
+        "Data custodian"
+      ],
+      "correctIndex": 2,
+      "why": "GDPR defines the controller as the entity deciding the purposes and means of processing; the processor acts on its behalf."
+    },
+    {
+      "q": "Which audit report type is designed to be freely shared and describes controls without detailed test results, useful for marketing to prospects?",
+      "choices": [
+        "SOC 1 Type 1",
+        "SOC 3",
+        "SOC 1 Type 2",
+        "SOC 2 Type 2"
+      ],
+      "correctIndex": 1,
+      "why": "SOC 3 is a general-use report suitable for public distribution, unlike the restricted-use detailed SOC 2 reports."
+    },
+    {
+      "q": "What distinguishes a SOC 2 Type 2 report from a SOC 2 Type 1 report?",
+      "choices": [
+        "Type 2 is a public marketing document",
+        "Type 2 is only about financial reporting controls",
+        "Type 2 omits any control testing",
+        "Type 2 tests operating effectiveness of controls over a period, not just design at a point in time"
+      ],
+      "correctIndex": 3,
+      "why": "SOC 2 Type 2 evaluates whether controls operated effectively over a period, while Type 1 assesses design at a single point."
+    },
+    {
+      "q": "In cloud contracts, what does an SLA primarily define?",
+      "choices": [
+        "The provider's internal source code",
+        "The encryption algorithms used for data at rest",
+        "Measurable service commitments such as availability and associated remedies",
+        "The customer's marketing obligations"
+      ],
+      "correctIndex": 2,
+      "why": "An SLA sets measurable performance commitments like uptime and defines remedies or penalties for missing them."
+    },
+    {
+      "q": "Which risk treatment option is being used when an organization purchases cyber insurance to offset potential cloud breach losses?",
+      "choices": [
+        "Risk transference",
+        "Risk acceptance",
+        "Risk avoidance",
+        "Risk mitigation"
+      ],
+      "correctIndex": 0,
+      "why": "Buying insurance shifts financial impact to a third party, which is the risk transference strategy."
+    },
+    {
+      "q": "When a cloud contract ends, why is a documented data retention and deletion clause important for compliance?",
+      "choices": [
+        "It selects the tenant's encryption keys",
+        "It defines the hypervisor patch schedule",
+        "It ensures data is returned or destroyed per legal and regulatory obligations",
+        "It sets the provider's stock price"
+      ],
+      "correctIndex": 2,
+      "why": "Clear retention and deletion terms ensure data is returned or securely destroyed to meet legal and regulatory duties."
+    },
+    {
+      "q": "What is the primary purpose of a data protection impact assessment (DPIA) before deploying a new cloud processing activity?",
+      "choices": [
+        "To select the container orchestration platform",
+        "To benchmark network throughput",
+        "To identify and mitigate privacy risks to data subjects before processing begins",
+        "To calculate the provider's monthly bill"
+      ],
+      "correctIndex": 2,
+      "why": "A DPIA systematically evaluates and mitigates privacy risks to individuals prior to high-risk processing activities."
+    }
+  ]
+}

@@ -5,708 +5,708 @@
   "retired": false,
   "questions": [
     {
-      "q": "What is the primary function of a firewall?",
+      "q": "During a TCP three-way handshake, how does the server reply to the client's initial SYN?",
       "choices": [
-        "To scan for viruses",
-        "To filter incoming and outgoing network traffic",
-        "To manage encryption keys",
-        "To back up data"
+        "With a FIN packet",
+        "With a SYN-ACK packet",
+        "With a RST packet",
+        "With an ACK packet only"
       ],
       "correctIndex": 1,
-      "why": "A firewall's job is enforcing rules on traffic entering and leaving the network. Virus scanning, key management, and backups are handled by other tools."
+      "why": "The server answers a SYN by sending SYN-ACK, acknowledging the client and offering its own sequence number. A lone ACK, RST, or FIN would not open the connection."
     },
     {
-      "q": "Which of the following best describes the principle of least privilege?",
+      "q": "Standard DNS name resolution queries primarily use which port?",
       "choices": [
-        "Providing users with the minimum level of access required to perform their jobs",
-        "Granting users full access to all resources",
-        "Allowing users to share their credentials",
-        "Restricting access to administrators only"
+        "UDP 53",
+        "TCP 25",
+        "TCP 389",
+        "TCP 143"
       ],
       "correctIndex": 0,
-      "why": "Least privilege limits each user to the minimum access their job requires, reducing damage from mistakes or compromised accounts. Full access or shared credentials do the opposite."
+      "why": "DNS lookups normally travel over UDP port 53, falling back to TCP for large responses. Port 25 is SMTP, 143 is IMAP, and 389 is LDAP."
     },
     {
-      "q": "What does the acronym 'CIA' stand for in information security?",
+      "q": "A received TCP segment has only the RST flag set. What does that indicate?",
       "choices": [
-        "Confidentiality, Integrity, Availability",
-        "Confidentiality, Integrity, Authentication",
-        "Confidentiality, Information, Availability",
-        "Control, Integrity, Authentication"
-      ],
-      "correctIndex": 0,
-      "why": "The CIA triad is Confidentiality, Integrity, and Availability, the three core goals of information security. Authentication supports these goals but is not part of the triad acronym."
-    },
-    {
-      "q": "Which of the following is an example of a social engineering attack?",
-      "choices": [
-        "Phishing",
-        "SQL injection",
-        "Buffer overflow",
-        "Man-in-the-middle attack"
-      ],
-      "correctIndex": 0,
-      "why": "Phishing tricks people into clicking links or revealing information, which makes it social engineering. SQL injection, buffer overflows, and man-in-the-middle attacks exploit technology instead of people."
-    },
-    {
-      "q": "What is the primary purpose of encryption?",
-      "choices": [
-        "To ensure data confidentiality",
-        "To ensure data availability",
-        "To ensure data integrity",
-        "To ensure data authenticity"
-      ],
-      "correctIndex": 0,
-      "why": "Encryption scrambles data so only key holders can read it, which is confidentiality. Integrity is provided by hashing and availability by redundancy, not by encryption itself."
-    },
-    {
-      "q": "Which of the following is a hashing algorithm?",
-      "choices": [
-        "MD5",
-        "AES",
-        "RSA",
-        "DES"
-      ],
-      "correctIndex": 0,
-      "why": "MD5 is a hashing algorithm that produces a fixed-length digest of its input. AES and DES are symmetric ciphers and RSA is asymmetric encryption, so they encrypt rather than hash."
-    },
-    {
-      "q": "Which of the following is considered a strong password policy?",
-      "choices": [
-        "Using a minimum of 8 characters with a mix of letters, numbers, and symbols",
-        "Using the same password across multiple accounts",
-        "Sharing passwords with coworkers",
-        "Writing down passwords and keeping them in your wallet"
-      ],
-      "correctIndex": 0,
-      "why": "Length plus mixed character types makes passwords resistant to guessing and cracking. Reusing, sharing, or writing down passwords all undermine security."
-    },
-    {
-      "q": "Which of the following is an example of multi-factor authentication?",
-      "choices": [
-        "A password and a fingerprint",
-        "A password and a security question",
-        "A password and an email",
-        "A password and a PIN"
-      ],
-      "correctIndex": 0,
-      "why": "A password (knowledge) combined with a fingerprint (biometric) covers two distinct factor types, which is genuine MFA. A password with a PIN or security question is two knowledge factors, so only one type."
-    },
-    {
-      "q": "What is a key difference between symmetric and asymmetric encryption?",
-      "choices": [
-        "Symmetric encryption uses the same key for encryption and decryption, while asymmetric encryption uses different keys",
-        "Symmetric encryption is slower than asymmetric encryption",
-        "Asymmetric encryption is less secure than symmetric encryption",
-        "Symmetric encryption does not use keys"
-      ],
-      "correctIndex": 0,
-      "why": "Symmetric encryption uses one shared key for both encryption and decryption, while asymmetric uses a public and private key pair. Symmetric is actually faster than asymmetric, so the speed option is backwards."
-    },
-    {
-      "q": "Which of the following is an example of a denial-of-service (DoS) attack?",
-      "choices": [
-        "Flooding a network with excessive traffic to overwhelm resources",
-        "Stealing sensitive information through phishing",
-        "Injecting malicious code into a web application",
-        "Gaining unauthorized access through a brute force attack"
-      ],
-      "correctIndex": 0,
-      "why": "Flooding a target with traffic exhausts its resources so legitimate users are denied service, the definition of DoS. Phishing, code injection, and brute force aim at theft or access, not availability."
-    },
-    {
-      "q": "What is the purpose of an intrusion detection system (IDS)?",
-      "choices": [
-        "To detect and alert on potential security breaches",
-        "To prevent unauthorized access",
-        "To encrypt data",
-        "To monitor network performance"
-      ],
-      "correctIndex": 0,
-      "why": "An IDS watches for suspicious activity and raises alerts; it detects rather than blocks. Actively preventing access is the job of an IPS or firewall."
-    },
-    {
-      "q": "Which of the following is a method of ensuring data integrity?",
-      "choices": [
-        "Hashing",
-        "Encrypting",
-        "Compressing",
-        "Backing up"
-      ],
-      "correctIndex": 0,
-      "why": "Hashing produces a fingerprint that changes if the data changes, revealing tampering. Encryption hides data and backups restore it, but neither proves the data is unaltered."
-    },
-    {
-      "q": "What does the term 'phishing' refer to?",
-      "choices": [
-        "Sending fraudulent emails to trick recipients into revealing sensitive information",
-        "Scanning for vulnerabilities in a network",
-        "Intercepting communications between two parties",
-        "Infecting a system with malware"
-      ],
-      "correctIndex": 0,
-      "why": "Phishing means sending fraudulent messages that impersonate trusted parties to steal credentials or data. Scanning, interception, and malware infection are separate attack techniques."
-    },
-    {
-      "q": "Which of the following is a key feature of a VPN?",
-      "choices": [
-        "It encrypts data transmitted over a public network",
-        "It scans for viruses",
-        "It filters web content",
-        "It manages user accounts"
-      ],
-      "correctIndex": 0,
-      "why": "A VPN builds an encrypted tunnel so data crossing a public network stays private. Virus scanning, content filtering, and account management are unrelated functions."
-    },
-    {
-      "q": "Which of the following best describes social engineering?",
-      "choices": [
-        "Manipulating people into performing actions or divulging confidential information",
-        "Exploiting software vulnerabilities",
-        "Gaining unauthorized access through a network",
-        "Conducting a brute force attack"
-      ],
-      "correctIndex": 0,
-      "why": "Social engineering is the manipulation of people rather than technology to obtain information or access. Exploiting software flaws or brute forcing credentials are technical attacks."
-    },
-    {
-      "q": "What is the main goal of incident response?",
-      "choices": [
-        "To contain and mitigate the impact of a security incident",
-        "To monitor network traffic",
-        "To develop secure applications",
-        "To conduct a vulnerability assessment"
-      ],
-      "correctIndex": 0,
-      "why": "Incident response aims to contain an active incident and reduce its damage as quickly as possible. Monitoring, development, and assessments happen outside the response process."
-    },
-    {
-      "q": "Which of the following is a common method used in password cracking?",
-      "choices": [
-        "Brute force attack",
-        "Phishing",
-        "SQL injection",
-        "Cross-site scripting (XSS)"
-      ],
-      "correctIndex": 0,
-      "why": "Brute force attacks crack passwords by trying combinations until one succeeds. Phishing steals passwords through deception, while SQL injection and XSS attack applications, not passwords."
-    },
-    {
-      "q": "What is the primary purpose of data encryption?",
-      "choices": [
-        "To protect data confidentiality",
-        "To ensure data availability",
-        "To ensure data integrity",
-        "To authenticate users"
-      ],
-      "correctIndex": 0,
-      "why": "Encryption's core purpose is keeping data unreadable to unauthorized parties, which is confidentiality. Integrity and authentication rely on hashing and digital signatures instead."
-    },
-    {
-      "q": "Which of the following is a risk management strategy?",
-      "choices": [
-        "Risk avoidance",
-        "Risk enhancement",
-        "Risk ignoring",
-        "Risk doubling"
-      ],
-      "correctIndex": 0,
-      "why": "Risk avoidance, along with acceptance, mitigation, and transfer, is one of the standard risk treatment strategies. Enhancing, ignoring, or doubling risk are not legitimate strategies."
-    },
-    {
-      "q": "What is the purpose of a digital certificate?",
-      "choices": [
-        "To verify the identity of a user or device",
-        "To encrypt network traffic",
-        "To store passwords",
-        "To monitor system performance"
-      ],
-      "correctIndex": 0,
-      "why": "A digital certificate, issued by a certificate authority, proves that a public key belongs to a specific user or device. Encryption may use that key afterward, but identity verification is the certificate's role."
-    },
-    {
-      "q": "Which of the following is a commonly used hashing algorithm?",
-      "choices": [
-        "SHA-256",
-        "AES",
-        "RSA",
-        "DES"
-      ],
-      "correctIndex": 0,
-      "why": "SHA-256 is a widely used cryptographic hash function. AES and DES are symmetric encryption ciphers and RSA is asymmetric encryption, so none of the others are hashing algorithms."
-    },
-    {
-      "q": "Which of the following is a principle of information security?",
-      "choices": [
-        "Confidentiality",
-        "Creativity",
-        "Centralization",
-        "Consolidation"
-      ],
-      "correctIndex": 0,
-      "why": "Confidentiality is one of the three pillars of the CIA triad. Creativity, centralization, and consolidation are not information security principles."
-    },
-    {
-      "q": "What is the main goal of access control?",
-      "choices": [
-        "To ensure that only authorized users can access certain resources",
-        "To encrypt data",
-        "To scan for viruses",
-        "To manage network traffic"
-      ],
-      "correctIndex": 0,
-      "why": "Access control exists to ensure only authorized users can reach protected resources. Encryption, virus scanning, and traffic management are different controls."
-    },
-    {
-      "q": "Which of the following is an example of an access control model?",
-      "choices": [
-        "Discretionary Access Control (DAC)",
-        "SQL injection",
-        "Man-in-the-middle attack",
-        "Brute force attack"
-      ],
-      "correctIndex": 0,
-      "why": "Discretionary Access Control is a recognized access control model in which resource owners set permissions. The other options are attack techniques, not access models."
-    },
-    {
-      "q": "What is the primary purpose of a penetration test?",
-      "choices": [
-        "To identify and exploit vulnerabilities in a system",
-        "To monitor network traffic",
-        "To develop security policies",
-        "To back up data"
-      ],
-      "correctIndex": 0,
-      "why": "A penetration test actively identifies and exploits vulnerabilities to demonstrate real-world risk before attackers do. Policy writing, monitoring, and backups are not part of the test itself."
-    },
-    {
-      "q": "Which of the following best describes a VPN?",
-      "choices": [
-        "A secure connection over a public network",
-        "A network scanning tool",
-        "A type of firewall",
-        "A method for encrypting emails"
-      ],
-      "correctIndex": 0,
-      "why": "A VPN creates a secure, encrypted connection across an untrusted public network like the internet. It is not a scanner, a firewall, or an email encryption method."
-    },
-    {
-      "q": "Which of the following is a common method of social engineering?",
-      "choices": [
-        "Phishing",
-        "SQL injection",
-        "Brute force attack",
-        "Cross-site scripting (XSS)"
-      ],
-      "correctIndex": 0,
-      "why": "Phishing is the most common social engineering technique because it targets human trust at scale. SQL injection, brute force, and XSS are technical attacks on systems."
-    },
-    {
-      "q": "What does the term 'man-in-the-middle' refer to?",
-      "choices": [
-        "An attack where the attacker intercepts and alters communications between two parties",
-        "A method of password cracking",
-        "A type of firewall",
-        "A way to encrypt data"
-      ],
-      "correctIndex": 0,
-      "why": "In a man-in-the-middle attack, the attacker secretly sits between two parties, intercepting and possibly altering their traffic. It is an attack technique, not a defensive tool or cracking method."
-    },
-    {
-      "q": "What is the purpose of a digital signature?",
-      "choices": [
-        "To verify the authenticity and integrity of a message or document",
-        "To encrypt data",
-        "To manage user access",
-        "To monitor network traffic"
-      ],
-      "correctIndex": 0,
-      "why": "A digital signature is created with the sender's private key so recipients can confirm who sent the message and that it was not altered. It provides authenticity and integrity, not encryption of the content."
-    },
-    {
-      "q": "Which of the following is the most secure method for protecting a wireless network?",
-      "choices": [
-        "WPA2 encryption",
-        "WEP encryption",
-        "MAC address filtering",
-        "Disabling SSID broadcast"
-      ],
-      "correctIndex": 0,
-      "why": "WPA2 encrypts wireless traffic with strong cryptography. WEP is easily cracked, and MAC filtering or hiding the SSID can be bypassed in minutes, so they add little real security."
-    },
-    {
-      "q": "Which of the following is an example of a physical security control?",
-      "choices": [
-        "Security cameras",
-        "Encryption",
-        "Firewalls",
-        "Antivirus software"
-      ],
-      "correctIndex": 0,
-      "why": "Security cameras are a physical control that deters and records real-world intrusions. Encryption, firewalls, and antivirus are technical controls, not physical ones."
-    },
-    {
-      "q": "What does the term 'zero-day vulnerability' refer to?",
-      "choices": [
-        "A vulnerability that is unknown to the vendor and has no patch available",
-        "A vulnerability that has been patched",
-        "A vulnerability that is known but unexploited",
-        "A vulnerability that is widely exploited"
-      ],
-      "correctIndex": 0,
-      "why": "A zero-day is unknown to the vendor, so no patch exists and defenders have had zero days to prepare. Once it is known or patched, it is no longer a zero-day."
-    },
-    {
-      "q": "What is the primary purpose of a security information and event management (SIEM) system?",
-      "choices": [
-        "To monitor and analyze security events in real-time",
-        "To encrypt sensitive data",
-        "To manage user accounts",
-        "To create network diagrams"
-      ],
-      "correctIndex": 0,
-      "why": "A SIEM aggregates and correlates logs from across the environment to surface security events in real time. It is a monitoring platform, not an encryption or identity management tool."
-    },
-    {
-      "q": "Which of the following is a principle of network security?",
-      "choices": [
-        "Defense in depth",
-        "Single point of failure",
-        "Data minimization",
-        "Least resistance"
-      ],
-      "correctIndex": 0,
-      "why": "Defense in depth layers multiple controls so no single failure exposes the network. A single point of failure is exactly what the principle is designed to avoid."
-    },
-    {
-      "q": "Which of the following is a method of ensuring data availability?",
-      "choices": [
-        "Redundancy",
-        "Hashing",
-        "Encryption",
-        "Access control"
-      ],
-      "correctIndex": 0,
-      "why": "Redundant systems and copies keep services running when components fail, which is the heart of availability. Hashing, encryption, and access control address integrity, confidentiality, and authorization."
-    },
-    {
-      "q": "Which of the following is a method used to protect against SQL injection attacks?",
-      "choices": [
-        "Input validation",
-        "Data encryption",
-        "Network segmentation",
-        "Regular backups"
-      ],
-      "correctIndex": 0,
-      "why": "Validating input and using parameterized queries prevents attacker-supplied SQL from executing. Encryption, segmentation, and backups reduce other risks but not the injection itself."
-    },
-    {
-      "q": "Which of the following best describes a denial-of-service (DoS) attack?",
-      "choices": [
-        "An attack that aims to make a service unavailable",
-        "An attack that steals data",
-        "An attack that encrypts files",
-        "An attack that monitors network traffic"
-      ],
-      "correctIndex": 0,
-      "why": "A DoS attack's goal is knocking a service offline so legitimate users cannot use it. Stealing data, encrypting files, and monitoring traffic describe theft, ransomware, and surveillance instead."
-    },
-    {
-      "q": "Which of the following is a method used to ensure data integrity?",
-      "choices": [
-        "Hashing",
-        "Encryption",
-        "Compression",
-        "Tokenization"
-      ],
-      "correctIndex": 0,
-      "why": "A hash acts as a tamper seal: any change to the data produces a different hash value. Encryption protects secrecy, while compression and tokenization do not verify content."
-    },
-    {
-      "q": "Which of the following is a method used to protect against social engineering attacks?",
-      "choices": [
-        "Using strong passwords",
-        "Educating users on security best practices",
-        "Implementing firewalls",
-        "Using antivirus software"
+        "A graceful shutdown is starting",
+        "The connection is being reset or refused",
+        "The receive window is now full",
+        "A lost segment is being requested"
       ],
       "correctIndex": 1,
-      "why": "Because social engineering exploits people, training users to recognize manipulation is the most direct defense. Technical controls like firewalls and antivirus cannot stop a persuaded user."
+      "why": "An RST abruptly tears down or refuses a connection, often when a port is closed. A graceful close uses FIN, not RST."
     },
     {
-      "q": "Which of the following is a common method for securing access to systems?",
+      "q": "Which protocol maps a known IP address to a MAC address on the local segment?",
       "choices": [
-        "Multi-factor authentication",
-        "Data encryption",
-        "Firewalls",
-        "Intrusion detection systems"
-      ],
-      "correctIndex": 0,
-      "why": "MFA requires multiple independent proofs of identity, so a compromised password alone is not enough to log in. Encryption and firewalls protect data and networks, not the login process."
-    },
-    {
-      "q": "Which of the following best describes the purpose of a digital certificate?",
-      "choices": [
-        "To verify the identity of a user or device",
-        "To encrypt data",
-        "To store passwords",
-        "To authenticate a network"
-      ],
-      "correctIndex": 0,
-      "why": "A certificate ties a public key to a verified identity so users and devices can prove who they are. Storing passwords or encrypting data are not what certificates are for."
-    },
-    {
-      "q": "Which of the following best describes the concept of least privilege?",
-      "choices": [
-        "Providing users with the minimum level of access required to perform their jobs",
-        "Granting users full access to all resources",
-        "Allowing users to share their credentials",
-        "Restricting access to administrators only"
-      ],
-      "correctIndex": 0,
-      "why": "Under least privilege, access is limited to exactly what each role needs, which contains the damage from compromised accounts. Full or shared access breaks this principle."
-    },
-    {
-      "q": "Which of the following is a common method of ensuring data availability?",
-      "choices": [
-        "Data replication",
-        "Hashing",
-        "Encryption",
-        "Access control"
-      ],
-      "correctIndex": 0,
-      "why": "Replication maintains synchronized copies of data across systems, keeping it available through failures. The other options protect integrity, confidentiality, and access rather than availability."
-    },
-    {
-      "q": "Which of the following is a method of securing data in transit?",
-      "choices": [
-        "Encryption",
-        "Hashing",
-        "Compression",
-        "Tokenization"
-      ],
-      "correctIndex": 0,
-      "why": "Encryption, as in TLS or a VPN, keeps transmitted data unreadable to interceptors. Hashing can detect changes but does not hide the content."
-    },
-    {
-      "q": "Which of the following best describes a brute force attack?",
-      "choices": [
-        "A method of guessing passwords by trying all possible combinations",
-        "A method of injecting malicious code into a web application",
-        "A method of intercepting communications between two parties",
-        "A method of disguising malware as legitimate software"
-      ],
-      "correctIndex": 0,
-      "why": "Brute force means exhaustively trying password or key combinations until one works. Injection, interception, and disguised malware describe SQL injection, MITM attacks, and Trojans."
-    },
-    {
-      "q": "What is the purpose of a firewall in a network?",
-      "choices": [
-        "To filter incoming and outgoing traffic",
-        "To encrypt data",
-        "To analyze malware",
-        "To create backups"
-      ],
-      "correctIndex": 0,
-      "why": "A firewall filters traffic based on configured rules, permitting or denying connections. It does not encrypt data, analyze malware, or back up data."
-    },
-    {
-      "q": "Which of the following best describes a zero-day vulnerability?",
-      "choices": [
-        "A vulnerability that is unknown to the vendor",
-        "A vulnerability that is known and patched",
-        "A vulnerability that is known but unpatched",
-        "A vulnerability that is actively being exploited"
-      ],
-      "correctIndex": 0,
-      "why": "The defining trait of a zero-day is that the vendor is unaware of it, so no fix exists. Known vulnerabilities, patched or not, are no longer zero-days even if actively exploited."
-    },
-    {
-      "q": "What is the primary purpose of incident response in cybersecurity?",
-      "choices": [
-        "To handle and mitigate the impact of security incidents",
-        "To monitor network traffic",
-        "To develop secure applications",
-        "To perform risk assessments"
-      ],
-      "correctIndex": 0,
-      "why": "Incident response handles active security incidents and limits their impact through containment, eradication, and recovery. The other options are proactive or development tasks."
-    },
-    {
-      "q": "Which of the following is a key feature of a honeypot?",
-      "choices": [
-        "It attracts attackers to a decoy system",
-        "It monitors user activities",
-        "It encrypts sensitive data",
-        "It performs regular backups"
-      ],
-      "correctIndex": 0,
-      "why": "A honeypot is a decoy system set up to attract attackers, wasting their time and revealing their techniques. It is bait, not a monitoring, encryption, or backup tool."
-    },
-    {
-      "q": "Which of the following is an example of an endpoint security solution?",
-      "choices": [
-        "Antivirus software",
-        "Network firewall",
-        "SIEM",
-        "IDS/IPS"
-      ],
-      "correctIndex": 0,
-      "why": "Antivirus is installed on the endpoint itself to catch malware on that device. Network firewalls, SIEMs, and IDS/IPS protect at the network or enterprise level."
-    },
-    {
-      "q": "What is the purpose of threat intelligence in cybersecurity?",
-      "choices": [
-        "To collect, analyze, and disseminate information about threats",
-        "To monitor network traffic",
-        "To encrypt data",
-        "To perform penetration testing"
-      ],
-      "correctIndex": 0,
-      "why": "Threat intelligence turns raw data about attackers into actionable knowledge that is analyzed and shared with defenders. Traffic monitoring and penetration testing are separate activities."
-    },
-    {
-      "q": "Which of the following is a common indicator of compromise (IoC)?",
-      "choices": [
-        "High CPU usage",
-        "A new user account created",
-        "Unusual outbound network traffic",
-        "All of the above"
+        "DHCP",
+        "DNS",
+        "ICMP",
+        "ARP"
       ],
       "correctIndex": 3,
-      "why": "Each option can indicate compromise: odd outbound traffic may be data exfiltration, an unexpected account may be attacker persistence, and high CPU may be malware, so all of the above is correct."
+      "why": "ARP broadcasts a request to learn the MAC that owns an IP on the same LAN. DNS resolves names, DHCP assigns addresses, and ICMP handles control messages."
     },
     {
-      "q": "Which of the following best describes a vulnerability scan?",
+      "q": "An analyst notices inbound traffic to TCP 3389. Which service is most likely running?",
       "choices": [
-        "A method for detecting security weaknesses",
-        "A process of exploiting a security weakness",
-        "A way to monitor network traffic",
-        "A technique to encrypt data"
+        "RDP",
+        "VNC",
+        "SSH",
+        "SMB"
       ],
       "correctIndex": 0,
-      "why": "A vulnerability scan finds and reports weaknesses without exploiting them. Actively exploiting a weakness describes penetration testing, which is the closest but incorrect option."
+      "why": "TCP 3389 is the default Remote Desktop Protocol port. SSH uses 22, SMB uses 445, and VNC typically uses 5900."
     },
     {
-      "q": "Which of the following is a common method used to protect against SQL injection attacks?",
+      "q": "What is the main security advantage of SSH over Telnet for remote administration?",
       "choices": [
-        "Input validation",
-        "Data encryption",
-        "Network segmentation",
-        "Regular backups"
+        "SSH encrypts the session including credentials",
+        "SSH uses a faster transport protocol",
+        "SSH requires no authentication",
+        "SSH works only on internal networks"
       ],
       "correctIndex": 0,
-      "why": "Input validation with parameterized queries stops malicious SQL from being interpreted as commands. Encryption, segmentation, and backups do not address how injection works."
+      "why": "SSH encrypts the entire session so passwords and commands cannot be read in transit, while Telnet sends everything in cleartext."
     },
     {
-      "q": "Which of the following is a common method of securing data at rest?",
+      "q": "Which DNS record type maps a hostname to an IPv4 address?",
       "choices": [
-        "Encryption",
-        "Hashing",
-        "Compression",
-        "Tokenization"
+        "PTR",
+        "MX",
+        "CNAME",
+        "A"
       ],
-      "correctIndex": 0,
-      "why": "Encryption renders stored data unreadable without the key, protecting it if drives are lost or stolen. Hashing is irreversible, and tokenization only substitutes values in specific fields."
+      "correctIndex": 3,
+      "why": "An A record points a hostname to an IPv4 address. MX identifies mail servers, CNAME is an alias, and PTR does reverse lookups."
     },
     {
-      "q": "Which of the following is a primary objective of reconnaissance in penetration testing?",
+      "q": "How many usable host addresses does a /29 subnet provide?",
       "choices": [
-        "To gather information about the target",
-        "To exploit vulnerabilities",
-        "To deploy malware",
-        "To recover lost data"
+        "14",
+        "30",
+        "8",
+        "6"
       ],
-      "correctIndex": 0,
-      "why": "Reconnaissance is the information-gathering phase where testers map the target before attacking. Exploitation and payload delivery come later in the engagement."
+      "correctIndex": 3,
+      "why": "A /29 has 8 total addresses, but the network and broadcast addresses are unusable, leaving 6 for hosts."
     },
     {
-      "q": "Which of the following best describes a social engineering attack?",
+      "q": "Which IPv4 header field is decremented by each router and stops packets from looping forever?",
       "choices": [
-        "Tricking users into revealing confidential information",
-        "Exploiting a software vulnerability",
-        "Gaining unauthorized access through brute force",
-        "Injecting malicious code into a web application"
+        "Fragment Offset",
+        "Type of Service",
+        "Header Checksum",
+        "TTL"
       ],
-      "correctIndex": 0,
-      "why": "Social engineering succeeds by deceiving people into handing over information or access. The other options describe technical exploits rather than manipulation of humans."
+      "correctIndex": 3,
+      "why": "Each router lowers the Time To Live by one and drops the packet at zero, preventing endless routing loops."
     },
     {
-      "q": "Which of the following best describes the principle of defense in depth?",
+      "q": "A layer 2 switch forwards frames based primarily on what information?",
       "choices": [
-        "Using multiple layers of security to protect resources",
-        "Implementing a single, strong security control",
-        "Encrypting all sensitive data",
-        "Backing up data regularly"
+        "The destination MAC address",
+        "The DNS hostname",
+        "The TCP port number",
+        "The destination IP address"
       ],
       "correctIndex": 0,
-      "why": "Layered controls mean an attacker who defeats one defense still faces others. A single control, however strong, is a single point of failure."
+      "why": "Switches build a MAC address table and forward frames toward the port owning the destination MAC. IP and TCP details belong to higher layers."
     },
     {
-      "q": "Which of the following is an example of a client-side attack?",
+      "q": "Why is asymmetric encryption typically used to exchange a symmetric key rather than encrypt an entire session?",
       "choices": [
-        "Cross-site scripting (XSS)",
-        "SQL injection",
-        "Buffer overflow",
-        "Brute force"
+        "Asymmetric operations are far slower, so symmetric handles the bulk data",
+        "Asymmetric keys change on every packet",
+        "Symmetric keys cannot be shared any other way",
+        "Asymmetric encryption cannot protect small values"
       ],
       "correctIndex": 0,
-      "why": "Cross-site scripting runs malicious script in the victim's browser, making it a client-side attack. SQL injection and buffer overflows execute on the server, and brute force targets authentication."
+      "why": "Public key math is computationally expensive, so it protects the small session key while fast symmetric encryption secures the large payload."
     },
     {
-      "q": "Which of the following best describes the purpose of social engineering in penetration testing?",
+      "q": "A TLS certificate signed by a trusted CA lets a client verify what?",
       "choices": [
-        "To trick users into revealing sensitive information",
-        "To bypass network firewalls",
-        "To exploit software vulnerabilities",
-        "To monitor network traffic"
+        "That traffic is compressed",
+        "That the server has no vulnerabilities",
+        "That the server's public key is bound to its identity",
+        "That the connection cannot be intercepted"
       ],
-      "correctIndex": 0,
-      "why": "In penetration testing, social engineering tests whether staff can be tricked into revealing sensitive information or granting access. Firewall bypass and software exploits are technical test phases."
+      "correctIndex": 2,
+      "why": "The CA's signature vouches that the public key belongs to the named server, which is the basis for trusting the encrypted channel."
     },
     {
-      "q": "Which of the following is a common security control used to protect web applications?",
+      "q": "Which property does a cryptographic hash provide that encryption does not?",
       "choices": [
-        "Web Application Firewall (WAF)",
-        "Network Intrusion Detection System (NIDS)",
-        "Security Information and Event Management (SIEM)",
-        "Antivirus software"
+        "A one-way fixed-length digest that cannot be reversed",
+        "Confidentiality of the message body",
+        "Compression of large files",
+        "A reversible transformation with a key"
       ],
       "correctIndex": 0,
-      "why": "A WAF sits in front of web applications and filters HTTP requests to block attacks like SQL injection and XSS. NIDS, SIEM, and antivirus are broader controls not focused on web apps."
+      "why": "A hash is a one-way function producing a fixed-length digest with no key to reverse it, unlike encryption which is designed to be decrypted."
     },
     {
-      "q": "Which of the following is a potential issue when collecting evidence from cloud environments?",
+      "q": "The 256 in AES-256 refers to what?",
       "choices": [
-        "The physical location of the data",
-        "The speed of data retrieval",
-        "The cost of the services",
-        "The availability of tools"
+        "The block size in bytes",
+        "The key size in bits",
+        "The number of rounds",
+        "The digest length"
       ],
-      "correctIndex": 0,
-      "why": "Cloud data may reside in unknown or foreign jurisdictions, which complicates legal authority and chain of custody for evidence collection. Speed, cost, and tooling matter less than where the data physically lives."
+      "correctIndex": 1,
+      "why": "AES-256 uses a 256-bit key. AES always uses a 128-bit block regardless of key length, so the number does not describe the block."
     },
     {
-      "q": "Which of the following best describes a forensic image?",
+      "q": "What does adding a unique salt to each password before hashing accomplish?",
       "choices": [
-        "A bit-for-bit copy of the original disk",
-        "A compressed copy of the original disk",
-        "An encrypted copy of the original disk",
-        "A backup copy of the original disk"
+        "It shortens the stored value",
+        "It encrypts the resulting hash",
+        "Identical passwords hash differently, defeating precomputed tables",
+        "It makes hashing run faster"
       ],
-      "correctIndex": 0,
-      "why": "A forensic image is an exact bit-for-bit duplicate, including deleted files and slack space, so analysis never touches the original. Backups and compressed copies omit that low-level detail."
+      "correctIndex": 2,
+      "why": "A per-user salt ensures two users with the same password get different hashes, which breaks rainbow tables and precomputed attacks."
     },
     {
-      "q": "Which of the following is a method of protecting data at rest?",
+      "q": "An HMAC on a message provides which assurances?",
       "choices": [
-        "Encryption",
-        "Hashing",
-        "Tokenization",
-        "Compression"
+        "Guaranteed delivery",
+        "Integrity and authenticity using a shared secret",
+        "Non-repudiation via a public key",
+        "Confidentiality of the payload"
+      ],
+      "correctIndex": 1,
+      "why": "HMAC combines a hash with a shared secret key, proving the message was not altered and came from a party holding the key."
+    },
+    {
+      "q": "Which key does a sender use to create a digital signature?",
+      "choices": [
+        "The recipient's public key",
+        "Their own private key",
+        "A shared session key",
+        "The recipient's private key"
+      ],
+      "correctIndex": 1,
+      "why": "The sender signs with their private key so anyone with the matching public key can verify the signature, providing authenticity and integrity."
+    },
+    {
+      "q": "What does perfect forward secrecy protect if a server's long-term private key is later stolen?",
+      "choices": [
+        "Future sessions need no encryption",
+        "The server's certificate stays valid",
+        "The private key regenerates itself",
+        "Previously recorded session keys stay safe"
+      ],
+      "correctIndex": 3,
+      "why": "PFS negotiates ephemeral keys per session, so compromising the long-term key does not let an attacker decrypt earlier captured traffic."
+    },
+    {
+      "q": "What does a certificate revocation list tell a client?",
+      "choices": [
+        "Which certificates will renew soon",
+        "Which CAs are approved",
+        "Which certificates are no longer trustworthy before expiry",
+        "Which ciphers are supported"
+      ],
+      "correctIndex": 2,
+      "why": "A CRL lists certificates a CA has invalidated ahead of their expiration, such as after a key compromise, so clients can reject them."
+    },
+    {
+      "q": "Under role-based access control, permissions are assigned to what?",
+      "choices": [
+        "Resource owners at their discretion",
+        "Security clearance labels",
+        "Individual users directly",
+        "Roles, to which users are then assigned"
+      ],
+      "correctIndex": 3,
+      "why": "RBAC grants permissions to roles and then places users into roles, which simplifies administration. Per-user grants are unmanaged and labels describe MAC."
+    },
+    {
+      "q": "Mandatory access control enforces access based on what?",
+      "choices": [
+        "A first-come-first-served basis",
+        "System-assigned security labels and clearances",
+        "The user's job role only",
+        "Permissions set by the resource owner"
+      ],
+      "correctIndex": 1,
+      "why": "In MAC, the system compares clearance labels against object classifications, and users cannot override them. Owner-set permissions describe DAC instead."
+    },
+    {
+      "q": "How do authentication and authorization differ?",
+      "choices": [
+        "Authentication proves identity; authorization decides allowed actions",
+        "They are two names for the same control",
+        "Authorization always happens before authentication",
+        "Authentication grants permissions to files"
       ],
       "correctIndex": 0,
-      "why": "Encrypting stored data keeps it confidential even if the device or database is stolen. Hashing cannot be reversed to recover data, and tokenization only replaces specific fields."
+      "why": "Authentication confirms who you are, and authorization then determines what you may do. Identity must be established before rights are evaluated."
+    },
+    {
+      "q": "After a client authenticates to Kerberos, what does it receive to reach services without resending its password?",
+      "choices": [
+        "A session cookie",
+        "A password hash",
+        "A ticket-granting ticket",
+        "A private key"
+      ],
+      "correctIndex": 2,
+      "why": "Kerberos issues a ticket-granting ticket that the client presents to obtain service tickets, so the password is not sent repeatedly across the network."
+    },
+    {
+      "q": "What security benefit does separation of duties provide?",
+      "choices": [
+        "No single person can complete a sensitive process alone",
+        "Fewer accounts to manage",
+        "Faster completion of critical tasks",
+        "Automatic encryption of records"
+      ],
+      "correctIndex": 0,
+      "why": "Splitting a sensitive task across people means fraud or error requires collusion, which is far harder than a single actor acting alone."
+    },
+    {
+      "q": "Which Windows console configures local password, lockout, and audit policies?",
+      "choices": [
+        "msconfig",
+        "services.msc",
+        "regedit",
+        "secpol.msc"
+      ],
+      "correctIndex": 3,
+      "why": "The Local Security Policy console, secpol.msc, manages account and audit policy. regedit edits the registry, msconfig handles startup, and services.msc manages services."
+    },
+    {
+      "q": "Where does a standalone Windows system store its local account password hashes?",
+      "choices": [
+        "The SAM database",
+        "The pagefile",
+        "The NTUSER.DAT file",
+        "The hosts file"
+      ],
+      "correctIndex": 0,
+      "why": "Local credential hashes live in the Security Account Manager database. Domain hashes are stored in Active Directory instead."
+    },
+    {
+      "q": "What does Windows User Account Control primarily do?",
+      "choices": [
+        "Encrypt user home folders",
+        "Prompt for consent before granting administrative privileges",
+        "Manage firewall rules",
+        "Scan downloads for malware"
+      ],
+      "correctIndex": 1,
+      "why": "UAC forces even administrators to explicitly approve elevation, limiting how easily malware can silently perform privileged actions."
+    },
+    {
+      "q": "Which Windows event log records failed logon attempts?",
+      "choices": [
+        "Application",
+        "Security",
+        "System",
+        "Setup"
+      ],
+      "correctIndex": 1,
+      "why": "Logon successes and failures, such as event ID 4625, are written to the Security log. The System and Application logs track other events."
+    },
+    {
+      "q": "How do NTFS permissions differ from share permissions in Windows?",
+      "choices": [
+        "NTFS applies only over the network",
+        "Share permissions are more granular",
+        "NTFS applies to both local and network access and is more granular",
+        "They are identical in effect"
+      ],
+      "correctIndex": 2,
+      "why": "NTFS permissions enforce access whether a file is reached locally or over the network and offer fine-grained control, while share permissions apply only to network access."
+    },
+    {
+      "q": "Which Windows security context runs core services with privileges beyond a normal administrator?",
+      "choices": [
+        "Everyone",
+        "LocalSystem (SYSTEM)",
+        "Guest",
+        "Power Users"
+      ],
+      "correctIndex": 1,
+      "why": "The SYSTEM account is used by the OS and many services and holds privileges exceeding a standard admin, which is why attackers aim to reach it."
+    },
+    {
+      "q": "In Linux permissions, what access does mode 750 grant the group?",
+      "choices": [
+        "Read and execute, but not write",
+        "Write only",
+        "No access at all",
+        "Full read, write, and execute"
+      ],
+      "correctIndex": 0,
+      "why": "In 750 the group digit is 5, which is read plus execute (4+1) with no write. The owner gets 7 (full) and others get 0 (none)."
+    },
+    {
+      "q": "Which file holds hashed user passwords on a modern Linux system?",
+      "choices": [
+        "/etc/group",
+        "/etc/passwd",
+        "/etc/hosts",
+        "/etc/shadow"
+      ],
+      "correctIndex": 3,
+      "why": "Password hashes live in /etc/shadow, readable only by root. /etc/passwd holds account details but no usable hashes on modern systems."
+    },
+    {
+      "q": "What does the sudo mechanism allow a permitted user to do?",
+      "choices": [
+        "Bypass all file permissions",
+        "Disable the kernel firewall permanently",
+        "Run specific commands with elevated privileges under policy",
+        "Reset any user's password without logging"
+      ],
+      "correctIndex": 2,
+      "why": "sudo lets defined users execute allowed commands as root or another user according to /etc/sudoers, with the actions logged for accountability."
+    },
+    {
+      "q": "An executable with the SetUID bit set runs with whose privileges?",
+      "choices": [
+        "The root group only",
+        "The file owner's privileges",
+        "Nobody, it is sandboxed",
+        "The calling user's privileges"
+      ],
+      "correctIndex": 1,
+      "why": "SetUID makes a program run as its owner regardless of who launches it, which is powerful and risky when the owner is root."
+    },
+    {
+      "q": "Which Linux command lists listening TCP ports and the processes bound to them?",
+      "choices": [
+        "uptime",
+        "df -h",
+        "chmod -R",
+        "ss -tulpn"
+      ],
+      "correctIndex": 3,
+      "why": "ss -tulpn shows listening TCP and UDP sockets with owning processes, replacing older netstat. The others manage permissions, disk, and uptime."
+    },
+    {
+      "q": "What is the primary purpose of iptables or nftables on Linux?",
+      "choices": [
+        "Mounting filesystems",
+        "Managing user accounts",
+        "Scheduling cron jobs",
+        "Host-based packet filtering and firewall rules"
+      ],
+      "correctIndex": 3,
+      "why": "iptables and its successor nftables define kernel packet-filtering rules that permit or drop traffic, acting as a host firewall."
+    },
+    {
+      "q": "What is Nmap primarily used for?",
+      "choices": [
+        "Discovering hosts and open ports on a network",
+        "Cracking password hashes",
+        "Decrypting TLS sessions",
+        "Capturing and decoding packets"
+      ],
+      "correctIndex": 0,
+      "why": "Nmap probes networks to find live hosts, open ports, and running services. Packet analysis is Wireshark's role and hash cracking is a separate task."
+    },
+    {
+      "q": "Wireshark is best described as which kind of tool?",
+      "choices": [
+        "A vulnerability scanner",
+        "A host firewall",
+        "A password manager",
+        "A packet capture and protocol analyzer"
+      ],
+      "correctIndex": 3,
+      "why": "Wireshark captures traffic and dissects it protocol by protocol for analysis. It does not scan for vulnerabilities or filter traffic."
+    },
+    {
+      "q": "How does an IPS differ from an IDS?",
+      "choices": [
+        "An IPS only logs events for later review",
+        "An IPS can block malicious traffic inline, not just alert",
+        "An IDS actively drops packets",
+        "An IPS cannot inspect payloads"
+      ],
+      "correctIndex": 1,
+      "why": "An IPS sits inline and can drop or reset malicious connections, while an IDS observes a copy of traffic and raises alerts without stopping it."
+    },
+    {
+      "q": "A signature-based IDS detects threats by doing what?",
+      "choices": [
+        "Matching traffic against known malicious patterns",
+        "Executing files in a sandbox",
+        "Decrypting all payloads",
+        "Baselining normal behavior and flagging deviations"
+      ],
+      "correctIndex": 0,
+      "why": "Signature detection compares activity to a database of known attack patterns. Flagging deviations from a baseline describes anomaly-based detection instead."
+    },
+    {
+      "q": "What does a network tap or SPAN port deliver to a monitoring sensor?",
+      "choices": [
+        "Encrypted management access",
+        "A backup of switch configuration",
+        "A blocked list of malicious IPs",
+        "A copy of network traffic for inspection"
+      ],
+      "correctIndex": 3,
+      "why": "Taps and SPAN ports mirror traffic to a sensor so an IDS can inspect it without being in the forwarding path."
+    },
+    {
+      "q": "Running tcpdump with the expression 'port 80' captures what?",
+      "choices": [
+        "Traffic to or from port 80",
+        "All traffic except port 80",
+        "Only outbound HTTPS traffic",
+        "Only broadcast packets"
+      ],
+      "correctIndex": 0,
+      "why": "The filter matches packets whose source or destination port is 80, typically HTTP. It does not exclude the port or limit to broadcasts."
+    },
+    {
+      "q": "How does segmenting a network with VLANs improve security?",
+      "choices": [
+        "It removes the need for firewalls",
+        "It encrypts all traffic between hosts",
+        "It limits lateral movement and separates broadcast domains",
+        "It speeds up DNS resolution"
+      ],
+      "correctIndex": 2,
+      "why": "VLANs isolate groups of devices so an attacker on one segment cannot freely reach others, containing broadcast traffic and lateral movement."
+    },
+    {
+      "q": "What is the purpose of a DMZ in network design?",
+      "choices": [
+        "Replace the need for a firewall",
+        "Provide a VPN endpoint for staff",
+        "Host internet-facing services isolated from the internal network",
+        "Store all backups offline"
+      ],
+      "correctIndex": 2,
+      "why": "A DMZ places public-facing servers in a segment separated from internal systems, so a compromise there does not directly expose the internal network."
+    },
+    {
+      "q": "What best captures the idea of defense in depth?",
+      "choices": [
+        "Relying on one very strong perimeter control",
+        "Backing up data to multiple sites",
+        "Layering independent controls so one failure does not breach the system",
+        "Encrypting every file on disk"
+      ],
+      "correctIndex": 2,
+      "why": "Defense in depth stacks overlapping controls so that if one fails, others still stand. A single control, however strong, is a single point of failure."
+    },
+    {
+      "q": "A control that is 'fail secure' behaves how when it fails?",
+      "choices": [
+        "It restarts and clears all rules",
+        "It denies access and defaults to a safe state",
+        "It disables logging",
+        "It keeps granting access to avoid downtime"
+      ],
+      "correctIndex": 1,
+      "why": "Fail secure means a failure results in denial or a locked-down state. Failing open would instead keep access available at the cost of security."
+    },
+    {
+      "q": "What is the goal of egress filtering on a firewall?",
+      "choices": [
+        "Encrypt outbound email",
+        "Restrict what internal traffic may leave the network",
+        "Cache frequently visited sites",
+        "Block all inbound connections"
+      ],
+      "correctIndex": 1,
+      "why": "Egress rules control outbound traffic, which helps stop data exfiltration and malware command-and-control from reaching the internet."
+    },
+    {
+      "q": "In the SANS incident handling process, which phase directly follows Identification?",
+      "choices": [
+        "Preparation",
+        "Eradication",
+        "Containment",
+        "Recovery"
+      ],
+      "correctIndex": 2,
+      "why": "The SANS phases run Preparation, Identification, Containment, Eradication, Recovery, and Lessons Learned, so Containment follows Identification."
+    },
+    {
+      "q": "During the containment phase of incident response, the main goal is to:",
+      "choices": [
+        "Limit the incident's spread and damage",
+        "Write the final incident report",
+        "Rebuild systems from clean backups",
+        "Patch every unrelated system"
+      ],
+      "correctIndex": 0,
+      "why": "Containment stops the incident from spreading further while responders prepare to eradicate the threat. Rebuilding happens later in recovery."
+    },
+    {
+      "q": "Why does the incident handling process end with a lessons learned review?",
+      "choices": [
+        "To delete all incident evidence",
+        "To improve preparation and prevent recurrence",
+        "To close the ticket faster",
+        "To assign blame to individuals"
+      ],
+      "correctIndex": 1,
+      "why": "The post-incident review feeds improvements back into preparation, strengthening defenses and response for future incidents."
+    },
+    {
+      "q": "Why is preserving system and network logs important early in an incident?",
+      "choices": [
+        "Logs slow down containment if kept",
+        "It automatically removes the malware",
+        "It notifies the attacker to stop",
+        "Evidence can be overwritten or lost if not captured promptly"
+      ],
+      "correctIndex": 3,
+      "why": "Logs rotate and can be tampered with, so capturing them early preserves the record needed to understand scope and support any investigation."
+    },
+    {
+      "q": "What is an indicator of compromise?",
+      "choices": [
+        "A firewall rule that blocks attacks",
+        "A signed software update",
+        "An observable artifact suggesting a breach, like a malicious hash",
+        "A scheduled backup job"
+      ],
+      "correctIndex": 2,
+      "why": "IoCs are forensic breadcrumbs such as malicious IPs, file hashes, or registry changes that signal a system may be compromised."
+    },
+    {
+      "q": "What does the Common Vulnerability Scoring System (CVSS) provide?",
+      "choices": [
+        "An encryption algorithm",
+        "A standardized severity score for vulnerabilities",
+        "A patch download service",
+        "A list of trusted certificates"
+      ],
+      "correctIndex": 1,
+      "why": "CVSS assigns a numeric severity score from vulnerability characteristics, helping teams prioritize remediation consistently."
+    },
+    {
+      "q": "How does a vulnerability scan differ from a penetration test?",
+      "choices": [
+        "A scan identifies weaknesses without exploiting them",
+        "A scan requires no tooling",
+        "A scan only tests physical security",
+        "A scan always exploits every flaw found"
+      ],
+      "correctIndex": 0,
+      "why": "Vulnerability scanning enumerates and reports weaknesses, while a penetration test goes further by actively exploiting them to prove impact."
+    },
+    {
+      "q": "How does patch management reduce risk?",
+      "choices": [
+        "It replaces the need for backups",
+        "It blocks phishing emails",
+        "It encrypts data at rest",
+        "It closes known vulnerabilities before they are exploited"
+      ],
+      "correctIndex": 3,
+      "why": "Applying vendor patches removes known flaws attackers rely on, shrinking the window of exposure between disclosure and exploitation."
+    },
+    {
+      "q": "In vulnerability scanning, what is a false positive?",
+      "choices": [
+        "A blocked exploit attempt",
+        "A patch that failed to install",
+        "A real flaw the scan missed",
+        "A reported flaw that does not actually exist or is not exploitable"
+      ],
+      "correctIndex": 3,
+      "why": "A false positive is a finding the scanner flags that is not truly present or exploitable. A missed real flaw is called a false negative instead."
+    },
+    {
+      "q": "Why are credentialed vulnerability scans more accurate than unauthenticated ones?",
+      "choices": [
+        "They never produce false positives",
+        "They exploit each vulnerability found",
+        "They inspect installed patches and configuration from the inside",
+        "They run faster with less network load"
+      ],
+      "correctIndex": 2,
+      "why": "Logging in lets the scanner read actual patch levels and settings, giving a truer picture than probing only from outside the host."
+    },
+    {
+      "q": "What distinguishes a worm from a virus?",
+      "choices": [
+        "A worm needs a user to open an infected file",
+        "A worm cannot spread between machines",
+        "A worm self-propagates across networks without a host file",
+        "A worm only affects hardware"
+      ],
+      "correctIndex": 2,
+      "why": "Worms replicate and spread on their own over networks, while a virus attaches to a file and needs a user or program to run it."
+    },
+    {
+      "q": "What is a rootkit's primary purpose?",
+      "choices": [
+        "Encrypt files for ransom",
+        "Harvest email addresses",
+        "Flood a target with traffic",
+        "Hide malicious presence and maintain privileged persistence"
+      ],
+      "correctIndex": 3,
+      "why": "A rootkit conceals processes, files, and its own presence while keeping elevated access, making the compromise hard to detect and remove."
+    },
+    {
+      "q": "How does application allowlisting reduce risk?",
+      "choices": [
+        "All programs run unless explicitly blocked",
+        "Only approved programs are permitted to execute",
+        "It scans email attachments",
+        "It encrypts executables on disk"
+      ],
+      "correctIndex": 1,
+      "why": "Allowlisting denies everything by default and runs only vetted applications, which blocks unknown malware even without a matching signature."
+    },
+    {
+      "q": "What does EDR add beyond traditional signature antivirus?",
+      "choices": [
+        "Password vaulting",
+        "Network packet capture",
+        "Continuous monitoring, detection, and response with rich telemetry",
+        "Only weekly full-disk scans"
+      ],
+      "correctIndex": 2,
+      "why": "EDR continuously records endpoint activity and enables detection, investigation, and response to behaviors that static antivirus signatures miss."
+    },
+    {
+      "q": "A zero-day vulnerability is best defined as one that:",
+      "choices": [
+        "Has no patch because the vendor is not yet aware of it",
+        "Has been patched but not deployed",
+        "Affects only outdated software",
+        "Is known and actively being scanned for"
+      ],
+      "correctIndex": 0,
+      "why": "A zero-day is unknown to the vendor, so no fix exists and defenders have had zero days to prepare. Once known and patched it is no longer a zero-day."
+    },
+    {
+      "q": "What is the purpose of deploying a honeypot?",
+      "choices": [
+        "Lure attackers to a decoy to study and detect them",
+        "Load-balance web traffic",
+        "Back up critical servers",
+        "Encrypt sensitive production data"
+      ],
+      "correctIndex": 0,
+      "why": "A honeypot is an intentionally exposed decoy that attracts attackers, wasting their effort and revealing their tools and techniques."
+    },
+    {
+      "q": "Two-factor authentication is strongest when the two factors are:",
+      "choices": [
+        "A username and a password",
+        "A password and a security question",
+        "From different categories, like something you know and something you have",
+        "Two different passwords"
+      ],
+      "correctIndex": 2,
+      "why": "Real MFA combines distinct factor types such as knowledge and possession, so stealing one, like a password, is not enough to authenticate."
     }
   ]
 }

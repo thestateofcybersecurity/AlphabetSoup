@@ -5,587 +5,719 @@
   "retired": false,
   "questions": [
     {
-      "q": "What is the primary goal of a cybersecurity analyst?",
+      "q": "A SOC analyst sees hundreds of outbound DNS queries per minute to a single unfamiliar domain, each with a long random subdomain label. What activity does this most likely indicate?",
       "choices": [
-        "To develop software",
-        "To identify and mitigate security threats",
-        "To design network architecture",
-        "To manage user accounts"
-      ],
-      "correctIndex": 1,
-      "why": "A cybersecurity analyst's core mission is finding and reducing security threats to the organization. Software development, network design, and account management are related IT roles, not the analyst's primary goal."
-    },
-    {
-      "q": "Which of the following tools is commonly used for log analysis?",
-      "choices": [
-        "Wireshark",
-        "Splunk",
-        "Nmap",
-        "Metasploit"
-      ],
-      "correctIndex": 1,
-      "why": "Splunk is a log aggregation and analysis platform built to collect, index, and search log data. Wireshark captures packets, Nmap scans networks, and Metasploit is an exploitation framework."
-    },
-    {
-      "q": "What is the purpose of a SIEM system in cybersecurity?",
-      "choices": [
-        "To monitor and analyze security events in real-time",
-        "To encrypt sensitive data",
-        "To create network diagrams",
-        "To manage user identities"
-      ],
-      "correctIndex": 0,
-      "why": "A SIEM collects and correlates logs from across the environment so analysts can spot and investigate security events as they happen. It does not encrypt data or manage identities."
-    },
-    {
-      "q": "Which of the following best describes a vulnerability scan?",
-      "choices": [
-        "A process of exploiting a security weakness",
-        "A method for detecting security weaknesses",
-        "A way to monitor network traffic",
-        "A technique to encrypt data"
-      ],
-      "correctIndex": 1,
-      "why": "A vulnerability scan detects weaknesses without exploiting them. Actually exploiting weaknesses is penetration testing, which goes a step further than scanning."
-    },
-    {
-      "q": "Which tool is primarily used for network packet capture and analysis?",
-      "choices": [
-        "Nmap",
-        "Wireshark",
-        "Splunk",
-        "Nessus"
-      ],
-      "correctIndex": 1,
-      "why": "Wireshark is the standard tool for capturing and inspecting network packets. Nmap maps hosts and ports, Splunk analyzes logs, and Nessus scans for vulnerabilities."
-    },
-    {
-      "q": "What is the purpose of threat intelligence in cybersecurity?",
-      "choices": [
-        "To monitor network traffic",
-        "To collect, analyze, and disseminate information about threats",
-        "To encrypt data",
-        "To perform penetration testing"
-      ],
-      "correctIndex": 1,
-      "why": "Threat intelligence is the practice of gathering, analyzing, and sharing information about attackers and their methods so defenders can prepare. Monitoring traffic is a separate operational task."
-    },
-    {
-      "q": "Which of the following is a common indicator of compromise (IoC)?",
-      "choices": [
-        "High CPU usage",
-        "A new user account created",
-        "Unusual outbound network traffic",
-        "All of the above"
+        "Normal CDN edge resolution",
+        "A misconfigured NTP client",
+        "A DHCP starvation attack",
+        "DNS tunneling for data exfiltration or C2"
       ],
       "correctIndex": 3,
-      "why": "Unusual outbound traffic, unexpected new accounts, and abnormal CPU usage can each signal that a system is compromised, so all three are recognized indicators of compromise."
+      "why": "High-volume queries with long random subdomains are the classic signature of DNS tunneling used to smuggle data or command-and-control traffic."
     },
     {
-      "q": "What is the primary purpose of a Security Operations Center (SOC)?",
+      "q": "While triaging an alert, an analyst wants to know which real-world adversary techniques map to observed behaviors so detections can be improved. Which framework is purpose-built for this?",
       "choices": [
-        "To enforce physical security policies",
-        "To monitor and respond to security incidents",
-        "To design secure software",
-        "To perform audits"
-      ],
-      "correctIndex": 1,
-      "why": "A SOC is the team and facility dedicated to continuous monitoring, detection, and response to security incidents. Audits, secure design, and physical policy enforcement belong to other functions."
-    },
-    {
-      "q": "Which of the following describes the process of risk mitigation?",
-      "choices": [
-        "Accepting all risks",
-        "Reducing the impact or likelihood of a risk",
-        "Ignoring potential threats",
-        "Transferring risk to another party"
-      ],
-      "correctIndex": 1,
-      "why": "Mitigation means applying controls that lower a risk's likelihood or impact. Accepting, ignoring, or transferring risk (such as buying insurance) are different risk treatment options."
-    },
-    {
-      "q": "Which tool is commonly used for automated vulnerability scanning?",
-      "choices": [
-        "Nessus",
-        "Metasploit",
-        "Wireshark",
-        "Burp Suite"
-      ],
-      "correctIndex": 0,
-      "why": "Nessus is a dedicated automated vulnerability scanner. Metasploit exploits flaws, Wireshark captures packets, and Burp Suite is mainly used for manual web application testing."
-    },
-    {
-      "q": "What is the purpose of a firewall in a network?",
-      "choices": [
-        "To encrypt data",
-        "To filter incoming and outgoing traffic",
-        "To analyze malware",
-        "To create backups"
-      ],
-      "correctIndex": 1,
-      "why": "A firewall enforces rules that allow or block traffic entering and leaving a network. It does not encrypt data, analyze malware, or create backups."
-    },
-    {
-      "q": "Which of the following best describes a zero-day vulnerability?",
-      "choices": [
-        "A vulnerability that is known and patched",
-        "A vulnerability that is known but unpatched",
-        "A vulnerability that is actively being exploited",
-        "A vulnerability that is unknown to the vendor"
-      ],
-      "correctIndex": 3,
-      "why": "A zero-day is a flaw the vendor does not know about yet, so no patch exists and defenders have had zero days to respond. A known but unpatched flaw is simply an unpatched vulnerability."
-    },
-    {
-      "q": "What is the purpose of incident response in cybersecurity?",
-      "choices": [
-        "To monitor network traffic",
-        "To develop secure applications",
-        "To handle and mitigate the impact of security incidents",
-        "To perform risk assessments"
+        "ISO 27002",
+        "COBIT",
+        "MITRE ATT&CK",
+        "PCI DSS"
       ],
       "correctIndex": 2,
-      "why": "Incident response is the organized process of detecting, containing, and recovering from security incidents to limit damage. Monitoring and risk assessment are proactive activities, not response."
+      "why": "ATT&CK catalogs adversary tactics and techniques with observable behaviors; the others are governance or compliance frameworks, not TTP references."
     },
     {
-      "q": "Which of the following is a technique used to obscure the meaning of code?",
+      "q": "A vulnerability report lists a flaw with CVSS base score 9.8, but the affected service is on an isolated lab segment with no inbound access and no sensitive data. How should prioritization be adjusted?",
       "choices": [
-        "Obfuscation",
-        "Encryption",
-        "Hashing",
-        "Compression"
+        "Patch immediately because base score alone dictates urgency",
+        "Escalate to legal for breach notification",
+        "Ignore it permanently since it is in a lab",
+        "Lower effective priority using environmental context despite the high base score"
       ],
-      "correctIndex": 0,
-      "why": "Obfuscation deliberately makes code hard to read while keeping it functional. Encryption also hides data, but encrypted code cannot run until decrypted, so obfuscation is the term for obscuring meaning."
+      "correctIndex": 3,
+      "why": "CVSS base score is severity in the abstract; environmental factors like isolation and asset value refine true risk, so priority can be reduced."
     },
     {
-      "q": "Which of the following is an example of a common social engineering attack?",
+      "q": "An analyst correlating logs notices a user account authenticated successfully from New York and, eight minutes later, from Singapore. What detection concept flags this?",
       "choices": [
-        "Phishing",
-        "Brute force attack",
+        "Pass-the-hash",
+        "Kerberoasting",
+        "Impossible travel",
+        "Beaconing"
+      ],
+      "correctIndex": 2,
+      "why": "Two geographically distant logins within a window too short to travel indicates impossible travel, a strong account-compromise signal."
+    },
+    {
+      "q": "During threat hunting, an analyst wants to test a specific hypothesis such as 'adversaries are using scheduled tasks for persistence.' What best describes this approach?",
+      "choices": [
+        "Signature-based alerting",
+        "Passive vulnerability scanning",
+        "Automated SOAR remediation",
+        "Hypothesis-driven hunting"
+      ],
+      "correctIndex": 3,
+      "why": "Starting from a stated assumption about adversary behavior and searching data to prove or disprove it is hypothesis-driven hunting."
+    },
+    {
+      "q": "A packet capture shows an internal host sending a small, fixed-size payload to an external IP at nearly exact 60-second intervals around the clock. What should the analyst suspect?",
+      "choices": [
+        "A legitimate scheduled backup",
+        "Standard TLS session resumption",
+        "ARP cache refresh",
+        "C2 beaconing from a compromised host"
+      ],
+      "correctIndex": 3,
+      "why": "Regular, low-jitter, small-payload callbacks are the hallmark of malware beaconing to a command-and-control server."
+    },
+    {
+      "q": "An analyst must choose a scan type that will find missing patches and misconfigurations on servers where valid admin accounts are available. Which scan gives the most accurate results?",
+      "choices": [
+        "Passive traffic-only scan",
+        "Unauthenticated network scan",
+        "Credentialed (authenticated) scan",
+        "External black-box scan"
+      ],
+      "correctIndex": 2,
+      "why": "Credentialed scans log in to inspect installed patches and configs directly, producing far fewer false positives than unauthenticated scans."
+    },
+    {
+      "q": "A SIEM rule fires whenever a single source IP triggers 50 failed logins within one minute across many accounts. Which attack does this rule best detect?",
+      "choices": [
         "SQL injection",
-        "Man-in-the-middle attack"
-      ],
-      "correctIndex": 0,
-      "why": "Phishing manipulates people into clicking links or revealing credentials, which is the essence of social engineering. Brute force, SQL injection, and man-in-the-middle attacks target systems, not human trust."
-    },
-    {
-      "q": "What does the acronym 'SIEM' stand for?",
-      "choices": [
-        "Security Incident and Event Management",
-        "Security Information and Event Management",
-        "Security Intelligence and Event Management",
-        "Security Information and Evidence Management"
-      ],
-      "correctIndex": 1,
-      "why": "SIEM stands for Security Information and Event Management, combining log collection and storage (information management) with real-time monitoring and alerting (event management)."
-    },
-    {
-      "q": "Which of the following is a key feature of a honeypot?",
-      "choices": [
-        "It attracts attackers to a decoy system",
-        "It monitors user activities",
-        "It encrypts sensitive data",
-        "It performs regular backups"
-      ],
-      "correctIndex": 0,
-      "why": "A honeypot is a deliberately exposed decoy that lures attackers away from real systems and lets defenders study their tools and techniques."
-    },
-    {
-      "q": "Which of the following is an example of an endpoint security solution?",
-      "choices": [
-        "Antivirus software",
-        "Network firewall",
-        "SIEM",
-        "IDS/IPS"
-      ],
-      "correctIndex": 0,
-      "why": "Antivirus runs directly on individual endpoints to detect malware on that device. Network firewalls, SIEMs, and network IDS/IPS operate at the network or enterprise level rather than on the endpoint itself."
-    },
-    {
-      "q": "What is the purpose of a penetration test?",
-      "choices": [
-        "To exploit vulnerabilities in a system",
-        "To identify vulnerabilities before they can be exploited",
-        "To develop secure applications",
-        "To perform regular backups"
-      ],
-      "correctIndex": 1,
-      "why": "A penetration test simulates real attacks so weaknesses are found and fixed before criminals exploit them. Exploitation is the technique used, but identification is the purpose."
-    },
-    {
-      "q": "Which of the following is an effective method to prevent phishing attacks?",
-      "choices": [
-        "Educating users on recognizing phishing attempts",
-        "Installing a firewall",
-        "Using complex passwords",
-        "Regularly updating software"
-      ],
-      "correctIndex": 0,
-      "why": "Phishing targets human judgment, so training users to spot suspicious messages addresses the root of the attack. Firewalls, strong passwords, and patching help overall but do not stop a user from being tricked."
-    },
-    {
-      "q": "Which of the following best describes a brute force attack?",
-      "choices": [
-        "A method of guessing passwords by trying all possible combinations",
-        "A method of injecting malicious code into a web application",
-        "A method of intercepting communications between two parties",
-        "A method of disguising malware as legitimate software"
-      ],
-      "correctIndex": 0,
-      "why": "A brute force attack systematically tries every possible password combination until one works. Code injection, interception, and disguised malware describe SQL injection, MITM attacks, and Trojans instead."
-    },
-    {
-      "q": "Which of the following is the most secure method for protecting a wireless network?",
-      "choices": [
-        "WPA2 encryption",
-        "Disabling SSID broadcast",
-        "MAC address filtering",
-        "WEP encryption"
-      ],
-      "correctIndex": 0,
-      "why": "WPA2 provides strong encryption and authentication for wireless traffic. WEP is cryptographically broken, and hiding the SSID or filtering MAC addresses are easily bypassed and add little real protection."
-    },
-    {
-      "q": "Which of the following is a method used to ensure data integrity?",
-      "choices": [
-        "Hashing",
-        "Encryption",
-        "Compression",
-        "Tokenization"
-      ],
-      "correctIndex": 0,
-      "why": "A hash produces a fixed fingerprint of data, so any change to the data changes the hash and reveals tampering. Encryption protects confidentiality, not integrity."
-    },
-    {
-      "q": "What is the primary purpose of a vulnerability management program?",
-      "choices": [
-        "To encrypt sensitive data",
-        "To identify, prioritize, and remediate vulnerabilities",
-        "To develop secure software",
-        "To monitor network traffic"
-      ],
-      "correctIndex": 1,
-      "why": "Vulnerability management is the ongoing cycle of finding weaknesses, ranking them by risk, and fixing them. Encryption, development, and monitoring are separate security functions."
-    },
-    {
-      "q": "Which of the following is an example of a network-based attack?",
-      "choices": [
-        "Distributed Denial of Service (DDoS)",
-        "Social engineering",
-        "Password cracking",
-        "Data exfiltration"
-      ],
-      "correctIndex": 0,
-      "why": "A DDoS floods a target with traffic from many sources, making it a network-based attack by definition. Social engineering targets people and password cracking targets credentials."
-    },
-    {
-      "q": "Which of the following best describes a threat actor?",
-      "choices": [
-        "A person or entity responsible for an event that impacts the security of an organization",
-        "A tool used to exploit a vulnerability",
-        "A weakness in a system that can be exploited",
-        "A security feature in a system"
-      ],
-      "correctIndex": 0,
-      "why": "A threat actor is the person or group behind a harmful security event. A weakness is a vulnerability and the software used is a tool or exploit, so the other choices describe different concepts."
-    },
-    {
-      "q": "Which of the following is a common technique used in penetration testing?",
-      "choices": [
-        "Exploiting vulnerabilities to gain unauthorized access",
-        "Monitoring network traffic for threats",
-        "Developing secure software",
-        "Managing user accounts"
-      ],
-      "correctIndex": 0,
-      "why": "Penetration testers actively exploit vulnerabilities to prove they can be used for unauthorized access. Monitoring, development, and account management are defensive or operational tasks."
-    },
-    {
-      "q": "Which of the following is a characteristic of an Advanced Persistent Threat (APT)?",
-      "choices": [
-        "Short-term, sporadic attacks",
-        "Long-term, targeted attacks",
-        "Attacks using social engineering techniques",
-        "Random, non-targeted attacks"
-      ],
-      "correctIndex": 1,
-      "why": "APTs are sustained campaigns by well-resourced attackers who target a specific organization and stay hidden for long periods. Short, random, or sporadic attacks are the opposite of persistent."
-    },
-    {
-      "q": "Which of the following is an essential component of an incident response plan?",
-      "choices": [
-        "Identifying and containing the threat",
-        "Developing software patches",
-        "Encrypting sensitive data",
-        "Performing vulnerability scans"
-      ],
-      "correctIndex": 0,
-      "why": "An incident response plan centers on quickly identifying an incident and containing it so damage stops spreading. Patch development and vulnerability scanning are preventive, not response, activities."
-    },
-    {
-      "q": "Which of the following best describes the concept of defense in depth?",
-      "choices": [
-        "Using a single strong security measure",
-        "Layering multiple security measures to protect resources",
-        "Backing up data regularly",
-        "Ensuring all users have administrator privileges"
-      ],
-      "correctIndex": 1,
-      "why": "Defense in depth layers multiple controls so that if one fails, others still protect the asset. Relying on a single measure creates a single point of failure."
-    },
-    {
-      "q": "Which of the following is a method for ensuring data availability?",
-      "choices": [
-        "Redundancy",
-        "Hashing",
-        "Encryption",
-        "Access control"
-      ],
-      "correctIndex": 0,
-      "why": "Redundancy keeps duplicate systems or data ready so services stay up when a component fails. Hashing protects integrity, encryption protects confidentiality, and access control governs who gets in."
-    },
-    {
-      "q": "Which of the following is a common security control used to protect web applications?",
-      "choices": [
-        "Web Application Firewall (WAF)",
-        "Network Intrusion Detection System (NIDS)",
-        "Security Information and Event Management (SIEM)",
-        "Antivirus software"
-      ],
-      "correctIndex": 0,
-      "why": "A WAF inspects HTTP traffic and blocks web-specific attacks like SQL injection and XSS. NIDS, SIEM, and antivirus protect networks and hosts generally, not web applications specifically."
-    },
-    {
-      "q": "Which of the following is a common method of securing data at rest?",
-      "choices": [
-        "Encryption",
-        "Hashing",
-        "Compression",
-        "Tokenization"
-      ],
-      "correctIndex": 0,
-      "why": "Encrypting stored data makes it unreadable to anyone without the key, even if the storage is stolen. Hashing is one-way and cannot recover the original data, so it does not secure data at rest."
-    },
-    {
-      "q": "Which of the following best describes the concept of least privilege?",
-      "choices": [
-        "Giving users full access to all resources",
-        "Restricting user access rights to the bare minimum necessary to perform their job",
-        "Allowing users to choose their own level of access",
-        "Providing maximum access to administrators"
-      ],
-      "correctIndex": 1,
-      "why": "Least privilege gives each user only the access needed for their role, shrinking the damage a compromised account can do. Broad or user-chosen access defeats that goal."
-    },
-    {
-      "q": "Which of the following is an example of a host-based security solution?",
-      "choices": [
-        "Host-based Intrusion Detection System (HIDS)",
-        "Network firewall",
-        "Web Application Firewall (WAF)",
-        "SIEM"
-      ],
-      "correctIndex": 0,
-      "why": "A HIDS runs on the individual host and watches its logs and files for signs of intrusion. Network firewalls, WAFs, and SIEMs operate at the network or enterprise layer."
-    },
-    {
-      "q": "Which of the following is a common method for securing data in transit?",
-      "choices": [
-        "Encryption",
-        "Hashing",
-        "Compression",
-        "Tokenization"
-      ],
-      "correctIndex": 0,
-      "why": "Encryption, such as TLS, keeps data unreadable while it moves across networks. Hashing verifies integrity but does not hide the content from eavesdroppers."
-    },
-    {
-      "q": "Which of the following is an example of multi-factor authentication?",
-      "choices": [
-        "A password and a security question",
-        "A password and a PIN",
-        "A password and a fingerprint",
-        "A password and an email"
+        "Session fixation",
+        "Password spraying or brute force",
+        "DNS poisoning"
       ],
       "correctIndex": 2,
-      "why": "A password (something you know) plus a fingerprint (something you are) uses two different factor types, which is true multi-factor. A password with a PIN or security question is two knowledge factors."
+      "why": "Many failed authentications from one source in a short window indicates credential guessing such as brute force or spraying."
     },
     {
-      "q": "Which of the following is a common method used to protect against SQL injection attacks?",
+      "q": "After confirming a workstation is infected and actively spreading, the incident response team's immediate priority per the IR lifecycle is to do what?",
       "choices": [
-        "Input validation",
-        "Data encryption",
-        "Network segmentation",
-        "Regular backups"
+        "Contain the host to stop lateral movement",
+        "Rebuild the domain controller",
+        "Write the final lessons-learned report",
+        "Notify the press"
       ],
       "correctIndex": 0,
-      "why": "Validating and sanitizing user input, ideally with parameterized queries, stops attackers from injecting SQL commands. Encryption, segmentation, and backups do not prevent the injection itself."
+      "why": "In the containment phase the goal is to limit spread and damage before eradication and recovery; reporting comes later."
     },
     {
-      "q": "Which of the following best describes a data breach?",
+      "q": "An analyst reviewing a threat intel feed sees an indicator marked TLP:RED. How may this information be shared?",
       "choices": [
-        "The unintentional release of secure information to an untrusted environment",
-        "A successful phishing attempt",
-        "An attack that prevents access to data",
-        "A form of ransomware"
+        "With the entire company via email",
+        "With any trusted external partner",
+        "Only with the specific recipients present, not onward",
+        "Publicly on the company blog"
+      ],
+      "correctIndex": 2,
+      "why": "TLP:RED restricts information to the named individuals in the exchange; it must not be shared further, even internally."
+    },
+    {
+      "q": "Two separate scanners report a listening service as vulnerable, but manual testing shows the fix was already applied and the service is not exploitable. This scanner output is an example of what?",
+      "choices": [
+        "False negative",
+        "True positive",
+        "Zero-day",
+        "False positive"
+      ],
+      "correctIndex": 3,
+      "why": "A false positive is an alert on a condition that is not actually present or exploitable, as confirmed by manual validation."
+    },
+    {
+      "q": "An analyst wants to enrich a suspicious file hash by checking many antivirus engines and community reports at once. Which resource is most appropriate?",
+      "choices": [
+        "Burp Suite",
+        "Nmap",
+        "Wireshark",
+        "VirusTotal"
+      ],
+      "correctIndex": 3,
+      "why": "VirusTotal aggregates multi-engine detection and community intel for hashes, files, and URLs; the others are capture, scanning, and proxy tools."
+    },
+    {
+      "q": "During log review, an analyst notices Windows Event ID 4720 events created just before large data transfers. What does 4720 represent, and why is it relevant?",
+      "choices": [
+        "A service stopped, suggesting a crash",
+        "A successful logon, suggesting normal use",
+        "A user account was created, suggesting attacker persistence",
+        "An account lockout, suggesting a DoS"
+      ],
+      "correctIndex": 2,
+      "why": "Event ID 4720 is user account creation; a new account appearing before exfiltration can indicate an attacker establishing persistence."
+    },
+    {
+      "q": "A remediation plan cannot patch a legacy medical device, but the flaw is remotely exploitable. Which compensating control most directly reduces exposure?",
+      "choices": [
+        "Enabling verbose logging",
+        "Adding a warning banner",
+        "Rotating the admin password monthly",
+        "Network segmentation isolating the device"
+      ],
+      "correctIndex": 3,
+      "why": "When patching is impossible, segmentation limits who can reach the vulnerable device, directly reducing the attack surface."
+    },
+    {
+      "q": "An analyst is building a detection and wants to reduce alerts on benign administrative PowerShell while still catching encoded, obfuscated commands. What is the best first step?",
+      "choices": [
+        "Baseline normal admin activity, then alert on deviations like encoded commands",
+        "Disable PowerShell logging entirely",
+        "Block all scripting for all users",
+        "Alert on every PowerShell execution"
       ],
       "correctIndex": 0,
-      "why": "A data breach is the exposure of protected information to an untrusted party, whether accidental or malicious. Phishing and ransomware are attack methods that may lead to a breach but are not the definition."
+      "why": "Establishing a behavioral baseline lets the detection flag anomalous patterns such as EncodedCommand while suppressing routine admin noise."
     },
     {
-      "q": "Which of the following is purpose-built to detect intrusions by inspecting network traffic?",
+      "q": "A CVSS vector includes AV:N/AC:L/PR:N/UI:N. What does this combination tell an analyst about exploitability?",
       "choices": [
-        "Network Intrusion Detection System (NIDS)",
-        "SIEM",
-        "Firewalls",
-        "Encryption"
-      ],
-      "correctIndex": 0,
-      "why": "A NIDS inspects network traffic for attack signatures and anomalies, making it the purpose-built detection tool here. A SIEM correlates alerts but depends on sensors like a NIDS to detect network threats."
-    },
-    {
-      "q": "Which of the following is a characteristic of an insider threat?",
-      "choices": [
-        "An attack that originates from within the organization",
-        "An attack that comes from an external hacker",
-        "A denial-of-service attack",
-        "A ransomware attack"
-      ],
-      "correctIndex": 0,
-      "why": "An insider threat comes from someone with legitimate access, such as an employee or contractor, who misuses it. External hackers, DoS, and ransomware describe outside attacks."
-    },
-    {
-      "q": "Which of the following is an effective method for protecting data against loss?",
-      "choices": [
-        "Regular backups",
-        "Data encryption",
-        "Hashing",
-        "Tokenization"
-      ],
-      "correctIndex": 0,
-      "why": "Regular backups let you restore data after deletion, corruption, or ransomware, directly protecting against loss. Encryption and hashing protect confidentiality and integrity but cannot bring lost data back."
-    },
-    {
-      "q": "Which of the following is a common method for securing access to systems?",
-      "choices": [
-        "Multi-factor authentication",
-        "Data encryption",
-        "Firewalls",
-        "Intrusion detection systems"
-      ],
-      "correctIndex": 0,
-      "why": "Multi-factor authentication requires more than one proof of identity, so a stolen password alone cannot unlock the account. Firewalls and intrusion detection protect networks rather than the login itself."
-    },
-    {
-      "q": "Which of the following best describes the purpose of a digital certificate?",
-      "choices": [
-        "To encrypt data",
-        "To verify the identity of a user or device",
-        "To store passwords",
-        "To authenticate a network"
+        "Only exploitable by an authenticated insider",
+        "Remotely exploitable with low complexity and no privileges or user interaction",
+        "Requires a victim to click a link",
+        "Requires local access and admin rights"
       ],
       "correctIndex": 1,
-      "why": "A digital certificate binds a public key to an identity vouched for by a certificate authority, letting others confirm who they are communicating with. Encryption may follow, but identity verification is the purpose."
+      "why": "Network vector, low complexity, no privileges, and no user interaction describe an easily and remotely exploitable flaw, which raises urgency."
     },
     {
-      "q": "Which of the following is a method of securing data in transit?",
+      "q": "An analyst receives a phishing report and wants to safely examine the embedded URL's true destination and content without risking the corporate network. What is the best approach?",
       "choices": [
-        "Encrypting the data",
-        "Hashing the data",
-        "Backing up the data",
-        "Compressing the data"
+        "Open it in the analyst's browser",
+        "Forward it to all staff as a test",
+        "Click it from a domain admin workstation",
+        "Detonate it in an isolated sandbox"
+      ],
+      "correctIndex": 3,
+      "why": "A sandbox provides an isolated environment to observe URL and payload behavior without exposing production systems."
+    },
+    {
+      "q": "SIEM correlation joins a failed IDS block, a successful login, and an unusual outbound connection from one host into a single incident. What is the primary value of this correlation?",
+      "choices": [
+        "It reduces disk usage on the SIEM",
+        "It encrypts the source logs",
+        "It reveals an attack chain that individual events would miss",
+        "It eliminates the need for log retention"
+      ],
+      "correctIndex": 2,
+      "why": "Correlation stitches related low-level events into a higher-fidelity picture of an attack sequence that single alerts cannot show."
+    },
+    {
+      "q": "An organization wants prioritized vulnerability remediation driven by which flaws are actually being exploited in the wild right now. Which resource best supports this?",
+      "choices": [
+        "A static asset inventory spreadsheet",
+        "The vendor's marketing datasheet",
+        "The NIST NVD alphabetical index",
+        "CISA Known Exploited Vulnerabilities (KEV) catalog"
+      ],
+      "correctIndex": 3,
+      "why": "The CISA KEV catalog lists vulnerabilities with confirmed active exploitation, making it a strong signal for remediation prioritization."
+    },
+    {
+      "q": "An analyst observes lsass.exe being accessed by an unusual process and credentials later reused across hosts. Which technique is most consistent with this?",
+      "choices": [
+        "Credential dumping followed by lateral movement",
+        "Cross-site scripting",
+        "Directory traversal",
+        "Clickjacking"
       ],
       "correctIndex": 0,
-      "why": "Encrypting data before or during transmission keeps it confidential if intercepted. Hashing, backups, and compression do not prevent an eavesdropper from reading the traffic."
+      "why": "Reading LSASS memory is classic credential dumping; reusing harvested credentials on other hosts is lateral movement."
     },
     {
-      "q": "Which of the following is a common method of ensuring data availability?",
+      "q": "A web server log shows requests containing ../../../../etc/passwd in the path. Which attack is being attempted?",
       "choices": [
-        "Data replication",
-        "Hashing",
-        "Encryption",
-        "Access control"
+        "Directory (path) traversal",
+        "DNS rebinding",
+        "Buffer overflow",
+        "Cross-site request forgery"
       ],
       "correctIndex": 0,
-      "why": "Replication keeps live copies of data on multiple systems so it remains accessible if one fails. Hashing, encryption, and access control serve integrity, confidentiality, and authorization instead."
+      "why": "Sequences of ../ aimed at reaching files like /etc/passwd are directory traversal attempts to escape the web root."
     },
     {
-      "q": "Which of the following is an example of a strong password policy?",
+      "q": "After eradication, the IR team restores systems from backups and monitors closely before declaring normal operations. Which IR phase is this?",
       "choices": [
-        "Passwords must be at least 8 characters long and include a mix of letters, numbers, and symbols",
-        "Passwords can be reused",
-        "Passwords must include only lowercase letters",
-        "Passwords can be the same as the username"
+        "Recovery",
+        "Containment",
+        "Identification",
+        "Preparation"
       ],
       "correctIndex": 0,
-      "why": "Requiring length plus a mix of character types makes passwords far harder to guess or crack. Reuse, lowercase-only rules, and matching the username all weaken security."
+      "why": "Recovery restores affected systems to production and validates they are clean and functioning before closing the incident."
     },
     {
-      "q": "Which of the following is a method used to protect against social engineering attacks?",
+      "q": "An analyst wants a structured way to describe a specific intrusion using adversary, capability, infrastructure, and victim. Which model fits?",
       "choices": [
-        "Using strong passwords",
-        "Educating users on security best practices",
-        "Implementing firewalls",
-        "Using antivirus software"
+        "OWASP Top 10",
+        "PDCA cycle",
+        "STRIDE",
+        "Diamond Model of Intrusion Analysis"
+      ],
+      "correctIndex": 3,
+      "why": "The Diamond Model organizes an intrusion around adversary, capability, infrastructure, and victim, ideal for analyzing single events."
+    },
+    {
+      "q": "A scan flags a TLS service supporting only TLS 1.0 and RC4. What is the most accurate characterization for the report?",
+      "choices": [
+        "A denial-of-service vulnerability",
+        "An authentication bypass",
+        "A weak-cipher and deprecated-protocol finding to remediate",
+        "A false positive that can be ignored"
+      ],
+      "correctIndex": 2,
+      "why": "TLS 1.0 and RC4 are deprecated and cryptographically weak; this is a legitimate configuration weakness needing an upgrade to modern TLS."
+    },
+    {
+      "q": "An analyst wants alerting to survive when attackers clear local logs. What control most directly preserves evidence?",
+      "choices": [
+        "Enabling screen savers",
+        "Forwarding logs to a centralized, write-protected SIEM in real time",
+        "Increasing local disk quotas",
+        "Disabling NTP on endpoints"
       ],
       "correctIndex": 1,
-      "why": "Social engineering exploits human trust, so awareness training is the control that directly counters it. Passwords, firewalls, and antivirus protect systems but cannot stop a user from being manipulated."
+      "why": "Shipping logs off-host to a central store as they are generated means local log clearing does not destroy the collected evidence."
     },
     {
-      "q": "Which of the following best describes a denial-of-service (DoS) attack?",
+      "q": "A threat intel report gives a confidence level of 'low' on attribution. How should the analyst treat this in decision-making?",
       "choices": [
-        "An attack that aims to make a service unavailable",
-        "An attack that steals data",
-        "An attack that encrypts files",
-        "An attack that monitors network traffic"
+        "Treat it as confirmed fact",
+        "Immediately block based on attribution alone",
+        "Weight it cautiously and seek corroboration before acting",
+        "Discard all indicators in the report"
+      ],
+      "correctIndex": 2,
+      "why": "Low confidence means the assessment is uncertain; analysts should corroborate before taking high-impact action while still noting the IOCs."
+    },
+    {
+      "q": "An analyst wants to detect data exfiltration hidden inside allowed HTTPS traffic to a cloud storage provider. Which data source is most useful?",
+      "choices": [
+        "UPS battery telemetry",
+        "Physical badge access logs",
+        "Only DNS request counts",
+        "Network flow and volume metadata (NetFlow) plus DLP"
+      ],
+      "correctIndex": 3,
+      "why": "Flow metadata reveals abnormal outbound volumes even when payloads are encrypted, and DLP inspects content where decryption is available."
+    },
+    {
+      "q": "A CVSS temporal score is lower than the base score for a given CVE. What most likely drove this reduction?",
+      "choices": [
+        "The asset is business-critical",
+        "The data is regulated",
+        "No mature exploit exists and an official fix is available",
+        "The network has weak segmentation"
+      ],
+      "correctIndex": 2,
+      "why": "Temporal metrics reflect exploit maturity and remediation availability; an unproven exploit and an official patch lower the temporal score."
+    },
+    {
+      "q": "An analyst identifies that a critical alert took hours to reach a human. To improve future response, which metric should be tracked and reduced?",
+      "choices": [
+        "Recovery point objective",
+        "Total cost of ownership",
+        "Mean time to detect (MTTD)",
+        "Annualized loss expectancy"
+      ],
+      "correctIndex": 2,
+      "why": "MTTD measures how long it takes to notice an incident; reducing it shortens attacker dwell time. ALE and RPO measure other things."
+    },
+    {
+      "q": "A Linux host shows an unexpected cron entry that pulls and runs a script from a pastebin URL every 10 minutes. What is the primary concern?",
+      "choices": [
+        "Persistence and recurring malware execution",
+        "Legitimate log rotation",
+        "A routine kernel update",
+        "A file integrity baseline"
       ],
       "correctIndex": 0,
-      "why": "A DoS attack overwhelms a service so legitimate users cannot reach it; availability is the target. Data theft, file encryption, and traffic monitoring describe other attack types."
+      "why": "A cron job repeatedly downloading and executing remote code is a persistence mechanism that keeps re-running attacker payloads."
     },
     {
-      "q": "Which of the following is a method of ensuring data integrity?",
+      "q": "During an incident, an analyst must collect evidence in a defensible way. Which practice most directly preserves admissibility?",
       "choices": [
-        "Hashing",
+        "Working only on the live production disk",
+        "Maintaining chain of custody and hashing acquired images",
+        "Sharing raw evidence publicly",
+        "Editing logs to remove noise before storage"
+      ],
+      "correctIndex": 1,
+      "why": "Documented chain of custody plus cryptographic hashing proves evidence integrity and who handled it, which supports legal admissibility."
+    },
+    {
+      "q": "An analyst tuning a noisy IDS signature finds it alerts on legitimate vulnerability-scanner traffic every night. What is the best tuning action?",
+      "choices": [
+        "Add an exception for the known scanner source and schedule",
+        "Ignore all IDS alerts going forward",
+        "Disable the entire IDS",
+        "Delete the signature entirely"
+      ],
+      "correctIndex": 0,
+      "why": "Whitelisting the authorized scanner's source and window removes known-benign noise while keeping the detection active for real threats."
+    },
+    {
+      "q": "A report shows that a public-facing app has a SQL injection flaw. Which remediation addresses the root cause most effectively?",
+      "choices": [
+        "Use parameterized queries / prepared statements",
+        "Rename the database table",
+        "Add a longer session timeout",
+        "Increase the server RAM"
+      ],
+      "correctIndex": 0,
+      "why": "Parameterized queries separate code from data so user input cannot alter query structure, eliminating the injection root cause."
+    },
+    {
+      "q": "An analyst wants a repeatable, machine-readable way to exchange threat intelligence with a partner organization. Which pair of standards is designed for this?",
+      "choices": [
+        "SNMP and syslog",
+        "RADIUS and TACACS+",
+        "STIX and TAXII",
+        "SAML and OAuth"
+      ],
+      "correctIndex": 2,
+      "why": "STIX structures threat data and TAXII transports it, enabling automated intel sharing. The other pairs handle monitoring, SSO, and AAA."
+    },
+    {
+      "q": "Endpoint telemetry shows rundll32.exe launched with a suspicious command line spawning cmd.exe and then powershell.exe. What analysis technique best explains this relationship?",
+      "choices": [
+        "Port knocking",
+        "Packet fragmentation",
+        "Process tree / parent-child lineage analysis",
+        "Certificate pinning"
+      ],
+      "correctIndex": 2,
+      "why": "Examining parent-child process chains reveals suspicious spawning patterns that indicate living-off-the-land execution."
+    },
+    {
+      "q": "A vulnerability affects only a specific software version. Before mass remediation, what should the analyst do first to scope the work?",
+      "choices": [
+        "Reboot every server in the environment",
+        "Notify all customers of a breach",
+        "Decommission the vendor relationship",
+        "Query the asset inventory to identify affected hosts"
+      ],
+      "correctIndex": 3,
+      "why": "Accurate scoping starts with an asset and software inventory to find which hosts actually run the vulnerable version."
+    },
+    {
+      "q": "An analyst notices an alert volume so high that real incidents are missed. Which concept describes this operational problem?",
+      "choices": [
+        "Insider threat",
+        "Alert fatigue driven by low signal-to-noise",
+        "Supply chain compromise",
+        "Data sovereignty"
+      ],
+      "correctIndex": 1,
+      "why": "Excessive, mostly-benign alerts desensitize analysts and cause true positives to be overlooked, known as alert fatigue."
+    },
+    {
+      "q": "A phishing email passed SPF but the display name spoofs the CEO and the reply-to is an external gmail address. What check best exposes this?",
+      "choices": [
+        "Inspect email headers for reply-to and return-path mismatch",
+        "Count the number of recipients",
+        "Verify the email's font size",
+        "Check the message timestamp only"
+      ],
+      "correctIndex": 0,
+      "why": "Header analysis of reply-to and return-path reveals spoofing that a passing SPF on the sending domain does not prevent."
+    },
+    {
+      "q": "An analyst must recommend how often internal vulnerability scans run for a PCI-relevant network. What factor should most drive the cadence?",
+      "choices": [
+        "The color scheme of the dashboard",
+        "Regulatory requirements and asset criticality",
+        "The brand of the switches",
+        "The number of analysts on shift"
+      ],
+      "correctIndex": 1,
+      "why": "Scan frequency is driven by compliance mandates and how critical the assets are, balancing risk against operational load."
+    },
+    {
+      "q": "During hunting, an analyst finds a beacon but wants to know what other hosts talked to the same C2 IP over the past 30 days. Which SIEM capability supports this?",
+      "choices": [
+        "A screenshot of the dashboard",
+        "Real-time-only streaming with no retention",
+        "A single-host local firewall log",
+        "Historical log search across retained data"
+      ],
+      "correctIndex": 3,
+      "why": "Searching retained historical logs lets the analyst pivot on the C2 indicator to find every host that contacted it over time."
+    },
+    {
+      "q": "A zero-day is being exploited and no patch exists. Which action provides the fastest risk reduction while a fix is developed?",
+      "choices": [
+        "Rotate all user passwords",
+        "Wait for the vendor patch with no other action",
+        "Deploy a virtual patch / WAF or IPS signature to block the exploit",
+        "Reimage all endpoints immediately"
+      ],
+      "correctIndex": 2,
+      "why": "A virtual patch at the WAF or IPS blocks the specific exploit pattern, buying time until a real code fix ships."
+    },
+    {
+      "q": "An analyst writes a detection rule and wants to measure its quality before production. Which pair of outcomes should be minimized?",
+      "choices": [
+        "Latency and jitter",
+        "Uptime and throughput",
+        "False positives and false negatives",
+        "CPU and memory only"
+      ],
+      "correctIndex": 2,
+      "why": "A good detection minimizes both false alarms and missed detections; balancing these determines the rule's real-world value."
+    },
+    {
+      "q": "A SOC receives an IOC list of malicious IPs from an ISAC. What is the most effective immediate use of this feed?",
+      "choices": [
+        "Delete it as untrusted",
+        "Print it and file it in a binder",
+        "Email it to customers",
+        "Ingest it into the SIEM and firewall for automated matching and blocking"
+      ],
+      "correctIndex": 3,
+      "why": "Operationalizing shared IOCs by feeding them into detection and blocking tools turns intel into automated protection."
+    },
+    {
+      "q": "An analyst observes a service account interactively logging into workstations at 3 a.m., which it never does. What is the strongest interpretation?",
+      "choices": [
+        "A DNS cache miss",
+        "Anomalous behavior possibly indicating account compromise",
+        "Expected batch processing",
+        "A routine password change"
+      ],
+      "correctIndex": 1,
+      "why": "Service accounts should not log in interactively; off-hours interactive use is a behavioral anomaly suggesting compromise or misuse."
+    },
+    {
+      "q": "When communicating a critical finding to non-technical executives, which reporting approach is most effective?",
+      "choices": [
+        "Paste raw packet captures",
+        "Frame it in business risk and impact terms with a clear recommendation",
+        "Send only the SIEM query syntax",
+        "List every CVE number without context"
+      ],
+      "correctIndex": 1,
+      "why": "Executives need risk, impact, and a recommended action, not raw technical artifacts, to make timely decisions."
+    },
+    {
+      "q": "An analyst wants to prioritize which of 5,000 findings to fix first when CVSS scores are similar. Which added factor best sharpens prioritization?",
+      "choices": [
+        "The age of the operating system logo",
+        "Exploitability and asset exposure to the internet",
+        "The vendor's stock price",
+        "The alphabetical order of hostnames"
+      ],
+      "correctIndex": 1,
+      "why": "Among equal severities, internet-facing exposure and known exploitability determine which flaws are most likely to be attacked first."
+    },
+    {
+      "q": "A memory-resident threat leaves little on disk but shows up as anomalous behavior in running processes. Which technique best detects it?",
+      "choices": [
+        "Reading the printed asset tag",
+        "Comparing file hashes against a static allowlist only",
+        "Checking the disk's last-modified timestamps",
+        "Behavioral / heuristic analysis of live process activity"
+      ],
+      "correctIndex": 3,
+      "why": "Fileless malware evades signature and hash checks, so behavioral analysis of in-memory process activity is needed to catch it."
+    },
+    {
+      "q": "After an incident closes, the team holds a review to capture what worked and what to improve. What is the main output of this lessons-learned phase?",
+      "choices": [
+        "A decision to skip documentation",
+        "Immediate termination of staff",
+        "Actionable improvements to controls and the IR playbook",
+        "A public marketing campaign"
+      ],
+      "correctIndex": 2,
+      "why": "The post-incident review feeds concrete improvements back into detections, controls, and playbooks to strengthen future response."
+    },
+    {
+      "q": "An analyst needs to confirm whether a suspicious binary makes network connections and modifies the registry when run. Which analysis method provides this?",
+      "choices": [
+        "Checking the file's icon",
+        "Dynamic (behavioral) malware analysis in a sandbox",
+        "Static string extraction only",
+        "Reading the vendor changelog"
+      ],
+      "correctIndex": 1,
+      "why": "Dynamic analysis executes the sample in an instrumented sandbox to observe runtime behaviors like network and registry activity."
+    },
+    {
+      "q": "An analyst correlating logs from three systems finds the event timestamps are minutes apart for the same action, making the timeline unreliable. What is the root fix?",
+      "choices": [
+        "Increase the SIEM's storage quota",
+        "Disable timestamps in the logs",
+        "Switch the SIEM to a different vendor",
+        "Synchronize all sources to a common NTP time source"
+      ],
+      "correctIndex": 3,
+      "why": "Accurate correlation requires consistent clocks; syncing every log source to NTP aligns timestamps so an incident timeline is trustworthy."
+    },
+    {
+      "q": "An analyst reviewing DNS logs sees one endpoint generating hundreds of failed lookups (NXDOMAIN) to algorithmically random domain names within minutes. What does this most likely indicate?",
+      "choices": [
+        "A domain generation algorithm (DGA) used by malware to locate its C2",
+        "Normal browser prefetching of popular sites",
+        "A misconfigured internal DNS forwarder",
+        "Standard reverse DNS lookups for logging"
+      ],
+      "correctIndex": 0,
+      "why": "Malware uses DGAs to compute many candidate C2 domains; most are unregistered, producing a burst of NXDOMAIN responses as the host hunts for a live one."
+    },
+    {
+      "q": "A domain controller logs numerous Event ID 4769 Kerberos service ticket requests from one user, many specifying RC4 encryption for service accounts. Which attack fits best?",
+      "choices": [
+        "Golden ticket forgery",
+        "Kerberoasting to crack service account passwords offline",
+        "LDAP injection",
+        "SYN flood"
+      ],
+      "correctIndex": 1,
+      "why": "Requesting many TGS tickets, especially RC4-encrypted ones, lets an attacker extract and brute-force service account hashes offline, the signature of Kerberoasting."
+    },
+    {
+      "q": "An analyst wants detections that are hardest for adversaries to change, forcing them to rebuild operations. Per the Pyramid of Pain, which indicator type should they prioritize?",
+      "choices": [
+        "File hashes",
+        "IP addresses",
+        "Domain names",
+        "Tactics, techniques, and procedures (TTPs)"
+      ],
+      "correctIndex": 3,
+      "why": "The Pyramid of Pain ranks TTPs at the top; detecting adversary behavior is far more costly to alter than swapping hashes, IPs, or domains."
+    },
+    {
+      "q": "An attacker emails a booby-trapped PDF that runs a backdoor when opened. In the Lockheed Martin Cyber Kill Chain, the moment the opened document triggers the payload maps to which phase?",
+      "choices": [
+        "Reconnaissance",
+        "Exploitation",
+        "Actions on objectives",
+        "Weaponization"
+      ],
+      "correctIndex": 1,
+      "why": "Weaponization builds the file and delivery emails it; exploitation is when the triggering action executes the code, here the user opening the malicious PDF."
+    },
+    {
+      "q": "A CVSS v3 vector shows S:C (Scope: Changed). What does this tell an analyst about the vulnerability's impact?",
+      "choices": [
+        "The exploit requires no user interaction",
+        "The vulnerable component can affect resources beyond its own security scope",
+        "The score changed since the last scan",
+        "The attacker needs elevated privileges"
+      ],
+      "correctIndex": 1,
+      "why": "Scope: Changed means exploitation impacts components outside the vulnerable one's authority, such as a VM escape reaching the host, which raises severity."
+    },
+    {
+      "q": "A SOC detects incidents quickly but takes days to fully contain and remediate them. Which metric should the team focus on lowering to close that gap?",
+      "choices": [
+        "Mean time to respond/remediate (MTTR)",
+        "Mean time to detect (MTTD)",
+        "Recovery point objective (RPO)",
+        "Annualized rate of occurrence (ARO)"
+      ],
+      "correctIndex": 0,
+      "why": "MTTR captures how long it takes to respond to and remediate an incident after detection; reducing it shrinks the window attackers stay active."
+    },
+    {
+      "q": "An inbound email claims to be from the company's own domain and passed SPF for the sending server, but DMARC still failed. What most likely caused the DMARC failure?",
+      "choices": [
+        "The message was too large",
+        "SPF or DKIM did not align with the From header domain",
+        "The recipient mailbox was full",
+        "The email lacked a subject line"
+      ],
+      "correctIndex": 1,
+      "why": "DMARC requires SPF or DKIM to pass and align with the visible From domain; a spoofed From that passes SPF for a different envelope domain fails alignment."
+    },
+    {
+      "q": "A detection engineer wants to write a log-based detection once and share it in a vendor-neutral format others can convert to their own SIEM query language. Which format fits?",
+      "choices": [
+        "YARA",
+        "Sigma",
+        "PCAP",
+        "Snort only"
+      ],
+      "correctIndex": 1,
+      "why": "Sigma is a generic, vendor-agnostic signature format for log detections that converts into many SIEM query languages. YARA targets files, not logs."
+    },
+    {
+      "q": "Firewall logs show an internal workstation repeatedly attempting outbound connections to an external IP on TCP port 4444. Why is this noteworthy?",
+      "choices": [
+        "4444 is the standard port for encrypted email",
+        "It is the default DNS resolution port",
+        "It is a common reverse-shell and C2 port used by tools like Metasploit",
+        "It indicates normal NTP synchronization"
+      ],
+      "correctIndex": 2,
+      "why": "TCP 4444 is a well-known default for Meterpreter and other reverse shells; unexplained outbound attempts to it suggest a compromised host reaching a handler."
+    },
+    {
+      "q": "An analyst must acquire evidence from a live compromised system. Following the order of volatility, what should be collected first?",
+      "choices": [
+        "Archived backup tapes",
+        "Data on the hard disk",
+        "Volatile data such as RAM and running processes",
+        "Printed configuration documents"
+      ],
+      "correctIndex": 2,
+      "why": "Order of volatility says capture the most ephemeral data first; memory and running state vanish on power-off, so they precede disk imaging."
+    },
+    {
+      "q": "A vulnerability cannot be patched before a business deadline and management chooses to tolerate it temporarily. What should the analyst ensure is documented?",
+      "choices": [
+        "A formal risk acceptance with owner sign-off and an expiration date",
+        "Nothing, since it will be patched eventually",
+        "A deletion of the finding from the scanner",
+        "A public disclosure of the flaw"
+      ],
+      "correctIndex": 0,
+      "why": "Deferring remediation requires a documented risk acceptance approved by an accountable owner with a review or expiration date, not silently suppressing it."
+    },
+    {
+      "q": "A detection engineer maps existing SIEM rules against MITRE ATT&CK and finds several techniques with no coverage. What is the primary purpose of this exercise?",
+      "choices": [
+        "To reduce log storage costs",
+        "To identify detection visibility gaps and prioritize new use cases",
+        "To rank employees by performance",
+        "To replace the incident response plan"
+      ],
+      "correctIndex": 1,
+      "why": "Overlaying detections on ATT&CK, often with the Navigator, exposes techniques you cannot currently detect, guiding where to build new rules and telemetry."
+    },
+    {
+      "q": "During static analysis of a suspicious executable, an analyst finds very high entropy across most of the file and few readable strings. What does this most likely suggest?",
+      "choices": [
+        "The file is a plain-text script",
+        "The binary is packed or encrypted to evade static detection",
+        "The file is definitely benign",
+        "The file is a valid digital certificate"
+      ],
+      "correctIndex": 1,
+      "why": "High entropy with few meaningful strings indicates compression or encryption, common in packers used to hide malicious code from signature scanners."
+    },
+    {
+      "q": "To catch obfuscated PowerShell even when attackers use EncodedCommand, which logging source records the actual deobfuscated commands as they execute?",
+      "choices": [
+        "DHCP lease logs",
+        "PowerShell script block logging (Event ID 4104)",
+        "DNS zone transfer logs",
+        "Printer spooler logs"
+      ],
+      "correctIndex": 1,
+      "why": "Script block logging captures the fully deobfuscated PowerShell at runtime under Event ID 4104, exposing encoded or obfuscated commands attackers hide."
+    },
+    {
+      "q": "Before a SIEM can correlate events from firewalls, endpoints, and web servers, it must convert their differing log formats into a consistent structure. What is this called?",
+      "choices": [
         "Encryption",
+        "Normalization, parsing logs into a common schema",
         "Compression",
-        "Tokenization"
+        "Load balancing"
       ],
-      "correctIndex": 0,
-      "why": "Hashing creates a unique digest of the data; if even one bit changes, the hash no longer matches, exposing tampering. Encryption hides content but does not by itself prove it is unaltered."
-    },
-    {
-      "q": "Which of the following is a common method of securing data in transit?",
-      "choices": [
-        "Encryption",
-        "Hashing",
-        "Compression",
-        "Tokenization"
-      ],
-      "correctIndex": 0,
-      "why": "Protocols like TLS and VPNs encrypt data as it travels so intercepted traffic is unreadable. Hashing and compression change the data's form but do not keep it confidential."
-    },
-    {
-      "q": "Which of the following is a method used to detect network intrusions?",
-      "choices": [
-        "Network Intrusion Detection System (NIDS)",
-        "Firewalls",
-        "SIEM",
-        "Encryption"
-      ],
-      "correctIndex": 0,
-      "why": "A NIDS is designed specifically to watch network traffic and flag intrusion attempts. Firewalls enforce access rules and SIEMs aggregate alerts, but neither inspects traffic for intrusions the way a NIDS does."
-    },
-    {
-      "q": "Which of the following is a method used to obscure the meaning of code?",
-      "choices": [
-        "Obfuscation",
-        "Encryption",
-        "Hashing",
-        "Compression"
-      ],
-      "correctIndex": 0,
-      "why": "Obfuscation scrambles code structure and names so humans cannot easily understand it while it still executes. Encrypted code must be decrypted before running, so obfuscation is the technique for obscuring meaning."
+      "correctIndex": 1,
+      "why": "Normalization parses heterogeneous log formats into common fields so the SIEM can correlate and query events consistently across diverse sources."
     }
   ]
 }

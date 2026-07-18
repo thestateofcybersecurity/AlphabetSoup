@@ -181,15 +181,15 @@
       "why": "A worm self-replicates and spreads across networks automatically, with no user action required. Requiring user interaction or disguising as software describes viruses and Trojans instead."
     },
     {
-      "q": "What does the acronym SQL stand for in the context of SQL injection attacks?",
+      "q": "What condition makes a web application vulnerable to SQL injection?",
       "choices": [
-        "Secure Query Language",
-        "Standard Query Language",
-        "Structured Query Language",
-        "Sequential Query Language"
+        "User input is concatenated directly into SQL queries",
+        "The database uses a weak encryption algorithm",
+        "The web server runs an outdated operating system",
+        "User passwords are stored without hashing"
       ],
-      "correctIndex": 2,
-      "why": "SQL stands for Structured Query Language, the standard language for querying relational databases. SQL injection abuses how applications build these queries from user input."
+      "correctIndex": 0,
+      "why": "SQL injection is possible when untrusted user input is concatenated straight into SQL statements, letting an attacker change what the query does. Weak encryption, an old OS, or unhashed passwords are real problems but do not create the injection flaw."
     },
     {
       "q": "Which of the following is the best defense against brute force attacks?",
@@ -438,11 +438,11 @@
       "choices": [
         "Private key",
         "Digital signature",
-        "Firewall rules",
+        "Session key",
         "Encryption algorithm"
       ],
       "correctIndex": 1,
-      "why": "A digital certificate is validated by the issuing CA's digital signature, which proves the certificate is authentic. The private key is kept secret by the owner and is never part of the certificate."
+      "why": "A digital certificate carries the issuing CA's digital signature, which proves it is authentic. The owner's private key and any session key are kept secret and are never embedded in the certificate."
     },
     {
       "q": "Which of the following best describes a cross-site scripting (XSS) attack?",

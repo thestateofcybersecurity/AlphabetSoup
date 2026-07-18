@@ -1,0 +1,613 @@
+{
+  "name": "CISM",
+  "mode": "choice",
+  "certKey": "CISM",
+  "retired": false,
+  "questions": [
+    {
+      "q": "The board asks why the security program exists. What is the single most important justification a CISM should give?",
+      "choices": [
+        "It reduces the number of reported security incidents each quarter",
+        "It ensures the latest security technologies are deployed",
+        "It supports and enables the organization's business objectives and strategy",
+        "It satisfies the requirements of the internal audit department"
+      ],
+      "correctIndex": 2,
+      "why": "Governance ties security to business goals. Technology, audit satisfaction, and incident counts are means or metrics, not the core purpose."
+    },
+    {
+      "q": "A new CISO wants to establish effective information security governance first. What is the essential prerequisite before anything else?",
+      "choices": [
+        "An approved budget for security awareness training",
+        "A fully staffed security operations center",
+        "A complete inventory of all technical vulnerabilities",
+        "Visible commitment and support from senior management"
+      ],
+      "correctIndex": 3,
+      "why": "Governance depends on tone at the top. Without executive sponsorship, strategy, funding, and accountability cannot be sustained."
+    },
+    {
+      "q": "Who holds ultimate accountability for the protection of an organization's information assets?",
+      "choices": [
+        "The data custodians in IT operations",
+        "The external auditors performing the review",
+        "The board of directors and senior management",
+        "The information security manager"
+      ],
+      "correctIndex": 2,
+      "why": "Accountability cannot be delegated and rests with the board and executives. The security manager is responsible for execution, not ultimate accountability."
+    },
+    {
+      "q": "An information security strategy is most valuable when it primarily reflects which of the following?",
+      "choices": [
+        "The desired future state aligned to business goals and acceptable risk",
+        "The control gaps found in the most recent penetration test",
+        "A prioritized list of security tools to purchase this year",
+        "The regulatory fines competitors have recently incurred"
+      ],
+      "correctIndex": 0,
+      "why": "Strategy defines the target state linked to business objectives and risk appetite. Tools, test findings, and peer fines are inputs, not the strategy itself."
+    },
+    {
+      "q": "Security policies differ from standards in that policies primarily do what?",
+      "choices": [
+        "Specify mandatory technical configurations for systems",
+        "Offer optional guidance staff may choose to follow",
+        "State management intent and high-level direction",
+        "Provide step-by-step operational procedures"
+      ],
+      "correctIndex": 2,
+      "why": "Policies express management intent. Standards mandate specifics, procedures give steps, and guidelines are optional advice."
+    },
+    {
+      "q": "The most effective way to gain business unit buy-in for a new security governance framework is to:",
+      "choices": [
+        "Publish the framework on the intranet and require an acknowledgment",
+        "Mandate compliance through an executive directive without discussion",
+        "Delegate the rollout entirely to the IT help desk",
+        "Involve business leaders in defining objectives and demonstrating business value"
+      ],
+      "correctIndex": 3,
+      "why": "Engagement and demonstrated value drive genuine buy-in. Mandates, delegation, and passive publication rarely change behavior or ownership."
+    },
+    {
+      "q": "A steering committee for information security is chartered mainly to:",
+      "choices": [
+        "Perform hands-on investigation of security incidents",
+        "Align security initiatives with business priorities and allocate resources",
+        "Approve firewall rule changes before they are implemented",
+        "Write the detailed technical standards for endpoint hardening"
+      ],
+      "correctIndex": 1,
+      "why": "A steering committee provides direction, prioritization, and resourcing. Rule changes, investigations, and standards are operational tasks handled below it."
+    },
+    {
+      "q": "When a proposed security initiative conflicts with a key business objective, the security manager should first:",
+      "choices": [
+        "Escalate to regulators to force compliance with the initiative",
+        "Implement the initiative quietly to avoid political resistance",
+        "Facilitate a risk-based discussion so leadership can make an informed decision",
+        "Abandon the initiative to preserve the business relationship"
+      ],
+      "correctIndex": 2,
+      "why": "The manager surfaces the tradeoff and lets accountable leaders decide. Regulators, stealth, and unilateral abandonment all bypass governance."
+    },
+    {
+      "q": "Which metric would best demonstrate the strategic value of security governance to the board?",
+      "choices": [
+        "Reduction in risk exposure relative to the organization's risk appetite",
+        "Number of antivirus signatures updated during the quarter",
+        "Total gigabytes of log data collected by the SIEM",
+        "Count of patches applied to servers last month"
+      ],
+      "correctIndex": 0,
+      "why": "Boards care about risk posture against appetite. Signature, log volume, and patch counts are operational activity metrics with little strategic meaning."
+    },
+    {
+      "q": "The primary reason to define roles and responsibilities in a RACI matrix for security is to:",
+      "choices": [
+        "Establish clear accountability and avoid gaps or overlaps in ownership",
+        "Satisfy a single external auditor's documentation request",
+        "Reduce the number of staff required to run the program",
+        "Automate the enforcement of technical access controls"
+      ],
+      "correctIndex": 0,
+      "why": "RACI clarifies who is accountable and responsible. It is about ownership clarity, not headcount, automation, or one audit."
+    },
+    {
+      "q": "An organization operating in several countries must reconcile conflicting privacy laws. The best governance approach is to:",
+      "choices": [
+        "Wait for regulators to harmonize the laws before acting",
+        "Apply each country's rules only within that country's data center",
+        "Adopt the most stringent applicable requirement as the baseline where feasible",
+        "Choose the least restrictive law to minimize operational cost"
+      ],
+      "correctIndex": 2,
+      "why": "A most-stringent baseline reduces the risk of noncompliance across jurisdictions. Fragmented, lax, or wait-and-see approaches invite legal exposure."
+    },
+    {
+      "q": "What is the strongest indicator that information security is truly integrated into corporate governance?",
+      "choices": [
+        "The firewall vendor has certified the organization's configuration",
+        "A dedicated security budget line exists in the IT department",
+        "The security team reports the highest incident-closure rate in years",
+        "Security considerations are embedded in business decisions and investments"
+      ],
+      "correctIndex": 3,
+      "why": "Integration means security influences business decisions by default. Closure rates, a budget line, or vendor certification do not prove integration."
+    },
+    {
+      "q": "A CISM is asked to justify continued security investment. The most persuasive business case rests on:",
+      "choices": [
+        "A comparison of the organization's toolset against competitors",
+        "The volume of blocked attacks reported by the intrusion sensors",
+        "The technical sophistication of the newest proposed platform",
+        "Alignment of risk reduction with business value and cost avoidance"
+      ],
+      "correctIndex": 3,
+      "why": "Executives fund value and reduced loss exposure. Blocked-attack counts, tool comparisons, and technical novelty do not translate directly to business value."
+    },
+    {
+      "q": "The purpose of an information security governance framework, above all, is to:",
+      "choices": [
+        "Define the specific brand of security products the organization must buy",
+        "Provide structure for directing and controlling security to meet objectives",
+        "List every technical control required by industry benchmarks",
+        "Assign disciplinary actions for individual policy violations"
+      ],
+      "correctIndex": 1,
+      "why": "A framework directs and controls the program toward objectives. Product choices, control lists, and discipline are downstream of it, not its purpose."
+    },
+    {
+      "q": "The single most important reason to perform a risk assessment before selecting controls is to:",
+      "choices": [
+        "Produce a document that satisfies the compliance department",
+        "Demonstrate the technical expertise of the security team",
+        "Ensure controls are commensurate with the actual risk to the business",
+        "Identify which vendors offer the broadest product portfolio"
+      ],
+      "correctIndex": 2,
+      "why": "Controls should match assessed risk to avoid over- or under-protection. Compliance paperwork, vendor breadth, and expertise are not the driver."
+    },
+    {
+      "q": "After identifying a risk that exceeds the organization's risk appetite, the security manager's most appropriate next step is to:",
+      "choices": [
+        "Accept the risk on behalf of the business to save time",
+        "Immediately implement the strongest available technical control",
+        "Recommend treatment options and let the risk owner decide",
+        "Remove the affected system from production without notice"
+      ],
+      "correctIndex": 2,
+      "why": "The risk owner decides on treatment after being presented options. The manager advises; unilateral control, acceptance, or shutdown usurps ownership."
+    },
+    {
+      "q": "Residual risk is best defined as the risk that:",
+      "choices": [
+        "Existed before any controls were considered or implemented",
+        "Has been fully transferred to a third-party insurer",
+        "Cannot be measured because no data is available",
+        "Remains after controls have been applied to the inherent risk"
+      ],
+      "correctIndex": 3,
+      "why": "Residual risk is what is left after treatment. Inherent risk is pre-control, transfer is one treatment, and immeasurability is unrelated."
+    },
+    {
+      "q": "Who should formally accept residual risk that remains after security controls are applied?",
+      "choices": [
+        "The internal audit team that reviews the controls",
+        "The vendor supplying the control technology",
+        "The business owner accountable for the affected process or asset",
+        "The information security manager who assessed the risk"
+      ],
+      "correctIndex": 2,
+      "why": "Risk acceptance is a business decision made by the accountable owner. Security advises, audit reviews, and vendors supply, but none accept the risk."
+    },
+    {
+      "q": "The primary benefit of aligning risk assessments to a consistent methodology across the enterprise is that it:",
+      "choices": [
+        "Removes the need for business owners to review the results",
+        "Ensures the lowest possible cost for every control decision",
+        "Guarantees that every identified risk will be fully eliminated",
+        "Enables comparison and prioritization of risks on a common basis"
+      ],
+      "correctIndex": 3,
+      "why": "Consistency lets leadership compare and prioritize risks meaningfully. It does not eliminate risk, remove ownership, or minimize cost."
+    },
+    {
+      "q": "When quantifying risk, annualized loss expectancy is calculated by multiplying:",
+      "choices": [
+        "Threat likelihood by the total security budget",
+        "Asset value by the number of controls in place",
+        "Single loss expectancy by the annualized rate of occurrence",
+        "Vulnerability count by the number of assets affected"
+      ],
+      "correctIndex": 2,
+      "why": "ALE equals SLE times ARO. The other combinations mix unrelated variables and do not yield an annualized loss figure."
+    },
+    {
+      "q": "A business unit wants to accept a high risk that could harm other units. The security manager should:",
+      "choices": [
+        "Document the acceptance and take no further action",
+        "Allow the acceptance since the business unit owns its own risk",
+        "Override the decision and mandate a technical control",
+        "Escalate so enterprise-level leadership can weigh the cross-unit impact"
+      ],
+      "correctIndex": 3,
+      "why": "Risk affecting others exceeds a single unit's authority and must be escalated. Local acceptance, override, or silent filing ignore enterprise impact."
+    },
+    {
+      "q": "The most important factor in determining the value of an information asset for risk purposes is:",
+      "choices": [
+        "The impact to the business if the asset's confidentiality, integrity, or availability is lost",
+        "The number of users who currently have access to it",
+        "The age of the technology platform the asset runs on",
+        "The original purchase price of the hardware hosting it"
+      ],
+      "correctIndex": 0,
+      "why": "Asset value derives from business impact of loss, not acquisition cost, user count, or platform age."
+    },
+    {
+      "q": "Transferring risk through cyber insurance is best described as a treatment that:",
+      "choices": [
+        "Substitutes for having any incident response capability",
+        "Eliminates the organization's responsibility for the risk entirely",
+        "Shares financial impact but does not remove the underlying risk",
+        "Reduces the likelihood that the threat will materialize"
+      ],
+      "correctIndex": 2,
+      "why": "Insurance shares financial consequences; the risk and accountability remain. It does not lower likelihood or replace response readiness."
+    },
+    {
+      "q": "A key risk indicator is most useful to management because it:",
+      "choices": [
+        "Lists every control deficiency found in the last audit",
+        "Confirms that a specific security incident has already occurred",
+        "Provides an early warning that risk exposure is trending toward a threshold",
+        "Records the exact cost of each past security breach"
+      ],
+      "correctIndex": 2,
+      "why": "A KRI signals rising exposure before a threshold is breached. It is forward-looking, unlike incident confirmation, audit lists, or historical cost records."
+    },
+    {
+      "q": "The primary reason to reassess risk after a major change to a business process is that:",
+      "choices": [
+        "New controls are always cheaper after a process change",
+        "Business owners prefer to review documents periodically",
+        "The change may alter the threat, vulnerability, or impact profile",
+        "The compliance calendar requires a fixed annual reassessment"
+      ],
+      "correctIndex": 2,
+      "why": "Changes can shift the risk profile, so reassessment keeps decisions current. Calendars, cost assumptions, and preferences are not the driving reason."
+    },
+    {
+      "q": "When emerging threats create risk that current controls cannot address, the security manager should first:",
+      "choices": [
+        "Reduce the risk rating so it falls within existing appetite",
+        "Wait until an incident occurs to justify the expenditure",
+        "Purchase the most advanced tool available to close the gap",
+        "Present the risk and options to management for a treatment decision"
+      ],
+      "correctIndex": 3,
+      "why": "Management must decide on treatment for risk beyond current controls. Buying tools first, waiting for harm, or manipulating ratings all bypass governance."
+    },
+    {
+      "q": "A qualitative risk analysis is generally preferred over a quantitative one when:",
+      "choices": [
+        "Reliable loss and probability data are scarce and speed is important",
+        "The organization requires precise monetary loss figures for each risk",
+        "Regulators mandate a dollar value be assigned to every asset",
+        "Management wants to eliminate all subjectivity from the results"
+      ],
+      "correctIndex": 0,
+      "why": "Qualitative methods suit situations lacking hard data and needing speed. Precise dollar figures and full objectivity are strengths of quantitative analysis."
+    },
+    {
+      "q": "An information security program's objectives should be derived primarily from:",
+      "choices": [
+        "The control catalog of a single compliance standard",
+        "The feature roadmaps of the organization's security vendors",
+        "The personal preferences of the security operations staff",
+        "The security strategy and the organization's risk appetite"
+      ],
+      "correctIndex": 3,
+      "why": "Program objectives flow from strategy and risk appetite. Vendor roadmaps, staff preferences, and one standard's catalog are secondary inputs."
+    },
+    {
+      "q": "The most effective way to ensure a security program remains aligned with the business over time is to:",
+      "choices": [
+        "Freeze the program design once it passes its first audit",
+        "Delegate all program decisions to the operations team",
+        "Regularly review and update it against changing business objectives and risk",
+        "Adopt whatever controls the largest competitor uses"
+      ],
+      "correctIndex": 2,
+      "why": "Ongoing review keeps the program aligned as the business evolves. Freezing, full delegation, and copying competitors cause drift."
+    },
+    {
+      "q": "A security awareness program is most successful when its effectiveness is measured by:",
+      "choices": [
+        "The number of posters displayed in office common areas",
+        "Observable changes in employee security behavior and reduced incidents",
+        "The number of employees who opened the training email",
+        "The total hours of training content that were produced"
+      ],
+      "correctIndex": 1,
+      "why": "Behavior change and fewer incidents show real impact. Open rates, content volume, and posters measure activity, not outcomes."
+    },
+    {
+      "q": "When building a security program, the strongest justification for a defined metrics framework is that it:",
+      "choices": [
+        "Fills the reporting templates required by the tool vendor",
+        "Demonstrates how busy the security operations team is",
+        "Enables management to make informed, data-driven decisions about the program",
+        "Increases the number of dashboards available to analysts"
+      ],
+      "correctIndex": 2,
+      "why": "Metrics exist to inform management decisions. Vendor templates, dashboard counts, and displays of busyness are not the purpose."
+    },
+    {
+      "q": "The primary consideration when selecting controls for a new business application is:",
+      "choices": [
+        "The sensitivity of the data and the risk to the business process",
+        "The lowest-cost option regardless of the risk involved",
+        "The preference of the development team for familiar tools",
+        "The control set used by the previous application it replaces"
+      ],
+      "correctIndex": 0,
+      "why": "Data sensitivity and process risk drive control selection. Legacy sets, developer familiarity, and pure cost are not the primary basis."
+    },
+    {
+      "q": "Integrating security into the software development life cycle is most effective when it:",
+      "choices": [
+        "Is handled entirely by an external assessment after go-live",
+        "Is performed only during a final penetration test before release",
+        "Relies on developers self-certifying at the end of the project",
+        "Begins at requirements and continues through every phase"
+      ],
+      "correctIndex": 3,
+      "why": "Security by design starts early and persists throughout. Late tests, post-launch reviews, and self-certification catch issues too late."
+    },
+    {
+      "q": "A CISM presenting the program's status to executives should focus reporting on:",
+      "choices": [
+        "A raw export of every alert generated by monitoring tools",
+        "The number of firewall rules modified during the period",
+        "Risk posture, business impact, and progress against objectives",
+        "Detailed configuration settings of each security appliance"
+      ],
+      "correctIndex": 2,
+      "why": "Executives need risk, impact, and objective progress. Rule counts, configuration detail, and raw alerts are operational noise at that level."
+    },
+    {
+      "q": "The most important reason to align the security program with a recognized framework is to:",
+      "choices": [
+        "Replace the requirement for management oversight of security",
+        "Eliminate the need for a tailored risk assessment",
+        "Guarantee the organization can never suffer a security incident",
+        "Provide a structured, defensible basis for coverage and continuous improvement"
+      ],
+      "correctIndex": 3,
+      "why": "A framework gives structure and a path to improvement. It does not guarantee immunity, remove risk assessment, or replace oversight."
+    },
+    {
+      "q": "When third-party vendors process sensitive company data, the program should ensure that:",
+      "choices": [
+        "Security requirements are defined in contracts and monitored throughout the relationship",
+        "The vendor selects whatever controls it finds convenient",
+        "The vendor is trusted based on its industry reputation alone",
+        "Oversight ends once the vendor signs the master agreement"
+      ],
+      "correctIndex": 0,
+      "why": "Contractual requirements plus ongoing monitoring manage third-party risk. Reputation, one-time signing, and vendor discretion leave gaps."
+    },
+    {
+      "q": "A security manager notices that a required control is technically strong but consistently bypassed by staff. The best response is to:",
+      "choices": [
+        "Ignore the bypassing since the control is technically sound",
+        "Add a stricter version of the same control to force compliance",
+        "Investigate why it impedes work and adjust the control or process for usability",
+        "Report each individual to human resources for discipline"
+      ],
+      "correctIndex": 2,
+      "why": "Controls that impede work get bypassed; usability must be addressed. Stricter controls, mass discipline, and ignoring the pattern do not fix the root cause."
+    },
+    {
+      "q": "The primary purpose of a data classification scheme within a security program is to:",
+      "choices": [
+        "Assign every file to the most restrictive category by default",
+        "Ensure protection levels match the sensitivity and value of information",
+        "Reduce the total volume of data the organization stores",
+        "Replace the need for access control on shared systems"
+      ],
+      "correctIndex": 1,
+      "why": "Classification drives proportionate protection. It is not about reducing volume, defaulting to maximum restriction, or replacing access control."
+    },
+    {
+      "q": "To secure adequate resources for a new program initiative, the security manager should:",
+      "choices": [
+        "Present a business case linking the initiative to risk reduction and business value",
+        "Warn that failure to fund it guarantees a catastrophic breach",
+        "Request the largest possible budget to allow for contingencies",
+        "Emphasize the technical novelty of the proposed solution"
+      ],
+      "correctIndex": 0,
+      "why": "A business case tied to value and risk wins resources. Novelty, padded budgets, and fear tactics undermine credibility."
+    },
+    {
+      "q": "When rolling out a new security control across the enterprise, change management is critical primarily to:",
+      "choices": [
+        "Allow the security team to bypass business approvals",
+        "Guarantee the control will never require future maintenance",
+        "Minimize business disruption and gain user acceptance of the change",
+        "Ensure the control is deployed on the cheapest infrastructure"
+      ],
+      "correctIndex": 2,
+      "why": "Change management reduces disruption and builds acceptance. It is not about cost minimization, maintenance-free operation, or bypassing approvals."
+    },
+    {
+      "q": "The effectiveness of a security program is best evaluated by comparing outcomes against:",
+      "choices": [
+        "The security spending reported by peer organizations",
+        "The quantity of tools deployed across the environment",
+        "The number of security certifications held by the staff",
+        "The defined program objectives and target risk levels"
+      ],
+      "correctIndex": 3,
+      "why": "Evaluation measures results against stated objectives and risk targets. Peer spend, staff certs, and tool counts are not outcome measures."
+    },
+    {
+      "q": "The primary objective of an incident response plan is to:",
+      "choices": [
+        "Produce a detailed forensic report for the security archive",
+        "Demonstrate the technical skill of the response team",
+        "Identify and punish the individuals who caused the incident",
+        "Limit business impact and restore normal operations efficiently"
+      ],
+      "correctIndex": 3,
+      "why": "Incident response exists to reduce impact and restore operations. Punishment, archival reports, and showcasing skill are not its purpose."
+    },
+    {
+      "q": "During a major incident, the incident commander's most important early responsibility is to:",
+      "choices": [
+        "Draft the public press release before facts are confirmed",
+        "Personally analyze the malware sample recovered from the host",
+        "Rebuild the affected servers before scope is understood",
+        "Coordinate the response and ensure clear communication among stakeholders"
+      ],
+      "correctIndex": 3,
+      "why": "The commander coordinates and communicates across the response. Hands-on analysis, premature press releases, and hasty rebuilds are not the command role."
+    },
+    {
+      "q": "The most important reason to define incident severity levels in advance is to:",
+      "choices": [
+        "Guarantee that every incident receives the same response",
+        "Allow the team to close low-severity incidents without review",
+        "Ensure appropriate escalation and resource allocation during a real event",
+        "Reduce the total number of incidents the team must document"
+      ],
+      "correctIndex": 2,
+      "why": "Severity levels drive proportionate escalation and resourcing. They are not about reducing counts, skipping review, or uniform response."
+    },
+    {
+      "q": "A CISM is deciding when to declare a disaster and activate the business continuity plan. This decision should be based on:",
+      "choices": [
+        "Whether the media has begun reporting on the outage",
+        "The availability of the vendor's technical support line",
+        "Predefined criteria tied to business impact and recovery objectives",
+        "The personal judgment of whoever first detects the disruption"
+      ],
+      "correctIndex": 2,
+      "why": "Declaration follows predefined impact-based criteria. Ad hoc judgment, media coverage, and vendor availability are not sound triggers."
+    },
+    {
+      "q": "The recovery time objective for a critical system is best determined by:",
+      "choices": [
+        "The recovery time published for a competitor's system",
+        "The fastest recovery the current technology can achieve",
+        "The preference of the IT operations team on call",
+        "The maximum tolerable downtime the business can sustain"
+      ],
+      "correctIndex": 3,
+      "why": "RTO reflects the business's tolerable downtime. Technical speed, staff preference, and competitor figures do not define it."
+    },
+    {
+      "q": "Post-incident review meetings are most valuable when they focus on:",
+      "choices": [
+        "Identifying root causes and improvements to prevent recurrence",
+        "Estimating the reputational damage to competitors",
+        "Assigning individual blame for the mistakes that were made",
+        "Confirming that the response followed the plan word for word"
+      ],
+      "correctIndex": 0,
+      "why": "Lessons learned target root causes and improvement. Blame, rigid plan-conformance, and competitor speculation add little value."
+    },
+    {
+      "q": "During incident containment, the security manager must balance evidence preservation against:",
+      "choices": [
+        "The goal of minimizing the number of log entries created",
+        "The preference to avoid involving the legal department",
+        "The need to limit ongoing business damage quickly",
+        "The desire to keep the incident hidden from executives"
+      ],
+      "correctIndex": 2,
+      "why": "Containment weighs preserving evidence against stopping damage. Hiding from executives, minimizing logs, and excluding legal are not legitimate tradeoffs."
+    },
+    {
+      "q": "The most important reason to establish incident communication protocols before an incident is to:",
+      "choices": [
+        "Reduce the number of people who become aware of the incident",
+        "Allow technical staff to avoid speaking with management",
+        "Guarantee the incident is disclosed publicly within an hour",
+        "Ensure the right stakeholders receive accurate information at the right time"
+      ],
+      "correctIndex": 3,
+      "why": "Predefined protocols get accurate information to the right people promptly. Limiting awareness, avoiding management, and forced fast disclosure are not the goal."
+    },
+    {
+      "q": "When an incident may involve a reportable data breach, the security manager should:",
+      "choices": [
+        "Engage legal and compliance early to meet notification obligations",
+        "Decide unilaterally whether regulators need to be informed",
+        "Delay any notification until the full forensic analysis is complete",
+        "Notify all customers immediately before confirming the facts"
+      ],
+      "correctIndex": 0,
+      "why": "Legal and compliance guide breach notification duties and timing. Indefinite delay, unilateral decisions, and premature mass notice all carry risk."
+    },
+    {
+      "q": "Testing the incident response plan through tabletop exercises primarily helps the organization to:",
+      "choices": [
+        "Prove that the security tools can block every known attack",
+        "Validate roles, decisions, and coordination before a real incident occurs",
+        "Replace the need for a written incident response plan",
+        "Reduce the frequency of routine security monitoring"
+      ],
+      "correctIndex": 1,
+      "why": "Tabletops validate roles and coordination in a low-risk setting. They do not prove tool efficacy, reduce monitoring, or replace the written plan."
+    },
+    {
+      "q": "The most critical success factor for an incident response capability is:",
+      "choices": [
+        "Trained personnel with clearly defined roles and authority to act",
+        "A single expert who personally handles all incidents",
+        "The most expensive detection platform on the market",
+        "A large archive of every historical alert ever generated"
+      ],
+      "correctIndex": 0,
+      "why": "Prepared people with clear roles and authority drive effective response. Expensive tools, alert archives, and single-point dependence are not sufficient."
+    },
+    {
+      "q": "After containment and eradication, the decision to return a system to production should be made based on:",
+      "choices": [
+        "The elapsed time since the incident was first detected",
+        "Confirmation that the threat is removed and the system is verified secure",
+        "The availability of staff to monitor the restored system",
+        "Pressure from the business to restore service as fast as possible"
+      ],
+      "correctIndex": 1,
+      "why": "Recovery proceeds once the threat is gone and integrity is verified. Business pressure, elapsed time, and staffing convenience are not the criteria."
+    },
+    {
+      "q": "Integrating incident response with business continuity planning is important primarily because it:",
+      "choices": [
+        "Ensures a coordinated response that maintains critical business functions",
+        "Eliminates the need for separate recovery time objectives",
+        "Allows one team to take over the other's responsibilities",
+        "Reduces the documentation each team is required to maintain"
+      ],
+      "correctIndex": 0,
+      "why": "Coordination keeps critical functions running during disruption. Integration is not about cutting documentation, merging teams, or dropping RTOs."
+    },
+    {
+      "q": "When reporting a significant incident to the board, the security manager should emphasize:",
+      "choices": [
+        "The specific command-line steps used to isolate the host",
+        "The individual analysts who worked the most overtime",
+        "The internal IP addresses of every affected server",
+        "Business impact, containment status, and actions to prevent recurrence"
+      ],
+      "correctIndex": 3,
+      "why": "Boards need impact, status, and preventive actions. Command details, IP lists, and staffing anecdotes are irrelevant at that level."
+    }
+  ]
+}

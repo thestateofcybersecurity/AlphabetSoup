@@ -159,15 +159,15 @@
       "why": "Cloud data may be stored across data centers in multiple countries, raising jurisdiction and legal access problems. Knowing and reaching the data's physical location is the core challenge."
     },
     {
-      "q": "What does the acronym 'ACPO' stand for in digital forensics?",
+      "q": "What does the ACPO Good Practice Guide primarily provide for digital forensics?",
       "choices": [
-        "Association of Chief Police Officers",
-        "American Cybersecurity Protection Organization",
-        "Advanced Cyber Protection Officer",
-        "Association of Cybercrime Prevention Officers"
+        "Principles for handling digital evidence so it stays admissible",
+        "A standard file format for storing forensic disk images",
+        "A certification program for forensic examiners",
+        "A software tool for imaging mobile devices"
       ],
       "correctIndex": 0,
-      "why": "ACPO stands for the Association of Chief Police Officers, whose good practice guide shaped digital evidence handling in the UK. Its four principles are still widely cited in forensics."
+      "why": "The ACPO Good Practice Guide sets out principles, such as not altering data on a seized device, that keep digital evidence admissible in court. Evidence file formats, examiner certifications, and imaging tools are separate things."
     },
     {
       "q": "Which of the following describes a 'dead' forensic acquisition?",
@@ -542,6 +542,182 @@
       ],
       "correctIndex": 1,
       "why": "Live acquisition captures evidence from a running system, which is the only way to obtain volatile data such as memory contents and active connections before they vanish."
+    },
+    {
+      "q": "In NTFS, which structure holds a metadata record for every file and directory on the volume?",
+      "choices": [
+        "The File Allocation Table",
+        "The Master File Table (MFT)",
+        "The superblock",
+        "The inode table"
+      ],
+      "correctIndex": 1,
+      "why": "The MFT stores a record for every file and directory, including timestamps, size, and pointers to the data. FAT belongs to FAT file systems, while superblocks and inodes belong to Linux file systems."
+    },
+    {
+      "q": "Which NTFS metadata file journals file system transactions to allow recovery after an unexpected shutdown?",
+      "choices": [
+        "$MFT",
+        "$Bitmap",
+        "$LogFile",
+        "$Boot"
+      ],
+      "correctIndex": 2,
+      "why": "$LogFile records file system transactions so NTFS can roll back or replay changes after a crash, and it can retain traces of recent activity. $MFT indexes files, $Bitmap tracks cluster use, and $Boot holds boot data."
+    },
+    {
+      "q": "In a FAT file system, how is a deleted file's directory entry marked?",
+      "choices": [
+        "The entire entry is zeroed out",
+        "The first byte of the filename is replaced with 0xE5",
+        "The cluster chain is encrypted",
+        "A tombstone flag is set in the MFT"
+      ],
+      "correctIndex": 1,
+      "why": "FAT marks a deleted entry by setting the first filename byte to 0xE5 while leaving the rest intact, which is why recovery is often possible. FAT has no MFT; that is an NTFS structure."
+    },
+    {
+      "q": "On an ext3 or ext4 Linux volume, which feature can preserve evidence of recent file system changes and aid recovery?",
+      "choices": [
+        "The journal",
+        "The $LogFile",
+        "Volume Shadow Copies",
+        "The prefetch cache"
+      ],
+      "correctIndex": 0,
+      "why": "ext3 and ext4 use a journal that logs pending metadata changes before committing them, aiding crash recovery and analysis. $LogFile is NTFS, while Shadow Copies and prefetch are Windows features."
+    },
+    {
+      "q": "Which Volatility plugin can reveal processes hidden from the normal list by scanning memory for EPROCESS structures?",
+      "choices": [
+        "pslist",
+        "psscan",
+        "dlllist",
+        "hivelist"
+      ],
+      "correctIndex": 1,
+      "why": "psscan carves memory for EPROCESS objects directly, so it can find processes that unlinked themselves to hide from pslist. dlllist and hivelist examine loaded modules and registry hives instead."
+    },
+    {
+      "q": "To reconstruct a file transferred over HTTP from a packet capture, which technique does an analyst use?",
+      "choices": [
+        "Port mirroring",
+        "TCP stream reassembly",
+        "MAC address filtering",
+        "Deauthentication"
+      ],
+      "correctIndex": 1,
+      "why": "Reassembling the TCP stream stitches packet payloads back into the original data, letting an analyst extract transferred files from a capture. Port mirroring only copies traffic to a capture point."
+    },
+    {
+      "q": "Which mobile forensic acquisition method captures a bit-for-bit copy of flash memory, including deleted data?",
+      "choices": [
+        "Manual acquisition",
+        "Logical acquisition",
+        "Physical acquisition",
+        "File system acquisition"
+      ],
+      "correctIndex": 2,
+      "why": "Physical acquisition images the device flash storage bit for bit, recovering deleted items and unallocated data. Logical and file system methods copy only the active files the OS exposes."
+    },
+    {
+      "q": "On an iOS device, artifacts such as messages, call history, and contacts are most commonly stored in what format?",
+      "choices": [
+        "Windows registry hives",
+        "SQLite databases",
+        "ext4 inodes",
+        "Windows Event Logs"
+      ],
+      "correctIndex": 1,
+      "why": "iOS apps keep structured data like messages and call logs in SQLite databases, a primary target for mobile examiners. Registry hives and Event Logs are Windows artifacts."
+    },
+    {
+      "q": "Which anti-forensic technique alters a file's MAC timestamps to mislead timeline analysis?",
+      "choices": [
+        "Timestomping",
+        "Steganography",
+        "Slack space hiding",
+        "Data carving"
+      ],
+      "correctIndex": 0,
+      "why": "Timestomping changes the modified, accessed, and created times of a file to confuse timeline reconstruction. Comparing $STANDARD_INFORMATION with $FILE_NAME times in NTFS can expose it."
+    },
+    {
+      "q": "Which tool builds a super timeline by extracting and combining timestamps from many artifact types?",
+      "choices": [
+        "Wireshark",
+        "log2timeline/Plaso",
+        "RegShot",
+        "Nmap"
+      ],
+      "correctIndex": 1,
+      "why": "log2timeline, part of the Plaso framework, aggregates timestamps from logs, registry, files, and more into a single super timeline. Wireshark and Nmap are network tools."
+    },
+    {
+      "q": "Windows prefetch files (.pf) are most useful as evidence of what?",
+      "choices": [
+        "Files copied to USB drives",
+        "That a program was executed and how often",
+        "Websites the user visited",
+        "Network connections that were opened"
+      ],
+      "correctIndex": 1,
+      "why": "Prefetch files record that an application ran, its run count, and last execution times, making them strong proof of program execution. They do not track browsing or network activity."
+    },
+    {
+      "q": "Windows shellbags stored in the registry provide evidence of what user activity?",
+      "choices": [
+        "Passwords entered by the user",
+        "Folders the user browsed in Explorer, even if now deleted",
+        "Emails the user sent",
+        "Files downloaded from the internet"
+      ],
+      "correctIndex": 1,
+      "why": "Shellbags record folder view settings, revealing which directories a user opened in Explorer, including removable or since-deleted folders. They do not store passwords or emails."
+    },
+    {
+      "q": "Which Windows event log records account logon and logoff events such as Event ID 4624?",
+      "choices": [
+        "Application log",
+        "System log",
+        "Security log",
+        "Setup log"
+      ],
+      "correctIndex": 2,
+      "why": "The Security log captures authentication events like successful (4624) and failed (4625) logons, key to investigating account activity. The Application and System logs track software and OS events."
+    },
+    {
+      "q": "Which email header field best reveals the path a message traveled between mail servers?",
+      "choices": [
+        "Subject",
+        "Received",
+        "From",
+        "Message-ID"
+      ],
+      "correctIndex": 1,
+      "why": "Each mail server that handles a message adds a Received header, so reading them from bottom to top reconstructs the delivery path. From and Subject are easily spoofed and show no routing."
+    },
+    {
+      "q": "Where does Google Chrome store its browsing history for forensic examination?",
+      "choices": [
+        "In a plain text log file",
+        "In a SQLite database named History",
+        "In the Windows registry",
+        "In a prefetch file"
+      ],
+      "correctIndex": 1,
+      "why": "Chrome keeps visited URLs, timestamps, and visit counts in a SQLite database named History inside the user profile. It does not use the registry or prefetch for this data."
+    },
+    {
+      "q": "In US federal courts, which standard is commonly applied to judge the admissibility of expert forensic testimony?",
+      "choices": [
+        "The Miranda standard",
+        "The Daubert standard",
+        "The Terry standard",
+        "The Katz standard"
+      ],
+      "correctIndex": 1,
+      "why": "The Daubert standard lets judges assess whether an expert's methods, including forensic techniques, are reliable and scientifically valid. Miranda, Terry, and Katz concern policing and privacy, not expert evidence."
     }
   ]
 }
