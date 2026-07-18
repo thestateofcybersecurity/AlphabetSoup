@@ -12,7 +12,8 @@
         "To identify, preserve, recover, and analyze digital evidence",
         "To monitor system performance"
       ],
-      "correctIndex": 2
+      "correctIndex": 2,
+      "why": "Computer forensics covers the full evidence lifecycle: identifying, preserving, recovering, and analyzing digital evidence in a legally sound way. Data recovery alone is only one piece of that process."
     },
     {
       "q": "Which of the following is a volatile data source?",
@@ -22,7 +23,8 @@
         "USB drive",
         "CD-ROM"
       ],
-      "correctIndex": 1
+      "correctIndex": 1,
+      "why": "RAM loses its contents the moment power is removed, making it volatile and a priority for live collection. Hard drives, USB drives, and CD-ROMs retain data without power."
     },
     {
       "q": "What is the first step in the forensic investigation process?",
@@ -32,7 +34,8 @@
         "Identification",
         "Documentation"
       ],
-      "correctIndex": 2
+      "correctIndex": 2,
+      "why": "Investigators must first identify what evidence exists and where it resides before anything can be preserved or analyzed. Preservation and documentation follow once evidence has been identified."
     },
     {
       "q": "Which of the following tools is commonly used for disk imaging in a forensic investigation?",
@@ -42,7 +45,8 @@
         "Nmap",
         "Metasploit"
       ],
-      "correctIndex": 1
+      "correctIndex": 1,
+      "why": "EnCase is a commercial forensic suite widely used to create and analyze forensic disk images. Wireshark, Nmap, and Metasploit are network and penetration testing tools, not imaging tools."
     },
     {
       "q": "Which of the following is considered a best practice when handling digital evidence?",
@@ -52,7 +56,8 @@
         "Modify the evidence as needed",
         "Use any available tool for analysis"
       ],
-      "correctIndex": 1
+      "correctIndex": 1,
+      "why": "Working from a bit-for-bit copy preserves the original evidence in pristine condition and keeps it admissible. Analyzing the original risks altering timestamps and data."
     },
     {
       "q": "What is the purpose of a write blocker in forensic investigations?",
@@ -62,7 +67,8 @@
         "To encrypt the evidence",
         "To wipe the data on the drive"
       ],
-      "correctIndex": 1
+      "correctIndex": 1,
+      "why": "A write blocker allows read-only access to a drive, guaranteeing the acquisition process cannot alter the original evidence. Any write to the source could undermine its integrity in court."
     },
     {
       "q": "Which of the following is a hashing algorithm commonly used in forensic investigations?",
@@ -72,7 +78,8 @@
         "DES",
         "AES"
       ],
-      "correctIndex": 0
+      "correctIndex": 0,
+      "why": "MD5 has long been used in forensics to fingerprint files and verify that copies match originals. RSA, DES, and AES are encryption algorithms, not hash functions."
     },
     {
       "q": "Which of the following actions should be taken first when seizing a computer at a crime scene?",
@@ -82,7 +89,8 @@
         "Disconnect all peripherals",
         "Access all files on the computer"
       ],
-      "correctIndex": 1
+      "correctIndex": 1,
+      "why": "Before touching anything, investigators photograph and document the scene, including what is on screen and how equipment is connected. This preserves context and supports the chain of custody."
     },
     {
       "q": "What type of attack involves an attacker manipulating a file system to gain unauthorized access?",
@@ -92,7 +100,8 @@
         "Directory traversal",
         "Cross-site scripting"
       ],
-      "correctIndex": 2
+      "correctIndex": 2,
+      "why": "Directory traversal manipulates file paths, such as ../ sequences, to escape intended folders and reach restricted files. SQL injection and XSS target databases and browsers, not the file system."
     },
     {
       "q": "Which of the following best describes the chain of custody in forensic investigations?",
@@ -102,7 +111,8 @@
         "A method of encrypting data",
         "A physical chain used to secure evidence"
       ],
-      "correctIndex": 0
+      "correctIndex": 0,
+      "why": "The chain of custody documents every person who handled the evidence, when, and why, proving it was never tampered with. Without it, evidence can be challenged and excluded in court."
     },
     {
       "q": "What is the primary purpose of a forensic disk image?",
@@ -112,7 +122,8 @@
         "To capture an exact replica of the original media",
         "To remove malware from a system"
       ],
-      "correctIndex": 2
+      "correctIndex": 2,
+      "why": "A forensic image is an exact, sector-level replica of the original media, including deleted files and slack space. A normal backup copies only active files and misses that hidden data."
     },
     {
       "q": "Which tool is commonly used for analyzing network traffic in a forensic investigation?",
@@ -122,7 +133,8 @@
         "FTK",
         "Autopsy"
       ],
-      "correctIndex": 1
+      "correctIndex": 1,
+      "why": "Wireshark captures and dissects network packets, making it the standard tool for network traffic analysis. EnCase, FTK, and Autopsy focus on disk and file system forensics."
     },
     {
       "q": "Which file system is commonly used on Windows operating systems?",
@@ -132,7 +144,8 @@
         "NTFS",
         "FAT32"
       ],
-      "correctIndex": 2
+      "correctIndex": 2,
+      "why": "NTFS is the default file system for modern Windows, supporting permissions, journaling, and large volumes. FAT32 is older and limited, while HFS+ and Ext4 belong to macOS and Linux."
     },
     {
       "q": "Which of the following is a primary challenge when collecting evidence from cloud environments?",
@@ -142,7 +155,8 @@
         "The format of the data",
         "The cost of the data"
       ],
-      "correctIndex": 0
+      "correctIndex": 0,
+      "why": "Cloud data may be stored across data centers in multiple countries, raising jurisdiction and legal access problems. Knowing and reaching the data's physical location is the core challenge."
     },
     {
       "q": "What does the acronym 'ACPO' stand for in digital forensics?",
@@ -152,7 +166,8 @@
         "Advanced Cyber Protection Officer",
         "Association of Cybercrime Prevention Officers"
       ],
-      "correctIndex": 0
+      "correctIndex": 0,
+      "why": "ACPO stands for the Association of Chief Police Officers, whose good practice guide shaped digital evidence handling in the UK. Its four principles are still widely cited in forensics."
     },
     {
       "q": "Which of the following describes a 'dead' forensic acquisition?",
@@ -162,7 +177,8 @@
         "Analyzing data in real-time",
         "Recovering deleted files"
       ],
-      "correctIndex": 1
+      "correctIndex": 1,
+      "why": "A dead acquisition images storage after the system has been powered down, so the data cannot change during capture. Live acquisition, by contrast, collects from a running system."
     },
     {
       "q": "Which of the following best describes steganography?",
@@ -172,7 +188,8 @@
         "The process of compressing files",
         "The method of securely deleting files"
       ],
-      "correctIndex": 0
+      "correctIndex": 0,
+      "why": "Steganography conceals data inside other files, such as images or audio, so observers do not even know a message exists. Encryption scrambles content but does not hide its existence."
     },
     {
       "q": "Which type of forensic analysis is used to recover deleted files?",
@@ -182,7 +199,8 @@
         "Malware analysis",
         "Memory analysis"
       ],
-      "correctIndex": 1
+      "correctIndex": 1,
+      "why": "Deleted files often remain on disk until overwritten, and file system analysis examines structures and unallocated space to recover them. Memory and network analysis look at RAM and traffic instead."
     },
     {
       "q": "Which of the following is a tool used for mobile device forensics?",
@@ -192,7 +210,8 @@
         "EnCase",
         "FTK"
       ],
-      "correctIndex": 1
+      "correctIndex": 1,
+      "why": "Cellebrite specializes in extracting and decoding data from smartphones and other mobile devices. EnCase and FTK are primarily computer forensics suites, and Wireshark analyzes network traffic."
     },
     {
       "q": "Which of the following is a method for securing the chain of custody of digital evidence?",
@@ -202,7 +221,8 @@
         "Allowing access to the evidence by anyone",
         "Modifying evidence to fit the investigation"
       ],
-      "correctIndex": 0
+      "correctIndex": 0,
+      "why": "Storing evidence in a locked, access-controlled location ensures only authorized, documented handling occurs. Open access or modification would break the chain of custody instantly."
     },
     {
       "q": "Which of the following file types is most likely to contain hidden data?",
@@ -212,7 +232,8 @@
         "PDF documents",
         "HTML files"
       ],
-      "correctIndex": 1
+      "correctIndex": 1,
+      "why": "JPEG images are a favorite carrier for steganography because small pixel changes are invisible to the eye. Plain text and HTML files offer far less room to hide data undetected."
     },
     {
       "q": "Which of the following tools is used to analyze the Windows registry?",
@@ -222,7 +243,8 @@
         "EnCase",
         "FTK Imager"
       ],
-      "correctIndex": 1
+      "correctIndex": 1,
+      "why": "RegShot takes before-and-after snapshots of the Windows registry and compares them to reveal changes. It is purpose-built for registry analysis, while FTK Imager focuses on acquisition."
     },
     {
       "q": "Which file format is commonly used for forensic disk images?",
@@ -232,7 +254,8 @@
         "E01",
         "DOCX"
       ],
-      "correctIndex": 2
+      "correctIndex": 2,
+      "why": "E01 is the EnCase evidence file format, which stores a forensic image along with compression, checksums, and case metadata. PDF, JPEG, and DOCX are document and image formats."
     },
     {
       "q": "Which of the following best describes a hash value in digital forensics?",
@@ -242,7 +265,8 @@
         "A sequence of binary data",
         "A portion of a file"
       ],
-      "correctIndex": 1
+      "correctIndex": 1,
+      "why": "A hash is a fixed-length value computed by an algorithm that uniquely represents a file's contents. Any change to the file produces a different hash, which is why it is not random."
     },
     {
       "q": "What is the primary purpose of a forensic write blocker?",
@@ -252,7 +276,8 @@
         "To encrypt data on the disk",
         "To clone the hard drive"
       ],
-      "correctIndex": 1
+      "correctIndex": 1,
+      "why": "A write blocker's job is to stop any write commands from reaching the evidence drive, so examination cannot change its contents. Cloning and encryption are separate functions."
     },
     {
       "q": "Which of the following best describes a logical acquisition?",
@@ -262,7 +287,8 @@
         "Capturing the data in RAM",
         "Capturing encrypted files only"
       ],
-      "correctIndex": 1
+      "correctIndex": 1,
+      "why": "A logical acquisition copies the files and folders the operating system exposes, not the entire raw disk. It misses deleted files and unallocated space, which require a physical image."
     },
     {
       "q": "Which of the following file systems is most commonly used in Linux?",
@@ -272,7 +298,8 @@
         "HFS+",
         "Ext4"
       ],
-      "correctIndex": 3
+      "correctIndex": 3,
+      "why": "Ext4 is the default file system on most modern Linux distributions. NTFS and FAT32 are Windows formats, and HFS+ is Apple's legacy file system."
     },
     {
       "q": "What must be maintained to ensure digital evidence remains admissible in court?",
@@ -282,7 +309,8 @@
         "Load balancing",
         "Port mirroring"
       ],
-      "correctIndex": 0
+      "correctIndex": 0,
+      "why": "An unbroken chain of custody proves the evidence presented in court is the same evidence collected and was never altered. The other options are networking and storage concepts."
     },
     {
       "q": "Which of the following describes a 'live' forensic acquisition?",
@@ -292,7 +320,8 @@
         "Capturing data from a backup",
         "Restoring deleted files"
       ],
-      "correctIndex": 1
+      "correctIndex": 1,
+      "why": "A live acquisition collects data while the system is still running, capturing volatile evidence like RAM, sessions, and running processes. Powering off first would destroy that data."
     },
     {
       "q": "Which of the following best describes a forensic investigation?",
@@ -302,7 +331,8 @@
         "The process of performing penetration testing",
         "The monitoring of system performance"
       ],
-      "correctIndex": 1
+      "correctIndex": 1,
+      "why": "A forensic investigation is the structured process of collecting, preserving, and analyzing digital evidence for legal or internal proceedings. Penetration testing evaluates security, not evidence."
     },
     {
       "q": "Which of the following is used to verify the integrity of a disk image?",
@@ -312,7 +342,8 @@
         "Compression",
         "Backup"
       ],
-      "correctIndex": 1
+      "correctIndex": 1,
+      "why": "Hashing the original and the image and comparing the values proves the copy is identical to the source. Matching hashes demonstrate the image was not altered; encryption offers no such proof."
     },
     {
       "q": "Which of the following best describes a forensic image?",
@@ -322,7 +353,8 @@
         "An encrypted copy of the original disk",
         "A backup copy of the original disk"
       ],
-      "correctIndex": 1
+      "correctIndex": 1,
+      "why": "A forensic image duplicates every bit of the source media, including deleted data and slack space. Compressed or backup copies do not guarantee that complete, exact reproduction."
     },
     {
       "q": "Which of the following best describes the concept of steganography?",
@@ -332,7 +364,8 @@
         "Compressing files to save space",
         "Deleting data securely"
       ],
-      "correctIndex": 1
+      "correctIndex": 1,
+      "why": "Steganography hides information inside innocuous carrier files so its very existence goes unnoticed. Encryption protects content but openly signals that secret data is present."
     },
     {
       "q": "Which of the following best describes the role of a forensic examiner?",
@@ -342,7 +375,8 @@
         "To monitor network traffic for security threats",
         "To design and implement security policies"
       ],
-      "correctIndex": 0
+      "correctIndex": 0,
+      "why": "A forensic examiner collects, analyzes, and presents digital evidence, often testifying about findings in legal proceedings. Penetration testing and policy design are security roles, not forensic ones."
     },
     {
       "q": "Which hashing algorithm was historically the most widely used for verifying forensic images?",
@@ -352,7 +386,8 @@
         "AES",
         "DES"
       ],
-      "correctIndex": 0
+      "correctIndex": 0,
+      "why": "MD5 was the de facto standard for verifying forensic images for many years due to its speed and universal tool support. Collisions have since pushed the field toward SHA-256, but MD5 was the historical workhorse."
     },
     {
       "q": "Which of the following is a potential issue when using cloud services in forensic investigations?",
@@ -362,7 +397,8 @@
         "The physical location of the data",
         "The availability of tools"
       ],
-      "correctIndex": 2
+      "correctIndex": 2,
+      "why": "Data in the cloud can physically reside in foreign jurisdictions, complicating legal authority, subpoenas, and access. This location problem is more fundamental than speed or cost."
     },
     {
       "q": "Which of the following is a tool commonly used for network forensics?",
@@ -372,7 +408,8 @@
         "Wireshark",
         "Autopsy"
       ],
-      "correctIndex": 2
+      "correctIndex": 2,
+      "why": "Wireshark is the standard tool for capturing and examining network traffic during network forensics. EnCase, FTK, and Autopsy are geared toward disk and file analysis."
     },
     {
       "q": "Which of the following is a key concern when handling digital evidence?",
@@ -382,7 +419,8 @@
         "The potential for evidence tampering",
         "The size of the evidence"
       ],
-      "correctIndex": 2
+      "correctIndex": 2,
+      "why": "Digital evidence is easily altered, so preventing and detecting tampering is the central concern; a single change can render it inadmissible. Cost and size are practical issues, not integrity issues."
     },
     {
       "q": "Which of the following is the purpose of a forensic analysis?",
@@ -392,7 +430,8 @@
         "To analyze and interpret digital evidence",
         "To modify data for future use"
       ],
-      "correctIndex": 2
+      "correctIndex": 2,
+      "why": "Forensic analysis interprets recovered digital evidence to reconstruct events and support conclusions in an investigation. Recovering data is a step along the way, not the end goal."
     },
     {
       "q": "Which of the following is a common file format used in digital forensics?",
@@ -402,7 +441,8 @@
         "E01",
         "HFS+"
       ],
-      "correctIndex": 2
+      "correctIndex": 2,
+      "why": "E01 is the widely used EnCase evidence format for storing forensic images with integrity checks. NTFS, FAT32, and HFS+ are file systems, not evidence file formats."
     },
     {
       "q": "Which of the following is an important consideration when collecting digital evidence?",
@@ -412,7 +452,8 @@
         "The preservation of the evidence integrity",
         "The cost of the collection process"
       ],
-      "correctIndex": 2
+      "correctIndex": 2,
+      "why": "Evidence integrity must be preserved from the moment of collection, since altered evidence loses its value in court. Speed and cost matter far less than an intact, verifiable copy."
     },
     {
       "q": "Which of the following best describes a live forensic analysis?",
@@ -422,7 +463,8 @@
         "Analyzing data from a backup",
         "Analyzing data from a forensic image"
       ],
-      "correctIndex": 1
+      "correctIndex": 1,
+      "why": "Live forensic analysis examines a running system to observe volatile data such as memory, processes, and network connections. Analyzing images or powered-off disks is dead analysis."
     },
     {
       "q": "Which of the following is a tool used for memory forensics?",
@@ -432,7 +474,8 @@
         "FTK Imager",
         "Autopsy"
       ],
-      "correctIndex": 1
+      "correctIndex": 1,
+      "why": "Volatility is an open source framework built specifically to analyze RAM dumps, extracting processes, connections, and injected code. EnCase, FTK Imager, and Autopsy center on disk evidence."
     },
     {
       "q": "Which of the following best describes the chain of custody?",
@@ -442,7 +485,8 @@
         "A method of encrypting data",
         "A physical chain used to secure evidence"
       ],
-      "correctIndex": 0
+      "correctIndex": 0,
+      "why": "Chain of custody is the documented trail showing who possessed the evidence, when, and what they did with it. It is a record, not a physical restraint or an encryption method."
     },
     {
       "q": "Which of the following is a challenge when collecting evidence from cloud environments?",
@@ -452,7 +496,8 @@
         "The physical location of the data",
         "The availability of tools"
       ],
-      "correctIndex": 2
+      "correctIndex": 2,
+      "why": "The physical location of cloud data creates jurisdictional and legal hurdles, since data may sit on servers in multiple countries. Retrieval speed and cost are secondary concerns."
     },
     {
       "q": "Which of the following best describes the purpose of a forensic write blocker?",
@@ -462,7 +507,8 @@
         "To encrypt data on the disk",
         "To clone the hard drive"
       ],
-      "correctIndex": 1
+      "correctIndex": 1,
+      "why": "By blocking write commands to the evidence media, a write blocker guarantees examination cannot modify the original. This preserves integrity, which cloning or encryption alone cannot ensure."
     },
     {
       "q": "Which of the following is a common method for securing the chain of custody of digital evidence?",
@@ -472,7 +518,8 @@
         "Allowing access to the evidence by anyone",
         "Modifying evidence to fit the investigation"
       ],
-      "correctIndex": 0
+      "correctIndex": 0,
+      "why": "Locked, controlled storage with documented access keeps the custody record intact and rules out unauthorized handling. Sharing freely or modifying evidence would destroy its admissibility."
     },
     {
       "q": "Which of the following best describes a 'dead' forensic acquisition?",
@@ -482,7 +529,8 @@
         "Analyzing data in real-time",
         "Recovering deleted files"
       ],
-      "correctIndex": 1
+      "correctIndex": 1,
+      "why": "Dead acquisition means imaging media from a system that is powered off, ensuring nothing changes during capture. It sacrifices volatile data like RAM in exchange for a stable source."
     },
     {
       "q": "Which of the following best describes a live forensic acquisition?",
@@ -492,7 +540,8 @@
         "Capturing data from a backup",
         "Restoring deleted files"
       ],
-      "correctIndex": 1
+      "correctIndex": 1,
+      "why": "Live acquisition captures evidence from a running system, which is the only way to obtain volatile data such as memory contents and active connections before they vanish."
     }
   ]
 }

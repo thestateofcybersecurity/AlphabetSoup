@@ -2,11 +2,14 @@ import csfRaw from './data/nist-csf.json';
 import cisRaw from './data/cis.json';
 import igsRaw from './data/cis-igs.json';
 import vcisoRaw from './data/vciso-tasks.json';
+import assessRaw from './data/assessment.json';
 import type { CisData, CsfData } from './lib/frameworks';
+import type { Answers, AssessmentData } from './lib/assessment';
 import {
   QUARTERS,
   cisPlan,
   csfPlan,
+  gapsPlan,
   nextStatus,
   planProgress,
   planToCsv,
@@ -19,15 +22,28 @@ const csf = csfRaw as CsfData;
 const cis = cisRaw as CisData;
 const igs = igsRaw as Record<string, number>;
 const vciso = vcisoRaw as VcisoTask[];
+const assessment = assessRaw as AssessmentData;
 
 const byId = (id: string) => document.getElementById(id) as HTMLElement;
 
-type Source = 'csf' | 'cis' | 'vciso';
+type Source = 'csf' | 'cis' | 'vciso' | 'gaps';
+
+function assessmentAnswers(): Answers {
+  try {
+    const raw =
+      localStorage.getItem('alphabetsoup:assessment:ransomware') ??
+      localStorage.getItem('alphabetsoup:assessment');
+    return raw ? (JSON.parse(raw) as Answers) : {};
+  } catch {
+    return {};
+  }
+}
 
 function storageKey(): string {
   const source = (byId('plan-source') as HTMLSelectElement).value as Source;
   if (source === 'cis') return `alphabetsoup:roadmap:cis:ig${(byId('plan-ig') as HTMLSelectElement).value}`;
   if (source === 'vciso') return `alphabetsoup:roadmap:vciso:${(byId('plan-pkg') as HTMLSelectElement).value}`;
+  if (source === 'gaps') return 'alphabetsoup:roadmap:gaps';
   return 'alphabetsoup:roadmap:csf';
 }
 
@@ -57,6 +73,10 @@ function currentTasks(): RoadmapTask[] {
   if (source === 'vciso') {
     return vcisoPlan(vciso, (byId('plan-pkg') as HTMLSelectElement).value as 'Small' | 'Medium' | 'Large');
   }
+  if (source === 'gaps') {
+    const answers = assessmentAnswers();
+    return Object.keys(answers).length === 0 ? [] : gapsPlan(assessment, answers);
+  }
   return csfPlan(csf);
 }
 
@@ -83,11 +103,23 @@ function render(): void {
   const tasks = currentTasks();
   const progress = planProgress(tasks, state);
   const hours = totalHours(tasks);
-  byId('plan-summary').textContent =
-    `${progress.done}/${progress.total} done` + (hours > 0 ? ` · ${hours} estimated hours` : '');
+  const summary = byId('plan-summary');
+  summary.innerHTML = '';
 
   const board = byId('plan-board');
   board.innerHTML = '';
+
+  if (source === 'gaps' && tasks.length === 0) {
+    const started = Object.keys(assessmentAnswers()).length > 0;
+    summary.append(started ? 'No gaps: every question is a yes. ' : 'No assessment answers found yet. ');
+    const link = document.createElement('a');
+    link.href = '../assess/?a=ransomware';
+    link.textContent = started ? 'Review your assessment →' : 'Take the readiness assessment first →';
+    summary.appendChild(link);
+    return;
+  }
+  summary.textContent =
+    `${progress.done}/${progress.total} done` + (hours > 0 ? ` · ${hours} estimated hours` : '');
   const quarters = source === 'vciso' ? QUARTERS : QUARTERS.filter((q) => q !== 'Onboarding');
   for (const quarter of quarters) {
     const column = el('section', 'board-col');
@@ -148,6 +180,10 @@ function download(name: string, content: string): void {
 }
 
 function main(): void {
+  const requested = new URLSearchParams(location.search).get('source');
+  if (requested && ['csf', 'cis', 'vciso', 'gaps'].includes(requested)) {
+    (byId('plan-source') as HTMLSelectElement).value = requested;
+  }
   loadState();
   render();
   for (const id of ['plan-source', 'plan-ig', 'plan-pkg']) {

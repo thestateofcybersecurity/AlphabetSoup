@@ -2,6 +2,8 @@ export interface ChoiceQuestion {
   q: string;
   choices: string[];
   correctIndex: number;
+  /** One or two sentences explaining the correct answer. */
+  why?: string;
 }
 
 export interface FlipQuestion {
@@ -88,6 +90,51 @@ export function scorePercent(session: QuizSession): number {
 /** A session replaying only the missed questions from a finished session. */
 export function reviewSession(previous: QuizSession, random: () => number = Math.random): QuizSession {
   return { order: shuffle(previous.missed, random), position: 0, correct: 0, missed: [] };
+}
+
+/* ----------------------- persistent deck progress ---------------------- */
+
+export interface DeckProgress {
+  attempts: number;
+  best: number;
+  /** Question text -> consecutive-miss count. */
+  missed: Record<string, number>;
+}
+
+export type QuizProgress = Record<string, DeckProgress>;
+
+export interface RoundOutcome {
+  /** Percent score; omit for review-only rounds. */
+  percent?: number;
+  missedQuestions: string[];
+  correctQuestions: string[];
+}
+
+/** Fold a finished round into stored progress. Pure. */
+export function recordRound(progress: QuizProgress, slug: string, outcome: RoundOutcome): QuizProgress {
+  const previous: DeckProgress = progress[slug] ?? { attempts: 0, best: 0, missed: {} };
+  const missed = { ...previous.missed };
+  for (const question of outcome.missedQuestions) {
+    missed[question] = (missed[question] ?? 0) + 1;
+  }
+  for (const question of outcome.correctQuestions) {
+    delete missed[question];
+  }
+  const isFullRound = outcome.percent !== undefined;
+  return {
+    ...progress,
+    [slug]: {
+      attempts: previous.attempts + (isFullRound ? 1 : 0),
+      best: isFullRound ? Math.max(previous.best, outcome.percent!) : previous.best,
+      missed,
+    },
+  };
+}
+
+/** Missed questions for a deck, most-missed first. */
+export function missedBank(progress: QuizProgress, slug: string): string[] {
+  const missed = progress[slug]?.missed ?? {};
+  return Object.keys(missed).sort((a, b) => missed[b] - missed[a] || a.localeCompare(b));
 }
 
 /**

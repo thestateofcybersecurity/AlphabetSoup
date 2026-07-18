@@ -3,11 +3,20 @@ import {
   answerCurrent,
   createSession,
   isDone,
+  missedBank,
+  recordRound,
   reviewSession,
   scorePercent,
   shuffledChoices,
 } from './lib/quiz';
-import type { ChoiceQuestion, Deck, DeckMeta, FlipQuestion, QuizSession } from './lib/quiz';
+import type {
+  ChoiceQuestion,
+  Deck,
+  DeckMeta,
+  FlipQuestion,
+  QuizProgress,
+  QuizSession,
+} from './lib/quiz';
 import { slugForKey } from './lib/slug';
 
 const deckIndex = deckIndexRaw as DeckMeta[];
@@ -15,10 +24,32 @@ const deckModules = import.meta.glob('./data/quiz/*.json');
 const byId = (id: string) => document.getElementById(id) as HTMLElement;
 
 const QUESTIONS_PER_RUN = 20;
+const PROGRESS_KEY = 'alphabetsoup:quiz';
 
 let currentDeck: Deck | null = null;
 let currentMeta: DeckMeta | null = null;
 let session: QuizSession | null = null;
+/** Whether the current session is a full scored round (vs a review/drill). */
+let fullRound = true;
+/** Question indexes answered correctly/missed during this round. */
+let roundCorrect: number[] = [];
+let roundMissed: number[] = [];
+
+function loadProgress(): QuizProgress {
+  try {
+    return JSON.parse(localStorage.getItem(PROGRESS_KEY) ?? '{}') as QuizProgress;
+  } catch {
+    return {};
+  }
+}
+
+function saveProgress(progress: QuizProgress): void {
+  try {
+    localStorage.setItem(PROGRESS_KEY, JSON.stringify(progress));
+  } catch {
+    // Private mode: progress just is not remembered.
+  }
+}
 
 function el<K extends keyof HTMLElementTagNameMap>(
   tag: K,
@@ -49,13 +80,23 @@ function renderDeckGrid(): void {
     head.appendChild(el('h2', 'deck-name', meta.name));
     if (meta.retired) head.appendChild(el('span', 'chip', 'retired cert'));
     card.appendChild(head);
+    const progress = loadProgress()[meta.slug];
+    const stats = progress?.attempts
+      ? ` · best ${progress.best}% · ${progress.attempts} round${progress.attempts === 1 ? '' : 's'}`
+      : '';
     card.appendChild(
-      el('p', 'deck-sub', `${meta.count} ${meta.mode === 'choice' ? 'practice questions' : 'flashcards'}`),
+      el('p', 'deck-sub', `${meta.count} ${meta.mode === 'choice' ? 'practice questions' : 'flashcards'}${stats}`),
     );
     const actions = el('div', 'deck-actions');
     const start = el('button', 'primary-btn', meta.mode === 'choice' ? 'Start quiz' : 'Study cards');
     start.addEventListener('click', () => void startDeck(meta));
     actions.appendChild(start);
+    const bank = missedBank(loadProgress(), meta.slug);
+    if (bank.length > 0) {
+      const drill = el('button', 'ghost-btn missed', `Drill missed (${bank.length})`);
+      drill.addEventListener('click', () => void startDrill(meta));
+      actions.appendChild(drill);
+    }
     if (meta.certKey) {
       const gloss = el('a', 'permalink', 'about this cert');
       gloss.href = `../definitions/${slugForKey(meta.certKey)}.html`;
@@ -66,14 +107,48 @@ function renderDeckGrid(): void {
   }
 }
 
+/** Start a session made only of this deck's persistently missed questions. */
+async function startDrill(meta: DeckMeta): Promise<void> {
+  currentMeta = meta;
+  currentDeck = await loadDeck(meta.slug);
+  const bank = new Set(missedBank(loadProgress(), meta.slug));
+  const indexes = currentDeck.questions
+    .map((question, index) => ({ question, index }))
+    .filter(({ question }) => bank.has(question.q))
+    .map(({ index }) => index);
+  fullRound = false;
+  roundCorrect = [];
+  roundMissed = [];
+  session = { order: indexes.sort(() => Math.random() - 0.5), position: 0, correct: 0, missed: [] };
+  renderQuestion();
+}
+
 async function startDeck(meta: DeckMeta): Promise<void> {
   currentMeta = meta;
   currentDeck = await loadDeck(meta.slug);
   session = createSession(currentDeck.questions.length, QUESTIONS_PER_RUN);
+  fullRound = true;
+  roundCorrect = [];
+  roundMissed = [];
   const url = new URL(location.href);
   url.searchParams.set('deck', meta.slug);
   history.replaceState(null, '', url);
   renderQuestion();
+}
+
+function trackAnswer(questionIndex: number, correct: boolean): void {
+  (correct ? roundCorrect : roundMissed).push(questionIndex);
+}
+
+function commitRound(): void {
+  if (!currentDeck || !currentMeta || !session) return;
+  const toText = (indexes: number[]) => indexes.map((i) => currentDeck!.questions[i].q);
+  const progress = recordRound(loadProgress(), currentMeta.slug, {
+    ...(fullRound ? { percent: scorePercent(session) } : {}),
+    missedQuestions: toText(roundMissed),
+    correctQuestions: toText(roundCorrect),
+  });
+  saveProgress(progress);
 }
 
 function playerShell(): HTMLElement {
@@ -122,6 +197,7 @@ function renderQuestion(): void {
 
 function renderChoice(player: HTMLElement, question: ChoiceQuestion): void {
   player.appendChild(el('p', 'quiz-question', question.q));
+  const questionIndex = session!.order[session!.position];
   const { choices, correctIndex } = shuffledChoices(question);
   const list = el('div', 'choice-list');
   let answered = false;
@@ -135,6 +211,13 @@ function renderChoice(player: HTMLElement, question: ChoiceQuestion): void {
       (list.children[correctIndex] as HTMLElement).classList.add('right');
       list.querySelectorAll('.choice-btn').forEach((b) => b.classList.add('locked'));
       session = answerCurrent(session!, correct);
+      trackAnswer(questionIndex, correct);
+      if (question.why) {
+        const why = el('div', 'why-box');
+        why.appendChild(el('span', 'why-label', correct ? 'Correct' : 'Not quite'));
+        why.appendChild(el('p', undefined, question.why));
+        player.appendChild(why);
+      }
       const next = el('button', 'primary-btn quiz-next', isDone(session) ? 'See results' : 'Next question');
       next.addEventListener('click', renderQuestion);
       player.appendChild(next);
@@ -148,6 +231,7 @@ function renderChoice(player: HTMLElement, question: ChoiceQuestion): void {
 
 function renderFlip(player: HTMLElement, question: FlipQuestion): void {
   player.appendChild(el('p', 'quiz-question', question.q));
+  const questionIndex = session!.order[session!.position];
   const reveal = el('button', 'primary-btn', 'Reveal answer');
   reveal.addEventListener('click', () => {
     reveal.remove();
@@ -156,11 +240,13 @@ function renderFlip(player: HTMLElement, question: FlipQuestion): void {
     const knew = el('button', 'ghost-btn', 'Knew it');
     knew.addEventListener('click', () => {
       session = answerCurrent(session!, true);
+      trackAnswer(questionIndex, true);
       renderQuestion();
     });
     const missed = el('button', 'ghost-btn missed', 'Missed it');
     missed.addEventListener('click', () => {
       session = answerCurrent(session!, false);
+      trackAnswer(questionIndex, false);
       renderQuestion();
     });
     grade.appendChild(knew);
@@ -177,6 +263,7 @@ function updateProgressAfterAnswer(): void {
 
 function renderResults(): void {
   if (!currentDeck || !session) return;
+  commitRound();
   const player = playerShell();
   const percent = scorePercent(session);
   player.appendChild(el('p', 'quiz-question', 'Round complete.'));
@@ -192,6 +279,9 @@ function renderResults(): void {
     const review = el('button', 'primary-btn', `Review ${session.missed.length} missed`);
     review.addEventListener('click', () => {
       session = reviewSession(session!);
+      fullRound = false;
+      roundCorrect = [];
+      roundMissed = [];
       renderQuestion();
     });
     actions.appendChild(review);

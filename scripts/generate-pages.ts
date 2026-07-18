@@ -64,7 +64,28 @@ ul{padding-left:18px;margin:8px 0}
 .related a:hover{border-color:var(--tomato);color:var(--tomato)}
 footer{margin-top:28px;border-top:2px solid var(--ink);padding-top:16px;font-size:.85rem;color:var(--ink-soft)}
 footer .play{font-family:'Fraunces',Georgia,serif;font-style:italic;font-weight:700;font-size:1rem}
+.gnav{display:flex;flex-wrap:wrap;gap:2px;margin:0 0 18px}
+.gnav a{font-family:'IBM Plex Mono',monospace;font-size:.68rem;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-soft);text-decoration:none;padding:5px 10px;border-radius:999px}
+.gnav a:hover{color:var(--tomato)}
+.gnav a.play-link{color:var(--tomato)}
 `.trim();
+
+const CYBERDLE_NAV = 'https://thestateofcybersecurity.github.io/cyberdle/';
+
+/** Compact site nav for generated pages; prefix is the relative path to site root. */
+function navHtml(prefix: string): string {
+  const links: Array<[string, string]> = [
+    [`${prefix}`, 'Acronyms'],
+    [`${prefix}frameworks/nist-csf/`, 'NIST CSF'],
+    [`${prefix}frameworks/cis/`, 'CIS Controls'],
+    [`${prefix}quiz/`, 'Quiz'],
+    [`${prefix}assess/`, 'Assess'],
+    [`${prefix}roadmap/`, 'Roadmap'],
+  ];
+  return `<nav class="gnav">${links
+    .map(([href, label]) => `<a href="${href}">${label}</a>`)
+    .join('')}<a class="play-link" href="${CYBERDLE_NAV}" rel="noopener">Cyberdle</a></nav>`;
+}
 
 function relatedKeys(key: string): string[] {
   const category = data[key].category;
@@ -123,6 +144,7 @@ function definitionPage(key: string, entry: AcronymEntry): string {
 </head>
 <body>
   <div class="wrap">
+    ${navHtml('../')}
     <a class="home" href="../">&larr; Cybersecurity Alphabet Soup</a>
     <h1>${esc(entry.display)}</h1>
     <p class="expansion">${esc(entry.expansion)}</p>
@@ -287,6 +309,7 @@ ${FW_EXTRA_CSS}</style>
 </head>
 <body>
   <div class="wrap">
+    ${navHtml('../../')}
     <a class="home" href="./">&larr; ${esc(input.sectionLabel)}</a>
     <h1>${esc(input.id)}</h1>
     <p class="expansion">${esc(input.kickerTop)}</p>

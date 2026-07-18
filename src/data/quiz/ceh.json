@@ -12,7 +12,8 @@
         "To monitor network traffic",
         "To encrypt sensitive data"
       ],
-      "correctIndex": 0
+      "correctIndex": 0,
+      "why": "A vulnerability scan discovers and reports known security weaknesses so they can be prioritized and fixed. It cannot eliminate threats by itself; it only identifies them."
     },
     {
       "q": "Which of the following tools is commonly used for packet sniffing?",
@@ -22,7 +23,8 @@
         "Metasploit",
         "Nessus"
       ],
-      "correctIndex": 1
+      "correctIndex": 1,
+      "why": "Wireshark captures and inspects network packets in real time, which is the definition of packet sniffing. Nmap scans hosts and ports rather than capturing traffic."
     },
     {
       "q": "What does the term 'footprinting' refer to in ethical hacking?",
@@ -32,7 +34,8 @@
         "Exploiting vulnerabilities in software",
         "Installing malware on a system"
       ],
-      "correctIndex": 1
+      "correctIndex": 1,
+      "why": "Footprinting is the reconnaissance phase where an attacker gathers information about a target, such as domains, IP ranges, and employees. No access or exploitation happens yet."
     },
     {
       "q": "Which of the following is a common use of the tool Metasploit?",
@@ -42,7 +45,8 @@
         "Encrypting network traffic",
         "Monitoring system performance"
       ],
-      "correctIndex": 1
+      "correctIndex": 1,
+      "why": "Metasploit is an exploitation framework used to test systems by launching exploits and payloads during penetration tests. Port scanning is Nmap's specialty, not Metasploit's main role."
     },
     {
       "q": "What is the main purpose of using a firewall?",
@@ -52,7 +56,8 @@
         "To perform vulnerability assessments",
         "To back up data regularly"
       ],
-      "correctIndex": 1
+      "correctIndex": 1,
+      "why": "A firewall enforces rules that allow or block traffic entering and leaving a network. It controls access; it does not encrypt data or assess vulnerabilities."
     },
     {
       "q": "Which of the following is an example of social engineering?",
@@ -62,7 +67,8 @@
         "Buffer overflow",
         "Cross-site scripting"
       ],
-      "correctIndex": 1
+      "correctIndex": 1,
+      "why": "Phishing manipulates people into revealing information or clicking malicious links, making it a human-focused social engineering attack. The other options are technical exploits against software."
     },
     {
       "q": "Which of the following tools is used for wireless network auditing?",
@@ -72,7 +78,8 @@
         "Aircrack-ng",
         "Cain & Abel"
       ],
-      "correctIndex": 2
+      "correctIndex": 2,
+      "why": "Aircrack-ng is a suite for assessing Wi-Fi security, including capturing packets and cracking WEP and WPA keys. The other tools focus on web apps, passwords, or Windows credential recovery."
     },
     {
       "q": "What is the primary goal of a Denial-of-Service (DoS) attack?",
@@ -82,7 +89,8 @@
         "To gain administrative access to a system",
         "To create a backdoor in the system"
       ],
-      "correctIndex": 1
+      "correctIndex": 1,
+      "why": "A DoS attack overwhelms a service or network so legitimate users cannot access it, attacking availability. It does not aim to steal data or gain administrative access."
     },
     {
       "q": "Which of the following is a common method of cracking passwords?",
@@ -92,7 +100,8 @@
         "Brute force attack",
         "Man-in-the-middle attack"
       ],
-      "correctIndex": 2
+      "correctIndex": 2,
+      "why": "A brute force attack tries password combinations until one works, making it a direct password cracking method. The other attacks target databases, DNS, or communications rather than passwords."
     },
     {
       "q": "What is the purpose of a honeypot in network security?",
@@ -102,7 +111,8 @@
         "To encrypt network traffic",
         "To perform regular system backups"
       ],
-      "correctIndex": 1
+      "correctIndex": 1,
+      "why": "A honeypot is a decoy system that lures attackers so defenders can detect and study their techniques. It intentionally attracts attacks rather than protecting real data."
     },
     {
       "q": "Which of the following best describes a phishing attack?",
@@ -112,7 +122,8 @@
         "An attempt to trick users into revealing sensitive information",
         "An attack that encrypts files and demands a ransom"
       ],
-      "correctIndex": 2
+      "correctIndex": 2,
+      "why": "Phishing uses deceptive messages that trick users into handing over credentials or other sensitive data. Guessing passwords is brute forcing, and ransom demands describe ransomware."
     },
     {
       "q": "Which of the following is a characteristic of a Trojan horse?",
@@ -122,7 +133,8 @@
         "It monitors network traffic",
         "It encrypts data on the system"
       ],
-      "correctIndex": 1
+      "correctIndex": 1,
+      "why": "A Trojan horse appears to be useful, legitimate software but carries hidden malicious functionality. Unlike a worm or virus, it does not replicate itself."
     },
     {
       "q": "Which of the following is a common use of the Nmap tool?",
@@ -132,7 +144,8 @@
         "SQL injection",
         "Data encryption"
       ],
-      "correctIndex": 1
+      "correctIndex": 1,
+      "why": "Nmap maps networks by discovering hosts, open ports, and services, which is network scanning. Password cracking and SQL injection are handled by other tools."
     },
     {
       "q": "What is the purpose of using a VPN in network security?",
@@ -142,7 +155,8 @@
         "To encrypt files on a system",
         "To monitor network traffic"
       ],
-      "correctIndex": 0
+      "correctIndex": 0,
+      "why": "A VPN creates an encrypted tunnel so remote users can reach a private network securely over the internet. It secures the connection rather than encrypting files at rest."
     },
     {
       "q": "Which of the following is an example of a passive reconnaissance technique?",
@@ -152,7 +166,8 @@
         "Social engineering",
         "Scanning open ports"
       ],
-      "correctIndex": 1
+      "correctIndex": 1,
+      "why": "Sniffing quietly observes traffic without sending anything to the target, so it is passive. Port scanning and social engineering actively interact with the target and can be detected."
     },
     {
       "q": "Which of the following is a key feature of a worm?",
@@ -162,7 +177,8 @@
         "It disguises itself as legitimate software",
         "It encrypts files on a system"
       ],
-      "correctIndex": 1
+      "correctIndex": 1,
+      "why": "A worm self-replicates and spreads across networks automatically, with no user action required. Requiring user interaction or disguising as software describes viruses and Trojans instead."
     },
     {
       "q": "What does the acronym SQL stand for in the context of SQL injection attacks?",
@@ -172,7 +188,8 @@
         "Structured Query Language",
         "Sequential Query Language"
       ],
-      "correctIndex": 2
+      "correctIndex": 2,
+      "why": "SQL stands for Structured Query Language, the standard language for querying relational databases. SQL injection abuses how applications build these queries from user input."
     },
     {
       "q": "Which of the following is the best defense against brute force attacks?",
@@ -182,7 +199,8 @@
         "Regular data backups",
         "Firewalls"
       ],
-      "correctIndex": 0
+      "correctIndex": 0,
+      "why": "Strong password policies make guessing attacks impractical because long, complex passwords vastly increase the number of combinations. Firewalls and backups do not stop repeated login guesses."
     },
     {
       "q": "What is the primary function of a network-based intrusion detection system (NIDS)?",
@@ -192,7 +210,8 @@
         "To encrypt network traffic",
         "To perform vulnerability scans"
       ],
-      "correctIndex": 1
+      "correctIndex": 1,
+      "why": "A NIDS monitors network traffic and alerts on signs of malicious activity; detection is its core job. Preventing access is the role of a firewall or an intrusion prevention system."
     },
     {
       "q": "Which of the following attacks involves intercepting and altering communications between two parties?",
@@ -202,7 +221,8 @@
         "Man-in-the-middle (MitM)",
         "Cross-site scripting (XSS)"
       ],
-      "correctIndex": 2
+      "correctIndex": 2,
+      "why": "A man-in-the-middle attack places the attacker between two communicating parties so traffic can be intercepted or altered. Phishing and XSS do not sit inside an existing communication channel."
     },
     {
       "q": "Which of the following is a key characteristic of a rootkit?",
@@ -212,7 +232,8 @@
         "It encrypts data and demands a ransom",
         "It only targets network devices"
       ],
-      "correctIndex": 1
+      "correctIndex": 1,
+      "why": "A rootkit's defining trait is stealth: it hides files, processes, and its own presence, often at the kernel level. That stealth makes it notoriously hard to detect and remove."
     },
     {
       "q": "What is the primary purpose of penetration testing?",
@@ -222,7 +243,8 @@
         "To back up critical data",
         "To monitor network traffic for malicious activity"
       ],
-      "correctIndex": 1
+      "correctIndex": 1,
+      "why": "Penetration testing simulates real attacks to measure how well defenses hold up and to reveal exploitable weaknesses. No test can eliminate all threats; it assesses risk."
     },
     {
       "q": "Which of the following is a common tool used for password cracking?",
@@ -232,7 +254,8 @@
         "Nmap",
         "Burp Suite"
       ],
-      "correctIndex": 1
+      "correctIndex": 1,
+      "why": "John the Ripper is a classic password cracker that runs dictionary and brute force attacks against password hashes. Wireshark, Nmap, and Burp Suite serve sniffing, scanning, and web testing."
     },
     {
       "q": "Which of the following is a common method for securing a wireless network?",
@@ -242,17 +265,19 @@
         "Disabling SSID broadcast",
         "Enabling MAC address filtering"
       ],
-      "correctIndex": 1
+      "correctIndex": 1,
+      "why": "WPA2 provides strong, modern encryption for wireless traffic. WEP is broken and easily cracked, while hiding the SSID and MAC filtering are weak measures an attacker can bypass."
     },
     {
       "q": "Which of the following is an example of a phishing attack?",
       "choices": [
-        "Sending a malicious attachment in an email",
+        "Exploiting an unpatched server vulnerability",
         "Guessing a user's password",
         "Redirecting users to a fake website to steal credentials",
         "Injecting malicious code into a website"
       ],
-      "correctIndex": 2
+      "correctIndex": 2,
+      "why": "Directing victims to a counterfeit website to capture their credentials is a textbook phishing scenario. The other options describe exploitation, password guessing, and code injection, none of which rely on deceiving the user."
     },
     {
       "q": "Which of the following is a key feature of a botnet?",
@@ -262,7 +287,8 @@
         "It spreads through email attachments",
         "It requires user interaction to activate"
       ],
-      "correctIndex": 1
+      "correctIndex": 1,
+      "why": "Traditional botnets are armies of compromised machines that take orders from a command and control server. That centralized control is what lets an attacker direct them at scale."
     },
     {
       "q": "Which of the following tools is commonly used for web application testing?",
@@ -272,7 +298,8 @@
         "Wireshark",
         "Aircrack-ng"
       ],
-      "correctIndex": 1
+      "correctIndex": 1,
+      "why": "Burp Suite intercepts and manipulates HTTP traffic, making it the standard tool for testing web applications. Nmap, Wireshark, and Aircrack-ng target networks, packets, and Wi-Fi instead."
     },
     {
       "q": "What is the primary goal of a ransomware attack?",
@@ -282,7 +309,8 @@
         "To gain administrative access to a system",
         "To disrupt network communications"
       ],
-      "correctIndex": 1
+      "correctIndex": 1,
+      "why": "Ransomware encrypts a victim's files and demands payment for the decryption key, so extortion is the goal. Data theft can occur, but the defining behavior is encryption for ransom."
     },
     {
       "q": "Which of the following is a characteristic of a logic bomb?",
@@ -292,7 +320,8 @@
         "It encrypts data on the system",
         "It monitors network traffic"
       ],
-      "correctIndex": 1
+      "correctIndex": 1,
+      "why": "A logic bomb stays dormant inside a system until a specific trigger, such as a date or event, sets it off. It does not spread on its own like a worm."
     },
     {
       "q": "Which of the following is the primary purpose of a security policy?",
@@ -302,7 +331,8 @@
         "To encrypt sensitive data",
         "To perform vulnerability assessments"
       ],
-      "correctIndex": 0
+      "correctIndex": 0,
+      "why": "A security policy is the governing document that defines rules, responsibilities, and guidelines for protecting information. Monitoring and encryption are technical controls that support the policy."
     },
     {
       "q": "What is a common use of the tool Cain & Abel?",
@@ -312,7 +342,8 @@
         "Performing network scans",
         "Monitoring network traffic"
       ],
-      "correctIndex": 0
+      "correctIndex": 0,
+      "why": "Cain & Abel is a Windows tool known for recovering passwords through cracking and sniffing network traffic. It is not used for encryption or general network scanning."
     },
     {
       "q": "Which of the following best describes a buffer overflow attack?",
@@ -322,7 +353,8 @@
         "An attack that redirects users to a malicious website",
         "An attack that encrypts files and demands a ransom"
       ],
-      "correctIndex": 1
+      "correctIndex": 1,
+      "why": "A buffer overflow overruns a memory buffer to overwrite adjacent memory, letting attackers run their own code. Simply crashing a system misses the key danger of code execution."
     },
     {
       "q": "Which of the following is an effective way to protect against social engineering attacks?",
@@ -332,7 +364,8 @@
         "Conducting security awareness training",
         "Using firewalls to block malicious traffic"
       ],
-      "correctIndex": 2
+      "correctIndex": 2,
+      "why": "Because social engineering exploits people rather than technology, training users to recognize manipulation is the strongest defense. Patches and firewalls cannot stop someone from being tricked."
     },
     {
       "q": "Which of the following is the primary function of a proxy server?",
@@ -342,7 +375,8 @@
         "To monitor network traffic",
         "To perform vulnerability assessments"
       ],
-      "correctIndex": 1
+      "correctIndex": 1,
+      "why": "A proxy server sits between clients and the internet, filtering requests and controlling which sites and content users can reach. It can also cache content and mask internal addresses."
     },
     {
       "q": "Which of the following tools is commonly used for network scanning?",
@@ -352,7 +386,8 @@
         "John the Ripper",
         "Aircrack-ng"
       ],
-      "correctIndex": 1
+      "correctIndex": 1,
+      "why": "Nmap is the standard network scanner, used to discover hosts, open ports, services, and operating systems. Wireshark captures packets, and John the Ripper cracks passwords."
     },
     {
       "q": "Which of the following best describes a SQL injection attack?",
@@ -362,7 +397,8 @@
         "An attack that redirects users to a fake website",
         "An attack that encrypts data and demands a ransom"
       ],
-      "correctIndex": 1
+      "correctIndex": 1,
+      "why": "SQL injection inserts crafted input into a web application so the database executes attacker-controlled SQL commands. It targets the database layer, not the user's browser."
     },
     {
       "q": "Which of the following is a common feature of spyware?",
@@ -372,7 +408,8 @@
         "It spreads through email attachments",
         "It requires user interaction to activate"
       ],
-      "correctIndex": 1
+      "correctIndex": 1,
+      "why": "Spyware covertly records user activity, such as keystrokes and browsing, and reports it to a third party. Encrypting files describes ransomware, not spyware."
     },
     {
       "q": "What is the purpose of a rootkit?",
@@ -382,7 +419,8 @@
         "To monitor network traffic",
         "To conduct penetration tests"
       ],
-      "correctIndex": 0
+      "correctIndex": 0,
+      "why": "A rootkit maintains stealthy, privileged access, typically providing a hidden backdoor so the attacker can return. It conceals its presence rather than encrypting data or monitoring traffic openly."
     },
     {
       "q": "Which of the following is a characteristic of a Distributed Denial-of-Service (DDoS) attack?",
@@ -392,7 +430,8 @@
         "It encrypts files on the system",
         "It exploits software vulnerabilities"
       ],
-      "correctIndex": 1
+      "correctIndex": 1,
+      "why": "A DDoS attack harnesses many compromised systems, often a botnet, to flood a target simultaneously. The distributed sources are what separate it from a single-origin DoS."
     },
     {
       "q": "Which of the following is a key component of a digital certificate?",
@@ -402,7 +441,8 @@
         "Firewall rules",
         "Encryption algorithm"
       ],
-      "correctIndex": 1
+      "correctIndex": 1,
+      "why": "A digital certificate is validated by the issuing CA's digital signature, which proves the certificate is authentic. The private key is kept secret by the owner and is never part of the certificate."
     },
     {
       "q": "Which of the following best describes a cross-site scripting (XSS) attack?",
@@ -412,7 +452,8 @@
         "An attack that encrypts data and demands a ransom",
         "An attack that floods a network with traffic"
       ],
-      "correctIndex": 0
+      "correctIndex": 0,
+      "why": "XSS injects malicious scripts into trusted web pages so they execute in other users' browsers. It differs from redirection or flooding because the victim's browser runs the attacker's code."
     },
     {
       "q": "Which of the following is the best defense against SQL injection attacks?",
@@ -422,7 +463,8 @@
         "Encrypting sensitive data",
         "Monitoring network traffic"
       ],
-      "correctIndex": 1
+      "correctIndex": 1,
+      "why": "Input validation and prepared statements keep user input from being interpreted as SQL code, removing the injection point. Encryption and monitoring do not fix the underlying query flaw."
     },
     {
       "q": "Which of the following is an example of a DoS attack?",
@@ -432,7 +474,8 @@
         "Redirecting users to a malicious website",
         "Injecting malicious code into a web application"
       ],
-      "correctIndex": 1
+      "correctIndex": 1,
+      "why": "Flooding a server with more requests than it can handle exhausts its resources and denies service to legitimate users. The other options describe phishing, pharming, and injection attacks."
     },
     {
       "q": "Which of the following is a common use of the tool Nikto?",
@@ -442,7 +485,8 @@
         "Wireless network auditing",
         "Packet sniffing"
       ],
-      "correctIndex": 1
+      "correctIndex": 1,
+      "why": "Nikto scans web servers for dangerous files, outdated software, and common misconfigurations. It is a vulnerability scanner for web servers, not a cracking or sniffing tool."
     },
     {
       "q": "Which of the following best describes a rainbow table?",
@@ -452,7 +496,8 @@
         "A method for encrypting data",
         "A tool for monitoring network traffic"
       ],
-      "correctIndex": 1
+      "correctIndex": 1,
+      "why": "A rainbow table stores precomputed hash values so an attacker can quickly look up the password matching a stolen hash. Salting hashes defeats this shortcut; brute force computes hashes on the fly."
     },
     {
       "q": "Which of the following is a primary goal of an ethical hacker?",
@@ -462,7 +507,8 @@
         "To identify and fix security weaknesses",
         "To disrupt business operations"
       ],
-      "correctIndex": 2
+      "correctIndex": 2,
+      "why": "An ethical hacker attacks systems only with permission, aiming to find and help fix weaknesses before criminals exploit them. Personal gain or disruption would make the activity malicious."
     },
     {
       "q": "Which of the following is a common feature of ransomware?",
@@ -472,7 +518,8 @@
         "It monitors user activity",
         "It requires user interaction to spread"
       ],
-      "correctIndex": 1
+      "correctIndex": 1,
+      "why": "The hallmark of ransomware is encrypting victims' files and demanding payment for the decryption key. Email can be a delivery method, but encryption for ransom is the defining feature."
     },
     {
       "q": "Which of the following best describes the use of a botnet?",
@@ -482,7 +529,8 @@
         "To monitor network traffic",
         "To perform vulnerability assessments"
       ],
-      "correctIndex": 1
+      "correctIndex": 1,
+      "why": "Botnets are commonly used to launch DDoS attacks because thousands of infected machines can generate overwhelming traffic together. They are attack infrastructure, not monitoring tools."
     },
     {
       "q": "Which of the following is a key characteristic of spear phishing?",
@@ -492,7 +540,8 @@
         "It encrypts data on the system",
         "It requires user interaction to activate"
       ],
-      "correctIndex": 0
+      "correctIndex": 0,
+      "why": "Spear phishing is customized for a specific person or organization, using researched details to appear credible. Ordinary phishing is sent broadly, which is the key difference."
     },
     {
       "q": "Which of the following is a common use of the tool Hydra?",
@@ -502,7 +551,8 @@
         "Packet sniffing",
         "Wireless network auditing"
       ],
-      "correctIndex": 0
+      "correctIndex": 0,
+      "why": "Hydra is a fast online password cracking tool that brute forces logins across many protocols like SSH, FTP, and HTTP. Scanning and sniffing are jobs for Nmap and Wireshark."
     },
     {
       "q": "Which of the following is a key characteristic of a Trojan horse?",
@@ -512,7 +562,8 @@
         "It spreads through network vulnerabilities",
         "It monitors network traffic"
       ],
-      "correctIndex": 1
+      "correctIndex": 1,
+      "why": "A Trojan tricks users by masquerading as legitimate, desirable software while hiding malicious code. It relies on deception to get installed rather than spreading through vulnerabilities on its own."
     },
     {
       "q": "Which of the following best describes a brute force attack?",
@@ -522,7 +573,8 @@
         "An attack that redirects users to a fake website",
         "An attack that encrypts data and demands a ransom"
       ],
-      "correctIndex": 0
+      "correctIndex": 0,
+      "why": "A brute force attack methodically tries every possible combination until the correct password is found. It trades time and computing power for eventual success, which strong passwords make impractical."
     },
     {
       "q": "Which of the following is a characteristic of a rootkit?",
@@ -532,7 +584,8 @@
         "It monitors network traffic",
         "It spreads through email attachments"
       ],
-      "correctIndex": 0
+      "correctIndex": 0,
+      "why": "Concealment is the rootkit's signature: it hides processes, files, and connections so attackers keep long-term covert access. Ransom demands and email spreading describe other malware types."
     },
     {
       "q": "Which of the following is a common method used in social engineering attacks?",
@@ -542,7 +595,8 @@
         "Buffer overflow",
         "Cross-site scripting"
       ],
-      "correctIndex": 1
+      "correctIndex": 1,
+      "why": "Phishing is the most common social engineering method, using fraudulent messages to manipulate people into giving up information. The other choices are technical attacks on code, not people."
     },
     {
       "q": "Which of the following best describes a watering hole attack?",
@@ -552,7 +606,8 @@
         "An attack that redirects users to a fake website",
         "An attack that encrypts data and demands a ransom"
       ],
-      "correctIndex": 1
+      "correctIndex": 1,
+      "why": "In a watering hole attack, adversaries compromise websites their intended victims regularly visit, then infect visitors from there. The site is the trap and the victims come to it, hence the name."
     },
     {
       "q": "Which of the following is the primary purpose of a firewall?",
@@ -562,7 +617,8 @@
         "To monitor network traffic for malicious activity",
         "To perform vulnerability assessments"
       ],
-      "correctIndex": 1
+      "correctIndex": 1,
+      "why": "A firewall's core job is filtering traffic based on rules about sources, destinations, ports, and protocols. Detection and monitoring are handled by IDS tools, not the firewall itself."
     },
     {
       "q": "Which of the following is a common use of the tool Aircrack-ng?",
@@ -572,7 +628,8 @@
         "Network scanning",
         "Packet sniffing"
       ],
-      "correctIndex": 1
+      "correctIndex": 1,
+      "why": "Aircrack-ng is purpose-built for auditing wireless networks, from capturing 802.11 frames to testing key strength. Cracking Wi-Fi keys is one part of its toolkit, so wireless auditing is the best overall fit."
     },
     {
       "q": "Which of the following best describes a denial-of-service (DoS) attack?",
@@ -582,7 +639,8 @@
         "An attack that encrypts data and demands a ransom",
         "An attack that injects malicious code into a website"
       ],
-      "correctIndex": 1
+      "correctIndex": 1,
+      "why": "A DoS attack floods a target with traffic or requests until it cannot serve legitimate users. Availability is the target, unlike ransomware or injection attacks that pursue money or data."
     },
     {
       "q": "Which of the following best describes a man-in-the-middle (MitM) attack?",
@@ -592,7 +650,8 @@
         "An attack that encrypts data and demands a ransom",
         "An attack that injects malicious code into a website"
       ],
-      "correctIndex": 0
+      "correctIndex": 0,
+      "why": "In a MitM attack the adversary secretly relays and can modify traffic between two parties who believe they are talking directly. Interception of the live channel is the defining element."
     },
     {
       "q": "Which of the following is a common tool used for web application testing?",
@@ -602,7 +661,8 @@
         "Aircrack-ng",
         "Nmap"
       ],
-      "correctIndex": 0
+      "correctIndex": 0,
+      "why": "Burp Suite is the go-to proxy for web application testing, letting testers intercept, modify, and replay HTTP requests. The other tools focus on packets, Wi-Fi, and port scanning."
     },
     {
       "q": "Which of the following best describes a logic bomb?",
@@ -612,7 +672,8 @@
         "A method for encrypting data",
         "A tool for monitoring network traffic"
       ],
-      "correctIndex": 0
+      "correctIndex": 0,
+      "why": "A logic bomb is malicious code that lies dormant and executes only when a defined condition occurs, such as a specific date or event. It is a hidden payload, not a tool or method."
     },
     {
       "q": "Which of the following is a common use of the tool John the Ripper?",
@@ -622,7 +683,8 @@
         "Packet sniffing",
         "Wireless network auditing"
       ],
-      "correctIndex": 0
+      "correctIndex": 0,
+      "why": "John the Ripper specializes in cracking password hashes using wordlists, rules, and brute force. It does not scan networks, capture packets, or audit wireless."
     },
     {
       "q": "Which of the following is a common method used in a DoS attack?",
@@ -632,7 +694,8 @@
         "Encrypting data and demanding a ransom",
         "Injecting malicious code into a website"
       ],
-      "correctIndex": 0
+      "correctIndex": 0,
+      "why": "Flooding a server with excessive traffic consumes bandwidth, memory, or connections until service fails. The other options describe phishing, ransomware, and code injection rather than denial of service."
     }
   ]
 }

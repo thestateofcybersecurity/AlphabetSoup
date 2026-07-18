@@ -1156,6 +1156,29 @@ body {
   align-self: flex-start;
 }
 
+.why-box {
+  border-left: 3px solid var(--broth);
+  background: color-mix(in srgb, var(--broth) 10%, transparent);
+  border-radius: 0 8px 8px 0;
+  padding: 10px 14px;
+}
+
+.why-box .why-label {
+  display: block;
+  font-family: var(--font-mono);
+  font-size: 0.62rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--tomato);
+  margin-bottom: 2px;
+}
+
+.why-box p {
+  margin: 0;
+  font-size: 0.9rem;
+  line-height: 1.55;
+}
+
 .quiz-score {
   display: flex;
   align-items: baseline;

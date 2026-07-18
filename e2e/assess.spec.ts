@@ -2,7 +2,7 @@ import { expect, test } from '@playwright/test';
 
 test('assessment flows from intro to scored results with gap guidance', async ({ page }) => {
   await page.goto('/assess/');
-  await page.locator('.primary-btn', { hasText: 'Start assessment' }).click();
+  await page.locator('.assess-card[data-assessment="ransomware"] .primary-btn').click();
   await expect(page.locator('#assess-progress')).toHaveText('0/48 answered');
 
   // Answer the first four questions: yes, yes, no, yes.
@@ -23,10 +23,15 @@ test('assessment flows from intro to scored results with gap guidance', async ({
 
 test('answers persist across reloads', async ({ page }) => {
   await page.goto('/assess/');
-  await page.locator('.primary-btn', { hasText: 'Start assessment' }).click();
+  const ransomwareCard = page.locator('.assess-card[data-assessment="ransomware"]');
+  await ransomwareCard.locator('.primary-btn').click();
   await page.locator('.assess-row').first().locator('.yesno-btn', { hasText: 'yes' }).click();
+
+  // Reload keeps ?a=ransomware and resumes straight into the form with the answer intact.
   await page.reload();
-  await expect(page.locator('.primary-btn', { hasText: 'Resume assessment' })).toBeVisible();
-  await page.locator('.primary-btn', { hasText: 'Resume assessment' }).click();
   await expect(page.locator('.assess-row').first().locator('.yesno-btn.active')).toHaveText('yes');
+
+  // A fresh visit to the intro offers Resume for the started assessment.
+  await page.goto('/assess/');
+  await expect(ransomwareCard.locator('.primary-btn')).toHaveText('Resume');
 });

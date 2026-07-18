@@ -1,28 +1,66 @@
 import rawData from './data/assessment.json';
+import cisRaw from './data/cis.json';
+import igsRaw from './data/cis-igs.json';
 import {
   cisControlFromReference,
+  cisIg1Assessment,
+  cisSafeguardFromReference,
   readinessBand,
   scoreAssessment,
 } from './lib/assessment';
 import type { Answers, AssessmentData, Tier } from './lib/assessment';
+import type { CisData } from './lib/frameworks';
+import { frameworkSlug } from './lib/frameworks';
 
-const data = rawData as AssessmentData;
 const byId = (id: string) => document.getElementById(id) as HTMLElement;
-const STORAGE_KEY = 'alphabetsoup:assessment';
 
-let answers: Answers = loadAnswers();
+interface AssessmentDef {
+  id: string;
+  name: string;
+  blurb: string;
+  data: AssessmentData;
+  planGaps: boolean;
+}
 
-function loadAnswers(): Answers {
+const ASSESSMENTS: AssessmentDef[] = [
+  {
+    id: 'ransomware',
+    name: 'Ransomware readiness',
+    blurb:
+      'Forty-eight questions across ten goals and three maturity tiers, from backups and patching to incident response. Every question cites the NIST and CIS guidance behind it.',
+    data: rawData as AssessmentData,
+    planGaps: true,
+  },
+  {
+    id: 'cis-ig1',
+    name: 'CIS IG1 essentials',
+    blurb:
+      'All 56 Implementation Group 1 safeguards from CIS Controls v8 as yes/no checks. IG1 is essential cyber hygiene, the floor every organization should reach. Gaps link to plain-English safeguard pages.',
+    data: cisIg1Assessment(cisRaw as CisData, igsRaw as Record<string, number>),
+    planGaps: false,
+  },
+];
+
+let current: AssessmentDef = ASSESSMENTS[0];
+let answers: Answers = {};
+
+const storageKey = () => `alphabetsoup:assessment:${current.id}`;
+const LEGACY_KEY = 'alphabetsoup:assessment';
+
+function loadAnswers(): void {
   try {
-    return JSON.parse(localStorage.getItem(STORAGE_KEY) ?? '{}') as Answers;
+    const raw =
+      localStorage.getItem(storageKey()) ??
+      (current.id === 'ransomware' ? localStorage.getItem(LEGACY_KEY) : null);
+    answers = raw ? (JSON.parse(raw) as Answers) : {};
   } catch {
-    return {};
+    answers = {};
   }
 }
 
 function saveAnswers(): void {
   try {
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(answers));
+    localStorage.setItem(storageKey(), JSON.stringify(answers));
   } catch {
     // Private mode: the assessment still works within the session.
   }
@@ -49,41 +87,59 @@ function show(view: 'intro' | 'form' | 'results'): void {
 function renderIntro(): void {
   const intro = byId('assess-intro');
   intro.innerHTML = '';
-  const card = el('div', 'assess-card');
-  card.appendChild(el('h2', 'assess-h', 'How ready are you for a ransomware incident?'));
-  card.appendChild(
-    el('p', undefined, 'Forty-eight yes/no questions across ten goals, from backups and patching to incident response. Questions are tiered basic, intermediate, and advanced, and every one cites the NIST and CIS guidance behind it.'),
-  );
-  card.appendChild(
-    el('p', 'deck-sub', 'Answers are saved only in this browser. Nothing is uploaded, ever.'),
-  );
-  const actions = el('div', 'deck-actions');
-  const started = Object.keys(answers).length > 0;
-  const start = el('button', 'primary-btn', started ? 'Resume assessment' : 'Start assessment');
-  start.addEventListener('click', () => {
-    renderForm();
-    show('form');
-  });
-  actions.appendChild(start);
-  if (started) {
-    const reset = el('button', 'ghost-btn', 'Start over');
-    reset.addEventListener('click', () => {
-      answers = {};
-      saveAnswers();
-      renderIntro();
+  for (const def of ASSESSMENTS) {
+    const card = el('div', 'assess-card');
+    card.dataset.assessment = def.id;
+    card.appendChild(el('h2', 'assess-h', def.name));
+    card.appendChild(el('p', undefined, def.blurb));
+    card.appendChild(el('p', 'deck-sub', `${def.data.questions.length} questions. Answers stay in this browser.`));
+    const actions = el('div', 'deck-actions');
+    let started = false;
+    try {
+      started = Boolean(
+        localStorage.getItem(`alphabetsoup:assessment:${def.id}`) ??
+          (def.id === 'ransomware' ? localStorage.getItem(LEGACY_KEY) : null),
+      );
+    } catch {
+      // ignore
+    }
+    const start = el('button', 'primary-btn', started ? 'Resume' : 'Start');
+    start.addEventListener('click', () => {
+      selectAssessment(def);
+      renderForm();
+      show('form');
     });
-    actions.appendChild(reset);
+    actions.appendChild(start);
+    if (started) {
+      const reset = el('button', 'ghost-btn', 'Start over');
+      reset.addEventListener('click', () => {
+        selectAssessment(def);
+        answers = {};
+        saveAnswers();
+        renderIntro();
+      });
+      actions.appendChild(reset);
+    }
+    card.appendChild(actions);
+    intro.appendChild(card);
   }
-  card.appendChild(actions);
-  intro.appendChild(card);
+}
+
+function selectAssessment(def: AssessmentDef): void {
+  current = def;
+  loadAnswers();
+  const url = new URL(location.href);
+  url.searchParams.set('a', def.id);
+  history.replaceState(null, '', url);
 }
 
 function updateFormProgress(): void {
-  const answered = data.questions.filter((q) => answers[q.id]).length;
-  byId('assess-progress').textContent = `${answered}/${data.questions.length} answered`;
+  const total = current.data.questions.length;
+  const answered = current.data.questions.filter((q) => answers[q.id]).length;
+  byId('assess-progress').textContent = `${answered}/${total} answered`;
   const done = byId('assess-done') as HTMLButtonElement;
   done.disabled = answered === 0;
-  done.textContent = answered === data.questions.length ? 'See results' : `See results (${data.questions.length - answered} unanswered count as no)`;
+  done.textContent = answered === total ? 'See results' : `See results (${total - answered} unanswered count as no)`;
 }
 
 function renderForm(): void {
@@ -91,9 +147,13 @@ function renderForm(): void {
   form.innerHTML = '';
 
   const top = el('div', 'quiz-top sticky-progress');
-  const back = el('button', 'ghost-btn', 'intro');
-  back.addEventListener('click', () => show('intro'));
+  const back = el('button', 'ghost-btn', 'all assessments');
+  back.addEventListener('click', () => {
+    renderIntro();
+    show('intro');
+  });
   top.appendChild(back);
+  top.appendChild(el('div', 'quiz-title', current.name));
   const progress = el('div', 'quiz-progress');
   progress.id = 'assess-progress';
   top.appendChild(progress);
@@ -106,14 +166,14 @@ function renderForm(): void {
   top.appendChild(done);
   form.appendChild(top);
 
-  for (const category of data.categories) {
+  for (const category of current.data.categories) {
     const section = el('section', 'assess-group');
     section.appendChild(el('h2', 'assess-h', category.name));
-    for (const question of data.questions.filter((q) => q.group === category.id)) {
+    for (const question of current.data.questions.filter((q) => q.group === category.id)) {
       const row = el('div', 'assess-row');
       const text = el('div', 'assess-q');
       text.appendChild(el('span', undefined, question.text));
-      text.appendChild(el('span', 'chip', question.tier));
+      if (tiersPresent().size > 1) text.appendChild(el('span', 'chip', question.tier));
       row.appendChild(text);
       const toggle = el('div', 'yesno');
       for (const value of ['yes', 'no'] as const) {
@@ -136,6 +196,10 @@ function renderForm(): void {
   updateFormProgress();
 }
 
+function tiersPresent(): Set<Tier> {
+  return new Set(current.data.questions.map((q) => q.tier));
+}
+
 function bar(label: string, percent: number, detail: string): HTMLElement {
   const wrap = el('div', 'score-bar');
   const head = el('div', 'score-bar-head');
@@ -150,10 +214,26 @@ function bar(label: string, percent: number, detail: string): HTMLElement {
   return wrap;
 }
 
+function referenceNode(reference: string): HTMLElement {
+  const safeguard = cisSafeguardFromReference(reference);
+  if (safeguard) {
+    const link = el('a', undefined, reference + ' →');
+    link.href = `../frameworks/cis/${frameworkSlug(safeguard)}.html`;
+    return link;
+  }
+  const control = cisControlFromReference(reference);
+  if (control) {
+    const link = el('a', undefined, reference + ' →');
+    link.href = `../frameworks/cis/?q=${control}.`;
+    return link;
+  }
+  return el('span', undefined, reference);
+}
+
 function renderResults(): void {
   const results = byId('assess-results');
   results.innerHTML = '';
-  const result = scoreAssessment(data, answers);
+  const result = scoreAssessment(current.data, answers);
   const band = readinessBand(result.overallPercent);
 
   const top = el('div', 'quiz-top');
@@ -177,47 +257,49 @@ function renderResults(): void {
   score.appendChild(bandBox);
   headline.appendChild(score);
   headline.appendChild(el('p', undefined, band.blurb));
+
+  const gapCount = current.data.questions.filter((q) => answers[q.id] !== 'yes').length;
+  if (current.planGaps && gapCount > 0) {
+    const actions = el('div', 'deck-actions');
+    const plan = el('a', 'primary-btn', `Plan these ${gapCount} gaps →`);
+    plan.id = 'plan-gaps';
+    plan.href = '../roadmap/?source=gaps';
+    actions.appendChild(plan);
+    headline.appendChild(actions);
+  }
   results.appendChild(headline);
 
-  const tiers = el('div', 'assess-card');
-  tiers.appendChild(el('h2', 'assess-h', 'By maturity tier'));
-  for (const tier of ['basic', 'intermediate', 'advanced'] as Tier[]) {
-    tiers.appendChild(bar(tier, result.tierPercents[tier], `${result.tierPercents[tier]}%`));
+  if (tiersPresent().size > 1) {
+    const tiers = el('div', 'assess-card');
+    tiers.appendChild(el('h2', 'assess-h', 'By maturity tier'));
+    for (const tier of ['basic', 'intermediate', 'advanced'] as Tier[]) {
+      tiers.appendChild(bar(tier, result.tierPercents[tier], `${result.tierPercents[tier]}%`));
+    }
+    results.appendChild(tiers);
   }
-  results.appendChild(tiers);
 
   const groups = el('div', 'assess-card');
-  groups.appendChild(el('h2', 'assess-h', 'By goal'));
+  groups.appendChild(el('h2', 'assess-h', current.id === 'cis-ig1' ? 'By control' : 'By goal'));
   for (const group of [...result.groups].sort((a, b) => a.percent - b.percent)) {
     groups.appendChild(bar(group.name, group.percent, `${group.yes}/${group.total}`));
   }
   results.appendChild(groups);
 
-  const gaps = data.questions.filter((q) => answers[q.id] !== 'yes');
+  const gaps = current.data.questions.filter((q) => answers[q.id] !== 'yes');
   if (gaps.length > 0) {
     const todo = el('div', 'assess-card');
     todo.appendChild(el('h2', 'assess-h', `Where to start (${gaps.length} gaps)`));
-    todo.appendChild(el('p', 'deck-sub', 'Basic-tier gaps first. Each item cites the guidance that covers it.'));
-    const ordered = [...gaps].sort((a, b) => {
-      const rank: Record<string, number> = { basic: 0, intermediate: 1, advanced: 2 };
-      return rank[a.tier] - rank[b.tier];
-    });
-    for (const question of ordered) {
+    todo.appendChild(el('p', 'deck-sub', 'Each item cites the guidance that covers it.'));
+    const rank: Record<string, number> = { basic: 0, intermediate: 1, advanced: 2 };
+    for (const question of [...gaps].sort((a, b) => rank[a.tier] - rank[b.tier])) {
       const item = el('div', 'gap-item');
       const head = el('div', 'assess-q');
       head.appendChild(el('span', undefined, question.text));
-      head.appendChild(el('span', 'chip', question.tier));
+      if (tiersPresent().size > 1) head.appendChild(el('span', 'chip', question.tier));
       item.appendChild(head);
       const refs = el('div', 'gap-refs');
       for (const reference of question.references) {
-        const control = cisControlFromReference(reference);
-        if (control) {
-          const link = el('a', undefined, reference + ' →');
-          link.href = `../frameworks/cis/?q=${control}.`;
-          refs.appendChild(link);
-        } else {
-          refs.appendChild(el('span', undefined, reference));
-        }
+        refs.appendChild(referenceNode(reference));
       }
       item.appendChild(refs);
       todo.appendChild(item);
@@ -226,5 +308,18 @@ function renderResults(): void {
   }
 }
 
-renderIntro();
-show('intro');
+function main(): void {
+  const requested = new URLSearchParams(location.search).get('a');
+  const def = ASSESSMENTS.find((a) => a.id === requested);
+  renderIntro();
+  if (def) {
+    selectAssessment(def);
+    renderForm();
+    show('form');
+  } else {
+    loadAnswers();
+    show('intro');
+  }
+}
+
+main();

@@ -44,6 +44,10 @@ describe('quiz datasets', () => {
           expect(new Set(cq.choices).size).toBe(4);
           expect(cq.correctIndex).toBeGreaterThanOrEqual(0);
           expect(cq.correctIndex).toBeLessThan(4);
+          expect(cq.why, `missing rationale: ${cq.q.slice(0, 50)}`).toBeTruthy();
+          expect(cq.why!.length).toBeGreaterThanOrEqual(40);
+          expect(cq.why!.length).toBeLessThanOrEqual(300);
+          expect(cq.why).not.toContain('—');
         } else {
           const fq = question as FlipDeck['questions'][number];
           expect(fq.a.trim().length).toBeGreaterThan(2);

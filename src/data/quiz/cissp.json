@@ -12,7 +12,8 @@
         "Executive support",
         "Policy enforcement"
       ],
-      "correctIndex": 2
+      "correctIndex": 2,
+      "why": "Without visible executive support, an awareness program lacks funding, priority, and credibility, and employees will not take it seriously. Training and enforcement matter, but leadership backing is what makes them happen."
     },
     {
       "q": "Which of the following is a primary objective of access control?",
@@ -22,7 +23,8 @@
         "To detect and respond to incidents",
         "To audit system activities"
       ],
-      "correctIndex": 0
+      "correctIndex": 0,
+      "why": "Access control exists first and foremost to keep unauthorized subjects away from resources. Detection, auditing, and integrity assurance are supported by other control families."
     },
     {
       "q": "What is the best method to protect sensitive data during transmission?",
@@ -32,7 +34,8 @@
         "Hashing",
         "Tokenization"
       ],
-      "correctIndex": 1
+      "correctIndex": 1,
+      "why": "Encryption renders data unreadable to anyone who intercepts it in transit. Hashing only detects tampering, and masking and tokenization protect stored or displayed data rather than a live transmission."
     },
     {
       "q": "Which of the following is a key concept in the principle of least privilege?",
@@ -42,7 +45,8 @@
         "Users can share access privileges with others",
         "Users only have the minimum access necessary to perform their jobs"
       ],
-      "correctIndex": 3
+      "correctIndex": 3,
+      "why": "Least privilege means users receive only the minimum access required to do their jobs, which limits the damage from mistakes or compromised accounts. It is about minimal necessary access, not zero access."
     },
     {
       "q": "Which of the following controls is a preventive control?",
@@ -50,9 +54,10 @@
         "Audit trails",
         "Intrusion detection systems",
         "Encryption",
-        "Security policies"
+        "Security event dashboards"
       ],
-      "correctIndex": 2
+      "correctIndex": 2,
+      "why": "Encryption is preventive because it stops unauthorized disclosure before it can happen. Audit trails and IDS are detective controls; note that security policies are also often classed as preventive administrative controls."
     },
     {
       "q": "What is the purpose of a risk assessment?",
@@ -62,7 +67,8 @@
         "To create security policies",
         "To perform a security audit"
       ],
-      "correctIndex": 1
+      "correctIndex": 1,
+      "why": "A risk assessment systematically identifies risks, evaluates their likelihood and impact, and prioritizes them so treatment resources go where they matter most. Risk can be managed but never fully eliminated."
     },
     {
       "q": "Which of the following best describes a hot site?",
@@ -72,7 +78,8 @@
         "A site with limited equipment and data resources",
         "A mobile unit used for temporary operations"
       ],
-      "correctIndex": 0
+      "correctIndex": 0,
+      "why": "A hot site is fully equipped, powered, and loaded with current data so operations can resume almost immediately. Sites with infrastructure only or partial equipment are cold and warm sites."
     },
     {
       "q": "Which of the following is NOT a type of access control?",
@@ -82,7 +89,8 @@
         "Role-based access control (RBAC)",
         "Responsive access control (RAC)"
       ],
-      "correctIndex": 3
+      "correctIndex": 3,
+      "why": "DAC, MAC, and RBAC are all established access control models. Responsive access control (RAC) is a made-up term and does not exist as a recognized model."
     },
     {
       "q": "Which of the following is a characteristic of asymmetric encryption?",
@@ -90,9 +98,10 @@
         "Uses the same key for encryption and decryption",
         "Is faster than symmetric encryption",
         "Uses a pair of keys: public and private",
-        "Provides non-repudiation"
+        "Requires distributing a shared secret in advance"
       ],
-      "correctIndex": 2
+      "correctIndex": 2,
+      "why": "The defining trait of asymmetric encryption is its public and private key pair. It is slower than symmetric encryption; note it also enables non-repudiation through signatures, but the key pair is what defines it."
     },
     {
       "q": "What is the primary purpose of a digital signature?",
@@ -102,7 +111,8 @@
         "To ensure the message is not intercepted",
         "To protect against malware"
       ],
-      "correctIndex": 1
+      "correctIndex": 1,
+      "why": "A digital signature proves the message came from the claimed sender and has not been altered. It does not encrypt the content or stop interception; confidentiality requires separate encryption."
     },
     {
       "q": "Which of the following is the main goal of the NIST Cybersecurity Framework?",
@@ -112,7 +122,8 @@
         "To assess the security level of a company",
         "To develop a global cybersecurity standard"
       ],
-      "correctIndex": 1
+      "correctIndex": 1,
+      "why": "The NIST Cybersecurity Framework is a voluntary policy framework of standards and best practices for managing cybersecurity risk. It complements rather than replaces existing standards."
     },
     {
       "q": "What is a key feature of a certificate authority (CA)?",
@@ -122,7 +133,8 @@
         "Authenticating users",
         "Encrypting network traffic"
       ],
-      "correctIndex": 0
+      "correctIndex": 0,
+      "why": "A certificate authority's core function is issuing (and revoking) digital certificates that bind public keys to verified identities. Encryption and user authentication are performed by the systems that use those certificates."
     },
     {
       "q": "Which type of attack involves tricking a user into clicking a link in an email?",
@@ -132,7 +144,8 @@
         "Cross-Site Scripting (XSS)",
         "Denial of Service (DoS)"
       ],
-      "correctIndex": 0
+      "correctIndex": 0,
+      "why": "Phishing lures a user into clicking a malicious link or attachment in a deceptive email. SQL injection and XSS attack applications directly, and DoS attacks availability."
     },
     {
       "q": "Which of the following is NOT part of the CIA triad?",
@@ -142,7 +155,8 @@
         "Accountability",
         "Availability"
       ],
-      "correctIndex": 2
+      "correctIndex": 2,
+      "why": "The CIA triad is Confidentiality, Integrity, and Availability. Accountability is an important security concept but it is not one of the three triad pillars."
     },
     {
       "q": "Which lattice-based security model enforces confidentiality?",
@@ -152,7 +166,8 @@
         "Clark-Wilson",
         "Brewer-Nash"
       ],
-      "correctIndex": 0
+      "correctIndex": 0,
+      "why": "Bell-LaPadula is the lattice-based model for confidentiality, enforcing no read up and no write down. Biba addresses integrity and Brewer-Nash addresses conflicts of interest."
     },
     {
       "q": "What is a key benefit of implementing a risk management process?",
@@ -162,7 +177,8 @@
         "It ensures compliance with all regulations",
         "It prevents all security breaches"
       ],
-      "correctIndex": 1
+      "correctIndex": 1,
+      "why": "Risk management reduces the likelihood and impact of security incidents through informed prioritization. It cannot eliminate all risk, guarantee compliance, or prevent every breach."
     },
     {
       "q": "Which of the following best defines the principle of least privilege?",
@@ -172,7 +188,8 @@
         "Granting full access to users based on their role",
         "Allowing users to access data only when supervised"
       ],
-      "correctIndex": 1
+      "correctIndex": 1,
+      "why": "Least privilege limits each user's rights to the bare minimum needed for their duties. Granting admin access or role-wide full access violates the principle rather than defining it."
     },
     {
       "q": "Which type of malware is known for spreading itself without human interaction?",
@@ -182,7 +199,8 @@
         "Worm",
         "Spyware"
       ],
-      "correctIndex": 2
+      "correctIndex": 2,
+      "why": "A worm spreads by itself across networks with no human interaction. Viruses need a host file and usually user action, and Trojans rely on the user installing them."
     },
     {
       "q": "Which of the following is an example of a detective control?",
@@ -192,7 +210,8 @@
         "Security cameras",
         "Security policy"
       ],
-      "correctIndex": 2
+      "correctIndex": 2,
+      "why": "Security cameras record events so incidents can be discovered and reviewed afterward, which is detective. Firewalls and encryption prevent, and policies direct behavior administratively."
     },
     {
       "q": "What is the main purpose of disaster recovery planning?",
@@ -202,7 +221,8 @@
         "To define security policies",
         "To conduct regular security audits"
       ],
-      "correctIndex": 1
+      "correctIndex": 1,
+      "why": "Disaster recovery planning establishes the procedures for restoring systems and operations after a catastrophic event. Backups are one ingredient, but the plan is the broader recovery playbook."
     },
     {
       "q": "Which of the following is a characteristic of the Biba model?",
@@ -212,7 +232,8 @@
         "Focuses on availability",
         "Focuses on authenticity"
       ],
-      "correctIndex": 1
+      "correctIndex": 1,
+      "why": "The Biba model enforces integrity with rules like no write up and no read down, preventing corruption of trusted data. Confidentiality is the focus of Bell-LaPadula."
     },
     {
       "q": "What is the primary objective of a business impact analysis (BIA)?",
@@ -222,7 +243,8 @@
         "To develop recovery strategies",
         "To enforce security policies"
       ],
-      "correctIndex": 1
+      "correctIndex": 1,
+      "why": "A BIA measures what a disruption would cost the business, identifying critical functions and tolerable downtime. Identifying risks and building recovery strategies come before and after the BIA respectively."
     },
     {
       "q": "Which of the following encryption algorithms is classified as symmetric?",
@@ -232,7 +254,8 @@
         "DSA",
         "ECC"
       ],
-      "correctIndex": 1
+      "correctIndex": 1,
+      "why": "AES is symmetric: one shared secret key both encrypts and decrypts. RSA, DSA, and ECC are asymmetric algorithms built on public and private key pairs."
     },
     {
       "q": "Which of the following is the first step in the incident response process?",
@@ -242,7 +265,8 @@
         "Eradication",
         "Recovery"
       ],
-      "correctIndex": 1
+      "correctIndex": 1,
+      "why": "Among the listed phases, identification comes first: you must recognize and confirm an incident before you can contain, eradicate, or recover. Preparation precedes all of these but is not offered."
     },
     {
       "q": "Which of the following is a key component of a risk management program?",
@@ -252,7 +276,8 @@
         "Security awareness training",
         "Risk assessment"
       ],
-      "correctIndex": 3
+      "correctIndex": 3,
+      "why": "Risk assessment is the foundation of a risk management program; it identifies and prioritizes the risks that every other activity, from planning to training, is built around."
     },
     {
       "q": "What is the primary goal of encryption?",
@@ -262,7 +287,8 @@
         "To protect confidentiality",
         "To enhance availability"
       ],
-      "correctIndex": 2
+      "correctIndex": 2,
+      "why": "Encryption's primary goal is confidentiality: keeping data unreadable to anyone without the key. Integrity and non-repudiation come from hashes and signatures, not from encryption itself."
     },
     {
       "q": "Which of the following is an example of a physical control?",
@@ -272,7 +298,8 @@
         "Security guard",
         "Access control list"
       ],
-      "correctIndex": 2
+      "correctIndex": 2,
+      "why": "A security guard physically protects facilities and people. Firewalls, encryption, and access control lists are technical (logical) controls implemented in software or hardware."
     },
     {
       "q": "Which security model prevents conflict of interest in access to data?",
@@ -282,7 +309,8 @@
         "Clark-Wilson",
         "Brewer-Nash"
       ],
-      "correctIndex": 3
+      "correctIndex": 3,
+      "why": "Brewer-Nash, also called the Chinese Wall model, blocks access to data that would create a conflict of interest, such as information about a client's competitor. The other models target confidentiality or integrity."
     },
     {
       "q": "What is the purpose of security governance?",
@@ -292,7 +320,8 @@
         "To monitor network traffic for suspicious activity",
         "To conduct penetration testing"
       ],
-      "correctIndex": 0
+      "correctIndex": 0,
+      "why": "Security governance sets overall direction: how security is organized, who is accountable, and how it aligns with business goals across the organization. Enforcement, monitoring, and testing are operational activities beneath it."
     },
     {
       "q": "Which type of access control model is based on roles assigned to users?",
@@ -302,7 +331,8 @@
         "Role-Based Access Control (RBAC)",
         "Attribute-Based Access Control (ABAC)"
       ],
-      "correctIndex": 2
+      "correctIndex": 2,
+      "why": "Role-Based Access Control grants permissions according to the roles users hold, such as accountant or administrator. DAC relies on owner discretion, MAC on labels, and ABAC on attributes."
     },
     {
       "q": "What does the principle of separation of duties aim to prevent?",
@@ -312,7 +342,8 @@
         "Collusion and fraud",
         "Redundant processes"
       ],
-      "correctIndex": 2
+      "correctIndex": 2,
+      "why": "Separation of duties splits critical processes among multiple people so no individual can commit fraud alone; wrongdoing would require collusion, which is riskier and easier to detect."
     },
     {
       "q": "Which of the following describes a brute force attack?",
@@ -322,7 +353,8 @@
         "Exploiting software vulnerabilities",
         "Installing malware on a victim's machine"
       ],
-      "correctIndex": 1
+      "correctIndex": 1,
+      "why": "A brute force attack systematically guesses passwords until one works, relying on computing power rather than deception or software flaws."
     },
     {
       "q": "Which of the following is a benefit of cloud computing?",
@@ -332,7 +364,8 @@
         "Scalability and flexibility",
         "Guaranteed availability"
       ],
-      "correctIndex": 2
+      "correctIndex": 2,
+      "why": "Cloud computing lets you scale resources up or down on demand, its signature benefit. It does not inherently reduce breach risk, increase your physical control, or guarantee availability."
     },
     {
       "q": "Which of the following is NOT a characteristic of a public key infrastructure (PKI)?",
@@ -342,7 +375,8 @@
         "Certificate authority (CA) management",
         "Asymmetric encryption"
       ],
-      "correctIndex": 1
+      "correctIndex": 1,
+      "why": "PKI is built on asymmetric cryptography, digital certificates, and certificate authorities. Symmetric key exchange is not a PKI characteristic; PKI exists precisely because symmetric keys alone cannot prove identity."
     },
     {
       "q": "Which of the following best describes a denial of service (DoS) attack?",
@@ -352,7 +386,8 @@
         "Overwhelming a system to make it unavailable",
         "Stealing sensitive data"
       ],
-      "correctIndex": 2
+      "correctIndex": 2,
+      "why": "A DoS attack floods a system with traffic or requests so legitimate users cannot reach it, targeting availability rather than stealing or altering data."
     },
     {
       "q": "Which security framework is widely used in the United States for federal information systems?",
@@ -362,7 +397,8 @@
         "NIST SP 800-53",
         "ITIL"
       ],
-      "correctIndex": 2
+      "correctIndex": 2,
+      "why": "NIST SP 800-53 is the control catalog required for US federal information systems under FISMA. ISO 27001, COBIT, and ITIL are international or governance frameworks, not the federal standard."
     },
     {
       "q": "Which type of attack is characterized by attackers secretly altering the communication between two parties?",
@@ -372,7 +408,8 @@
         "SQL Injection",
         "Man-in-the-Middle (MitM)"
       ],
-      "correctIndex": 3
+      "correctIndex": 3,
+      "why": "In a man-in-the-middle attack the adversary secretly sits between two parties, reading and potentially altering their traffic while both believe they are talking directly to each other."
     },
     {
       "q": "Which of the following is an example of an administrative control?",
@@ -382,7 +419,8 @@
         "Security awareness training",
         "Intrusion detection systems"
       ],
-      "correctIndex": 2
+      "correctIndex": 2,
+      "why": "Security awareness training is an administrative control because it manages people and behavior through policy and education. Encryption, firewalls, and IDS are technical controls."
     },
     {
       "q": "Which of the following best describes two-factor authentication?",
@@ -392,7 +430,8 @@
         "Verifying identity using a password and username",
         "Verifying identity by checking two forms of ID"
       ],
-      "correctIndex": 0
+      "correctIndex": 0,
+      "why": "Two-factor authentication requires credentials from two different categories, such as something you know plus something you have. A username and password together are a single knowledge factor."
     },
     {
       "q": "Which of the following is a primary purpose of security auditing?",
@@ -402,7 +441,8 @@
         "To verify compliance with regulations",
         "To monitor user activity"
       ],
-      "correctIndex": 2
+      "correctIndex": 2,
+      "why": "Security auditing independently verifies that controls and practices comply with regulations and policies. Detecting intrusions and monitoring activity are operational tasks, not the audit's primary purpose."
     },
     {
       "q": "Which of the following is a key component of a disaster recovery plan (DRP)?",
@@ -412,7 +452,8 @@
         "Business continuity strategies",
         "Backup and recovery procedures"
       ],
-      "correctIndex": 3
+      "correctIndex": 3,
+      "why": "Backup and recovery procedures are the heart of a DRP; without them systems cannot be restored. Risk assessment and business continuity strategies belong to companion processes, not the DRP itself."
     },
     {
       "q": "What is the primary function of a firewall?",
@@ -422,7 +463,8 @@
         "To encrypt data in transit",
         "To monitor network traffic for malicious activity"
       ],
-      "correctIndex": 1
+      "correctIndex": 1,
+      "why": "A firewall's primary function is filtering traffic against a rule set, permitting or denying connections. Detecting and responding to intrusions is the role of IDS and IPS."
     },
     {
       "q": "Which of the following is a characteristic of a cold site?",
@@ -432,7 +474,8 @@
         "Equipped with infrastructure but requires setup",
         "Operated remotely from a mobile unit"
       ],
-      "correctIndex": 2
+      "correctIndex": 2,
+      "why": "A cold site provides basic infrastructure like power, space, and connectivity but no installed equipment or data, so significant setup is needed before use. Fully equipped describes a hot site."
     },
     {
       "q": "Which of the following best describes the purpose of a digital certificate?",
@@ -442,7 +485,8 @@
         "To verify the identity of an entity",
         "To encrypt data at rest"
       ],
-      "correctIndex": 2
+      "correctIndex": 2,
+      "why": "A digital certificate exists to verify the identity of an entity by binding its public key to that identity through a trusted CA. Securing transmissions is an application built on that verified identity."
     },
     {
       "q": "Which type of malware is designed to remain hidden on a system while performing malicious actions?",
@@ -452,7 +496,8 @@
         "Rootkit",
         "Spyware"
       ],
-      "correctIndex": 2
+      "correctIndex": 2,
+      "why": "A rootkit is designed for stealth, hiding its files, processes, and activity while operating with elevated privileges. Spyware also acts covertly, but deep concealment on the system is the rootkit's defining trait."
     },
     {
       "q": "Which of the following is a key objective of network segmentation?",
@@ -462,7 +507,8 @@
         "To improve network availability",
         "To enforce security policies"
       ],
-      "correctIndex": 1
+      "correctIndex": 1,
+      "why": "Segmentation divides the network so sensitive systems sit in isolated zones, limiting an attacker's lateral movement after a breach. Speed and availability gains are side effects, not the security objective."
     },
     {
       "q": "Which of the following best describes a penetration test?",
@@ -472,7 +518,8 @@
         "An audit of network traffic",
         "A method of encrypting data"
       ],
-      "correctIndex": 0
+      "correctIndex": 0,
+      "why": "A penetration test is a simulated, authorized attack that attempts to exploit weaknesses and demonstrate real impact. Reviewing policies or auditing traffic assesses posture without attacking anything."
     },
     {
       "q": "Which of the following describes an attribute-based access control (ABAC) model?",
@@ -482,7 +529,8 @@
         "Access is based on attributes of the user, resource, and environment",
         "Access is determined by the data owner"
       ],
-      "correctIndex": 2
+      "correctIndex": 2,
+      "why": "ABAC evaluates attributes of the user, the resource, and the environment (such as time or location) to make access decisions. Role-based and label-based decisions describe RBAC and MAC."
     },
     {
       "q": "Which of the following is a benefit of using multifactor authentication (MFA)?",
@@ -492,7 +540,8 @@
         "It simplifies the login process",
         "It increases system availability"
       ],
-      "correctIndex": 1
+      "correctIndex": 1,
+      "why": "MFA's benefit is reducing unauthorized access: a stolen password alone no longer grants entry. It does not remove passwords, and it adds a step, so it does not simplify login."
     },
     {
       "q": "Which of the following is NOT considered a benefit of a security awareness program?",
@@ -502,7 +551,8 @@
         "Ensuring compliance with security regulations",
         "Guaranteeing the prevention of all security incidents"
       ],
-      "correctIndex": 3
+      "correctIndex": 3,
+      "why": "No awareness program can guarantee prevention of all incidents; humans still make mistakes. Reducing insider risk, improving knowledge, and aiding compliance are all realistic benefits."
     },
     {
       "q": "Which of the following is a key characteristic of a honeypot?",
@@ -512,7 +562,8 @@
         "It is a method for detecting intrusions",
         "It is a security policy enforcement mechanism"
       ],
-      "correctIndex": 0
+      "correctIndex": 0,
+      "why": "A honeypot is a decoy system built to look attractive to attackers so defenders can divert, observe, and learn from them. It is bait, not an encryption tool or policy mechanism."
     },
     {
       "q": "Which of the following is the primary function of a certificate authority (CA)?",
@@ -522,7 +573,8 @@
         "To authenticate users",
         "To monitor network traffic for malicious activity"
       ],
-      "correctIndex": 0
+      "correctIndex": 0,
+      "why": "A certificate authority issues and manages digital certificates, vouching that a public key belongs to a verified identity. Encryption and authentication are then performed by parties relying on those certificates."
     },
     {
       "q": "What is the primary objective of risk mitigation?",
@@ -532,7 +584,8 @@
         "To reduce the impact or likelihood of risks",
         "To ignore risks that are not critical"
       ],
-      "correctIndex": 2
+      "correctIndex": 2,
+      "why": "Mitigation means reducing a risk's likelihood or impact to an acceptable level. Elimination is impossible, transfer (like insurance) is a different strategy, and ignoring risk is acceptance without analysis."
     },
     {
       "q": "Which of the following is a characteristic of mandatory access control (MAC)?",
@@ -542,7 +595,8 @@
         "Access is based on user roles",
         "Access is controlled by the system administrator"
       ],
-      "correctIndex": 1
+      "correctIndex": 1,
+      "why": "Under MAC the system enforces access using security labels and clearances that users cannot override. When the data owner decides who gets access, that is discretionary access control."
     },
     {
       "q": "Which of the following is the primary purpose of data classification?",
@@ -552,7 +606,8 @@
         "To ensure data integrity",
         "To comply with legal requirements"
       ],
-      "correctIndex": 1
+      "correctIndex": 1,
+      "why": "Classification assigns sensitivity levels so each category of data receives protection proportional to the harm its exposure would cause. Easier organization and compliance are secondary benefits."
     },
     {
       "q": "Which of the following is an example of a technical control?",
@@ -562,7 +617,8 @@
         "User training",
         "Security audits"
       ],
-      "correctIndex": 1
+      "correctIndex": 1,
+      "why": "Firewalls are technical controls implemented in hardware or software. Policies, training, and audits are administrative controls that govern people and processes."
     },
     {
       "q": "Which of the following is a common method used in social engineering attacks?",
@@ -572,7 +628,8 @@
         "Cross-Site Scripting (XSS)",
         "Brute force attacks"
       ],
-      "correctIndex": 1
+      "correctIndex": 1,
+      "why": "Phishing is the classic social engineering technique: deceptive messages that manipulate people into revealing information. SQL injection, XSS, and brute force target systems, not human trust."
     },
     {
       "q": "Which of the following is a benefit of using encryption for data at rest?",
@@ -582,7 +639,8 @@
         "It increases data availability",
         "It simplifies data management"
       ],
-      "correctIndex": 1
+      "correctIndex": 1,
+      "why": "Encrypting data at rest keeps stored information unreadable to anyone without the key, even if a disk or backup is stolen. It protects confidentiality; integrity and availability need other controls."
     },
     {
       "q": "What is the primary purpose of a business continuity plan (BCP)?",
@@ -592,7 +650,8 @@
         "To ensure compliance with legal requirements",
         "To protect against cyber attacks"
       ],
-      "correctIndex": 1
+      "correctIndex": 1,
+      "why": "A BCP's purpose is keeping critical business operations running during and after any disruption. Disaster recovery, which restores IT systems, is a subset of this broader goal."
     },
     {
       "q": "Which of the following is an example of a preventive control?",
@@ -602,7 +661,8 @@
         "Security cameras",
         "Antivirus software"
       ],
-      "correctIndex": 3
+      "correctIndex": 3,
+      "why": "Antivirus software blocks or quarantines malware before it can do harm, making it preventive. Audit trails, IDS, and cameras discover activity after it occurs, which makes them detective controls."
     },
     {
       "q": "Which of the following best describes a virtual private network (VPN)?",
@@ -612,7 +672,8 @@
         "A type of firewall",
         "A software application for detecting malware"
       ],
-      "correctIndex": 0
+      "correctIndex": 0,
+      "why": "A VPN creates an encrypted tunnel that securely connects networks or hosts across an untrusted network like the internet. It protects data in transit, not data at rest, and it is not a firewall."
     },
     {
       "q": "Which of the following is a key characteristic of the Clark-Wilson security model?",
@@ -622,7 +683,8 @@
         "Focuses on data integrity",
         "Focuses on role-based access control"
       ],
-      "correctIndex": 2
+      "correctIndex": 2,
+      "why": "Clark-Wilson protects data integrity using well-formed transactions and separation of duties. Confidentiality is Bell-LaPadula's domain and conflict of interest is Brewer-Nash's."
     },
     {
       "q": "Which of the following is the most important factor in determining the sensitivity of data?",
@@ -632,7 +694,8 @@
         "The size of the data",
         "The age of the data"
       ],
-      "correctIndex": 0
+      "correctIndex": 0,
+      "why": "Sensitivity is driven by how much harm unauthorized access or disclosure would cause to the organization or individuals. Storage cost, size, and age do not determine how damaging exposure would be."
     },
     {
       "q": "Which of the following is the best way to protect against SQL injection attacks?",
@@ -642,17 +705,19 @@
         "Implementing multifactor authentication",
         "Regularly updating database software"
       ],
-      "correctIndex": 1
+      "correctIndex": 1,
+      "why": "Input validation (ideally with parameterized queries) stops attacker-supplied text from being executed as SQL. Encrypting connections or adding MFA does nothing about malicious input the application itself accepts."
     },
     {
       "q": "Which of the following is an example of a deterrent control?",
       "choices": [
-        "Surveillance cameras",
+        "Visible warning signs about monitoring",
         "Encryption",
         "Backup systems",
         "Antivirus software"
       ],
-      "correctIndex": 0
+      "correctIndex": 0,
+      "why": "Warning signs announce monitoring and consequences, discouraging attackers before they act, which is the essence of a deterrent control. Encryption prevents disclosure, backups are corrective, and antivirus prevents or detects."
     },
     {
       "q": "Which of the following is a primary goal of security incident management?",
@@ -662,7 +727,8 @@
         "To quickly respond to and mitigate incidents",
         "To improve network performance"
       ],
-      "correctIndex": 2
+      "correctIndex": 2,
+      "why": "Incident management aims to respond to and mitigate incidents quickly, limiting damage and restoring normal operations. Preventing recurrence is a follow-on benefit, and eliminating all risk is impossible."
     },
     {
       "q": "Which of the following best describes the role of a data owner?",
@@ -672,7 +738,8 @@
         "The person accountable for the data and its protection",
         "The person responsible for data storage"
       ],
-      "correctIndex": 2
+      "correctIndex": 2,
+      "why": "The data owner is the person accountable for the data, deciding its classification and required protections. Day-to-day storage and backups are handled by custodians, and users merely consume the data."
     },
     {
       "q": "Which of the following best describes data masking?",
@@ -682,7 +749,8 @@
         "Deleting data that is no longer needed",
         "Backing up data to a secure location"
       ],
-      "correctIndex": 1
+      "correctIndex": 1,
+      "why": "Data masking substitutes realistic but fictional values for sensitive data, often for test or training environments. Unlike encryption it is not meant to be reversed, and unlike deletion the data remains usable."
     },
     {
       "q": "Which of the following is a key feature of a hot site?",
@@ -692,7 +760,8 @@
         "It is only used during planned maintenance",
         "It is a mobile unit that can be deployed anywhere"
       ],
-      "correctIndex": 0
+      "correctIndex": 0,
+      "why": "A hot site is continuously maintained, fully operational, and ready for near-immediate failover. Facilities that need equipment or setup first are warm or cold sites."
     },
     {
       "q": "Which of the following is a common method used in phishing attacks?",
@@ -702,7 +771,8 @@
         "Overloading a server to cause a denial of service",
         "Injecting malicious code into a website"
       ],
-      "correctIndex": 0
+      "correctIndex": 0,
+      "why": "Phishing uses fraudulent emails that impersonate trusted senders to trick recipients into revealing information or clicking malicious links. Ransomware, DoS, and code injection are different attack types."
     },
     {
       "q": "Which of the following is the primary objective of network segmentation?",
@@ -712,7 +782,8 @@
         "To improve network availability",
         "To enforce security policies"
       ],
-      "correctIndex": 1
+      "correctIndex": 1,
+      "why": "The security objective of segmentation is isolating sensitive data and systems into separate zones, containing breaches and limiting lateral movement. Performance benefits are incidental."
     },
     {
       "q": "Which of the following is a characteristic of a security token?",
@@ -722,7 +793,8 @@
         "It is a type of firewall",
         "It monitors network traffic for malicious activity"
       ],
-      "correctIndex": 0
+      "correctIndex": 0,
+      "why": "A security token generates one-time passwords, providing a possession factor for authentication. It is something you have, not an encryption device, firewall, or monitoring tool."
     },
     {
       "q": "Which of the following best describes a zero-day vulnerability?",
@@ -732,7 +804,8 @@
         "A vulnerability that is only exploitable on the first day of software release",
         "A vulnerability that is introduced by a software update"
       ],
-      "correctIndex": 1
+      "correctIndex": 1,
+      "why": "A zero-day is unknown to the vendor, so no patch exists and defenders have had zero days to respond. A long-known unpatched flaw is simply an unpatched vulnerability, not a zero-day."
     },
     {
       "q": "Which of the following is the best way to protect data in transit?",
@@ -742,7 +815,8 @@
         "Compressing the data before transmission",
         "Deleting the data after transmission"
       ],
-      "correctIndex": 0
+      "correctIndex": 0,
+      "why": "Encrypting data before it is transmitted keeps it confidential even if intercepted on the network. Backups, compression, and deletion do nothing to protect the data while it travels."
     },
     {
       "q": "Which of the following best describes the principle of defense in depth?",
@@ -752,7 +826,8 @@
         "Using encryption as the primary security control",
         "Relying on physical security to protect information"
       ],
-      "correctIndex": 1
+      "correctIndex": 1,
+      "why": "Defense in depth layers multiple controls so the failure of any single one does not expose the asset. Depending on one strong control, whether encryption or physical security, creates a single point of failure."
     },
     {
       "q": "Which of the following is an example of a corrective control?",
@@ -762,7 +837,8 @@
         "Security cameras",
         "Incident response procedures"
       ],
-      "correctIndex": 3
+      "correctIndex": 3,
+      "why": "Corrective controls act after an incident to fix the damage and restore normal operations, which is exactly what incident response procedures do. Firewalls prevent and cameras detect."
     },
     {
       "q": "Which of the following is a key characteristic of a worm?",
@@ -772,7 +848,8 @@
         "It requires user interaction to spread",
         "It is used to steal sensitive information"
       ],
-      "correctIndex": 1
+      "correctIndex": 1,
+      "why": "Self-replication and autonomous spreading define a worm. Disguising itself as a legitimate program describes a Trojan, and needing user interaction describes a typical virus."
     },
     {
       "q": "Which of the following best describes the purpose of an intrusion prevention system (IPS)?",
@@ -782,7 +859,8 @@
         "To detect and block malicious network activity in real time",
         "To enforce security policies"
       ],
-      "correctIndex": 2
+      "correctIndex": 2,
+      "why": "An IPS sits inline and both detects and blocks malicious traffic in real time. Passive monitoring and logging without blocking describes an IDS."
     },
     {
       "q": "Which of the following is the primary objective of an access control policy?",
@@ -792,7 +870,8 @@
         "To monitor user activity",
         "To enforce security policies"
       ],
-      "correctIndex": 0
+      "correctIndex": 0,
+      "why": "An access control policy's core purpose is defining who may access which resources and under what conditions. Preventing unauthorized access is the outcome of applying that policy, not the policy itself."
     },
     {
       "q": "Which of the following best describes the concept of separation of duties?",
@@ -802,7 +881,8 @@
         "Limiting user access to the minimum necessary",
         "Using multifactor authentication for all users"
       ],
-      "correctIndex": 1
+      "correctIndex": 1,
+      "why": "Separation of duties ensures critical tasks require more than one person, so no individual can abuse a process alone. Minimizing access levels is least privilege, a related but different principle."
     },
     {
       "q": "Which of the following is a characteristic of a public key in asymmetric encryption?",
@@ -812,7 +892,8 @@
         "It is used to authenticate users",
         "It is used to create digital signatures"
       ],
-      "correctIndex": 1
+      "correctIndex": 1,
+      "why": "The public key is distributed openly and used to encrypt messages that only the matching private key can decrypt. Signing and decryption are done with the private key, which stays secret."
     },
     {
       "q": "Which of the following is a primary goal of a vulnerability assessment?",
@@ -822,7 +903,8 @@
         "To monitor network traffic",
         "To enforce security policies"
       ],
-      "correctIndex": 1
+      "correctIndex": 1,
+      "why": "A vulnerability assessment identifies weaknesses and ranks them so remediation can be prioritized. It does not exploit findings (that is penetration testing) and cannot eliminate every risk."
     },
     {
       "q": "Which of the following best describes a social engineering attack?",
@@ -832,7 +914,8 @@
         "Overloading a system to cause a denial of service",
         "Injecting malicious code into a website"
       ],
-      "correctIndex": 1
+      "correctIndex": 1,
+      "why": "Social engineering is psychological manipulation that tricks people into revealing information or granting access. Exploiting software flaws, flooding servers, and injecting code are technical attacks."
     },
     {
       "q": "Which of the following is a key characteristic of a cold site?",
@@ -842,7 +925,8 @@
         "It is only used during planned maintenance",
         "It is a mobile unit that can be deployed anywhere"
       ],
-      "correctIndex": 1
+      "correctIndex": 1,
+      "why": "A cold site offers space and basic infrastructure but minimal equipment, so hardware and data must be installed before operations resume. It is the cheapest option but has the slowest recovery time."
     },
     {
       "q": "Which of the following is the primary purpose of an audit log?",
@@ -852,7 +936,8 @@
         "To enforce security policies",
         "To encrypt data at rest"
       ],
-      "correctIndex": 1
+      "correctIndex": 1,
+      "why": "An audit log records who did what and when, creating an activity trail for reviews, investigations, and accountability. Real-time traffic monitoring and policy enforcement are separate functions."
     },
     {
       "q": "Which of the following best describes the role of a security operations center (SOC)?",
@@ -862,7 +947,8 @@
         "To conduct security audits and assessments",
         "To manage network infrastructure"
       ],
-      "correctIndex": 1
+      "correctIndex": 1,
+      "why": "A SOC is the team and facility that continuously monitors systems, detects threats, and responds to security incidents. Policy design and audits are governance functions outside the SOC's core mission."
     },
     {
       "q": "Which of the following best describes the purpose of a security information and event management (SIEM) system?",
@@ -872,7 +958,8 @@
         "To manage digital certificates",
         "To conduct vulnerability assessments"
       ],
-      "correctIndex": 1
+      "correctIndex": 1,
+      "why": "A SIEM aggregates and correlates logs from across the environment to monitor and analyze security events in real time, generating alerts for analysts. It does not encrypt data or manage certificates."
     },
     {
       "q": "Which of the following is a characteristic of multifactor authentication (MFA)?",
@@ -882,7 +969,8 @@
         "It eliminates the need for passwords",
         "It simplifies the login process"
       ],
-      "correctIndex": 1
+      "correctIndex": 1,
+      "why": "MFA requires at least two different factor types, such as knowledge plus possession. It supplements passwords rather than eliminating them, and it adds a step rather than simplifying login."
     },
     {
       "q": "Which of the following is the best way to protect against brute force attacks?",
@@ -892,7 +980,8 @@
         "Limiting the number of login attempts",
         "Regularly updating software"
       ],
-      "correctIndex": 2
+      "correctIndex": 2,
+      "why": "Limiting login attempts (lockout or throttling) removes the unlimited guessing a brute force attack depends on, stopping it directly. Strong passwords and MFA raise the bar but do not halt the guessing itself."
     },
     {
       "q": "Which of the following best describes the purpose of a digital signature?",
@@ -902,17 +991,19 @@
         "To ensure the message is not intercepted",
         "To protect against malware"
       ],
-      "correctIndex": 1
+      "correctIndex": 1,
+      "why": "A digital signature lets the recipient verify the sender's identity and confirms the message was not altered. It does not encrypt the message or prevent interception; those require encryption."
     },
     {
       "q": "Which of the following is the primary objective of a disaster recovery plan (DRP)?",
       "choices": [
-        "To recover from natural disasters",
+        "To restore IT systems and data after a catastrophic event",
         "To maintain operations during and after a disruption",
         "To ensure compliance with legal requirements",
         "To protect against cyber attacks"
       ],
-      "correctIndex": 0
+      "correctIndex": 0,
+      "why": "A DRP focuses on restoring IT systems and data after a catastrophic event. Keeping the business running through a disruption is the broader business continuity plan, which is why that tempting option is not the DRP objective."
     },
     {
       "q": "Which of the following is a characteristic of the Bell-LaPadula model?",
@@ -922,7 +1013,8 @@
         "Focuses on availability",
         "Focuses on authenticity"
       ],
-      "correctIndex": 0
+      "correctIndex": 0,
+      "why": "Bell-LaPadula enforces confidentiality with rules like no read up and no write down, keeping classified information from leaking downward. Integrity is the focus of the Biba model."
     },
     {
       "q": "Which of the following best describes the concept of least privilege?",
@@ -932,7 +1024,8 @@
         "Allowing users to access all resources within the organization",
         "Restricting access to critical systems to only top management"
       ],
-      "correctIndex": 1
+      "correctIndex": 1,
+      "why": "Least privilege gives users only the access their job functions require. Broad or maximum access violates the principle, and restricting systems to top management alone is not what it prescribes."
     },
     {
       "q": "Which of the following is a common method used in a denial-of-service (DoS) attack?",
@@ -942,7 +1035,8 @@
         "Stealing user credentials through phishing",
         "Injecting malicious code into web applications"
       ],
-      "correctIndex": 1
+      "correctIndex": 1,
+      "why": "A DoS attack commonly floods the target network or server with excessive traffic until legitimate requests cannot get through. Ransom encryption, phishing, and code injection are different attack categories."
     },
     {
       "q": "Which of the following is the best way to protect sensitive information during transmission?",
@@ -952,7 +1046,8 @@
         "Backing up the data regularly",
         "Storing the data on secure servers"
       ],
-      "correctIndex": 1
+      "correctIndex": 1,
+      "why": "Encryption keeps transmitted data unreadable to anyone intercepting it, which is the specific protection transmission needs. Passwords, backups, and secure servers protect endpoints, not data in motion."
     },
     {
       "q": "Which of the following best describes the role of a firewall in network security?",
@@ -962,7 +1057,8 @@
         "To monitor and filter incoming and outgoing network traffic",
         "To back up network data"
       ],
-      "correctIndex": 2
+      "correctIndex": 2,
+      "why": "A firewall monitors and filters traffic entering and leaving the network according to security rules. It does not encrypt traffic, guard hardware physically, or perform backups."
     },
     {
       "q": "Which of the following is a primary goal of encryption?",
@@ -972,7 +1068,8 @@
         "To increase data availability",
         "To enhance data accessibility"
       ],
-      "correctIndex": 1
+      "correctIndex": 1,
+      "why": "Encryption's primary goal is confidentiality: only holders of the key can read the data. Integrity requires hashing or signatures, and encryption tends to reduce, not enhance, casual accessibility."
     },
     {
       "q": "Which of the following best describes the purpose of a security policy?",
@@ -982,7 +1079,8 @@
         "To monitor network traffic",
         "To assess risks"
       ],
-      "correctIndex": 0
+      "correctIndex": 0,
+      "why": "A security policy is a high-level document defining the rules for acceptable use and expected behavior. Implementing controls, monitoring, and risk assessment are activities that flow from the policy."
     },
     {
       "q": "Which of the following is the primary purpose of multifactor authentication (MFA)?",
@@ -992,7 +1090,8 @@
         "To eliminate the need for passwords",
         "To improve user experience"
       ],
-      "correctIndex": 1
+      "correctIndex": 1,
+      "why": "MFA exists to reduce unauthorized access by requiring more than one factor, so a single stolen credential is not enough. It adds friction rather than simplifying login, and passwords usually remain one factor."
     },
     {
       "q": "Which of the following best describes the function of a digital signature?",
@@ -1002,7 +1101,8 @@
         "To compress data for faster transmission",
         "To detect changes in transmitted data"
       ],
-      "correctIndex": 1
+      "correctIndex": 1,
+      "why": "A digital signature's function is authenticating the sender's identity, with non-repudiation as a bonus. It also detects changes to the data, but that integrity check supports the primary goal of proving the source."
     },
     {
       "q": "Which of the following best describes the principle of separation of duties?",
@@ -1012,7 +1112,8 @@
         "Granting administrative privileges to all users",
         "Limiting access to sensitive data to top management"
       ],
-      "correctIndex": 1
+      "correctIndex": 1,
+      "why": "Separation of duties divides critical tasks among several individuals so no one person can complete a fraudulent act alone. Concentrating duties in one person or in management is the opposite of the principle."
     },
     {
       "q": "Which of the following is a primary benefit of using a virtual private network (VPN)?",
@@ -1022,7 +1123,8 @@
         "Enhanced data storage capacity",
         "Simplified user authentication"
       ],
-      "correctIndex": 1
+      "correctIndex": 1,
+      "why": "A VPN's primary benefit is encrypted communication across an insecure network such as the internet. It typically adds overhead rather than speed, and it has nothing to do with storage capacity."
     },
     {
       "q": "Which of the following is a key feature of the Clark-Wilson security model?",
@@ -1032,7 +1134,8 @@
         "It is primarily used to secure government documents",
         "It focuses on availability of information"
       ],
-      "correctIndex": 1
+      "correctIndex": 1,
+      "why": "Clark-Wilson ensures integrity through well-formed transactions and separation of duties, so data is only modified in authorized ways. It is an integrity model, not a confidentiality or availability model."
     },
     {
       "q": "Which of the following best describes a man-in-the-middle (MitM) attack?",
@@ -1042,7 +1145,8 @@
         "An attacker gains unauthorized access to a server through a backdoor",
         "An attacker encrypts data and demands a ransom for decryption"
       ],
-      "correctIndex": 0
+      "correctIndex": 0,
+      "why": "In a MitM attack the adversary secretly intercepts, and can alter, traffic between two parties who believe they are communicating directly. Flooding a server describes DoS and ransom encryption describes ransomware."
     },
     {
       "q": "Which of the following is a primary goal of security auditing?",
@@ -1052,7 +1156,8 @@
         "To implement encryption protocols",
         "To provide secure remote access to the network"
       ],
-      "correctIndex": 1
+      "correctIndex": 1,
+      "why": "Security auditing's primary goal is verifying compliance with security policies and procedures through independent review. Finding vulnerabilities is a scan or assessment, and encryption is a control, not an audit task."
     },
     {
       "q": "Which of the following is a primary objective of a security operations center (SOC)?",
@@ -1062,7 +1167,8 @@
         "To manage network infrastructure",
         "To conduct security awareness training"
       ],
-      "correctIndex": 1
+      "correctIndex": 1,
+      "why": "A SOC exists to monitor, detect, and respond to security incidents around the clock. Writing policies, managing infrastructure, and running awareness training are handled by other functions."
     },
     {
       "q": "Which of the following is a key benefit of using multifactor authentication (MFA)?",
@@ -1072,7 +1178,8 @@
         "Eliminates the need for passwords",
         "Increases network speed"
       ],
-      "correctIndex": 1
+      "correctIndex": 1,
+      "why": "MFA's key benefit is cutting the risk of unauthorized access, since an attacker needs more than one factor to break in. It does not simplify authentication, remove passwords, or affect network speed."
     },
     {
       "q": "Which of the following is a characteristic of a hot site?",
@@ -1082,7 +1189,8 @@
         "It is a mobile unit that can be deployed during a disaster",
         "It is an offsite facility used only for data storage and backups"
       ],
-      "correctIndex": 0
+      "correctIndex": 0,
+      "why": "A hot site is a fully operational offsite facility with current hardware, software, and data, ready for near-immediate use. Minimal-equipment and mobile options describe cold sites and mobile units."
     },
     {
       "q": "Which of the following is the best way to protect against phishing attacks?",
@@ -1092,7 +1200,8 @@
         "Implementing security awareness training",
         "Using firewalls to filter incoming emails"
       ],
-      "correctIndex": 2
+      "correctIndex": 2,
+      "why": "Phishing succeeds by fooling people, so training users to recognize and report suspicious messages attacks the root cause. Filters, antivirus, and encryption help but cannot stop a user who is deceived."
     },
     {
       "q": "Which of the following is a key objective of business continuity planning (BCP)?",
@@ -1102,7 +1211,8 @@
         "To ensure compliance with legal requirements",
         "To protect against cyber attacks"
       ],
-      "correctIndex": 1
+      "correctIndex": 1,
+      "why": "BCP's objective is keeping critical business operations running during and after a disruption of any kind, not just natural disasters. Compliance and cyber defense are separate concerns."
     },
     {
       "q": "Which of the following best describes the concept of risk mitigation?",
@@ -1112,7 +1222,8 @@
         "Reducing the impact or likelihood of risks",
         "Ignoring risks that are not critical"
       ],
-      "correctIndex": 2
+      "correctIndex": 2,
+      "why": "Risk mitigation reduces the likelihood or impact of a risk to an acceptable level. Elimination is unrealistic, transferring is a separate strategy, and ignoring risks is unmanaged acceptance."
     },
     {
       "q": "Which of the following best describes the role of a digital certificate?",
@@ -1122,7 +1233,8 @@
         "To authenticate the user to a network",
         "To back up important data"
       ],
-      "correctIndex": 1
+      "correctIndex": 1,
+      "why": "A digital certificate verifies the identity of an entity by binding its public key to that identity through a trusted certificate authority. Encryption and network authentication are uses built on that verification."
     },
     {
       "q": "Which of the following is a primary goal of access control?",
@@ -1132,7 +1244,8 @@
         "To monitor network traffic",
         "To implement firewalls"
       ],
-      "correctIndex": 0
+      "correctIndex": 0,
+      "why": "Access control's primary goal is preventing unauthorized access to resources by ensuring only authenticated, authorized subjects get in. Encryption, monitoring, and firewalls are supporting mechanisms."
     },
     {
       "q": "Which of the following is a characteristic of the NIST Cybersecurity Framework?",
@@ -1142,7 +1255,8 @@
         "It is mandatory for all organizations",
         "It replaces all other cybersecurity standards"
       ],
-      "correctIndex": 1
+      "correctIndex": 1,
+      "why": "The NIST Cybersecurity Framework is a voluntary policy framework for managing cybersecurity risk that any organization can adopt. It is not government-only, not mandatory, and it complements other standards."
     },
     {
       "q": "Which of the following best describes a brute force attack?",
@@ -1152,7 +1266,8 @@
         "An attack that injects malicious code into a website",
         "An attack that manipulates social engineering techniques to deceive users"
       ],
-      "correctIndex": 1
+      "correctIndex": 1,
+      "why": "A brute force attack systematically tries every possible password combination until one succeeds. Overwhelming a network is DoS, code injection is a web attack, and deception is social engineering."
     },
     {
       "q": "Which of the following best describes the purpose of encryption in information security?",
@@ -1162,7 +1277,8 @@
         "To monitor network traffic",
         "To assess and mitigate risks"
       ],
-      "correctIndex": 1
+      "correctIndex": 1,
+      "why": "Encryption exists to protect the confidentiality of data, making it unreadable without the key. Availability, monitoring, and risk assessment are addressed by entirely different controls and processes."
     },
     {
       "q": "Which of the following is a characteristic of role-based access control (RBAC)?",
@@ -1172,7 +1288,8 @@
         "Access is based on predefined security labels",
         "Access is controlled by the system administrator"
       ],
-      "correctIndex": 0
+      "correctIndex": 0,
+      "why": "In RBAC, access flows from the user's organizational role, such as HR manager or auditor. Owner-granted access is DAC and label-based access is MAC."
     },
     {
       "q": "Which of the following is a key objective of risk management?",
@@ -1182,7 +1299,8 @@
         "To implement security policies",
         "To enforce security controls"
       ],
-      "correctIndex": 1
+      "correctIndex": 1,
+      "why": "Risk management is the ongoing process of identifying, assessing, and mitigating risks to an acceptable level. It cannot eliminate all risk, and policies and controls are tools it uses, not its objective."
     }
   ]
 }
