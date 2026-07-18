@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+  <rect width="512" height="512" fill="#f7efe2"/>
+  <ellipse cx="256" cy="315" rx="190" ry="105" fill="#c8401f"/>
+  <ellipse cx="256" cy="255" rx="190" ry="75" fill="#e9b44c"/>
+  <g font-family="monospace" font-size="86" font-weight="bold" fill="#23303a">
+    <rect x="128" y="196" width="96" height="96" rx="8" fill="#fdf8ee" stroke="#ded1bb" stroke-width="4"/>
+    <text x="150" y="268">A</text>
+    <rect x="238" y="212" width="96" height="96" rx="8" fill="#fdf8ee" stroke="#ded1bb" stroke-width="4" transform="rotate(8 286 260)"/>
+    <text x="262" y="286" transform="rotate(8 286 260)">E</text>
+    <rect x="338" y="192" width="96" height="96" rx="8" fill="#fdf8ee" stroke="#ded1bb" stroke-width="4" transform="rotate(-7 386 240)"/>
+    <text x="362" y="264" transform="rotate(-7 386 240)">S</text>
+  </g>
+</svg>

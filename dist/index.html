@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="color-scheme" content="light dark" />
+  <meta name="theme-color" content="#f7efe2" />
+  <meta name="description" content="Cybersecurity Alphabet Soup: a plain-English dictionary of 545 cybersecurity acronyms, each with its expansion, an explanation of why it matters, and authoritative sources." />
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Cybersecurity Alphabet Soup" />
+  <meta property="og:description" content="A plain-English dictionary of cybersecurity acronyms: expansions, explanations, and sources." />
+  <meta property="og:url" content="https://cybersecurityalphabetsoup.com/" />
+  <meta property="og:image" content="https://cybersecurityalphabetsoup.com/og-image.png" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <title>Cybersecurity Alphabet Soup: the acronym dictionary</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,700;0,9..144,900;1,9..144,500&family=IBM+Plex+Mono:wght@500;600&family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet" />
+  <link rel="icon" href="./icon.svg" type="image/svg+xml" />
+  <link rel="apple-touch-icon" href="./icon-192.png" />
+  <link rel="manifest" href="./manifest.webmanifest" />
+  <script type="module" crossorigin src="./assets/index-XkgF7z8i.js"></script>
+  <link rel="stylesheet" crossorigin href="./assets/index-BFIuAslG.css">
+</head>
+<body>
+  <div class="steam" aria-hidden="true"></div>
+
+  <header class="hero">
+    <div class="crouton-field" id="crouton-field" aria-hidden="true"></div>
+    <p class="kicker">est. 288 acronyms &middot; now serving <span id="hero-count">545</span></p>
+    <h1 class="title">Cybersecurity<br /><em>Alphabet Soup</em></h1>
+    <p class="tagline">Every acronym the industry throws at you, spelled out in plain English, with sources you can trust.</p>
+
+    <form class="bowl" id="search-form" role="search">
+      <svg class="bowl-icon" viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="11" cy="11" r="7"/><line x1="16.5" y1="16.5" x2="21" y2="21"/></svg>
+      <input id="search" type="search" placeholder="Try SIEM, ZTNA, PCI DSS, 3DES..." autocomplete="off" aria-label="Search acronyms" />
+      <button type="button" class="clear-btn" id="clear-search" aria-label="Clear search" hidden>&times;</button>
+    </form>
+  </header>
+
+  <nav class="filters" aria-label="Browse filters">
+    <div class="pill-row" id="category-pills"></div>
+    <div class="filter-line">
+      <div class="az-strip" id="az-strip" aria-label="Jump by first letter"></div>
+      <select id="difficulty" class="difficulty-select" aria-label="Filter by difficulty">
+        <option value="">any difficulty</option>
+        <option value="easy">easy</option>
+        <option value="medium">medium</option>
+        <option value="hard">hard</option>
+      </select>
+    </div>
+  </nav>
+
+  <main class="ladle">
+    <section class="soup-of-the-day" id="sotd" aria-label="Soup of the day"></section>
+    <div class="result-meta" id="result-meta" role="status"></div>
+    <section class="results" id="results" aria-label="Search results"></section>
+  </main>
+
+  <footer class="colophon">
+    <p>
+      Think you know your acronyms?
+      <a class="cyberdle-link" href="https://thestateofcybersecurity.github.io/cyberdle/" rel="noopener">Play Cyberdle, the daily acronym game &rarr;</a>
+    </p>
+    <p class="fine-print">
+      <span id="footer-count"></span> acronyms across ten categories, each fact-checked with authoritative sources.
+      <a href="https://github.com/thestateofcybersecurity/AlphabetSoup" rel="noopener">Source on GitHub</a>.
+    </p>
+  </footer>
+
+</body>
+</html>
