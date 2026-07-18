@@ -1,154 +1,72 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cybersecurity Alphabet Soup</title>
-    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://apis.google.com; style-src 'self' 'unsafe-inline'; img-src 'self'; font-src 'self';">
-    <style>
-        html, body {
-            height: 100%;
-            margin: 0;
-            padding: 0;
-            font-family: 'Helvetica Neue', Arial, sans-serif;
-        }
-        body {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            background-color: #ffffff;
-            color: #333333;
-            transition: background-color 0.3s, color 0.3s;
-            overflow: auto;
-        }
-        .container {
-            width: 100%;
-            max-width: 800px;
-            padding: 20px;
-            text-align: center;
-        }
-        h1 {
-            font-size: 2.5rem;
-            margin-bottom: 20px;
-        }
-        input[type="text"] {
-            width: 100%;
-            max-width: 600px;
-            padding: 15px;
-            margin: 20px 0;
-            font-size: 1.2rem;
-            border: none;
-            border-radius: 25px;
-            outline: none;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
-            color: #333;
-        }
-        button {
-            padding: 15px 30px;
-            font-size: 1.2rem;
-            color: #fff;
-            background-color: #de5833;
-            border: none;
-            border-radius: 25px;
-            cursor: pointer;
-            transition: background-color 0.3s;
-        }
-        button:hover {
-            background-color: #e37157;
-        }
-        #result {
-            margin-top: 20px;
-            text-align: left;
-            background-color: #f9f9f9;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
-            overflow-wrap: break-word;
-            max-height: 60vh;
-            overflow-y: auto;
-        }
-        #result h2 {
-            color: #de5833;
-        }
-        #result p {
-            font-size: 1.1rem;
-            color: #555;
-        }
-        #result ul {
-            list-style-type: none;
-            padding: 0;
-        }
-        #result ul li {
-            margin: 5px 0;
-        }
-        #result ul li a {
-            color: #de5833;
-            text-decoration: none;
-        }
-        #result ul li a:hover {
-            text-decoration: underline;
-        }
-        @media (prefers-color-scheme: dark) {
-            body {
-                background-color: #121212;
-                color: #f0f0f0;
-            }
-            input[type="text"] {
-                background-color: #333;
-                color: #f0f0f0;
-                border: 1px solid #555;
-            }
-            button {
-                background-color: #bb86fc;
-            }
-            button:hover {
-                background-color: #3700b3;
-            }
-            #result {
-                background-color: #333;
-                color: #f0f0f0;
-            }
-            #result h2 {
-                color: #bb86fc;
-            }
-            #result p {
-                color: #f0f0f0;
-            }
-            #result ul li a {
-                color: #bb86fc;
-            }
-        }
-         .soup-of-the-day {
-            margin-top: 40px;
-            background-color: #bb86fc;
-            padding: 20px;
-            border-radius: 8px;
-            color: #f0f0f0;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
-        }
-        .soup-of-the-day h2 {
-            margin-top: 0;
-            color: #f0f0f0;
-        }
-    </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="color-scheme" content="light dark" />
+  <meta name="theme-color" content="#f7efe2" />
+  <meta name="description" content="Cybersecurity Alphabet Soup: a plain-English dictionary of 545 cybersecurity acronyms, each with its expansion, an explanation of why it matters, and authoritative sources." />
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Cybersecurity Alphabet Soup" />
+  <meta property="og:description" content="A plain-English dictionary of cybersecurity acronyms: expansions, explanations, and sources." />
+  <meta property="og:url" content="https://cybersecurityalphabetsoup.com/" />
+  <meta property="og:image" content="https://cybersecurityalphabetsoup.com/og-image.png" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <title>Cybersecurity Alphabet Soup: the acronym dictionary</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,700;0,9..144,900;1,9..144,500&family=IBM+Plex+Mono:wght@500;600&family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet" />
+  <link rel="icon" href="/icon.svg" type="image/svg+xml" />
+  <link rel="apple-touch-icon" href="/icon-192.png" />
+  <link rel="manifest" href="/manifest.webmanifest" />
+  <link rel="stylesheet" href="/style.css" />
 </head>
 <body>
-    <div class="container">
-        <h1>Cybersecurity Alphabet Soup</h1>
-        <input type="text" id="acronym" placeholder="Enter acronym (e.g., CISSP)">
-        <button id="searchButton">Find Definition</button>
-         <button id="allAcronymsButton">Show All Acronyms</button>
-        <div id="result"></div>
-         <div class="soup-of-the-day" id="soupOfTheDay">
-            <h2>Soup of the Day</h2>
-            <p id="soupAcronym"></p>
-    </div>
-    <script src="scripts.js"></script>
-            <footer id="acronymCount"></footer>
+  <div class="steam" aria-hidden="true"></div>
 
-    <script>
-        // Update the acronym count on page load
-        updateAcronymCount();
-    </script>
+  <header class="hero">
+    <div class="crouton-field" id="crouton-field" aria-hidden="true"></div>
+    <p class="kicker">est. 288 acronyms &middot; now serving <span id="hero-count">545</span></p>
+    <h1 class="title">Cybersecurity<br /><em>Alphabet Soup</em></h1>
+    <p class="tagline">Every acronym the industry throws at you, spelled out in plain English, with sources you can trust.</p>
+
+    <form class="bowl" id="search-form" role="search">
+      <svg class="bowl-icon" viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="11" cy="11" r="7"/><line x1="16.5" y1="16.5" x2="21" y2="21"/></svg>
+      <input id="search" type="search" placeholder="Try SIEM, ZTNA, PCI DSS, 3DES..." autocomplete="off" aria-label="Search acronyms" />
+      <button type="button" class="clear-btn" id="clear-search" aria-label="Clear search" hidden>&times;</button>
+    </form>
+  </header>
+
+  <nav class="filters" aria-label="Browse filters">
+    <div class="pill-row" id="category-pills"></div>
+    <div class="filter-line">
+      <div class="az-strip" id="az-strip" aria-label="Jump by first letter"></div>
+      <select id="difficulty" class="difficulty-select" aria-label="Filter by difficulty">
+        <option value="">any difficulty</option>
+        <option value="easy">easy</option>
+        <option value="medium">medium</option>
+        <option value="hard">hard</option>
+      </select>
+    </div>
+  </nav>
+
+  <main class="ladle">
+    <section class="soup-of-the-day" id="sotd" aria-label="Soup of the day"></section>
+    <div class="result-meta" id="result-meta" role="status"></div>
+    <section class="results" id="results" aria-label="Search results"></section>
+  </main>
+
+  <footer class="colophon">
+    <p>
+      Think you know your acronyms?
+      <a class="cyberdle-link" href="https://thestateofcybersecurity.github.io/cyberdle/" rel="noopener">Play Cyberdle, the daily acronym game &rarr;</a>
+    </p>
+    <p class="fine-print">
+      <span id="footer-count"></span> acronyms across ten categories, each fact-checked with authoritative sources.
+      <a href="https://github.com/thestateofcybersecurity/AlphabetSoup" rel="noopener">Source on GitHub</a>.
+    </p>
+  </footer>
+
+  <script type="module" src="/src/main.ts"></script>
 </body>
 </html>
