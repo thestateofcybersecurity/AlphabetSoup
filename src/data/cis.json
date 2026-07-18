@@ -11,14 +11,14 @@
     "controlName": "Inventory and Control of Enterprise Assets",
     "title": "Address Unauthorized Assets",
     "metaphor": "Removing any uninvited guests from your home to maintain security.",
-    "translation": "The family ensures that any unauthorized or unknown devices are promptly removed or blocked from the home’s network to keep it secure."
+    "translation": "Any unauthorized or unknown device is promptly blocked or removed from the home's network to keep it secure."
   },
   "1.3": {
     "control": 1,
     "controlName": "Inventory and Control of Enterprise Assets",
     "title": "Utilize an Active Discovery Tool",
     "metaphor": "Walking through your house every day and taking a headcount to see if anyone new is inside.",
-    "translation": "The family actively checks the home network daily to identify any new or unauthorized devices connected, ensuring everything is secure."
+    "translation": "Every day, the household checks the home network to spot any new or unauthorized device that has connected."
   },
   "1.4": {
     "control": 1,
@@ -32,7 +32,7 @@
     "controlName": "Inventory and Control of Enterprise Assets",
     "title": "Use a Passive Asset Discovery Tool",
     "metaphor": "Keeping an ear out for unusual noises in the house to detect if someone is there without your knowledge.",
-    "translation": "The family uses passive tools to listen for any new or unauthorized devices on the network, updating their records at least weekly."
+    "translation": "Using passive tools that quietly listen for new or unauthorized devices, the household updates its records at least weekly."
   },
   "2.1": {
     "control": 2,
@@ -46,7 +46,7 @@
     "controlName": "Inventory and Control of Software Assets",
     "title": "Ensure Authorized Software is Currently Supported",
     "metaphor": "Making sure all your household appliances are still under warranty and supported by the manufacturer.",
-    "translation": "The family ensures that all the software they use is still supported and up-to-date, removing or documenting exceptions for anything outdated."
+    "translation": "All software in use is kept supported and up to date, with any outdated exceptions removed or documented."
   },
   "2.3": {
     "control": 2,
@@ -60,28 +60,28 @@
     "controlName": "Inventory and Control of Software Assets",
     "title": "Utilize Automated Software Inventory Tools",
     "metaphor": "Using a tool to automatically list all the apps installed on your family’s devices.",
-    "translation": "The family uses automated tools to keep track of all software installed across their devices, ensuring the inventory is always accurate."
+    "translation": "Automated tools track all software installed across the household's devices, keeping the inventory accurate without manual effort."
   },
   "2.5": {
     "control": 2,
     "controlName": "Inventory and Control of Software Assets",
     "title": "Allowlist Authorized Software",
-    "metaphor": "Only allowing pre-approved people into your home.",
-    "translation": "The family ensures that only pre-approved software is allowed to run on their devices, blocking anything unauthorized."
+    "metaphor": "Keeping a strict guest list at the door: if a program is not on the approved list, it simply is not allowed to run.",
+    "translation": "Only software explicitly on the approved list may execute; anything not pre-cleared is blocked by default rather than allowed until noticed."
   },
   "2.6": {
     "control": 2,
     "controlName": "Inventory and Control of Software Assets",
     "title": "Allowlist Authorized Libraries",
-    "metaphor": "Allowing only approved books in the family library.",
-    "translation": "The family ensures that only authorized software libraries are allowed to be used on their devices, blocking any that are unauthorized."
+    "metaphor": "Stocking the pantry only with pre-checked ingredients that every recipe draws from, so no tainted ingredient ends up in a meal.",
+    "translation": "Only vetted shared code components (the building-block libraries programs borrow) are permitted to load, blocking any unapproved one."
   },
   "2.7": {
     "control": 2,
     "controlName": "Inventory and Control of Software Assets",
     "title": "Allowlist Authorized Scripts",
-    "metaphor": "Allowing only trusted recipes in the family cookbook.",
-    "translation": "The family ensures that only authorized scripts are allowed to run on their devices, blocking any unauthorized ones."
+    "metaphor": "Running only the chore instructions you have personally signed off on, so no one can slip a harmful task into the daily routine.",
+    "translation": "Only approved automated instruction files (scripts) are allowed to run, so an attacker cannot execute their own commands on a device."
   },
   "3.1": {
     "control": 3,
@@ -95,21 +95,21 @@
     "controlName": "Data Protection",
     "title": "Establish and Maintain a Data Inventory",
     "metaphor": "Keeping a detailed list of all important documents in the house.",
-    "translation": "The family keeps an inventory of all sensitive and important data they possess, ensuring it’s updated regularly."
+    "translation": "An inventory of all sensitive and important data is maintained and refreshed regularly, so nothing valuable goes untracked."
   },
   "3.3": {
     "control": 3,
     "controlName": "Data Protection",
     "title": "Configure Data Access Control Lists",
-    "metaphor": "Setting rules about who can access which rooms in the house.",
-    "translation": "The family sets access controls to ensure that only those who need to access certain data can do so."
+    "metaphor": "Labeling each filing cabinet with the exact names allowed to open it, so the tax folder opens only for the people who truly need it.",
+    "translation": "Each set of data gets its own permission list naming who may read or change it, so access is granted file-by-file rather than to everyone at once."
   },
   "3.4": {
     "control": 3,
     "controlName": "Data Protection",
     "title": "Enforce Data Retention",
     "metaphor": "Keeping important documents for a set number of years before safely discarding them.",
-    "translation": "The family enforces data retention policies to ensure data is kept for the required amount of time and then properly disposed of."
+    "translation": "Data is kept only for the time it is actually needed, then disposed of once retention rules say it can go."
   },
   "3.5": {
     "control": 3,
@@ -123,7 +123,7 @@
     "controlName": "Data Protection",
     "title": "Encrypt Data on End-User Devices",
     "metaphor": "Locking important documents in a safe.",
-    "translation": "The family ensures that sensitive data on their devices is encrypted, so it’s secure even if the device is lost or stolen."
+    "translation": "Sensitive data on laptops and phones is encrypted, so it stays protected even if a device is lost or stolen."
   },
   "3.7": {
     "control": 3,
@@ -137,7 +137,7 @@
     "controlName": "Data Protection",
     "title": "Document Data Flows",
     "metaphor": "Mapping out how information moves through the house, like how mail gets from the mailbox to the right person.",
-    "translation": "The family documents how data flows through their systems, ensuring they understand where data is stored, processed, and transmitted."
+    "translation": "Whenever data moves through their systems, the household documents the path, mapping where it is stored, processed, and sent."
   },
   "3.9": {
     "control": 3,
@@ -151,14 +151,14 @@
     "controlName": "Data Protection",
     "title": "Encrypt Sensitive Data in Transit",
     "metaphor": "Using a locked box to send sensitive documents through the mail.",
-    "translation": "The family ensures that sensitive data is encrypted while it’s being transmitted, protecting it from interception."
+    "translation": "While sensitive data is in transit, it is encrypted so it cannot be read if someone intercepts it along the way."
   },
   "3.11": {
     "control": 3,
     "controlName": "Data Protection",
     "title": "Encrypt Sensitive Data at Rest",
-    "metaphor": "Locking up important documents in a secure filing cabinet when they’re not being used.",
-    "translation": "The family ensures that sensitive data stored on devices is encrypted, keeping it secure even when not in use."
+    "metaphor": "Scrambling everything stored in the long-term archive room so even someone who reaches the shelves reads only gibberish.",
+    "translation": "Data sitting in servers, databases, and backups is encrypted in storage, so reaching the disk does not reveal the contents, distinct from the laptops and phones covered earlier."
   },
   "3.12": {
     "control": 3,
@@ -172,7 +172,7 @@
     "controlName": "Data Protection",
     "title": "Deploy a Data Loss Prevention Solution",
     "metaphor": "Using a security system to monitor for anything valuable leaving the house without permission.",
-    "translation": "The family uses tools to monitor and prevent the unauthorized transfer of sensitive data out of their systems."
+    "translation": "Monitoring tools watch for sensitive data leaving their systems and block any transfer that is not authorized."
   },
   "3.14": {
     "control": 3,
@@ -193,7 +193,7 @@
     "controlName": "Secure Configuration of Enterprise Assets and Software",
     "title": "Establish and Maintain a Secure Configuration Process for Network Infrastructure",
     "metaphor": "Ensuring that the home’s internet and Wi-Fi are set up securely, with strong passwords and proper settings.",
-    "translation": "The family sets and maintains secure configurations for all network devices, ensuring everything is protected from potential threats."
+    "translation": "Secure configurations are set and maintained for every network device, keeping the whole network guarded against threats."
   },
   "4.3": {
     "control": 4,
@@ -207,14 +207,14 @@
     "controlName": "Secure Configuration of Enterprise Assets and Software",
     "title": "Implement and Manage a Firewall on Servers",
     "metaphor": "Building a fence around the house to keep out unwanted visitors.",
-    "translation": "The family installs and manages a firewall on their servers to block unauthorized access and protect their systems from outside threats."
+    "translation": "A firewall is installed and managed on their servers, blocking unauthorized access from outside."
   },
   "4.5": {
     "control": 4,
     "controlName": "Secure Configuration of Enterprise Assets and Software",
     "title": "Implement and Manage a Firewall on End-User Devices",
-    "metaphor": "Putting locks on all the doors and windows of the house.",
-    "translation": "The family ensures that all personal devices have a firewall in place, blocking any unauthorized connections and keeping their data safe."
+    "metaphor": "Each personal device carries its own gatekeeper that refuses unexpected connections, even when the laptop is off at a coffee shop.",
+    "translation": "Every laptop and phone runs its own firewall, so it blocks unwanted incoming connections wherever it happens to be."
   },
   "4.6": {
     "control": 4,
@@ -228,7 +228,7 @@
     "controlName": "Secure Configuration of Enterprise Assets and Software",
     "title": "Manage Default Accounts on Enterprise Assets and Software",
     "metaphor": "Changing the default lock on the front door after moving into a new house.",
-    "translation": "The family changes the default accounts and settings on all devices and software, ensuring they’re not vulnerable to attacks using default credentials."
+    "translation": "Default accounts and settings on every device and program are changed, so no one can break in using factory credentials."
   },
   "4.8": {
     "control": 4,
@@ -241,15 +241,15 @@
     "control": 4,
     "controlName": "Secure Configuration of Enterprise Assets and Software",
     "title": "Configure Trusted DNS Servers on Enterprise Assets",
-    "metaphor": "Using a trusted postal service to deliver important letters.",
-    "translation": "The family configures their devices to use trusted DNS servers, ensuring their internet traffic is directed safely and reliably."
+    "metaphor": "Looking up addresses only in a phone book you trust, so you are never handed directions to a scammer's house.",
+    "translation": "Devices are pointed at trustworthy DNS lookup services, so requests for a website are resolved to the real address and not a fake one."
   },
   "4.10": {
     "control": 4,
     "controlName": "Secure Configuration of Enterprise Assets and Software",
     "title": "Enforce Automatic Device Lockout on Portable End-User Devices",
     "metaphor": "Automatically locking the car doors if someone tries to force them open too many times.",
-    "translation": "The family configures their portable devices to automatically lock after a set number of failed login attempts, protecting them from unauthorized access."
+    "translation": "After too many failed login attempts, portable devices lock themselves automatically to keep intruders out."
   },
   "4.11": {
     "control": 4,
@@ -263,7 +263,7 @@
     "controlName": "Secure Configuration of Enterprise Assets and Software",
     "title": "Separate Enterprise Workspaces on Mobile End-User Devices",
     "metaphor": "Using a separate room in the house for work, keeping it distinct from personal spaces.",
-    "translation": "The family separates work-related data and applications from personal ones on their mobile devices, ensuring that sensitive work information is kept secure and separate from personal use."
+    "translation": "On mobile devices, work data and apps are kept separate from personal ones, so sensitive work information stays contained."
   },
   "5.1": {
     "control": 5,
@@ -277,7 +277,7 @@
     "controlName": "Account Management",
     "title": "Use Unique Passwords",
     "metaphor": "Using different keys for different doors in your house.",
-    "translation": "The family uses unique passwords for all accounts to ensure that if one key (password) is compromised, it doesn’t unlock every door (account)."
+    "translation": "Every account gets its own unique password, so if one is compromised the rest stay locked."
   },
   "5.3": {
     "control": 5,
@@ -291,14 +291,14 @@
     "controlName": "Account Management",
     "title": "Restrict Administrator Privileges to Dedicated Administrator Accounts",
     "metaphor": "Only giving the master key to trusted family members and not using it for everyday tasks.",
-    "translation": "The family restricts administrator privileges to specific accounts used only for critical tasks, ensuring these high-level permissions aren’t used unnecessarily."
+    "translation": "Administrator powers are reserved for dedicated accounts used only for critical tasks, never for everyday work."
   },
   "5.5": {
     "control": 5,
     "controlName": "Account Management",
     "title": "Establish and Maintain an Inventory of Service Accounts",
-    "metaphor": "Keeping a list of all service providers who have access to your home for maintenance.",
-    "translation": "The family maintains an inventory of service accounts, including details about who manages them and their purpose, ensuring that all accounts are authorized and monitored."
+    "metaphor": "A running list of the automated helpers that act on their own, like the sprinkler timer or the thermostat that each has its own login.",
+    "translation": "Beyond the people, the household tracks every automated account that software uses to run tasks, noting who owns each one and why it exists."
   },
   "5.6": {
     "control": 5,
@@ -312,7 +312,7 @@
     "controlName": "Access Control Management",
     "title": "Establish an Access Granting Process",
     "metaphor": "Creating a checklist before giving someone a key to your house.",
-    "translation": "The family establishes a clear process for granting access to their home (enterprise assets) when a new member joins or their role changes, ensuring that only authorized individuals receive access."
+    "translation": "Before a new member joins or changes roles, a clear process decides how access to household systems is granted, so only authorized people get in."
   },
   "6.2": {
     "control": 6,
@@ -326,7 +326,7 @@
     "controlName": "Access Control Management",
     "title": "Require MFA for Externally-Exposed Applications",
     "metaphor": "Using a second lock on the front door for added security.",
-    "translation": "The family requires a second layer of protection (MFA) for accessing applications that can be reached from outside the home, ensuring extra security against unauthorized access."
+    "translation": "Any application reachable from outside the home requires a second proof of identity (MFA) before it opens."
   },
   "6.4": {
     "control": 6,
@@ -339,15 +339,15 @@
     "control": 6,
     "controlName": "Access Control Management",
     "title": "Require MFA for Administrative Access",
-    "metaphor": "Using a master key that requires both a key and a code to open the safe.",
-    "translation": "The family requires multi-factor authentication for accounts with administrative privileges, adding an extra layer of security for the most critical access points."
+    "metaphor": "The account that can rewire the whole house needs two proofs of identity before it turns anything, not just a password.",
+    "translation": "The most powerful admin accounts require a second verification step, because these are the logins an attacker most wants to seize."
   },
   "6.6": {
     "control": 6,
     "controlName": "Access Control Management",
     "title": "Establish and Maintain an Inventory of Authentication and Authorization Systems",
     "metaphor": "Keeping a list of all locks and security systems in the house.",
-    "translation": "The family maintains an inventory of all systems that manage access to the home, ensuring they are kept up-to-date and reviewed regularly."
+    "translation": "An up-to-date inventory of every system that manages access is kept and reviewed regularly."
   },
   "6.7": {
     "control": 6,
@@ -361,7 +361,7 @@
     "controlName": "Access Control Management",
     "title": "Define and Maintain Role-Based Access Control",
     "metaphor": "Deciding which family members get keys to different rooms based on their responsibilities.",
-    "translation": "The family defines and regularly reviews who needs access to what in the home, ensuring that everyone only has the access necessary for their role."
+    "translation": "Who needs access to what is defined by role and reviewed regularly, so everyone holds only the access their job requires."
   },
   "7.1": {
     "control": 7,
@@ -375,7 +375,7 @@
     "controlName": "Continuous Vulnerability Management",
     "title": "Establish and Maintain a Remediation Process",
     "metaphor": "Having a plan to fix cracks in the foundation as soon as they’re found.",
-    "translation": "The family sets up a strategy to prioritize and address identified weaknesses in their home, making sure repairs are done quickly and effectively."
+    "translation": "Once a weakness is found, a set strategy prioritizes and fixes it quickly and effectively."
   },
   "7.3": {
     "control": 7,
@@ -389,7 +389,7 @@
     "controlName": "Continuous Vulnerability Management",
     "title": "Perform Automated Application Patch Management",
     "metaphor": "Automatically updating all the appliances in your home to ensure they’re running safely.",
-    "translation": "The family keeps all their household devices and appliances up to date by automating the installation of updates and patches, ensuring everything functions safely and efficiently."
+    "translation": "Updates and patches for all applications install automatically, keeping every program running safely."
   },
   "7.5": {
     "control": 7,
@@ -403,7 +403,7 @@
     "controlName": "Continuous Vulnerability Management",
     "title": "Perform Automated Vulnerability Scans of Externally-Exposed Enterprise Assets",
     "metaphor": "Checking the exterior of your home for any signs of damage or wear.",
-    "translation": "The family regularly inspects the outside of their home (externally-exposed assets) to identify any vulnerabilities that could be exploited from the outside, ensuring the home remains secure."
+    "translation": "Internet-facing systems are scanned regularly for weaknesses an outsider could exploit, keeping the perimeter secure."
   },
   "7.7": {
     "control": 7,
@@ -423,15 +423,15 @@
     "control": 8,
     "controlName": "Audit Log Management",
     "title": "Collect Audit Logs",
-    "metaphor": "Recording everything that happens in the house to catch any unusual activity.",
-    "translation": "The family collects detailed records of daily activities and events in their home (audit logs) to monitor for any suspicious or unexpected occurrences."
+    "metaphor": "Actually switching on the recorders in every room, not just owning them.",
+    "translation": "The plan from safeguard 8.1 is put into practice: logs are genuinely turned on and gathered from devices, applications, and the network so events are captured as they happen."
   },
   "8.3": {
     "control": 8,
     "controlName": "Audit Log Management",
     "title": "Ensure Adequate Audit Log Storage",
     "metaphor": "Keeping enough storage space in your home diary to record all important events.",
-    "translation": "The family ensures they have sufficient space to store all their recorded activities and events (audit logs) over time."
+    "translation": "Enough storage is set aside to hold all recorded events over time, so no logs are lost to a full disk."
   },
   "8.4": {
     "control": 8,
@@ -444,15 +444,15 @@
     "control": 8,
     "controlName": "Audit Log Management",
     "title": "Collect Detailed Audit Logs",
-    "metaphor": "Writing down everything that happens in your home, including who did what and when.",
-    "translation": "The family collects detailed records of all important activities and events (audit logs), including who was involved and when they occurred, to help with any future investigations."
+    "metaphor": "Upgrading the household journal from someone opened the safe to Dad opened the safe at 9pm using the spare code.",
+    "translation": "Logs capture the fine detail (which user, which device, source, timestamp) needed to actually reconstruct events, not just that something occurred."
   },
   "8.6": {
     "control": 8,
     "controlName": "Audit Log Management",
     "title": "Collect DNS Query Audit Logs",
     "metaphor": "Keeping track of every time someone in your house looks up information online.",
-    "translation": "The family records every online search or lookup (DNS queries) made from their home to monitor and review any potentially risky behavior."
+    "translation": "Every online lookup (DNS query) made from the home is recorded, so risky behavior can be reviewed later."
   },
   "8.7": {
     "control": 8,
@@ -466,7 +466,7 @@
     "controlName": "Audit Log Management",
     "title": "Collect Command-Line Audit Logs",
     "metaphor": "Tracking every command given to your home’s smart devices.",
-    "translation": "The family records every command or instruction issued to their smart devices, helping them monitor and review how these devices are being used."
+    "translation": "Every command issued to their devices is recorded, helping the household see exactly how those systems are used."
   },
   "8.9": {
     "control": 8,
@@ -480,7 +480,7 @@
     "controlName": "Audit Log Management",
     "title": "Retain Audit Logs",
     "metaphor": "Keeping your home diary for at least three months before deciding whether to archive or discard it.",
-    "translation": "The family ensures that all recorded activities and events (audit logs) are kept for a minimum of 90 days, providing a sufficient historical record for any necessary reviews or investigations."
+    "translation": "All recorded events are retained for at least 90 days, giving enough history for any review or investigation."
   },
   "8.11": {
     "control": 8,
@@ -494,7 +494,7 @@
     "controlName": "Audit Log Management",
     "title": "Collect Service Provider Logs",
     "metaphor": "Keeping records of all services provided to your home, like repairs or deliveries.",
-    "translation": "The family records all interactions with service providers, such as repair services or deliveries, to ensure all activities are tracked and can be reviewed if needed."
+    "translation": "Records of every interaction with outside service providers are kept, so those activities can be reviewed if needed."
   },
   "9.1": {
     "control": 9,
@@ -508,14 +508,14 @@
     "controlName": "Email and Web Browser Protections",
     "title": "Use DNS Filtering Services",
     "metaphor": "Using a trusted directory service that refuses to give directions to dangerous neighborhoods when someone in the family asks how to get there.",
-    "translation": "The family uses filtering services to block access to dangerous or unwanted websites, just as they would prevent unknown or suspicious people from entering their neighborhood."
+    "translation": "Filtering services block access to dangerous or unwanted websites before anyone in the home can reach them."
   },
   "9.3": {
     "control": 9,
     "controlName": "Email and Web Browser Protections",
     "title": "Maintain and Enforce Network-Based URL Filters",
-    "metaphor": "Setting family rules about which parts of town members are allowed to visit, so nobody wanders into a dangerous area.",
-    "translation": "The family enforces rules that prevent access to potentially harmful or unapproved websites, similar to erecting a fence to keep unwanted elements out of their property."
+    "metaphor": "A guard at the driveway checks the exact destination of every trip and turns the car around if that address is on the banned list.",
+    "translation": "At the network's edge, requests to specific banned web addresses are blocked outright, going a step past broad category filtering."
   },
   "9.4": {
     "control": 9,
@@ -529,7 +529,7 @@
     "controlName": "Email and Web Browser Protections",
     "title": "Implement DMARC",
     "metaphor": "Installing caller ID to verify who is really calling your home.",
-    "translation": "The family uses verification tools to ensure that any emails claiming to be from trusted sources are genuine, just as they would use caller ID to verify the identity of a phone caller."
+    "translation": "Verification tools confirm that emails claiming to come from trusted senders are genuine, much like caller ID on a phone."
   },
   "9.6": {
     "control": 9,
@@ -543,7 +543,7 @@
     "controlName": "Email and Web Browser Protections",
     "title": "Deploy and Maintain Email Server Anti-Malware Protections",
     "metaphor": "Having a guard dog that checks all mail and packages before they enter your house.",
-    "translation": "The family uses anti-malware tools to scan all emails and attachments for threats, just as a guard dog would inspect all deliveries for potential dangers."
+    "translation": "Anti-malware tools scan every email and attachment for threats before it reaches an inbox."
   },
   "10.1": {
     "control": 10,
@@ -557,7 +557,7 @@
     "controlName": "Malware Defenses",
     "title": "Configure Automatic Anti-Malware Signature Updates",
     "metaphor": "Regularly updating your security system to recognize new types of threats.",
-    "translation": "The family ensures their anti-malware software is always up to date by configuring automatic updates, just as they would update their home security system to detect new types of intruders."
+    "translation": "Automatic updates keep the anti-malware software current, so it recognizes the newest threats."
   },
   "10.3": {
     "control": 10,
@@ -571,7 +571,7 @@
     "controlName": "Malware Defenses",
     "title": "Configure Automatic Anti-Malware Scanning of Removable Media",
     "metaphor": "Inspecting every package that comes into your home for hidden dangers.",
-    "translation": "The family sets up their anti-malware software to automatically scan any removable media for threats, just as they would check every package delivered to their home."
+    "translation": "Any removable media is scanned automatically for threats the moment it connects."
   },
   "10.5": {
     "control": 10,
@@ -585,7 +585,7 @@
     "controlName": "Malware Defenses",
     "title": "Centrally Manage Anti-Malware Software",
     "metaphor": "Having a central control panel for all the locks and alarms in your home.",
-    "translation": "The family manages all their anti-malware protections from a central location, ensuring that every device in the home is protected and monitored efficiently."
+    "translation": "All anti-malware protection is managed from one central place, so every device stays covered and monitored."
   },
   "10.7": {
     "control": 10,
@@ -606,7 +606,7 @@
     "controlName": "Data Recovery",
     "title": "Perform Automated Backups",
     "metaphor": "Regularly making copies of your family photos and important documents and storing them in a safe place.",
-    "translation": "The family ensures that backups of their important data are created automatically and regularly, so they can restore their information if something goes wrong."
+    "translation": "Backups of important data are created automatically and regularly, so information can be restored if something goes wrong."
   },
   "11.3": {
     "control": 11,
@@ -620,7 +620,7 @@
     "controlName": "Data Recovery",
     "title": "Establish and Maintain an Isolated Instance of Recovery Data",
     "metaphor": "Keeping a backup set of keys in a locked box away from your house.",
-    "translation": "The family maintains a separate, secure instance of their recovery data, just as they would keep a backup set of keys in a secure location away from their home."
+    "translation": "A separate, secure copy of recovery data is kept isolated, so a backup survives even if the main systems are hit."
   },
   "11.5": {
     "control": 11,
@@ -634,7 +634,7 @@
     "controlName": "Network Infrastructure Management",
     "title": "Ensure Network Infrastructure is Up-to-Date",
     "metaphor": "Regularly inspecting and upgrading the wiring in your home.",
-    "translation": "The family ensures that their network infrastructure is always up-to-date by regularly reviewing and applying the latest updates, just as they would inspect and upgrade the wiring in their home to prevent electrical issues."
+    "translation": "Network equipment is kept current by regularly applying the latest updates, preventing problems from outdated gear."
   },
   "12.2": {
     "control": 12,
@@ -648,7 +648,7 @@
     "controlName": "Network Infrastructure Management",
     "title": "Securely Manage Network Infrastructure",
     "metaphor": "Locking the control panel that manages your home’s security system.",
-    "translation": "The family manages their network infrastructure securely, ensuring that only authorized individuals have access to make changes, just as they would lock the control panel for their home’s security system."
+    "translation": "Network equipment is managed securely, with only authorized people able to make changes."
   },
   "12.4": {
     "control": 12,
@@ -662,7 +662,7 @@
     "controlName": "Network Infrastructure Management",
     "title": "Centralize Network Authentication, Authorization, and Auditing (AAA)",
     "metaphor": "Managing all the house's locks, deciding who gets which keys, and reviewing the entry logs from one central security panel.",
-    "translation": "The family centralizes the management of network access and controls, ensuring that all authentication and authorization are managed from a single point, just as they would use a master key to manage all the locks in their home."
+    "translation": "Network access and controls are run from a single point, keeping authentication, authorization, and auditing consistent."
   },
   "12.6": {
     "control": 12,
@@ -676,7 +676,7 @@
     "controlName": "Network Infrastructure Management",
     "title": "Ensure Remote Devices Utilize a VPN and are Connecting to an Enterprise’s AAA Infrastructure",
     "metaphor": "Ensuring that any remote workers or visitors check in through a secure gate before entering your home.",
-    "translation": "The family ensures that any devices connecting remotely to their network go through a secure verification process, similar to how visitors must check in at a secure gate before entering the property."
+    "translation": "Any device connecting remotely must pass through a secure verification process before it reaches the network."
   },
   "12.8": {
     "control": 12,
@@ -690,7 +690,7 @@
     "controlName": "Network Monitoring and Defense",
     "title": "Centralize Security Event Alerting",
     "metaphor": "Setting up a central alarm system that alerts you to any unusual activity in the house.",
-    "translation": "The family centralizes all security alerts to ensure they are notified immediately of any suspicious activity, just as they would use a central alarm system to monitor their home."
+    "translation": "All security alerts are gathered in one place, so the household is notified immediately of anything suspicious."
   },
   "13.2": {
     "control": 13,
@@ -704,14 +704,14 @@
     "controlName": "Network Monitoring and Defense",
     "title": "Deploy a Network Intrusion Detection Solution",
     "metaphor": "Installing security cameras around the perimeter of your home.",
-    "translation": "The family uses network-based intrusion detection to monitor for threats across the entire network, just as they would install security cameras to watch the perimeter of their home."
+    "translation": "Network-based intrusion detection watches the whole network for threats, like cameras covering the perimeter."
   },
   "13.4": {
     "control": 13,
     "controlName": "Network Monitoring and Defense",
     "title": "Perform Traffic Filtering Between Network Segments",
-    "metaphor": "Using different keys for different rooms in your house to control who can access them.",
-    "translation": "The family filters network traffic between different segments to control access, similar to how they would use different keys to restrict access to certain rooms in the house."
+    "metaphor": "Fire doors between the wings of the house that only let certain people pass from one section to another.",
+    "translation": "Between the home's separate zones, only approved traffic is allowed to cross from one to the next, so trouble in one area cannot spread everywhere."
   },
   "13.5": {
     "control": 13,
@@ -725,7 +725,7 @@
     "controlName": "Network Monitoring and Defense",
     "title": "Collect Network Traffic Flow Logs",
     "metaphor": "Keeping a detailed record of who comes and goes from your house.",
-    "translation": "The family logs network traffic to monitor and review activities, just as they would keep a record of everyone who enters and exits their home."
+    "translation": "Network traffic is logged so the household can review who connected and what moved across the network."
   },
   "13.7": {
     "control": 13,
@@ -739,14 +739,14 @@
     "controlName": "Network Monitoring and Defense",
     "title": "Deploy a Network Intrusion Prevention Solution",
     "metaphor": "Installing a security fence that stops intruders before they reach your house.",
-    "translation": "The family uses network-based intrusion prevention to block threats before they can affect the network, just as they would install a security fence to stop intruders before they reach their home."
+    "translation": "Network-based intrusion prevention blocks threats before they can reach the network, like a fence stopping intruders early."
   },
   "13.9": {
     "control": 13,
     "controlName": "Network Monitoring and Defense",
     "title": "Deploy Port-Level Access Control",
-    "metaphor": "Locking certain doors and windows to prevent unauthorized entry.",
-    "translation": "The family controls access to specific network ports to prevent unauthorized access, similar to locking certain doors and windows in their home."
+    "metaphor": "Every wall jack checks a device's ID before it will supply a connection, so a stranger who plugs in gets nothing.",
+    "translation": "Only recognized, authorized devices are allowed to connect at each network port, so an unknown machine plugged into the wall is denied access."
   },
   "13.10": {
     "control": 13,
@@ -760,7 +760,7 @@
     "controlName": "Network Monitoring and Defense",
     "title": "Tune Security Event Alerting Thresholds",
     "metaphor": "Adjusting your home security system to reduce false alarms while still catching real threats.",
-    "translation": "The family fine-tunes their security alert system to minimize false positives and ensure real threats are detected, just as they would adjust their home security system to reduce unnecessary alarms."
+    "translation": "Alert thresholds are fine-tuned to cut false alarms while still catching real threats."
   },
   "14.1": {
     "control": 14,
@@ -774,7 +774,7 @@
     "controlName": "Security Awareness and Skills Training",
     "title": "Train Workforce Members to Recognize Social Engineering Attacks",
     "metaphor": "Teaching your family to recognize when someone is pretending to be a friend to gain access to your home.",
-    "translation": "The family trains everyone to recognize and respond to social engineering tactics, just as they would teach them to spot someone pretending to be a friend to gain access to their house."
+    "translation": "Everyone is trained to recognize and resist social engineering, spotting when someone poses as a friend to gain access."
   },
   "14.3": {
     "control": 14,
@@ -788,7 +788,7 @@
     "controlName": "Security Awareness and Skills Training",
     "title": "Train Workforce on Data Handling Best Practices",
     "metaphor": "Teaching your family how to safely store and dispose of important documents.",
-    "translation": "The family educates everyone on how to handle sensitive data properly, including storage and disposal, just as they would teach them how to manage important documents securely."
+    "translation": "Everyone learns how to handle sensitive data properly, from safe storage to secure disposal."
   },
   "14.5": {
     "control": 14,
@@ -802,7 +802,7 @@
     "controlName": "Security Awareness and Skills Training",
     "title": "Train Workforce Members on Recognizing and Reporting Security Incidents",
     "metaphor": "Teaching your family how to recognize a break-in and report it immediately.",
-    "translation": "The family trains everyone to recognize signs of a security incident and report it promptly, just as they would teach them to notice and report a break-in."
+    "translation": "Household members are taught to recognize the signs of a security incident and report it promptly."
   },
   "14.7": {
     "control": 14,
@@ -816,7 +816,7 @@
     "controlName": "Security Awareness and Skills Training",
     "title": "Train Workforce on the Dangers of Connecting to and Transmitting Enterprise Data Over Insecure Networks",
     "metaphor": "Warning your family not to share sensitive information over a public phone line.",
-    "translation": "The family educates everyone about the dangers of using insecure networks to transmit sensitive data, just as they would warn against sharing private information over a public phone line."
+    "translation": "Everyone is warned about the dangers of sending sensitive data over insecure networks, like a public phone line."
   },
   "14.9": {
     "control": 14,
@@ -837,7 +837,7 @@
     "controlName": "Service Provider Management",
     "title": "Establish and Maintain a Service Provider Management Policy",
     "metaphor": "Setting rules for how and when service providers can access your home.",
-    "translation": "The family creates and maintains a policy that outlines how service providers should be managed and monitored, just as they would establish rules for when and how repairmen can enter their home."
+    "translation": "A written policy spells out how service providers are managed and monitored, setting the rules before anyone is let in."
   },
   "15.3": {
     "control": 15,
@@ -851,7 +851,7 @@
     "controlName": "Service Provider Management",
     "title": "Ensure Service Provider Contracts Include Security Requirements",
     "metaphor": "Making sure your contractor agrees to follow your house rules before starting any work.",
-    "translation": "The family ensures that all agreements with service providers include specific security requirements, just as they would make sure a contractor agrees to follow the house rules before starting any work."
+    "translation": "Every agreement with a service provider spells out specific security requirements before work begins."
   },
   "15.5": {
     "control": 15,
@@ -865,7 +865,7 @@
     "controlName": "Service Provider Management",
     "title": "Monitor Service Providers",
     "metaphor": "Keeping an eye on workers while they’re doing repairs in your home.",
-    "translation": "The family monitors the activities of their service providers to ensure they continue to meet expectations, just as they would supervise workers while they’re doing repairs."
+    "translation": "Service providers are monitored as they work, so they keep meeting expectations throughout the job."
   },
   "15.7": {
     "control": 15,
@@ -886,7 +886,7 @@
     "controlName": "Application Software Security",
     "title": "Establish and Maintain a Process to Accept and Address Software Vulnerabilities",
     "metaphor": "Having a process for identifying and fixing weak spots in your home’s security.",
-    "translation": "The family maintains a process to identify and address vulnerabilities in their software, just as they would have a plan to identify and fix weak spots in their home’s security."
+    "translation": "A standing process catches and addresses software vulnerabilities, much like a plan for fixing weak spots in the home."
   },
   "16.3": {
     "control": 16,
@@ -900,7 +900,7 @@
     "controlName": "Application Software Security",
     "title": "Establish and Manage an Inventory of Third-Party Software Components",
     "metaphor": "Keeping a list of all the materials used to build your house and checking their quality regularly.",
-    "translation": "The family maintains an inventory of all third-party software components they use and regularly checks their quality, just as they would keep track of all building materials used in their home."
+    "translation": "An inventory of every third-party software component is kept and its quality checked regularly."
   },
   "16.5": {
     "control": 16,
@@ -914,7 +914,7 @@
     "controlName": "Application Software Security",
     "title": "Establish and Maintain a Severity Rating System and Process for Application Vulnerabilities",
     "metaphor": "Ranking home repairs by importance and urgency.",
-    "translation": "The family creates a system to prioritize the fixing of software vulnerabilities, similar to how they would rank home repairs by importance and urgency."
+    "translation": "A rating system ranks software vulnerabilities by severity, so the most urgent fixes come first."
   },
   "16.7": {
     "control": 16,
@@ -928,7 +928,7 @@
     "controlName": "Application Software Security",
     "title": "Separate Production and Non-Production Systems",
     "metaphor": "Keeping your toolshed separate from your living space.",
-    "translation": "The family keeps their production and non-production environments separate, just as they would keep their toolshed separate from their living areas."
+    "translation": "Production and non-production environments are kept apart, like a toolshed kept separate from the living space."
   },
   "16.9": {
     "control": 16,
@@ -942,7 +942,7 @@
     "controlName": "Application Software Security",
     "title": "Apply Secure Design Principles in Application Architectures",
     "metaphor": "Designing your home with safety in mind, like placing fire extinguishers and emergency exits in key locations.",
-    "translation": "The family applies secure design principles to their software architectures, just as they would design their home to include safety features like fire extinguishers and emergency exits."
+    "translation": "Secure design principles are built into their software from the start, the way safety features are planned into a home."
   },
   "16.11": {
     "control": 16,
@@ -956,7 +956,7 @@
     "controlName": "Application Software Security",
     "title": "Implement Code-Level Security Checks",
     "metaphor": "Inspecting every brick as your house is built to ensure none are cracked or weak.",
-    "translation": "The family uses code-level security checks throughout the development process to catch vulnerabilities early, just as they would inspect every brick during construction to ensure quality."
+    "translation": "Code-level security checks run throughout development to catch vulnerabilities early, like inspecting each brick as it is laid."
   },
   "16.13": {
     "control": 16,
@@ -970,7 +970,7 @@
     "controlName": "Application Software Security",
     "title": "Conduct Threat Modeling",
     "metaphor": "Planning for potential break-ins by identifying the weakest points in your home’s layout.",
-    "translation": "The family conducts threat modeling to identify and mitigate potential risks in their software designs, just as they would plan for possible break-ins by identifying weak points in their home’s layout."
+    "translation": "Threat modeling maps out potential risks in their software designs, the way one would spot the weakest points of a home."
   },
   "17.1": {
     "control": 17,
@@ -984,7 +984,7 @@
     "controlName": "Incident Response Management",
     "title": "Establish and Maintain Contact Information for Reporting Security Incidents",
     "metaphor": "Keeping a list of emergency contacts on the fridge for everyone to see.",
-    "translation": "The family keeps an updated list of contacts for reporting security incidents, just as they would maintain a list of emergency contacts in a visible place."
+    "translation": "An up-to-date list of contacts for reporting security incidents is kept where everyone can find it."
   },
   "17.3": {
     "control": 17,
@@ -998,14 +998,14 @@
     "controlName": "Incident Response Management",
     "title": "Establish and Maintain an Incident Response Process",
     "metaphor": "Creating a step-by-step plan for how to respond if there’s a break-in at your house.",
-    "translation": "The family establishes a detailed process for responding to security incidents, just as they would create a plan for how to handle a break-in."
+    "translation": "Before anything goes wrong, the household writes the exact sequence to follow during an incident: who to notify, what to disconnect, how to preserve evidence, and how to get back to normal."
   },
   "17.5": {
     "control": 17,
     "controlName": "Incident Response Management",
     "title": "Assign Key Roles and Responsibilities",
     "metaphor": "Assigning each family member a specific role during an emergency, like who calls the police or checks on the kids.",
-    "translation": "The family assigns specific roles and responsibilities for responding to incidents, just as they would decide who does what during a home emergency."
+    "translation": "Specific roles and responsibilities are assigned for handling incidents, so everyone knows their job in a crisis."
   },
   "17.6": {
     "control": 17,
@@ -1019,7 +1019,7 @@
     "controlName": "Incident Response Management",
     "title": "Conduct Routine Incident Response Exercises",
     "metaphor": "Practicing fire drills with your family to make sure everyone knows what to do.",
-    "translation": "The family regularly practices incident response scenarios to ensure everyone knows their role, just as they would practice fire drills at home."
+    "translation": "Incident response scenarios are practiced regularly, so everyone knows their part, like running fire drills."
   },
   "17.8": {
     "control": 17,
@@ -1033,7 +1033,7 @@
     "controlName": "Incident Response Management",
     "title": "Establish and Maintain Security Incident Thresholds",
     "metaphor": "Setting criteria for when to call the police versus when to handle a situation yourself.",
-    "translation": "The family establishes clear guidelines to determine when a security issue is severe enough to escalate, just as they would decide when an issue at home requires outside help versus handling it themselves."
+    "translation": "Clear thresholds decide when a security issue is serious enough to escalate, versus when it can be handled in-house."
   },
   "18.1": {
     "control": 18,
@@ -1046,15 +1046,15 @@
     "control": 18,
     "controlName": "Penetration Testing",
     "title": "Perform Periodic External Penetration Tests",
-    "metaphor": "Getting an outsider to try and break into your house to see if your security measures hold up.",
-    "translation": "The family conducts regular penetration tests from an external perspective to uncover vulnerabilities, just as they would have an outsider test their home security."
+    "metaphor": "A stranger with no floor plan is paid to probe the outside of the house, testing only what an actual burglar on the street could reach.",
+    "translation": "From outside the network, testers attack the systems exposed to the internet to see what a real remote attacker could break through."
   },
   "18.3": {
     "control": 18,
     "controlName": "Penetration Testing",
     "title": "Remediate Penetration Test Findings",
     "metaphor": "Fixing any weak spots found in your home’s defenses after a security test.",
-    "translation": "The family addresses any vulnerabilities discovered during penetration testing, just as they would repair weak spots in their home’s security after a test."
+    "translation": "Any weakness uncovered during penetration testing is fixed, closing the gaps the test revealed."
   },
   "18.4": {
     "control": 18,
@@ -1068,6 +1068,6 @@
     "controlName": "Penetration Testing",
     "title": "Perform Periodic Internal Penetration Tests",
     "metaphor": "Testing your home security from the inside to make sure everything is secure even if someone gets in.",
-    "translation": "The family regularly tests their security measures from within the organization to ensure internal defenses are strong, just as they would check their home’s security from the inside."
+    "translation": "Internal penetration tests run regularly to confirm that defenses hold up even against someone already inside."
   }
 }
