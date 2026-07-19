@@ -38,6 +38,31 @@ test('answers persist across reloads', async ({ page }) => {
   await expect(ransomwareCard.locator('.primary-btn')).toHaveText('Resume');
 });
 
+test('cross-assessment posture overview shows scores, trend, and cadence', async ({ page }) => {
+  await page.goto('/assess/');
+  // Seed two assessments with history, then reload the landing.
+  await page.evaluate(() => {
+    localStorage.setItem('alphabetsoup:assessment:cpg', JSON.stringify({ '1.A': 'yes', '1.B': 'no' }));
+    localStorage.setItem(
+      'alphabetsoup:assessment-history:cpg',
+      JSON.stringify([{ date: '2025-06-01', overall: 10 }, { date: '2025-09-01', overall: 40 }]),
+    );
+  });
+  await page.goto('/assess/');
+  await expect(page.locator('.posture-summary')).toContainText('assessed');
+  const cpgCard = page.locator('.assess-card[data-assessment="cpg"]');
+  // 1 satisfied of 34 applicable (unanswered count as deficient) -> 3%.
+  await expect(cpgCard.locator('.posture-score')).toHaveText('3%');
+  // An old last-assessment date surfaces a review nudge.
+  await expect(cpgCard.locator('.posture-due')).toContainText('due for review');
+  // A never-started assessment reads "not started".
+  await expect(page.locator('.assess-card[data-assessment="cis-ig1"] .posture-score')).toHaveText('not started');
+  await page.evaluate(() => {
+    localStorage.removeItem('alphabetsoup:assessment:cpg');
+    localStorage.removeItem('alphabetsoup:assessment-history:cpg');
+  });
+});
+
 test('all-N/A answers show an insufficient state, not a false tier', async ({ page }) => {
   await page.goto('/assess/?a=ransomware');
   // Answer every question N/A.
