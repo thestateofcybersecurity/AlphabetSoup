@@ -1204,6 +1204,29 @@ body {
 }
 .depth-milestones {
   color: var(--ink-soft);
+  list-style: none;
+  padding-left: 0;
+}
+.milestone-row {
+  margin: 3px 0;
+}
+.milestone-label {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  cursor: pointer;
+  line-height: 1.45;
+}
+.milestone-label input {
+  margin-top: 3px;
+  flex-shrink: 0;
+}
+.milestone-row.done .milestone-label span {
+  text-decoration: line-through;
+  opacity: 0.6;
+}
+.task-milestones {
+  margin-top: 2px;
 }
 .kpi-list {
   list-style: none;

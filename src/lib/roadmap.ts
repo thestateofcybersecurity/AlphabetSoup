@@ -40,6 +40,8 @@ export interface TaskState {
   note?: string;
   /** Per-KPI attainment, keyed by the KPI's index in the task's kpis array. */
   kpiStatus?: Record<string, KpiStatus>;
+  /** Completed milestones, keyed by the milestone's index in the task's milestones array. */
+  milestonesDone?: Record<string, boolean>;
 }
 
 export type PlanState = Record<string, TaskState>;
@@ -343,6 +345,19 @@ export function kpiAttainmentCounts(
   return counts;
 }
 
+/** Completed vs total milestones across every task that has milestones. */
+export function milestoneProgress(tasks: RoadmapTask[], state: PlanState): { done: number; total: number } {
+  let done = 0;
+  let total = 0;
+  for (const task of tasks) {
+    if (!task.milestones) continue;
+    const marks = state[task.id]?.milestonesDone ?? {};
+    total += task.milestones.length;
+    for (let i = 0; i < task.milestones.length; i += 1) if (marks[String(i)]) done += 1;
+  }
+  return { done, total };
+}
+
 const MONTHS = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
 
 /** Map a quarter to a calendar range from a program start month ("YYYY-MM"). */
@@ -365,10 +380,11 @@ const csvEscape = (value: string): string =>
 
 export function planToCsv(tasks: RoadmapTask[], state: PlanState): string {
   const rows = [
-    ['id', 'task', 'group', 'quarter', 'status', 'owner', 'target_date', 'notes', 'standards', 'kpis', 'hours'],
+    ['id', 'task', 'group', 'quarter', 'status', 'owner', 'target_date', 'notes', 'standards', 'kpis', 'milestones', 'hours'],
   ];
   for (const task of tasks) {
     const s = state[task.id] ?? { quarter: task.defaultQuarter, status: 'planned' };
+    const milestonesDone = (task.milestones ?? []).filter((_, i) => s.milestonesDone?.[String(i)]).length;
     rows.push([
       task.id,
       task.label,
@@ -382,6 +398,7 @@ export function planToCsv(tasks: RoadmapTask[], state: PlanState): string {
       (task.kpis ?? [])
         .map((kpi, i) => `${kpi} [${s.kpiStatus?.[String(i)] ?? 'unmet'}]`)
         .join('; '),
+      task.milestones?.length ? `${milestonesDone}/${task.milestones.length}` : '',
       task.hours != null ? String(task.hours) : '',
     ]);
   }
