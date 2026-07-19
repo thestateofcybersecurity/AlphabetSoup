@@ -22,6 +22,7 @@
   <link rel="stylesheet" href="/style.css" />
 </head>
 <body>
+  <a class="skip-link" href="#main">Skip to content</a>
   <div class="steam" aria-hidden="true"></div>
 
   <nav class="site-nav" aria-label="Site">
@@ -50,10 +51,11 @@
 
   <nav class="filters" aria-label="Browse filters">
     <div class="pill-row" id="category-pills"></div>
+    <div class="pill-row" id="difficulty-pills"></div>
     <div class="az-strip" id="az-strip" aria-label="Jump by first letter"></div>
   </nav>
 
-  <main class="ladle">
+  <main id="main" class="ladle">
     <section class="soup-of-the-day" id="sotd" aria-label="Soup of the day"></section>
     <div class="framework-hint" id="framework-hint" hidden></div>
     <div class="result-meta" id="result-meta" role="status"></div>

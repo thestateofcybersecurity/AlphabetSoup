@@ -38,6 +38,27 @@ test('answers persist across reloads', async ({ page }) => {
   await expect(ransomwareCard.locator('.primary-btn')).toHaveText('Resume');
 });
 
+test('all-N/A answers show an insufficient state, not a false tier', async ({ page }) => {
+  await page.goto('/assess/?a=ransomware');
+  // Answer every question N/A.
+  const naButtons = page.locator('.assess-row .yesno-btn.state-na');
+  const count = await naButtons.count();
+  for (let i = 0; i < count; i++) await naButtons.nth(i).click();
+  await page.locator('#assess-done').click();
+  await expect(page.locator('.quiz-score-big')).toHaveText('—');
+  await expect(page.locator('.assess-band')).toHaveText('Not enough to score');
+  await expect(page.locator('.attain-badge')).toHaveCount(0);
+});
+
+test('answer buttons are an accessible radiogroup', async ({ page }) => {
+  await page.goto('/assess/?a=ransomware');
+  const group = page.locator('.yesno').first();
+  await expect(group).toHaveAttribute('role', 'radiogroup');
+  const yes = group.locator('.state-yes');
+  await yes.click();
+  await expect(yes).toHaveAttribute('aria-checked', 'true');
+});
+
 test('CISA CPG module scores with N/A excluded and shows guidance', async ({ page }) => {
   await page.goto('/assess/?a=cpg');
   await expect(page.locator('#assess-progress')).toHaveText('0/34 answered');

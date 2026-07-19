@@ -5,16 +5,19 @@ import { dailyIndex, dayNumber, localDateString } from './lib/daily';
 import { detectFrameworkQuery } from './lib/framework-search';
 import { slugForKey } from './lib/slug';
 import { CATEGORIES } from './lib/types';
-import type { Category } from './lib/types';
+import type { Category, Difficulty } from './lib/types';
 
 const data = allData();
 const byId = (id: string) => document.getElementById(id) as HTMLElement;
 
-const state: { query: string; category: Category | ''; letter: string } = {
+const state: { query: string; category: Category | ''; letter: string; difficulty: Difficulty | '' } = {
   query: '',
   category: '',
   letter: '',
+  difficulty: '',
 };
+
+const DIFFICULTIES: Difficulty[] = ['easy', 'medium', 'hard'];
 
 const PAGE_SIZE = 60;
 /** How many results are currently revealed; grows via "Show more". */
@@ -54,7 +57,10 @@ function renderCroutons(): void {
 
 function renderPills(): void {
   const row = byId('category-pills');
+  row.setAttribute('role', 'group');
+  row.setAttribute('aria-label', 'Filter by category');
   const all = el('button', 'pill active', 'all');
+  all.dataset.category = '';
   all.addEventListener('click', () => {
     state.category = '';
     resetPaging();
@@ -73,6 +79,7 @@ function renderPills(): void {
     });
     row.appendChild(pill);
   }
+  syncPills();
 }
 
 function syncPills(): void {
@@ -80,23 +87,64 @@ function syncPills(): void {
     .querySelectorAll<HTMLButtonElement>('.pill')
     .forEach((pill) => {
       const category = pill.dataset.category ?? '';
-      pill.classList.toggle('active', category === state.category);
+      const active = category === state.category;
+      pill.classList.toggle('active', active);
+      pill.setAttribute('aria-pressed', String(active));
     });
+}
+
+function renderDifficulty(): void {
+  const row = byId('difficulty-pills');
+  if (!row) return;
+  row.setAttribute('role', 'group');
+  row.setAttribute('aria-label', 'Filter by difficulty');
+  for (const level of ['', ...DIFFICULTIES] as (Difficulty | '')[]) {
+    const pill = el('button', 'pill', level === '' ? 'any level' : level);
+    pill.dataset.difficulty = level;
+    pill.addEventListener('click', () => {
+      state.difficulty = level;
+      resetPaging();
+      syncDifficulty();
+      render();
+    });
+    row.appendChild(pill);
+  }
+  syncDifficulty();
+}
+
+function syncDifficulty(): void {
+  const row = byId('difficulty-pills');
+  if (!row) return;
+  row.querySelectorAll<HTMLButtonElement>('.pill').forEach((pill) => {
+    const active = (pill.dataset.difficulty ?? '') === state.difficulty;
+    pill.classList.toggle('active', active);
+    pill.setAttribute('aria-pressed', String(active));
+  });
 }
 
 function renderAzStrip(): void {
   const strip = byId('az-strip');
+  strip.setAttribute('role', 'group');
+  strip.setAttribute('aria-label', 'Jump to first letter');
   const present = new Set(sortedKeys().map((key) => key[0]));
   for (const ch of '0ABCDEFGHIJKLMNOPQRSTUVWXYZ') {
     const label = ch === '0' ? '#' : ch;
     const btn = el('button', 'az', label);
+    btn.setAttribute('aria-label', ch === '0' ? 'Numbers' : ch);
+    btn.setAttribute('aria-pressed', 'false');
     const hasAny = ch === '0' ? [...present].some((c) => /[0-9]/.test(c)) : present.has(ch);
     btn.disabled = !hasAny;
     btn.addEventListener('click', () => {
       state.letter = state.letter === ch ? '' : ch;
       resetPaging();
-      strip.querySelectorAll('.az').forEach((b) => b.classList.remove('active'));
-      if (state.letter) btn.classList.add('active');
+      strip.querySelectorAll('.az').forEach((b) => {
+        b.classList.remove('active');
+        b.setAttribute('aria-pressed', 'false');
+      });
+      if (state.letter) {
+        btn.classList.add('active');
+        btn.setAttribute('aria-pressed', 'true');
+      }
       render();
     });
     strip.appendChild(btn);
@@ -121,8 +169,8 @@ function renderSoupOfTheDay(): void {
 
 function letterFilter(): SearchFilter {
   // '#' bucket: any digit-leading key
-  if (state.letter === '0') return { category: state.category };
-  return { category: state.category, letter: state.letter };
+  if (state.letter === '0') return { category: state.category, difficulty: state.difficulty };
+  return { category: state.category, letter: state.letter, difficulty: state.difficulty };
 }
 
 type CrossSearchModule = typeof import('./lib/global-search') & {
@@ -211,7 +259,7 @@ function render(): void {
   const visible = Math.min(shownCount, keys.length);
   const shown = keys.slice(0, visible);
   const total = Object.keys(data).length;
-  const filtering = Boolean(state.query || state.category || state.letter);
+  const filtering = Boolean(state.query || state.category || state.letter || state.difficulty);
 
   byId('sotd').hidden = filtering;
   const label = filtering
@@ -307,6 +355,7 @@ function main(): void {
   byId('footer-count').textContent = String(total);
   renderCroutons();
   renderPills();
+  renderDifficulty();
   renderAzStrip();
   renderSoupOfTheDay();
   initSearch();
