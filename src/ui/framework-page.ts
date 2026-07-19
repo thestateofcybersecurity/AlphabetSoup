@@ -112,7 +112,10 @@ export function initFrameworkPage(config: FrameworkPageConfig): void {
 
   // Filter pills
   const pillRow = byId('group-pills');
+  pillRow.setAttribute('role', 'group');
+  pillRow.setAttribute('aria-label', 'Filter');
   const allPill = el('button', 'pill active', 'all');
+  allPill.dataset.group = '';
   allPill.addEventListener('click', () => {
     state.group = '';
     syncPills();
@@ -122,7 +125,10 @@ export function initFrameworkPage(config: FrameworkPageConfig): void {
   for (const group of config.groups) {
     const pill = el('button', 'pill', group.label);
     pill.dataset.group = group.value;
-    if (group.title) pill.title = group.title;
+    if (group.title) {
+      pill.title = group.title;
+      pill.setAttribute('aria-label', group.title);
+    }
     pill.addEventListener('click', () => {
       state.group = state.group === group.value ? '' : group.value;
       syncPills();
@@ -132,9 +138,12 @@ export function initFrameworkPage(config: FrameworkPageConfig): void {
   }
   function syncPills(): void {
     pillRow.querySelectorAll<HTMLButtonElement>('.pill').forEach((pill) => {
-      pill.classList.toggle('active', (pill.dataset.group ?? '') === state.group);
+      const active = (pill.dataset.group ?? '') === state.group;
+      pill.classList.toggle('active', active);
+      pill.setAttribute('aria-pressed', String(active));
     });
   }
+  syncPills();
 
   // Search box
   const input = byId('search') as HTMLInputElement;

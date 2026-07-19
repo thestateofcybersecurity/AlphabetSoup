@@ -201,13 +201,28 @@ function renderChoice(player: HTMLElement, question: ChoiceQuestion): void {
   const questionIndex = session!.order[session!.position];
   const { choices, correctIndex } = shuffledChoices(question);
   const list = el('div', 'choice-list');
+  list.setAttribute('role', 'radiogroup');
+  list.setAttribute('aria-label', `Answer choices (press 1 to ${choices.length} to answer)`);
   let answered = false;
+  const onKey = (event: KeyboardEvent): void => {
+    if (answered) return;
+    const n = Number(event.key);
+    if (Number.isInteger(n) && n >= 1 && n <= choices.length) {
+      event.preventDefault();
+      (list.children[n - 1] as HTMLElement).click();
+    }
+  };
+  document.addEventListener('keydown', onKey);
   choices.forEach((choice, index) => {
     const btn = el('button', 'choice-btn', choice);
+    btn.setAttribute('role', 'radio');
+    btn.setAttribute('aria-checked', 'false');
     btn.addEventListener('click', () => {
       if (answered) return;
       answered = true;
+      document.removeEventListener('keydown', onKey);
       const correct = index === correctIndex;
+      btn.setAttribute('aria-checked', 'true');
       btn.classList.add(correct ? 'right' : 'wrong');
       (list.children[correctIndex] as HTMLElement).classList.add('right');
       list.querySelectorAll('.choice-btn').forEach((b) => b.classList.add('locked'));
@@ -215,6 +230,7 @@ function renderChoice(player: HTMLElement, question: ChoiceQuestion): void {
       trackAnswer(questionIndex, correct);
       if (question.why) {
         const why = el('div', 'why-box');
+        why.setAttribute('role', 'status');
         why.appendChild(el('span', 'why-label', correct ? 'Correct' : 'Not quite'));
         why.appendChild(el('p', undefined, question.why));
         player.appendChild(why);
@@ -267,12 +283,15 @@ function renderResults(): void {
   commitRound();
   const player = playerShell();
   const percent = scorePercent(session);
-  player.appendChild(el('p', 'quiz-question', 'Round complete.'));
+  player.appendChild(el('p', 'quiz-question', fullRound ? 'Round complete.' : 'Review complete.'));
   const score = el('div', 'quiz-score');
   score.appendChild(el('span', 'quiz-score-big', `${percent}%`));
-  score.appendChild(
-    el('span', 'deck-sub', `${session.correct} of ${session.order.length} correct`),
-  );
+  const scoreMeta = el('div');
+  scoreMeta.appendChild(el('span', 'deck-sub', `${session.correct} of ${session.order.length} correct`));
+  if (!fullRound) {
+    scoreMeta.appendChild(el('div', 'deck-sub', 'Review round, not counted toward your best score.'));
+  }
+  score.appendChild(scoreMeta);
   player.appendChild(score);
 
   const actions = el('div', 'deck-actions');

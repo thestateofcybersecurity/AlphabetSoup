@@ -65,6 +65,19 @@ const esc = (value: string): string =>
   value.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
 
 /**
+ * A clean meta description: the full text if short, otherwise trimmed to ~157
+ * chars on a word boundary with an ellipsis. Avoids the old bug of cutting at
+ * the first ". " (which mangled entries like "NIST SP 800-63B. It requires...").
+ */
+const metaDescription = (text: string): string => {
+  const clean = text.replace(/\s+/g, ' ').trim();
+  if (clean.length <= 160) return esc(clean);
+  const cut = clean.slice(0, 157);
+  const lastSpace = cut.lastIndexOf(' ');
+  return esc((lastSpace > 120 ? cut.slice(0, lastSpace) : cut).trimEnd() + '…');
+};
+
+/**
  * Serialize an object for embedding in an inline <script type="application/ld+json">.
  * JSON.stringify does not neutralize a literal "</script>" inside string fields, so
  * escape "<" as its JSON unicode form to prevent breaking out of the script element.
@@ -96,6 +109,8 @@ footer .play{font-family:'Fraunces',Georgia,serif;font-style:italic;font-weight:
 .gnav a{font-family:'IBM Plex Mono',monospace;font-size:.68rem;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-soft);text-decoration:none;padding:5px 10px;border-radius:999px;white-space:nowrap}
 .gnav a:hover{color:var(--tomato)}
 .gnav a.play-link{color:var(--tomato)}
+a:focus-visible,button:focus-visible{outline:2px solid var(--tomato);outline-offset:2px;border-radius:4px}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.001ms!important;transition-duration:.001ms!important}}
 `.trim();
 
 const CYBERDLE_NAV = 'https://thestateofcybersecurity.github.io/cyberdle/';
@@ -132,7 +147,7 @@ function relatedKeys(key: string): string[] {
 function definitionPage(key: string, entry: AcronymEntry): string {
   const slug = slugForKey(key);
   const url = `${SITE}/definitions/${slug}.html`;
-  const description = esc(entry.explanation.split('. ')[0] + '.');
+  const description = metaDescription(entry.explanation);
   const jsonLd = jsonLdScript({
     '@context': 'https://schema.org',
     '@type': 'DefinedTerm',
@@ -296,7 +311,7 @@ interface FrameworkPageInput {
 function frameworkPage(input: FrameworkPageInput): string {
   const slug = frameworkSlug(input.id);
   const url = `${SITE}/frameworks/${input.sectionPath}/${slug}.html`;
-  const description = esc(input.translation.split('. ')[0] + '.');
+  const description = metaDescription(input.translation);
   const jsonLd = jsonLdScript({
     '@context': 'https://schema.org',
     '@type': 'DefinedTerm',
@@ -382,8 +397,9 @@ csfIds.forEach((id, i) => {
       sectionLabel: 'NIST CSF 2.0 in plain English',
       officialName: 'NIST Cybersecurity Framework',
       officialUrl: 'https://www.nist.gov/cyberframework',
-      prev: csfIds[i - 1],
-      next: csfIds[i + 1],
+      // Keep prev/next within the same function (do not cross GV -> ID).
+      prev: csfIds[i - 1]?.slice(0, 2) === id.slice(0, 2) ? csfIds[i - 1] : undefined,
+      next: csfIds[i + 1]?.slice(0, 2) === id.slice(0, 2) ? csfIds[i + 1] : undefined,
       accent: '#2c6e91',
       accentDark: '#5da4c9',
       mappedLabel: 'Related CIS safeguards (unofficial mapping)',
@@ -414,8 +430,9 @@ cisIds.forEach((id, i) => {
       sectionLabel: 'CIS Controls v8 in plain English',
       officialName: 'CIS Critical Security Controls',
       officialUrl: 'https://www.cisecurity.org/controls',
-      prev: cisIds[i - 1],
-      next: cisIds[i + 1],
+      // Keep prev/next within the same control number (do not cross 1.x -> 2.x).
+      prev: cisIds[i - 1]?.split('.')[0] === id.split('.')[0] ? cisIds[i - 1] : undefined,
+      next: cisIds[i + 1]?.split('.')[0] === id.split('.')[0] ? cisIds[i + 1] : undefined,
       accent: '#3e7d4f',
       accentDark: '#6fb383',
       mappedLabel: 'Related CSF subcategories (unofficial mapping)',

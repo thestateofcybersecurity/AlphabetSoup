@@ -366,16 +366,26 @@ function renderForm(): void {
       row.appendChild(text);
 
       const toggle = el('div', 'yesno');
+      toggle.setAttribute('role', 'radiogroup');
+      toggle.setAttribute('aria-label', `Answer: ${question.text}`);
       for (const value of current.config.states) {
         const btn = el('button', `yesno-btn state-${value}`, ANSWER_LABELS[value]);
         btn.type = 'button';
         btn.title = ANSWER_TITLES[value];
-        if (answers[question.id] === value) btn.classList.add('active');
+        btn.setAttribute('role', 'radio');
+        btn.setAttribute('aria-label', ANSWER_TITLES[value]);
+        const selected = answers[question.id] === value;
+        btn.setAttribute('aria-checked', String(selected));
+        if (selected) btn.classList.add('active');
         btn.addEventListener('click', () => {
           answers[question.id] = value;
           saveAnswers();
-          toggle.querySelectorAll('.yesno-btn').forEach((b) => b.classList.remove('active'));
+          toggle.querySelectorAll('.yesno-btn').forEach((b) => {
+            b.classList.remove('active');
+            b.setAttribute('aria-checked', 'false');
+          });
           btn.classList.add('active');
+          btn.setAttribute('aria-checked', 'true');
           updateFormProgress();
         });
         toggle.appendChild(btn);
@@ -637,13 +647,13 @@ function renderResults(): void {
   // Headline: score, band, attainment, trend.
   const headline = el('div', 'assess-card');
   const score = el('div', 'quiz-score');
-  score.appendChild(el('span', 'quiz-score-big', `${result.overallPercent}%`));
+  score.appendChild(el('span', 'quiz-score-big', result.insufficient ? '—' : `${result.overallPercent}%`));
   const bandBox = el('div');
-  bandBox.appendChild(el('div', 'assess-band', band.label));
+  bandBox.appendChild(el('div', 'assess-band', result.insufficient ? 'Not enough to score' : band.label));
   bandBox.appendChild(
     el('div', 'deck-sub', `${result.answered} of ${result.total} answered · ${result.applicable} count toward the score`),
   );
-  if (multiTier) {
+  if (multiTier && !result.insufficient) {
     const badge = el(
       'div',
       'attain-badge',
@@ -672,7 +682,15 @@ function renderResults(): void {
     score.appendChild(trend);
   }
   headline.appendChild(score);
-  headline.appendChild(el('p', undefined, band.blurb));
+  headline.appendChild(
+    el(
+      'p',
+      undefined,
+      result.insufficient
+        ? 'Nothing applicable was answered yet. Answer the questions that apply to you, and mark N/A only where a control genuinely does not apply.'
+        : band.blurb,
+    ),
+  );
   headline.appendChild(distributionBar(result));
 
   const gapCount = concerns(current.data, answers, current.config).questions.length;

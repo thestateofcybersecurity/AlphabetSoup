@@ -97,6 +97,16 @@ describe('scoreAssessment', () => {
     const gap = scoreAssessment(fixture, { a1: 'no', a2: 'yes', b1: 'yes', b2: 'yes' });
     expect(gap.attainedTier).toBeNull();
   });
+
+  it('flags all-N/A (no applicable answers) as insufficient, not "advanced"', () => {
+    const allNa = scoreAssessment(fixture, { a1: 'na', a2: 'na', b1: 'na', b2: 'na' });
+    expect(allNa.insufficient).toBe(true);
+    expect(allNa.applicable).toBe(0);
+    expect(allNa.attainedTier).toBeNull();
+    expect(allNa.tierAttained.advanced).toBe(false);
+    // A real answer clears the insufficient flag.
+    expect(scoreAssessment(fixture, { a1: 'yes' }).insufficient).toBe(false);
+  });
 });
 
 describe('concerns', () => {

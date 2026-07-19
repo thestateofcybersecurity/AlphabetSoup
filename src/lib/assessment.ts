@@ -97,6 +97,8 @@ export interface AssessmentResult {
   tierAttained: Record<Tier, boolean>;
   /** Highest fully-attained tier, or null. */
   attainedTier: Tier | null;
+  /** True when nothing applicable was answered, so the score is not meaningful. */
+  insufficient: boolean;
 }
 
 const pct = (yes: number, total: number): number => (total === 0 ? 0 : Math.round((yes / total) * 100));
@@ -160,7 +162,14 @@ export function scoreAssessment(
     cumulative = cumulative && tierComplete(data, answers, tier, config);
     tierAttained[tier] = cumulative;
   }
-  const attainedTier = [...TIER_ORDER].reverse().find((t) => tierAttained[t]) ?? null;
+  const overall = scoreOf(data.questions, answers, config);
+  // With no applicable answers there is nothing to score; a tier is only
+  // "attained" if something applicable was actually satisfied.
+  const insufficient = overall.applicable === 0;
+  const attainedTier = insufficient
+    ? null
+    : ([...TIER_ORDER].reverse().find((t) => tierAttained[t]) ?? null);
+  if (insufficient) for (const tier of TIER_ORDER) tierAttained[tier] = false;
 
   const groups: GroupScore[] = data.categories.map((category) => {
     const s = scoreOf(data.questions.filter((q) => q.group === category.id), answers, config);
@@ -174,7 +183,6 @@ export function scoreAssessment(
     else distribution[state] += 1;
   }
 
-  const overall = scoreOf(data.questions, answers, config);
   return {
     answered,
     total: data.questions.length,
@@ -185,6 +193,7 @@ export function scoreAssessment(
     distribution,
     tierAttained,
     attainedTier,
+    insufficient,
   };
 }
 
@@ -230,12 +239,12 @@ export function readinessBand(overallPercent: number): ReadinessBand {
   if (overallPercent >= 35) {
     return {
       label: 'Exposed',
-      blurb: 'Significant gaps a ransomware crew would find quickly. Start with backups, patching, and access management.',
+      blurb: 'Significant gaps an attacker could exploit quickly. Start with the essentials below: backups, patching, MFA, and access control.',
     };
   }
   return {
     label: 'High risk',
-    blurb: 'Little standing between you and a bad week. Work through the basic tier top to bottom.',
+    blurb: 'Little standing between you and a serious incident. Work through the basic tier below, top to bottom.',
   };
 }
 

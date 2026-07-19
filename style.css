@@ -1905,7 +1905,47 @@ a.std-chip:hover {
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .crouton {
-    animation: none;
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
   }
+}
+
+/* ---------------------------- accessibility ----------------------------- */
+
+/* Visible keyboard focus everywhere (the search input clears its own outline). */
+:focus-visible {
+  outline: 2px solid var(--tomato);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+.bowl input:focus-visible {
+  outline: none;
+}
+.bowl:focus-within {
+  outline: 2px solid var(--tomato);
+  outline-offset: 2px;
+}
+
+/* Skip-to-content link, revealed on focus. */
+.skip-link {
+  position: absolute;
+  left: 8px;
+  top: -48px;
+  z-index: 1000;
+  background: var(--ink);
+  color: var(--paper);
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  padding: 8px 14px;
+  border-radius: 8px;
+  text-decoration: none;
+  transition: top 0.15s;
+}
+.skip-link:focus {
+  top: 8px;
 }

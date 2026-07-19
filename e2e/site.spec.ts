@@ -67,6 +67,21 @@ test('legacy slugs redirect to canonical pages', async ({ page }) => {
   await expect(page).toHaveURL(/definitions\/soc2\.html/);
 });
 
+test('difficulty filter narrows results and toggles aria-pressed', async ({ page }) => {
+  await page.goto('/');
+  const easy = page.locator('#difficulty-pills .pill', { hasText: 'easy' });
+  await expect(easy).toHaveAttribute('aria-pressed', 'false');
+  await easy.click();
+  await expect(easy).toHaveAttribute('aria-pressed', 'true');
+  await expect(page.locator('#result-meta')).toContainText('match');
+});
+
+test('skip link is present for keyboard users', async ({ page }) => {
+  await page.goto('/');
+  await expect(page.locator('.skip-link')).toHaveAttribute('href', '#main');
+  await expect(page.locator('#main')).toBeVisible();
+});
+
 test('?q= deep link pre-fills search', async ({ page }) => {
   await page.goto('/?q=nmap');
   await expect(page.locator('#search')).toHaveValue('nmap');
