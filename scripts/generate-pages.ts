@@ -12,6 +12,7 @@ const root = fileURLToPath(new URL('..', import.meta.url));
 const data = JSON.parse(readFileSync(`${root}src/data/acronyms.json`, 'utf8')) as AcronymData;
 const csf = JSON.parse(readFileSync(`${root}src/data/nist-csf.json`, 'utf8')) as CsfData;
 const cis = JSON.parse(readFileSync(`${root}src/data/cis.json`, 'utf8')) as CisData;
+const cisIgs = JSON.parse(readFileSync(`${root}src/data/cis-igs.json`, 'utf8')) as Record<string, number>;
 const legacy = JSON.parse(readFileSync(`${root}src/data/legacy-slugs.json`, 'utf8')) as {
   definitions: string[];
   root: string[];
@@ -287,6 +288,8 @@ const FW_EXTRA_CSS = `
 .pager{display:flex;justify-content:space-between;gap:10px;margin-top:20px;font-family:'IBM Plex Mono',monospace;font-size:.8rem}
 .pager a{text-decoration:none;border:1.5px solid var(--line);border-radius:999px;padding:6px 14px;color:var(--ink)}
 .pager a:hover{border-color:var(--tomato);color:var(--tomato)}
+.ig-badge{font-family:'IBM Plex Mono',monospace;font-size:.62rem;font-weight:600;letter-spacing:.06em;vertical-align:middle;padding:2px 9px;border-radius:999px;border:1.5px solid var(--tomato);color:var(--tomato)}
+.no-map{color:var(--ink-soft);font-style:italic;margin:6px 0 0}
 `.trim();
 
 interface FrameworkPageInput {
@@ -303,6 +306,8 @@ interface FrameworkPageInput {
   next?: string;
   accent: string;
   accentDark: string;
+  /** Short badge shown by the heading (e.g. an IG level). */
+  badge?: string;
   /** Cross-framework mapping links (unofficial). */
   mapped?: Array<{ label: string; href: string }>;
   mappedLabel?: string;
@@ -358,17 +363,21 @@ ${FW_EXTRA_CSS}</style>
   <div class="wrap">
     ${navHtml('../../')}
     <a class="home" href="./">&larr; ${esc(input.sectionLabel)}</a>
-    <h1>${esc(input.id)}</h1>
+    <h1>${esc(input.id)}${input.badge ? ` <span class="ig-badge">${esc(input.badge)}</span>` : ''}</h1>
     <p class="expansion">${esc(input.kickerTop)}</p>
     <div class="card"><p>${esc(input.heading)}</p></div>
     <div class="metaphor"><span class="label">Think of it like</span>${esc(input.metaphor)}</div>
     <h2>In plain English</h2>
     <p>${esc(input.translation)}</p>
     ${
-      input.mapped?.length
-        ? `<h2>${esc(input.mappedLabel ?? 'Related')}</h2>\n    <div class="related">${input.mapped
-            .map((m) => `<a href="${esc(m.href)}">${esc(m.label)}</a>`)
-            .join('')}</div>`
+      input.mappedLabel
+        ? `<h2>${esc(input.mappedLabel)}</h2>\n    ${
+            input.mapped?.length
+              ? `<div class="related">${input.mapped
+                  .map((m) => `<a href="${esc(m.href)}"${m.label.length > 24 ? ` title="${esc(m.label)}"` : ''}>${esc(m.label)}</a>`)
+                  .join('')}</div>`
+              : '<p class="no-map">No direct mapping.</p>'
+          }`
         : ''
     }
     <nav class="pager">${pager}</nav>
@@ -435,9 +444,10 @@ cisIds.forEach((id, i) => {
       next: cisIds[i + 1]?.split('.')[0] === id.split('.')[0] ? cisIds[i + 1] : undefined,
       accent: '#3e7d4f',
       accentDark: '#6fb383',
+      badge: `IG${cisIgs[id] ?? 3}`,
       mappedLabel: 'Related CSF subcategories (unofficial mapping)',
       mapped: (cisToCsf.get(id) ?? []).sort().map((csfId) => ({
-        label: csfId,
+        label: csf[csfId] ? `${csfId}: ${csf[csfId].text}` : csfId,
         href: `../nist-csf/${frameworkSlug(csfId)}.html`,
       })),
     }),

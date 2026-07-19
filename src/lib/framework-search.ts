@@ -7,6 +7,12 @@ export interface FrameworkRecord {
   heading: string;
   metaphor: string;
   translation: string;
+  /** Extra searchable text, e.g. the control/category name and function. */
+  keywords?: string;
+  /** Short badges shown on the card, e.g. ["IG1"]. */
+  badges?: string[];
+  /** Numeric tier for secondary filtering (CIS implementation group). */
+  tier?: number;
 }
 
 /**
@@ -35,6 +41,7 @@ export function searchFramework(
     else if (id.startsWith(term)) rank = 1;
     else if (new RegExp(`\\b${escapeRegExp(term)}`).test(heading)) rank = 2;
     else if (heading.includes(term)) rank = 3;
+    else if (record.keywords?.toLowerCase().includes(term)) rank = 3;
     else if (
       record.metaphor.toLowerCase().includes(term) ||
       record.translation.toLowerCase().includes(term)

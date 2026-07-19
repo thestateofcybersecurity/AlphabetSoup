@@ -609,6 +609,71 @@ body {
   color: var(--ink-soft);
 }
 
+/* CIS implementation-group badges */
+.fw-badge {
+  font-family: var(--font-mono);
+  font-size: 0.6rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  padding: 2px 8px;
+  border-radius: 999px;
+  border: 1.5px solid var(--line);
+  color: var(--ink-soft);
+}
+.fw-badge.ig-ig1 {
+  border-color: #3f8f5f;
+  color: #3f8f5f;
+}
+.fw-badge.ig-ig2 {
+  border-color: #c98a1a;
+  color: #c98a1a;
+}
+.fw-badge.ig-ig3 {
+  border-color: var(--ink-soft);
+}
+
+/* Mark-reviewed toggle + coverage bar */
+.fw-review {
+  appearance: none;
+  border: 1px solid var(--line);
+  background: transparent;
+  border-radius: 999px;
+  font-family: var(--font-mono);
+  font-size: 0.64rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+  padding: 4px 10px;
+  cursor: pointer;
+}
+.fw-review.on {
+  background: #3f8f5f;
+  border-color: #3f8f5f;
+  color: #fff;
+}
+.fw-card.is-reviewed {
+  opacity: 0.72;
+}
+.fw-coverage {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: 4px 0 12px;
+}
+.fw-coverage-track {
+  flex: 1;
+  max-width: 300px;
+  height: 6px;
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--line) 60%, transparent);
+  overflow: hidden;
+}
+.fw-coverage-fill {
+  height: 100%;
+  background: #3f8f5f;
+  border-radius: 999px;
+}
+
 .fw-heading {
   font-family: var(--font-display);
   font-weight: 700;

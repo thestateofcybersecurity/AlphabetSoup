@@ -32,8 +32,30 @@ test('generated framework page renders metaphor, translation, and pager', async 
   await expect(page.locator('.pager a').first()).toBeVisible();
 
   await page.goto('/frameworks/cis/15-3.html');
-  await expect(page.locator('h1')).toHaveText('15.3');
+  await expect(page.locator('h1')).toContainText('15.3');
+  await expect(page.locator('h1 .ig-badge')).toHaveText(/IG[123]/);
   await expect(page.locator('.expansion')).toContainText('Service Provider Management');
+  // Mapped CSF links carry the subcategory text, not a bare id.
+  await expect(page.locator('.related a').first()).toContainText(/[A-Z]{2}\.[A-Z]{2}-\d{2}:/);
+});
+
+test('CIS page: IG badges, IG filter, keyword search, and coverage tracking', async ({ page }) => {
+  await page.goto('/frameworks/cis/');
+  // Every card carries an IG badge.
+  await expect(page.locator('.fw-card .fw-badge').first()).toHaveText(/IG[123]/);
+  // Keyword search matches a control name (not just ids/headings).
+  await page.locator('#search').fill('malware');
+  await expect(page.locator('#result-meta')).toContainText('match');
+  await page.locator('#clear-search').click();
+  // IG1 filter yields exactly the 56 IG1 safeguards.
+  await page.locator('#secondary-pills .pill', { hasText: 'IG1' }).click();
+  await expect(page.locator('#result-meta')).toContainText('56 matches');
+  // Mark reviewed updates the coverage bar and persists.
+  await page.locator('.fw-card .fw-review').first().click();
+  await expect(page.locator('.fw-coverage-text')).toContainText('1 of 56 reviewed');
+  await page.reload();
+  await page.locator('#secondary-pills .pill', { hasText: 'IG1' }).click();
+  await expect(page.locator('.fw-coverage-text')).toContainText('1 of 56 reviewed');
 });
 
 test('homepage hints framework queries and nav links both ways', async ({ page }) => {
@@ -44,7 +66,7 @@ test('homepage hints framework queries and nav links both ways', async ({ page }
   // Cross-search returns direct safeguard links; the exact id ranks first.
   await hint.locator('a').first().click();
   await expect(page).toHaveURL(/frameworks\/cis\/8-1\.html/);
-  await expect(page.locator('h1')).toHaveText('8.1');
+  await expect(page.locator('h1')).toContainText('8.1');
   await page.locator('.gnav a', { hasText: 'Acronyms' }).click();
   await expect(page.locator('.title')).toContainText('Alphabet Soup');
 });
