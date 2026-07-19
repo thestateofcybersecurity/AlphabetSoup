@@ -162,6 +162,12 @@ export function scoreAssessment(
     cumulative = cumulative && tierComplete(data, answers, tier, config);
     tierAttained[tier] = cumulative;
   }
+  // A tier with no questions is not a real attainment target. Without this a
+  // two-tier assessment (e.g. CMMC L1 basic + L2 intermediate) would report the
+  // empty "advanced" tier as reached, because an empty tier is vacuously complete.
+  const present = new Set(data.questions.map((q) => q.tier));
+  for (const tier of TIER_ORDER) if (!present.has(tier)) tierAttained[tier] = false;
+
   const overall = scoreOf(data.questions, answers, config);
   // With no applicable answers there is nothing to score; a tier is only
   // "attained" if something applicable was actually satisfied.

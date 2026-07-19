@@ -4,6 +4,8 @@ import igsRaw from './data/cis-igs.json';
 import vcisoRaw from './data/vciso-tasks.json';
 import assessRaw from './data/assessment.json';
 import cpgRaw from './data/assessment-cpg.json';
+import cmmcRaw from './data/assessment-800171.json';
+import ceRaw from './data/assessment-cyber-essentials.json';
 import programRaw from './data/security-program.json';
 import roadmapKpisRaw from './data/roadmap-kpis.json';
 import type { CisData, CsfData } from './lib/frameworks';
@@ -52,6 +54,8 @@ const GAP_ASSESSMENTS: { id: string; name: string; data: AssessmentData }[] = [
   { id: 'cis-ig1', name: 'CIS IG1 essentials', data: cisIg1Assessment(cis, igs) },
   { id: 'cis-v8', name: 'CIS Controls v8 (all safeguards)', data: cisControlsAssessment(cis, igs) },
   { id: 'nist-csf', name: 'NIST CSF 2.0', data: csfAssessment(csf) },
+  { id: 'nist-800171', name: 'NIST 800-171 / CMMC', data: cmmcRaw as AssessmentData },
+  { id: 'cyber-essentials', name: 'CISA Cyber Essentials', data: ceRaw as AssessmentData },
 ];
 
 function gapsAssessmentId(): string {

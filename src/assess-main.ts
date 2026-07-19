@@ -3,6 +3,8 @@ import cpgRaw from './data/assessment-cpg.json';
 import cisRaw from './data/cis.json';
 import igsRaw from './data/cis-igs.json';
 import csfRaw from './data/nist-csf.json';
+import cmmcRaw from './data/assessment-800171.json';
+import ceRaw from './data/assessment-cyber-essentials.json';
 import {
   cisControlFromReference,
   cisControlsAssessment,
@@ -87,6 +89,24 @@ const ASSESSMENTS: AssessmentDef[] = [
     blurb:
       'A self-assessment across all 106 subcategory outcomes of NIST CSF 2.0, grouped by the six functions (Govern, Identify, Protect, Detect, Respond, Recover). Each outcome uses verbatim NIST wording and links to its plain-English framework page.',
     data: csfAssessment(csfRaw as CsfData),
+    planGaps: true,
+    config: defaultAnswerConfig,
+  },
+  {
+    id: 'nist-800171',
+    name: 'NIST 800-171 / CMMC',
+    blurb:
+      'All 110 security requirements of NIST SP 800-171 Rev 2 across 14 families, the basis of CMMC 2.0 for defense contractors handling CUI. Requirements are tiered by CMMC level (basic = the 17 Level 1 practices, intermediate = the full Level 2 set), so tier attainment reads as CMMC progress.',
+    data: cmmcRaw as AssessmentData,
+    planGaps: true,
+    config: defaultAnswerConfig,
+  },
+  {
+    id: 'cyber-essentials',
+    name: 'CISA Cyber Essentials',
+    blurb:
+      'A starting-point self-assessment built on the six CISA Cyber Essentials elements (leadership, staff, systems, surroundings, data, and crisis response). Plain-language actions for small organizations taking their first structured steps.',
+    data: ceRaw as AssessmentData,
     planGaps: true,
     config: defaultAnswerConfig,
   },
@@ -853,11 +873,13 @@ function renderResults(): void {
     results.appendChild(radar);
   }
 
-  // Tier bars.
+  // Tier bars (only tiers this assessment actually uses; a two-tier module has no advanced bar).
   if (multiTier) {
+    const present = tiersPresent();
     const tiers = el('div', 'assess-card');
     tiers.appendChild(el('h2', 'assess-h', 'By maturity tier'));
     for (const tier of TIER_ORDER) {
+      if (!present.has(tier)) continue;
       const attained = result.tierAttained[tier];
       tiers.appendChild(bar(tier, result.tierPercents[tier], attained ? `${result.tierPercents[tier]}% · met` : `${result.tierPercents[tier]}%`));
     }
