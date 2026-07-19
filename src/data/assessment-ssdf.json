@@ -1,0 +1,740 @@
+{
+  "categories": [
+    {
+      "id": "PO",
+      "name": "Prepare the Organization",
+      "blurb": "Make sure your people, processes, and tools are ready to develop software securely before any coding starts."
+    },
+    {
+      "id": "PS",
+      "name": "Protect the Software",
+      "blurb": "Guard your code, releases, and their supporting data against tampering and unauthorized access throughout their life."
+    },
+    {
+      "id": "PW",
+      "name": "Produce Well-Secured Software",
+      "blurb": "Design, build, and test software so that it has as few security weaknesses as possible when released."
+    },
+    {
+      "id": "RV",
+      "name": "Respond to Vulnerabilities",
+      "blurb": "Find, fix, and learn from vulnerabilities in released software on an ongoing basis."
+    }
+  ],
+  "questions": [
+    {
+      "id": "PO.1.1",
+      "text": "Have you identified and written down the security requirements that govern your software development infrastructure and processes?",
+      "tier": "basic",
+      "group": "PO",
+      "references": [
+        "NIST SSDF PO.1.1"
+      ],
+      "why": "Without documented security rules for how development happens, teams make inconsistent choices that leave gaps attackers exploit.",
+      "fix": "Draft a policy defining security requirements for your development environments, tools, and workflows.",
+      "links": [
+        {
+          "label": "NIST SP 800-218 (SSDF v1.1)",
+          "url": "https://csrc.nist.gov/pubs/sp/800/218/final"
+        }
+      ]
+    },
+    {
+      "id": "PO.1.2",
+      "text": "Have you identified and documented the security requirements that the software you build must meet?",
+      "tier": "basic",
+      "group": "PO",
+      "references": [
+        "NIST SSDF PO.1.2"
+      ],
+      "why": "If security expectations for the product itself are undefined, they cannot be designed in, tested, or verified.",
+      "fix": "Write a baseline set of product security requirements covering areas like authentication, data protection, and logging.",
+      "links": [
+        {
+          "label": "NIST SP 800-218 (SSDF v1.1)",
+          "url": "https://csrc.nist.gov/pubs/sp/800/218/final"
+        }
+      ]
+    },
+    {
+      "id": "PO.1.3",
+      "text": "Do you communicate your security requirements to the third parties who supply commercial or open-source components you use?",
+      "tier": "basic",
+      "group": "PO",
+      "references": [
+        "NIST SSDF PO.1.3"
+      ],
+      "why": "Suppliers who do not know your security expectations may deliver components that undermine your software's security.",
+      "fix": "Define a core set of supplier security requirements and share them in contracts or acquisition terms.",
+      "links": [
+        {
+          "label": "NIST SP 800-218 (SSDF v1.1)",
+          "url": "https://csrc.nist.gov/pubs/sp/800/218/final"
+        }
+      ]
+    },
+    {
+      "id": "PO.2.1",
+      "text": "Have you defined clear security roles and responsibilities for everyone involved in your software development lifecycle?",
+      "tier": "basic",
+      "group": "PO",
+      "references": [
+        "NIST SSDF PO.2.1"
+      ],
+      "why": "When no one owns security tasks, critical work gets skipped and accountability disappears.",
+      "fix": "Document each SDLC role and assign specific security responsibilities to it.",
+      "links": [
+        {
+          "label": "NIST SP 800-218 (SSDF v1.1)",
+          "url": "https://csrc.nist.gov/pubs/sp/800/218/final"
+        }
+      ]
+    },
+    {
+      "id": "PO.2.2",
+      "text": "Do you provide role-based security training and ongoing education to the people who fill those development roles?",
+      "tier": "basic",
+      "group": "PO",
+      "references": [
+        "NIST SSDF PO.2.2"
+      ],
+      "why": "Staff who lack security skills for their role introduce avoidable weaknesses no matter how good the process is.",
+      "fix": "Set up role-specific security training with defined learning outcomes and refresh it regularly.",
+      "links": [
+        {
+          "label": "NIST SP 800-218 (SSDF v1.1)",
+          "url": "https://csrc.nist.gov/pubs/sp/800/218/final"
+        }
+      ]
+    },
+    {
+      "id": "PO.2.3",
+      "text": "Has upper management committed to and provided resources for your secure software development program?",
+      "tier": "basic",
+      "group": "PO",
+      "references": [
+        "NIST SSDF PO.2.3"
+      ],
+      "why": "Secure development efforts stall without leadership backing, budget, and clear authority to enforce them.",
+      "fix": "Appoint an accountable leader and secure a documented management commitment with resourcing.",
+      "links": [
+        {
+          "label": "NIST SP 800-218 (SSDF v1.1)",
+          "url": "https://csrc.nist.gov/pubs/sp/800/218/final"
+        }
+      ]
+    },
+    {
+      "id": "PO.3.1",
+      "text": "Have you specified which tools or tool types must be used across your development toolchains to reduce security risk?",
+      "tier": "basic",
+      "group": "PO",
+      "references": [
+        "NIST SSDF PO.3.1"
+      ],
+      "why": "Ad-hoc tool choices create inconsistent coverage and leave security checks missing from parts of the pipeline.",
+      "fix": "Define toolchain categories and list the mandatory or recommended security tools for each.",
+      "links": [
+        {
+          "label": "NIST SP 800-218 (SSDF v1.1)",
+          "url": "https://csrc.nist.gov/pubs/sp/800/218/final"
+        }
+      ]
+    },
+    {
+      "id": "PO.3.2",
+      "text": "Do you follow recommended security practices when you deploy, operate, and maintain your development tools and toolchains?",
+      "tier": "basic",
+      "group": "PO",
+      "references": [
+        "NIST SSDF PO.3.2"
+      ],
+      "why": "A poorly secured tool or pipeline becomes an attack path into your code and build outputs.",
+      "fix": "Evaluate the security of each tool before adoption and harden and patch it in operation.",
+      "links": [
+        {
+          "label": "NIST SP 800-218 (SSDF v1.1)",
+          "url": "https://csrc.nist.gov/pubs/sp/800/218/final"
+        }
+      ]
+    },
+    {
+      "id": "PO.3.3",
+      "text": "Are your tools configured to generate artifacts that show your secure development practices were actually followed?",
+      "tier": "basic",
+      "group": "PO",
+      "references": [
+        "NIST SSDF PO.3.3"
+      ],
+      "why": "Without evidence from tooling you cannot prove, audit, or improve how well security practices are performed.",
+      "fix": "Enable logging and reporting in your tools to capture artifacts like scan results and approvals.",
+      "links": [
+        {
+          "label": "NIST SP 800-218 (SSDF v1.1)",
+          "url": "https://csrc.nist.gov/pubs/sp/800/218/final"
+        }
+      ]
+    },
+    {
+      "id": "PO.4.1",
+      "text": "Have you defined criteria that software must satisfy in security checks throughout the development lifecycle?",
+      "tier": "basic",
+      "group": "PO",
+      "references": [
+        "NIST SSDF PO.4.1"
+      ],
+      "why": "Without pass or fail criteria, security reviews are subjective and insecure software can ship unchallenged.",
+      "fix": "Write measurable security acceptance criteria and gate points for each phase of the SDLC.",
+      "links": [
+        {
+          "label": "NIST SP 800-218 (SSDF v1.1)",
+          "url": "https://csrc.nist.gov/pubs/sp/800/218/final"
+        }
+      ]
+    },
+    {
+      "id": "PO.4.2",
+      "text": "Do you have processes and mechanisms that gather and safeguard the information needed to judge those security criteria?",
+      "tier": "basic",
+      "group": "PO",
+      "references": [
+        "NIST SSDF PO.4.2"
+      ],
+      "why": "Security decisions based on missing or unreliable data lead to false confidence and overlooked risk.",
+      "fix": "Automate collection of security evidence from your toolchain and store it with integrity protection.",
+      "links": [
+        {
+          "label": "NIST SP 800-218 (SSDF v1.1)",
+          "url": "https://csrc.nist.gov/pubs/sp/800/218/final"
+        }
+      ]
+    },
+    {
+      "id": "PO.5.1",
+      "text": "Do you separate and protect each of your development, build, test, and related environments from one another?",
+      "tier": "basic",
+      "group": "PO",
+      "references": [
+        "NIST SSDF PO.5.1"
+      ],
+      "why": "A compromise in one environment can spread to production or build systems if they are not isolated.",
+      "fix": "Segment environments with access controls and use strong risk-based authentication between them.",
+      "links": [
+        {
+          "label": "NIST SP 800-218 (SSDF v1.1)",
+          "url": "https://csrc.nist.gov/pubs/sp/800/218/final"
+        }
+      ]
+    },
+    {
+      "id": "PO.5.2",
+      "text": "Do you secure and harden the endpoints, such as developer workstations, that are used for software development?",
+      "tier": "basic",
+      "group": "PO",
+      "references": [
+        "NIST SSDF PO.5.2"
+      ],
+      "why": "A compromised developer machine gives attackers direct access to source code, credentials, and the pipeline.",
+      "fix": "Apply an approved hardening baseline and endpoint protection to every development device.",
+      "links": [
+        {
+          "label": "NIST SP 800-218 (SSDF v1.1)",
+          "url": "https://csrc.nist.gov/pubs/sp/800/218/final"
+        }
+      ]
+    },
+    {
+      "id": "PS.1.1",
+      "text": "Do you store all forms of code, including source and configuration-as-code, with controls that block unauthorized access and changes?",
+      "tier": "basic",
+      "group": "PS",
+      "references": [
+        "NIST SSDF PS.1.1"
+      ],
+      "why": "Unprotected code can be stolen or tampered with, injecting backdoors before anyone notices.",
+      "fix": "Keep all code in an access-controlled repository and require authenticated, logged changes.",
+      "links": [
+        {
+          "label": "NIST SP 800-218 (SSDF v1.1)",
+          "url": "https://csrc.nist.gov/pubs/sp/800/218/final"
+        }
+      ]
+    },
+    {
+      "id": "PS.2.1",
+      "text": "Do you give users a way to verify that a software release is authentic and has not been altered?",
+      "tier": "basic",
+      "group": "PS",
+      "references": [
+        "NIST SSDF PS.2.1"
+      ],
+      "why": "Without an integrity check, users cannot tell a genuine release from a tampered or malicious copy.",
+      "fix": "Publish cryptographic hashes or digital signatures for every release on a trusted channel.",
+      "links": [
+        {
+          "label": "NIST SP 800-218 (SSDF v1.1)",
+          "url": "https://csrc.nist.gov/pubs/sp/800/218/final"
+        }
+      ]
+    },
+    {
+      "id": "PS.3.1",
+      "text": "Do you securely archive the files and data needed to be retained for each software release?",
+      "tier": "basic",
+      "group": "PS",
+      "references": [
+        "NIST SSDF PS.3.1"
+      ],
+      "why": "If release artifacts are lost or altered you cannot investigate incidents, reproduce builds, or support the software.",
+      "fix": "Store release files and images in protected, access-controlled repositories with integrity safeguards.",
+      "links": [
+        {
+          "label": "NIST SP 800-218 (SSDF v1.1)",
+          "url": "https://csrc.nist.gov/pubs/sp/800/218/final"
+        }
+      ]
+    },
+    {
+      "id": "PS.3.2",
+      "text": "Do you collect and safeguard provenance data, such as a software bill of materials, for each release and share it as needed?",
+      "tier": "basic",
+      "group": "PS",
+      "references": [
+        "NIST SSDF PS.3.2"
+      ],
+      "why": "Without provenance and component data you cannot quickly assess exposure when a dependency is found vulnerable.",
+      "fix": "Generate an SBOM for each release and make it available to acquirers and internal teams.",
+      "links": [
+        {
+          "label": "NIST SP 800-218 (SSDF v1.1)",
+          "url": "https://csrc.nist.gov/pubs/sp/800/218/final"
+        }
+      ]
+    },
+    {
+      "id": "PW.1.1",
+      "text": "Do you use risk modeling, such as threat modeling or attack surface analysis, to assess the security risks in your software?",
+      "tier": "basic",
+      "group": "PW",
+      "references": [
+        "NIST SSDF PW.1.1"
+      ],
+      "why": "Design flaws missed early are the most expensive and dangerous weaknesses to fix later.",
+      "fix": "Run a threat modeling session on each significant feature and record the risks it surfaces.",
+      "links": [
+        {
+          "label": "NIST SP 800-218 (SSDF v1.1)",
+          "url": "https://csrc.nist.gov/pubs/sp/800/218/final"
+        }
+      ]
+    },
+    {
+      "id": "PW.1.2",
+      "text": "Do you track and maintain the software's security requirements, risks, and design decisions over time?",
+      "tier": "basic",
+      "group": "PW",
+      "references": [
+        "NIST SSDF PW.1.2"
+      ],
+      "why": "Untracked security decisions get lost, reversed, or contradicted as the software evolves.",
+      "fix": "Record each security risk and its planned mitigation in a living, reviewable document.",
+      "links": [
+        {
+          "label": "NIST SP 800-218 (SSDF v1.1)",
+          "url": "https://csrc.nist.gov/pubs/sp/800/218/final"
+        }
+      ]
+    },
+    {
+      "id": "PW.1.3",
+      "text": "Where appropriate, do you build in support for using standard security features and services instead of custom-built ones?",
+      "tier": "basic",
+      "group": "PW",
+      "references": [
+        "NIST SSDF PW.1.3"
+      ],
+      "why": "Home-grown security mechanisms are far more likely to contain flaws than vetted standard ones.",
+      "fix": "Adopt proven libraries and services for functions like authentication, encryption, and logging.",
+      "links": [
+        {
+          "label": "NIST SP 800-218 (SSDF v1.1)",
+          "url": "https://csrc.nist.gov/pubs/sp/800/218/final"
+        }
+      ]
+    },
+    {
+      "id": "PW.2.1",
+      "text": "Do qualified reviewers check the software design to confirm it meets your security requirements and addresses known risks?",
+      "tier": "basic",
+      "group": "PW",
+      "references": [
+        "NIST SSDF PW.2.1"
+      ],
+      "why": "A design that does not satisfy security requirements will produce insecure software no matter how well it is coded.",
+      "fix": "Have a qualified person review each design against the security requirements and risk information.",
+      "links": [
+        {
+          "label": "NIST SP 800-218 (SSDF v1.1)",
+          "url": "https://csrc.nist.gov/pubs/sp/800/218/final"
+        }
+      ]
+    },
+    {
+      "id": "PW.4.1",
+      "text": "Do you acquire and maintain well-secured third-party software components rather than building everything from scratch?",
+      "tier": "basic",
+      "group": "PW",
+      "references": [
+        "NIST SSDF PW.4.1"
+      ],
+      "why": "Reusing vetted components reduces the chance of introducing new flaws in code you would otherwise write yourself.",
+      "fix": "Evaluate third-party components for security in context before reuse and keep them updated.",
+      "links": [
+        {
+          "label": "NIST SP 800-218 (SSDF v1.1)",
+          "url": "https://csrc.nist.gov/pubs/sp/800/218/final"
+        }
+      ]
+    },
+    {
+      "id": "PW.4.2",
+      "text": "Do you create and maintain your own reusable software components following secure practices?",
+      "tier": "basic",
+      "group": "PW",
+      "references": [
+        "NIST SSDF PW.4.2"
+      ],
+      "why": "Insecure shared components multiply a single weakness across every product that reuses them.",
+      "fix": "Apply your secure design and coding standards when building internal reusable modules.",
+      "links": [
+        {
+          "label": "NIST SP 800-218 (SSDF v1.1)",
+          "url": "https://csrc.nist.gov/pubs/sp/800/218/final"
+        }
+      ]
+    },
+    {
+      "id": "PW.4.4",
+      "text": "Do you verify that acquired commercial, open-source, and other third-party components meet your security requirements?",
+      "tier": "basic",
+      "group": "PW",
+      "references": [
+        "NIST SSDF PW.4.4"
+      ],
+      "why": "Unverified dependencies can carry known vulnerabilities straight into your product.",
+      "fix": "Continuously scan components for known vulnerabilities and confirm they meet your requirements.",
+      "links": [
+        {
+          "label": "NIST SP 800-218 (SSDF v1.1)",
+          "url": "https://csrc.nist.gov/pubs/sp/800/218/final"
+        }
+      ]
+    },
+    {
+      "id": "PW.5.1",
+      "text": "Do your developers follow established secure coding practices, such as input validation and output encoding, when writing code?",
+      "tier": "basic",
+      "group": "PW",
+      "references": [
+        "NIST SSDF PW.5.1"
+      ],
+      "why": "Most common vulnerabilities come from insecure coding patterns that secure practices would prevent.",
+      "fix": "Adopt a secure coding standard and validate all inputs and encode all outputs by default.",
+      "links": [
+        {
+          "label": "NIST SP 800-218 (SSDF v1.1)",
+          "url": "https://csrc.nist.gov/pubs/sp/800/218/final"
+        }
+      ]
+    },
+    {
+      "id": "PW.6.1",
+      "text": "Do you use compilers, interpreters, and build tools that provide security features, kept at up-to-date versions?",
+      "tier": "basic",
+      "group": "PW",
+      "references": [
+        "NIST SSDF PW.6.1"
+      ],
+      "why": "Outdated or feature-poor build tools miss protections that could catch or block whole classes of bugs.",
+      "fix": "Standardize on current toolchain versions that offer built-in security features.",
+      "links": [
+        {
+          "label": "NIST SP 800-218 (SSDF v1.1)",
+          "url": "https://csrc.nist.gov/pubs/sp/800/218/final"
+        }
+      ]
+    },
+    {
+      "id": "PW.6.2",
+      "text": "Have you determined and enabled the compiler, interpreter, and build settings that improve the security of your software?",
+      "tier": "basic",
+      "group": "PW",
+      "references": [
+        "NIST SSDF PW.6.2"
+      ],
+      "why": "Security hardening flags and warnings do nothing to protect you if they are left turned off.",
+      "fix": "Turn on security warnings and hardening options like stack protections in your build configuration.",
+      "links": [
+        {
+          "label": "NIST SP 800-218 (SSDF v1.1)",
+          "url": "https://csrc.nist.gov/pubs/sp/800/218/final"
+        }
+      ]
+    },
+    {
+      "id": "PW.7.1",
+      "text": "Have you decided when code review or code analysis should be performed and defined how it will be done?",
+      "tier": "basic",
+      "group": "PW",
+      "references": [
+        "NIST SSDF PW.7.1"
+      ],
+      "why": "Without a defined review policy, code inspection happens inconsistently and misses defects.",
+      "fix": "Write a policy stating when peer review and automated analysis are required for code changes.",
+      "links": [
+        {
+          "label": "NIST SP 800-218 (SSDF v1.1)",
+          "url": "https://csrc.nist.gov/pubs/sp/800/218/final"
+        }
+      ]
+    },
+    {
+      "id": "PW.7.2",
+      "text": "Do you actually perform the code review and code analysis according to your defined process?",
+      "tier": "basic",
+      "group": "PW",
+      "references": [
+        "NIST SSDF PW.7.2"
+      ],
+      "why": "A review policy that is not followed leaves the same defects it was meant to catch.",
+      "fix": "Run peer review and static analysis on changes and require findings to be resolved before merge.",
+      "links": [
+        {
+          "label": "NIST SP 800-218 (SSDF v1.1)",
+          "url": "https://csrc.nist.gov/pubs/sp/800/218/final"
+        }
+      ]
+    },
+    {
+      "id": "PW.8.1",
+      "text": "Have you decided when executable code testing should be performed and defined how it will be done?",
+      "tier": "basic",
+      "group": "PW",
+      "references": [
+        "NIST SSDF PW.8.1"
+      ],
+      "why": "Some vulnerabilities only appear at runtime, so undefined testing lets them reach production.",
+      "fix": "Establish a policy for when dynamic testing, fuzzing, or penetration testing is required.",
+      "links": [
+        {
+          "label": "NIST SP 800-218 (SSDF v1.1)",
+          "url": "https://csrc.nist.gov/pubs/sp/800/218/final"
+        }
+      ]
+    },
+    {
+      "id": "PW.8.2",
+      "text": "Do you scope, design, and carry out testing of the running software to find security weaknesses?",
+      "tier": "basic",
+      "group": "PW",
+      "references": [
+        "NIST SSDF PW.8.2"
+      ],
+      "why": "Runtime flaws that are never exercised in testing become the vulnerabilities attackers find first.",
+      "fix": "Perform functional and negative security testing of running builds, including fuzzing where relevant.",
+      "links": [
+        {
+          "label": "NIST SP 800-218 (SSDF v1.1)",
+          "url": "https://csrc.nist.gov/pubs/sp/800/218/final"
+        }
+      ]
+    },
+    {
+      "id": "PW.9.1",
+      "text": "Have you defined a secure baseline for the software's default configuration settings?",
+      "tier": "basic",
+      "group": "PW",
+      "references": [
+        "NIST SSDF PW.9.1"
+      ],
+      "why": "Insecure defaults leave most users exposed because few ever change the shipped settings.",
+      "fix": "Determine and document the most secure practical default configuration for the software.",
+      "links": [
+        {
+          "label": "NIST SP 800-218 (SSDF v1.1)",
+          "url": "https://csrc.nist.gov/pubs/sp/800/218/final"
+        }
+      ]
+    },
+    {
+      "id": "PW.9.2",
+      "text": "Do you implement those secure defaults so the software ships in its hardened configuration?",
+      "tier": "basic",
+      "group": "PW",
+      "references": [
+        "NIST SSDF PW.9.2"
+      ],
+      "why": "A secure baseline that is defined but not applied gives users no real protection out of the box.",
+      "fix": "Set the approved secure settings as the shipped defaults and verify them before release.",
+      "links": [
+        {
+          "label": "NIST SP 800-218 (SSDF v1.1)",
+          "url": "https://csrc.nist.gov/pubs/sp/800/218/final"
+        }
+      ]
+    },
+    {
+      "id": "RV.1.1",
+      "text": "Do you actively gather information about potential vulnerabilities in your software from users, databases, and other sources?",
+      "tier": "basic",
+      "group": "RV",
+      "references": [
+        "NIST SSDF RV.1.1"
+      ],
+      "why": "Vulnerabilities you never hear about remain unpatched and open to exploitation.",
+      "fix": "Monitor vulnerability databases, security mailing lists, and reports for issues affecting your software.",
+      "links": [
+        {
+          "label": "NIST SP 800-218 (SSDF v1.1)",
+          "url": "https://csrc.nist.gov/pubs/sp/800/218/final"
+        }
+      ]
+    },
+    {
+      "id": "RV.1.2",
+      "text": "Do you review, analyze, or test your software to identify and confirm vulnerabilities and judge their severity?",
+      "tier": "basic",
+      "group": "RV",
+      "references": [
+        "NIST SSDF RV.1.2"
+      ],
+      "why": "Unconfirmed or unranked reports make it impossible to respond to the most dangerous issues first.",
+      "fix": "Use automated analysis and testing to confirm reported vulnerabilities and assess their severity.",
+      "links": [
+        {
+          "label": "NIST SP 800-218 (SSDF v1.1)",
+          "url": "https://csrc.nist.gov/pubs/sp/800/218/final"
+        }
+      ]
+    },
+    {
+      "id": "RV.1.3",
+      "text": "Do you have a vulnerability disclosure policy that makes it easy for outsiders to report security issues to you?",
+      "tier": "basic",
+      "group": "RV",
+      "references": [
+        "NIST SSDF RV.1.3"
+      ],
+      "why": "Without an easy reporting channel, finders may disclose flaws publicly or sell them instead of telling you.",
+      "fix": "Publish a vulnerability disclosure policy with a clear contact and intake process.",
+      "links": [
+        {
+          "label": "NIST SP 800-218 (SSDF v1.1)",
+          "url": "https://csrc.nist.gov/pubs/sp/800/218/final"
+        }
+      ]
+    },
+    {
+      "id": "RV.2.1",
+      "text": "Do you analyze each vulnerability thoroughly enough to gather the information needed to plan a response?",
+      "tier": "basic",
+      "group": "RV",
+      "references": [
+        "NIST SSDF RV.2.1"
+      ],
+      "why": "Responding without understanding a vulnerability's scope leads to incomplete or wrong fixes.",
+      "fix": "Record and analyze each vulnerability in your issue tracker to understand its cause and impact.",
+      "links": [
+        {
+          "label": "NIST SP 800-218 (SSDF v1.1)",
+          "url": "https://csrc.nist.gov/pubs/sp/800/218/final"
+        }
+      ]
+    },
+    {
+      "id": "RV.2.2",
+      "text": "Do you plan and carry out appropriate risk responses, such as remediation, for the vulnerabilities you confirm?",
+      "tier": "basic",
+      "group": "RV",
+      "references": [
+        "NIST SSDF RV.2.2"
+      ],
+      "why": "Confirmed vulnerabilities that are never remediated stay exploitable in the field.",
+      "fix": "Make a risk-based decision for each vulnerability and implement and ship the chosen fix.",
+      "links": [
+        {
+          "label": "NIST SP 800-218 (SSDF v1.1)",
+          "url": "https://csrc.nist.gov/pubs/sp/800/218/final"
+        }
+      ]
+    },
+    {
+      "id": "RV.3.1",
+      "text": "Do you analyze confirmed vulnerabilities to determine their underlying root causes?",
+      "tier": "basic",
+      "group": "RV",
+      "references": [
+        "NIST SSDF RV.3.1"
+      ],
+      "why": "Fixing only the symptom leaves the root cause free to produce the same flaw again.",
+      "fix": "Perform root cause analysis on discovered vulnerabilities and record what you find.",
+      "links": [
+        {
+          "label": "NIST SP 800-218 (SSDF v1.1)",
+          "url": "https://csrc.nist.gov/pubs/sp/800/218/final"
+        }
+      ]
+    },
+    {
+      "id": "RV.3.2",
+      "text": "Do you review root causes over time to spot recurring patterns across your vulnerabilities?",
+      "tier": "basic",
+      "group": "RV",
+      "references": [
+        "NIST SSDF RV.3.2"
+      ],
+      "why": "Recurring patterns signal systemic process gaps that keep generating new vulnerabilities.",
+      "fix": "Aggregate root cause findings and review trends to identify systemic weaknesses to address.",
+      "links": [
+        {
+          "label": "NIST SP 800-218 (SSDF v1.1)",
+          "url": "https://csrc.nist.gov/pubs/sp/800/218/final"
+        }
+      ]
+    },
+    {
+      "id": "RV.3.3",
+      "text": "Do you proactively review your software for other vulnerabilities similar to ones you have already found?",
+      "tier": "basic",
+      "group": "RV",
+      "references": [
+        "NIST SSDF RV.3.3"
+      ],
+      "why": "The same class of flaw often appears in many places, so fixing one instance leaves the rest exploitable.",
+      "fix": "Search the codebase for other instances of each confirmed flaw and remediate them too.",
+      "links": [
+        {
+          "label": "NIST SP 800-218 (SSDF v1.1)",
+          "url": "https://csrc.nist.gov/pubs/sp/800/218/final"
+        }
+      ]
+    },
+    {
+      "id": "RV.3.4",
+      "text": "Do you review and update your software development process based on lessons learned from vulnerabilities?",
+      "tier": "basic",
+      "group": "RV",
+      "references": [
+        "NIST SSDF RV.3.4"
+      ],
+      "why": "If the process that produced a vulnerability never changes, it will keep producing similar ones.",
+      "fix": "Feed root cause lessons back into your SDLC and update practices to prevent recurrence.",
+      "links": [
+        {
+          "label": "NIST SP 800-218 (SSDF v1.1)",
+          "url": "https://csrc.nist.gov/pubs/sp/800/218/final"
+        }
+      ]
+    }
+  ]
+}

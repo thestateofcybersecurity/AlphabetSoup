@@ -1,0 +1,1011 @@
+{
+  "categories": [
+    {
+      "id": "1",
+      "name": "Install and maintain network security controls",
+      "blurb": "Put barriers like firewalls between your card systems and the rest of the world, and keep them tuned over time."
+    },
+    {
+      "id": "2",
+      "name": "Apply secure configurations to all system components",
+      "blurb": "Harden every device and system before it goes live instead of trusting the settings it shipped with."
+    },
+    {
+      "id": "3",
+      "name": "Protect stored account data",
+      "blurb": "Only keep the card data you truly need, and lock down whatever you do store."
+    },
+    {
+      "id": "4",
+      "name": "Protect cardholder data with strong cryptography during transmission",
+      "blurb": "Scramble card details whenever they travel across networks you do not fully control."
+    },
+    {
+      "id": "5",
+      "name": "Protect all systems and networks from malicious software",
+      "blurb": "Guard your systems against viruses and other malware and keep those defenses current."
+    },
+    {
+      "id": "6",
+      "name": "Develop and maintain secure systems and software",
+      "blurb": "Build software safely, patch known holes quickly, and manage changes carefully."
+    },
+    {
+      "id": "7",
+      "name": "Restrict access to system components and cardholder data by business need to know",
+      "blurb": "Give people access to card data only when their job actually requires it."
+    },
+    {
+      "id": "8",
+      "name": "Identify users and authenticate access to system components",
+      "blurb": "Make sure every person has a unique login and prove who they are before granting access."
+    },
+    {
+      "id": "9",
+      "name": "Restrict physical access to cardholder data",
+      "blurb": "Keep the physical places and devices that touch card data away from unauthorized hands."
+    },
+    {
+      "id": "10",
+      "name": "Log and monitor all access to system components and cardholder data",
+      "blurb": "Record who does what with card systems and review those records to catch problems."
+    },
+    {
+      "id": "11",
+      "name": "Test security of systems and networks regularly",
+      "blurb": "Routinely probe your own defenses so you find weaknesses before attackers do."
+    },
+    {
+      "id": "12",
+      "name": "Support information security with organizational policies and programs",
+      "blurb": "Back up your technical controls with clear policies, training, and accountability."
+    }
+  ],
+  "questions": [
+    {
+      "id": "PCI-1-1",
+      "text": "Do you have firewalls or equivalent network controls placed between your card-handling systems and untrusted networks like the internet?",
+      "tier": "basic",
+      "group": "1",
+      "references": [
+        "PCI DSS v4.0 Requirement 1"
+      ],
+      "why": "Without a barrier at the edge, attackers on the open internet can reach systems that handle card data directly.",
+      "fix": "Deploy a firewall or network security control at every boundary between your card environment and outside networks.",
+      "links": [
+        {
+          "label": "PCI Security Standards Council",
+          "url": "https://www.pcisecuritystandards.org/"
+        },
+        {
+          "label": "PCI DSS Document Library",
+          "url": "https://www.pcisecuritystandards.org/document_library/"
+        }
+      ]
+    },
+    {
+      "id": "PCI-1-2",
+      "text": "Have you written down the rules your firewalls enforce and confirmed each allowed connection has a real business reason?",
+      "tier": "basic",
+      "group": "1",
+      "references": [
+        "PCI DSS v4.0 Requirement 1"
+      ],
+      "why": "Undocumented or unjustified openings quietly widen the attack surface and often outlive the need that created them.",
+      "fix": "Document every permitted network path and its business justification, then remove any rule that no longer applies.",
+      "links": [
+        {
+          "label": "PCI Security Standards Council",
+          "url": "https://www.pcisecuritystandards.org/"
+        },
+        {
+          "label": "PCI DSS Document Library",
+          "url": "https://www.pcisecuritystandards.org/document_library/"
+        }
+      ]
+    },
+    {
+      "id": "PCI-1-3",
+      "text": "Is inbound and outbound traffic to your card environment limited to only what is necessary and blocked by default?",
+      "tier": "basic",
+      "group": "1",
+      "references": [
+        "PCI DSS v4.0 Requirement 1"
+      ],
+      "why": "A permissive default lets unexpected connections slip through and gives malware an easy path in or out.",
+      "fix": "Set your controls to deny all traffic by default and explicitly allow only the connections you have justified.",
+      "links": [
+        {
+          "label": "PCI Security Standards Council",
+          "url": "https://www.pcisecuritystandards.org/"
+        },
+        {
+          "label": "PCI DSS Document Library",
+          "url": "https://www.pcisecuritystandards.org/document_library/"
+        }
+      ]
+    },
+    {
+      "id": "PCI-1-4",
+      "text": "Do you review your network security rules at least periodically to confirm they are still correct and needed?",
+      "tier": "basic",
+      "group": "1",
+      "references": [
+        "PCI DSS v4.0 Requirement 1"
+      ],
+      "why": "Network rules drift over time as systems change, leaving stale openings that no one is watching.",
+      "fix": "Schedule a recurring review of firewall and router configurations and prune anything outdated.",
+      "links": [
+        {
+          "label": "PCI Security Standards Council",
+          "url": "https://www.pcisecuritystandards.org/"
+        },
+        {
+          "label": "PCI DSS Document Library",
+          "url": "https://www.pcisecuritystandards.org/document_library/"
+        }
+      ]
+    },
+    {
+      "id": "PCI-2-1",
+      "text": "Do you change default passwords and other vendor-supplied default settings before putting a system into use?",
+      "tier": "basic",
+      "group": "2",
+      "references": [
+        "PCI DSS v4.0 Requirement 2"
+      ],
+      "why": "Default credentials are public knowledge and are among the first things attackers try.",
+      "fix": "Replace every default password and account and adjust risky default settings before deployment.",
+      "links": [
+        {
+          "label": "PCI Security Standards Council",
+          "url": "https://www.pcisecuritystandards.org/"
+        },
+        {
+          "label": "PCI DSS Document Library",
+          "url": "https://www.pcisecuritystandards.org/document_library/"
+        }
+      ]
+    },
+    {
+      "id": "PCI-2-2",
+      "text": "Have you created hardening standards that spell out secure settings for each type of system you run?",
+      "tier": "basic",
+      "group": "2",
+      "references": [
+        "PCI DSS v4.0 Requirement 2"
+      ],
+      "why": "Without an agreed baseline, systems get configured inconsistently and weak spots go unnoticed.",
+      "fix": "Adopt configuration standards based on recognized hardening guidance and apply them to every new build.",
+      "links": [
+        {
+          "label": "PCI Security Standards Council",
+          "url": "https://www.pcisecuritystandards.org/"
+        },
+        {
+          "label": "PCI DSS Document Library",
+          "url": "https://www.pcisecuritystandards.org/document_library/"
+        }
+      ]
+    },
+    {
+      "id": "PCI-2-3",
+      "text": "Do you turn off or remove services, ports, and features on your systems that you do not actually need?",
+      "tier": "basic",
+      "group": "2",
+      "references": [
+        "PCI DSS v4.0 Requirement 2"
+      ],
+      "why": "Every extra service running is one more thing that can be exploited or misconfigured.",
+      "fix": "Inventory what each system runs and disable anything not required for its job.",
+      "links": [
+        {
+          "label": "PCI Security Standards Council",
+          "url": "https://www.pcisecuritystandards.org/"
+        },
+        {
+          "label": "PCI DSS Document Library",
+          "url": "https://www.pcisecuritystandards.org/document_library/"
+        }
+      ]
+    },
+    {
+      "id": "PCI-2-4",
+      "text": "Is administrative access to your systems always carried over encrypted connections rather than in plain text?",
+      "tier": "basic",
+      "group": "2",
+      "references": [
+        "PCI DSS v4.0 Requirement 2"
+      ],
+      "why": "Managing systems over unencrypted channels lets anyone watching the network capture admin credentials.",
+      "fix": "Require encrypted protocols such as SSH or TLS for all remote administration and disable clear-text alternatives.",
+      "links": [
+        {
+          "label": "PCI Security Standards Council",
+          "url": "https://www.pcisecuritystandards.org/"
+        },
+        {
+          "label": "PCI DSS Document Library",
+          "url": "https://www.pcisecuritystandards.org/document_library/"
+        }
+      ]
+    },
+    {
+      "id": "PCI-3-1",
+      "text": "Do you avoid storing card data you do not need, and delete stored card data once its business purpose is over?",
+      "tier": "basic",
+      "group": "3",
+      "references": [
+        "PCI DSS v4.0 Requirement 3"
+      ],
+      "why": "Data you never keep cannot be stolen, so needless retention only grows your risk.",
+      "fix": "Set retention limits, and securely purge stored card data when it is no longer required.",
+      "links": [
+        {
+          "label": "PCI Security Standards Council",
+          "url": "https://www.pcisecuritystandards.org/"
+        },
+        {
+          "label": "PCI DSS Document Library",
+          "url": "https://www.pcisecuritystandards.org/document_library/"
+        }
+      ]
+    },
+    {
+      "id": "PCI-3-2",
+      "text": "Are you certain you never keep sensitive authentication data like the full stripe, card verification code, or PIN after authorization?",
+      "tier": "basic",
+      "group": "3",
+      "references": [
+        "PCI DSS v4.0 Requirement 3"
+      ],
+      "why": "This especially sensitive data lets a thief clone cards or complete fraudulent purchases, so it must never be retained.",
+      "fix": "Confirm no system or log keeps these elements after authorization and remove any that does.",
+      "links": [
+        {
+          "label": "PCI Security Standards Council",
+          "url": "https://www.pcisecuritystandards.org/"
+        },
+        {
+          "label": "PCI DSS Document Library",
+          "url": "https://www.pcisecuritystandards.org/document_library/"
+        }
+      ]
+    },
+    {
+      "id": "PCI-3-3",
+      "text": "Do you mask card numbers when displayed so only the parts people genuinely need to see are shown?",
+      "tier": "basic",
+      "group": "3",
+      "references": [
+        "PCI DSS v4.0 Requirement 3"
+      ],
+      "why": "Showing full card numbers on screens or receipts exposes them to shoulder surfing and casual theft.",
+      "fix": "Mask card numbers by default and reveal the full value only to the few roles with a documented need.",
+      "links": [
+        {
+          "label": "PCI Security Standards Council",
+          "url": "https://www.pcisecuritystandards.org/"
+        },
+        {
+          "label": "PCI DSS Document Library",
+          "url": "https://www.pcisecuritystandards.org/document_library/"
+        }
+      ]
+    },
+    {
+      "id": "PCI-3-4",
+      "text": "Is any card number you store rendered unreadable, for example through strong encryption, truncation, or tokenization?",
+      "tier": "basic",
+      "group": "3",
+      "references": [
+        "PCI DSS v4.0 Requirement 3"
+      ],
+      "why": "If stored card numbers sit in readable form, a single breach hands attackers usable data.",
+      "fix": "Protect stored card numbers with strong encryption, truncation, or tokens, and safeguard the keys separately.",
+      "links": [
+        {
+          "label": "PCI Security Standards Council",
+          "url": "https://www.pcisecuritystandards.org/"
+        },
+        {
+          "label": "PCI DSS Document Library",
+          "url": "https://www.pcisecuritystandards.org/document_library/"
+        }
+      ]
+    },
+    {
+      "id": "PCI-4-1",
+      "text": "Do you encrypt card data with strong cryptography whenever it travels across open or public networks like the internet?",
+      "tier": "basic",
+      "group": "4",
+      "references": [
+        "PCI DSS v4.0 Requirement 4"
+      ],
+      "why": "Card data sent in the clear can be intercepted anywhere along its path across public networks.",
+      "fix": "Enforce strong transport encryption such as current TLS for every transmission of card data over open networks.",
+      "links": [
+        {
+          "label": "PCI Security Standards Council",
+          "url": "https://www.pcisecuritystandards.org/"
+        },
+        {
+          "label": "PCI DSS Document Library",
+          "url": "https://www.pcisecuritystandards.org/document_library/"
+        }
+      ]
+    },
+    {
+      "id": "PCI-4-2",
+      "text": "Do you rely only on trusted keys and certificates and reject weak or outdated encryption protocols and ciphers?",
+      "tier": "basic",
+      "group": "4",
+      "references": [
+        "PCI DSS v4.0 Requirement 4"
+      ],
+      "why": "Obsolete protocols and untrusted certificates can be broken or spoofed, defeating the point of encryption.",
+      "fix": "Disable legacy protocols and weak ciphers, and accept connections only with trusted, valid certificates.",
+      "links": [
+        {
+          "label": "PCI Security Standards Council",
+          "url": "https://www.pcisecuritystandards.org/"
+        },
+        {
+          "label": "PCI DSS Document Library",
+          "url": "https://www.pcisecuritystandards.org/document_library/"
+        }
+      ]
+    },
+    {
+      "id": "PCI-4-3",
+      "text": "Do you make sure card numbers are never sent through end-user messaging tools such as email, chat, or text without protection?",
+      "tier": "basic",
+      "group": "4",
+      "references": [
+        "PCI DSS v4.0 Requirement 4"
+      ],
+      "why": "Everyday messaging channels are rarely encrypted and leave copies of card data scattered in inboxes and logs.",
+      "fix": "Prohibit unprotected card data in messaging tools and offer a secure channel when transmission is unavoidable.",
+      "links": [
+        {
+          "label": "PCI Security Standards Council",
+          "url": "https://www.pcisecuritystandards.org/"
+        },
+        {
+          "label": "PCI DSS Document Library",
+          "url": "https://www.pcisecuritystandards.org/document_library/"
+        }
+      ]
+    },
+    {
+      "id": "PCI-5-1",
+      "text": "Do you run anti-malware protection on the systems that are commonly targeted by viruses and other malicious software?",
+      "tier": "basic",
+      "group": "5",
+      "references": [
+        "PCI DSS v4.0 Requirement 5"
+      ],
+      "why": "Unprotected systems can be silently infected and turned into a foothold for stealing card data.",
+      "fix": "Install reputable anti-malware software on all susceptible systems and confirm it is actively running.",
+      "links": [
+        {
+          "label": "PCI Security Standards Council",
+          "url": "https://www.pcisecuritystandards.org/"
+        },
+        {
+          "label": "PCI DSS Document Library",
+          "url": "https://www.pcisecuritystandards.org/document_library/"
+        }
+      ]
+    },
+    {
+      "id": "PCI-5-2",
+      "text": "Is your anti-malware kept up to date and set to scan automatically rather than relying on manual checks?",
+      "tier": "basic",
+      "group": "5",
+      "references": [
+        "PCI DSS v4.0 Requirement 5"
+      ],
+      "why": "Outdated or dormant protection misses new threats and gives infections room to spread.",
+      "fix": "Enable automatic updates and scheduled scans so protection stays current without manual effort.",
+      "links": [
+        {
+          "label": "PCI Security Standards Council",
+          "url": "https://www.pcisecuritystandards.org/"
+        },
+        {
+          "label": "PCI DSS Document Library",
+          "url": "https://www.pcisecuritystandards.org/document_library/"
+        }
+      ]
+    },
+    {
+      "id": "PCI-5-3",
+      "text": "Are your anti-malware defenses configured so that regular users cannot disable or tamper with them?",
+      "tier": "basic",
+      "group": "5",
+      "references": [
+        "PCI DSS v4.0 Requirement 5"
+      ],
+      "why": "Protection that a user or attacker can switch off provides no real defense when it matters most.",
+      "fix": "Lock anti-malware settings so only authorized administrators can change or turn them off.",
+      "links": [
+        {
+          "label": "PCI Security Standards Council",
+          "url": "https://www.pcisecuritystandards.org/"
+        },
+        {
+          "label": "PCI DSS Document Library",
+          "url": "https://www.pcisecuritystandards.org/document_library/"
+        }
+      ]
+    },
+    {
+      "id": "PCI-6-1",
+      "text": "Do you keep track of security vulnerabilities and apply vendor patches promptly, prioritizing the most serious ones?",
+      "tier": "basic",
+      "group": "6",
+      "references": [
+        "PCI DSS v4.0 Requirement 6"
+      ],
+      "why": "Unpatched known flaws are one of the most common ways attackers break into systems.",
+      "fix": "Track new vulnerabilities from reliable sources and install critical patches within a defined short window.",
+      "links": [
+        {
+          "label": "PCI Security Standards Council",
+          "url": "https://www.pcisecuritystandards.org/"
+        },
+        {
+          "label": "PCI DSS Document Library",
+          "url": "https://www.pcisecuritystandards.org/document_library/"
+        }
+      ]
+    },
+    {
+      "id": "PCI-6-2",
+      "text": "Do your developers follow secure coding practices that guard against common flaws when you build your own software?",
+      "tier": "basic",
+      "group": "6",
+      "references": [
+        "PCI DSS v4.0 Requirement 6"
+      ],
+      "why": "Insecure code introduces weaknesses like injection or broken access control that attackers readily exploit.",
+      "fix": "Train developers in secure coding and review code for common vulnerability classes before release.",
+      "links": [
+        {
+          "label": "PCI Security Standards Council",
+          "url": "https://www.pcisecuritystandards.org/"
+        },
+        {
+          "label": "PCI DSS Document Library",
+          "url": "https://www.pcisecuritystandards.org/document_library/"
+        }
+      ]
+    },
+    {
+      "id": "PCI-6-3",
+      "text": "Do you review and approve changes to your systems and applications before they go into production?",
+      "tier": "basic",
+      "group": "6",
+      "references": [
+        "PCI DSS v4.0 Requirement 6"
+      ],
+      "why": "Unmanaged changes can silently introduce security holes or break existing protections.",
+      "fix": "Adopt a change-control process that requires testing and approval before changes reach live systems.",
+      "links": [
+        {
+          "label": "PCI Security Standards Council",
+          "url": "https://www.pcisecuritystandards.org/"
+        },
+        {
+          "label": "PCI DSS Document Library",
+          "url": "https://www.pcisecuritystandards.org/document_library/"
+        }
+      ]
+    },
+    {
+      "id": "PCI-6-4",
+      "text": "Do you protect your public-facing web applications against attacks, for example with regular testing or a web application firewall?",
+      "tier": "basic",
+      "group": "6",
+      "references": [
+        "PCI DSS v4.0 Requirement 6"
+      ],
+      "why": "Internet-facing applications are constantly probed and are a frequent entry point for card data theft.",
+      "fix": "Assess web apps for vulnerabilities regularly or place an automated protection layer in front of them.",
+      "links": [
+        {
+          "label": "PCI Security Standards Council",
+          "url": "https://www.pcisecuritystandards.org/"
+        },
+        {
+          "label": "PCI DSS Document Library",
+          "url": "https://www.pcisecuritystandards.org/document_library/"
+        }
+      ]
+    },
+    {
+      "id": "PCI-7-1",
+      "text": "Do you grant access to card data and related systems based on what each person's role actually requires?",
+      "tier": "basic",
+      "group": "7",
+      "references": [
+        "PCI DSS v4.0 Requirement 7"
+      ],
+      "why": "Broad access means a single compromised account can reach far more data than it should.",
+      "fix": "Define access by job role and give each person only the minimum needed to do their work.",
+      "links": [
+        {
+          "label": "PCI Security Standards Council",
+          "url": "https://www.pcisecuritystandards.org/"
+        },
+        {
+          "label": "PCI DSS Document Library",
+          "url": "https://www.pcisecuritystandards.org/document_library/"
+        }
+      ]
+    },
+    {
+      "id": "PCI-7-2",
+      "text": "Are your systems set to deny access by default so people get in only where access has been explicitly granted?",
+      "tier": "basic",
+      "group": "7",
+      "references": [
+        "PCI DSS v4.0 Requirement 7"
+      ],
+      "why": "A default that allows access lets people reach data no one ever deliberately approved.",
+      "fix": "Configure access controls to deny everything by default and allow only what has been assigned.",
+      "links": [
+        {
+          "label": "PCI Security Standards Council",
+          "url": "https://www.pcisecuritystandards.org/"
+        },
+        {
+          "label": "PCI DSS Document Library",
+          "url": "https://www.pcisecuritystandards.org/document_library/"
+        }
+      ]
+    },
+    {
+      "id": "PCI-7-3",
+      "text": "Do you review who has access to card data periodically and remove permissions that are no longer justified?",
+      "tier": "basic",
+      "group": "7",
+      "references": [
+        "PCI DSS v4.0 Requirement 7"
+      ],
+      "why": "Access tends to accumulate as people change roles, leaving old permissions that expand risk.",
+      "fix": "Run periodic access reviews and revoke any rights that no longer match a person's current job.",
+      "links": [
+        {
+          "label": "PCI Security Standards Council",
+          "url": "https://www.pcisecuritystandards.org/"
+        },
+        {
+          "label": "PCI DSS Document Library",
+          "url": "https://www.pcisecuritystandards.org/document_library/"
+        }
+      ]
+    },
+    {
+      "id": "PCI-8-1",
+      "text": "Does every person have their own unique account rather than sharing logins with others?",
+      "tier": "basic",
+      "group": "8",
+      "references": [
+        "PCI DSS v4.0 Requirement 8"
+      ],
+      "why": "Shared accounts make it impossible to tell who did what, undermining accountability and investigations.",
+      "fix": "Issue a unique ID to each user and eliminate shared or generic login accounts.",
+      "links": [
+        {
+          "label": "PCI Security Standards Council",
+          "url": "https://www.pcisecuritystandards.org/"
+        },
+        {
+          "label": "PCI DSS Document Library",
+          "url": "https://www.pcisecuritystandards.org/document_library/"
+        }
+      ]
+    },
+    {
+      "id": "PCI-8-2",
+      "text": "Do you enforce strong passwords or passphrases along with sensible rules for how they are set and changed?",
+      "tier": "basic",
+      "group": "8",
+      "references": [
+        "PCI DSS v4.0 Requirement 8"
+      ],
+      "why": "Weak or reused passwords are easily guessed or cracked, opening the door to your systems.",
+      "fix": "Require sufficiently long, complex credentials and enforce them through your system settings.",
+      "links": [
+        {
+          "label": "PCI Security Standards Council",
+          "url": "https://www.pcisecuritystandards.org/"
+        },
+        {
+          "label": "PCI DSS Document Library",
+          "url": "https://www.pcisecuritystandards.org/document_library/"
+        }
+      ]
+    },
+    {
+      "id": "PCI-8-3",
+      "text": "Do you require multi-factor authentication for access into the card environment and for all remote and administrative access?",
+      "tier": "basic",
+      "group": "8",
+      "references": [
+        "PCI DSS v4.0 Requirement 8"
+      ],
+      "why": "A stolen password alone should not be enough to get in, and a second factor stops most account takeovers.",
+      "fix": "Turn on multi-factor authentication for card-environment, remote, and admin access.",
+      "links": [
+        {
+          "label": "PCI Security Standards Council",
+          "url": "https://www.pcisecuritystandards.org/"
+        },
+        {
+          "label": "PCI DSS Document Library",
+          "url": "https://www.pcisecuritystandards.org/document_library/"
+        }
+      ]
+    },
+    {
+      "id": "PCI-8-4",
+      "text": "Do you promptly disable or remove accounts for people who leave or no longer need access?",
+      "tier": "basic",
+      "group": "8",
+      "references": [
+        "PCI DSS v4.0 Requirement 8"
+      ],
+      "why": "Lingering accounts for former staff are a favorite target because no one is monitoring them.",
+      "fix": "Tie account removal to your offboarding process so access is revoked as soon as it ends.",
+      "links": [
+        {
+          "label": "PCI Security Standards Council",
+          "url": "https://www.pcisecuritystandards.org/"
+        },
+        {
+          "label": "PCI DSS Document Library",
+          "url": "https://www.pcisecuritystandards.org/document_library/"
+        }
+      ]
+    },
+    {
+      "id": "PCI-9-1",
+      "text": "Do you control physical entry to areas where card data or the systems handling it are located?",
+      "tier": "basic",
+      "group": "9",
+      "references": [
+        "PCI DSS v4.0 Requirement 9"
+      ],
+      "why": "Someone who can physically reach a server or storage can bypass many digital protections.",
+      "fix": "Restrict entry to sensitive areas with locks, badges, or other controls and log who enters.",
+      "links": [
+        {
+          "label": "PCI Security Standards Council",
+          "url": "https://www.pcisecuritystandards.org/"
+        },
+        {
+          "label": "PCI DSS Document Library",
+          "url": "https://www.pcisecuritystandards.org/document_library/"
+        }
+      ]
+    },
+    {
+      "id": "PCI-9-2",
+      "text": "Do you tell visitors apart from staff and escort or monitor them while they are in sensitive areas?",
+      "tier": "basic",
+      "group": "9",
+      "references": [
+        "PCI DSS v4.0 Requirement 9"
+      ],
+      "why": "An unescorted visitor could tamper with equipment or walk off with media containing card data.",
+      "fix": "Issue visitor identification, escort guests in sensitive areas, and keep a record of their visits.",
+      "links": [
+        {
+          "label": "PCI Security Standards Council",
+          "url": "https://www.pcisecuritystandards.org/"
+        },
+        {
+          "label": "PCI DSS Document Library",
+          "url": "https://www.pcisecuritystandards.org/document_library/"
+        }
+      ]
+    },
+    {
+      "id": "PCI-9-3",
+      "text": "Do you securely store and, when no longer needed, destroy any physical media or paper that holds card data?",
+      "tier": "basic",
+      "group": "9",
+      "references": [
+        "PCI DSS v4.0 Requirement 9"
+      ],
+      "why": "Discarded receipts, printouts, or drives can be recovered from the trash by anyone looking.",
+      "fix": "Lock up media containing card data and shred or wipe it beyond recovery before disposal.",
+      "links": [
+        {
+          "label": "PCI Security Standards Council",
+          "url": "https://www.pcisecuritystandards.org/"
+        },
+        {
+          "label": "PCI DSS Document Library",
+          "url": "https://www.pcisecuritystandards.org/document_library/"
+        }
+      ]
+    },
+    {
+      "id": "PCI-9-4",
+      "text": "Do you inspect card-reading devices like payment terminals for signs of tampering or unauthorized substitution?",
+      "tier": "basic",
+      "group": "9",
+      "references": [
+        "PCI DSS v4.0 Requirement 9"
+      ],
+      "why": "Criminals tamper with or swap payment terminals to skim card data as customers pay.",
+      "fix": "Keep an inventory of payment devices and check them regularly for tampering or swaps.",
+      "links": [
+        {
+          "label": "PCI Security Standards Council",
+          "url": "https://www.pcisecuritystandards.org/"
+        },
+        {
+          "label": "PCI DSS Document Library",
+          "url": "https://www.pcisecuritystandards.org/document_library/"
+        }
+      ]
+    },
+    {
+      "id": "PCI-10-1",
+      "text": "Do you record audit logs that capture user activity and access to card data across your systems?",
+      "tier": "basic",
+      "group": "10",
+      "references": [
+        "PCI DSS v4.0 Requirement 10"
+      ],
+      "why": "Without logs you cannot tell what happened during an incident or spot misuse as it occurs.",
+      "fix": "Enable logging on all card-handling systems to capture who accessed what and when.",
+      "links": [
+        {
+          "label": "PCI Security Standards Council",
+          "url": "https://www.pcisecuritystandards.org/"
+        },
+        {
+          "label": "PCI DSS Document Library",
+          "url": "https://www.pcisecuritystandards.org/document_library/"
+        }
+      ]
+    },
+    {
+      "id": "PCI-10-2",
+      "text": "Do you review your logs regularly, ideally with automated tools, to catch suspicious or unusual activity?",
+      "tier": "basic",
+      "group": "10",
+      "references": [
+        "PCI DSS v4.0 Requirement 10"
+      ],
+      "why": "Logs that no one looks at let attacks continue undetected until real damage is done.",
+      "fix": "Set up routine log review, using automated alerting to surface anomalies quickly.",
+      "links": [
+        {
+          "label": "PCI Security Standards Council",
+          "url": "https://www.pcisecuritystandards.org/"
+        },
+        {
+          "label": "PCI DSS Document Library",
+          "url": "https://www.pcisecuritystandards.org/document_library/"
+        }
+      ]
+    },
+    {
+      "id": "PCI-10-3",
+      "text": "Are your logs protected from tampering and retained long enough to support an investigation?",
+      "tier": "basic",
+      "group": "10",
+      "references": [
+        "PCI DSS v4.0 Requirement 10"
+      ],
+      "why": "Attackers often try to erase logs, and short retention can wipe out evidence before a breach is noticed.",
+      "fix": "Store logs securely with tamper protection and keep them for an adequate retention period.",
+      "links": [
+        {
+          "label": "PCI Security Standards Council",
+          "url": "https://www.pcisecuritystandards.org/"
+        },
+        {
+          "label": "PCI DSS Document Library",
+          "url": "https://www.pcisecuritystandards.org/document_library/"
+        }
+      ]
+    },
+    {
+      "id": "PCI-10-4",
+      "text": "Do you keep accurate time across your systems using a trusted time source so log timestamps line up?",
+      "tier": "basic",
+      "group": "10",
+      "references": [
+        "PCI DSS v4.0 Requirement 10"
+      ],
+      "why": "If clocks disagree, reconstructing the sequence of events during an investigation becomes unreliable.",
+      "fix": "Synchronize all systems to a trusted time source and protect that time configuration.",
+      "links": [
+        {
+          "label": "PCI Security Standards Council",
+          "url": "https://www.pcisecuritystandards.org/"
+        },
+        {
+          "label": "PCI DSS Document Library",
+          "url": "https://www.pcisecuritystandards.org/document_library/"
+        }
+      ]
+    },
+    {
+      "id": "PCI-11-1",
+      "text": "Do you scan your systems for vulnerabilities on a regular schedule and after significant changes?",
+      "tier": "basic",
+      "group": "11",
+      "references": [
+        "PCI DSS v4.0 Requirement 11"
+      ],
+      "why": "New weaknesses appear constantly, and regular scanning is how you find them before attackers do.",
+      "fix": "Run internal and external vulnerability scans periodically and remediate what they uncover.",
+      "links": [
+        {
+          "label": "PCI Security Standards Council",
+          "url": "https://www.pcisecuritystandards.org/"
+        },
+        {
+          "label": "PCI DSS Document Library",
+          "url": "https://www.pcisecuritystandards.org/document_library/"
+        }
+      ]
+    },
+    {
+      "id": "PCI-11-2",
+      "text": "Do you carry out penetration testing periodically to see whether your defenses can actually be breached?",
+      "tier": "basic",
+      "group": "11",
+      "references": [
+        "PCI DSS v4.0 Requirement 11"
+      ],
+      "why": "Scans find known flaws, but hands-on testing reveals how they could be chained into a real breach.",
+      "fix": "Commission penetration tests of your card environment and fix the weaknesses they demonstrate.",
+      "links": [
+        {
+          "label": "PCI Security Standards Council",
+          "url": "https://www.pcisecuritystandards.org/"
+        },
+        {
+          "label": "PCI DSS Document Library",
+          "url": "https://www.pcisecuritystandards.org/document_library/"
+        }
+      ]
+    },
+    {
+      "id": "PCI-11-3",
+      "text": "Do you use intrusion detection and tools that alert you to unauthorized changes on critical systems?",
+      "tier": "basic",
+      "group": "11",
+      "references": [
+        "PCI DSS v4.0 Requirement 11"
+      ],
+      "why": "Early warning of intrusions or unexpected file changes lets you respond before attackers dig in.",
+      "fix": "Deploy intrusion detection and change-monitoring tools that alert staff to suspicious activity.",
+      "links": [
+        {
+          "label": "PCI Security Standards Council",
+          "url": "https://www.pcisecuritystandards.org/"
+        },
+        {
+          "label": "PCI DSS Document Library",
+          "url": "https://www.pcisecuritystandards.org/document_library/"
+        }
+      ]
+    },
+    {
+      "id": "PCI-11-4",
+      "text": "Do you watch payment pages for unauthorized changes to scripts and page content that could skim card data?",
+      "tier": "basic",
+      "group": "11",
+      "references": [
+        "PCI DSS v4.0 Requirement 11"
+      ],
+      "why": "Attackers inject malicious scripts into checkout pages to quietly harvest card details from customers.",
+      "fix": "Monitor and control the scripts running on payment pages and alert on unexpected changes.",
+      "links": [
+        {
+          "label": "PCI Security Standards Council",
+          "url": "https://www.pcisecuritystandards.org/"
+        },
+        {
+          "label": "PCI DSS Document Library",
+          "url": "https://www.pcisecuritystandards.org/document_library/"
+        }
+      ]
+    },
+    {
+      "id": "PCI-12-1",
+      "text": "Do you have a written information security policy that is kept current and shared with everyone it applies to?",
+      "tier": "basic",
+      "group": "12",
+      "references": [
+        "PCI DSS v4.0 Requirement 12"
+      ],
+      "why": "Without a documented policy, security expectations are inconsistent and hard to enforce.",
+      "fix": "Publish an information security policy, review it at least yearly, and communicate it to your people.",
+      "links": [
+        {
+          "label": "PCI Security Standards Council",
+          "url": "https://www.pcisecuritystandards.org/"
+        },
+        {
+          "label": "PCI DSS Document Library",
+          "url": "https://www.pcisecuritystandards.org/document_library/"
+        }
+      ]
+    },
+    {
+      "id": "PCI-12-2",
+      "text": "Do you assess your risks and provide security awareness training so staff understand their responsibilities?",
+      "tier": "basic",
+      "group": "12",
+      "references": [
+        "PCI DSS v4.0 Requirement 12"
+      ],
+      "why": "People who do not understand the risks are more likely to make the mistakes attackers count on.",
+      "fix": "Run regular risk assessments and give staff ongoing security awareness training.",
+      "links": [
+        {
+          "label": "PCI Security Standards Council",
+          "url": "https://www.pcisecuritystandards.org/"
+        },
+        {
+          "label": "PCI DSS Document Library",
+          "url": "https://www.pcisecuritystandards.org/document_library/"
+        }
+      ]
+    },
+    {
+      "id": "PCI-12-3",
+      "text": "Do you have an incident response plan that spells out how you will detect, react to, and recover from a breach?",
+      "tier": "basic",
+      "group": "12",
+      "references": [
+        "PCI DSS v4.0 Requirement 12"
+      ],
+      "why": "When a breach hits, a rehearsed plan is the difference between a contained event and a runaway crisis.",
+      "fix": "Document an incident response plan, assign roles, and test it so the team knows what to do.",
+      "links": [
+        {
+          "label": "PCI Security Standards Council",
+          "url": "https://www.pcisecuritystandards.org/"
+        },
+        {
+          "label": "PCI DSS Document Library",
+          "url": "https://www.pcisecuritystandards.org/document_library/"
+        }
+      ]
+    },
+    {
+      "id": "PCI-12-4",
+      "text": "Do you manage the security risk of third parties who handle card data on your behalf and confirm their compliance?",
+      "tier": "basic",
+      "group": "12",
+      "references": [
+        "PCI DSS v4.0 Requirement 12"
+      ],
+      "why": "A vendor's weak security can expose your customers' card data just as surely as your own gaps.",
+      "fix": "Keep a list of service providers, define security responsibilities in contracts, and verify their compliance.",
+      "links": [
+        {
+          "label": "PCI Security Standards Council",
+          "url": "https://www.pcisecuritystandards.org/"
+        },
+        {
+          "label": "PCI DSS Document Library",
+          "url": "https://www.pcisecuritystandards.org/document_library/"
+        }
+      ]
+    }
+  ]
+}
