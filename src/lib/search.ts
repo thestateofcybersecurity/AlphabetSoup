@@ -58,3 +58,41 @@ export function searchEntries(data: AcronymData, query: string, filter: SearchFi
 function escapeRegExp(value: string): string {
   return value.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
 }
+
+/** Levenshtein edit distance between two short strings. */
+function editDistance(a: string, b: string): number {
+  const m = a.length;
+  const n = b.length;
+  if (m === 0) return n;
+  if (n === 0) return m;
+  let prev = Array.from({ length: n + 1 }, (_, i) => i);
+  let curr = new Array<number>(n + 1);
+  for (let i = 1; i <= m; i += 1) {
+    curr[0] = i;
+    for (let j = 1; j <= n; j += 1) {
+      const cost = a[i - 1] === b[j - 1] ? 0 : 1;
+      curr[j] = Math.min(prev[j] + 1, curr[j - 1] + 1, prev[j - 1] + cost);
+    }
+    [prev, curr] = [curr, prev];
+  }
+  return prev[n];
+}
+
+/**
+ * The single closest acronym key to a mistyped query, or null if nothing is
+ * close enough. Powers the "did you mean" hint on an empty result set.
+ */
+export function suggest(data: AcronymData, query: string): string | null {
+  const q = query.trim().toLowerCase().replace(/[^a-z0-9]/g, '');
+  if (q.length < 2) return null;
+  let best: { key: string; dist: number } | null = null;
+  for (const key of Object.keys(data)) {
+    const k = key.toLowerCase();
+    // Skip obviously-unrelated lengths to keep it cheap and precise.
+    if (Math.abs(k.length - q.length) > 3) continue;
+    const dist = editDistance(q, k);
+    if (best === null || dist < best.dist) best = { key, dist };
+  }
+  const threshold = Math.min(3, Math.max(2, Math.ceil(q.length * 0.4)));
+  return best && best.dist > 0 && best.dist <= threshold ? best.key : null;
+}

@@ -2,6 +2,7 @@ import { mkdirSync, readFileSync, writeFileSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
 import { resolveLegacySlug, slugForKey } from '../src/lib/slug';
 import { frameworkSlug } from '../src/lib/frameworks';
+import { relatedFor } from '../src/lib/related';
 import type { AcronymData, AcronymEntry } from '../src/lib/types';
 import type { CisData, CsfData } from '../src/lib/frameworks';
 
@@ -132,18 +133,7 @@ function navHtml(prefix: string): string {
     .join('')}<a href="${MITRE_NAV}" rel="noopener" target="_blank">MITRE ATT&amp;CK</a><a class="play-link" href="${CYBERDLE_NAV}" rel="noopener" target="_blank">Cyberdle</a></nav>`;
 }
 
-function relatedKeys(key: string): string[] {
-  const category = data[key].category;
-  const siblings = Object.keys(data)
-    .filter((k) => k !== key && data[k].category === category)
-    .sort();
-  const start = siblings.findIndex((k) => k > key);
-  const picks: string[] = [];
-  for (let i = 0; i < Math.min(4, siblings.length); i++) {
-    picks.push(siblings[(Math.max(start, 0) + i) % siblings.length]);
-  }
-  return picks;
-}
+const relatedKeys = (key: string): string[] => relatedFor(key, data);
 
 function definitionPage(key: string, entry: AcronymEntry): string {
   const slug = slugForKey(key);
