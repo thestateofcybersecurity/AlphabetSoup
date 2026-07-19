@@ -34,7 +34,7 @@
   <header class="hero hero-compact">
     <p class="kicker">planning mode &middot; saved in your browser</p>
     <h1 class="title">Roadmap<br /><em>planner</em></h1>
-    <p class="tagline">Turn a framework into a quarter-by-quarter plan. Pick a source, drag nothing, click plenty, export when done.</p>
+    <p class="tagline">Turn a framework or your assessment gaps into a quarter-by-quarter plan. Drag tasks between quarters, assign owners and dates, track status, export when done.</p>
   </header>
 
   <main class="ladle ladle-wide">
@@ -61,7 +61,23 @@
           <option value="Large" selected>Large</option>
         </select>
       </label>
+      <label class="select-wrap" id="gaps-wrap" hidden><span>from assessment</span>
+        <select id="plan-gaps-assessment" class="panel-select">
+          <option value="ransomware">Ransomware readiness</option>
+          <option value="cpg">CISA Performance Goals</option>
+          <option value="cis-ig1">CIS IG1 essentials</option>
+        </select>
+      </label>
+      <label class="select-wrap"><span>program start</span>
+        <input type="month" id="plan-start" class="panel-select" />
+      </label>
+      <label class="select-wrap"><span>group</span>
+        <select id="plan-group" class="panel-select"></select>
+      </label>
+      <label class="check-wrap"><input type="checkbox" id="plan-hide-done" /><span>hide done</span></label>
       <button class="ghost-btn" id="plan-export">export csv</button>
+      <button class="ghost-btn" id="plan-export-json">export json</button>
+      <label class="ghost-btn" for="plan-import">import<input type="file" id="plan-import" accept="application/json,.json" hidden /></label>
       <button class="ghost-btn" id="plan-print">print</button>
       <button class="ghost-btn" id="plan-reset">reset plan</button>
     </div>
@@ -75,7 +91,7 @@
       <a class="cyberdle-link" href="../frameworks/nist-csf/">The framework translations are one click away &rarr;</a>
     </p>
     <p class="fine-print">
-      Plans live only in this browser. Click a task's status chip to cycle planned, in progress, done.
+      Plans live only in this browser. Drag a task between quarters, or click its status chip to cycle planned, in progress, done.
     </p>
   </footer>
 

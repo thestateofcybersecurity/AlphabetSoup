@@ -943,7 +943,171 @@ body {
   border: 1px solid var(--line);
   border-radius: 6px;
   padding: 3px 6px;
+}
+
+/* ---- controls: filter checkbox ---- */
+.check-wrap {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+}
+
+/* ---- summary dashboard ---- */
+.plan-summary-line {
+  margin-bottom: 8px;
+}
+.plan-progress-track {
+  height: 8px;
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--line) 60%, transparent);
+  overflow: hidden;
+  max-width: 420px;
+}
+.plan-progress-fill {
+  height: 100%;
+  background: #3f8f5f;
+  border-radius: 999px;
+}
+.plan-status-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 8px;
+}
+.plan-stat {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+}
+.plan-stat-dot {
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  display: inline-block;
+  background: var(--ink-soft);
+}
+.plan-stat-in-progress .plan-stat-dot {
+  background: var(--tomato);
+}
+.plan-stat-done .plan-stat-dot {
+  background: #3f8f5f;
+}
+.plan-load {
+  display: flex;
+  gap: 8px;
+  align-items: flex-end;
+  margin-top: 12px;
+  height: 64px;
+}
+.plan-load-cell {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 3px;
+  flex: 1;
+  max-width: 90px;
+  height: 100%;
+  justify-content: flex-end;
+}
+.plan-load-bar {
+  width: 100%;
+  flex: 1;
+  display: flex;
+  align-items: flex-end;
+  background: color-mix(in srgb, var(--line) 40%, transparent);
+  border-radius: 4px 4px 0 0;
+  overflow: hidden;
+}
+.plan-load-fill {
+  width: 100%;
+  background: var(--tomato);
+  min-height: 2px;
+}
+.plan-load-label,
+.plan-load-count {
+  font-size: 0.6rem;
+}
+.plan-load-count {
+  color: var(--ink);
+  text-transform: none;
+  letter-spacing: 0;
+}
+
+/* ---- board: drag-and-drop + calendar dates ---- */
+.board-col-head {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+}
+.board-col-date {
+  font-size: 0.6rem;
+  letter-spacing: 0.06em;
+  color: var(--ink-soft);
+  opacity: 0.8;
+  text-transform: none;
+}
+.board-col.drop-hover {
+  border-color: var(--tomato);
+  background: color-mix(in srgb, var(--tomato) 8%, transparent);
+}
+.task-card {
+  cursor: grab;
+}
+.task-card.dragging {
+  opacity: 0.4;
+  cursor: grabbing;
+}
+
+/* ---- per-task owner / date / note ---- */
+.task-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  align-items: center;
+}
+.task-owner,
+.task-date {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  background: var(--paper);
+  color: var(--ink);
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  padding: 3px 6px;
+}
+.task-owner {
+  flex: 1;
+  min-width: 70px;
+}
+.task-note-btn {
   align-self: flex-start;
+  appearance: none;
+  border: none;
+  background: transparent;
+  font-family: var(--font-mono);
+  font-size: 0.62rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+  cursor: pointer;
+  padding: 0;
+}
+.task-note {
+  width: 100%;
+  min-height: 44px;
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--font-body);
+  font-size: 0.8rem;
+  padding: 6px 8px;
+  resize: vertical;
 }
 
 /* ----------------------------- assessment -------------------------- */

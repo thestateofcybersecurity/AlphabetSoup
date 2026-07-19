@@ -7,13 +7,27 @@ import type { CisData, CsfData } from '../src/lib/frameworks';
 import {
   cisPlan,
   csfPlan,
+  gapsPlan,
   nextStatus,
+  planLoad,
   planProgress,
   planToCsv,
+  quarterDateRange,
+  statusCounts,
   totalHours,
   vcisoPlan,
 } from '../src/lib/roadmap';
 import type { VcisoTask } from '../src/lib/roadmap';
+import type { AssessmentData } from '../src/lib/assessment';
+
+const miniAssessment: AssessmentData = {
+  categories: [{ id: 'DB', name: 'Backups' }],
+  questions: [
+    { id: 'q1', text: 'Backups daily?', tier: 'basic', group: 'DB', references: ['CIS Control 11'] },
+    { id: 'q2', text: 'Backups tested?', tier: 'intermediate', group: 'DB', references: ['NIST CSF PR.DS-11'] },
+    { id: 'q3', text: 'Offline copy?', tier: 'advanced', group: 'DB', references: [] },
+  ],
+};
 
 const csf = csfRaw as CsfData;
 const cis = cisRaw as CisData;
@@ -79,12 +93,56 @@ describe('plan state helpers', () => {
     expect(planProgress(plan, state)).toEqual({ done: 1, total: 22 });
   });
 
-  it('exports CSV with quoting', () => {
+  it('exports CSV with quoting, owner, date, and notes columns', () => {
     const csv = planToCsv(
       [{ id: 'x', label: 'Task, with "comma"', group: 'g', detail: '', defaultQuarter: 'Q1' }],
-      {},
+      { x: { quarter: 'Q2', status: 'in-progress', owner: 'Dana', date: '2026-03-01', note: 'kickoff' } },
     );
     expect(csv).toContain('"Task, with ""comma"""');
-    expect(csv.split('\n')[0]).toBe('id,task,group,quarter,status,hours');
+    expect(csv.split('\n')[0]).toBe('id,task,group,quarter,status,owner,target_date,notes,hours');
+    expect(csv).toContain('Dana,2026-03-01,kickoff');
+  });
+});
+
+describe('assessment gaps', () => {
+  it('treats only unanswered and no as gaps (na and alt are not)', () => {
+    const plan = gapsPlan(miniAssessment, { q1: 'yes', q2: 'na', q3: 'no' });
+    // q1 satisfied, q2 na (not applicable) -> only q3 is a gap
+    expect(plan.map((t) => t.id)).toEqual(['q3']);
+    const altPlan = gapsPlan(miniAssessment, { q1: 'alt', q2: 'no', q3: 'no' });
+    expect(altPlan.map((t) => t.id)).toEqual(['q2', 'q3']); // alt is satisfied, not a gap
+  });
+
+  it('links gaps to CIS or CSF pages by their references', () => {
+    const plan = gapsPlan(miniAssessment, {});
+    expect(plan.find((t) => t.id === 'q1')?.link).toContain('frameworks/cis');
+    expect(plan.find((t) => t.id === 'q2')?.link).toContain('frameworks/nist-csf');
+    expect(plan.find((t) => t.id === 'q3')?.link).toBeUndefined();
+  });
+});
+
+describe('load and schedule helpers', () => {
+  it('aggregates task count and hours per quarter', () => {
+    const tasks = vcisoPlan(vciso, 'Large');
+    const load = planLoad(tasks, {});
+    const total = Object.values(load).reduce((s, l) => s + l.count, 0);
+    expect(total).toBe(89);
+    const hours = Object.values(load).reduce((s, l) => s + l.hours, 0);
+    expect(Math.round(hours)).toBe(Math.round(totalHours(tasks)));
+  });
+
+  it('counts task status', () => {
+    const tasks = csfPlan(csf);
+    const state = { [tasks[0].id]: { quarter: tasks[0].defaultQuarter, status: 'done' as const } };
+    const counts = statusCounts(tasks, state);
+    expect(counts.done).toBe(1);
+    expect(counts.planned).toBe(21);
+  });
+
+  it('maps quarters to a calendar range from a start month', () => {
+    expect(quarterDateRange('2026-01', 'Q1')).toBe('Jan 2026 to Mar 2026');
+    expect(quarterDateRange('2026-01', 'Q4')).toBe('Oct 2026 to Dec 2026');
+    expect(quarterDateRange('2026-11', 'Q2')).toBe('Feb 2027 to Apr 2027');
+    expect(quarterDateRange('2026-01', 'Onboarding')).toBe('Setup');
   });
 });

@@ -680,7 +680,7 @@ function renderResults(): void {
     const actions = el('div', 'deck-actions');
     const plan = el('a', 'primary-btn', `Plan these ${gapCount} gaps →`);
     plan.id = 'plan-gaps';
-    plan.href = '../roadmap/?source=gaps';
+    plan.href = `../roadmap/?source=gaps&a=${current.id}`;
     actions.appendChild(plan);
     headline.appendChild(actions);
   }
