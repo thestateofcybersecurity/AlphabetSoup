@@ -228,6 +228,10 @@
         "name": "Microsoft Learn",
         "url": "https://learn.microsoft.com/en-us/windows/win32/amsi/antimalware-scan-interface-portal"
       }
+    ],
+    "related": [
+      "ETW",
+      "EDR"
     ]
   },
   "API": {
@@ -244,6 +248,7 @@
     ],
     "related": [
       "BOLA",
+      "IDOR",
       "WAAP"
     ]
   },
@@ -267,7 +272,8 @@
       "CNC",
       "RAT",
       "TTP",
-      "RAAS"
+      "DGA",
+      "IAB"
     ]
   },
   "ARO": {
@@ -400,8 +406,8 @@
       "D3FEND",
       "TTP",
       "CAPEC",
-      "OODA",
-      "SIEM"
+      "IOA",
+      "OODA"
     ]
   },
   "BAAS": {
@@ -415,6 +421,10 @@
         "name": "Cloudflare Learning Center",
         "url": "https://www.cloudflare.com/learning/serverless/glossary/backend-as-a-service-baas/"
       }
+    ],
+    "related": [
+      "XAAS",
+      "FAAS"
     ]
   },
   "BAS": {
@@ -508,6 +518,10 @@
         "name": "IETF RFC 4271",
         "url": "https://www.rfc-editor.org/rfc/rfc4271"
       }
+    ],
+    "related": [
+      "MPLS",
+      "SDWAN"
     ]
   },
   "BIA": {
@@ -540,6 +554,11 @@
         "name": "NIST CSRC Glossary",
         "url": "https://csrc.nist.gov/glossary/term/basic_input_output_system"
       }
+    ],
+    "related": [
+      "UEFI",
+      "TPM",
+      "SED"
     ]
   },
   "BLE": {
@@ -556,7 +575,8 @@
     ],
     "related": [
       "NFC",
-      "RFID"
+      "RFID",
+      "IOT"
     ]
   },
   "BOLA": {
@@ -698,6 +718,10 @@
         "name": "DoD Cyber Exchange PKI/PKE",
         "url": "https://public.cyber.mil/pki-pke/"
       }
+    ],
+    "related": [
+      "PIV",
+      "FIDO2"
     ]
   },
   "CAIQ": {
@@ -729,6 +753,10 @@
         "name": "ISO 11898-1",
         "url": "https://www.iso.org/standard/63648.html"
       }
+    ],
+    "related": [
+      "ICS",
+      "SCADA"
     ]
   },
   "CAPEC": {
@@ -759,6 +787,10 @@
         "name": "IBM: What Is a CAPTCHA",
         "url": "https://www.ibm.com/think/topics/captcha"
       }
+    ],
+    "related": [
+      "WAF",
+      "CSRF"
     ]
   },
   "CARTP": {
@@ -844,6 +876,10 @@
         "name": "ISACA",
         "url": "https://www.isaca.org/credentialing/ccak"
       }
+    ],
+    "related": [
+      "CCSK",
+      "CISA"
     ]
   },
   "CCISO": {
@@ -857,6 +893,10 @@
         "name": "EC-Council",
         "url": "https://www.eccouncil.org/train-certify/certified-chief-information-security-officer-cciso/"
       }
+    ],
+    "related": [
+      "CISM",
+      "CISO"
     ]
   },
   "CCM": {
@@ -994,6 +1034,11 @@
         "name": "AWS",
         "url": "https://aws.amazon.com/what-is/cdn/"
       }
+    ],
+    "related": [
+      "DDOS",
+      "VPC",
+      "WAF"
     ]
   },
   "CDPSE": {
@@ -1007,6 +1052,10 @@
         "name": "ISACA",
         "url": "https://www.isaca.org/credentialing/cdpse"
       }
+    ],
+    "related": [
+      "CIPT",
+      "CIPM"
     ]
   },
   "CEH": {
@@ -1152,6 +1201,10 @@
         "name": "OpenID Foundation",
         "url": "https://openid.net/specs/openid-client-initiated-backchannel-authentication-core-1_0.html"
       }
+    ],
+    "related": [
+      "OAUTH",
+      "OIDC"
     ]
   },
   "CICD": {
@@ -1210,7 +1263,8 @@
     "related": [
       "CIPPE",
       "CIPPUS",
-      "CIPT"
+      "CIPT",
+      "CDPSE"
     ]
   },
   "CIPPE": {
@@ -1320,7 +1374,8 @@
     "related": [
       "CGEIT",
       "CISM",
-      "CRISC"
+      "CRISC",
+      "CCAK"
     ]
   },
   "CISM": {
@@ -1357,6 +1412,7 @@
     ],
     "related": [
       "VCISO",
+      "CCISO",
       "GRC"
     ]
   },
@@ -1495,7 +1551,8 @@
     "related": [
       "CSPM",
       "CWPP",
-      "CIEM"
+      "CIEM",
+      "IAC"
     ]
   },
   "CNC": {
@@ -1732,6 +1789,10 @@
         "name": "California Privacy Protection Agency",
         "url": "https://cppa.ca.gov/"
       }
+    ],
+    "related": [
+      "CCPA",
+      "GDPR"
     ]
   },
   "CPTS": {
@@ -1833,6 +1894,10 @@
         "name": "OWASP",
         "url": "https://owasp.org/www-community/vulnerabilities/CRLF_Injection"
       }
+    ],
+    "related": [
+      "HPP",
+      "XSS"
     ]
   },
   "CRTO": {
@@ -1901,6 +1966,10 @@
         "name": "OASIS CSAF",
         "url": "https://oasis-open.github.io/csaf-documentation/"
       }
+    ],
+    "related": [
+      "VEX",
+      "SBOM"
     ]
   },
   "CSF": {
@@ -2316,6 +2385,10 @@
         "name": "CWNP",
         "url": "https://www.cwnp.com/certifications/cwsp"
       }
+    ],
+    "related": [
+      "OSWP",
+      "WPA2"
     ]
   },
   "CYSA": {
@@ -2457,7 +2530,8 @@
     "related": [
       "DOS",
       "DRDOS",
-      "REDOS"
+      "REDOS",
+      "CDN"
     ]
   },
   "DES": {
@@ -2529,6 +2603,10 @@
         "name": "MITRE ATT&CK T1568.002",
         "url": "https://attack.mitre.org/techniques/T1568/002/"
       }
+    ],
+    "related": [
+      "CNC",
+      "APT"
     ]
   },
   "DHCP": {
@@ -2652,7 +2730,9 @@
     "related": [
       "NGFW",
       "UTM",
-      "WAF"
+      "WAF",
+      "NAT",
+      "PAT"
     ]
   },
   "DNP3": {
@@ -2670,6 +2750,10 @@
         "name": "CISA Industrial Control Systems",
         "url": "https://www.cisa.gov/topics/industrial-control-systems"
       }
+    ],
+    "related": [
+      "SCADA",
+      "ICS"
     ]
   },
   "DNS": {
@@ -3222,6 +3306,10 @@
         "name": "European Commission",
         "url": "https://digital-strategy.ec.europa.eu/en/policies/eidas-regulation"
       }
+    ],
+    "related": [
+      "GDPR",
+      "NIS2"
     ]
   },
   "EJPT": {
@@ -3329,6 +3417,7 @@
     "related": [
       "GRC",
       "FAIR",
+      "KRI",
       "OCTAVE",
       "RMF"
     ]
@@ -3455,6 +3544,10 @@
         "name": "U.S. Department of Education",
         "url": "https://studentprivacy.ed.gov/"
       }
+    ],
+    "related": [
+      "COPPA",
+      "PII"
     ]
   },
   "FFIEC": {
@@ -3561,6 +3654,11 @@
         "name": "FIRST",
         "url": "https://www.first.org/about/"
       }
+    ],
+    "related": [
+      "CERT",
+      "CVSS",
+      "CSIRT"
     ]
   },
   "FISMA": {
@@ -3781,6 +3879,10 @@
         "name": "GIAC",
         "url": "https://www.giac.org/certifications/"
       }
+    ],
+    "related": [
+      "ICS",
+      "IEC62443"
     ]
   },
   "GLBA": {
@@ -3870,6 +3972,10 @@
         "name": "Microsoft Learn",
         "url": "https://learn.microsoft.com/en-us/troubleshoot/windows-server/group-policy/group-policy-overview"
       }
+    ],
+    "related": [
+      "UAC",
+      "LDAP"
     ]
   },
   "GRC": {
@@ -3887,7 +3993,8 @@
     "related": [
       "CGRC",
       "ERM",
-      "CISO"
+      "CISO",
+      "ISMS"
     ]
   },
   "GRE": {
@@ -3938,7 +4045,8 @@
     ],
     "related": [
       "GCIH",
-      "GMON"
+      "GMON",
+      "GSLC"
     ]
   },
   "GSLC": {
@@ -3952,6 +4060,10 @@
         "name": "GIAC",
         "url": "https://www.giac.org/certifications/"
       }
+    ],
+    "related": [
+      "CISM",
+      "GSEC"
     ]
   },
   "GWAPT": {
@@ -4000,6 +4112,10 @@
         "name": "NIST CSRC Glossary",
         "url": "https://csrc.nist.gov/glossary"
       }
+    ],
+    "related": [
+      "EPP",
+      "HIDS"
     ]
   },
   "HIDS": {
@@ -4175,6 +4291,10 @@
         "name": "OWASP WSTG: Testing for HTTP Parameter Pollution",
         "url": "https://owasp.org/www-project-web-security-testing-guide/latest/4-Web_Application_Security_Testing/07-Input_Validation_Testing/04-Testing_for_HTTP_Parameter_Pollution"
       }
+    ],
+    "related": [
+      "CRLF",
+      "SQLI"
     ]
   },
   "HSM": {
@@ -4193,7 +4313,8 @@
       "TEE",
       "TPM",
       "KMS",
-      "PKI"
+      "PKI",
+      "VTPM"
     ]
   },
   "HSTS": {
@@ -4230,7 +4351,8 @@
     ],
     "related": [
       "TLS",
-      "SSL"
+      "SSL",
+      "SNI"
     ]
   },
   "HYOK": {
@@ -4282,6 +4404,10 @@
         "name": "CISA",
         "url": "https://www.cisa.gov"
       }
+    ],
+    "related": [
+      "RAAS",
+      "APT"
     ]
   },
   "IAC": {
@@ -4295,6 +4421,10 @@
         "name": "CISA",
         "url": "https://www.cisa.gov/"
       }
+    ],
+    "related": [
+      "CSPM",
+      "CNAPP"
     ]
   },
   "IAM": {
@@ -4346,6 +4476,10 @@
         "name": "IETF RFC 792",
         "url": "https://www.rfc-editor.org/rfc/rfc792"
       }
+    ],
+    "related": [
+      "TCP",
+      "UDP"
     ]
   },
   "ICS": {
@@ -4403,6 +4537,10 @@
         "name": "OWASP",
         "url": "https://cheatsheetseries.owasp.org/cheatsheets/Insecure_Direct_Object_Reference_Prevention_Cheat_Sheet.html"
       }
+    ],
+    "related": [
+      "BOLA",
+      "API"
     ]
   },
   "IDP": {
@@ -4453,6 +4591,11 @@
         "name": "ISA/IEC 62443 Series",
         "url": "https://www.isa.org/standards-and-publications/isa-standards/isa-iec-62443-series-of-standards"
       }
+    ],
+    "related": [
+      "ICS",
+      "SCADA",
+      "GICSP"
     ]
   },
   "IGA": {
@@ -4556,6 +4699,11 @@
         "name": "MITRE ATT&CK",
         "url": "https://attack.mitre.org"
       }
+    ],
+    "related": [
+      "IOC",
+      "ATTCK",
+      "EDR"
     ]
   },
   "IOC": {
@@ -4592,6 +4740,10 @@
         "name": "CISA",
         "url": "https://www.cisa.gov"
       }
+    ],
+    "related": [
+      "IIOT",
+      "BLE"
     ]
   },
   "IPS": {
@@ -4679,6 +4831,10 @@
         "name": "NIST CSRC Glossary",
         "url": "https://csrc.nist.gov/glossary/term/information_sharing_and_analysis_organization"
       }
+    ],
+    "related": [
+      "ISAC",
+      "CTI"
     ]
   },
   "ISMS": {
@@ -4692,6 +4848,10 @@
         "name": "ISO/IEC 27001",
         "url": "https://www.iso.org/standard/27001"
       }
+    ],
+    "related": [
+      "ISO27001",
+      "GRC"
     ]
   },
   "ISO27001": {
@@ -4939,6 +5099,10 @@
         "name": "NIST Glossary: Knowledge-Based Authentication",
         "url": "https://csrc.nist.gov/glossary/term/knowledge_based_authentication"
       }
+    ],
+    "related": [
+      "MFA",
+      "OTP"
     ]
   },
   "KDC": {
@@ -5045,7 +5209,8 @@
     ],
     "related": [
       "KRI",
-      "SLA"
+      "SLA",
+      "SLO"
     ]
   },
   "KRI": {
@@ -5059,6 +5224,10 @@
         "name": "ISACA",
         "url": "https://www.isaca.org/"
       }
+    ],
+    "related": [
+      "KPI",
+      "ERM"
     ]
   },
   "L2TP": {
@@ -5094,7 +5263,8 @@
     "related": [
       "LDAPS",
       "SASL",
-      "UPN"
+      "UPN",
+      "GPO"
     ]
   },
   "LDAPS": {
@@ -5530,6 +5700,10 @@
         "name": "CISA",
         "url": "https://www.cisa.gov/"
       }
+    ],
+    "related": [
+      "MSSP",
+      "SECAAS"
     ]
   },
   "MSSP": {
@@ -5672,6 +5846,10 @@
         "name": "IETF RFC 3022",
         "url": "https://www.rfc-editor.org/rfc/rfc3022"
       }
+    ],
+    "related": [
+      "PAT",
+      "DMZ"
     ]
   },
   "NDA": {
@@ -5685,6 +5863,10 @@
         "name": "Cornell Law School LII",
         "url": "https://www.law.cornell.edu/wex/nondisclosure_agreement"
       }
+    ],
+    "related": [
+      "TPRM",
+      "SLA"
     ]
   },
   "NDR": {
@@ -5791,7 +5973,8 @@
       "HIPS",
       "NIDS",
       "HIDS",
-      "IPS"
+      "IPS",
+      "WIPS"
     ]
   },
   "NIS2": {
@@ -5810,7 +5993,8 @@
       "DORA",
       "CRA",
       "ENISA",
-      "GDPR"
+      "GDPR",
+      "EIDAS"
     ]
   },
   "NIST": {
@@ -5847,6 +6031,10 @@
         "name": "NICCS Vocabulary (CISA)",
         "url": "https://niccs.cisa.gov/cybersecurity-career-resources/vocabulary"
       }
+    ],
+    "related": [
+      "SOC",
+      "SIEM"
     ]
   },
   "NSM": {
@@ -5860,6 +6048,10 @@
         "name": "NIST CSRC Glossary",
         "url": "https://csrc.nist.gov/glossary"
       }
+    ],
+    "related": [
+      "NDR",
+      "NIDS"
     ]
   },
   "NTLM": {
@@ -5893,6 +6085,11 @@
         "name": "IETF RFC 5905",
         "url": "https://datatracker.ietf.org/doc/html/rfc5905"
       }
+    ],
+    "related": [
+      "NTS",
+      "SNMP",
+      "SYSLOG"
     ]
   },
   "NTS": {
@@ -5906,6 +6103,10 @@
         "name": "IETF RFC 8915",
         "url": "https://datatracker.ietf.org/doc/html/rfc8915"
       }
+    ],
+    "related": [
+      "NTP",
+      "TLS"
     ]
   },
   "NVD": {
@@ -6006,7 +6207,7 @@
       "SAML",
       "SSO",
       "JWT",
-      "IDAAS"
+      "CIBA"
     ]
   },
   "OODA": {
@@ -6312,6 +6513,7 @@
       "OPRF",
       "SRP",
       "PBKDF2",
+      "SAE",
       "SCRAM"
     ]
   },
@@ -6346,6 +6548,10 @@
         "name": "MISP Project Taxonomies (PAP)",
         "url": "https://www.misp-project.org/taxonomies.html"
       }
+    ],
+    "related": [
+      "TLP",
+      "TAXII"
     ]
   },
   "PASTA": {
@@ -6376,6 +6582,10 @@
         "name": "IETF RFC 3022",
         "url": "https://www.rfc-editor.org/rfc/rfc3022"
       }
+    ],
+    "related": [
+      "NAT",
+      "DMZ"
     ]
   },
   "PBAC": {
@@ -6574,6 +6784,7 @@
     "related": [
       "PHI",
       "GDPR",
+      "FERPA",
       "GLBA"
     ]
   },
@@ -6669,6 +6880,10 @@
         "name": "RFC 7636 (PKCE)",
         "url": "https://datatracker.ietf.org/doc/html/rfc7636"
       }
+    ],
+    "related": [
+      "OAUTH",
+      "OIDC"
     ]
   },
   "PKCS": {
@@ -6987,6 +7202,10 @@
         "name": "NIST CSRC Glossary",
         "url": "https://csrc.nist.gov/glossary"
       }
+    ],
+    "related": [
+      "RAT",
+      "APT"
     ]
   },
   "QSA": {
@@ -7193,7 +7412,8 @@
     ],
     "related": [
       "VNC",
-      "SSH"
+      "SSH",
+      "VDI"
     ]
   },
   "REDOS": {
@@ -7391,6 +7611,10 @@
         "name": "Wi-Fi Alliance Security",
         "url": "https://www.wi-fi.org/discover-wi-fi/security"
       }
+    ],
+    "related": [
+      "WPA3",
+      "PAKE"
     ]
   },
   "SAM": {
@@ -7539,7 +7763,7 @@
       "SCA",
       "VEX",
       "SLSA",
-      "CICD"
+      "CSAF"
     ]
   },
   "SCA": {
@@ -7579,7 +7803,8 @@
       "ICS",
       "HMI",
       "PLC",
-      "DNP3"
+      "DNP3",
+      "IEC62443"
     ]
   },
   "SCAP": {
@@ -7700,6 +7925,10 @@
         "name": "NIST CSRC Glossary",
         "url": "https://csrc.nist.gov/glossary"
       }
+    ],
+    "related": [
+      "SDWAN",
+      "VXLAN"
     ]
   },
   "SDWAN": {
@@ -7718,7 +7947,8 @@
       "SASE",
       "SDN",
       "MPLS",
-      "VPN"
+      "VPN",
+      "BGP"
     ]
   },
   "SECAAS": {
@@ -7735,6 +7965,7 @@
     ],
     "related": [
       "XAAS",
+      "MSP",
       "MSSP"
     ]
   },
@@ -7752,6 +7983,7 @@
     ],
     "related": [
       "FDE",
+      "BIOS",
       "UEFI"
     ]
   },
@@ -7882,6 +8114,7 @@
       "SLO",
       "KPI",
       "TPRM",
+      "NDA",
       "SLE"
     ]
   },
@@ -7900,6 +8133,7 @@
     "related": [
       "ALE",
       "ARO",
+      "SLO",
       "SLA"
     ]
   },
@@ -7933,6 +8167,11 @@
         "name": "Google SRE Book",
         "url": "https://sre.google/sre-book/service-level-objectives/"
       }
+    ],
+    "related": [
+      "SLA",
+      "KPI",
+      "SLE"
     ]
   },
   "SLSA": {
@@ -8017,6 +8256,10 @@
         "name": "IETF RFC 6066",
         "url": "https://datatracker.ietf.org/doc/html/rfc6066"
       }
+    ],
+    "related": [
+      "TLS",
+      "HTTPS"
     ]
   },
   "SNMP": {
@@ -8030,6 +8273,10 @@
         "name": "IETF RFC 3411",
         "url": "https://datatracker.ietf.org/doc/html/rfc3411"
       }
+    ],
+    "related": [
+      "SYSLOG",
+      "NTP"
     ]
   },
   "SOAP": {
@@ -8192,6 +8439,11 @@
         "name": "SPIFFE Project (CNCF)",
         "url": "https://spiffe.io/"
       }
+    ],
+    "related": [
+      "SPIRE",
+      "IAM",
+      "X509"
     ]
   },
   "SPIRE": {
@@ -8205,6 +8457,10 @@
         "name": "SPIFFE Project: About SPIRE",
         "url": "https://spiffe.io/docs/latest/spire-about/"
       }
+    ],
+    "related": [
+      "SPIFFE",
+      "IAM"
     ]
   },
   "SQLI": {
@@ -8223,7 +8479,8 @@
       "CSRF",
       "SSRF",
       "XSS",
-      "XXE"
+      "XXE",
+      "HPP"
     ]
   },
   "SRI": {
@@ -8389,7 +8646,8 @@
     ],
     "related": [
       "SFTP",
-      "RDP"
+      "RDP",
+      "VNC"
     ]
   },
   "SSL": {
@@ -8620,7 +8878,8 @@
     ],
     "related": [
       "SIEM",
-      "SNMP"
+      "SNMP",
+      "NTP"
     ]
   },
   "TACACS": {
@@ -8656,7 +8915,8 @@
       "STIX",
       "CTI",
       "TIP",
-      "TLP"
+      "TLP",
+      "PAP"
     ]
   },
   "TCP": {
@@ -8696,7 +8956,8 @@
     "related": [
       "HSM",
       "TPM",
-      "PUF"
+      "PUF",
+      "VTPM"
     ]
   },
   "TFTP": {
@@ -8806,6 +9067,10 @@
         "name": "MITRE CWE-367: TOCTOU Race Condition",
         "url": "https://cwe.mitre.org/data/definitions/367.html"
       }
+    ],
+    "related": [
+      "UAF",
+      "RCE"
     ]
   },
   "TOTP": {
@@ -8846,7 +9111,7 @@
       "HSM",
       "TEE",
       "UEFI",
-      "FDE"
+      "BIOS"
     ]
   },
   "TPRM": {
@@ -8977,6 +9242,10 @@
         "name": "IBM: What Is User Behavior Analytics (UBA)",
         "url": "https://www.ibm.com/think/topics/user-behavior-analytics"
       }
+    ],
+    "related": [
+      "UEBA",
+      "SIEM"
     ]
   },
   "UCAAS": {
@@ -8990,6 +9259,10 @@
         "name": "Microsoft: Unified Communications as a Service (UCaaS)",
         "url": "https://www.microsoft.com/en-us/microsoft-teams/unified-communications-as-a-service"
       }
+    ],
+    "related": [
+      "XAAS",
+      "VOIP"
     ]
   },
   "UDP": {
@@ -9007,7 +9280,8 @@
     "related": [
       "TCP",
       "QUIC",
-      "DTLS"
+      "DTLS",
+      "ICMP"
     ]
   },
   "UEBA": {
@@ -9163,6 +9437,10 @@
         "name": "NIST CSRC Glossary",
         "url": "https://csrc.nist.gov/glossary"
       }
+    ],
+    "related": [
+      "DAAS",
+      "RDP"
     ]
   },
   "VDP": {
@@ -9229,6 +9507,10 @@
         "name": "IETF RFC 6143",
         "url": "https://www.rfc-editor.org/rfc/rfc6143"
       }
+    ],
+    "related": [
+      "RDP",
+      "SSH"
     ]
   },
   "VOIP": {
@@ -9242,6 +9524,10 @@
         "name": "NIST SP 800-58",
         "url": "https://csrc.nist.gov/pubs/sp/800/58/final"
       }
+    ],
+    "related": [
+      "UCAAS",
+      "SDWAN"
     ]
   },
   "VPC": {
@@ -9310,6 +9596,11 @@
         "name": "Trusted Computing Group",
         "url": "https://trustedcomputinggroup.org"
       }
+    ],
+    "related": [
+      "TPM",
+      "HSM",
+      "TEE"
     ]
   },
   "VXLAN": {
@@ -9326,6 +9617,7 @@
     ],
     "related": [
       "VLAN",
+      "SDN",
       "VPC"
     ]
   },
@@ -9378,6 +9670,10 @@
         "name": "NIST CSRC Glossary",
         "url": "https://csrc.nist.gov/glossary"
       }
+    ],
+    "related": [
+      "WPA2",
+      "WIDS"
     ]
   },
   "WEBAUTHN": {
@@ -9430,6 +9726,7 @@
     "related": [
       "WIPS",
       "NIDS",
+      "WAP",
       "WPA2"
     ]
   },
@@ -9444,6 +9741,10 @@
         "name": "NIST CSRC Glossary",
         "url": "https://csrc.nist.gov/glossary"
       }
+    ],
+    "related": [
+      "WIDS",
+      "NIPS"
     ]
   },
   "WMI": {
@@ -9486,7 +9787,7 @@
       "WEP",
       "WPS",
       "WAP",
-      "WIDS"
+      "CWSP"
     ]
   },
   "WPA3": {
@@ -9504,7 +9805,8 @@
     "related": [
       "WPA2",
       "WEP",
-      "SAE"
+      "SAE",
+      "WPS"
     ]
   },
   "WPS": {
@@ -9518,6 +9820,10 @@
         "name": "Wi-Fi Alliance",
         "url": "https://www.wi-fi.org/discover-wi-fi/wi-fi-protected-setup"
       }
+    ],
+    "related": [
+      "WPA2",
+      "WPA3"
     ]
   },
   "WSTG": {
