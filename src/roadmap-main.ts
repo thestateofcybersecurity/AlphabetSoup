@@ -8,6 +8,7 @@ import programRaw from './data/security-program.json';
 import roadmapKpisRaw from './data/roadmap-kpis.json';
 import type { CisData, CsfData } from './lib/frameworks';
 import { cisIg1Assessment } from './lib/assessment';
+import { copyWithToast } from './lib/share';
 import type { Answers, AssessmentData } from './lib/assessment';
 import {
   KPI_STATUS_CYCLE,
@@ -581,6 +582,21 @@ function main(): void {
 
   byId('plan-export').addEventListener('click', () => download('roadmap.csv', planToCsv(currentTasks(), state), 'text/csv'));
   byId('plan-export-json').addEventListener('click', exportJson);
+  byId('plan-copy').addEventListener('click', () => {
+    const tasks = currentTasks();
+    const progress = planProgress(tasks, state);
+    const maturity = programMaturity(tasks, state);
+    const kc = kpiAttainmentCounts(tasks, state);
+    const label = (sel('plan-source').selectedOptions[0]?.textContent ?? 'Roadmap').trim();
+    const lines = [
+      `${label} roadmap`,
+      `Maturity: ${maturity.level} (${maturity.percent}%)`,
+      `Progress: ${progress.done}/${progress.total} goals done`,
+      ...(kc.total > 0 ? [`KPIs: ${kc.met} met, ${kc.partial} partial, ${kc.unmet} unmet`] : []),
+      `cybersecurityalphabetsoup.com/roadmap/`,
+    ];
+    void copyWithToast(lines.join('\n'), 'Roadmap summary copied');
+  });
   const importInput = byId('plan-import') as HTMLInputElement;
   importInput.addEventListener('change', () => {
     if (importInput.files && importInput.files[0]) importJson(importInput.files[0]);

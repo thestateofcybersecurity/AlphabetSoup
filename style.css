@@ -1915,6 +1915,100 @@ a.std-chip:hover {
   }
 }
 
+/* --------------------------- learning path ------------------------------ */
+
+.learning-path {
+  max-width: 860px;
+  margin: 40px auto 0;
+  width: 100%;
+  padding: 28px 20px;
+  border-top: 2px solid var(--line);
+}
+.path-title {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 1.5rem;
+  margin: 0 0 4px;
+}
+.path-sub {
+  color: var(--ink-soft);
+  margin: 0 0 20px;
+  font-size: 0.95rem;
+}
+.path-steps {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 12px;
+}
+.path-step {
+  display: flex;
+  gap: 14px;
+  align-items: flex-start;
+  background: var(--paper-raised);
+  border: 1.5px solid var(--line);
+  border-radius: 12px;
+  padding: 14px 16px;
+}
+.path-num {
+  flex-shrink: 0;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background: var(--tomato);
+  color: #fff;
+  font-family: var(--font-mono);
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.path-step h3 {
+  margin: 2px 0 2px;
+  font-size: 1rem;
+}
+.path-step p {
+  margin: 0;
+  color: var(--ink-soft);
+  font-size: 0.9rem;
+  line-height: 1.5;
+}
+.path-step a {
+  color: var(--tomato);
+  text-decoration: none;
+  border-bottom: 1px dashed var(--line);
+}
+.path-step a:hover {
+  border-bottom-color: var(--tomato);
+}
+
+/* ------------------------------- toast ---------------------------------- */
+
+.toast {
+  position: fixed;
+  left: 50%;
+  bottom: 24px;
+  transform: translateX(-50%) translateY(16px);
+  z-index: 1000;
+  background: var(--ink);
+  color: var(--paper);
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  padding: 10px 18px;
+  border-radius: 999px;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.25);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.18s, transform 0.18s;
+  max-width: min(90vw, 420px);
+  text-align: center;
+}
+.toast.show {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
+}
+
 /* ---------------------------- accessibility ----------------------------- */
 
 /* Visible keyboard focus everywhere (the search input clears its own outline). */

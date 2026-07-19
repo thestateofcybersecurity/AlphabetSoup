@@ -1,4 +1,5 @@
 import deckIndexRaw from './data/quiz/index.json';
+import { shareOrCopy } from './lib/share';
 import {
   answerCurrent,
   createSession,
@@ -305,6 +306,18 @@ function renderResults(): void {
       renderQuestion();
     });
     actions.appendChild(review);
+  }
+  if (fullRound && currentMeta) {
+    const share = el('button', 'ghost-btn', 'Share result');
+    const url = `${location.origin}${location.pathname}?deck=${currentMeta.slug}`;
+    share.addEventListener('click', () => {
+      void shareOrCopy({
+        title: 'Cybersecurity Alphabet Soup quiz',
+        text: `I scored ${percent}% (${session!.correct}/${session!.order.length}) on the ${currentMeta!.name} quiz.`,
+        url,
+      });
+    });
+    actions.appendChild(share);
   }
   const again = el('button', 'ghost-btn', 'New round');
   again.addEventListener('click', () => void startDeck(currentMeta!));

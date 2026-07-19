@@ -28,6 +28,7 @@ import type {
 } from './lib/assessment';
 import type { CisData } from './lib/frameworks';
 import { frameworkSlug } from './lib/frameworks';
+import { copyWithToast } from './lib/share';
 
 const byId = (id: string) => document.getElementById(id) as HTMLElement;
 
@@ -618,6 +619,24 @@ function renderResults(): void {
     show('form');
   });
   top.appendChild(back);
+  const copyBtn = el('button', 'ghost-btn', 'copy summary');
+  copyBtn.addEventListener('click', () => {
+    const gaps = concerns(current.data, answers, current.config);
+    const headline = result.insufficient
+      ? 'Not enough answered to score'
+      : `${result.overallPercent}% (${band.label})`;
+    const topGoals = gaps.goals.slice(0, 3).map((g) => `- ${g.name}: ${g.percent}%`);
+    const lines = [
+      `${current.name} self-assessment`,
+      `Score: ${headline}`,
+      `Answered: ${result.answered} of ${result.total}, ${result.applicable} count toward the score`,
+      gaps.questions.length > 0 ? `Gaps to close: ${gaps.questions.length}` : 'No open gaps',
+      ...(topGoals.length ? ['Weakest areas:', ...topGoals] : []),
+      `Assessed ${todayString()} at cybersecurityalphabetsoup.com/assess/`,
+    ];
+    void copyWithToast(lines.join('\n'), 'Summary copied to clipboard');
+  });
+  top.appendChild(copyBtn);
   const exportBtn = el('button', 'ghost-btn', 'export JSON');
   exportBtn.addEventListener('click', downloadExport);
   top.appendChild(exportBtn);
