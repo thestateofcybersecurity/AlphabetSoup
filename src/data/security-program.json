@@ -46,7 +46,8 @@
         "Stand up a risk register and complete an initial risk assessment",
         "Assign an owner and treatment decision (accept, mitigate, transfer, avoid) to each top risk",
         "Schedule a recurring quarterly leadership risk review"
-      ]
+      ],
+      "hours": 40
     },
     {
       "id": "asset-inventory-and-management",
@@ -90,7 +91,8 @@
         "Catalog data assets and where they are stored (on-premises, cloud, SaaS)",
         "Define a process to review and remove or approve unauthorized assets",
         "Set a recurring monthly reconciliation and assign an inventory owner"
-      ]
+      ],
+      "hours": 60
     },
     {
       "id": "identity-and-access-management",
@@ -138,7 +140,8 @@
         "Apply least-privilege by removing access that is not needed for a role",
         "Establish dedicated, monitored privileged accounts separate from daily-use accounts",
         "Schedule a recurring quarterly access review of privileged and dormant accounts"
-      ]
+      ],
+      "hours": 60
     },
     {
       "id": "data-protection-and-classification",
@@ -182,7 +185,8 @@
         "Enable encryption at rest and in transit for confidential data",
         "Write plain-English handling and retention rules for each classification tier",
         "Restrict access to confidential data to only the roles that need it"
-      ]
+      ],
+      "hours": 50
     },
     {
       "id": "secure-configuration-and-hardening",
@@ -226,7 +230,8 @@
         "Apply baselines to a pilot set of systems and confirm functionality",
         "Measure in-scope systems against baselines and log any drift",
         "Set a recurring cadence to review baselines and remediate drift"
-      ]
+      ],
+      "hours": 60
     },
     {
       "id": "vulnerability-and-patch-management",
@@ -272,7 +277,8 @@
         "Schedule recurring scans and route findings to owners through a ticketing workflow",
         "Enable automated patch deployment for operating systems and common third-party software",
         "Publish a monthly remediation report tracking SLA compliance and aging findings"
-      ]
+      ],
+      "hours": 50
     },
     {
       "id": "malware-email-and-web-defenses",
@@ -318,7 +324,8 @@
         "Roll out DNS filtering to block known malicious and newly registered domains",
         "Deploy anti-malware with signature and behavioral detection on mail and web gateways",
         "Configure alerting and a review cadence for blocked and quarantined items"
-      ]
+      ],
+      "hours": 40
     },
     {
       "id": "endpoint-protection-and-detection",
@@ -369,7 +376,8 @@
         "Enable automated or one-click endpoint isolation for confirmed threats",
         "Route EDR alerts to a monitored queue with defined triage steps",
         "Report weekly on coverage, healthy check-ins, and open detections"
-      ]
+      ],
+      "hours": 50
     },
     {
       "id": "network-security-and-segmentation",
@@ -419,7 +427,8 @@
         "Replace direct remote access with a VPN or zero trust gateway requiring MFA",
         "Review and tighten firewall rules to a default-deny posture with documented exceptions",
         "Enable logging on firewalls and remote access gateways and forward logs for monitoring"
-      ]
+      ],
+      "hours": 60
     },
     {
       "id": "application-and-software-security",
@@ -470,7 +479,8 @@
         "Add static application security testing to the build pipeline with failing gates for critical issues",
         "Schedule periodic dynamic testing or penetration testing of external-facing applications",
         "Define an SLA and triage process for security findings from all testing sources"
-      ]
+      ],
+      "hours": 50
     },
     {
       "id": "logging-monitoring-detection",
@@ -518,7 +528,8 @@
         "Build and tune an initial set of prioritized detection use cases with clear owners",
         "Define alert severities, triage steps, and an on-call routing path",
         "Run a monthly review to retire noisy rules and add new detections"
-      ]
+      ],
+      "hours": 70
     },
     {
       "id": "incident-response-capability",
@@ -566,7 +577,8 @@
         "Establish a reporting path to leadership and required external parties",
         "Run a tabletop exercise and capture lessons learned in an action log",
         "Review and update the plan after each exercise or real incident"
-      ]
+      ],
+      "hours": 50
     },
     {
       "id": "backup-recovery-resilience",
@@ -614,7 +626,8 @@
         "Schedule and perform test restores at least quarterly and log the results",
         "Draft a business continuity plan for extended outages of key services",
         "Review objectives and coverage whenever systems or data change materially"
-      ]
+      ],
+      "hours": 40
     },
     {
       "id": "security-awareness-training",
@@ -658,7 +671,8 @@
         "Track completion and simulation results and follow up with non-responders",
         "Provide short refreshers targeted at repeat clickers",
         "Report awareness metrics and trends to leadership each quarter"
-      ]
+      ],
+      "hours": 30
     },
     {
       "id": "third-party-supply-chain-risk",
@@ -702,7 +716,8 @@
         "Complete security reviews for all critical vendors",
         "Add security, breach-notification, and right-to-audit terms to critical contracts",
         "Set a recurring review cycle and an offboarding checklist for ending vendors"
-      ]
+      ],
+      "hours": 40
     },
     {
       "id": "continuous-improvement-metrics-audit",
@@ -750,7 +765,8 @@
         "Track all findings in a single prioritized remediation backlog with owners and SLAs",
         "Hold a recurring management review of metrics, findings, and roadmap progress",
         "Feed lessons learned back into policies, controls, and next-cycle goals"
-      ]
+      ],
+      "hours": 40
     }
   ]
 }

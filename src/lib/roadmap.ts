@@ -216,6 +216,8 @@ export interface ProgramGoal {
   standards: StandardRef[];
   kpis: string[];
   milestones: string[];
+  /** Rough effort estimate in hours. */
+  hours?: number;
 }
 
 /** Link a goal to the most relevant framework page from its standard mappings. */
@@ -248,6 +250,7 @@ export function programPlan(program: { goals: ProgramGoal[] }): RoadmapTask[] {
       kpis: goal.kpis,
       milestones: goal.milestones,
       standards: goal.standards,
+      ...(goal.hours != null ? { hours: goal.hours } : {}),
       ...(link ? { link } : {}),
     };
   });

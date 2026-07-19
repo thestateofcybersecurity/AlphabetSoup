@@ -270,3 +270,16 @@ describe('milestone tracking', () => {
     expect(csv).toContain(`2/${g.milestones!.length}`);
   });
 });
+
+describe('program effort estimates', () => {
+  it('every program goal has an hours estimate that flows into the plan and load', () => {
+    const plan = programPlan(program);
+    expect(plan.every((t) => typeof t.hours === 'number' && t.hours! > 0)).toBe(true);
+    const total = totalHours(plan);
+    expect(total).toBeGreaterThan(0);
+    // Per-quarter load hours sum to the plan total.
+    const load = planLoad(plan, {});
+    const sum = Object.values(load).reduce((s, l) => s + l.hours, 0);
+    expect(Math.round(sum)).toBe(Math.round(total));
+  });
+});

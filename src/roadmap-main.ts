@@ -223,21 +223,34 @@ function renderSummary(tasks: RoadmapTask[]): void {
   }
   summary.appendChild(chips);
 
-  // Per-quarter load, to reveal an overloaded quarter at a glance.
+  // Per-quarter capacity: bar by hours when estimates exist, else task count,
+  // with the calendar range so it reads as a timeline.
   const load = planLoad(tasks, state);
   const quarters = source() === 'vciso' ? QUARTERS : QUARTERS.filter((q) => q !== 'Onboarding');
-  const maxCount = Math.max(1, ...quarters.map((q) => load[q].count));
+  const byHours = hours > 0;
+  const value = (q: Quarter) => (byHours ? load[q].hours : load[q].count);
+  const max = Math.max(1, ...quarters.map(value));
+
+  if (byHours) {
+    const heaviest = quarters.reduce((a, b) => (load[b].hours > load[a].hours ? b : a), quarters[0]);
+    const cap = el('div', 'deck-sub plan-capacity');
+    cap.textContent = `Total effort: ${hours}h · heaviest quarter: ${heaviest} (${load[heaviest].hours}h)`;
+    summary.appendChild(cap);
+  }
+
   const loadWrap = el('div', 'plan-load');
   for (const quarter of quarters) {
     const cell = el('div', 'plan-load-cell');
     const barWrap = el('div', 'plan-load-bar');
     const bar = el('div', 'plan-load-fill');
-    bar.style.height = `${(load[quarter].count / maxCount) * 100}%`;
+    bar.style.height = `${(value(quarter) / max) * 100}%`;
     barWrap.appendChild(bar);
     cell.appendChild(barWrap);
     cell.appendChild(el('div', 'plan-load-label', quarter));
     const detail = load[quarter].hours > 0 ? `${load[quarter].count} · ${load[quarter].hours}h` : String(load[quarter].count);
     cell.appendChild(el('div', 'plan-load-count', detail));
+    const range = quarterDateRange(startMonth, quarter);
+    if (range && range !== 'Setup') cell.appendChild(el('div', 'plan-load-date', range));
     loadWrap.appendChild(cell);
   }
   summary.appendChild(loadWrap);

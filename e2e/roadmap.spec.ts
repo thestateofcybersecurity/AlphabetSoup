@@ -11,6 +11,17 @@ test('security program is the default source with goal depth', async ({ page }) 
   await expect(first.locator('.std-chips a[href*="frameworks"]').first()).toBeVisible();
 });
 
+test('program shows effort estimates and a per-quarter capacity timeline', async ({ page }) => {
+  await page.goto('/roadmap/');
+  await expect(page.locator('.plan-summary-line')).toContainText('estimated hours');
+  await expect(page.locator('.plan-capacity')).toContainText('Total effort');
+  await expect(page.locator('.plan-capacity')).toContainText('heaviest quarter');
+  // Load cells show hours and a calendar range.
+  const firstCell = page.locator('.plan-load-cell').first();
+  await expect(firstCell.locator('.plan-load-count')).toContainText('h');
+  await expect(firstCell.locator('.plan-load-date')).toContainText(/\d{4}/);
+});
+
 test('milestones are checkable and roll up on the card and dashboard', async ({ page }) => {
   await page.goto('/roadmap/');
   await page.evaluate(() => localStorage.removeItem('alphabetsoup:roadmap:program'));
