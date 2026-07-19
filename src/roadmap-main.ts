@@ -41,7 +41,11 @@ const GAP_ASSESSMENTS: { id: string; name: string; data: AssessmentData }[] = [
 ];
 
 function gapsAssessmentId(): string {
-  return sel('plan-gaps-assessment')?.value ?? 'ransomware';
+  // Return an id from the known list (never the raw DOM value), so downstream
+  // uses in hrefs and storage keys can never carry an untrusted string.
+  const value = sel('plan-gaps-assessment')?.value;
+  const match = GAP_ASSESSMENTS.find((a) => a.id === value);
+  return match ? match.id : 'ransomware';
 }
 
 function assessmentAnswers(id: string): Answers {
