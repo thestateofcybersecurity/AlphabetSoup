@@ -2,9 +2,12 @@ import rawData from './data/assessment.json';
 import cpgRaw from './data/assessment-cpg.json';
 import cisRaw from './data/cis.json';
 import igsRaw from './data/cis-igs.json';
+import csfRaw from './data/nist-csf.json';
 import {
   cisControlFromReference,
+  cisControlsAssessment,
   cisIg1Assessment,
+  csfAssessment,
   cisSafeguardFromReference,
   concerns,
   defaultAnswerConfig,
@@ -26,7 +29,7 @@ import type {
   Snapshot,
   Tier,
 } from './lib/assessment';
-import type { CisData } from './lib/frameworks';
+import type { CisData, CsfData } from './lib/frameworks';
 import { frameworkSlug } from './lib/frameworks';
 import { copyWithToast } from './lib/share';
 
@@ -67,6 +70,24 @@ const ASSESSMENTS: AssessmentDef[] = [
       'All 56 Implementation Group 1 safeguards from CIS Controls v8 as checks. IG1 is essential cyber hygiene, the floor every organization should reach. Gaps link to plain-English safeguard pages.',
     data: cisIg1Assessment(cisRaw as CisData, igsRaw as Record<string, number>),
     planGaps: false,
+    config: defaultAnswerConfig,
+  },
+  {
+    id: 'cis-v8',
+    name: 'CIS Controls v8 (all safeguards)',
+    blurb:
+      'The full CIS Controls v8: all 153 safeguards across 18 controls. Each safeguard sits in a maturity tier by its Implementation Group, so tier attainment reads as IG progress (basic = IG1, intermediate = IG2, advanced = IG3). Gaps link to plain-English safeguard pages.',
+    data: cisControlsAssessment(cisRaw as CisData, igsRaw as Record<string, number>),
+    planGaps: false,
+    config: defaultAnswerConfig,
+  },
+  {
+    id: 'nist-csf',
+    name: 'NIST CSF 2.0',
+    blurb:
+      'A self-assessment across all 106 subcategory outcomes of NIST CSF 2.0, grouped by the six functions (Govern, Identify, Protect, Detect, Respond, Recover). Each outcome uses verbatim NIST wording and links to its plain-English framework page.',
+    data: csfAssessment(csfRaw as CsfData),
+    planGaps: true,
     config: defaultAnswerConfig,
   },
 ];
