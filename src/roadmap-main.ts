@@ -241,8 +241,9 @@ function renderSummary(tasks: RoadmapTask[]): void {
     msTile.appendChild(el('div', 'deck-sub plan-milestone-counts', `Milestones: ${mp.done} of ${mp.total} done`));
   }
 
-  // Status breakdown tile.
+  // Status breakdown tile: headline the active (in-progress) count, then the split.
   const statusTile = tile('Status');
+  statusTile.appendChild(el('div', 'plan-tile-value', `${counts['in-progress']}`));
   const chips = el('div', 'plan-status-row');
   const statusLabel: Record<TaskStatus, string> = { planned: 'planned', 'in-progress': 'in progress', done: 'done' };
   for (const status of ['planned', 'in-progress', 'done'] as TaskStatus[]) {
