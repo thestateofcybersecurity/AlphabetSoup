@@ -115,9 +115,9 @@ test('CIS Controls v8 module tiers safeguards by Implementation Group', async ({
   await expect(page.locator('.gap-refs a[href*="frameworks/cis"]').first()).toBeVisible();
 });
 
-test('NIST 800-171 / CMMC module tiers by CMMC level without an empty advanced tier', async ({ page }) => {
+test('NIST 800-171 / CMMC module tiers across the full L1/L2/L3 ladder', async ({ page }) => {
   await page.goto('/assess/?a=nist-800171');
-  await expect(page.locator('#assess-progress')).toHaveText('0/110 answered');
+  await expect(page.locator('#assess-progress')).toHaveText('0/134 answered');
 
   // Meet every CMMC Level 1 (basic-tier) requirement.
   const l1Buttons = page.locator('.assess-row:has(.chip:text-is("basic")) .yesno-btn.state-yes');
@@ -126,10 +126,10 @@ test('NIST 800-171 / CMMC module tiers by CMMC level without an empty advanced t
   for (let i = 0; i < count; i++) await l1Buttons.nth(i).click();
   await page.locator('#assess-done').click();
 
-  // Level 1 reached; the module has no advanced tier, so only basic and intermediate bars show.
+  // Level 1 reached; all three CMMC tiers (L1/L2/L3) are present.
   await expect(page.locator('.attain-badge')).toContainText('basic');
   const tierBars = page.locator('.assess-card', { hasText: 'By maturity tier' }).locator('.score-bar');
-  await expect(tierBars).toHaveCount(2);
+  await expect(tierBars).toHaveCount(3);
   // Guidance carries the concrete first step and outbound references.
   await expect(page.locator('.gap-fix').first()).not.toBeEmpty();
 });
@@ -146,6 +146,47 @@ test('CISA Cyber Essentials module is a single-tier starter across six elements'
 
   await expect(page.locator('.attain-badge')).toHaveCount(0); // no maturity tiers
   await expect(page.locator('.radar')).toBeVisible(); // six element spokes
+  await expect(page.locator('.gap-fix').first()).not.toBeEmpty();
+});
+
+test('CISA Zero Trust module tiers by maturity stage across eight pillars', async ({ page }) => {
+  await page.goto('/assess/?a=zero-trust');
+  await expect(page.locator('#assess-progress')).toHaveText('0/53 answered');
+
+  // Meet every Initial-stage (basic-tier) practice: attains the first maturity stage only.
+  const initial = page.locator('.assess-row:has(.chip:text-is("basic")) .yesno-btn.state-yes');
+  const count = await initial.count();
+  for (let i = 0; i < count; i++) await initial.nth(i).click();
+  await page.locator('#assess-done').click();
+
+  await expect(page.locator('.attain-badge')).toContainText('basic');
+  const tierBars = page.locator('.assess-card', { hasText: 'By maturity tier' }).locator('.score-bar');
+  await expect(tierBars).toHaveCount(3);
+  await expect(page.locator('.radar')).toBeVisible();
+});
+
+test('NIST SSDF module is a single-tier set across four groups', async ({ page }) => {
+  await page.goto('/assess/?a=ssdf');
+  await expect(page.locator('#assess-progress')).toHaveText('0/42 answered');
+  await expect(page.locator('.assess-row .chip')).toHaveCount(0); // single tier
+
+  const rows = page.locator('.assess-row');
+  await rows.nth(0).locator('.yesno-btn', { hasText: 'Yes' }).click();
+  await rows.nth(1).locator('.yesno-btn', { hasText: 'No' }).click();
+  await page.locator('#assess-done').click();
+  await expect(page.locator('.attain-badge')).toHaveCount(0);
+  await expect(page.locator('.gap-fix').first()).not.toBeEmpty();
+});
+
+test('PCI DSS module scores across the twelve requirements', async ({ page }) => {
+  await page.goto('/assess/?a=pci-dss');
+  await expect(page.locator('#assess-progress')).toContainText('/45 answered');
+  await expect(page.locator('.assess-row .chip')).toHaveCount(0); // single tier
+
+  const rows = page.locator('.assess-row');
+  await rows.nth(0).locator('.yesno-btn', { hasText: 'No' }).click();
+  await page.locator('#assess-done').click();
+  await expect(page.locator('.radar')).toBeVisible(); // twelve requirement spokes
   await expect(page.locator('.gap-fix').first()).not.toBeEmpty();
 });
 

@@ -6,6 +6,9 @@ import assessRaw from './data/assessment.json';
 import cpgRaw from './data/assessment-cpg.json';
 import cmmcRaw from './data/assessment-800171.json';
 import ceRaw from './data/assessment-cyber-essentials.json';
+import ztmmRaw from './data/assessment-ztmm.json';
+import ssdfRaw from './data/assessment-ssdf.json';
+import pciRaw from './data/assessment-pci-dss.json';
 import programRaw from './data/security-program.json';
 import roadmapKpisRaw from './data/roadmap-kpis.json';
 import type { CisData, CsfData } from './lib/frameworks';
@@ -56,6 +59,9 @@ const GAP_ASSESSMENTS: { id: string; name: string; data: AssessmentData }[] = [
   { id: 'nist-csf', name: 'NIST CSF 2.0', data: csfAssessment(csf) },
   { id: 'nist-800171', name: 'NIST 800-171 / CMMC', data: cmmcRaw as AssessmentData },
   { id: 'cyber-essentials', name: 'CISA Cyber Essentials', data: ceRaw as AssessmentData },
+  { id: 'zero-trust', name: 'CISA Zero Trust Maturity Model', data: ztmmRaw as AssessmentData },
+  { id: 'ssdf', name: 'NIST SSDF (secure development)', data: ssdfRaw as AssessmentData },
+  { id: 'pci-dss', name: 'PCI DSS v4.0', data: pciRaw as AssessmentData },
 ];
 
 function gapsAssessmentId(): string {

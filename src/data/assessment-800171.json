@@ -117,6 +117,50 @@
       ]
     },
     {
+      "id": "3.1.20",
+      "text": "Do you verify and limit connections to and use of external systems you do not control?",
+      "tier": "basic",
+      "group": "AC",
+      "references": [
+        "NIST SP 800-171 3.1.20",
+        "CMMC L1 AC.L1-3.1.20"
+      ],
+      "why": "External systems outside your control may not protect CUI to your standards.",
+      "fix": "Define terms for external system use and verify them before allowing connections.",
+      "links": [
+        {
+          "label": "NIST SP 800-171 Rev 2",
+          "url": "https://csrc.nist.gov/pubs/sp/800/171/r2/upd1/final"
+        },
+        {
+          "label": "DoD CMMC",
+          "url": "https://dodcio.defense.gov/CMMC/"
+        }
+      ]
+    },
+    {
+      "id": "3.1.22",
+      "text": "Do you control what information is posted on publicly accessible systems to keep CUI off them?",
+      "tier": "basic",
+      "group": "AC",
+      "references": [
+        "NIST SP 800-171 3.1.22",
+        "CMMC L1 AC.L1-3.1.22"
+      ],
+      "why": "CUI accidentally published to public systems is exposed to anyone on the internet.",
+      "fix": "Designate approvers and review content before it is posted to public-facing systems.",
+      "links": [
+        {
+          "label": "NIST SP 800-171 Rev 2",
+          "url": "https://csrc.nist.gov/pubs/sp/800/171/r2/upd1/final"
+        },
+        {
+          "label": "DoD CMMC",
+          "url": "https://dodcio.defense.gov/CMMC/"
+        }
+      ]
+    },
+    {
       "id": "3.1.3",
       "text": "Do you control how CUI flows within and between systems so it only moves in approved ways?",
       "tier": "intermediate",
@@ -491,28 +535,6 @@
       ]
     },
     {
-      "id": "3.1.20",
-      "text": "Do you verify and limit connections to and use of external systems you do not control?",
-      "tier": "basic",
-      "group": "AC",
-      "references": [
-        "NIST SP 800-171 3.1.20",
-        "CMMC L1 AC.L1-3.1.20"
-      ],
-      "why": "External systems outside your control may not protect CUI to your standards.",
-      "fix": "Define terms for external system use and verify them before allowing connections.",
-      "links": [
-        {
-          "label": "NIST SP 800-171 Rev 2",
-          "url": "https://csrc.nist.gov/pubs/sp/800/171/r2/upd1/final"
-        },
-        {
-          "label": "DoD CMMC",
-          "url": "https://dodcio.defense.gov/CMMC/"
-        }
-      ]
-    },
-    {
       "id": "3.1.21",
       "text": "Do you limit or prohibit the use of portable storage devices on external systems?",
       "tier": "intermediate",
@@ -535,20 +557,42 @@
       ]
     },
     {
-      "id": "3.1.22",
-      "text": "Do you control what information is posted on publicly accessible systems to keep CUI off them?",
-      "tier": "basic",
+      "id": "3.1.2e",
+      "text": "Do you restrict system access so that only devices and components owned, provisioned, or issued by your organization can connect?",
+      "tier": "advanced",
       "group": "AC",
       "references": [
-        "NIST SP 800-171 3.1.22",
-        "CMMC L1 AC.L1-3.1.22"
+        "NIST SP 800-172 3.1.2e",
+        "CMMC L3 AC.L3-3.1.2e"
       ],
-      "why": "CUI accidentally published to public systems is exposed to anyone on the internet.",
-      "fix": "Designate approvers and review content before it is posted to public-facing systems.",
+      "why": "Advanced adversaries pivot in through unmanaged or personal devices that sit outside your security controls.",
+      "fix": "Enforce device identity and posture checks (for example certificate-based network access) so only organization-issued assets connect.",
       "links": [
         {
-          "label": "NIST SP 800-171 Rev 2",
-          "url": "https://csrc.nist.gov/pubs/sp/800/171/r2/upd1/final"
+          "label": "NIST SP 800-172",
+          "url": "https://csrc.nist.gov/pubs/sp/800/172/final"
+        },
+        {
+          "label": "DoD CMMC",
+          "url": "https://dodcio.defense.gov/CMMC/"
+        }
+      ]
+    },
+    {
+      "id": "3.1.3e",
+      "text": "Do you use secure information transfer solutions, such as cross-domain gateways, to control data flows between separate security domains?",
+      "tier": "advanced",
+      "group": "AC",
+      "references": [
+        "NIST SP 800-172 3.1.3e",
+        "CMMC L3 AC.L3-3.1.3e"
+      ],
+      "why": "Without controlled cross-domain transfer, an intruder in one domain can move CUI freely into or out of another.",
+      "fix": "Deploy a vetted cross-domain or guarded transfer solution that inspects and mediates all flows between domains.",
+      "links": [
+        {
+          "label": "NIST SP 800-172",
+          "url": "https://csrc.nist.gov/pubs/sp/800/172/final"
         },
         {
           "label": "DoD CMMC",
@@ -615,6 +659,50 @@
         {
           "label": "NIST SP 800-171 Rev 2",
           "url": "https://csrc.nist.gov/pubs/sp/800/171/r2/upd1/final"
+        },
+        {
+          "label": "DoD CMMC",
+          "url": "https://dodcio.defense.gov/CMMC/"
+        }
+      ]
+    },
+    {
+      "id": "3.2.1e",
+      "text": "Do you train staff at hire, after major cyber events, and at least annually to recognize advanced threats and social engineering?",
+      "tier": "advanced",
+      "group": "AT",
+      "references": [
+        "NIST SP 800-172 3.2.1e",
+        "CMMC L3 AT.L3-3.2.1e"
+      ],
+      "why": "APT campaigns often start with tailored phishing and social engineering that untrained staff will not spot.",
+      "fix": "Add advanced threat and social engineering content to onboarding, annual training, and post-incident refreshers.",
+      "links": [
+        {
+          "label": "NIST SP 800-172",
+          "url": "https://csrc.nist.gov/pubs/sp/800/172/final"
+        },
+        {
+          "label": "DoD CMMC",
+          "url": "https://dodcio.defense.gov/CMMC/"
+        }
+      ]
+    },
+    {
+      "id": "3.2.2e",
+      "text": "Do you include hands-on practical exercises, aligned with current threat scenarios and tailored to user roles, in your security awareness training?",
+      "tier": "advanced",
+      "group": "AT",
+      "references": [
+        "NIST SP 800-172 3.2.2e",
+        "CMMC L3 AT.L3-3.2.2e"
+      ],
+      "why": "Passive training does not build the reflexes users need to react correctly under a real APT attack.",
+      "fix": "Run role-based simulations (for example phishing tests and tabletop drills) with feedback to reinforce correct behavior.",
+      "links": [
+        {
+          "label": "NIST SP 800-172",
+          "url": "https://csrc.nist.gov/pubs/sp/800/172/final"
         },
         {
           "label": "DoD CMMC",
@@ -1019,6 +1107,72 @@
       ]
     },
     {
+      "id": "3.4.1e",
+      "text": "Do you maintain an authoritative source and repository that defines the approved, trusted components allowed on your systems?",
+      "tier": "advanced",
+      "group": "CM",
+      "references": [
+        "NIST SP 800-172 3.4.1e",
+        "CMMC L3 CM.L3-3.4.1e"
+      ],
+      "why": "Without a trusted baseline, tampered or malicious components introduced by an adversary look indistinguishable from legitimate ones.",
+      "fix": "Establish a signed, authoritative repository of approved hardware, firmware, and software with integrity references.",
+      "links": [
+        {
+          "label": "NIST SP 800-172",
+          "url": "https://csrc.nist.gov/pubs/sp/800/172/final"
+        },
+        {
+          "label": "DoD CMMC",
+          "url": "https://dodcio.defense.gov/CMMC/"
+        }
+      ]
+    },
+    {
+      "id": "3.4.2e",
+      "text": "Do you use automated mechanisms to detect misconfigured or unauthorized components and correct them?",
+      "tier": "advanced",
+      "group": "CM",
+      "references": [
+        "NIST SP 800-172 3.4.2e",
+        "CMMC L3 CM.L3-3.4.2e"
+      ],
+      "why": "Advanced actors exploit configuration drift and rogue components faster than manual review can catch them.",
+      "fix": "Deploy continuous configuration monitoring that flags and auto-remediates unauthorized or misconfigured components.",
+      "links": [
+        {
+          "label": "NIST SP 800-172",
+          "url": "https://csrc.nist.gov/pubs/sp/800/172/final"
+        },
+        {
+          "label": "DoD CMMC",
+          "url": "https://dodcio.defense.gov/CMMC/"
+        }
+      ]
+    },
+    {
+      "id": "3.4.3e",
+      "text": "Do you use automated tools to continuously discover and inventory the components connected to your systems?",
+      "tier": "advanced",
+      "group": "CM",
+      "references": [
+        "NIST SP 800-172 3.4.3e",
+        "CMMC L3 CM.L3-3.4.3e"
+      ],
+      "why": "You cannot defend assets you do not know exist, and adversaries hide in unmanaged, undiscovered devices.",
+      "fix": "Turn on automated discovery and inventory tooling that keeps a real-time record of all connected components.",
+      "links": [
+        {
+          "label": "NIST SP 800-172",
+          "url": "https://csrc.nist.gov/pubs/sp/800/172/final"
+        },
+        {
+          "label": "DoD CMMC",
+          "url": "https://dodcio.defense.gov/CMMC/"
+        }
+      ]
+    },
+    {
       "id": "3.5.1",
       "text": "Do you uniquely identify every user, process, and device before they connect to your systems?",
       "tier": "basic",
@@ -1261,6 +1415,50 @@
       ]
     },
     {
+      "id": "3.5.1e",
+      "text": "Do you cryptographically authenticate systems and devices in both directions before they are allowed to communicate?",
+      "tier": "advanced",
+      "group": "IA",
+      "references": [
+        "NIST SP 800-172 3.5.1e",
+        "CMMC L3 IA.L3-3.5.1e"
+      ],
+      "why": "One-way trust lets an adversary impersonate a server or device and intercept or inject traffic.",
+      "fix": "Require mutual (bidirectional) cryptographic authentication, such as mutual TLS or device certificates, between endpoints.",
+      "links": [
+        {
+          "label": "NIST SP 800-172",
+          "url": "https://csrc.nist.gov/pubs/sp/800/172/final"
+        },
+        {
+          "label": "DoD CMMC",
+          "url": "https://dodcio.defense.gov/CMMC/"
+        }
+      ]
+    },
+    {
+      "id": "3.5.3e",
+      "text": "Do you block components from connecting unless they are known, authenticated, and confirmed to be in an approved configuration?",
+      "tier": "advanced",
+      "group": "IA",
+      "references": [
+        "NIST SP 800-172 3.5.3e",
+        "CMMC L3 IA.L3-3.5.3e"
+      ],
+      "why": "Untrusted or compromised assets that connect unchecked give adversaries a foothold inside the network.",
+      "fix": "Enforce network access control that admits only authenticated devices meeting an approved configuration posture.",
+      "links": [
+        {
+          "label": "NIST SP 800-172",
+          "url": "https://csrc.nist.gov/pubs/sp/800/172/final"
+        },
+        {
+          "label": "DoD CMMC",
+          "url": "https://dodcio.defense.gov/CMMC/"
+        }
+      ]
+    },
+    {
       "id": "3.6.1",
       "text": "Have you established an incident response capability covering preparation, detection, analysis, containment, recovery, and user response?",
       "tier": "intermediate",
@@ -1319,6 +1517,50 @@
         {
           "label": "NIST SP 800-171 Rev 2",
           "url": "https://csrc.nist.gov/pubs/sp/800/171/r2/upd1/final"
+        },
+        {
+          "label": "DoD CMMC",
+          "url": "https://dodcio.defense.gov/CMMC/"
+        }
+      ]
+    },
+    {
+      "id": "3.6.1e",
+      "text": "Do you operate a security operations center capability that monitors your systems 24 hours a day, 7 days a week?",
+      "tier": "advanced",
+      "group": "IR",
+      "references": [
+        "NIST SP 800-172 3.6.1e",
+        "CMMC L3 IR.L3-3.6.1e"
+      ],
+      "why": "APT actors deliberately act during nights and weekends when unmonitored networks give them free dwell time.",
+      "fix": "Stand up a 24/7 SOC capability, in-house or managed, with on-call staffing for continuous monitoring and triage.",
+      "links": [
+        {
+          "label": "NIST SP 800-172",
+          "url": "https://csrc.nist.gov/pubs/sp/800/172/final"
+        },
+        {
+          "label": "DoD CMMC",
+          "url": "https://dodcio.defense.gov/CMMC/"
+        }
+      ]
+    },
+    {
+      "id": "3.6.2e",
+      "text": "Do you maintain a cyber incident response team that can be deployed within 24 hours of an incident?",
+      "tier": "advanced",
+      "group": "IR",
+      "references": [
+        "NIST SP 800-172 3.6.2e",
+        "CMMC L3 IR.L3-3.6.2e"
+      ],
+      "why": "Slow response lets a sophisticated intruder expand access and exfiltrate CUI before containment begins.",
+      "fix": "Designate and resource an incident response team with a playbook enabling deployment within 24 hours.",
+      "links": [
+        {
+          "label": "NIST SP 800-172",
+          "url": "https://csrc.nist.gov/pubs/sp/800/172/final"
         },
         {
           "label": "DoD CMMC",
@@ -1459,6 +1701,28 @@
       ]
     },
     {
+      "id": "3.8.3",
+      "text": "Do you sanitize or destroy media containing sensitive information before disposal or reuse?",
+      "tier": "basic",
+      "group": "MP",
+      "references": [
+        "NIST SP 800-171 3.8.3",
+        "CMMC L1 MP.L1-3.8.3"
+      ],
+      "why": "Discarded or repurposed drives and paper often still hold recoverable data that can leak sensitive information.",
+      "fix": "Wipe, degauss, or physically destroy media using approved methods before it is thrown out or reassigned.",
+      "links": [
+        {
+          "label": "NIST SP 800-171 Rev 2",
+          "url": "https://csrc.nist.gov/pubs/sp/800/171/r2/upd1/final"
+        },
+        {
+          "label": "DoD CMMC",
+          "url": "https://dodcio.defense.gov/CMMC/"
+        }
+      ]
+    },
+    {
       "id": "3.8.1",
       "text": "Do you physically control and securely store both paper and digital media that hold sensitive information?",
       "tier": "intermediate",
@@ -1491,28 +1755,6 @@
       ],
       "why": "If anyone can pick up and read a drive or document, access controls on the network become meaningless.",
       "fix": "Restrict who can handle or read sensitive media and enforce it with physical and logical access controls.",
-      "links": [
-        {
-          "label": "NIST SP 800-171 Rev 2",
-          "url": "https://csrc.nist.gov/pubs/sp/800/171/r2/upd1/final"
-        },
-        {
-          "label": "DoD CMMC",
-          "url": "https://dodcio.defense.gov/CMMC/"
-        }
-      ]
-    },
-    {
-      "id": "3.8.3",
-      "text": "Do you sanitize or destroy media containing sensitive information before disposal or reuse?",
-      "tier": "basic",
-      "group": "MP",
-      "references": [
-        "NIST SP 800-171 3.8.3",
-        "CMMC L1 MP.L1-3.8.3"
-      ],
-      "why": "Discarded or repurposed drives and paper often still hold recoverable data that can leak sensitive information.",
-      "fix": "Wipe, degauss, or physically destroy media using approved methods before it is thrown out or reassigned.",
       "links": [
         {
           "label": "NIST SP 800-171 Rev 2",
@@ -1701,6 +1943,28 @@
       ]
     },
     {
+      "id": "3.9.2e",
+      "text": "Do you act to protect your systems when adverse information emerges about an individual who has access to CUI?",
+      "tier": "advanced",
+      "group": "PS",
+      "references": [
+        "NIST SP 800-172 3.9.2e",
+        "CMMC L3 PS.L3-3.9.2e"
+      ],
+      "why": "Insider threats and coerced personnel are a favored APT vector for reaching protected information.",
+      "fix": "Define a process to review and adjust access promptly when adverse personnel information is reported.",
+      "links": [
+        {
+          "label": "NIST SP 800-172",
+          "url": "https://csrc.nist.gov/pubs/sp/800/172/final"
+        },
+        {
+          "label": "DoD CMMC",
+          "url": "https://dodcio.defense.gov/CMMC/"
+        }
+      ]
+    },
+    {
       "id": "3.10.1",
       "text": "Do you limit physical access to your facilities, equipment, and computer systems to only the people who are authorized?",
       "tier": "basic",
@@ -1711,28 +1975,6 @@
       ],
       "why": "Unrestricted physical access lets outsiders tamper with, steal, or plug into systems holding sensitive data.",
       "fix": "Define who is authorized and put locks, badge readers, or staffed reception at entry points to restricted areas.",
-      "links": [
-        {
-          "label": "NIST SP 800-171 Rev 2",
-          "url": "https://csrc.nist.gov/pubs/sp/800/171/r2/upd1/final"
-        },
-        {
-          "label": "DoD CMMC",
-          "url": "https://dodcio.defense.gov/CMMC/"
-        }
-      ]
-    },
-    {
-      "id": "3.10.2",
-      "text": "Do you protect and monitor the physical facility and the supporting infrastructure (power, cabling, HVAC) for your systems?",
-      "tier": "intermediate",
-      "group": "PE",
-      "references": [
-        "NIST SP 800-171 3.10.2",
-        "CMMC L2 PE.L2-3.10.2"
-      ],
-      "why": "Unguarded facilities and utilities can be sabotaged or exploited to disrupt or access protected systems.",
-      "fix": "Add physical monitoring (cameras, alarms) and safeguard power, wiring, and environmental controls from tampering.",
       "links": [
         {
           "label": "NIST SP 800-171 Rev 2",
@@ -1799,6 +2041,28 @@
       ],
       "why": "Lost, shared, or unrecovered keys and badges let people enter secured areas without authorization.",
       "fix": "Track who holds each key or badge, and collect or deactivate them when someone leaves or changes roles.",
+      "links": [
+        {
+          "label": "NIST SP 800-171 Rev 2",
+          "url": "https://csrc.nist.gov/pubs/sp/800/171/r2/upd1/final"
+        },
+        {
+          "label": "DoD CMMC",
+          "url": "https://dodcio.defense.gov/CMMC/"
+        }
+      ]
+    },
+    {
+      "id": "3.10.2",
+      "text": "Do you protect and monitor the physical facility and the supporting infrastructure (power, cabling, HVAC) for your systems?",
+      "tier": "intermediate",
+      "group": "PE",
+      "references": [
+        "NIST SP 800-171 3.10.2",
+        "CMMC L2 PE.L2-3.10.2"
+      ],
+      "why": "Unguarded facilities and utilities can be sabotaged or exploited to disrupt or access protected systems.",
+      "fix": "Add physical monitoring (cameras, alarms) and safeguard power, wiring, and environmental controls from tampering.",
       "links": [
         {
           "label": "NIST SP 800-171 Rev 2",
@@ -1899,6 +2163,160 @@
       ]
     },
     {
+      "id": "3.11.1e",
+      "text": "Do you use threat intelligence from open, commercial, or government sources to inform your risk assessments?",
+      "tier": "advanced",
+      "group": "RA",
+      "references": [
+        "NIST SP 800-172 3.11.1e",
+        "CMMC L3 RA.L3-3.11.1e"
+      ],
+      "why": "Risk assessments blind to current adversary tactics miss the threats APT actors are actively using.",
+      "fix": "Subscribe to and integrate threat intelligence feeds into your recurring risk assessment process.",
+      "links": [
+        {
+          "label": "NIST SP 800-172",
+          "url": "https://csrc.nist.gov/pubs/sp/800/172/final"
+        },
+        {
+          "label": "DoD CMMC",
+          "url": "https://dodcio.defense.gov/CMMC/"
+        }
+      ]
+    },
+    {
+      "id": "3.11.2e",
+      "text": "Do you conduct threat hunting to proactively search for indicators of compromise and disrupt intruders?",
+      "tier": "advanced",
+      "group": "RA",
+      "references": [
+        "NIST SP 800-172 3.11.2e",
+        "CMMC L3 RA.L3-3.11.2e"
+      ],
+      "why": "Stealthy APT actors evade automated alerts and can dwell for months until a human hunter finds them.",
+      "fix": "Establish a recurring threat hunting program that hypothesizes adversary behavior and searches for evidence.",
+      "links": [
+        {
+          "label": "NIST SP 800-172",
+          "url": "https://csrc.nist.gov/pubs/sp/800/172/final"
+        },
+        {
+          "label": "DoD CMMC",
+          "url": "https://dodcio.defense.gov/CMMC/"
+        }
+      ]
+    },
+    {
+      "id": "3.11.3e",
+      "text": "Do you use advanced automation and analytics to predict and identify risks to your organization and systems?",
+      "tier": "advanced",
+      "group": "RA",
+      "references": [
+        "NIST SP 800-172 3.11.3e",
+        "CMMC L3 RA.L3-3.11.3e"
+      ],
+      "why": "Manual analysis cannot correlate the volume of signals needed to anticipate advanced, multi-stage attacks.",
+      "fix": "Adopt analytics tooling (for example UEBA or SIEM correlation) that surfaces predictive risk indicators.",
+      "links": [
+        {
+          "label": "NIST SP 800-172",
+          "url": "https://csrc.nist.gov/pubs/sp/800/172/final"
+        },
+        {
+          "label": "DoD CMMC",
+          "url": "https://dodcio.defense.gov/CMMC/"
+        }
+      ]
+    },
+    {
+      "id": "3.11.4e",
+      "text": "Do you document, in your security plan, why each security solution was chosen and the residual risk it leaves?",
+      "tier": "advanced",
+      "group": "RA",
+      "references": [
+        "NIST SP 800-172 3.11.4e",
+        "CMMC L3 RA.L3-3.11.4e"
+      ],
+      "why": "Undocumented rationale hides coverage gaps that a determined adversary can find and exploit.",
+      "fix": "Record solution selection, rationale, and residual risk determinations in your system security plan.",
+      "links": [
+        {
+          "label": "NIST SP 800-172",
+          "url": "https://csrc.nist.gov/pubs/sp/800/172/final"
+        },
+        {
+          "label": "DoD CMMC",
+          "url": "https://dodcio.defense.gov/CMMC/"
+        }
+      ]
+    },
+    {
+      "id": "3.11.5e",
+      "text": "Do you assess how well your security solutions work at least annually and whenever relevant threat information arrives?",
+      "tier": "advanced",
+      "group": "RA",
+      "references": [
+        "NIST SP 800-172 3.11.5e",
+        "CMMC L3 RA.L3-3.11.5e"
+      ],
+      "why": "Controls that were effective yesterday can be bypassed by new adversary techniques if never re-evaluated.",
+      "fix": "Schedule at least annual effectiveness reviews and trigger reassessment on new threat intelligence.",
+      "links": [
+        {
+          "label": "NIST SP 800-172",
+          "url": "https://csrc.nist.gov/pubs/sp/800/172/final"
+        },
+        {
+          "label": "DoD CMMC",
+          "url": "https://dodcio.defense.gov/CMMC/"
+        }
+      ]
+    },
+    {
+      "id": "3.11.6e",
+      "text": "Do you assess, respond to, and monitor supply chain risks for your systems and components?",
+      "tier": "advanced",
+      "group": "RA",
+      "references": [
+        "NIST SP 800-172 3.11.6e",
+        "CMMC L3 RA.L3-3.11.6e"
+      ],
+      "why": "APT actors compromise trusted suppliers to reach many targets at once, as seen in major supply chain attacks.",
+      "fix": "Evaluate supplier and component risk, and monitor for compromise across your supply chain.",
+      "links": [
+        {
+          "label": "NIST SP 800-172",
+          "url": "https://csrc.nist.gov/pubs/sp/800/172/final"
+        },
+        {
+          "label": "DoD CMMC",
+          "url": "https://dodcio.defense.gov/CMMC/"
+        }
+      ]
+    },
+    {
+      "id": "3.11.7e",
+      "text": "Do you maintain a supply chain risk management plan and update it at least annually or after significant threat events?",
+      "tier": "advanced",
+      "group": "RA",
+      "references": [
+        "NIST SP 800-172 3.11.7e",
+        "CMMC L3 RA.L3-3.11.7e"
+      ],
+      "why": "Without a living plan, supply chain defenses go stale as adversaries shift to new upstream targets.",
+      "fix": "Document a supply chain risk management plan and review it annually and after major threat events.",
+      "links": [
+        {
+          "label": "NIST SP 800-172",
+          "url": "https://csrc.nist.gov/pubs/sp/800/172/final"
+        },
+        {
+          "label": "DoD CMMC",
+          "url": "https://dodcio.defense.gov/CMMC/"
+        }
+      ]
+    },
+    {
       "id": "3.12.1",
       "text": "Do you periodically assess your security controls to confirm they are actually working as intended?",
       "tier": "intermediate",
@@ -1987,6 +2405,28 @@
       ]
     },
     {
+      "id": "3.12.1e",
+      "text": "Do you conduct penetration testing at least annually using automated tools and skilled human testers?",
+      "tier": "advanced",
+      "group": "CA",
+      "references": [
+        "NIST SP 800-172 3.12.1e",
+        "CMMC L3 CA.L3-3.12.1e"
+      ],
+      "why": "Only adversarial testing reveals the chained weaknesses an APT actor would combine to break in.",
+      "fix": "Commission annual penetration tests that pair automated scanning with expert, goal-driven human testing.",
+      "links": [
+        {
+          "label": "NIST SP 800-172",
+          "url": "https://csrc.nist.gov/pubs/sp/800/172/final"
+        },
+        {
+          "label": "DoD CMMC",
+          "url": "https://dodcio.defense.gov/CMMC/"
+        }
+      ]
+    },
+    {
       "id": "3.13.1",
       "text": "Do you monitor, control, and protect communications at the external boundaries and key internal boundaries of your systems?",
       "tier": "basic",
@@ -1997,6 +2437,28 @@
       ],
       "why": "Unguarded network boundaries let attackers move in and data flow out without being detected or blocked.",
       "fix": "Deploy firewalls or gateways at your network perimeter and key internal segments to control traffic.",
+      "links": [
+        {
+          "label": "NIST SP 800-171 Rev 2",
+          "url": "https://csrc.nist.gov/pubs/sp/800/171/r2/upd1/final"
+        },
+        {
+          "label": "DoD CMMC",
+          "url": "https://dodcio.defense.gov/CMMC/"
+        }
+      ]
+    },
+    {
+      "id": "3.13.5",
+      "text": "Do you place publicly accessible systems on subnetworks that are physically or logically separated from your internal networks?",
+      "tier": "basic",
+      "group": "SC",
+      "references": [
+        "NIST SP 800-171 3.13.5",
+        "CMMC L1 SC.L1-3.13.5"
+      ],
+      "why": "Public-facing servers on the same network as internal systems give attackers a direct path inward.",
+      "fix": "Put internet-facing services in a separate DMZ subnet isolated from your internal network by firewall rules.",
       "links": [
         {
           "label": "NIST SP 800-171 Rev 2",
@@ -2063,28 +2525,6 @@
       ],
       "why": "Leftover data in shared memory, storage, or caches can leak to the next user or process that reuses it.",
       "fix": "Configure systems to clear or isolate shared resources (memory, buffers, temp files) between users and tasks.",
-      "links": [
-        {
-          "label": "NIST SP 800-171 Rev 2",
-          "url": "https://csrc.nist.gov/pubs/sp/800/171/r2/upd1/final"
-        },
-        {
-          "label": "DoD CMMC",
-          "url": "https://dodcio.defense.gov/CMMC/"
-        }
-      ]
-    },
-    {
-      "id": "3.13.5",
-      "text": "Do you place publicly accessible systems on subnetworks that are physically or logically separated from your internal networks?",
-      "tier": "basic",
-      "group": "SC",
-      "references": [
-        "NIST SP 800-171 3.13.5",
-        "CMMC L1 SC.L1-3.13.5"
-      ],
-      "why": "Public-facing servers on the same network as internal systems give attackers a direct path inward.",
-      "fix": "Put internet-facing services in a separate DMZ subnet isolated from your internal network by firewall rules.",
       "links": [
         {
           "label": "NIST SP 800-171 Rev 2",
@@ -2339,6 +2779,28 @@
       ]
     },
     {
+      "id": "3.13.4e",
+      "text": "Do you use physical or logical isolation techniques to separate and protect your most critical systems and data?",
+      "tier": "advanced",
+      "group": "SC",
+      "references": [
+        "NIST SP 800-172 3.13.4e",
+        "CMMC L3 SC.L3-3.13.4e"
+      ],
+      "why": "Flat networks let an adversary who breaches one system move laterally to everything else.",
+      "fix": "Apply physical or logical isolation (for example segmentation or air gaps) around critical assets.",
+      "links": [
+        {
+          "label": "NIST SP 800-172",
+          "url": "https://csrc.nist.gov/pubs/sp/800/172/final"
+        },
+        {
+          "label": "DoD CMMC",
+          "url": "https://dodcio.defense.gov/CMMC/"
+        }
+      ]
+    },
+    {
       "id": "3.14.1",
       "text": "Do you identify, report, and correct flaws in your systems in a timely manner?",
       "tier": "basic",
@@ -2371,28 +2833,6 @@
       ],
       "why": "Without anti-malware defenses, viruses and other malicious code can spread and compromise your data.",
       "fix": "Deploy antivirus or endpoint protection on servers, workstations, and email or web gateways.",
-      "links": [
-        {
-          "label": "NIST SP 800-171 Rev 2",
-          "url": "https://csrc.nist.gov/pubs/sp/800/171/r2/upd1/final"
-        },
-        {
-          "label": "DoD CMMC",
-          "url": "https://dodcio.defense.gov/CMMC/"
-        }
-      ]
-    },
-    {
-      "id": "3.14.3",
-      "text": "Do you monitor security alerts and advisories and take action in response to them?",
-      "tier": "intermediate",
-      "group": "SI",
-      "references": [
-        "NIST SP 800-171 3.14.3",
-        "CMMC L2 SI.L2-3.14.3"
-      ],
-      "why": "Ignoring vendor and threat advisories means you miss warnings about actively exploited weaknesses.",
-      "fix": "Subscribe to relevant security advisories and assign someone to review and act on them promptly.",
       "links": [
         {
           "label": "NIST SP 800-171 Rev 2",
@@ -2449,6 +2889,28 @@
       ]
     },
     {
+      "id": "3.14.3",
+      "text": "Do you monitor security alerts and advisories and take action in response to them?",
+      "tier": "intermediate",
+      "group": "SI",
+      "references": [
+        "NIST SP 800-171 3.14.3",
+        "CMMC L2 SI.L2-3.14.3"
+      ],
+      "why": "Ignoring vendor and threat advisories means you miss warnings about actively exploited weaknesses.",
+      "fix": "Subscribe to relevant security advisories and assign someone to review and act on them promptly.",
+      "links": [
+        {
+          "label": "NIST SP 800-171 Rev 2",
+          "url": "https://csrc.nist.gov/pubs/sp/800/171/r2/upd1/final"
+        },
+        {
+          "label": "DoD CMMC",
+          "url": "https://dodcio.defense.gov/CMMC/"
+        }
+      ]
+    },
+    {
       "id": "3.14.6",
       "text": "Do you monitor your systems and network traffic, both inbound and outbound, to detect attacks and signs of potential attacks?",
       "tier": "intermediate",
@@ -2485,6 +2947,72 @@
         {
           "label": "NIST SP 800-171 Rev 2",
           "url": "https://csrc.nist.gov/pubs/sp/800/171/r2/upd1/final"
+        },
+        {
+          "label": "DoD CMMC",
+          "url": "https://dodcio.defense.gov/CMMC/"
+        }
+      ]
+    },
+    {
+      "id": "3.14.1e",
+      "text": "Do you verify the integrity of security-critical and essential software using root of trust mechanisms?",
+      "tier": "advanced",
+      "group": "SI",
+      "references": [
+        "NIST SP 800-172 3.14.1e",
+        "CMMC L3 SI.L3-3.14.1e"
+      ],
+      "why": "Advanced actors implant tampered firmware or boot code that survives reinstalls and evades normal defenses.",
+      "fix": "Enable hardware root of trust and verified or measured boot to validate critical software integrity.",
+      "links": [
+        {
+          "label": "NIST SP 800-172",
+          "url": "https://csrc.nist.gov/pubs/sp/800/172/final"
+        },
+        {
+          "label": "DoD CMMC",
+          "url": "https://dodcio.defense.gov/CMMC/"
+        }
+      ]
+    },
+    {
+      "id": "3.14.3e",
+      "text": "Do you protect specialized assets (IoT, OT, and government equipment) under enhanced requirements or isolate them on dedicated networks?",
+      "tier": "advanced",
+      "group": "SI",
+      "references": [
+        "NIST SP 800-172 3.14.3e",
+        "CMMC L3 SI.L3-3.14.3e"
+      ],
+      "why": "IoT, OT, and government-furnished devices often lack native security and become an APT entry point.",
+      "fix": "Bring specialized assets under enhanced controls or segregate them onto dedicated, monitored networks.",
+      "links": [
+        {
+          "label": "NIST SP 800-172",
+          "url": "https://csrc.nist.gov/pubs/sp/800/172/final"
+        },
+        {
+          "label": "DoD CMMC",
+          "url": "https://dodcio.defense.gov/CMMC/"
+        }
+      ]
+    },
+    {
+      "id": "3.14.6e",
+      "text": "Do you use threat indicator information from open, commercial, or government sources to guide your intrusion detection?",
+      "tier": "advanced",
+      "group": "SI",
+      "references": [
+        "NIST SP 800-172 3.14.6e",
+        "CMMC L3 SI.L3-3.14.6e"
+      ],
+      "why": "Detection that ignores current indicators of compromise will miss the tools and infrastructure APT actors reuse.",
+      "fix": "Feed current threat indicators into your intrusion detection and monitoring systems.",
+      "links": [
+        {
+          "label": "NIST SP 800-172",
+          "url": "https://csrc.nist.gov/pubs/sp/800/172/final"
         },
         {
           "label": "DoD CMMC",

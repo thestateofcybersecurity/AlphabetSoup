@@ -1,0 +1,1159 @@
+{
+  "categories": [
+    {
+      "id": "IDENTITY",
+      "name": "Identity",
+      "blurb": "How well you verify who users are and control what each identity can reach across your environment."
+    },
+    {
+      "id": "DEVICES",
+      "name": "Devices",
+      "blurb": "How thoroughly you inventory, secure, and continuously vet the devices that connect to your resources."
+    },
+    {
+      "id": "NETWORKS",
+      "name": "Networks",
+      "blurb": "How much you segment, encrypt, and dynamically control traffic instead of trusting the internal network."
+    },
+    {
+      "id": "APPS",
+      "name": "Applications and Workloads",
+      "blurb": "How you secure access to applications and build protections into their development and runtime."
+    },
+    {
+      "id": "DATA",
+      "name": "Data",
+      "blurb": "How well you inventory, classify, encrypt, and govern access to your data wherever it lives."
+    },
+    {
+      "id": "VISIBILITY",
+      "name": "Visibility and Analytics",
+      "blurb": "How completely you collect, correlate, and analyze security signals to drive decisions."
+    },
+    {
+      "id": "AUTOMATION",
+      "name": "Automation and Orchestration",
+      "blurb": "How much of your security response and policy enforcement runs automatically and in a coordinated way."
+    },
+    {
+      "id": "GOVERNANCE",
+      "name": "Governance",
+      "blurb": "How consistently you define, enforce, and measure cybersecurity policy across every pillar."
+    }
+  ],
+  "questions": [
+    {
+      "id": "ZT-IDENTITY-1",
+      "text": "Do you require multi-factor authentication for user logins instead of relying on passwords alone?",
+      "tier": "basic",
+      "group": "IDENTITY",
+      "references": [
+        "CISA Zero Trust Maturity Model 2.0: Identity"
+      ],
+      "why": "Passwords alone are easily phished, guessed, or reused, letting attackers log in as legitimate users.",
+      "fix": "Turn on MFA for user sign-ins, starting with administrators and remote access.",
+      "links": [
+        {
+          "label": "CISA Zero Trust Maturity Model",
+          "url": "https://www.cisa.gov/zero-trust-maturity-model"
+        },
+        {
+          "label": "ZTMM v2.0 resource",
+          "url": "https://www.cisa.gov/resources-tools/resources/zero-trust-maturity-model"
+        }
+      ]
+    },
+    {
+      "id": "ZT-IDENTITY-2",
+      "text": "Have you started consolidating user accounts into a central identity store rather than separate logins per system?",
+      "tier": "basic",
+      "group": "IDENTITY",
+      "references": [
+        "CISA Zero Trust Maturity Model 2.0: Identity"
+      ],
+      "why": "Scattered per-system accounts create orphaned logins and blind spots that are hard to secure or revoke.",
+      "fix": "Stand up a central identity provider and begin migrating applications to authenticate against it.",
+      "links": [
+        {
+          "label": "CISA Zero Trust Maturity Model",
+          "url": "https://www.cisa.gov/zero-trust-maturity-model"
+        },
+        {
+          "label": "ZTMM v2.0 resource",
+          "url": "https://www.cisa.gov/resources-tools/resources/zero-trust-maturity-model"
+        }
+      ]
+    },
+    {
+      "id": "ZT-IDENTITY-3",
+      "text": "Do you automate parts of the account lifecycle, such as provisioning and deprovisioning, rather than doing it all by hand?",
+      "tier": "basic",
+      "group": "IDENTITY",
+      "references": [
+        "CISA Zero Trust Maturity Model 2.0: Identity"
+      ],
+      "why": "Manual account handling leaves stale accounts active long after a person changes roles or leaves.",
+      "fix": "Connect your identity provider to HR or directory events so joins, moves, and leaves update access automatically.",
+      "links": [
+        {
+          "label": "CISA Zero Trust Maturity Model",
+          "url": "https://www.cisa.gov/zero-trust-maturity-model"
+        },
+        {
+          "label": "ZTMM v2.0 resource",
+          "url": "https://www.cisa.gov/resources-tools/resources/zero-trust-maturity-model"
+        }
+      ]
+    },
+    {
+      "id": "ZT-IDENTITY-4",
+      "text": "Do you enforce phishing-resistant MFA across most of your enterprise applications?",
+      "tier": "intermediate",
+      "group": "IDENTITY",
+      "references": [
+        "CISA Zero Trust Maturity Model 2.0: Identity"
+      ],
+      "why": "SMS and push-based MFA can be bypassed by phishing and fatigue attacks that phishing-resistant methods block.",
+      "fix": "Roll out FIDO2 security keys or certificate-based authentication and require them for sensitive apps.",
+      "links": [
+        {
+          "label": "CISA Zero Trust Maturity Model",
+          "url": "https://www.cisa.gov/zero-trust-maturity-model"
+        },
+        {
+          "label": "ZTMM v2.0 resource",
+          "url": "https://www.cisa.gov/resources-tools/resources/zero-trust-maturity-model"
+        }
+      ]
+    },
+    {
+      "id": "ZT-IDENTITY-5",
+      "text": "Does your access system automatically adjust a user's privileges based on real-time risk signals?",
+      "tier": "intermediate",
+      "group": "IDENTITY",
+      "references": [
+        "CISA Zero Trust Maturity Model 2.0: Identity"
+      ],
+      "why": "Static privileges stay open even when a session shows signs of compromise or unusual behavior.",
+      "fix": "Configure conditional access policies that step up authentication or limit access when risk scores rise.",
+      "links": [
+        {
+          "label": "CISA Zero Trust Maturity Model",
+          "url": "https://www.cisa.gov/zero-trust-maturity-model"
+        },
+        {
+          "label": "ZTMM v2.0 resource",
+          "url": "https://www.cisa.gov/resources-tools/resources/zero-trust-maturity-model"
+        }
+      ]
+    },
+    {
+      "id": "ZT-IDENTITY-6",
+      "text": "Do you grant access using just-in-time, just-enough-access rather than leaving standing privileges in place?",
+      "tier": "advanced",
+      "group": "IDENTITY",
+      "references": [
+        "CISA Zero Trust Maturity Model 2.0: Identity"
+      ],
+      "why": "Standing privileged access is a large attack surface that adversaries target to move and escalate.",
+      "fix": "Adopt privileged access management that grants time-bound, approval-based elevation only when needed.",
+      "links": [
+        {
+          "label": "CISA Zero Trust Maturity Model",
+          "url": "https://www.cisa.gov/zero-trust-maturity-model"
+        },
+        {
+          "label": "ZTMM v2.0 resource",
+          "url": "https://www.cisa.gov/resources-tools/resources/zero-trust-maturity-model"
+        }
+      ]
+    },
+    {
+      "id": "ZT-IDENTITY-7",
+      "text": "Does your environment continuously validate identity and revoke access automatically the moment risk changes?",
+      "tier": "advanced",
+      "group": "IDENTITY",
+      "references": [
+        "CISA Zero Trust Maturity Model 2.0: Identity"
+      ],
+      "why": "Trust granted once at login can be abused for the whole session if it is never re-checked.",
+      "fix": "Enable continuous access evaluation so token validity reacts to risk, revocation, and posture changes in near real time.",
+      "links": [
+        {
+          "label": "CISA Zero Trust Maturity Model",
+          "url": "https://www.cisa.gov/zero-trust-maturity-model"
+        },
+        {
+          "label": "ZTMM v2.0 resource",
+          "url": "https://www.cisa.gov/resources-tools/resources/zero-trust-maturity-model"
+        }
+      ]
+    },
+    {
+      "id": "ZT-DEVICES-1",
+      "text": "Do you maintain an inventory of most devices that connect to your network?",
+      "tier": "basic",
+      "group": "DEVICES",
+      "references": [
+        "CISA Zero Trust Maturity Model 2.0: Devices"
+      ],
+      "why": "You cannot protect or make access decisions about devices you do not know exist.",
+      "fix": "Deploy asset discovery and a device inventory that captures every endpoint reaching your resources.",
+      "links": [
+        {
+          "label": "CISA Zero Trust Maturity Model",
+          "url": "https://www.cisa.gov/zero-trust-maturity-model"
+        },
+        {
+          "label": "ZTMM v2.0 resource",
+          "url": "https://www.cisa.gov/resources-tools/resources/zero-trust-maturity-model"
+        }
+      ]
+    },
+    {
+      "id": "ZT-DEVICES-2",
+      "text": "Do you check a device's basic security posture before granting it access to resources?",
+      "tier": "basic",
+      "group": "DEVICES",
+      "references": [
+        "CISA Zero Trust Maturity Model 2.0: Devices"
+      ],
+      "why": "Unpatched or misconfigured devices become an easy foothold when allowed to connect unchecked.",
+      "fix": "Require a simple posture check, such as OS version and disk encryption, at the point of access.",
+      "links": [
+        {
+          "label": "CISA Zero Trust Maturity Model",
+          "url": "https://www.cisa.gov/zero-trust-maturity-model"
+        },
+        {
+          "label": "ZTMM v2.0 resource",
+          "url": "https://www.cisa.gov/resources-tools/resources/zero-trust-maturity-model"
+        }
+      ]
+    },
+    {
+      "id": "ZT-DEVICES-3",
+      "text": "Have you deployed endpoint protection or detection tooling on most of your devices?",
+      "tier": "basic",
+      "group": "DEVICES",
+      "references": [
+        "CISA Zero Trust Maturity Model 2.0: Devices"
+      ],
+      "why": "Without endpoint tooling, malware and intrusions on a device can go unnoticed and spread.",
+      "fix": "Install and centrally manage an endpoint detection and response agent across your fleet.",
+      "links": [
+        {
+          "label": "CISA Zero Trust Maturity Model",
+          "url": "https://www.cisa.gov/zero-trust-maturity-model"
+        },
+        {
+          "label": "ZTMM v2.0 resource",
+          "url": "https://www.cisa.gov/resources-tools/resources/zero-trust-maturity-model"
+        }
+      ]
+    },
+    {
+      "id": "ZT-DEVICES-4",
+      "text": "Does your access system factor real-time device compliance and health into each access decision?",
+      "tier": "intermediate",
+      "group": "DEVICES",
+      "references": [
+        "CISA Zero Trust Maturity Model 2.0: Devices"
+      ],
+      "why": "A device that was compliant yesterday may be out of date or compromised at the moment of access.",
+      "fix": "Integrate device compliance signals into your access policies so noncompliant devices are blocked or limited.",
+      "links": [
+        {
+          "label": "CISA Zero Trust Maturity Model",
+          "url": "https://www.cisa.gov/zero-trust-maturity-model"
+        },
+        {
+          "label": "ZTMM v2.0 resource",
+          "url": "https://www.cisa.gov/resources-tools/resources/zero-trust-maturity-model"
+        }
+      ]
+    },
+    {
+      "id": "ZT-DEVICES-5",
+      "text": "Do you centrally manage and enforce security configurations across most enterprise devices?",
+      "tier": "intermediate",
+      "group": "DEVICES",
+      "references": [
+        "CISA Zero Trust Maturity Model 2.0: Devices"
+      ],
+      "why": "Inconsistent, locally managed settings drift into weak configurations that attackers exploit.",
+      "fix": "Use a unified endpoint management platform to push and enforce baseline security policies.",
+      "links": [
+        {
+          "label": "CISA Zero Trust Maturity Model",
+          "url": "https://www.cisa.gov/zero-trust-maturity-model"
+        },
+        {
+          "label": "ZTMM v2.0 resource",
+          "url": "https://www.cisa.gov/resources-tools/resources/zero-trust-maturity-model"
+        }
+      ]
+    },
+    {
+      "id": "ZT-DEVICES-6",
+      "text": "Do your devices continuously report their security status so access can adjust dynamically?",
+      "tier": "advanced",
+      "group": "DEVICES",
+      "references": [
+        "CISA Zero Trust Maturity Model 2.0: Devices"
+      ],
+      "why": "Point-in-time checks miss changes in device health that occur during an active session.",
+      "fix": "Enable continuous device telemetry that feeds live posture into your access engine.",
+      "links": [
+        {
+          "label": "CISA Zero Trust Maturity Model",
+          "url": "https://www.cisa.gov/zero-trust-maturity-model"
+        },
+        {
+          "label": "ZTMM v2.0 resource",
+          "url": "https://www.cisa.gov/resources-tools/resources/zero-trust-maturity-model"
+        }
+      ]
+    },
+    {
+      "id": "ZT-DEVICES-7",
+      "text": "Is device threat detection integrated with automated response that isolates compromised devices without manual steps?",
+      "tier": "advanced",
+      "group": "DEVICES",
+      "references": [
+        "CISA Zero Trust Maturity Model 2.0: Devices"
+      ],
+      "why": "Manual isolation is too slow to stop a compromised device from spreading to other systems.",
+      "fix": "Connect endpoint detection to automated playbooks that quarantine a device the instant a threat is confirmed.",
+      "links": [
+        {
+          "label": "CISA Zero Trust Maturity Model",
+          "url": "https://www.cisa.gov/zero-trust-maturity-model"
+        },
+        {
+          "label": "ZTMM v2.0 resource",
+          "url": "https://www.cisa.gov/resources-tools/resources/zero-trust-maturity-model"
+        }
+      ]
+    },
+    {
+      "id": "ZT-NETWORKS-1",
+      "text": "Have you divided your network into separate segments rather than running one flat network?",
+      "tier": "basic",
+      "group": "NETWORKS",
+      "references": [
+        "CISA Zero Trust Maturity Model 2.0: Networks"
+      ],
+      "why": "A flat network lets an attacker who breaches one system reach everything else unimpeded.",
+      "fix": "Split your network into segments by function or sensitivity and control traffic between them.",
+      "links": [
+        {
+          "label": "CISA Zero Trust Maturity Model",
+          "url": "https://www.cisa.gov/zero-trust-maturity-model"
+        },
+        {
+          "label": "ZTMM v2.0 resource",
+          "url": "https://www.cisa.gov/resources-tools/resources/zero-trust-maturity-model"
+        }
+      ]
+    },
+    {
+      "id": "ZT-NETWORKS-2",
+      "text": "Do you encrypt at least some internal network traffic instead of sending it in the clear?",
+      "tier": "basic",
+      "group": "NETWORKS",
+      "references": [
+        "CISA Zero Trust Maturity Model 2.0: Networks"
+      ],
+      "why": "Cleartext internal traffic can be sniffed or altered by anyone who gains a network foothold.",
+      "fix": "Enable TLS for internal services and start retiring unencrypted protocols.",
+      "links": [
+        {
+          "label": "CISA Zero Trust Maturity Model",
+          "url": "https://www.cisa.gov/zero-trust-maturity-model"
+        },
+        {
+          "label": "ZTMM v2.0 resource",
+          "url": "https://www.cisa.gov/resources-tools/resources/zero-trust-maturity-model"
+        }
+      ]
+    },
+    {
+      "id": "ZT-NETWORKS-3",
+      "text": "Do you manage and monitor traffic at defined network boundaries?",
+      "tier": "basic",
+      "group": "NETWORKS",
+      "references": [
+        "CISA Zero Trust Maturity Model 2.0: Networks"
+      ],
+      "why": "Without controlled boundaries you cannot see or stop malicious inbound and outbound traffic.",
+      "fix": "Place firewalls and monitoring at ingress and egress points and log the traffic they see.",
+      "links": [
+        {
+          "label": "CISA Zero Trust Maturity Model",
+          "url": "https://www.cisa.gov/zero-trust-maturity-model"
+        },
+        {
+          "label": "ZTMM v2.0 resource",
+          "url": "https://www.cisa.gov/resources-tools/resources/zero-trust-maturity-model"
+        }
+      ]
+    },
+    {
+      "id": "ZT-NETWORKS-4",
+      "text": "Have you implemented microsegmentation to isolate individual workloads or applications?",
+      "tier": "intermediate",
+      "group": "NETWORKS",
+      "references": [
+        "CISA Zero Trust Maturity Model 2.0: Networks"
+      ],
+      "why": "Coarse segments still allow broad lateral movement between systems that never need to talk.",
+      "fix": "Apply per-workload policies so each application only accepts the connections it actually requires.",
+      "links": [
+        {
+          "label": "CISA Zero Trust Maturity Model",
+          "url": "https://www.cisa.gov/zero-trust-maturity-model"
+        },
+        {
+          "label": "ZTMM v2.0 resource",
+          "url": "https://www.cisa.gov/resources-tools/resources/zero-trust-maturity-model"
+        }
+      ]
+    },
+    {
+      "id": "ZT-NETWORKS-5",
+      "text": "Is most of your network traffic, including internal traffic, encrypted by default?",
+      "tier": "intermediate",
+      "group": "NETWORKS",
+      "references": [
+        "CISA Zero Trust Maturity Model 2.0: Networks"
+      ],
+      "why": "Partial encryption leaves gaps where sensitive traffic can still be intercepted.",
+      "fix": "Make encryption the default for all services and flag any remaining cleartext flows for remediation.",
+      "links": [
+        {
+          "label": "CISA Zero Trust Maturity Model",
+          "url": "https://www.cisa.gov/zero-trust-maturity-model"
+        },
+        {
+          "label": "ZTMM v2.0 resource",
+          "url": "https://www.cisa.gov/resources-tools/resources/zero-trust-maturity-model"
+        }
+      ]
+    },
+    {
+      "id": "ZT-NETWORKS-6",
+      "text": "Are network access policies enforced dynamically based on real-time risk and application needs?",
+      "tier": "advanced",
+      "group": "NETWORKS",
+      "references": [
+        "CISA Zero Trust Maturity Model 2.0: Networks"
+      ],
+      "why": "Static network rules cannot respond to emerging threats or changing conditions fast enough.",
+      "fix": "Adopt policy-driven networking that adjusts access based on live risk and identity signals.",
+      "links": [
+        {
+          "label": "CISA Zero Trust Maturity Model",
+          "url": "https://www.cisa.gov/zero-trust-maturity-model"
+        },
+        {
+          "label": "ZTMM v2.0 resource",
+          "url": "https://www.cisa.gov/resources-tools/resources/zero-trust-maturity-model"
+        }
+      ]
+    },
+    {
+      "id": "ZT-NETWORKS-7",
+      "text": "Does your network encrypt traffic end to end and adapt segmentation automatically as conditions change?",
+      "tier": "advanced",
+      "group": "NETWORKS",
+      "references": [
+        "CISA Zero Trust Maturity Model 2.0: Networks"
+      ],
+      "why": "Manual segmentation and partial encryption cannot keep pace with dynamic, distributed environments.",
+      "fix": "Use software-defined segmentation with pervasive encryption that reconfigures automatically to workload changes.",
+      "links": [
+        {
+          "label": "CISA Zero Trust Maturity Model",
+          "url": "https://www.cisa.gov/zero-trust-maturity-model"
+        },
+        {
+          "label": "ZTMM v2.0 resource",
+          "url": "https://www.cisa.gov/resources-tools/resources/zero-trust-maturity-model"
+        }
+      ]
+    },
+    {
+      "id": "ZT-APPS-1",
+      "text": "Do you require authentication and access control before users can reach internal applications?",
+      "tier": "basic",
+      "group": "APPS",
+      "references": [
+        "CISA Zero Trust Maturity Model 2.0: Applications and Workloads"
+      ],
+      "why": "Applications reachable without authentication are open doors for anyone who finds them.",
+      "fix": "Put every internal application behind identity-based authentication and authorization.",
+      "links": [
+        {
+          "label": "CISA Zero Trust Maturity Model",
+          "url": "https://www.cisa.gov/zero-trust-maturity-model"
+        },
+        {
+          "label": "ZTMM v2.0 resource",
+          "url": "https://www.cisa.gov/resources-tools/resources/zero-trust-maturity-model"
+        }
+      ]
+    },
+    {
+      "id": "ZT-APPS-2",
+      "text": "Do you run security testing on applications at some point before releasing them?",
+      "tier": "basic",
+      "group": "APPS",
+      "references": [
+        "CISA Zero Trust Maturity Model 2.0: Applications and Workloads"
+      ],
+      "why": "Shipping untested code lets known vulnerability classes reach production where attackers find them.",
+      "fix": "Add basic static and dependency scanning as a gate before releases go live.",
+      "links": [
+        {
+          "label": "CISA Zero Trust Maturity Model",
+          "url": "https://www.cisa.gov/zero-trust-maturity-model"
+        },
+        {
+          "label": "ZTMM v2.0 resource",
+          "url": "https://www.cisa.gov/resources-tools/resources/zero-trust-maturity-model"
+        }
+      ]
+    },
+    {
+      "id": "ZT-APPS-3",
+      "text": "Have you begun making applications available securely without requiring a traditional VPN into the network?",
+      "tier": "basic",
+      "group": "APPS",
+      "references": [
+        "CISA Zero Trust Maturity Model 2.0: Applications and Workloads"
+      ],
+      "why": "VPN access places users on the internal network, granting far more reach than any single app needs.",
+      "fix": "Publish key applications through an identity-aware proxy so users reach only the app, not the network.",
+      "links": [
+        {
+          "label": "CISA Zero Trust Maturity Model",
+          "url": "https://www.cisa.gov/zero-trust-maturity-model"
+        },
+        {
+          "label": "ZTMM v2.0 resource",
+          "url": "https://www.cisa.gov/resources-tools/resources/zero-trust-maturity-model"
+        }
+      ]
+    },
+    {
+      "id": "ZT-APPS-4",
+      "text": "Do you enforce access to applications based on context such as user, device, and risk rather than network location?",
+      "tier": "intermediate",
+      "group": "APPS",
+      "references": [
+        "CISA Zero Trust Maturity Model 2.0: Applications and Workloads"
+      ],
+      "why": "Trusting anyone on the internal network lets a single breach reach many applications at once.",
+      "fix": "Configure context-aware access policies that evaluate identity, device health, and risk per request.",
+      "links": [
+        {
+          "label": "CISA Zero Trust Maturity Model",
+          "url": "https://www.cisa.gov/zero-trust-maturity-model"
+        },
+        {
+          "label": "ZTMM v2.0 resource",
+          "url": "https://www.cisa.gov/resources-tools/resources/zero-trust-maturity-model"
+        }
+      ]
+    },
+    {
+      "id": "ZT-APPS-5",
+      "text": "Is application security testing integrated into your continuous integration and delivery pipeline?",
+      "tier": "intermediate",
+      "group": "APPS",
+      "references": [
+        "CISA Zero Trust Maturity Model 2.0: Applications and Workloads"
+      ],
+      "why": "Testing only at the end lets vulnerabilities accumulate and ship before anyone catches them.",
+      "fix": "Embed automated security scans into every build so issues fail the pipeline early.",
+      "links": [
+        {
+          "label": "CISA Zero Trust Maturity Model",
+          "url": "https://www.cisa.gov/zero-trust-maturity-model"
+        },
+        {
+          "label": "ZTMM v2.0 resource",
+          "url": "https://www.cisa.gov/resources-tools/resources/zero-trust-maturity-model"
+        }
+      ]
+    },
+    {
+      "id": "ZT-APPS-6",
+      "text": "Do application access decisions continuously adapt to real-time risk throughout each session?",
+      "tier": "advanced",
+      "group": "APPS",
+      "references": [
+        "CISA Zero Trust Maturity Model 2.0: Applications and Workloads"
+      ],
+      "why": "Access granted at login can be abused if the session is never re-evaluated as risk shifts.",
+      "fix": "Enable continuous, risk-adaptive authorization that can downgrade or cut off access mid-session.",
+      "links": [
+        {
+          "label": "CISA Zero Trust Maturity Model",
+          "url": "https://www.cisa.gov/zero-trust-maturity-model"
+        },
+        {
+          "label": "ZTMM v2.0 resource",
+          "url": "https://www.cisa.gov/resources-tools/resources/zero-trust-maturity-model"
+        }
+      ]
+    },
+    {
+      "id": "ZT-APPS-7",
+      "text": "Are application protections and threat monitoring automated across the full development and runtime lifecycle?",
+      "tier": "advanced",
+      "group": "APPS",
+      "references": [
+        "CISA Zero Trust Maturity Model 2.0: Applications and Workloads"
+      ],
+      "why": "Gaps between build-time and runtime security let threats slip through unmonitored once apps are live.",
+      "fix": "Unify pipeline scanning with runtime protection and automated response for a continuous security loop.",
+      "links": [
+        {
+          "label": "CISA Zero Trust Maturity Model",
+          "url": "https://www.cisa.gov/zero-trust-maturity-model"
+        },
+        {
+          "label": "ZTMM v2.0 resource",
+          "url": "https://www.cisa.gov/resources-tools/resources/zero-trust-maturity-model"
+        }
+      ]
+    },
+    {
+      "id": "ZT-DATA-1",
+      "text": "Have you begun inventorying where your most important data is stored?",
+      "tier": "basic",
+      "group": "DATA",
+      "references": [
+        "CISA Zero Trust Maturity Model 2.0: Data"
+      ],
+      "why": "Data you have not located cannot be protected, and unknown stores are common breach sources.",
+      "fix": "Run discovery to map where sensitive data lives across systems, cloud, and endpoints.",
+      "links": [
+        {
+          "label": "CISA Zero Trust Maturity Model",
+          "url": "https://www.cisa.gov/zero-trust-maturity-model"
+        },
+        {
+          "label": "ZTMM v2.0 resource",
+          "url": "https://www.cisa.gov/resources-tools/resources/zero-trust-maturity-model"
+        }
+      ]
+    },
+    {
+      "id": "ZT-DATA-2",
+      "text": "Do you classify at least some data by sensitivity so it can be protected accordingly?",
+      "tier": "basic",
+      "group": "DATA",
+      "references": [
+        "CISA Zero Trust Maturity Model 2.0: Data"
+      ],
+      "why": "Without classification, sensitive and public data get the same weak protection.",
+      "fix": "Define a simple sensitivity scheme and label your highest-value data first.",
+      "links": [
+        {
+          "label": "CISA Zero Trust Maturity Model",
+          "url": "https://www.cisa.gov/zero-trust-maturity-model"
+        },
+        {
+          "label": "ZTMM v2.0 resource",
+          "url": "https://www.cisa.gov/resources-tools/resources/zero-trust-maturity-model"
+        }
+      ]
+    },
+    {
+      "id": "ZT-DATA-3",
+      "text": "Do you encrypt sensitive data when it is stored at rest?",
+      "tier": "basic",
+      "group": "DATA",
+      "references": [
+        "CISA Zero Trust Maturity Model 2.0: Data"
+      ],
+      "why": "Unencrypted stored data is fully exposed if a disk, backup, or database is stolen or copied.",
+      "fix": "Turn on encryption at rest for databases, storage, and backups holding sensitive data.",
+      "links": [
+        {
+          "label": "CISA Zero Trust Maturity Model",
+          "url": "https://www.cisa.gov/zero-trust-maturity-model"
+        },
+        {
+          "label": "ZTMM v2.0 resource",
+          "url": "https://www.cisa.gov/resources-tools/resources/zero-trust-maturity-model"
+        }
+      ]
+    },
+    {
+      "id": "ZT-DATA-4",
+      "text": "Do you apply automated data classification and tagging across most of your repositories?",
+      "tier": "intermediate",
+      "group": "DATA",
+      "references": [
+        "CISA Zero Trust Maturity Model 2.0: Data"
+      ],
+      "why": "Manual labeling cannot keep up with data volume, so much sensitive data goes untagged and unprotected.",
+      "fix": "Deploy tools that scan and automatically tag data by sensitivity as it is created and moved.",
+      "links": [
+        {
+          "label": "CISA Zero Trust Maturity Model",
+          "url": "https://www.cisa.gov/zero-trust-maturity-model"
+        },
+        {
+          "label": "ZTMM v2.0 resource",
+          "url": "https://www.cisa.gov/resources-tools/resources/zero-trust-maturity-model"
+        }
+      ]
+    },
+    {
+      "id": "ZT-DATA-5",
+      "text": "Do you control access to data based on its sensitivity and the requester's context?",
+      "tier": "intermediate",
+      "group": "DATA",
+      "references": [
+        "CISA Zero Trust Maturity Model 2.0: Data"
+      ],
+      "why": "Broad, role-only access lets far more people reach sensitive data than actually need it.",
+      "fix": "Tie data access policies to classification labels plus user, device, and risk context.",
+      "links": [
+        {
+          "label": "CISA Zero Trust Maturity Model",
+          "url": "https://www.cisa.gov/zero-trust-maturity-model"
+        },
+        {
+          "label": "ZTMM v2.0 resource",
+          "url": "https://www.cisa.gov/resources-tools/resources/zero-trust-maturity-model"
+        }
+      ]
+    },
+    {
+      "id": "ZT-DATA-6",
+      "text": "Is access to data governed by dynamic policies that respond to real-time risk?",
+      "tier": "advanced",
+      "group": "DATA",
+      "references": [
+        "CISA Zero Trust Maturity Model 2.0: Data"
+      ],
+      "why": "Static data permissions stay open even when a session or account shows clear signs of compromise.",
+      "fix": "Enforce data access through a policy engine that adjusts or blocks access as risk signals change.",
+      "links": [
+        {
+          "label": "CISA Zero Trust Maturity Model",
+          "url": "https://www.cisa.gov/zero-trust-maturity-model"
+        },
+        {
+          "label": "ZTMM v2.0 resource",
+          "url": "https://www.cisa.gov/resources-tools/resources/zero-trust-maturity-model"
+        }
+      ]
+    },
+    {
+      "id": "ZT-DATA-7",
+      "text": "Do you encrypt data in transit, at rest, and in use with continuous monitoring for unauthorized access?",
+      "tier": "advanced",
+      "group": "DATA",
+      "references": [
+        "CISA Zero Trust Maturity Model 2.0: Data"
+      ],
+      "why": "Data left unprotected in any state, especially while in use, gives attackers a route to exfiltrate it.",
+      "fix": "Extend encryption to data in use with technologies like confidential computing and monitor all access continuously.",
+      "links": [
+        {
+          "label": "CISA Zero Trust Maturity Model",
+          "url": "https://www.cisa.gov/zero-trust-maturity-model"
+        },
+        {
+          "label": "ZTMM v2.0 resource",
+          "url": "https://www.cisa.gov/resources-tools/resources/zero-trust-maturity-model"
+        }
+      ]
+    },
+    {
+      "id": "ZT-VISIBILITY-1",
+      "text": "Do you collect and centralize logs from most of your systems rather than leaving them siloed?",
+      "tier": "basic",
+      "group": "VISIBILITY",
+      "references": [
+        "CISA Zero Trust Maturity Model 2.0: Visibility and Analytics"
+      ],
+      "why": "Logs scattered across systems make it nearly impossible to spot an attack that crosses them.",
+      "fix": "Forward logs from your key systems into a central logging or SIEM platform.",
+      "links": [
+        {
+          "label": "CISA Zero Trust Maturity Model",
+          "url": "https://www.cisa.gov/zero-trust-maturity-model"
+        },
+        {
+          "label": "ZTMM v2.0 resource",
+          "url": "https://www.cisa.gov/resources-tools/resources/zero-trust-maturity-model"
+        }
+      ]
+    },
+    {
+      "id": "ZT-VISIBILITY-2",
+      "text": "Do you actively monitor for security events across your enterprise environment?",
+      "tier": "basic",
+      "group": "VISIBILITY",
+      "references": [
+        "CISA Zero Trust Maturity Model 2.0: Visibility and Analytics"
+      ],
+      "why": "Collected logs provide no protection if no one is watching them for signs of attack.",
+      "fix": "Set up alerting on your central logs and assign someone to triage the events.",
+      "links": [
+        {
+          "label": "CISA Zero Trust Maturity Model",
+          "url": "https://www.cisa.gov/zero-trust-maturity-model"
+        },
+        {
+          "label": "ZTMM v2.0 resource",
+          "url": "https://www.cisa.gov/resources-tools/resources/zero-trust-maturity-model"
+        }
+      ]
+    },
+    {
+      "id": "ZT-VISIBILITY-3",
+      "text": "Do you correlate data across identity, devices, networks, and applications to detect threats?",
+      "tier": "intermediate",
+      "group": "VISIBILITY",
+      "references": [
+        "CISA Zero Trust Maturity Model 2.0: Visibility and Analytics"
+      ],
+      "why": "Single-source alerts miss multi-stage attacks that only appear when signals are combined.",
+      "fix": "Use correlation rules or analytics that join events across pillars into unified detections.",
+      "links": [
+        {
+          "label": "CISA Zero Trust Maturity Model",
+          "url": "https://www.cisa.gov/zero-trust-maturity-model"
+        },
+        {
+          "label": "ZTMM v2.0 resource",
+          "url": "https://www.cisa.gov/resources-tools/resources/zero-trust-maturity-model"
+        }
+      ]
+    },
+    {
+      "id": "ZT-VISIBILITY-4",
+      "text": "Do your analytics feed risk signals into access and policy decisions?",
+      "tier": "intermediate",
+      "group": "VISIBILITY",
+      "references": [
+        "CISA Zero Trust Maturity Model 2.0: Visibility and Analytics"
+      ],
+      "why": "Insights that never reach policy enforcement leave known risks free to be exploited.",
+      "fix": "Wire your analytics output into access policies so detected risk changes what users can do.",
+      "links": [
+        {
+          "label": "CISA Zero Trust Maturity Model",
+          "url": "https://www.cisa.gov/zero-trust-maturity-model"
+        },
+        {
+          "label": "ZTMM v2.0 resource",
+          "url": "https://www.cisa.gov/resources-tools/resources/zero-trust-maturity-model"
+        }
+      ]
+    },
+    {
+      "id": "ZT-VISIBILITY-5",
+      "text": "Do you use automated analytics and machine-driven detection for near real-time situational awareness?",
+      "tier": "advanced",
+      "group": "VISIBILITY",
+      "references": [
+        "CISA Zero Trust Maturity Model 2.0: Visibility and Analytics"
+      ],
+      "why": "Purely manual analysis is too slow to catch fast-moving threats before damage is done.",
+      "fix": "Adopt behavioral analytics and machine learning detections that surface anomalies automatically.",
+      "links": [
+        {
+          "label": "CISA Zero Trust Maturity Model",
+          "url": "https://www.cisa.gov/zero-trust-maturity-model"
+        },
+        {
+          "label": "ZTMM v2.0 resource",
+          "url": "https://www.cisa.gov/resources-tools/resources/zero-trust-maturity-model"
+        }
+      ]
+    },
+    {
+      "id": "ZT-VISIBILITY-6",
+      "text": "Does comprehensive, continuous visibility span both your internal and externally hosted resources?",
+      "tier": "advanced",
+      "group": "VISIBILITY",
+      "references": [
+        "CISA Zero Trust Maturity Model 2.0: Visibility and Analytics"
+      ],
+      "why": "Blind spots in cloud or third-party environments are exactly where attackers prefer to operate.",
+      "fix": "Extend telemetry collection and monitoring to cloud, SaaS, and partner-hosted resources.",
+      "links": [
+        {
+          "label": "CISA Zero Trust Maturity Model",
+          "url": "https://www.cisa.gov/zero-trust-maturity-model"
+        },
+        {
+          "label": "ZTMM v2.0 resource",
+          "url": "https://www.cisa.gov/resources-tools/resources/zero-trust-maturity-model"
+        }
+      ]
+    },
+    {
+      "id": "ZT-AUTOMATION-1",
+      "text": "Have you automated at least some routine security responses instead of handling every incident manually?",
+      "tier": "basic",
+      "group": "AUTOMATION",
+      "references": [
+        "CISA Zero Trust Maturity Model 2.0: Automation and Orchestration"
+      ],
+      "why": "Fully manual response is slow and inconsistent, giving threats time to spread.",
+      "fix": "Automate a few common, low-risk responses such as disabling an account or blocking an indicator.",
+      "links": [
+        {
+          "label": "CISA Zero Trust Maturity Model",
+          "url": "https://www.cisa.gov/zero-trust-maturity-model"
+        },
+        {
+          "label": "ZTMM v2.0 resource",
+          "url": "https://www.cisa.gov/resources-tools/resources/zero-trust-maturity-model"
+        }
+      ]
+    },
+    {
+      "id": "ZT-AUTOMATION-2",
+      "text": "Do you use defined playbooks to guide and speed up incident response?",
+      "tier": "basic",
+      "group": "AUTOMATION",
+      "references": [
+        "CISA Zero Trust Maturity Model 2.0: Automation and Orchestration"
+      ],
+      "why": "Ad hoc response leads to missed steps and slow reactions under pressure.",
+      "fix": "Document step-by-step playbooks for your most common incident types.",
+      "links": [
+        {
+          "label": "CISA Zero Trust Maturity Model",
+          "url": "https://www.cisa.gov/zero-trust-maturity-model"
+        },
+        {
+          "label": "ZTMM v2.0 resource",
+          "url": "https://www.cisa.gov/resources-tools/resources/zero-trust-maturity-model"
+        }
+      ]
+    },
+    {
+      "id": "ZT-AUTOMATION-3",
+      "text": "Do your security tools share information and coordinate responses across different pillars?",
+      "tier": "intermediate",
+      "group": "AUTOMATION",
+      "references": [
+        "CISA Zero Trust Maturity Model 2.0: Automation and Orchestration"
+      ],
+      "why": "Disconnected tools force analysts to bridge gaps by hand, slowing containment.",
+      "fix": "Integrate your tools through a SOAR platform or shared APIs so they act on each other's signals.",
+      "links": [
+        {
+          "label": "CISA Zero Trust Maturity Model",
+          "url": "https://www.cisa.gov/zero-trust-maturity-model"
+        },
+        {
+          "label": "ZTMM v2.0 resource",
+          "url": "https://www.cisa.gov/resources-tools/resources/zero-trust-maturity-model"
+        }
+      ]
+    },
+    {
+      "id": "ZT-AUTOMATION-4",
+      "text": "Do you automatically enforce and update security policies based on predefined triggers?",
+      "tier": "intermediate",
+      "group": "AUTOMATION",
+      "references": [
+        "CISA Zero Trust Maturity Model 2.0: Automation and Orchestration"
+      ],
+      "why": "Policies that only change through manual work drift out of date as conditions evolve.",
+      "fix": "Define triggers that automatically apply or tighten policies when specific conditions are met.",
+      "links": [
+        {
+          "label": "CISA Zero Trust Maturity Model",
+          "url": "https://www.cisa.gov/zero-trust-maturity-model"
+        },
+        {
+          "label": "ZTMM v2.0 resource",
+          "url": "https://www.cisa.gov/resources-tools/resources/zero-trust-maturity-model"
+        }
+      ]
+    },
+    {
+      "id": "ZT-AUTOMATION-5",
+      "text": "Does your environment respond to threats automatically in near real time with minimal human intervention?",
+      "tier": "advanced",
+      "group": "AUTOMATION",
+      "references": [
+        "CISA Zero Trust Maturity Model 2.0: Automation and Orchestration"
+      ],
+      "why": "Human-in-the-loop response cannot match the speed of automated attacks.",
+      "fix": "Expand trusted playbooks so confirmed threats are contained automatically, with humans reviewing after the fact.",
+      "links": [
+        {
+          "label": "CISA Zero Trust Maturity Model",
+          "url": "https://www.cisa.gov/zero-trust-maturity-model"
+        },
+        {
+          "label": "ZTMM v2.0 resource",
+          "url": "https://www.cisa.gov/resources-tools/resources/zero-trust-maturity-model"
+        }
+      ]
+    },
+    {
+      "id": "ZT-AUTOMATION-6",
+      "text": "Are security workflows fully orchestrated across all pillars with dynamic, self-adjusting policies?",
+      "tier": "advanced",
+      "group": "AUTOMATION",
+      "references": [
+        "CISA Zero Trust Maturity Model 2.0: Automation and Orchestration"
+      ],
+      "why": "Partial orchestration leaves seams between pillars that attackers exploit during an incident.",
+      "fix": "Unify orchestration end to end so policies and responses adapt automatically across every pillar.",
+      "links": [
+        {
+          "label": "CISA Zero Trust Maturity Model",
+          "url": "https://www.cisa.gov/zero-trust-maturity-model"
+        },
+        {
+          "label": "ZTMM v2.0 resource",
+          "url": "https://www.cisa.gov/resources-tools/resources/zero-trust-maturity-model"
+        }
+      ]
+    },
+    {
+      "id": "ZT-GOVERNANCE-1",
+      "text": "Have you documented cybersecurity policies that define how access and resources are protected?",
+      "tier": "basic",
+      "group": "GOVERNANCE",
+      "references": [
+        "CISA Zero Trust Maturity Model 2.0: Governance"
+      ],
+      "why": "Without written policy, security decisions are inconsistent and impossible to hold anyone to.",
+      "fix": "Write down baseline access and protection policies and share them with the organization.",
+      "links": [
+        {
+          "label": "CISA Zero Trust Maturity Model",
+          "url": "https://www.cisa.gov/zero-trust-maturity-model"
+        },
+        {
+          "label": "ZTMM v2.0 resource",
+          "url": "https://www.cisa.gov/resources-tools/resources/zero-trust-maturity-model"
+        }
+      ]
+    },
+    {
+      "id": "ZT-GOVERNANCE-2",
+      "text": "Have you begun enforcing your security policies consistently rather than leaving it to individual teams?",
+      "tier": "basic",
+      "group": "GOVERNANCE",
+      "references": [
+        "CISA Zero Trust Maturity Model 2.0: Governance"
+      ],
+      "why": "Policies enforced unevenly leave predictable gaps that attackers seek out.",
+      "fix": "Assign clear ownership and start applying core policies uniformly across teams.",
+      "links": [
+        {
+          "label": "CISA Zero Trust Maturity Model",
+          "url": "https://www.cisa.gov/zero-trust-maturity-model"
+        },
+        {
+          "label": "ZTMM v2.0 resource",
+          "url": "https://www.cisa.gov/resources-tools/resources/zero-trust-maturity-model"
+        }
+      ]
+    },
+    {
+      "id": "ZT-GOVERNANCE-3",
+      "text": "Do you enforce security policies centrally and consistently across most pillars?",
+      "tier": "intermediate",
+      "group": "GOVERNANCE",
+      "references": [
+        "CISA Zero Trust Maturity Model 2.0: Governance"
+      ],
+      "why": "Pillar-by-pillar governance creates conflicting rules and coverage gaps between them.",
+      "fix": "Manage policy from a central point that applies consistently across identity, devices, networks, apps, and data.",
+      "links": [
+        {
+          "label": "CISA Zero Trust Maturity Model",
+          "url": "https://www.cisa.gov/zero-trust-maturity-model"
+        },
+        {
+          "label": "ZTMM v2.0 resource",
+          "url": "https://www.cisa.gov/resources-tools/resources/zero-trust-maturity-model"
+        }
+      ]
+    },
+    {
+      "id": "ZT-GOVERNANCE-4",
+      "text": "Do you track compliance with your zero trust policies using measurable metrics?",
+      "tier": "intermediate",
+      "group": "GOVERNANCE",
+      "references": [
+        "CISA Zero Trust Maturity Model 2.0: Governance"
+      ],
+      "why": "Without metrics you cannot tell where policy is being followed or where risk is piling up.",
+      "fix": "Define key metrics and dashboards that report policy compliance and exceptions.",
+      "links": [
+        {
+          "label": "CISA Zero Trust Maturity Model",
+          "url": "https://www.cisa.gov/zero-trust-maturity-model"
+        },
+        {
+          "label": "ZTMM v2.0 resource",
+          "url": "https://www.cisa.gov/resources-tools/resources/zero-trust-maturity-model"
+        }
+      ]
+    },
+    {
+      "id": "ZT-GOVERNANCE-5",
+      "text": "Are governance policies enforced automatically and updated dynamically as risk changes?",
+      "tier": "advanced",
+      "group": "GOVERNANCE",
+      "references": [
+        "CISA Zero Trust Maturity Model 2.0: Governance"
+      ],
+      "why": "Manually maintained governance lags behind fast-changing environments and emerging threats.",
+      "fix": "Adopt policy-as-code so governance is enforced automatically and adjusts to real-time risk.",
+      "links": [
+        {
+          "label": "CISA Zero Trust Maturity Model",
+          "url": "https://www.cisa.gov/zero-trust-maturity-model"
+        },
+        {
+          "label": "ZTMM v2.0 resource",
+          "url": "https://www.cisa.gov/resources-tools/resources/zero-trust-maturity-model"
+        }
+      ]
+    },
+    {
+      "id": "ZT-GOVERNANCE-6",
+      "text": "Does your governance extend across the entire enterprise, including externally hosted and third-party resources?",
+      "tier": "advanced",
+      "group": "GOVERNANCE",
+      "references": [
+        "CISA Zero Trust Maturity Model 2.0: Governance"
+      ],
+      "why": "Ungoverned cloud and partner resources become weak links outside your control.",
+      "fix": "Bring externally hosted and third-party resources under the same enterprise policy and oversight.",
+      "links": [
+        {
+          "label": "CISA Zero Trust Maturity Model",
+          "url": "https://www.cisa.gov/zero-trust-maturity-model"
+        },
+        {
+          "label": "ZTMM v2.0 resource",
+          "url": "https://www.cisa.gov/resources-tools/resources/zero-trust-maturity-model"
+        }
+      ]
+    }
+  ]
+}

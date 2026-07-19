@@ -38,6 +38,9 @@ const cis = load<CisData>('../src/data/cis.json');
 const map = load<Record<string, string[]>>('../src/data/csf-cis-map.json');
 const cmmc = load<AssessmentData>('../src/data/assessment-800171.json');
 const cyberEssentials = load<AssessmentData>('../src/data/assessment-cyber-essentials.json');
+const ztmm = load<AssessmentData>('../src/data/assessment-ztmm.json');
+const ssdf = load<AssessmentData>('../src/data/assessment-ssdf.json');
+const pci = load<AssessmentData>('../src/data/assessment-pci-dss.json');
 
 const mapProblems: string[] = [];
 for (const csfId of Object.keys(csf)) {
@@ -58,6 +61,9 @@ const problems = [
   ...mapProblems.map((e) => `csf-cis-map: ${e}`),
   ...validateAssessment(cmmc).map((e) => `800-171: ${e}`),
   ...validateAssessment(cyberEssentials).map((e) => `cyber-essentials: ${e}`),
+  ...validateAssessment(ztmm).map((e) => `ztmm: ${e}`),
+  ...validateAssessment(ssdf).map((e) => `ssdf: ${e}`),
+  ...validateAssessment(pci).map((e) => `pci-dss: ${e}`),
 ];
 
 if (problems.length > 0) {
@@ -67,5 +73,5 @@ if (problems.length > 0) {
 }
 console.log(
   `Data OK: ${Object.keys(acronyms).length} acronyms, ${Object.keys(csf).length} CSF subcategories, ${Object.keys(cis).length} CIS safeguards, ` +
-    `${cmmc.questions.length} 800-171 requirements, ${cyberEssentials.questions.length} Cyber Essentials actions.`,
+    `${cmmc.questions.length} 800-171/CMMC, ${cyberEssentials.questions.length} Cyber Essentials, ${ztmm.questions.length} ZTMM, ${ssdf.questions.length} SSDF, ${pci.questions.length} PCI DSS.`,
 );

@@ -5,6 +5,9 @@ import igsRaw from './data/cis-igs.json';
 import csfRaw from './data/nist-csf.json';
 import cmmcRaw from './data/assessment-800171.json';
 import ceRaw from './data/assessment-cyber-essentials.json';
+import ztmmRaw from './data/assessment-ztmm.json';
+import ssdfRaw from './data/assessment-ssdf.json';
+import pciRaw from './data/assessment-pci-dss.json';
 import {
   cisControlFromReference,
   cisControlsAssessment,
@@ -96,7 +99,7 @@ const ASSESSMENTS: AssessmentDef[] = [
     id: 'nist-800171',
     name: 'NIST 800-171 / CMMC',
     blurb:
-      'All 110 security requirements of NIST SP 800-171 Rev 2 across 14 families, the basis of CMMC 2.0 for defense contractors handling CUI. Requirements are tiered by CMMC level (basic = the 17 Level 1 practices, intermediate = the full Level 2 set), so tier attainment reads as CMMC progress.',
+      'The full CMMC 2.0 ladder for defense contractors handling CUI: all 110 NIST SP 800-171 Rev 2 requirements plus the 24 NIST SP 800-172 enhancements CMMC selected for Level 3. Tiered by CMMC level (basic = the 17 Level 1 practices, intermediate = Level 2, advanced = Level 3), so tier attainment reads as CMMC progress.',
     data: cmmcRaw as AssessmentData,
     planGaps: true,
     config: defaultAnswerConfig,
@@ -107,6 +110,33 @@ const ASSESSMENTS: AssessmentDef[] = [
     blurb:
       'A starting-point self-assessment built on the six CISA Cyber Essentials elements (leadership, staff, systems, surroundings, data, and crisis response). Plain-language actions for small organizations taking their first structured steps.',
     data: ceRaw as AssessmentData,
+    planGaps: true,
+    config: defaultAnswerConfig,
+  },
+  {
+    id: 'zero-trust',
+    name: 'CISA Zero Trust Maturity Model',
+    blurb:
+      'A maturity self-assessment across the five ZTMM v2.0 pillars (identity, devices, networks, applications, data) and three cross-cutting capabilities. Each tier is a maturity stage (basic = Initial, intermediate = Advanced, advanced = Optimal), so tier attainment charts your progress off the traditional perimeter model.',
+    data: ztmmRaw as AssessmentData,
+    planGaps: true,
+    config: defaultAnswerConfig,
+  },
+  {
+    id: 'ssdf',
+    name: 'NIST SSDF (secure development)',
+    blurb:
+      'All 42 tasks of the NIST Secure Software Development Framework (SP 800-218) across its four groups: prepare the organization, protect the software, produce well-secured software, and respond to vulnerabilities. For teams that build or ship software.',
+    data: ssdfRaw as AssessmentData,
+    planGaps: true,
+    config: defaultAnswerConfig,
+  },
+  {
+    id: 'pci-dss',
+    name: 'PCI DSS v4.0',
+    blurb:
+      'A plain-English self-assessment across the 12 PCI DSS v4.0 requirements for any organization that stores, processes, or transmits payment card data. Questions are original wording that captures each requirement; the official standard remains the authority for compliance.',
+    data: pciRaw as AssessmentData,
     planGaps: true,
     config: defaultAnswerConfig,
   },
