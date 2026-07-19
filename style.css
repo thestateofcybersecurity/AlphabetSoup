@@ -1140,6 +1140,55 @@ body {
 .depth-milestones {
   color: var(--ink-soft);
 }
+.kpi-list {
+  list-style: none;
+  padding-left: 0;
+}
+.kpi-row {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 8px;
+  margin: 5px 0;
+}
+.kpi-text {
+  flex: 1;
+  line-height: 1.4;
+}
+.kpi-ctrl {
+  display: flex;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  overflow: hidden;
+  flex-shrink: 0;
+}
+.kpi-btn {
+  appearance: none;
+  border: none;
+  background: transparent;
+  font-family: var(--font-mono);
+  font-size: 0.54rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+  padding: 3px 7px;
+  cursor: pointer;
+}
+.kpi-btn.kpi-unmet.active {
+  background: #c8401f;
+  color: #fff;
+}
+.kpi-btn.kpi-partial.active {
+  background: #c98a1a;
+  color: #fff;
+}
+.kpi-btn.kpi-met.active {
+  background: #3f8f5f;
+  color: #fff;
+}
+.plan-kpi-counts {
+  margin-top: 4px;
+}
 .std-chips {
   display: flex;
   flex-wrap: wrap;

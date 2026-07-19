@@ -28,6 +28,9 @@ export interface RoadmapTask {
   standards?: StandardRef[];
 }
 
+export type KpiStatus = 'met' | 'partial' | 'unmet';
+export const KPI_STATUS_CYCLE: KpiStatus[] = ['unmet', 'partial', 'met'];
+
 export interface TaskState {
   quarter: Quarter;
   status: TaskStatus;
@@ -35,6 +38,8 @@ export interface TaskState {
   /** Target date, YYYY-MM-DD. */
   date?: string;
   note?: string;
+  /** Per-KPI attainment, keyed by the KPI's index in the task's kpis array. */
+  kpiStatus?: Record<string, KpiStatus>;
 }
 
 export type PlanState = Record<string, TaskState>;
@@ -291,21 +296,51 @@ const MATURITY_LEVELS: { min: number; label: string }[] = [
   { min: 80, label: 'Optimizing' },
 ];
 
+const kpiScore = (status: KpiStatus): number => (status === 'met' ? 1 : status === 'partial' ? 0.5 : 0);
+const statusScore = (status: TaskStatus): number => (status === 'done' ? 1 : status === 'in-progress' ? 0.5 : 0);
+
+/** A task's attainment in [0,1] from its KPI marks, or null if it has no KPIs. */
+export function taskAttainment(task: RoadmapTask, state: PlanState): number | null {
+  if (!task.kpis || task.kpis.length === 0) return null;
+  const marks = state[task.id]?.kpiStatus ?? {};
+  let sum = 0;
+  for (let i = 0; i < task.kpis.length; i += 1) sum += kpiScore(marks[String(i)] ?? 'unmet');
+  return sum / task.kpis.length;
+}
+
 /**
- * Roll the plan's status up into a single maturity indicator: each goal scores
- * done = 1, in progress = 0.5, planned = 0. The percentage maps to a CMMI-style
- * level so a whole program reads as one number.
+ * Roll the plan up into a single maturity indicator. Goals with KPIs score by
+ * measured KPI attainment (met = 1, partial = 0.5, unmet = 0); goals without
+ * KPIs fall back to workflow status (done = 1, in progress = 0.5, planned = 0).
+ * The percentage maps to a CMMI-style level so a whole program reads as one number.
  */
 export function programMaturity(tasks: RoadmapTask[], state: PlanState): Maturity {
   if (tasks.length === 0) return { percent: 0, level: 'Initial' };
   let score = 0;
   for (const task of tasks) {
-    const status = state[task.id]?.status ?? 'planned';
-    score += status === 'done' ? 1 : status === 'in-progress' ? 0.5 : 0;
+    const attainment = taskAttainment(task, state);
+    score += attainment ?? statusScore(state[task.id]?.status ?? 'planned');
   }
   const percent = Math.round((score / tasks.length) * 100);
   const level = [...MATURITY_LEVELS].reverse().find((l) => percent >= l.min)?.label ?? 'Initial';
   return { percent, level };
+}
+
+/** Totals of KPI marks across the plan, for the dashboard. */
+export function kpiAttainmentCounts(
+  tasks: RoadmapTask[],
+  state: PlanState,
+): { met: number; partial: number; unmet: number; total: number } {
+  const counts = { met: 0, partial: 0, unmet: 0, total: 0 };
+  for (const task of tasks) {
+    if (!task.kpis) continue;
+    const marks = state[task.id]?.kpiStatus ?? {};
+    for (let i = 0; i < task.kpis.length; i += 1) {
+      counts.total += 1;
+      counts[marks[String(i)] ?? 'unmet'] += 1;
+    }
+  }
+  return counts;
 }
 
 const MONTHS = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
@@ -344,7 +379,9 @@ export function planToCsv(tasks: RoadmapTask[], state: PlanState): string {
       s.date ?? '',
       s.note ?? '',
       (task.standards ?? []).map((ref) => `${ref.framework} ${ref.ref}`).join('; '),
-      (task.kpis ?? []).join('; '),
+      (task.kpis ?? [])
+        .map((kpi, i) => `${kpi} [${s.kpiStatus?.[String(i)] ?? 'unmet'}]`)
+        .join('; '),
       task.hours != null ? String(task.hours) : '',
     ]);
   }

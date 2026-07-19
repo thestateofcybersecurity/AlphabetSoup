@@ -11,6 +11,28 @@ test('security program is the default source with goal depth', async ({ page }) 
   await expect(first.locator('.std-chips a[href*="frameworks"]').first()).toBeVisible();
 });
 
+test('marking KPI attainment drives the maturity rollup', async ({ page }) => {
+  await page.goto('/roadmap/');
+  await page.evaluate(() => localStorage.removeItem('alphabetsoup:roadmap:program'));
+  await page.reload();
+  await expect(page.locator('.plan-maturity .deck-sub')).toContainText('KPI attainment');
+  await expect(page.locator('.plan-maturity .deck-sub')).toContainText('0%');
+
+  const card = page.locator('.task-card').first();
+  await card.locator('.task-depth summary').click();
+  const firstKpi = card.locator('.kpi-row').first();
+  await firstKpi.locator('.kpi-btn.kpi-met').click();
+
+  // Card stays open, the mark sticks, and maturity plus counts move.
+  await expect(firstKpi.locator('.kpi-btn.kpi-met.active')).toBeVisible();
+  await expect(page.locator('.plan-kpi-counts')).toContainText('1 met');
+  await expect(page.locator('.plan-maturity .deck-sub')).not.toContainText('· 0%');
+
+  // Persists across reload.
+  await page.reload();
+  await expect(page.locator('.plan-kpi-counts')).toContainText('1 met');
+});
+
 test('CSF plan renders 22 tasks across quarters with status cycling', async ({ page }) => {
   await page.goto('/roadmap/');
   await page.locator('#plan-source').selectOption('csf');

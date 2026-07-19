@@ -10,6 +10,7 @@ import {
   cisPlan,
   csfPlan,
   gapsPlan,
+  kpiAttainmentCounts,
   nextStatus,
   planLoad,
   planProgress,
@@ -21,7 +22,7 @@ import {
   totalHours,
   vcisoPlan,
 } from '../src/lib/roadmap';
-import type { GoalDepth, ProgramGoal } from '../src/lib/roadmap';
+import type { GoalDepth, PlanState, ProgramGoal } from '../src/lib/roadmap';
 
 const program = programRaw as { goals: ProgramGoal[] };
 const kpi = kpiRaw as { csf: Record<string, GoalDepth>; cis: Record<string, GoalDepth> };
@@ -200,6 +201,29 @@ describe('load and schedule helpers', () => {
     const m = programMaturity(tasks, half);
     expect(m.percent).toBe(25);
     expect(m.level).toBe('Developing');
+  });
+
+  it('drives maturity from KPI attainment when goals have KPIs', () => {
+    // One goal, two KPIs: both met -> 100; one met one unmet -> 50; partial counts half.
+    const withKpis = programPlan(program).slice(0, 1);
+    const id = withKpis[0].id;
+    const n = withKpis[0].kpis!.length;
+    const allMet: PlanState = {
+      [id]: {
+        quarter: 'Q1',
+        status: 'planned',
+        kpiStatus: Object.fromEntries(Array.from({ length: n }, (_, i) => [String(i), 'met'])),
+      },
+    };
+    // Status is still "planned" but KPIs are all met -> maturity 100, proving KPI-driven.
+    expect(programMaturity(withKpis, allMet).percent).toBe(100);
+
+    const oneMet: PlanState = { [id]: { quarter: 'Q1', status: 'done', kpiStatus: { '0': 'met' } } };
+    expect(programMaturity(withKpis, oneMet).percent).toBe(Math.round((1 / n) * 100));
+
+    const counts = kpiAttainmentCounts(withKpis, allMet);
+    expect(counts.met).toBe(n);
+    expect(counts.total).toBe(n);
   });
 });
 

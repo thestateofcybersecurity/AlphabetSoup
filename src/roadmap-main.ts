@@ -10,10 +10,12 @@ import type { CisData, CsfData } from './lib/frameworks';
 import { cisIg1Assessment } from './lib/assessment';
 import type { Answers, AssessmentData } from './lib/assessment';
 import {
+  KPI_STATUS_CYCLE,
   QUARTERS,
   cisPlan,
   csfPlan,
   gapsPlan,
+  kpiAttainmentCounts,
   nextStatus,
   planLoad,
   planProgress,
@@ -25,7 +27,7 @@ import {
   totalHours,
   vcisoPlan,
 } from './lib/roadmap';
-import type { GoalDepth, ProgramGoal, PlanState, Quarter, RoadmapTask, StandardRef, TaskState, TaskStatus, VcisoTask } from './lib/roadmap';
+import type { GoalDepth, KpiStatus, ProgramGoal, PlanState, Quarter, RoadmapTask, StandardRef, TaskState, TaskStatus, VcisoTask } from './lib/roadmap';
 
 const kpiDepth = roadmapKpisRaw as { csf: Record<string, GoalDepth>; cis: Record<string, GoalDepth> };
 
@@ -136,6 +138,20 @@ function setTaskState(task: RoadmapTask, patch: Partial<TaskState>): void {
   saveState();
 }
 
+function kpiStatusOf(task: RoadmapTask, index: number): KpiStatus {
+  return taskState(task).kpiStatus?.[String(index)] ?? 'unmet';
+}
+
+function setKpiStatus(task: RoadmapTask, index: number, value: KpiStatus): void {
+  const current = taskState(task);
+  setTaskState(task, { kpiStatus: { ...current.kpiStatus, [String(index)]: value } });
+}
+
+/** Re-render only the dashboard summary (used when a KPI mark changes, so open cards stay open). */
+function refreshSummary(): void {
+  renderSummary(currentTasks());
+}
+
 function el<K extends keyof HTMLElementTagNameMap>(
   tag: K,
   className?: string,
@@ -161,17 +177,26 @@ function renderSummary(tasks: RoadmapTask[]): void {
   line.textContent = `${progress.done}/${progress.total} done` + (hours > 0 ? ` · ${hours} estimated hours` : '');
   summary.appendChild(line);
 
-  // One-line program maturity, rolled up from goal status.
+  // One-line program maturity: driven by KPI attainment where KPIs exist.
   const maturity = programMaturity(tasks, state);
+  const kc = kpiAttainmentCounts(tasks, state);
   const maturityLine = el('div', 'plan-maturity');
   maturityLine.appendChild(el('span', 'plan-maturity-level', maturity.level));
-  maturityLine.appendChild(el('span', 'deck-sub', `program maturity · ${maturity.percent}%`));
+  maturityLine.appendChild(
+    el('span', 'deck-sub', `${kc.total > 0 ? 'maturity (KPI attainment)' : 'program maturity'} · ${maturity.percent}%`),
+  );
   const mTrack = el('div', 'plan-maturity-track');
   const mFill = el('div', 'plan-maturity-fill');
   mFill.style.width = `${maturity.percent}%`;
   mTrack.appendChild(mFill);
   maturityLine.appendChild(mTrack);
   summary.appendChild(maturityLine);
+
+  if (kc.total > 0) {
+    summary.appendChild(
+      el('div', 'deck-sub plan-kpi-counts', `KPIs: ${kc.met} met · ${kc.partial} partial · ${kc.unmet} unmet (of ${kc.total})`),
+    );
+  }
 
   // Progress bar.
   const track = el('div', 'plan-progress-track');
@@ -279,9 +304,28 @@ function depthNode(task: RoadmapTask): HTMLElement | null {
     body.appendChild(chips);
   }
   if (task.kpis && task.kpis.length) {
-    body.appendChild(el('div', 'depth-label', 'Measure with'));
-    const list = el('ul', 'depth-list');
-    for (const kpi of task.kpis) list.appendChild(el('li', undefined, kpi));
+    body.appendChild(el('div', 'depth-label', 'KPIs to measure (mark attainment)'));
+    const list = el('ul', 'depth-list kpi-list');
+    task.kpis.forEach((kpi, index) => {
+      const li = el('li', 'kpi-row');
+      li.appendChild(el('span', 'kpi-text', kpi));
+      const ctrl = el('div', 'kpi-ctrl');
+      const current = kpiStatusOf(task, index);
+      for (const value of KPI_STATUS_CYCLE) {
+        const btn = el('button', `kpi-btn kpi-${value}`, value);
+        btn.type = 'button';
+        if (current === value) btn.classList.add('active');
+        btn.addEventListener('click', () => {
+          setKpiStatus(task, index, value);
+          ctrl.querySelectorAll('.kpi-btn').forEach((b) => b.classList.remove('active'));
+          btn.classList.add('active');
+          refreshSummary();
+        });
+        ctrl.appendChild(btn);
+      }
+      li.appendChild(ctrl);
+      list.appendChild(li);
+    });
     body.appendChild(list);
   }
   if (task.milestones && task.milestones.length) {
