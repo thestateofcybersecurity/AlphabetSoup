@@ -1063,6 +1063,74 @@ body {
   cursor: grabbing;
 }
 
+/* ---- program goal depth (objective, KPIs, standards, milestones) ---- */
+.task-depth {
+  font-size: 0.78rem;
+}
+.task-depth > summary {
+  cursor: pointer;
+  font-family: var(--font-mono);
+  font-size: 0.62rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--tomato);
+  list-style: none;
+}
+.task-depth > summary::-webkit-details-marker {
+  display: none;
+}
+.task-depth > summary::before {
+  content: '＋ ';
+}
+.task-depth[open] > summary::before {
+  content: '－ ';
+}
+.task-depth-body {
+  padding: 6px 0 2px;
+  line-height: 1.5;
+}
+.task-depth-body p {
+  margin: 4px 0;
+}
+.depth-label {
+  font-family: var(--font-mono);
+  font-size: 0.58rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+  margin: 8px 0 3px;
+}
+.depth-list {
+  margin: 0;
+  padding-left: 16px;
+}
+.depth-list li {
+  margin: 2px 0;
+}
+.depth-milestones {
+  color: var(--ink-soft);
+}
+.std-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+}
+.std-chip {
+  font-family: var(--font-mono);
+  font-size: 0.6rem;
+  letter-spacing: 0.03em;
+  padding: 2px 7px;
+  border-radius: 999px;
+  border: 1px solid var(--line);
+  color: var(--ink-soft);
+  text-decoration: none;
+  white-space: nowrap;
+}
+a.std-chip:hover {
+  border-color: var(--tomato);
+  color: var(--tomato);
+}
+
 /* ---- per-task owner / date / note ---- */
 .task-meta {
   display: flex;

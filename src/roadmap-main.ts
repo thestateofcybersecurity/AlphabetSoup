@@ -4,6 +4,7 @@ import igsRaw from './data/cis-igs.json';
 import vcisoRaw from './data/vciso-tasks.json';
 import assessRaw from './data/assessment.json';
 import cpgRaw from './data/assessment-cpg.json';
+import programRaw from './data/security-program.json';
 import type { CisData, CsfData } from './lib/frameworks';
 import { cisIg1Assessment } from './lib/assessment';
 import type { Answers, AssessmentData } from './lib/assessment';
@@ -16,12 +17,13 @@ import {
   planLoad,
   planProgress,
   planToCsv,
+  programPlan,
   quarterDateRange,
   statusCounts,
   totalHours,
   vcisoPlan,
 } from './lib/roadmap';
-import type { PlanState, Quarter, RoadmapTask, TaskState, TaskStatus, VcisoTask } from './lib/roadmap';
+import type { ProgramGoal, PlanState, Quarter, RoadmapTask, StandardRef, TaskState, TaskStatus, VcisoTask } from './lib/roadmap';
 
 const csf = csfRaw as CsfData;
 const cis = cisRaw as CisData;
@@ -31,7 +33,9 @@ const vciso = vcisoRaw as VcisoTask[];
 const byId = (id: string) => document.getElementById(id) as HTMLElement;
 const sel = (id: string) => byId(id) as HTMLSelectElement;
 
-type Source = 'csf' | 'cis' | 'vciso' | 'gaps';
+type Source = 'program' | 'csf' | 'cis' | 'vciso' | 'gaps';
+
+const program = programRaw as { goals: ProgramGoal[] };
 
 /** Assessments that can seed a gap plan, and their data. */
 const GAP_ASSESSMENTS: { id: string; name: string; data: AssessmentData }[] = [
@@ -65,6 +69,7 @@ function source(): Source {
 
 function storageKey(): string {
   const s = source();
+  if (s === 'program') return 'alphabetsoup:roadmap:program';
   if (s === 'cis') return `alphabetsoup:roadmap:cis:ig${sel('plan-ig').value}`;
   if (s === 'vciso') return `alphabetsoup:roadmap:vciso:${sel('plan-pkg').value}`;
   if (s === 'gaps') return `alphabetsoup:roadmap:gaps:${gapsAssessmentId()}`;
@@ -106,6 +111,7 @@ function saveState(): void {
 
 function currentTasks(): RoadmapTask[] {
   const s = source();
+  if (s === 'program') return programPlan(program);
   if (s === 'cis') return cisPlan(cis, igs, Number(sel('plan-ig').value) as 1 | 2 | 3);
   if (s === 'vciso') return vcisoPlan(vciso, sel('plan-pkg').value as 'Small' | 'Medium' | 'Large');
   if (s === 'gaps') {
@@ -213,6 +219,58 @@ function refreshGroupFilter(tasks: RoadmapTask[]): void {
   groupSel.value = groups.includes(previous) ? previous : '';
 }
 
+function standardChip(ref: StandardRef): HTMLElement {
+  const isCsf = /csf/i.test(ref.framework);
+  const isCis = /cis\b/i.test(ref.framework) && !/cpg/i.test(ref.framework);
+  if (isCsf) {
+    const a = el('a', 'std-chip', `${ref.framework} ${ref.ref}`);
+    a.href = `../frameworks/nist-csf/?q=${ref.ref.toLowerCase()}`;
+    return a;
+  }
+  if (isCis) {
+    const num = ref.ref.match(/\d+/)?.[0];
+    const a = el('a', 'std-chip', `${ref.framework} ${ref.ref}`);
+    a.href = num ? `../frameworks/cis/?q=${num}.` : '../frameworks/cis/';
+    return a;
+  }
+  return el('span', 'std-chip', `${ref.framework} ${ref.ref}`);
+}
+
+/** Expandable depth for a curated program goal: why, standards, KPIs, milestones. */
+function depthNode(task: RoadmapTask): HTMLElement | null {
+  const has = task.why || (task.kpis && task.kpis.length) || (task.milestones && task.milestones.length) || (task.standards && task.standards.length);
+  if (!has) return null;
+  const details = el('details', 'task-depth');
+  details.appendChild(el('summary', undefined, 'Objective, KPIs, and standards'));
+  const body = el('div', 'task-depth-body');
+  if (task.why) {
+    const p = el('p');
+    p.appendChild(el('strong', undefined, 'Why: '));
+    p.appendChild(document.createTextNode(task.why));
+    body.appendChild(p);
+  }
+  if (task.standards && task.standards.length) {
+    body.appendChild(el('div', 'depth-label', 'Aligns to'));
+    const chips = el('div', 'std-chips');
+    for (const ref of task.standards) chips.appendChild(standardChip(ref));
+    body.appendChild(chips);
+  }
+  if (task.kpis && task.kpis.length) {
+    body.appendChild(el('div', 'depth-label', 'Measure with'));
+    const list = el('ul', 'depth-list');
+    for (const kpi of task.kpis) list.appendChild(el('li', undefined, kpi));
+    body.appendChild(list);
+  }
+  if (task.milestones && task.milestones.length) {
+    body.appendChild(el('div', 'depth-label', 'Milestones'));
+    const list = el('ul', 'depth-list depth-milestones');
+    for (const step of task.milestones) list.appendChild(el('li', undefined, step));
+    body.appendChild(list);
+  }
+  details.appendChild(body);
+  return details;
+}
+
 function taskCard(task: RoadmapTask, quarters: Quarter[]): HTMLElement {
   const card = el('article', 'task-card');
   const status = taskState(task).status;
@@ -251,6 +309,9 @@ function taskCard(task: RoadmapTask, quarters: Quarter[]): HTMLElement {
         : task.detail,
     ),
   );
+
+  const depth = depthNode(task);
+  if (depth) card.appendChild(depth);
 
   // Owner, target date, and a note toggle.
   const meta = el('div', 'task-meta');
@@ -425,7 +486,7 @@ function importJson(file: File): void {
 function main(): void {
   const params = new URLSearchParams(location.search);
   const requested = params.get('source');
-  if (requested && ['csf', 'cis', 'vciso', 'gaps'].includes(requested)) {
+  if (requested && ['program', 'csf', 'cis', 'vciso', 'gaps'].includes(requested)) {
     sel('plan-source').value = requested;
   }
   const requestedAssessment = params.get('a');

@@ -4,6 +4,7 @@ import cisRaw from '../src/data/cis.json';
 import igsRaw from '../src/data/cis-igs.json';
 import vcisoRaw from '../src/data/vciso-tasks.json';
 import type { CisData, CsfData } from '../src/lib/frameworks';
+import programRaw from '../src/data/security-program.json';
 import {
   cisPlan,
   csfPlan,
@@ -12,11 +13,15 @@ import {
   planLoad,
   planProgress,
   planToCsv,
+  programPlan,
   quarterDateRange,
   statusCounts,
   totalHours,
   vcisoPlan,
 } from '../src/lib/roadmap';
+import type { ProgramGoal } from '../src/lib/roadmap';
+
+const program = programRaw as { goals: ProgramGoal[] };
 import type { VcisoTask } from '../src/lib/roadmap';
 import type { AssessmentData } from '../src/lib/assessment';
 
@@ -99,8 +104,40 @@ describe('plan state helpers', () => {
       { x: { quarter: 'Q2', status: 'in-progress', owner: 'Dana', date: '2026-03-01', note: 'kickoff' } },
     );
     expect(csv).toContain('"Task, with ""comma"""');
-    expect(csv.split('\n')[0]).toBe('id,task,group,quarter,status,owner,target_date,notes,hours');
+    expect(csv.split('\n')[0]).toBe(
+      'id,task,group,quarter,status,owner,target_date,notes,standards,kpis,hours',
+    );
     expect(csv).toContain('Dana,2026-03-01,kickoff');
+  });
+});
+
+describe('security program', () => {
+  it('has a comprehensive, well-formed set of goals', () => {
+    expect(program.goals.length).toBeGreaterThanOrEqual(15);
+    const phases = new Set(program.goals.map((g) => g.phase));
+    expect(phases).toEqual(new Set(['Q1', 'Q2', 'Q3', 'Q4']));
+    for (const goal of program.goals) {
+      expect(goal.title.length).toBeGreaterThan(5);
+      expect(goal.objective.length).toBeGreaterThan(10);
+      expect(goal.kpis.length).toBeGreaterThanOrEqual(2);
+      expect(goal.milestones.length).toBeGreaterThanOrEqual(3);
+      expect(goal.standards.length).toBeGreaterThanOrEqual(1);
+      // No em dashes anywhere in the content.
+      expect(JSON.stringify(goal)).not.toContain('—');
+    }
+  });
+
+  it('programPlan carries depth fields and links to a framework page', () => {
+    const plan = programPlan(program);
+    expect(plan).toHaveLength(program.goals.length);
+    const withKpis = plan.filter((t) => (t.kpis?.length ?? 0) >= 2);
+    expect(withKpis.length).toBe(plan.length);
+    const linked = plan.filter((t) => /frameworks\/(nist-csf|cis)/.test(t.link ?? ''));
+    expect(linked.length).toBeGreaterThan(plan.length / 2);
+    // Depth flows into the CSV export.
+    const csv = planToCsv(plan, {});
+    expect(csv).toContain('NIST CSF');
+    expect(csv.toLowerCase()).toContain('target');
   });
 });
 
