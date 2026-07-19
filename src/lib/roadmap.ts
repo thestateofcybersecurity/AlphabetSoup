@@ -6,6 +6,11 @@ import type { Answers, AssessmentData } from './assessment';
 export type Quarter = 'Onboarding' | 'Q1' | 'Q2' | 'Q3' | 'Q4';
 export type TaskStatus = 'planned' | 'in-progress' | 'done';
 
+export interface StandardRef {
+  framework: string;
+  ref: string;
+}
+
 export interface RoadmapTask {
   id: string;
   label: string;
@@ -15,6 +20,12 @@ export interface RoadmapTask {
   /** Relative link to related site content, if any. */
   link?: string;
   hours?: number;
+  /** Depth fields, populated for the curated Security program source. */
+  objective?: string;
+  why?: string;
+  kpis?: string[];
+  milestones?: string[];
+  standards?: StandardRef[];
 }
 
 export interface TaskState {
@@ -163,6 +174,53 @@ export function gapsPlan(assessment: AssessmentData, answers: Answers): RoadmapT
     });
 }
 
+export interface ProgramGoal {
+  id: string;
+  title: string;
+  phase: Quarter;
+  group: string;
+  objective: string;
+  why: string;
+  standards: StandardRef[];
+  kpis: string[];
+  milestones: string[];
+}
+
+/** Link a goal to the most relevant framework page from its standard mappings. */
+function standardLink(standards: StandardRef[]): string | undefined {
+  const csf = standards.find((s) => /csf/i.test(s.framework));
+  if (csf) return `../frameworks/nist-csf/?q=${csf.ref.toLowerCase()}`;
+  const cis = standards.find((s) => /cis/i.test(s.framework));
+  if (cis) {
+    const num = cis.ref.match(/\d+/)?.[0];
+    if (num) return `../frameworks/cis/?q=${num}.`;
+  }
+  return undefined;
+}
+
+/**
+ * The curated, comprehensive information security program: consolidated goals,
+ * each with an objective, KPIs, mapped standards, and milestone tasks.
+ */
+export function programPlan(program: { goals: ProgramGoal[] }): RoadmapTask[] {
+  return program.goals.map((goal) => {
+    const link = standardLink(goal.standards);
+    return {
+      id: goal.id,
+      label: goal.title,
+      group: goal.group,
+      detail: goal.objective,
+      defaultQuarter: goal.phase,
+      objective: goal.objective,
+      why: goal.why,
+      kpis: goal.kpis,
+      milestones: goal.milestones,
+      standards: goal.standards,
+      ...(link ? { link } : {}),
+    };
+  });
+}
+
 export function totalHours(tasks: RoadmapTask[]): number {
   return Math.round(tasks.reduce((sum, task) => sum + (task.hours ?? 0), 0) * 10) / 10;
 }
@@ -216,7 +274,9 @@ const csvEscape = (value: string): string =>
   /[",\n]/.test(value) ? `"${value.replace(/"/g, '""')}"` : value;
 
 export function planToCsv(tasks: RoadmapTask[], state: PlanState): string {
-  const rows = [['id', 'task', 'group', 'quarter', 'status', 'owner', 'target_date', 'notes', 'hours']];
+  const rows = [
+    ['id', 'task', 'group', 'quarter', 'status', 'owner', 'target_date', 'notes', 'standards', 'kpis', 'hours'],
+  ];
   for (const task of tasks) {
     const s = state[task.id] ?? { quarter: task.defaultQuarter, status: 'planned' };
     rows.push([
@@ -228,6 +288,8 @@ export function planToCsv(tasks: RoadmapTask[], state: PlanState): string {
       s.owner ?? '',
       s.date ?? '',
       s.note ?? '',
+      (task.standards ?? []).map((ref) => `${ref.framework} ${ref.ref}`).join('; '),
+      (task.kpis ?? []).join('; '),
       task.hours != null ? String(task.hours) : '',
     ]);
   }

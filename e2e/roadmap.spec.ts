@@ -1,7 +1,19 @@
 import { expect, test } from '@playwright/test';
 
+test('security program is the default source with goal depth', async ({ page }) => {
+  await page.goto('/roadmap/');
+  await expect(page.locator('#plan-source')).toHaveValue('program');
+  await expect(page.locator('.task-card')).toHaveCount(16);
+  const first = page.locator('.task-card').first();
+  await first.locator('.task-depth summary').click();
+  // KPIs are measurable (mention a target) and standards chips link out.
+  await expect(first.locator('.depth-list li').first()).toContainText(/target|under|percent|%/i);
+  await expect(first.locator('.std-chips a[href*="frameworks"]').first()).toBeVisible();
+});
+
 test('CSF plan renders 22 tasks across quarters with status cycling', async ({ page }) => {
   await page.goto('/roadmap/');
+  await page.locator('#plan-source').selectOption('csf');
   await expect(page.locator('.board-col')).toHaveCount(4);
   await expect(page.locator('.task-card')).toHaveCount(22);
   await expect(page.locator('#plan-summary')).toContainText('0/22 done');
@@ -74,6 +86,7 @@ test('dashboard shows progress and per-quarter load', async ({ page }) => {
 
 test('group filter and hide-done narrow the board', async ({ page }) => {
   await page.goto('/roadmap/');
+  await page.locator('#plan-source').selectOption('csf');
   await page.locator('#plan-group').selectOption('Govern');
   // Govern has 6 CSF categories.
   await expect(page.locator('.task-card')).toHaveCount(6);

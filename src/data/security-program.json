@@ -1,0 +1,756 @@
+{
+  "goals": [
+    {
+      "id": "security-governance-and-risk-management",
+      "title": "Establish security governance and risk management",
+      "phase": "Q1",
+      "group": "Governance",
+      "objective": "A written program charter, named security roles, core policies, and a living risk register are approved and in active use across the business.",
+      "why": "It reduces the risk of unmanaged, unaccountable security decisions by making ownership, priorities, and acceptable risk explicit for leadership.",
+      "standards": [
+        {
+          "framework": "NIST CSF",
+          "ref": "GV.RM"
+        },
+        {
+          "framework": "NIST CSF",
+          "ref": "GV.RR"
+        },
+        {
+          "framework": "NIST CSF",
+          "ref": "GV.PO"
+        },
+        {
+          "framework": "CIS",
+          "ref": "Control 17"
+        },
+        {
+          "framework": "NIST 800-53",
+          "ref": "RA"
+        },
+        {
+          "framework": "ISO 27001",
+          "ref": "A.5"
+        }
+      ],
+      "kpis": [
+        "Percent of core policies (acceptable use, access, data, incident response) approved and published (target 100%)",
+        "Percent of defined security roles with a named, accountable owner (target 100%)",
+        "Percent of identified risks in the register with an owner and treatment decision (target 90%+)",
+        "Frequency of leadership risk review (target at least quarterly)"
+      ],
+      "milestones": [
+        "Draft and approve a one-page security program charter signed by leadership",
+        "Assign security roles and responsibilities (owner, decision-maker, day-to-day contact)",
+        "Write and publish the core policy set in plain English",
+        "Stand up a risk register and complete an initial risk assessment",
+        "Assign an owner and treatment decision (accept, mitigate, transfer, avoid) to each top risk",
+        "Schedule a recurring quarterly leadership risk review"
+      ]
+    },
+    {
+      "id": "asset-inventory-and-management",
+      "title": "Build and maintain an authoritative asset inventory",
+      "phase": "Q1",
+      "group": "Asset Management",
+      "objective": "A single authoritative inventory of hardware, software, and data assets exists, is actively maintained, and flags unauthorized assets for review.",
+      "why": "It reduces the risk of blind spots by ensuring you can only protect, patch, and monitor what you know you have.",
+      "standards": [
+        {
+          "framework": "NIST CSF",
+          "ref": "ID.AM"
+        },
+        {
+          "framework": "CIS",
+          "ref": "Control 1"
+        },
+        {
+          "framework": "CIS",
+          "ref": "Control 2"
+        },
+        {
+          "framework": "NIST 800-53",
+          "ref": "CM"
+        },
+        {
+          "framework": "ISO 27001",
+          "ref": "A.5"
+        }
+      ],
+      "kpis": [
+        "Percent of known hardware assets recorded in the authoritative inventory (target 95%+)",
+        "Percent of installed software recorded and marked authorized or unauthorized (target 95%+)",
+        "Number of unauthorized assets detected and resolved per month (target trending down)",
+        "Maximum age of the inventory since last reconciliation (target under 30 days)"
+      ],
+      "milestones": [
+        "Select a single system of record for the asset inventory",
+        "Discover and record all hardware assets, including remote and mobile devices",
+        "Inventory installed software and label each entry authorized or unauthorized",
+        "Catalog data assets and where they are stored (on-premises, cloud, SaaS)",
+        "Define a process to review and remove or approve unauthorized assets",
+        "Set a recurring monthly reconciliation and assign an inventory owner"
+      ]
+    },
+    {
+      "id": "identity-and-access-management",
+      "title": "Implement identity and access management controls",
+      "phase": "Q1",
+      "group": "Identity",
+      "objective": "MFA, least-privilege access, a joiner-mover-leaver process, and privileged-account controls are enforced across critical systems.",
+      "why": "It reduces the risk of account takeover and insider misuse, the most common paths attackers use to reach business data.",
+      "standards": [
+        {
+          "framework": "NIST CSF",
+          "ref": "PR.AA"
+        },
+        {
+          "framework": "NIST CSF",
+          "ref": "ID.IM"
+        },
+        {
+          "framework": "CIS",
+          "ref": "Control 5"
+        },
+        {
+          "framework": "CIS",
+          "ref": "Control 6"
+        },
+        {
+          "framework": "NIST 800-53",
+          "ref": "AC"
+        },
+        {
+          "framework": "ISO 27001",
+          "ref": "A.5"
+        }
+      ],
+      "kpis": [
+        "Percent of accounts protected by MFA (target 100% of privileged, 95%+ overall)",
+        "Mean time to disable a departed employee's access (target under 24 hours)",
+        "Percent of privileged accounts reviewed and justified per quarter (target 100%)",
+        "Number of active accounts with no recent login flagged for review (target trending to zero)"
+      ],
+      "milestones": [
+        "Enable MFA on email, remote access, and administrative accounts first",
+        "Inventory accounts and separate standard from privileged access",
+        "Define and document a joiner-mover-leaver access process",
+        "Apply least-privilege by removing access that is not needed for a role",
+        "Establish dedicated, monitored privileged accounts separate from daily-use accounts",
+        "Schedule a recurring quarterly access review of privileged and dormant accounts"
+      ]
+    },
+    {
+      "id": "data-protection-and-classification",
+      "title": "Classify and protect sensitive data",
+      "phase": "Q1",
+      "group": "Data Protection",
+      "objective": "Sensitive data is identified, classified by a simple tiered scheme, encrypted at rest and in transit, and governed by handling rules.",
+      "why": "It reduces the risk and cost of a breach by ensuring the most sensitive data is the most tightly controlled and encrypted.",
+      "standards": [
+        {
+          "framework": "NIST CSF",
+          "ref": "PR.DS"
+        },
+        {
+          "framework": "NIST CSF",
+          "ref": "GV.OC"
+        },
+        {
+          "framework": "CIS",
+          "ref": "Control 3"
+        },
+        {
+          "framework": "NIST 800-53",
+          "ref": "SC"
+        },
+        {
+          "framework": "ISO 27001",
+          "ref": "A.5"
+        }
+      ],
+      "kpis": [
+        "Percent of identified sensitive data stores that carry a classification label (target 95%+)",
+        "Percent of sensitive data encrypted at rest and in transit (target 100%)",
+        "Percent of sensitive data stores with documented access and retention rules (target 90%+)",
+        "Number of sensitive data locations discovered outside approved systems (target trending to zero)"
+      ],
+      "milestones": [
+        "Define a simple data classification scheme (for example public, internal, confidential)",
+        "Discover and map where sensitive data lives across systems and SaaS",
+        "Apply classification labels to identified data stores",
+        "Enable encryption at rest and in transit for confidential data",
+        "Write plain-English handling and retention rules for each classification tier",
+        "Restrict access to confidential data to only the roles that need it"
+      ]
+    },
+    {
+      "id": "secure-configuration-and-hardening",
+      "title": "Deploy hardened secure configuration baselines",
+      "phase": "Q1",
+      "group": "Secure Configuration",
+      "objective": "Documented hardened baselines exist for operating systems, key software, and cloud services, and systems are measured against them.",
+      "why": "It reduces the risk of easy compromise by closing insecure default settings before attackers can exploit them.",
+      "standards": [
+        {
+          "framework": "NIST CSF",
+          "ref": "PR.PS"
+        },
+        {
+          "framework": "NIST CSF",
+          "ref": "PR.IR"
+        },
+        {
+          "framework": "CIS",
+          "ref": "Control 4"
+        },
+        {
+          "framework": "NIST 800-53",
+          "ref": "CM"
+        },
+        {
+          "framework": "ISO 27001",
+          "ref": "A.8"
+        }
+      ],
+      "kpis": [
+        "Percent of system types with a documented hardened baseline (target 100% of critical types)",
+        "Percent of in-scope systems measured against their baseline (target 90%+)",
+        "Percent of measured systems compliant with their baseline (target 90%+)",
+        "Mean time to remediate a baseline drift finding (target under 30 days)"
+      ],
+      "milestones": [
+        "Adopt recognized hardening guidance (for example CIS Benchmarks) as a starting point",
+        "Document baselines for common operating systems and key business software",
+        "Define secure configuration standards for cloud and SaaS admin settings",
+        "Apply baselines to a pilot set of systems and confirm functionality",
+        "Measure in-scope systems against baselines and log any drift",
+        "Set a recurring cadence to review baselines and remediate drift"
+      ]
+    },
+    {
+      "id": "vulnerability-and-patch-management",
+      "title": "Stand up continuous vulnerability scanning and risk-based patching",
+      "phase": "Q2",
+      "group": "Vulnerability Management",
+      "objective": "You will scan all assets on a regular schedule and remediate findings against documented, severity-based SLAs.",
+      "why": "Reduces the window attackers have to exploit known, fixable weaknesses before you close them.",
+      "standards": [
+        {
+          "framework": "NIST CSF",
+          "ref": "ID.RA"
+        },
+        {
+          "framework": "NIST CSF",
+          "ref": "PR.PS"
+        },
+        {
+          "framework": "CIS",
+          "ref": "Control 7"
+        },
+        {
+          "framework": "CISA CPG",
+          "ref": "1.E"
+        },
+        {
+          "framework": "NIST 800-53",
+          "ref": "RA"
+        },
+        {
+          "framework": "ISO 27001",
+          "ref": "A.8"
+        }
+      ],
+      "kpis": [
+        "Mean time to remediate critical vulnerabilities (target under 15 days)",
+        "Percent of in-scope assets scanned in the last 30 days (target 95%+)",
+        "Percent of vulnerabilities remediated within their severity SLA (target 90%+)"
+      ],
+      "milestones": [
+        "Deploy an authenticated vulnerability scanner across servers, endpoints, and external-facing systems",
+        "Define severity tiers and remediation SLAs (for example critical 15 days, high 30 days, medium 90 days)",
+        "Schedule recurring scans and route findings to owners through a ticketing workflow",
+        "Enable automated patch deployment for operating systems and common third-party software",
+        "Publish a monthly remediation report tracking SLA compliance and aging findings"
+      ]
+    },
+    {
+      "id": "malware-email-and-web-defenses",
+      "title": "Harden email, web, and DNS against malware and phishing",
+      "phase": "Q2",
+      "group": "Malware Defense",
+      "objective": "You will filter malicious email and web traffic, enforce DNS filtering, and publish email authentication records for all owned domains.",
+      "why": "Reduces the risk that phishing, malicious attachments, and drive-by sites deliver malware or steal credentials.",
+      "standards": [
+        {
+          "framework": "NIST CSF",
+          "ref": "PR.PS"
+        },
+        {
+          "framework": "NIST CSF",
+          "ref": "DE.CM"
+        },
+        {
+          "framework": "CIS",
+          "ref": "Control 9"
+        },
+        {
+          "framework": "CIS",
+          "ref": "Control 10"
+        },
+        {
+          "framework": "CISA CPG",
+          "ref": "2.M"
+        },
+        {
+          "framework": "NIST 800-53",
+          "ref": "SI"
+        }
+      ],
+      "kpis": [
+        "Percent of inbound email passing DMARC enforcement (target 100 percent of owned domains at p=reject)",
+        "Percent of workstations enforcing DNS filtering (target 98 percent+)",
+        "Percent of email gateway malware and phishing detections quarantined before delivery (target 99 percent+)"
+      ],
+      "milestones": [
+        "Publish SPF, DKIM, and DMARC records for every owned domain and move DMARC to p=quarantine then p=reject",
+        "Enable inbound email filtering with attachment sandboxing and link rewriting",
+        "Roll out DNS filtering to block known malicious and newly registered domains",
+        "Deploy anti-malware with signature and behavioral detection on mail and web gateways",
+        "Configure alerting and a review cadence for blocked and quarantined items"
+      ]
+    },
+    {
+      "id": "endpoint-protection-and-detection",
+      "title": "Deploy EDR and host hardening across all endpoints",
+      "phase": "Q2",
+      "group": "Endpoint",
+      "objective": "You will have endpoint detection and response with anti-malware installed and reporting healthy on every managed device, plus a baseline hardening standard.",
+      "why": "Reduces the risk that a compromised device goes undetected and gives responders the visibility to contain threats quickly.",
+      "standards": [
+        {
+          "framework": "NIST CSF",
+          "ref": "DE.CM"
+        },
+        {
+          "framework": "NIST CSF",
+          "ref": "PR.PS"
+        },
+        {
+          "framework": "NIST CSF",
+          "ref": "RS.MI"
+        },
+        {
+          "framework": "CIS",
+          "ref": "Control 10"
+        },
+        {
+          "framework": "CIS",
+          "ref": "Control 4"
+        },
+        {
+          "framework": "CISA CPG",
+          "ref": "1.E"
+        },
+        {
+          "framework": "NIST 800-53",
+          "ref": "SI"
+        }
+      ],
+      "kpis": [
+        "Percent of endpoints with EDR reporting healthy (target 98 percent+)",
+        "Percent of endpoints meeting the hardening baseline (target 95 percent+)",
+        "Mean time to isolate a flagged endpoint (target under 1 hour)"
+      ],
+      "milestones": [
+        "Select and deploy an EDR agent with anti-malware to all workstations and servers",
+        "Reconcile EDR coverage against the asset inventory and close gaps",
+        "Define a host hardening baseline (disable unused services, enforce disk encryption, restrict local admin)",
+        "Enable automated or one-click endpoint isolation for confirmed threats",
+        "Route EDR alerts to a monitored queue with defined triage steps",
+        "Report weekly on coverage, healthy check-ins, and open detections"
+      ]
+    },
+    {
+      "id": "network-security-and-segmentation",
+      "title": "Segment the network and secure remote access",
+      "phase": "Q2",
+      "group": "Network",
+      "objective": "You will enforce firewall rules, separate networks into trust zones, and require secure authenticated remote access with no direct exposure of internal services.",
+      "why": "Reduces the blast radius of a breach by limiting lateral movement and removing risky direct paths into the network.",
+      "standards": [
+        {
+          "framework": "NIST CSF",
+          "ref": "PR.IR"
+        },
+        {
+          "framework": "NIST CSF",
+          "ref": "PR.AA"
+        },
+        {
+          "framework": "NIST CSF",
+          "ref": "DE.CM"
+        },
+        {
+          "framework": "CIS",
+          "ref": "Control 12"
+        },
+        {
+          "framework": "CIS",
+          "ref": "Control 13"
+        },
+        {
+          "framework": "CISA CPG",
+          "ref": "2.X"
+        },
+        {
+          "framework": "NIST 800-53",
+          "ref": "SC"
+        }
+      ],
+      "kpis": [
+        "Percent of external-facing systems behind a segmentation or firewall review (target 100 percent)",
+        "Percent of remote access sessions requiring multi-factor authentication (target 100 percent)",
+        "Number of unmanaged internal services directly reachable from the internet (target 0)"
+      ],
+      "milestones": [
+        "Document current network zones and map traffic flows between them",
+        "Segment guest, user, server, and management networks with firewall rules between zones",
+        "Replace direct remote access with a VPN or zero trust gateway requiring MFA",
+        "Review and tighten firewall rules to a default-deny posture with documented exceptions",
+        "Enable logging on firewalls and remote access gateways and forward logs for monitoring"
+      ]
+    },
+    {
+      "id": "application-and-software-security",
+      "title": "Build secure development and software supply chain practices",
+      "phase": "Q2",
+      "group": "Application Security",
+      "objective": "You will scan code and dependencies, track your software components, and test applications for vulnerabilities before and after release.",
+      "why": "Reduces the risk of shipping exploitable flaws or inheriting compromised third-party and open-source components.",
+      "standards": [
+        {
+          "framework": "NIST CSF",
+          "ref": "PR.PS"
+        },
+        {
+          "framework": "NIST CSF",
+          "ref": "ID.RA"
+        },
+        {
+          "framework": "NIST CSF",
+          "ref": "GV.SC"
+        },
+        {
+          "framework": "CIS",
+          "ref": "Control 16"
+        },
+        {
+          "framework": "CIS",
+          "ref": "Control 2"
+        },
+        {
+          "framework": "CISA CPG",
+          "ref": "2.Q"
+        },
+        {
+          "framework": "NIST 800-53",
+          "ref": "SA"
+        }
+      ],
+      "kpis": [
+        "Percent of code repositories with automated dependency scanning enabled (target 100 percent)",
+        "Mean time to remediate critical application vulnerabilities (target under 30 days)",
+        "Percent of production applications with a current software bill of materials (target 90 percent+)"
+      ],
+      "milestones": [
+        "Adopt secure coding standards and add peer review to the development workflow",
+        "Enable automated dependency and secrets scanning in the code pipeline",
+        "Generate and maintain a software bill of materials for each application",
+        "Add static application security testing to the build pipeline with failing gates for critical issues",
+        "Schedule periodic dynamic testing or penetration testing of external-facing applications",
+        "Define an SLA and triage process for security findings from all testing sources"
+      ]
+    },
+    {
+      "id": "logging-monitoring-detection",
+      "title": "Stand up centralized logging, monitoring, and threat detection",
+      "phase": "Q3",
+      "group": "Detection",
+      "objective": "Critical systems will forward logs to a central store where a SIEM runs prioritized detection use cases and alerts a responsible owner.",
+      "why": "You cannot respond to attacks you never see, and centralized detection shortens the window in which an intruder can act unnoticed.",
+      "standards": [
+        {
+          "framework": "NIST CSF",
+          "ref": "DE.CM"
+        },
+        {
+          "framework": "NIST CSF",
+          "ref": "DE.AE"
+        },
+        {
+          "framework": "CIS",
+          "ref": "Control 8"
+        },
+        {
+          "framework": "CIS",
+          "ref": "Control 13"
+        },
+        {
+          "framework": "CISA CPG",
+          "ref": "2.T"
+        },
+        {
+          "framework": "NIST 800-53",
+          "ref": "AU"
+        }
+      ],
+      "kpis": [
+        "Percent of critical systems forwarding logs to the central store (target 100%)",
+        "Number of tuned, documented detection use cases in production (target at least 10)",
+        "Mean time to detect for validated incidents (target under 24 hours and falling)",
+        "Percent of high-severity alerts triaged within the defined SLA (target 95%)"
+      ],
+      "milestones": [
+        "Inventory critical systems and identify the log sources each must send",
+        "Deploy or configure a central log store and enforce a minimum retention period",
+        "Onboard endpoints, servers, network devices, and cloud accounts to the SIEM",
+        "Build and tune an initial set of prioritized detection use cases with clear owners",
+        "Define alert severities, triage steps, and an on-call routing path",
+        "Run a monthly review to retire noisy rules and add new detections"
+      ]
+    },
+    {
+      "id": "incident-response-capability",
+      "title": "Build a tested incident response capability",
+      "phase": "Q3",
+      "group": "Incident Response",
+      "objective": "You will have an approved incident response plan with named roles, scenario playbooks, and a practiced tabletop exercise cadence.",
+      "why": "A rehearsed plan turns a chaotic breach into a coordinated response, reducing damage, downtime, and legal exposure.",
+      "standards": [
+        {
+          "framework": "NIST CSF",
+          "ref": "RS.MA"
+        },
+        {
+          "framework": "NIST CSF",
+          "ref": "RS.CO"
+        },
+        {
+          "framework": "NIST CSF",
+          "ref": "RS.AN"
+        },
+        {
+          "framework": "CIS",
+          "ref": "Control 17"
+        },
+        {
+          "framework": "CISA CPG",
+          "ref": "2.S"
+        },
+        {
+          "framework": "NIST 800-53",
+          "ref": "IR"
+        }
+      ],
+      "kpis": [
+        "Percent of defined IR roles with a named primary and backup (target 100%)",
+        "Number of scenario playbooks published (target at least 4 covering common cases)",
+        "Number of tabletop exercises completed per year (target at least 2)",
+        "Mean time to respond for validated incidents (target under 72 hours and falling)"
+      ],
+      "milestones": [
+        "Draft and approve an incident response plan covering detection through recovery",
+        "Assign incident roles including lead, communications, and legal or executive contact",
+        "Write playbooks for high-likelihood scenarios such as ransomware and account compromise",
+        "Establish a reporting path to leadership and required external parties",
+        "Run a tabletop exercise and capture lessons learned in an action log",
+        "Review and update the plan after each exercise or real incident"
+      ]
+    },
+    {
+      "id": "backup-recovery-resilience",
+      "title": "Establish tested backups, recovery objectives, and continuity",
+      "phase": "Q3",
+      "group": "Resilience",
+      "objective": "Critical data and systems will have protected backups, defined recovery objectives, and continuity plans that are proven by regular test restores.",
+      "why": "Reliable, tested recovery is the single strongest defense against ransomware and destructive incidents that would otherwise halt the business.",
+      "standards": [
+        {
+          "framework": "NIST CSF",
+          "ref": "RC.RP"
+        },
+        {
+          "framework": "NIST CSF",
+          "ref": "PR.DS"
+        },
+        {
+          "framework": "NIST CSF",
+          "ref": "PR.IR"
+        },
+        {
+          "framework": "CIS",
+          "ref": "Control 11"
+        },
+        {
+          "framework": "CISA CPG",
+          "ref": "2.R"
+        },
+        {
+          "framework": "NIST 800-53",
+          "ref": "CP"
+        }
+      ],
+      "kpis": [
+        "Percent of critical systems with a successful test restore in the last quarter (target 100%)",
+        "Percent of critical data covered by backups that include an offline or immutable copy (target 100%)",
+        "Defined recovery time objective and recovery point objective for each critical system (target documented for 100%)",
+        "Gap between actual test-restore time and the recovery time objective (target zero or negative)"
+      ],
+      "milestones": [
+        "Identify critical systems and data and set a recovery time and recovery point objective for each",
+        "Implement backups that follow a resilient pattern with an offline or immutable copy",
+        "Document recovery procedures step by step for each critical system",
+        "Schedule and perform test restores at least quarterly and log the results",
+        "Draft a business continuity plan for extended outages of key services",
+        "Review objectives and coverage whenever systems or data change materially"
+      ]
+    },
+    {
+      "id": "security-awareness-training",
+      "title": "Run role-based awareness training and phishing simulations",
+      "phase": "Q4",
+      "group": "Awareness",
+      "objective": "All staff will complete role-based security training on a set cadence and take part in recurring phishing simulations with tracked results.",
+      "why": "People are the most targeted layer, and a trained, tested workforce sharply lowers the odds a phishing email or social engineering ploy succeeds.",
+      "standards": [
+        {
+          "framework": "NIST CSF",
+          "ref": "PR.AT"
+        },
+        {
+          "framework": "CIS",
+          "ref": "Control 14"
+        },
+        {
+          "framework": "CISA CPG",
+          "ref": "2.I"
+        },
+        {
+          "framework": "NIST 800-53",
+          "ref": "AT"
+        },
+        {
+          "framework": "ISO 27001",
+          "ref": "A.6.3"
+        }
+      ],
+      "kpis": [
+        "Percent of staff who completed required training this period (target 95% or higher)",
+        "Phishing simulation click rate (target under 5% and falling)",
+        "Phishing report rate, meaning percent of recipients who report the test (target rising above the click rate)",
+        "Percent of high-risk roles completing added role-specific training (target 100%)"
+      ],
+      "milestones": [
+        "Define baseline training for all staff and added modules for high-risk roles",
+        "Select or build training content in plain language and set a delivery cadence",
+        "Launch a recurring phishing simulation program with escalating difficulty",
+        "Track completion and simulation results and follow up with non-responders",
+        "Provide short refreshers targeted at repeat clickers",
+        "Report awareness metrics and trends to leadership each quarter"
+      ]
+    },
+    {
+      "id": "third-party-supply-chain-risk",
+      "title": "Manage third-party and supply chain risk",
+      "phase": "Q4",
+      "group": "Third-Party Risk",
+      "objective": "You will maintain a vendor inventory ranked by risk, with security due diligence and security terms in contracts for critical suppliers.",
+      "why": "A breach or outage at a vendor can flow straight into your business, so knowing and vetting your suppliers closes a major blind spot.",
+      "standards": [
+        {
+          "framework": "NIST CSF",
+          "ref": "GV.SC"
+        },
+        {
+          "framework": "NIST CSF",
+          "ref": "ID.RA"
+        },
+        {
+          "framework": "CIS",
+          "ref": "Control 15"
+        },
+        {
+          "framework": "CISA CPG",
+          "ref": "1.I"
+        },
+        {
+          "framework": "NIST 800-53",
+          "ref": "SR"
+        }
+      ],
+      "kpis": [
+        "Percent of vendors captured in the inventory with a data-access and criticality rating (target 100%)",
+        "Percent of critical vendors with a completed security review (target 100%)",
+        "Percent of critical vendor contracts including security and breach-notification terms (target 100%)",
+        "Percent of critical vendors reviewed within the defined cycle, for example annually (target 100%)"
+      ],
+      "milestones": [
+        "Build a vendor inventory and record what data and access each vendor holds",
+        "Rank vendors by criticality and the sensitivity of the data they touch",
+        "Define a due diligence process sized to each vendor's risk tier",
+        "Complete security reviews for all critical vendors",
+        "Add security, breach-notification, and right-to-audit terms to critical contracts",
+        "Set a recurring review cycle and an offboarding checklist for ending vendors"
+      ]
+    },
+    {
+      "id": "continuous-improvement-metrics-audit",
+      "title": "Drive continuous improvement with metrics, audit, and testing",
+      "phase": "Q4",
+      "group": "Continuous Improvement",
+      "objective": "The program will run on tracked metrics, periodic internal audits, and regular penetration testing that feed a managed remediation backlog.",
+      "why": "Measuring, auditing, and testing the program turns security from a one-time project into a system that keeps pace with new threats.",
+      "standards": [
+        {
+          "framework": "NIST CSF",
+          "ref": "ID.IM"
+        },
+        {
+          "framework": "NIST CSF",
+          "ref": "GV.OV"
+        },
+        {
+          "framework": "NIST CSF",
+          "ref": "ID.RA"
+        },
+        {
+          "framework": "CIS",
+          "ref": "Control 18"
+        },
+        {
+          "framework": "CISA CPG",
+          "ref": "1.F"
+        },
+        {
+          "framework": "NIST 800-53",
+          "ref": "CA"
+        }
+      ],
+      "kpis": [
+        "Percent of program metrics reported to leadership on the defined cadence (target 100%)",
+        "Number of internal audits or control self-assessments completed per year (target at least 1)",
+        "Percent of penetration test findings remediated within their SLA by severity (target 90% or higher)",
+        "Mean time to remediate high-severity findings from audits and tests (target within SLA and falling)"
+      ],
+      "milestones": [
+        "Define a small set of program metrics and a reporting cadence to leadership",
+        "Establish an internal audit or control self-assessment schedule against a chosen framework",
+        "Commission periodic penetration testing scoped to critical systems",
+        "Track all findings in a single prioritized remediation backlog with owners and SLAs",
+        "Hold a recurring management review of metrics, findings, and roadmap progress",
+        "Feed lessons learned back into policies, controls, and next-cycle goals"
+      ]
+    }
+  ]
+}
