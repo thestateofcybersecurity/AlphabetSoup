@@ -1,0 +1,2496 @@
+{
+  "categories": [
+    {
+      "id": "AC",
+      "name": "Access Control",
+      "blurb": "Limits who and what can reach your systems and CUI, granting only the access each user, process, or device actually needs."
+    },
+    {
+      "id": "AT",
+      "name": "Awareness and Training",
+      "blurb": "Makes sure everyone who touches your systems understands the risks and knows how to perform their security duties."
+    },
+    {
+      "id": "AU",
+      "name": "Audit and Accountability",
+      "blurb": "Records what happens on your systems so activity can be traced to individuals and suspicious behavior can be investigated."
+    },
+    {
+      "id": "CM",
+      "name": "Configuration Management",
+      "blurb": "Keeps systems in a known, hardened state by controlling baselines, settings, and changes over their life cycle."
+    },
+    {
+      "id": "IA",
+      "name": "Identification and Authentication",
+      "blurb": "Make sure every user, process, and device is uniquely identified and proves who it is before touching your systems."
+    },
+    {
+      "id": "IR",
+      "name": "Incident Response",
+      "blurb": "Be ready to detect, handle, report, and practice responding to security incidents before they become disasters."
+    },
+    {
+      "id": "MA",
+      "name": "Maintenance",
+      "blurb": "Keep equipment maintenance controlled so servicing tools, remote sessions, and outside technicians cannot expose your data."
+    },
+    {
+      "id": "MP",
+      "name": "Media Protection",
+      "blurb": "Protect, mark, transport, sanitize, and dispose of the disks, drives, and paper that hold sensitive information."
+    },
+    {
+      "id": "PS",
+      "name": "Personnel Security",
+      "blurb": "Vet people before granting access and lock things down when they leave or change roles."
+    },
+    {
+      "id": "PE",
+      "name": "Physical Protection",
+      "blurb": "Controls that keep people, facilities, and equipment holding sensitive data physically safe from unauthorized access."
+    },
+    {
+      "id": "RA",
+      "name": "Risk Assessment",
+      "blurb": "Practices for finding, rating, and reducing security risks and vulnerabilities across your systems."
+    },
+    {
+      "id": "CA",
+      "name": "Security Assessment",
+      "blurb": "Ongoing review of whether your security controls actually work and staying on top of fixing the gaps."
+    },
+    {
+      "id": "SC",
+      "name": "System and Communications Protection",
+      "blurb": "Safeguards for network boundaries, encryption, and how information moves between and within your systems."
+    },
+    {
+      "id": "SI",
+      "name": "System and Information Integrity",
+      "blurb": "Keeping systems clean and trustworthy by patching flaws, blocking malware, and watching for attacks."
+    }
+  ],
+  "questions": [
+    {
+      "id": "3.1.1",
+      "text": "Do you limit system access to only authorized users, the processes acting for them, and approved devices?",
+      "tier": "basic",
+      "group": "AC",
+      "references": [
+        "NIST SP 800-171 3.1.1",
+        "CMMC L1 AC.L1-3.1.1"
+      ],
+      "why": "Unrestricted access lets unauthorized people or devices reach CUI and cause harm.",
+      "fix": "Define an authorized user and device list, then enforce it with account and access controls.",
+      "links": [
+        {
+          "label": "NIST SP 800-171 Rev 2",
+          "url": "https://csrc.nist.gov/pubs/sp/800/171/r2/upd1/final"
+        },
+        {
+          "label": "DoD CMMC",
+          "url": "https://dodcio.defense.gov/CMMC/"
+        }
+      ]
+    },
+    {
+      "id": "3.1.2",
+      "text": "Do you limit each user's access to only the transactions and functions their role is permitted to perform?",
+      "tier": "basic",
+      "group": "AC",
+      "references": [
+        "NIST SP 800-171 3.1.2",
+        "CMMC L1 AC.L1-3.1.2"
+      ],
+      "why": "Users with more access than they need expand the damage a compromised account can do.",
+      "fix": "Map roles to allowed transactions and enforce those permissions in each system.",
+      "links": [
+        {
+          "label": "NIST SP 800-171 Rev 2",
+          "url": "https://csrc.nist.gov/pubs/sp/800/171/r2/upd1/final"
+        },
+        {
+          "label": "DoD CMMC",
+          "url": "https://dodcio.defense.gov/CMMC/"
+        }
+      ]
+    },
+    {
+      "id": "3.1.3",
+      "text": "Do you control how CUI flows within and between systems so it only moves in approved ways?",
+      "tier": "intermediate",
+      "group": "AC",
+      "references": [
+        "NIST SP 800-171 3.1.3",
+        "CMMC L2 AC.L2-3.1.3"
+      ],
+      "why": "Uncontrolled information flow can push CUI into places or connections that lack protection.",
+      "fix": "Document approved flow paths and enforce them with firewalls, proxies, or DLP rules.",
+      "links": [
+        {
+          "label": "NIST SP 800-171 Rev 2",
+          "url": "https://csrc.nist.gov/pubs/sp/800/171/r2/upd1/final"
+        },
+        {
+          "label": "DoD CMMC",
+          "url": "https://dodcio.defense.gov/CMMC/"
+        }
+      ]
+    },
+    {
+      "id": "3.1.4",
+      "text": "Do you separate duties among different people so no single individual can complete a sensitive task alone?",
+      "tier": "intermediate",
+      "group": "AC",
+      "references": [
+        "NIST SP 800-171 3.1.4",
+        "CMMC L2 AC.L2-3.1.4"
+      ],
+      "why": "Concentrating conflicting duties in one person makes fraud or misuse harder to detect.",
+      "fix": "Identify conflicting duties and assign them to separate individuals or roles.",
+      "links": [
+        {
+          "label": "NIST SP 800-171 Rev 2",
+          "url": "https://csrc.nist.gov/pubs/sp/800/171/r2/upd1/final"
+        },
+        {
+          "label": "DoD CMMC",
+          "url": "https://dodcio.defense.gov/CMMC/"
+        }
+      ]
+    },
+    {
+      "id": "3.1.5",
+      "text": "Do you apply least privilege, giving users and processes only the access needed to do their work?",
+      "tier": "intermediate",
+      "group": "AC",
+      "references": [
+        "NIST SP 800-171 3.1.5",
+        "CMMC L2 AC.L2-3.1.5"
+      ],
+      "why": "Excess privileges give attackers and mistakes a wider path to sensitive resources.",
+      "fix": "Review account privileges and remove any access that is not required for the job.",
+      "links": [
+        {
+          "label": "NIST SP 800-171 Rev 2",
+          "url": "https://csrc.nist.gov/pubs/sp/800/171/r2/upd1/final"
+        },
+        {
+          "label": "DoD CMMC",
+          "url": "https://dodcio.defense.gov/CMMC/"
+        }
+      ]
+    },
+    {
+      "id": "3.1.6",
+      "text": "Do you require routine, non-security tasks to run from non-privileged accounts rather than admin accounts?",
+      "tier": "intermediate",
+      "group": "AC",
+      "references": [
+        "NIST SP 800-171 3.1.6",
+        "CMMC L2 AC.L2-3.1.6"
+      ],
+      "why": "Using privileged accounts for everyday work exposes them to malware and phishing.",
+      "fix": "Issue separate standard accounts for daily use and reserve admin accounts for admin tasks.",
+      "links": [
+        {
+          "label": "NIST SP 800-171 Rev 2",
+          "url": "https://csrc.nist.gov/pubs/sp/800/171/r2/upd1/final"
+        },
+        {
+          "label": "DoD CMMC",
+          "url": "https://dodcio.defense.gov/CMMC/"
+        }
+      ]
+    },
+    {
+      "id": "3.1.7",
+      "text": "Do you stop non-privileged users from running administrative functions and log any such attempts?",
+      "tier": "intermediate",
+      "group": "AC",
+      "references": [
+        "NIST SP 800-171 3.1.7",
+        "CMMC L2 AC.L2-3.1.7"
+      ],
+      "why": "Unchecked privileged actions by ordinary users can bypass security controls unnoticed.",
+      "fix": "Restrict admin functions to privileged roles and audit-log attempts to use them.",
+      "links": [
+        {
+          "label": "NIST SP 800-171 Rev 2",
+          "url": "https://csrc.nist.gov/pubs/sp/800/171/r2/upd1/final"
+        },
+        {
+          "label": "DoD CMMC",
+          "url": "https://dodcio.defense.gov/CMMC/"
+        }
+      ]
+    },
+    {
+      "id": "3.1.8",
+      "text": "Do you limit repeated failed logon attempts, for example by locking the account after a set number?",
+      "tier": "intermediate",
+      "group": "AC",
+      "references": [
+        "NIST SP 800-171 3.1.8",
+        "CMMC L2 AC.L2-3.1.8"
+      ],
+      "why": "Unlimited login tries let attackers guess passwords through brute force.",
+      "fix": "Configure a lockout threshold and delay after a defined number of failed attempts.",
+      "links": [
+        {
+          "label": "NIST SP 800-171 Rev 2",
+          "url": "https://csrc.nist.gov/pubs/sp/800/171/r2/upd1/final"
+        },
+        {
+          "label": "DoD CMMC",
+          "url": "https://dodcio.defense.gov/CMMC/"
+        }
+      ]
+    },
+    {
+      "id": "3.1.9",
+      "text": "Do you show users a privacy and security notice consistent with CUI rules before they log in?",
+      "tier": "intermediate",
+      "group": "AC",
+      "references": [
+        "NIST SP 800-171 3.1.9",
+        "CMMC L2 AC.L2-3.1.9"
+      ],
+      "why": "Without a use notice, users may be unaware of monitoring and handling obligations.",
+      "fix": "Add an approved system-use banner that displays before authentication completes.",
+      "links": [
+        {
+          "label": "NIST SP 800-171 Rev 2",
+          "url": "https://csrc.nist.gov/pubs/sp/800/171/r2/upd1/final"
+        },
+        {
+          "label": "DoD CMMC",
+          "url": "https://dodcio.defense.gov/CMMC/"
+        }
+      ]
+    },
+    {
+      "id": "3.1.10",
+      "text": "Do you lock sessions and hide the screen after a period of inactivity to block onlookers?",
+      "tier": "intermediate",
+      "group": "AC",
+      "references": [
+        "NIST SP 800-171 3.1.10",
+        "CMMC L2 AC.L2-3.1.10"
+      ],
+      "why": "Unattended, unlocked screens let anyone nearby view or use an active session.",
+      "fix": "Enable an inactivity timeout that triggers a session lock with a pattern-hiding display.",
+      "links": [
+        {
+          "label": "NIST SP 800-171 Rev 2",
+          "url": "https://csrc.nist.gov/pubs/sp/800/171/r2/upd1/final"
+        },
+        {
+          "label": "DoD CMMC",
+          "url": "https://dodcio.defense.gov/CMMC/"
+        }
+      ]
+    },
+    {
+      "id": "3.1.11",
+      "text": "Do you automatically end user sessions when defined conditions, such as inactivity, are met?",
+      "tier": "intermediate",
+      "group": "AC",
+      "references": [
+        "NIST SP 800-171 3.1.11",
+        "CMMC L2 AC.L2-3.1.11"
+      ],
+      "why": "Sessions left open indefinitely give attackers a lingering foothold to hijack.",
+      "fix": "Set session termination policies that close sessions after the defined trigger.",
+      "links": [
+        {
+          "label": "NIST SP 800-171 Rev 2",
+          "url": "https://csrc.nist.gov/pubs/sp/800/171/r2/upd1/final"
+        },
+        {
+          "label": "DoD CMMC",
+          "url": "https://dodcio.defense.gov/CMMC/"
+        }
+      ]
+    },
+    {
+      "id": "3.1.12",
+      "text": "Do you monitor and control remote access sessions to your systems?",
+      "tier": "intermediate",
+      "group": "AC",
+      "references": [
+        "NIST SP 800-171 3.1.12",
+        "CMMC L2 AC.L2-3.1.12"
+      ],
+      "why": "Unmonitored remote connections are an easy, unseen entry point for intruders.",
+      "fix": "Route remote access through managed gateways and log and monitor those sessions.",
+      "links": [
+        {
+          "label": "NIST SP 800-171 Rev 2",
+          "url": "https://csrc.nist.gov/pubs/sp/800/171/r2/upd1/final"
+        },
+        {
+          "label": "DoD CMMC",
+          "url": "https://dodcio.defense.gov/CMMC/"
+        }
+      ]
+    },
+    {
+      "id": "3.1.13",
+      "text": "Do you protect remote access sessions using approved cryptography such as a VPN or TLS?",
+      "tier": "intermediate",
+      "group": "AC",
+      "references": [
+        "NIST SP 800-171 3.1.13",
+        "CMMC L2 AC.L2-3.1.13"
+      ],
+      "why": "Unencrypted remote sessions can be intercepted, exposing credentials and CUI.",
+      "fix": "Require FIPS-validated encryption (VPN or TLS) for all remote connections.",
+      "links": [
+        {
+          "label": "NIST SP 800-171 Rev 2",
+          "url": "https://csrc.nist.gov/pubs/sp/800/171/r2/upd1/final"
+        },
+        {
+          "label": "DoD CMMC",
+          "url": "https://dodcio.defense.gov/CMMC/"
+        }
+      ]
+    },
+    {
+      "id": "3.1.14",
+      "text": "Do you route all remote access through a limited number of managed control points?",
+      "tier": "intermediate",
+      "group": "AC",
+      "references": [
+        "NIST SP 800-171 3.1.14",
+        "CMMC L2 AC.L2-3.1.14"
+      ],
+      "why": "Scattered remote entry points are hard to monitor and easy to overlook.",
+      "fix": "Funnel remote traffic through a few managed access points and block direct paths.",
+      "links": [
+        {
+          "label": "NIST SP 800-171 Rev 2",
+          "url": "https://csrc.nist.gov/pubs/sp/800/171/r2/upd1/final"
+        },
+        {
+          "label": "DoD CMMC",
+          "url": "https://dodcio.defense.gov/CMMC/"
+        }
+      ]
+    },
+    {
+      "id": "3.1.15",
+      "text": "Do you require explicit authorization before allowing remote execution of privileged commands or access to security data?",
+      "tier": "intermediate",
+      "group": "AC",
+      "references": [
+        "NIST SP 800-171 3.1.15",
+        "CMMC L2 AC.L2-3.1.15"
+      ],
+      "why": "Remote privileged actions are high value targets that attackers seek to abuse.",
+      "fix": "Define and approve which privileged commands may run remotely, and deny the rest.",
+      "links": [
+        {
+          "label": "NIST SP 800-171 Rev 2",
+          "url": "https://csrc.nist.gov/pubs/sp/800/171/r2/upd1/final"
+        },
+        {
+          "label": "DoD CMMC",
+          "url": "https://dodcio.defense.gov/CMMC/"
+        }
+      ]
+    },
+    {
+      "id": "3.1.16",
+      "text": "Do you authorize wireless access and set its configuration requirements before any device connects?",
+      "tier": "intermediate",
+      "group": "AC",
+      "references": [
+        "NIST SP 800-171 3.1.16",
+        "CMMC L2 AC.L2-3.1.16"
+      ],
+      "why": "Unauthorized wireless connections give attackers a way in without physical access.",
+      "fix": "Establish a wireless authorization policy and required settings before enabling access.",
+      "links": [
+        {
+          "label": "NIST SP 800-171 Rev 2",
+          "url": "https://csrc.nist.gov/pubs/sp/800/171/r2/upd1/final"
+        },
+        {
+          "label": "DoD CMMC",
+          "url": "https://dodcio.defense.gov/CMMC/"
+        }
+      ]
+    },
+    {
+      "id": "3.1.17",
+      "text": "Do you protect wireless access with authentication and encryption?",
+      "tier": "intermediate",
+      "group": "AC",
+      "references": [
+        "NIST SP 800-171 3.1.17",
+        "CMMC L2 AC.L2-3.1.17"
+      ],
+      "why": "Open or weakly secured wireless can be joined or eavesdropped by outsiders.",
+      "fix": "Configure WPA2 or WPA3 Enterprise with strong authentication on all wireless networks.",
+      "links": [
+        {
+          "label": "NIST SP 800-171 Rev 2",
+          "url": "https://csrc.nist.gov/pubs/sp/800/171/r2/upd1/final"
+        },
+        {
+          "label": "DoD CMMC",
+          "url": "https://dodcio.defense.gov/CMMC/"
+        }
+      ]
+    },
+    {
+      "id": "3.1.18",
+      "text": "Do you control and authorize the connection of mobile devices to your systems?",
+      "tier": "intermediate",
+      "group": "AC",
+      "references": [
+        "NIST SP 800-171 3.1.18",
+        "CMMC L2 AC.L2-3.1.18"
+      ],
+      "why": "Unmanaged mobile devices can carry malware in or CUI out unnoticed.",
+      "fix": "Define a mobile device policy and enforce it with mobile device management (MDM).",
+      "links": [
+        {
+          "label": "NIST SP 800-171 Rev 2",
+          "url": "https://csrc.nist.gov/pubs/sp/800/171/r2/upd1/final"
+        },
+        {
+          "label": "DoD CMMC",
+          "url": "https://dodcio.defense.gov/CMMC/"
+        }
+      ]
+    },
+    {
+      "id": "3.1.19",
+      "text": "Do you encrypt CUI stored on mobile devices and mobile computing platforms?",
+      "tier": "intermediate",
+      "group": "AC",
+      "references": [
+        "NIST SP 800-171 3.1.19",
+        "CMMC L2 AC.L2-3.1.19"
+      ],
+      "why": "A lost or stolen mobile device without encryption exposes any CUI it holds.",
+      "fix": "Enable full-device or container encryption on all mobile devices that handle CUI.",
+      "links": [
+        {
+          "label": "NIST SP 800-171 Rev 2",
+          "url": "https://csrc.nist.gov/pubs/sp/800/171/r2/upd1/final"
+        },
+        {
+          "label": "DoD CMMC",
+          "url": "https://dodcio.defense.gov/CMMC/"
+        }
+      ]
+    },
+    {
+      "id": "3.1.20",
+      "text": "Do you verify and limit connections to and use of external systems you do not control?",
+      "tier": "basic",
+      "group": "AC",
+      "references": [
+        "NIST SP 800-171 3.1.20",
+        "CMMC L1 AC.L1-3.1.20"
+      ],
+      "why": "External systems outside your control may not protect CUI to your standards.",
+      "fix": "Define terms for external system use and verify them before allowing connections.",
+      "links": [
+        {
+          "label": "NIST SP 800-171 Rev 2",
+          "url": "https://csrc.nist.gov/pubs/sp/800/171/r2/upd1/final"
+        },
+        {
+          "label": "DoD CMMC",
+          "url": "https://dodcio.defense.gov/CMMC/"
+        }
+      ]
+    },
+    {
+      "id": "3.1.21",
+      "text": "Do you limit or prohibit the use of portable storage devices on external systems?",
+      "tier": "intermediate",
+      "group": "AC",
+      "references": [
+        "NIST SP 800-171 3.1.21",
+        "CMMC L2 AC.L2-3.1.21"
+      ],
+      "why": "Portable media used on uncontrolled systems can spread malware or leak CUI.",
+      "fix": "Set a policy that restricts or bans portable storage on external systems and enforce it.",
+      "links": [
+        {
+          "label": "NIST SP 800-171 Rev 2",
+          "url": "https://csrc.nist.gov/pubs/sp/800/171/r2/upd1/final"
+        },
+        {
+          "label": "DoD CMMC",
+          "url": "https://dodcio.defense.gov/CMMC/"
+        }
+      ]
+    },
+    {
+      "id": "3.1.22",
+      "text": "Do you control what information is posted on publicly accessible systems to keep CUI off them?",
+      "tier": "basic",
+      "group": "AC",
+      "references": [
+        "NIST SP 800-171 3.1.22",
+        "CMMC L1 AC.L1-3.1.22"
+      ],
+      "why": "CUI accidentally published to public systems is exposed to anyone on the internet.",
+      "fix": "Designate approvers and review content before it is posted to public-facing systems.",
+      "links": [
+        {
+          "label": "NIST SP 800-171 Rev 2",
+          "url": "https://csrc.nist.gov/pubs/sp/800/171/r2/upd1/final"
+        },
+        {
+          "label": "DoD CMMC",
+          "url": "https://dodcio.defense.gov/CMMC/"
+        }
+      ]
+    },
+    {
+      "id": "3.2.1",
+      "text": "Are your managers, administrators, and users made aware of the security risks and policies tied to their work?",
+      "tier": "intermediate",
+      "group": "AT",
+      "references": [
+        "NIST SP 800-171 3.2.1",
+        "CMMC L2 AT.L2-3.2.1"
+      ],
+      "why": "People unaware of risks and rules are more likely to make choices that expose CUI.",
+      "fix": "Deliver security awareness training that covers relevant risks, policies, and procedures.",
+      "links": [
+        {
+          "label": "NIST SP 800-171 Rev 2",
+          "url": "https://csrc.nist.gov/pubs/sp/800/171/r2/upd1/final"
+        },
+        {
+          "label": "DoD CMMC",
+          "url": "https://dodcio.defense.gov/CMMC/"
+        }
+      ]
+    },
+    {
+      "id": "3.2.2",
+      "text": "Are personnel trained to carry out the security responsibilities assigned to their specific roles?",
+      "tier": "intermediate",
+      "group": "AT",
+      "references": [
+        "NIST SP 800-171 3.2.2",
+        "CMMC L2 AT.L2-3.2.2"
+      ],
+      "why": "Staff who lack role-specific training cannot reliably perform their security duties.",
+      "fix": "Define role-based security duties and provide training for each relevant role.",
+      "links": [
+        {
+          "label": "NIST SP 800-171 Rev 2",
+          "url": "https://csrc.nist.gov/pubs/sp/800/171/r2/upd1/final"
+        },
+        {
+          "label": "DoD CMMC",
+          "url": "https://dodcio.defense.gov/CMMC/"
+        }
+      ]
+    },
+    {
+      "id": "3.2.3",
+      "text": "Do you train staff to recognize and report potential indicators of insider threat?",
+      "tier": "intermediate",
+      "group": "AT",
+      "references": [
+        "NIST SP 800-171 3.2.3",
+        "CMMC L2 AT.L2-3.2.3"
+      ],
+      "why": "Insider threats go undetected when staff do not know the warning signs or how to report them.",
+      "fix": "Add insider threat awareness to training, covering indicators and reporting steps.",
+      "links": [
+        {
+          "label": "NIST SP 800-171 Rev 2",
+          "url": "https://csrc.nist.gov/pubs/sp/800/171/r2/upd1/final"
+        },
+        {
+          "label": "DoD CMMC",
+          "url": "https://dodcio.defense.gov/CMMC/"
+        }
+      ]
+    },
+    {
+      "id": "3.3.1",
+      "text": "Do you create and retain audit logs sufficient to monitor, investigate, and report unauthorized activity?",
+      "tier": "intermediate",
+      "group": "AU",
+      "references": [
+        "NIST SP 800-171 3.3.1",
+        "CMMC L2 AU.L2-3.3.1"
+      ],
+      "why": "Without adequate logs, unauthorized activity cannot be detected or investigated.",
+      "fix": "Identify security-relevant events and configure systems to log and retain them.",
+      "links": [
+        {
+          "label": "NIST SP 800-171 Rev 2",
+          "url": "https://csrc.nist.gov/pubs/sp/800/171/r2/upd1/final"
+        },
+        {
+          "label": "DoD CMMC",
+          "url": "https://dodcio.defense.gov/CMMC/"
+        }
+      ]
+    },
+    {
+      "id": "3.3.2",
+      "text": "Can you trace logged actions to the specific individual user responsible for them?",
+      "tier": "intermediate",
+      "group": "AU",
+      "references": [
+        "NIST SP 800-171 3.3.2",
+        "CMMC L2 AU.L2-3.3.2"
+      ],
+      "why": "Actions that cannot be tied to a person prevent accountability for misuse.",
+      "fix": "Use unique user IDs and capture them in audit records for every tracked action.",
+      "links": [
+        {
+          "label": "NIST SP 800-171 Rev 2",
+          "url": "https://csrc.nist.gov/pubs/sp/800/171/r2/upd1/final"
+        },
+        {
+          "label": "DoD CMMC",
+          "url": "https://dodcio.defense.gov/CMMC/"
+        }
+      ]
+    },
+    {
+      "id": "3.3.3",
+      "text": "Do you periodically review and update which events your systems log?",
+      "tier": "intermediate",
+      "group": "AU",
+      "references": [
+        "NIST SP 800-171 3.3.3",
+        "CMMC L2 AU.L2-3.3.3"
+      ],
+      "why": "Logged events that are never revisited can miss new threats and relevant activity.",
+      "fix": "Schedule regular reviews of your logged event list and adjust it as needs change.",
+      "links": [
+        {
+          "label": "NIST SP 800-171 Rev 2",
+          "url": "https://csrc.nist.gov/pubs/sp/800/171/r2/upd1/final"
+        },
+        {
+          "label": "DoD CMMC",
+          "url": "https://dodcio.defense.gov/CMMC/"
+        }
+      ]
+    },
+    {
+      "id": "3.3.4",
+      "text": "Are the right people alerted when the audit logging process fails?",
+      "tier": "intermediate",
+      "group": "AU",
+      "references": [
+        "NIST SP 800-171 3.3.4",
+        "CMMC L2 AU.L2-3.3.4"
+      ],
+      "why": "Silent logging failures create blind spots where activity goes unrecorded.",
+      "fix": "Configure alerts for logging failures such as errors or full storage capacity.",
+      "links": [
+        {
+          "label": "NIST SP 800-171 Rev 2",
+          "url": "https://csrc.nist.gov/pubs/sp/800/171/r2/upd1/final"
+        },
+        {
+          "label": "DoD CMMC",
+          "url": "https://dodcio.defense.gov/CMMC/"
+        }
+      ]
+    },
+    {
+      "id": "3.3.5",
+      "text": "Do you correlate audit review, analysis, and reporting to investigate suspicious activity across systems?",
+      "tier": "intermediate",
+      "group": "AU",
+      "references": [
+        "NIST SP 800-171 3.3.5",
+        "CMMC L2 AU.L2-3.3.5"
+      ],
+      "why": "Reviewing logs in isolation misses attacks that span multiple systems.",
+      "fix": "Aggregate logs (for example in a SIEM) and correlate them during investigations.",
+      "links": [
+        {
+          "label": "NIST SP 800-171 Rev 2",
+          "url": "https://csrc.nist.gov/pubs/sp/800/171/r2/upd1/final"
+        },
+        {
+          "label": "DoD CMMC",
+          "url": "https://dodcio.defense.gov/CMMC/"
+        }
+      ]
+    },
+    {
+      "id": "3.3.6",
+      "text": "Can your audit system reduce records and generate reports for on-demand analysis?",
+      "tier": "intermediate",
+      "group": "AU",
+      "references": [
+        "NIST SP 800-171 3.3.6",
+        "CMMC L2 AU.L2-3.3.6"
+      ],
+      "why": "Raw, unsummarized logs are hard to analyze quickly when an incident occurs.",
+      "fix": "Deploy tooling that filters, summarizes, and reports on audit records on demand.",
+      "links": [
+        {
+          "label": "NIST SP 800-171 Rev 2",
+          "url": "https://csrc.nist.gov/pubs/sp/800/171/r2/upd1/final"
+        },
+        {
+          "label": "DoD CMMC",
+          "url": "https://dodcio.defense.gov/CMMC/"
+        }
+      ]
+    },
+    {
+      "id": "3.3.7",
+      "text": "Do your systems synchronize clocks to an authoritative source so audit timestamps are accurate?",
+      "tier": "intermediate",
+      "group": "AU",
+      "references": [
+        "NIST SP 800-171 3.3.7",
+        "CMMC L2 AU.L2-3.3.7"
+      ],
+      "why": "Inconsistent clocks make it impossible to reconstruct the true order of events.",
+      "fix": "Point all systems at an authoritative time source using NTP.",
+      "links": [
+        {
+          "label": "NIST SP 800-171 Rev 2",
+          "url": "https://csrc.nist.gov/pubs/sp/800/171/r2/upd1/final"
+        },
+        {
+          "label": "DoD CMMC",
+          "url": "https://dodcio.defense.gov/CMMC/"
+        }
+      ]
+    },
+    {
+      "id": "3.3.8",
+      "text": "Do you protect audit records and logging tools from unauthorized access, modification, and deletion?",
+      "tier": "intermediate",
+      "group": "AU",
+      "references": [
+        "NIST SP 800-171 3.3.8",
+        "CMMC L2 AU.L2-3.3.8"
+      ],
+      "why": "Attackers who can alter or erase logs can hide their tracks entirely.",
+      "fix": "Restrict access to logs and tools and store copies in tamper-resistant storage.",
+      "links": [
+        {
+          "label": "NIST SP 800-171 Rev 2",
+          "url": "https://csrc.nist.gov/pubs/sp/800/171/r2/upd1/final"
+        },
+        {
+          "label": "DoD CMMC",
+          "url": "https://dodcio.defense.gov/CMMC/"
+        }
+      ]
+    },
+    {
+      "id": "3.3.9",
+      "text": "Is management of audit logging limited to a small set of privileged users?",
+      "tier": "intermediate",
+      "group": "AU",
+      "references": [
+        "NIST SP 800-171 3.3.9",
+        "CMMC L2 AU.L2-3.3.9"
+      ],
+      "why": "If monitored users can manage the logs, they can disable oversight of their own actions.",
+      "fix": "Assign audit management to a separate, limited group distinct from general admins.",
+      "links": [
+        {
+          "label": "NIST SP 800-171 Rev 2",
+          "url": "https://csrc.nist.gov/pubs/sp/800/171/r2/upd1/final"
+        },
+        {
+          "label": "DoD CMMC",
+          "url": "https://dodcio.defense.gov/CMMC/"
+        }
+      ]
+    },
+    {
+      "id": "3.4.1",
+      "text": "Do you maintain baseline configurations and inventories of your systems throughout their life cycle?",
+      "tier": "intermediate",
+      "group": "CM",
+      "references": [
+        "NIST SP 800-171 3.4.1",
+        "CMMC L2 CM.L2-3.4.1"
+      ],
+      "why": "Without a known baseline and inventory, you cannot tell what a system should look like or spot drift.",
+      "fix": "Document hardware, software, and firmware baselines and keep an up-to-date inventory.",
+      "links": [
+        {
+          "label": "NIST SP 800-171 Rev 2",
+          "url": "https://csrc.nist.gov/pubs/sp/800/171/r2/upd1/final"
+        },
+        {
+          "label": "DoD CMMC",
+          "url": "https://dodcio.defense.gov/CMMC/"
+        }
+      ]
+    },
+    {
+      "id": "3.4.2",
+      "text": "Do you establish and enforce secure configuration settings for the IT products in your systems?",
+      "tier": "intermediate",
+      "group": "CM",
+      "references": [
+        "NIST SP 800-171 3.4.2",
+        "CMMC L2 CM.L2-3.4.2"
+      ],
+      "why": "Default or loose settings leave systems with unnecessary weaknesses to exploit.",
+      "fix": "Adopt hardening benchmarks and enforce them with configuration management tools.",
+      "links": [
+        {
+          "label": "NIST SP 800-171 Rev 2",
+          "url": "https://csrc.nist.gov/pubs/sp/800/171/r2/upd1/final"
+        },
+        {
+          "label": "DoD CMMC",
+          "url": "https://dodcio.defense.gov/CMMC/"
+        }
+      ]
+    },
+    {
+      "id": "3.4.3",
+      "text": "Do you track, review, approve or reject, and log changes to your systems?",
+      "tier": "intermediate",
+      "group": "CM",
+      "references": [
+        "NIST SP 800-171 3.4.3",
+        "CMMC L2 CM.L2-3.4.3"
+      ],
+      "why": "Unmanaged changes can introduce vulnerabilities or outages without a record of who or why.",
+      "fix": "Run a change management process that reviews, approves, and logs every change.",
+      "links": [
+        {
+          "label": "NIST SP 800-171 Rev 2",
+          "url": "https://csrc.nist.gov/pubs/sp/800/171/r2/upd1/final"
+        },
+        {
+          "label": "DoD CMMC",
+          "url": "https://dodcio.defense.gov/CMMC/"
+        }
+      ]
+    },
+    {
+      "id": "3.4.4",
+      "text": "Do you analyze the security impact of changes before you implement them?",
+      "tier": "intermediate",
+      "group": "CM",
+      "references": [
+        "NIST SP 800-171 3.4.4",
+        "CMMC L2 CM.L2-3.4.4"
+      ],
+      "why": "Changes made without impact analysis can silently weaken security controls.",
+      "fix": "Require a documented security impact assessment as part of change approval.",
+      "links": [
+        {
+          "label": "NIST SP 800-171 Rev 2",
+          "url": "https://csrc.nist.gov/pubs/sp/800/171/r2/upd1/final"
+        },
+        {
+          "label": "DoD CMMC",
+          "url": "https://dodcio.defense.gov/CMMC/"
+        }
+      ]
+    },
+    {
+      "id": "3.4.5",
+      "text": "Do you define, document, and enforce physical and logical access restrictions for system changes?",
+      "tier": "intermediate",
+      "group": "CM",
+      "references": [
+        "NIST SP 800-171 3.4.5",
+        "CMMC L2 CM.L2-3.4.5"
+      ],
+      "why": "If anyone can make changes, unauthorized or untracked modifications become likely.",
+      "fix": "Limit who can make changes and enforce those limits with access controls and approvals.",
+      "links": [
+        {
+          "label": "NIST SP 800-171 Rev 2",
+          "url": "https://csrc.nist.gov/pubs/sp/800/171/r2/upd1/final"
+        },
+        {
+          "label": "DoD CMMC",
+          "url": "https://dodcio.defense.gov/CMMC/"
+        }
+      ]
+    },
+    {
+      "id": "3.4.6",
+      "text": "Do you apply least functionality by configuring systems to provide only essential capabilities?",
+      "tier": "intermediate",
+      "group": "CM",
+      "references": [
+        "NIST SP 800-171 3.4.6",
+        "CMMC L2 CM.L2-3.4.6"
+      ],
+      "why": "Every extra feature or service adds attack surface that can be exploited.",
+      "fix": "Disable or remove capabilities that are not required for the system's purpose.",
+      "links": [
+        {
+          "label": "NIST SP 800-171 Rev 2",
+          "url": "https://csrc.nist.gov/pubs/sp/800/171/r2/upd1/final"
+        },
+        {
+          "label": "DoD CMMC",
+          "url": "https://dodcio.defense.gov/CMMC/"
+        }
+      ]
+    },
+    {
+      "id": "3.4.7",
+      "text": "Do you restrict or disable nonessential programs, functions, ports, protocols, and services?",
+      "tier": "intermediate",
+      "group": "CM",
+      "references": [
+        "NIST SP 800-171 3.4.7",
+        "CMMC L2 CM.L2-3.4.7"
+      ],
+      "why": "Unused ports and services are common footholds for attackers.",
+      "fix": "Inventory running services and ports, then disable those that are not needed.",
+      "links": [
+        {
+          "label": "NIST SP 800-171 Rev 2",
+          "url": "https://csrc.nist.gov/pubs/sp/800/171/r2/upd1/final"
+        },
+        {
+          "label": "DoD CMMC",
+          "url": "https://dodcio.defense.gov/CMMC/"
+        }
+      ]
+    },
+    {
+      "id": "3.4.8",
+      "text": "Do you control which software can run using an allowlist or blocklist policy?",
+      "tier": "intermediate",
+      "group": "CM",
+      "references": [
+        "NIST SP 800-171 3.4.8",
+        "CMMC L2 CM.L2-3.4.8"
+      ],
+      "why": "Without software execution controls, unauthorized or malicious programs can run freely.",
+      "fix": "Deploy application control that permits approved software and blocks the rest.",
+      "links": [
+        {
+          "label": "NIST SP 800-171 Rev 2",
+          "url": "https://csrc.nist.gov/pubs/sp/800/171/r2/upd1/final"
+        },
+        {
+          "label": "DoD CMMC",
+          "url": "https://dodcio.defense.gov/CMMC/"
+        }
+      ]
+    },
+    {
+      "id": "3.4.9",
+      "text": "Do you control and monitor software that users install themselves?",
+      "tier": "intermediate",
+      "group": "CM",
+      "references": [
+        "NIST SP 800-171 3.4.9",
+        "CMMC L2 CM.L2-3.4.9"
+      ],
+      "why": "Unmanaged user-installed software can introduce malware or unvetted vulnerabilities.",
+      "fix": "Set a user-installed software policy and enforce and monitor it with endpoint controls.",
+      "links": [
+        {
+          "label": "NIST SP 800-171 Rev 2",
+          "url": "https://csrc.nist.gov/pubs/sp/800/171/r2/upd1/final"
+        },
+        {
+          "label": "DoD CMMC",
+          "url": "https://dodcio.defense.gov/CMMC/"
+        }
+      ]
+    },
+    {
+      "id": "3.5.1",
+      "text": "Do you uniquely identify every user, process, and device before they connect to your systems?",
+      "tier": "basic",
+      "group": "IA",
+      "references": [
+        "NIST SP 800-171 3.5.1",
+        "CMMC L1 IA.L1-3.5.1"
+      ],
+      "why": "Without unique identifiers you cannot tell who or what took an action, making accountability and auditing impossible.",
+      "fix": "Issue a distinct account or identifier to each person, service, and device, and stop using shared or generic logins.",
+      "links": [
+        {
+          "label": "NIST SP 800-171 Rev 2",
+          "url": "https://csrc.nist.gov/pubs/sp/800/171/r2/upd1/final"
+        },
+        {
+          "label": "DoD CMMC",
+          "url": "https://dodcio.defense.gov/CMMC/"
+        }
+      ]
+    },
+    {
+      "id": "3.5.2",
+      "text": "Do you verify the identity of each user, process, or device (for example with a password or certificate) before granting access?",
+      "tier": "basic",
+      "group": "IA",
+      "references": [
+        "NIST SP 800-171 3.5.2",
+        "CMMC L1 IA.L1-3.5.2"
+      ],
+      "why": "Claiming an identity is not enough; without authentication an imposter can access systems as someone else.",
+      "fix": "Require every identity to authenticate with a credential such as a password, token, or certificate before access is allowed.",
+      "links": [
+        {
+          "label": "NIST SP 800-171 Rev 2",
+          "url": "https://csrc.nist.gov/pubs/sp/800/171/r2/upd1/final"
+        },
+        {
+          "label": "DoD CMMC",
+          "url": "https://dodcio.defense.gov/CMMC/"
+        }
+      ]
+    },
+    {
+      "id": "3.5.3",
+      "text": "Do you require multifactor authentication for privileged accounts and for network access to regular accounts?",
+      "tier": "intermediate",
+      "group": "IA",
+      "references": [
+        "NIST SP 800-171 3.5.3",
+        "CMMC L2 IA.L2-3.5.3"
+      ],
+      "why": "A single stolen or guessed password can hand an attacker full access, so a second factor sharply reduces account takeover.",
+      "fix": "Enable MFA (something you have plus something you know) for all admin accounts and remote or network logins.",
+      "links": [
+        {
+          "label": "NIST SP 800-171 Rev 2",
+          "url": "https://csrc.nist.gov/pubs/sp/800/171/r2/upd1/final"
+        },
+        {
+          "label": "DoD CMMC",
+          "url": "https://dodcio.defense.gov/CMMC/"
+        }
+      ]
+    },
+    {
+      "id": "3.5.4",
+      "text": "Are your network logins protected by replay-resistant authentication so captured credentials cannot be reused?",
+      "tier": "intermediate",
+      "group": "IA",
+      "references": [
+        "NIST SP 800-171 3.5.4",
+        "CMMC L2 IA.L2-3.5.4"
+      ],
+      "why": "If an attacker records an authentication exchange, they can replay it to log in unless the mechanism blocks reuse.",
+      "fix": "Use protocols with nonces, time stamps, or one-time challenges (such as Kerberos or TLS-based auth) for network access.",
+      "links": [
+        {
+          "label": "NIST SP 800-171 Rev 2",
+          "url": "https://csrc.nist.gov/pubs/sp/800/171/r2/upd1/final"
+        },
+        {
+          "label": "DoD CMMC",
+          "url": "https://dodcio.defense.gov/CMMC/"
+        }
+      ]
+    },
+    {
+      "id": "3.5.5",
+      "text": "Do you prevent reusing the same account identifier for a defined period after it is retired?",
+      "tier": "intermediate",
+      "group": "IA",
+      "references": [
+        "NIST SP 800-171 3.5.5",
+        "CMMC L2 IA.L2-3.5.5"
+      ],
+      "why": "Recycling an old username too soon can wrongly tie a new person to a former user's history and access.",
+      "fix": "Set a policy that retired identifiers are not reassigned until a defined waiting period has passed.",
+      "links": [
+        {
+          "label": "NIST SP 800-171 Rev 2",
+          "url": "https://csrc.nist.gov/pubs/sp/800/171/r2/upd1/final"
+        },
+        {
+          "label": "DoD CMMC",
+          "url": "https://dodcio.defense.gov/CMMC/"
+        }
+      ]
+    },
+    {
+      "id": "3.5.6",
+      "text": "Do you disable accounts automatically after a defined period of inactivity?",
+      "tier": "intermediate",
+      "group": "IA",
+      "references": [
+        "NIST SP 800-171 3.5.6",
+        "CMMC L2 IA.L2-3.5.6"
+      ],
+      "why": "Dormant accounts are easy targets because nobody notices when an attacker uses one that is no longer watched.",
+      "fix": "Configure systems to automatically disable identifiers that have gone unused past a set threshold.",
+      "links": [
+        {
+          "label": "NIST SP 800-171 Rev 2",
+          "url": "https://csrc.nist.gov/pubs/sp/800/171/r2/upd1/final"
+        },
+        {
+          "label": "DoD CMMC",
+          "url": "https://dodcio.defense.gov/CMMC/"
+        }
+      ]
+    },
+    {
+      "id": "3.5.7",
+      "text": "Do you enforce a minimum password complexity and require changed characters when new passwords are created?",
+      "tier": "intermediate",
+      "group": "IA",
+      "references": [
+        "NIST SP 800-171 3.5.7",
+        "CMMC L2 IA.L2-3.5.7"
+      ],
+      "why": "Weak or trivially altered passwords are quickly cracked or guessed, undermining every other access control.",
+      "fix": "Set password policy rules for minimum length and complexity and require a meaningful change of characters on reset.",
+      "links": [
+        {
+          "label": "NIST SP 800-171 Rev 2",
+          "url": "https://csrc.nist.gov/pubs/sp/800/171/r2/upd1/final"
+        },
+        {
+          "label": "DoD CMMC",
+          "url": "https://dodcio.defense.gov/CMMC/"
+        }
+      ]
+    },
+    {
+      "id": "3.5.8",
+      "text": "Do you block reuse of a password for a set number of previous generations?",
+      "tier": "intermediate",
+      "group": "IA",
+      "references": [
+        "NIST SP 800-171 3.5.8",
+        "CMMC L2 IA.L2-3.5.8"
+      ],
+      "why": "Letting users cycle back to an old password lets a previously exposed credential become valid again.",
+      "fix": "Enable password history enforcement so a specified number of prior passwords cannot be reused.",
+      "links": [
+        {
+          "label": "NIST SP 800-171 Rev 2",
+          "url": "https://csrc.nist.gov/pubs/sp/800/171/r2/upd1/final"
+        },
+        {
+          "label": "DoD CMMC",
+          "url": "https://dodcio.defense.gov/CMMC/"
+        }
+      ]
+    },
+    {
+      "id": "3.5.9",
+      "text": "Do you require that any temporary password be changed to a permanent one immediately at first logon?",
+      "tier": "intermediate",
+      "group": "IA",
+      "references": [
+        "NIST SP 800-171 3.5.9",
+        "CMMC L2 IA.L2-3.5.9"
+      ],
+      "why": "Temporary passwords are often predictable or shared, so leaving them in place is a standing risk.",
+      "fix": "Configure accounts so a temporary credential forces an immediate password change on the first successful login.",
+      "links": [
+        {
+          "label": "NIST SP 800-171 Rev 2",
+          "url": "https://csrc.nist.gov/pubs/sp/800/171/r2/upd1/final"
+        },
+        {
+          "label": "DoD CMMC",
+          "url": "https://dodcio.defense.gov/CMMC/"
+        }
+      ]
+    },
+    {
+      "id": "3.5.10",
+      "text": "Do you store and transmit passwords only in cryptographically protected form (hashed or encrypted)?",
+      "tier": "intermediate",
+      "group": "IA",
+      "references": [
+        "NIST SP 800-171 3.5.10",
+        "CMMC L2 IA.L2-3.5.10"
+      ],
+      "why": "Passwords kept or sent in plaintext can be read outright if a database or network traffic is compromised.",
+      "fix": "Ensure passwords are salted and hashed at rest and only sent over encrypted channels, never in the clear.",
+      "links": [
+        {
+          "label": "NIST SP 800-171 Rev 2",
+          "url": "https://csrc.nist.gov/pubs/sp/800/171/r2/upd1/final"
+        },
+        {
+          "label": "DoD CMMC",
+          "url": "https://dodcio.defense.gov/CMMC/"
+        }
+      ]
+    },
+    {
+      "id": "3.5.11",
+      "text": "Do you obscure authentication feedback, such as masking passwords as they are typed?",
+      "tier": "intermediate",
+      "group": "IA",
+      "references": [
+        "NIST SP 800-171 3.5.11",
+        "CMMC L2 IA.L2-3.5.11"
+      ],
+      "why": "Displaying credentials on screen lets shoulder surfers or cameras capture them during login.",
+      "fix": "Configure login prompts to hide password characters and avoid echoing authentication details back to the user.",
+      "links": [
+        {
+          "label": "NIST SP 800-171 Rev 2",
+          "url": "https://csrc.nist.gov/pubs/sp/800/171/r2/upd1/final"
+        },
+        {
+          "label": "DoD CMMC",
+          "url": "https://dodcio.defense.gov/CMMC/"
+        }
+      ]
+    },
+    {
+      "id": "3.6.1",
+      "text": "Have you established an incident response capability covering preparation, detection, analysis, containment, recovery, and user response?",
+      "tier": "intermediate",
+      "group": "IR",
+      "references": [
+        "NIST SP 800-171 3.6.1",
+        "CMMC L2 IR.L2-3.6.1"
+      ],
+      "why": "Without a defined process, a security event turns into chaos and damage spreads while responders improvise.",
+      "fix": "Write and adopt an incident response plan with clear phases, roles, and steps, and make sure staff know it.",
+      "links": [
+        {
+          "label": "NIST SP 800-171 Rev 2",
+          "url": "https://csrc.nist.gov/pubs/sp/800/171/r2/upd1/final"
+        },
+        {
+          "label": "DoD CMMC",
+          "url": "https://dodcio.defense.gov/CMMC/"
+        }
+      ]
+    },
+    {
+      "id": "3.6.2",
+      "text": "Do you track, document, and report security incidents to the appropriate internal and external authorities?",
+      "tier": "intermediate",
+      "group": "IR",
+      "references": [
+        "NIST SP 800-171 3.6.2",
+        "CMMC L2 IR.L2-3.6.2"
+      ],
+      "why": "Unreported or undocumented incidents violate contractual obligations and leave leadership and partners blind to threats.",
+      "fix": "Set up an incident log and reporting workflow that notifies designated officials within required timeframes.",
+      "links": [
+        {
+          "label": "NIST SP 800-171 Rev 2",
+          "url": "https://csrc.nist.gov/pubs/sp/800/171/r2/upd1/final"
+        },
+        {
+          "label": "DoD CMMC",
+          "url": "https://dodcio.defense.gov/CMMC/"
+        }
+      ]
+    },
+    {
+      "id": "3.6.3",
+      "text": "Do you periodically test your incident response capability, for example with tabletop or live exercises?",
+      "tier": "intermediate",
+      "group": "IR",
+      "references": [
+        "NIST SP 800-171 3.6.3",
+        "CMMC L2 IR.L2-3.6.3"
+      ],
+      "why": "A plan that has never been exercised often fails under pressure, revealing gaps only during a real crisis.",
+      "fix": "Schedule regular tabletop or simulated incident exercises and update the plan based on lessons learned.",
+      "links": [
+        {
+          "label": "NIST SP 800-171 Rev 2",
+          "url": "https://csrc.nist.gov/pubs/sp/800/171/r2/upd1/final"
+        },
+        {
+          "label": "DoD CMMC",
+          "url": "https://dodcio.defense.gov/CMMC/"
+        }
+      ]
+    },
+    {
+      "id": "3.7.1",
+      "text": "Do you perform and document maintenance on your organizational systems?",
+      "tier": "intermediate",
+      "group": "MA",
+      "references": [
+        "NIST SP 800-171 3.7.1",
+        "CMMC L2 MA.L2-3.7.1"
+      ],
+      "why": "Neglected systems accumulate unpatched flaws and failing hardware that attackers and outages can exploit.",
+      "fix": "Establish a scheduled maintenance program and keep records of the servicing performed on each system.",
+      "links": [
+        {
+          "label": "NIST SP 800-171 Rev 2",
+          "url": "https://csrc.nist.gov/pubs/sp/800/171/r2/upd1/final"
+        },
+        {
+          "label": "DoD CMMC",
+          "url": "https://dodcio.defense.gov/CMMC/"
+        }
+      ]
+    },
+    {
+      "id": "3.7.2",
+      "text": "Do you control the tools, techniques, mechanisms, and personnel used to carry out system maintenance?",
+      "tier": "intermediate",
+      "group": "MA",
+      "references": [
+        "NIST SP 800-171 3.7.2",
+        "CMMC L2 MA.L2-3.7.2"
+      ],
+      "why": "Unvetted maintenance tools or people can introduce malware or bypass security while servicing systems.",
+      "fix": "Approve and inspect maintenance tools and restrict maintenance work to authorized, controlled methods and staff.",
+      "links": [
+        {
+          "label": "NIST SP 800-171 Rev 2",
+          "url": "https://csrc.nist.gov/pubs/sp/800/171/r2/upd1/final"
+        },
+        {
+          "label": "DoD CMMC",
+          "url": "https://dodcio.defense.gov/CMMC/"
+        }
+      ]
+    },
+    {
+      "id": "3.7.3",
+      "text": "Do you sanitize equipment of sensitive information before it leaves your facility for off-site maintenance?",
+      "tier": "intermediate",
+      "group": "MA",
+      "references": [
+        "NIST SP 800-171 3.7.3",
+        "CMMC L2 MA.L2-3.7.3"
+      ],
+      "why": "Devices sent out for repair can carry sensitive data straight into untrusted hands if not first wiped.",
+      "fix": "Remove or securely erase protected data from equipment before releasing it for external servicing.",
+      "links": [
+        {
+          "label": "NIST SP 800-171 Rev 2",
+          "url": "https://csrc.nist.gov/pubs/sp/800/171/r2/upd1/final"
+        },
+        {
+          "label": "DoD CMMC",
+          "url": "https://dodcio.defense.gov/CMMC/"
+        }
+      ]
+    },
+    {
+      "id": "3.7.4",
+      "text": "Do you check diagnostic and test media for malicious code before using it on your systems?",
+      "tier": "intermediate",
+      "group": "MA",
+      "references": [
+        "NIST SP 800-171 3.7.4",
+        "CMMC L2 MA.L2-3.7.4"
+      ],
+      "why": "Maintenance media can silently carry malware that infects systems the moment it is connected.",
+      "fix": "Scan all diagnostic and test programs and media for malicious code before introducing them to any system.",
+      "links": [
+        {
+          "label": "NIST SP 800-171 Rev 2",
+          "url": "https://csrc.nist.gov/pubs/sp/800/171/r2/upd1/final"
+        },
+        {
+          "label": "DoD CMMC",
+          "url": "https://dodcio.defense.gov/CMMC/"
+        }
+      ]
+    },
+    {
+      "id": "3.7.5",
+      "text": "Do you require multifactor authentication for remote maintenance sessions and terminate them when the work is done?",
+      "tier": "intermediate",
+      "group": "MA",
+      "references": [
+        "NIST SP 800-171 3.7.5",
+        "CMMC L2 MA.L2-3.7.5"
+      ],
+      "why": "Remote maintenance over external connections is a prime attack path if it lacks strong authentication and clean shutdown.",
+      "fix": "Enforce MFA on nonlocal maintenance connections and automatically close the session once maintenance completes.",
+      "links": [
+        {
+          "label": "NIST SP 800-171 Rev 2",
+          "url": "https://csrc.nist.gov/pubs/sp/800/171/r2/upd1/final"
+        },
+        {
+          "label": "DoD CMMC",
+          "url": "https://dodcio.defense.gov/CMMC/"
+        }
+      ]
+    },
+    {
+      "id": "3.7.6",
+      "text": "Do you supervise maintenance personnel who lack authorized access while they work on your systems?",
+      "tier": "intermediate",
+      "group": "MA",
+      "references": [
+        "NIST SP 800-171 3.7.6",
+        "CMMC L2 MA.L2-3.7.6"
+      ],
+      "why": "An unescorted technician without clearance could view, copy, or tamper with sensitive data during servicing.",
+      "fix": "Assign an authorized escort to accompany and monitor any maintenance worker who does not hold the required access.",
+      "links": [
+        {
+          "label": "NIST SP 800-171 Rev 2",
+          "url": "https://csrc.nist.gov/pubs/sp/800/171/r2/upd1/final"
+        },
+        {
+          "label": "DoD CMMC",
+          "url": "https://dodcio.defense.gov/CMMC/"
+        }
+      ]
+    },
+    {
+      "id": "3.8.1",
+      "text": "Do you physically control and securely store both paper and digital media that hold sensitive information?",
+      "tier": "intermediate",
+      "group": "MP",
+      "references": [
+        "NIST SP 800-171 3.8.1",
+        "CMMC L2 MP.L2-3.8.1"
+      ],
+      "why": "Media left unsecured can be stolen or copied, exposing sensitive information without any network intrusion.",
+      "fix": "Store sensitive paper and digital media in locked cabinets, rooms, or controlled areas with restricted access.",
+      "links": [
+        {
+          "label": "NIST SP 800-171 Rev 2",
+          "url": "https://csrc.nist.gov/pubs/sp/800/171/r2/upd1/final"
+        },
+        {
+          "label": "DoD CMMC",
+          "url": "https://dodcio.defense.gov/CMMC/"
+        }
+      ]
+    },
+    {
+      "id": "3.8.2",
+      "text": "Do you limit access to sensitive information on media to only authorized users?",
+      "tier": "intermediate",
+      "group": "MP",
+      "references": [
+        "NIST SP 800-171 3.8.2",
+        "CMMC L2 MP.L2-3.8.2"
+      ],
+      "why": "If anyone can pick up and read a drive or document, access controls on the network become meaningless.",
+      "fix": "Restrict who can handle or read sensitive media and enforce it with physical and logical access controls.",
+      "links": [
+        {
+          "label": "NIST SP 800-171 Rev 2",
+          "url": "https://csrc.nist.gov/pubs/sp/800/171/r2/upd1/final"
+        },
+        {
+          "label": "DoD CMMC",
+          "url": "https://dodcio.defense.gov/CMMC/"
+        }
+      ]
+    },
+    {
+      "id": "3.8.3",
+      "text": "Do you sanitize or destroy media containing sensitive information before disposal or reuse?",
+      "tier": "basic",
+      "group": "MP",
+      "references": [
+        "NIST SP 800-171 3.8.3",
+        "CMMC L1 MP.L1-3.8.3"
+      ],
+      "why": "Discarded or repurposed drives and paper often still hold recoverable data that can leak sensitive information.",
+      "fix": "Wipe, degauss, or physically destroy media using approved methods before it is thrown out or reassigned.",
+      "links": [
+        {
+          "label": "NIST SP 800-171 Rev 2",
+          "url": "https://csrc.nist.gov/pubs/sp/800/171/r2/upd1/final"
+        },
+        {
+          "label": "DoD CMMC",
+          "url": "https://dodcio.defense.gov/CMMC/"
+        }
+      ]
+    },
+    {
+      "id": "3.8.4",
+      "text": "Do you mark media with the required sensitivity markings and any distribution limitations?",
+      "tier": "intermediate",
+      "group": "MP",
+      "references": [
+        "NIST SP 800-171 3.8.4",
+        "CMMC L2 MP.L2-3.8.4"
+      ],
+      "why": "Unlabeled media makes it easy for people to mishandle or over-share information they do not realize is sensitive.",
+      "fix": "Apply clear markings to media indicating its sensitivity level and any handling or distribution restrictions.",
+      "links": [
+        {
+          "label": "NIST SP 800-171 Rev 2",
+          "url": "https://csrc.nist.gov/pubs/sp/800/171/r2/upd1/final"
+        },
+        {
+          "label": "DoD CMMC",
+          "url": "https://dodcio.defense.gov/CMMC/"
+        }
+      ]
+    },
+    {
+      "id": "3.8.5",
+      "text": "Do you control and account for media containing sensitive information while it is transported outside controlled areas?",
+      "tier": "intermediate",
+      "group": "MP",
+      "references": [
+        "NIST SP 800-171 3.8.5",
+        "CMMC L2 MP.L2-3.8.5"
+      ],
+      "why": "Media in transit is easily lost or stolen, and without tracking you may never know it went missing.",
+      "fix": "Log custody of media during transport and use secured carriers or containers to maintain accountability.",
+      "links": [
+        {
+          "label": "NIST SP 800-171 Rev 2",
+          "url": "https://csrc.nist.gov/pubs/sp/800/171/r2/upd1/final"
+        },
+        {
+          "label": "DoD CMMC",
+          "url": "https://dodcio.defense.gov/CMMC/"
+        }
+      ]
+    },
+    {
+      "id": "3.8.6",
+      "text": "Do you encrypt sensitive information on digital media during transport unless it is otherwise physically protected?",
+      "tier": "intermediate",
+      "group": "MP",
+      "references": [
+        "NIST SP 800-171 3.8.6",
+        "CMMC L2 MP.L2-3.8.6"
+      ],
+      "why": "A lost or intercepted unencrypted drive exposes its full contents, but encryption keeps the data unreadable.",
+      "fix": "Encrypt sensitive data on portable digital media before it is moved, unless equivalent physical safeguards apply.",
+      "links": [
+        {
+          "label": "NIST SP 800-171 Rev 2",
+          "url": "https://csrc.nist.gov/pubs/sp/800/171/r2/upd1/final"
+        },
+        {
+          "label": "DoD CMMC",
+          "url": "https://dodcio.defense.gov/CMMC/"
+        }
+      ]
+    },
+    {
+      "id": "3.8.7",
+      "text": "Do you control the use of removable media, such as USB drives, on your system components?",
+      "tier": "intermediate",
+      "group": "MP",
+      "references": [
+        "NIST SP 800-171 3.8.7",
+        "CMMC L2 MP.L2-3.8.7"
+      ],
+      "why": "Uncontrolled removable media is a common route for both malware infection and data exfiltration.",
+      "fix": "Define and enforce a removable media policy, restricting or disabling ports and approving only sanctioned devices.",
+      "links": [
+        {
+          "label": "NIST SP 800-171 Rev 2",
+          "url": "https://csrc.nist.gov/pubs/sp/800/171/r2/upd1/final"
+        },
+        {
+          "label": "DoD CMMC",
+          "url": "https://dodcio.defense.gov/CMMC/"
+        }
+      ]
+    },
+    {
+      "id": "3.8.8",
+      "text": "Do you prohibit the use of portable storage devices that have no identifiable owner?",
+      "tier": "intermediate",
+      "group": "MP",
+      "references": [
+        "NIST SP 800-171 3.8.8",
+        "CMMC L2 MP.L2-3.8.8"
+      ],
+      "why": "Anonymous or found storage devices are a classic attack vector for planting malware inside an organization.",
+      "fix": "Block use of storage devices with no assigned owner and train staff never to plug in unknown media.",
+      "links": [
+        {
+          "label": "NIST SP 800-171 Rev 2",
+          "url": "https://csrc.nist.gov/pubs/sp/800/171/r2/upd1/final"
+        },
+        {
+          "label": "DoD CMMC",
+          "url": "https://dodcio.defense.gov/CMMC/"
+        }
+      ]
+    },
+    {
+      "id": "3.8.9",
+      "text": "Do you protect the confidentiality of backups that contain sensitive information at their storage locations?",
+      "tier": "intermediate",
+      "group": "MP",
+      "references": [
+        "NIST SP 800-171 3.8.9",
+        "CMMC L2 MP.L2-3.8.9"
+      ],
+      "why": "Backups hold the same sensitive data as production, so an unprotected backup store is an easy target.",
+      "fix": "Encrypt and access-control backup media and secure the sites, on-site or off-site, where backups are kept.",
+      "links": [
+        {
+          "label": "NIST SP 800-171 Rev 2",
+          "url": "https://csrc.nist.gov/pubs/sp/800/171/r2/upd1/final"
+        },
+        {
+          "label": "DoD CMMC",
+          "url": "https://dodcio.defense.gov/CMMC/"
+        }
+      ]
+    },
+    {
+      "id": "3.9.1",
+      "text": "Do you screen individuals before authorizing their access to systems containing sensitive information?",
+      "tier": "intermediate",
+      "group": "PS",
+      "references": [
+        "NIST SP 800-171 3.9.1",
+        "CMMC L2 PS.L2-3.9.1"
+      ],
+      "why": "Granting access without vetting can place untrustworthy insiders directly next to your most sensitive data.",
+      "fix": "Conduct background screening appropriate to the role before provisioning access to sensitive systems.",
+      "links": [
+        {
+          "label": "NIST SP 800-171 Rev 2",
+          "url": "https://csrc.nist.gov/pubs/sp/800/171/r2/upd1/final"
+        },
+        {
+          "label": "DoD CMMC",
+          "url": "https://dodcio.defense.gov/CMMC/"
+        }
+      ]
+    },
+    {
+      "id": "3.9.2",
+      "text": "Do you protect sensitive systems during and after personnel actions like terminations and transfers?",
+      "tier": "intermediate",
+      "group": "PS",
+      "references": [
+        "NIST SP 800-171 3.9.2",
+        "CMMC L2 PS.L2-3.9.2"
+      ],
+      "why": "Departing or reassigned staff who keep their old access can retain or abuse entry into sensitive systems.",
+      "fix": "Disable accounts, recover credentials and assets, and adjust access promptly whenever someone leaves or changes roles.",
+      "links": [
+        {
+          "label": "NIST SP 800-171 Rev 2",
+          "url": "https://csrc.nist.gov/pubs/sp/800/171/r2/upd1/final"
+        },
+        {
+          "label": "DoD CMMC",
+          "url": "https://dodcio.defense.gov/CMMC/"
+        }
+      ]
+    },
+    {
+      "id": "3.10.1",
+      "text": "Do you limit physical access to your facilities, equipment, and computer systems to only the people who are authorized?",
+      "tier": "basic",
+      "group": "PE",
+      "references": [
+        "NIST SP 800-171 3.10.1",
+        "CMMC L1 PE.L1-3.10.1"
+      ],
+      "why": "Unrestricted physical access lets outsiders tamper with, steal, or plug into systems holding sensitive data.",
+      "fix": "Define who is authorized and put locks, badge readers, or staffed reception at entry points to restricted areas.",
+      "links": [
+        {
+          "label": "NIST SP 800-171 Rev 2",
+          "url": "https://csrc.nist.gov/pubs/sp/800/171/r2/upd1/final"
+        },
+        {
+          "label": "DoD CMMC",
+          "url": "https://dodcio.defense.gov/CMMC/"
+        }
+      ]
+    },
+    {
+      "id": "3.10.2",
+      "text": "Do you protect and monitor the physical facility and the supporting infrastructure (power, cabling, HVAC) for your systems?",
+      "tier": "intermediate",
+      "group": "PE",
+      "references": [
+        "NIST SP 800-171 3.10.2",
+        "CMMC L2 PE.L2-3.10.2"
+      ],
+      "why": "Unguarded facilities and utilities can be sabotaged or exploited to disrupt or access protected systems.",
+      "fix": "Add physical monitoring (cameras, alarms) and safeguard power, wiring, and environmental controls from tampering.",
+      "links": [
+        {
+          "label": "NIST SP 800-171 Rev 2",
+          "url": "https://csrc.nist.gov/pubs/sp/800/171/r2/upd1/final"
+        },
+        {
+          "label": "DoD CMMC",
+          "url": "https://dodcio.defense.gov/CMMC/"
+        }
+      ]
+    },
+    {
+      "id": "3.10.3",
+      "text": "Do you escort visitors and keep an eye on their activity while they are inside your facility?",
+      "tier": "basic",
+      "group": "PE",
+      "references": [
+        "NIST SP 800-171 3.10.3",
+        "CMMC L1 PE.L1-3.10.3"
+      ],
+      "why": "Unaccompanied visitors can wander into sensitive areas and access or steal information undetected.",
+      "fix": "Require visitors to sign in, wear a badge, and be escorted by an employee at all times.",
+      "links": [
+        {
+          "label": "NIST SP 800-171 Rev 2",
+          "url": "https://csrc.nist.gov/pubs/sp/800/171/r2/upd1/final"
+        },
+        {
+          "label": "DoD CMMC",
+          "url": "https://dodcio.defense.gov/CMMC/"
+        }
+      ]
+    },
+    {
+      "id": "3.10.4",
+      "text": "Do you keep audit logs recording who physically accessed your facilities and when?",
+      "tier": "basic",
+      "group": "PE",
+      "references": [
+        "NIST SP 800-171 3.10.4",
+        "CMMC L1 PE.L1-3.10.4"
+      ],
+      "why": "Without a record of physical entry, you cannot investigate incidents or spot unauthorized access after the fact.",
+      "fix": "Maintain visitor sign-in sheets or electronic badge logs that capture identity, date, and time of access.",
+      "links": [
+        {
+          "label": "NIST SP 800-171 Rev 2",
+          "url": "https://csrc.nist.gov/pubs/sp/800/171/r2/upd1/final"
+        },
+        {
+          "label": "DoD CMMC",
+          "url": "https://dodcio.defense.gov/CMMC/"
+        }
+      ]
+    },
+    {
+      "id": "3.10.5",
+      "text": "Do you control and manage physical access devices such as keys, badges, locks, and access codes?",
+      "tier": "basic",
+      "group": "PE",
+      "references": [
+        "NIST SP 800-171 3.10.5",
+        "CMMC L1 PE.L1-3.10.5"
+      ],
+      "why": "Lost, shared, or unrecovered keys and badges let people enter secured areas without authorization.",
+      "fix": "Track who holds each key or badge, and collect or deactivate them when someone leaves or changes roles.",
+      "links": [
+        {
+          "label": "NIST SP 800-171 Rev 2",
+          "url": "https://csrc.nist.gov/pubs/sp/800/171/r2/upd1/final"
+        },
+        {
+          "label": "DoD CMMC",
+          "url": "https://dodcio.defense.gov/CMMC/"
+        }
+      ]
+    },
+    {
+      "id": "3.10.6",
+      "text": "Do you enforce safeguards for protected information when employees work from alternate sites such as home or the road?",
+      "tier": "intermediate",
+      "group": "PE",
+      "references": [
+        "NIST SP 800-171 3.10.6",
+        "CMMC L2 PE.L2-3.10.6"
+      ],
+      "why": "Remote and home work sites lack office protections, exposing sensitive data to theft or prying eyes.",
+      "fix": "Set a remote-work policy covering device security, encryption, and physical protection at off-site locations.",
+      "links": [
+        {
+          "label": "NIST SP 800-171 Rev 2",
+          "url": "https://csrc.nist.gov/pubs/sp/800/171/r2/upd1/final"
+        },
+        {
+          "label": "DoD CMMC",
+          "url": "https://dodcio.defense.gov/CMMC/"
+        }
+      ]
+    },
+    {
+      "id": "3.11.1",
+      "text": "Do you periodically assess the security risks to your operations, assets, and people from running systems that hold sensitive data?",
+      "tier": "intermediate",
+      "group": "RA",
+      "references": [
+        "NIST SP 800-171 3.11.1",
+        "CMMC L2 RA.L2-3.11.1"
+      ],
+      "why": "Without regular risk assessments you cannot prioritize defenses against the threats that matter most.",
+      "fix": "Run a periodic risk assessment that identifies threats, likelihood, and impact to your systems and data.",
+      "links": [
+        {
+          "label": "NIST SP 800-171 Rev 2",
+          "url": "https://csrc.nist.gov/pubs/sp/800/171/r2/upd1/final"
+        },
+        {
+          "label": "DoD CMMC",
+          "url": "https://dodcio.defense.gov/CMMC/"
+        }
+      ]
+    },
+    {
+      "id": "3.11.2",
+      "text": "Do you scan your systems and applications for vulnerabilities on a regular schedule and when new threats emerge?",
+      "tier": "intermediate",
+      "group": "RA",
+      "references": [
+        "NIST SP 800-171 3.11.2",
+        "CMMC L2 RA.L2-3.11.2"
+      ],
+      "why": "Unscanned systems hide known weaknesses that attackers can find and exploit before you do.",
+      "fix": "Deploy a vulnerability scanner and run it on a set cadence plus whenever significant new flaws are announced.",
+      "links": [
+        {
+          "label": "NIST SP 800-171 Rev 2",
+          "url": "https://csrc.nist.gov/pubs/sp/800/171/r2/upd1/final"
+        },
+        {
+          "label": "DoD CMMC",
+          "url": "https://dodcio.defense.gov/CMMC/"
+        }
+      ]
+    },
+    {
+      "id": "3.11.3",
+      "text": "Do you fix the vulnerabilities you find, prioritizing them according to your risk assessments?",
+      "tier": "intermediate",
+      "group": "RA",
+      "references": [
+        "NIST SP 800-171 3.11.3",
+        "CMMC L2 RA.L2-3.11.3"
+      ],
+      "why": "Finding vulnerabilities does no good if the most dangerous ones are left unpatched and exploitable.",
+      "fix": "Create a remediation process that ranks findings by risk and tracks fixes to closure within set timeframes.",
+      "links": [
+        {
+          "label": "NIST SP 800-171 Rev 2",
+          "url": "https://csrc.nist.gov/pubs/sp/800/171/r2/upd1/final"
+        },
+        {
+          "label": "DoD CMMC",
+          "url": "https://dodcio.defense.gov/CMMC/"
+        }
+      ]
+    },
+    {
+      "id": "3.12.1",
+      "text": "Do you periodically assess your security controls to confirm they are actually working as intended?",
+      "tier": "intermediate",
+      "group": "CA",
+      "references": [
+        "NIST SP 800-171 3.12.1",
+        "CMMC L2 CA.L2-3.12.1"
+      ],
+      "why": "Controls that are assumed to work but never tested may silently fail and leave data exposed.",
+      "fix": "Schedule periodic assessments or audits that verify each control operates effectively and document results.",
+      "links": [
+        {
+          "label": "NIST SP 800-171 Rev 2",
+          "url": "https://csrc.nist.gov/pubs/sp/800/171/r2/upd1/final"
+        },
+        {
+          "label": "DoD CMMC",
+          "url": "https://dodcio.defense.gov/CMMC/"
+        }
+      ]
+    },
+    {
+      "id": "3.12.2",
+      "text": "Do you create and follow plans of action to correct deficiencies and reduce the vulnerabilities found in your systems?",
+      "tier": "intermediate",
+      "group": "CA",
+      "references": [
+        "NIST SP 800-171 3.12.2",
+        "CMMC L2 CA.L2-3.12.2"
+      ],
+      "why": "Identified gaps that lack an owner, plan, and deadline tend to linger and never get resolved.",
+      "fix": "Maintain a plan of action and milestones (POA&M) that assigns owners and target dates to each open deficiency.",
+      "links": [
+        {
+          "label": "NIST SP 800-171 Rev 2",
+          "url": "https://csrc.nist.gov/pubs/sp/800/171/r2/upd1/final"
+        },
+        {
+          "label": "DoD CMMC",
+          "url": "https://dodcio.defense.gov/CMMC/"
+        }
+      ]
+    },
+    {
+      "id": "3.12.3",
+      "text": "Do you monitor your security controls on an ongoing basis to make sure they stay effective over time?",
+      "tier": "intermediate",
+      "group": "CA",
+      "references": [
+        "NIST SP 800-171 3.12.3",
+        "CMMC L2 CA.L2-3.12.3"
+      ],
+      "why": "Controls decay as systems, staff, and threats change, so a one-time check quickly goes stale.",
+      "fix": "Set up continuous monitoring (automated alerts, periodic reviews) so control drift is caught quickly.",
+      "links": [
+        {
+          "label": "NIST SP 800-171 Rev 2",
+          "url": "https://csrc.nist.gov/pubs/sp/800/171/r2/upd1/final"
+        },
+        {
+          "label": "DoD CMMC",
+          "url": "https://dodcio.defense.gov/CMMC/"
+        }
+      ]
+    },
+    {
+      "id": "3.12.4",
+      "text": "Have you developed, documented, and do you periodically update a system security plan describing how you protect your systems?",
+      "tier": "intermediate",
+      "group": "CA",
+      "references": [
+        "NIST SP 800-171 3.12.4",
+        "CMMC L2 CA.L2-3.12.4"
+      ],
+      "why": "Without a written security plan, protections are inconsistent and impossible to verify or hand off.",
+      "fix": "Write a system security plan (SSP) covering scope, boundaries, and controls, and review it on a regular cycle.",
+      "links": [
+        {
+          "label": "NIST SP 800-171 Rev 2",
+          "url": "https://csrc.nist.gov/pubs/sp/800/171/r2/upd1/final"
+        },
+        {
+          "label": "DoD CMMC",
+          "url": "https://dodcio.defense.gov/CMMC/"
+        }
+      ]
+    },
+    {
+      "id": "3.13.1",
+      "text": "Do you monitor, control, and protect communications at the external boundaries and key internal boundaries of your systems?",
+      "tier": "basic",
+      "group": "SC",
+      "references": [
+        "NIST SP 800-171 3.13.1",
+        "CMMC L1 SC.L1-3.13.1"
+      ],
+      "why": "Unguarded network boundaries let attackers move in and data flow out without being detected or blocked.",
+      "fix": "Deploy firewalls or gateways at your network perimeter and key internal segments to control traffic.",
+      "links": [
+        {
+          "label": "NIST SP 800-171 Rev 2",
+          "url": "https://csrc.nist.gov/pubs/sp/800/171/r2/upd1/final"
+        },
+        {
+          "label": "DoD CMMC",
+          "url": "https://dodcio.defense.gov/CMMC/"
+        }
+      ]
+    },
+    {
+      "id": "3.13.2",
+      "text": "Do you apply secure architecture, development techniques, and engineering principles that build security into your systems?",
+      "tier": "intermediate",
+      "group": "SC",
+      "references": [
+        "NIST SP 800-171 3.13.2",
+        "CMMC L2 SC.L2-3.13.2"
+      ],
+      "why": "Security bolted on late is weaker and costlier than designing it into systems from the start.",
+      "fix": "Adopt secure design standards and integrate security reviews into your architecture and development lifecycle.",
+      "links": [
+        {
+          "label": "NIST SP 800-171 Rev 2",
+          "url": "https://csrc.nist.gov/pubs/sp/800/171/r2/upd1/final"
+        },
+        {
+          "label": "DoD CMMC",
+          "url": "https://dodcio.defense.gov/CMMC/"
+        }
+      ]
+    },
+    {
+      "id": "3.13.3",
+      "text": "Do you separate regular user functions from system administration and management functions?",
+      "tier": "intermediate",
+      "group": "SC",
+      "references": [
+        "NIST SP 800-171 3.13.3",
+        "CMMC L2 SC.L2-3.13.3"
+      ],
+      "why": "Mixing admin tools with everyday user access widens the blast radius if a normal account is compromised.",
+      "fix": "Run management interfaces on separate accounts, systems, or networks isolated from general user activity.",
+      "links": [
+        {
+          "label": "NIST SP 800-171 Rev 2",
+          "url": "https://csrc.nist.gov/pubs/sp/800/171/r2/upd1/final"
+        },
+        {
+          "label": "DoD CMMC",
+          "url": "https://dodcio.defense.gov/CMMC/"
+        }
+      ]
+    },
+    {
+      "id": "3.13.4",
+      "text": "Do you prevent unauthorized or unintended transfer of information through shared system resources?",
+      "tier": "intermediate",
+      "group": "SC",
+      "references": [
+        "NIST SP 800-171 3.13.4",
+        "CMMC L2 SC.L2-3.13.4"
+      ],
+      "why": "Leftover data in shared memory, storage, or caches can leak to the next user or process that reuses it.",
+      "fix": "Configure systems to clear or isolate shared resources (memory, buffers, temp files) between users and tasks.",
+      "links": [
+        {
+          "label": "NIST SP 800-171 Rev 2",
+          "url": "https://csrc.nist.gov/pubs/sp/800/171/r2/upd1/final"
+        },
+        {
+          "label": "DoD CMMC",
+          "url": "https://dodcio.defense.gov/CMMC/"
+        }
+      ]
+    },
+    {
+      "id": "3.13.5",
+      "text": "Do you place publicly accessible systems on subnetworks that are physically or logically separated from your internal networks?",
+      "tier": "basic",
+      "group": "SC",
+      "references": [
+        "NIST SP 800-171 3.13.5",
+        "CMMC L1 SC.L1-3.13.5"
+      ],
+      "why": "Public-facing servers on the same network as internal systems give attackers a direct path inward.",
+      "fix": "Put internet-facing services in a separate DMZ subnet isolated from your internal network by firewall rules.",
+      "links": [
+        {
+          "label": "NIST SP 800-171 Rev 2",
+          "url": "https://csrc.nist.gov/pubs/sp/800/171/r2/upd1/final"
+        },
+        {
+          "label": "DoD CMMC",
+          "url": "https://dodcio.defense.gov/CMMC/"
+        }
+      ]
+    },
+    {
+      "id": "3.13.6",
+      "text": "Do you deny network traffic by default and allow only the connections you have explicitly approved?",
+      "tier": "intermediate",
+      "group": "SC",
+      "references": [
+        "NIST SP 800-171 3.13.6",
+        "CMMC L2 SC.L2-3.13.6"
+      ],
+      "why": "Allowing everything except known-bad traffic lets novel or overlooked threats slip straight through.",
+      "fix": "Configure firewalls to deny-all by default and add explicit allow rules only for required, approved traffic.",
+      "links": [
+        {
+          "label": "NIST SP 800-171 Rev 2",
+          "url": "https://csrc.nist.gov/pubs/sp/800/171/r2/upd1/final"
+        },
+        {
+          "label": "DoD CMMC",
+          "url": "https://dodcio.defense.gov/CMMC/"
+        }
+      ]
+    },
+    {
+      "id": "3.13.7",
+      "text": "Do you prevent remote devices from connecting to your network and an outside network at the same time (split tunneling)?",
+      "tier": "intermediate",
+      "group": "SC",
+      "references": [
+        "NIST SP 800-171 3.13.7",
+        "CMMC L2 SC.L2-3.13.7"
+      ],
+      "why": "Split tunneling lets a remote device bridge the internet and your network, bypassing perimeter defenses.",
+      "fix": "Configure your VPN to route all traffic through the corporate gateway, disabling split tunneling on clients.",
+      "links": [
+        {
+          "label": "NIST SP 800-171 Rev 2",
+          "url": "https://csrc.nist.gov/pubs/sp/800/171/r2/upd1/final"
+        },
+        {
+          "label": "DoD CMMC",
+          "url": "https://dodcio.defense.gov/CMMC/"
+        }
+      ]
+    },
+    {
+      "id": "3.13.8",
+      "text": "Do you use encryption or physical protection to safeguard sensitive information while it is being transmitted?",
+      "tier": "intermediate",
+      "group": "SC",
+      "references": [
+        "NIST SP 800-171 3.13.8",
+        "CMMC L2 SC.L2-3.13.8"
+      ],
+      "why": "Data sent in the clear can be intercepted and read by anyone monitoring the network path.",
+      "fix": "Enforce TLS, VPNs, or other encryption for sensitive data in transit, or use protected physical channels.",
+      "links": [
+        {
+          "label": "NIST SP 800-171 Rev 2",
+          "url": "https://csrc.nist.gov/pubs/sp/800/171/r2/upd1/final"
+        },
+        {
+          "label": "DoD CMMC",
+          "url": "https://dodcio.defense.gov/CMMC/"
+        }
+      ]
+    },
+    {
+      "id": "3.13.9",
+      "text": "Do you automatically terminate network sessions after a period of inactivity or when a communication session ends?",
+      "tier": "intermediate",
+      "group": "SC",
+      "references": [
+        "NIST SP 800-171 3.13.9",
+        "CMMC L2 SC.L2-3.13.9"
+      ],
+      "why": "Idle open sessions can be hijacked or reused by someone who gains access to an unattended device.",
+      "fix": "Set session timeouts that drop network connections after inactivity or at the end of each session.",
+      "links": [
+        {
+          "label": "NIST SP 800-171 Rev 2",
+          "url": "https://csrc.nist.gov/pubs/sp/800/171/r2/upd1/final"
+        },
+        {
+          "label": "DoD CMMC",
+          "url": "https://dodcio.defense.gov/CMMC/"
+        }
+      ]
+    },
+    {
+      "id": "3.13.10",
+      "text": "Do you establish and manage cryptographic keys for the cryptography used in your systems?",
+      "tier": "intermediate",
+      "group": "SC",
+      "references": [
+        "NIST SP 800-171 3.13.10",
+        "CMMC L2 SC.L2-3.13.10"
+      ],
+      "why": "Poorly generated, stored, or rotated keys undermine encryption and can expose all the data it protects.",
+      "fix": "Adopt a key management process covering secure generation, storage, rotation, and destruction of keys.",
+      "links": [
+        {
+          "label": "NIST SP 800-171 Rev 2",
+          "url": "https://csrc.nist.gov/pubs/sp/800/171/r2/upd1/final"
+        },
+        {
+          "label": "DoD CMMC",
+          "url": "https://dodcio.defense.gov/CMMC/"
+        }
+      ]
+    },
+    {
+      "id": "3.13.11",
+      "text": "Do you use FIPS-validated cryptography whenever encryption is used to protect sensitive information?",
+      "tier": "intermediate",
+      "group": "SC",
+      "references": [
+        "NIST SP 800-171 3.13.11",
+        "CMMC L2 SC.L2-3.13.11"
+      ],
+      "why": "Unvalidated or weak encryption may contain flaws that leave protected data readable by attackers.",
+      "fix": "Configure systems to use FIPS 140-validated cryptographic modules for protecting sensitive information.",
+      "links": [
+        {
+          "label": "NIST SP 800-171 Rev 2",
+          "url": "https://csrc.nist.gov/pubs/sp/800/171/r2/upd1/final"
+        },
+        {
+          "label": "DoD CMMC",
+          "url": "https://dodcio.defense.gov/CMMC/"
+        }
+      ]
+    },
+    {
+      "id": "3.13.12",
+      "text": "Do you block remote activation of collaborative devices like cameras and microphones, and clearly signal when they are in use?",
+      "tier": "intermediate",
+      "group": "SC",
+      "references": [
+        "NIST SP 800-171 3.13.12",
+        "CMMC L2 SC.L2-3.13.12"
+      ],
+      "why": "Remotely activated cameras or mics can secretly capture conversations and sensitive information.",
+      "fix": "Disable remote activation of collaborative devices and provide indicators (lights, prompts) when they are on.",
+      "links": [
+        {
+          "label": "NIST SP 800-171 Rev 2",
+          "url": "https://csrc.nist.gov/pubs/sp/800/171/r2/upd1/final"
+        },
+        {
+          "label": "DoD CMMC",
+          "url": "https://dodcio.defense.gov/CMMC/"
+        }
+      ]
+    },
+    {
+      "id": "3.13.13",
+      "text": "Do you control and monitor the use of mobile code such as scripts, applets, and macros?",
+      "tier": "intermediate",
+      "group": "SC",
+      "references": [
+        "NIST SP 800-171 3.13.13",
+        "CMMC L2 SC.L2-3.13.13"
+      ],
+      "why": "Mobile code can run malicious actions on a device the moment a user opens a page or file.",
+      "fix": "Define a mobile code policy and use controls that restrict or block untrusted scripts, applets, and macros.",
+      "links": [
+        {
+          "label": "NIST SP 800-171 Rev 2",
+          "url": "https://csrc.nist.gov/pubs/sp/800/171/r2/upd1/final"
+        },
+        {
+          "label": "DoD CMMC",
+          "url": "https://dodcio.defense.gov/CMMC/"
+        }
+      ]
+    },
+    {
+      "id": "3.13.14",
+      "text": "Do you control and monitor your use of Voice over IP (VoIP) technologies?",
+      "tier": "intermediate",
+      "group": "SC",
+      "references": [
+        "NIST SP 800-171 3.13.14",
+        "CMMC L2 SC.L2-3.13.14"
+      ],
+      "why": "Unsecured VoIP systems can be eavesdropped on or abused as an entry point into your network.",
+      "fix": "Set usage rules for VoIP and monitor it, applying authentication and encryption to voice traffic.",
+      "links": [
+        {
+          "label": "NIST SP 800-171 Rev 2",
+          "url": "https://csrc.nist.gov/pubs/sp/800/171/r2/upd1/final"
+        },
+        {
+          "label": "DoD CMMC",
+          "url": "https://dodcio.defense.gov/CMMC/"
+        }
+      ]
+    },
+    {
+      "id": "3.13.15",
+      "text": "Do you protect the authenticity of communication sessions so you can trust the other end and detect tampering?",
+      "tier": "intermediate",
+      "group": "SC",
+      "references": [
+        "NIST SP 800-171 3.13.15",
+        "CMMC L2 SC.L2-3.13.15"
+      ],
+      "why": "Without session authenticity, attackers can impersonate a party or hijack a connection mid-session.",
+      "fix": "Use authenticated, integrity-protected protocols (like mutual TLS) so both endpoints and messages are verified.",
+      "links": [
+        {
+          "label": "NIST SP 800-171 Rev 2",
+          "url": "https://csrc.nist.gov/pubs/sp/800/171/r2/upd1/final"
+        },
+        {
+          "label": "DoD CMMC",
+          "url": "https://dodcio.defense.gov/CMMC/"
+        }
+      ]
+    },
+    {
+      "id": "3.13.16",
+      "text": "Do you protect the confidentiality of sensitive information while it is stored at rest?",
+      "tier": "intermediate",
+      "group": "SC",
+      "references": [
+        "NIST SP 800-171 3.13.16",
+        "CMMC L2 SC.L2-3.13.16"
+      ],
+      "why": "Stored data left unencrypted can be read directly if a disk, laptop, or backup is lost or stolen.",
+      "fix": "Enable encryption at rest for sensitive data on servers, endpoints, removable media, and backups.",
+      "links": [
+        {
+          "label": "NIST SP 800-171 Rev 2",
+          "url": "https://csrc.nist.gov/pubs/sp/800/171/r2/upd1/final"
+        },
+        {
+          "label": "DoD CMMC",
+          "url": "https://dodcio.defense.gov/CMMC/"
+        }
+      ]
+    },
+    {
+      "id": "3.14.1",
+      "text": "Do you identify, report, and correct flaws in your systems in a timely manner?",
+      "tier": "basic",
+      "group": "SI",
+      "references": [
+        "NIST SP 800-171 3.14.1",
+        "CMMC L1 SI.L1-3.14.1"
+      ],
+      "why": "Unpatched system flaws are among the most common ways attackers gain a foothold.",
+      "fix": "Establish a patch management process that finds, tracks, and applies fixes for flaws promptly.",
+      "links": [
+        {
+          "label": "NIST SP 800-171 Rev 2",
+          "url": "https://csrc.nist.gov/pubs/sp/800/171/r2/upd1/final"
+        },
+        {
+          "label": "DoD CMMC",
+          "url": "https://dodcio.defense.gov/CMMC/"
+        }
+      ]
+    },
+    {
+      "id": "3.14.2",
+      "text": "Do you provide protection from malicious code at appropriate points across your systems?",
+      "tier": "basic",
+      "group": "SI",
+      "references": [
+        "NIST SP 800-171 3.14.2",
+        "CMMC L1 SI.L1-3.14.2"
+      ],
+      "why": "Without anti-malware defenses, viruses and other malicious code can spread and compromise your data.",
+      "fix": "Deploy antivirus or endpoint protection on servers, workstations, and email or web gateways.",
+      "links": [
+        {
+          "label": "NIST SP 800-171 Rev 2",
+          "url": "https://csrc.nist.gov/pubs/sp/800/171/r2/upd1/final"
+        },
+        {
+          "label": "DoD CMMC",
+          "url": "https://dodcio.defense.gov/CMMC/"
+        }
+      ]
+    },
+    {
+      "id": "3.14.3",
+      "text": "Do you monitor security alerts and advisories and take action in response to them?",
+      "tier": "intermediate",
+      "group": "SI",
+      "references": [
+        "NIST SP 800-171 3.14.3",
+        "CMMC L2 SI.L2-3.14.3"
+      ],
+      "why": "Ignoring vendor and threat advisories means you miss warnings about actively exploited weaknesses.",
+      "fix": "Subscribe to relevant security advisories and assign someone to review and act on them promptly.",
+      "links": [
+        {
+          "label": "NIST SP 800-171 Rev 2",
+          "url": "https://csrc.nist.gov/pubs/sp/800/171/r2/upd1/final"
+        },
+        {
+          "label": "DoD CMMC",
+          "url": "https://dodcio.defense.gov/CMMC/"
+        }
+      ]
+    },
+    {
+      "id": "3.14.4",
+      "text": "Do you update your malicious code protection mechanisms whenever new versions or definitions become available?",
+      "tier": "basic",
+      "group": "SI",
+      "references": [
+        "NIST SP 800-171 3.14.4",
+        "CMMC L1 SI.L1-3.14.4"
+      ],
+      "why": "Out-of-date antivirus signatures cannot recognize the newest malware variants circulating in the wild.",
+      "fix": "Enable automatic updates for antivirus engines and definitions so protection stays current.",
+      "links": [
+        {
+          "label": "NIST SP 800-171 Rev 2",
+          "url": "https://csrc.nist.gov/pubs/sp/800/171/r2/upd1/final"
+        },
+        {
+          "label": "DoD CMMC",
+          "url": "https://dodcio.defense.gov/CMMC/"
+        }
+      ]
+    },
+    {
+      "id": "3.14.5",
+      "text": "Do you run periodic scans of your systems and real-time scans of files from outside sources as they are downloaded or opened?",
+      "tier": "basic",
+      "group": "SI",
+      "references": [
+        "NIST SP 800-171 3.14.5",
+        "CMMC L1 SI.L1-3.14.5"
+      ],
+      "why": "Malware can arrive in downloads and attachments and stay hidden until a scan catches it.",
+      "fix": "Configure antivirus for scheduled full scans plus real-time scanning of files as they enter systems.",
+      "links": [
+        {
+          "label": "NIST SP 800-171 Rev 2",
+          "url": "https://csrc.nist.gov/pubs/sp/800/171/r2/upd1/final"
+        },
+        {
+          "label": "DoD CMMC",
+          "url": "https://dodcio.defense.gov/CMMC/"
+        }
+      ]
+    },
+    {
+      "id": "3.14.6",
+      "text": "Do you monitor your systems and network traffic, both inbound and outbound, to detect attacks and signs of potential attacks?",
+      "tier": "intermediate",
+      "group": "SI",
+      "references": [
+        "NIST SP 800-171 3.14.6",
+        "CMMC L2 SI.L2-3.14.6"
+      ],
+      "why": "Attacks that are not monitored for can progress undetected until serious damage is done.",
+      "fix": "Deploy intrusion detection or monitoring tools that watch traffic and system activity for attack indicators.",
+      "links": [
+        {
+          "label": "NIST SP 800-171 Rev 2",
+          "url": "https://csrc.nist.gov/pubs/sp/800/171/r2/upd1/final"
+        },
+        {
+          "label": "DoD CMMC",
+          "url": "https://dodcio.defense.gov/CMMC/"
+        }
+      ]
+    },
+    {
+      "id": "3.14.7",
+      "text": "Do you identify unauthorized use of your organizational systems?",
+      "tier": "intermediate",
+      "group": "SI",
+      "references": [
+        "NIST SP 800-171 3.14.7",
+        "CMMC L2 SI.L2-3.14.7"
+      ],
+      "why": "Unauthorized use that goes unnoticed lets intruders or insiders operate freely inside your systems.",
+      "fix": "Review logs and use monitoring to define normal activity and flag unauthorized or anomalous system use.",
+      "links": [
+        {
+          "label": "NIST SP 800-171 Rev 2",
+          "url": "https://csrc.nist.gov/pubs/sp/800/171/r2/upd1/final"
+        },
+        {
+          "label": "DoD CMMC",
+          "url": "https://dodcio.defense.gov/CMMC/"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,918 @@
+{
+  "categories": [
+    {
+      "id": "LEADER",
+      "name": "Yourself: culture and investment",
+      "blurb": "As the leader, you set cyber strategy, fund it, and build a culture where security is a shared priority."
+    },
+    {
+      "id": "STAFF",
+      "name": "Your staff: awareness and vigilance",
+      "blurb": "Your people are the first line of defense, so train them to spot threats and make safe choices online."
+    },
+    {
+      "id": "SYSTEMS",
+      "name": "Your systems: protect assets and apps",
+      "blurb": "Know what hardware and software you run, keep it updated and supported, and retire what puts you at risk."
+    },
+    {
+      "id": "SURROUNDINGS",
+      "name": "Your surroundings: the digital workplace",
+      "blurb": "Make sure only the right people and devices can reach your systems, with strong sign-in and least privilege."
+    },
+    {
+      "id": "DATA",
+      "name": "Your data: backups and recovery",
+      "blurb": "Know what information matters, back it up regularly, and protect those backups so you can recover after loss."
+    },
+    {
+      "id": "RESPONSE",
+      "name": "Your crisis response: limit damage",
+      "blurb": "Plan ahead so that when an incident hits you can contain the damage and restore normal operations quickly."
+    }
+  ],
+  "questions": [
+    {
+      "id": "CE-LEADER-1",
+      "text": "Do you treat cybersecurity as a business risk and factor it into your strategic and financial planning?",
+      "tier": "basic",
+      "group": "LEADER",
+      "references": [
+        "CISA Cyber Essentials: Yourself"
+      ],
+      "why": "When leaders ignore cyber risk, the organization underinvests and stays exposed to avoidable attacks.",
+      "fix": "Add cybersecurity as a standing item in your business planning and risk discussions.",
+      "links": [
+        {
+          "label": "CISA Cyber Essentials",
+          "url": "https://www.cisa.gov/cyber-essentials"
+        },
+        {
+          "label": "Cyber Essentials Toolkits",
+          "url": "https://www.cisa.gov/resources-tools/resources/cyber-essentials-toolkits"
+        }
+      ]
+    },
+    {
+      "id": "CE-LEADER-2",
+      "text": "Have you budgeted for and invested in basic cybersecurity tools, services, and staff?",
+      "tier": "basic",
+      "group": "LEADER",
+      "references": [
+        "CISA Cyber Essentials: Yourself"
+      ],
+      "why": "Without dedicated funding, essential protections go unimplemented and gaps persist.",
+      "fix": "Set aside a defined portion of your budget for cybersecurity and review it each cycle.",
+      "links": [
+        {
+          "label": "CISA Cyber Essentials",
+          "url": "https://www.cisa.gov/cyber-essentials"
+        },
+        {
+          "label": "Cyber Essentials Toolkits",
+          "url": "https://www.cisa.gov/resources-tools/resources/cyber-essentials-toolkits"
+        }
+      ]
+    },
+    {
+      "id": "CE-LEADER-3",
+      "text": "Do you know which of your critical business operations depend on IT systems and data?",
+      "tier": "basic",
+      "group": "LEADER",
+      "references": [
+        "CISA Cyber Essentials: Yourself"
+      ],
+      "why": "If you cannot map operations to the systems behind them, you cannot protect what matters most.",
+      "fix": "List your core business functions and note the IT systems and data each one relies on.",
+      "links": [
+        {
+          "label": "CISA Cyber Essentials",
+          "url": "https://www.cisa.gov/cyber-essentials"
+        },
+        {
+          "label": "Cyber Essentials Toolkits",
+          "url": "https://www.cisa.gov/resources-tools/resources/cyber-essentials-toolkits"
+        }
+      ]
+    },
+    {
+      "id": "CE-LEADER-4",
+      "text": "Have you led the creation of written cybersecurity policies for your organization?",
+      "tier": "basic",
+      "group": "LEADER",
+      "references": [
+        "CISA Cyber Essentials: Yourself"
+      ],
+      "why": "Without clear policies, staff make inconsistent decisions and security expectations go unmet.",
+      "fix": "Draft and approve baseline policies covering acceptable use, access, and incident reporting.",
+      "links": [
+        {
+          "label": "CISA Cyber Essentials",
+          "url": "https://www.cisa.gov/cyber-essentials"
+        },
+        {
+          "label": "Cyber Essentials Toolkits",
+          "url": "https://www.cisa.gov/resources-tools/resources/cyber-essentials-toolkits"
+        }
+      ]
+    },
+    {
+      "id": "CE-LEADER-5",
+      "text": "Do you take part in information-sharing networks with industry peers and government agencies?",
+      "tier": "basic",
+      "group": "LEADER",
+      "references": [
+        "CISA Cyber Essentials: Yourself"
+      ],
+      "why": "Isolated organizations learn about threats too late to act on early warnings.",
+      "fix": "Join a sector information-sharing group or subscribe to CISA alerts and advisories.",
+      "links": [
+        {
+          "label": "CISA Cyber Essentials",
+          "url": "https://www.cisa.gov/cyber-essentials"
+        },
+        {
+          "label": "Cyber Essentials Toolkits",
+          "url": "https://www.cisa.gov/resources-tools/resources/cyber-essentials-toolkits"
+        }
+      ]
+    },
+    {
+      "id": "CE-LEADER-6",
+      "text": "Are cybersecurity roles and responsibilities clearly assigned to specific people in your organization?",
+      "tier": "basic",
+      "group": "LEADER",
+      "references": [
+        "CISA Cyber Essentials: Yourself"
+      ],
+      "why": "When no one owns security tasks, they fall through the cracks and accountability is lost.",
+      "fix": "Name who is responsible for each key security duty and communicate it across the team.",
+      "links": [
+        {
+          "label": "CISA Cyber Essentials",
+          "url": "https://www.cisa.gov/cyber-essentials"
+        },
+        {
+          "label": "Cyber Essentials Toolkits",
+          "url": "https://www.cisa.gov/resources-tools/resources/cyber-essentials-toolkits"
+        }
+      ]
+    },
+    {
+      "id": "CE-LEADER-7",
+      "text": "Do you regularly review your cyber risks and adjust priorities as threats change?",
+      "tier": "basic",
+      "group": "LEADER",
+      "references": [
+        "CISA Cyber Essentials: Yourself"
+      ],
+      "why": "A one-time assessment goes stale as your business and the threat landscape evolve.",
+      "fix": "Schedule a recurring review of your top cyber risks and update your priorities accordingly.",
+      "links": [
+        {
+          "label": "CISA Cyber Essentials",
+          "url": "https://www.cisa.gov/cyber-essentials"
+        },
+        {
+          "label": "Cyber Essentials Toolkits",
+          "url": "https://www.cisa.gov/resources-tools/resources/cyber-essentials-toolkits"
+        }
+      ]
+    },
+    {
+      "id": "CE-STAFF-1",
+      "text": "Do you provide regular cybersecurity awareness training to all employees?",
+      "tier": "basic",
+      "group": "STAFF",
+      "references": [
+        "CISA Cyber Essentials: Your staff"
+      ],
+      "why": "Untrained staff are more likely to fall for attacks that bypass technical defenses.",
+      "fix": "Roll out a recurring awareness training program for everyone, including new hires.",
+      "links": [
+        {
+          "label": "CISA Cyber Essentials",
+          "url": "https://www.cisa.gov/cyber-essentials"
+        },
+        {
+          "label": "Cyber Essentials Toolkits",
+          "url": "https://www.cisa.gov/resources-tools/resources/cyber-essentials-toolkits"
+        }
+      ]
+    },
+    {
+      "id": "CE-STAFF-2",
+      "text": "Does your training teach staff how to recognize phishing emails and social engineering?",
+      "tier": "basic",
+      "group": "STAFF",
+      "references": [
+        "CISA Cyber Essentials: Your staff"
+      ],
+      "why": "Phishing is a leading entry point for attackers, and unaware staff click without hesitation.",
+      "fix": "Include phishing examples and red flags in training, and consider simulated phishing tests.",
+      "links": [
+        {
+          "label": "CISA Cyber Essentials",
+          "url": "https://www.cisa.gov/cyber-essentials"
+        },
+        {
+          "label": "Cyber Essentials Toolkits",
+          "url": "https://www.cisa.gov/resources-tools/resources/cyber-essentials-toolkits"
+        }
+      ]
+    },
+    {
+      "id": "CE-STAFF-3",
+      "text": "Do employees know how and to whom they should report a suspected cyber incident?",
+      "tier": "basic",
+      "group": "STAFF",
+      "references": [
+        "CISA Cyber Essentials: Your staff"
+      ],
+      "why": "Delayed reporting lets small incidents grow into major breaches before anyone responds.",
+      "fix": "Publish a simple reporting path and remind staff that early reporting is encouraged.",
+      "links": [
+        {
+          "label": "CISA Cyber Essentials",
+          "url": "https://www.cisa.gov/cyber-essentials"
+        },
+        {
+          "label": "Cyber Essentials Toolkits",
+          "url": "https://www.cisa.gov/resources-tools/resources/cyber-essentials-toolkits"
+        }
+      ]
+    },
+    {
+      "id": "CE-STAFF-4",
+      "text": "Have you built a workplace culture that encourages and rewards secure online behavior?",
+      "tier": "basic",
+      "group": "STAFF",
+      "references": [
+        "CISA Cyber Essentials: Your staff"
+      ],
+      "why": "If security feels like a burden, staff cut corners and risky habits spread.",
+      "fix": "Recognize good security behavior and make safe choices the easy, expected default.",
+      "links": [
+        {
+          "label": "CISA Cyber Essentials",
+          "url": "https://www.cisa.gov/cyber-essentials"
+        },
+        {
+          "label": "Cyber Essentials Toolkits",
+          "url": "https://www.cisa.gov/resources-tools/resources/cyber-essentials-toolkits"
+        }
+      ]
+    },
+    {
+      "id": "CE-STAFF-5",
+      "text": "Do you keep staff informed about current cyber threats affecting your industry?",
+      "tier": "basic",
+      "group": "STAFF",
+      "references": [
+        "CISA Cyber Essentials: Your staff"
+      ],
+      "why": "Staff cannot stay vigilant against threats they have never heard about.",
+      "fix": "Share timely alerts about active scams and attacks hitting your peers or sector.",
+      "links": [
+        {
+          "label": "CISA Cyber Essentials",
+          "url": "https://www.cisa.gov/cyber-essentials"
+        },
+        {
+          "label": "Cyber Essentials Toolkits",
+          "url": "https://www.cisa.gov/resources-tools/resources/cyber-essentials-toolkits"
+        }
+      ]
+    },
+    {
+      "id": "CE-STAFF-6",
+      "text": "Does your training cover ransomware and the risks of malicious links and attachments?",
+      "tier": "basic",
+      "group": "STAFF",
+      "references": [
+        "CISA Cyber Essentials: Your staff"
+      ],
+      "why": "One careless click on a malicious file can trigger ransomware that halts your operations.",
+      "fix": "Teach staff to verify senders and avoid opening unexpected links or attachments.",
+      "links": [
+        {
+          "label": "CISA Cyber Essentials",
+          "url": "https://www.cisa.gov/cyber-essentials"
+        },
+        {
+          "label": "Cyber Essentials Toolkits",
+          "url": "https://www.cisa.gov/resources-tools/resources/cyber-essentials-toolkits"
+        }
+      ]
+    },
+    {
+      "id": "CE-STAFF-7",
+      "text": "Do you tailor cybersecurity training to the specific risks each role faces?",
+      "tier": "basic",
+      "group": "STAFF",
+      "references": [
+        "CISA Cyber Essentials: Your staff"
+      ],
+      "why": "Generic training misses the targeted threats aimed at finance, IT, or executive staff.",
+      "fix": "Add role-specific guidance for higher-risk positions on top of general training.",
+      "links": [
+        {
+          "label": "CISA Cyber Essentials",
+          "url": "https://www.cisa.gov/cyber-essentials"
+        },
+        {
+          "label": "Cyber Essentials Toolkits",
+          "url": "https://www.cisa.gov/resources-tools/resources/cyber-essentials-toolkits"
+        }
+      ]
+    },
+    {
+      "id": "CE-SYSTEMS-1",
+      "text": "Do you maintain a current inventory of the hardware connected to your network?",
+      "tier": "basic",
+      "group": "SYSTEMS",
+      "references": [
+        "CISA Cyber Essentials: Your systems"
+      ],
+      "why": "You cannot secure or patch devices you do not know are on your network.",
+      "fix": "Build and regularly update a list of all devices connected to your network.",
+      "links": [
+        {
+          "label": "CISA Cyber Essentials",
+          "url": "https://www.cisa.gov/cyber-essentials"
+        },
+        {
+          "label": "Cyber Essentials Toolkits",
+          "url": "https://www.cisa.gov/resources-tools/resources/cyber-essentials-toolkits"
+        }
+      ]
+    },
+    {
+      "id": "CE-SYSTEMS-2",
+      "text": "Do you maintain a current inventory of the software and applications your organization uses?",
+      "tier": "basic",
+      "group": "SYSTEMS",
+      "references": [
+        "CISA Cyber Essentials: Your systems"
+      ],
+      "why": "Unknown or unmanaged software can hide vulnerabilities that attackers exploit.",
+      "fix": "Track every application in use and remove anything unneeded or unauthorized.",
+      "links": [
+        {
+          "label": "CISA Cyber Essentials",
+          "url": "https://www.cisa.gov/cyber-essentials"
+        },
+        {
+          "label": "Cyber Essentials Toolkits",
+          "url": "https://www.cisa.gov/resources-tools/resources/cyber-essentials-toolkits"
+        }
+      ]
+    },
+    {
+      "id": "CE-SYSTEMS-3",
+      "text": "Are automatic updates enabled for operating systems and third-party software where possible?",
+      "tier": "basic",
+      "group": "SYSTEMS",
+      "references": [
+        "CISA Cyber Essentials: Your systems"
+      ],
+      "why": "Unpatched software leaves known holes open for attackers long after fixes exist.",
+      "fix": "Turn on automatic updates across operating systems and applications where available.",
+      "links": [
+        {
+          "label": "CISA Cyber Essentials",
+          "url": "https://www.cisa.gov/cyber-essentials"
+        },
+        {
+          "label": "Cyber Essentials Toolkits",
+          "url": "https://www.cisa.gov/resources-tools/resources/cyber-essentials-toolkits"
+        }
+      ]
+    },
+    {
+      "id": "CE-SYSTEMS-4",
+      "text": "Do you apply security patches promptly after they are released?",
+      "tier": "basic",
+      "group": "SYSTEMS",
+      "references": [
+        "CISA Cyber Essentials: Your systems"
+      ],
+      "why": "Attackers move quickly to exploit newly disclosed flaws before they are patched.",
+      "fix": "Set a target timeframe for testing and deploying critical patches after release.",
+      "links": [
+        {
+          "label": "CISA Cyber Essentials",
+          "url": "https://www.cisa.gov/cyber-essentials"
+        },
+        {
+          "label": "Cyber Essentials Toolkits",
+          "url": "https://www.cisa.gov/resources-tools/resources/cyber-essentials-toolkits"
+        }
+      ]
+    },
+    {
+      "id": "CE-SYSTEMS-5",
+      "text": "Have you replaced or retired operating systems, applications, and hardware that are no longer supported?",
+      "tier": "basic",
+      "group": "SYSTEMS",
+      "references": [
+        "CISA Cyber Essentials: Your systems"
+      ],
+      "why": "End-of-life technology stops receiving security fixes and becomes an easy target.",
+      "fix": "Identify unsupported systems and plan to upgrade or replace them.",
+      "links": [
+        {
+          "label": "CISA Cyber Essentials",
+          "url": "https://www.cisa.gov/cyber-essentials"
+        },
+        {
+          "label": "Cyber Essentials Toolkits",
+          "url": "https://www.cisa.gov/resources-tools/resources/cyber-essentials-toolkits"
+        }
+      ]
+    },
+    {
+      "id": "CE-SYSTEMS-6",
+      "text": "Do you install software only from trusted, legitimate sources?",
+      "tier": "basic",
+      "group": "SYSTEMS",
+      "references": [
+        "CISA Cyber Essentials: Your systems"
+      ],
+      "why": "Software from unverified sources can carry malware straight into your systems.",
+      "fix": "Restrict installs to vetted vendors and official app stores or repositories.",
+      "links": [
+        {
+          "label": "CISA Cyber Essentials",
+          "url": "https://www.cisa.gov/cyber-essentials"
+        },
+        {
+          "label": "Cyber Essentials Toolkits",
+          "url": "https://www.cisa.gov/resources-tools/resources/cyber-essentials-toolkits"
+        }
+      ]
+    },
+    {
+      "id": "CE-SYSTEMS-7",
+      "text": "Do you consider security when selecting vendors and third-party technology in your supply chain?",
+      "tier": "basic",
+      "group": "SYSTEMS",
+      "references": [
+        "CISA Cyber Essentials: Your systems"
+      ],
+      "why": "A weak vendor or component can become the path attackers use to reach you.",
+      "fix": "Ask vendors about their security practices before adopting their products or services.",
+      "links": [
+        {
+          "label": "CISA Cyber Essentials",
+          "url": "https://www.cisa.gov/cyber-essentials"
+        },
+        {
+          "label": "Cyber Essentials Toolkits",
+          "url": "https://www.cisa.gov/resources-tools/resources/cyber-essentials-toolkits"
+        }
+      ]
+    },
+    {
+      "id": "CE-SURROUNDINGS-1",
+      "text": "Do you keep an inventory of the users and devices that have access to your network?",
+      "tier": "basic",
+      "group": "SURROUNDINGS",
+      "references": [
+        "CISA Cyber Essentials: Your surroundings"
+      ],
+      "why": "Unknown users or devices with access can move through your systems undetected.",
+      "fix": "Maintain a current list of who and what is authorized on your network.",
+      "links": [
+        {
+          "label": "CISA Cyber Essentials",
+          "url": "https://www.cisa.gov/cyber-essentials"
+        },
+        {
+          "label": "Cyber Essentials Toolkits",
+          "url": "https://www.cisa.gov/resources-tools/resources/cyber-essentials-toolkits"
+        }
+      ]
+    },
+    {
+      "id": "CE-SURROUNDINGS-2",
+      "text": "Have you enabled multi-factor authentication for all users?",
+      "tier": "basic",
+      "group": "SURROUNDINGS",
+      "references": [
+        "CISA Cyber Essentials: Your surroundings"
+      ],
+      "why": "A stolen password alone lets an attacker in unless a second factor blocks them.",
+      "fix": "Turn on multi-factor authentication for email, remote access, and key accounts.",
+      "links": [
+        {
+          "label": "CISA Cyber Essentials",
+          "url": "https://www.cisa.gov/cyber-essentials"
+        },
+        {
+          "label": "Cyber Essentials Toolkits",
+          "url": "https://www.cisa.gov/resources-tools/resources/cyber-essentials-toolkits"
+        }
+      ]
+    },
+    {
+      "id": "CE-SURROUNDINGS-3",
+      "text": "Do you grant access and administrative rights based on least privilege and need-to-know?",
+      "tier": "basic",
+      "group": "SURROUNDINGS",
+      "references": [
+        "CISA Cyber Essentials: Your surroundings"
+      ],
+      "why": "Excess privileges let a single compromised account cause widespread damage.",
+      "fix": "Give each user only the access their role requires and remove the rest.",
+      "links": [
+        {
+          "label": "CISA Cyber Essentials",
+          "url": "https://www.cisa.gov/cyber-essentials"
+        },
+        {
+          "label": "Cyber Essentials Toolkits",
+          "url": "https://www.cisa.gov/resources-tools/resources/cyber-essentials-toolkits"
+        }
+      ]
+    },
+    {
+      "id": "CE-SURROUNDINGS-4",
+      "text": "Do you require unique passwords for each account rather than shared logins?",
+      "tier": "basic",
+      "group": "SURROUNDINGS",
+      "references": [
+        "CISA Cyber Essentials: Your surroundings"
+      ],
+      "why": "Shared or reused credentials make it impossible to trace actions and easy to breach many accounts at once.",
+      "fix": "Eliminate shared accounts and encourage a password manager for unique credentials.",
+      "links": [
+        {
+          "label": "CISA Cyber Essentials",
+          "url": "https://www.cisa.gov/cyber-essentials"
+        },
+        {
+          "label": "Cyber Essentials Toolkits",
+          "url": "https://www.cisa.gov/resources-tools/resources/cyber-essentials-toolkits"
+        }
+      ]
+    },
+    {
+      "id": "CE-SURROUNDINGS-5",
+      "text": "Do you promptly disable accounts and revoke access when someone leaves or changes roles?",
+      "tier": "basic",
+      "group": "SURROUNDINGS",
+      "references": [
+        "CISA Cyber Essentials: Your surroundings"
+      ],
+      "why": "Lingering accounts for former staff are a common way attackers slip back in.",
+      "fix": "Tie account deactivation to your offboarding and role-change processes.",
+      "links": [
+        {
+          "label": "CISA Cyber Essentials",
+          "url": "https://www.cisa.gov/cyber-essentials"
+        },
+        {
+          "label": "Cyber Essentials Toolkits",
+          "url": "https://www.cisa.gov/resources-tools/resources/cyber-essentials-toolkits"
+        }
+      ]
+    },
+    {
+      "id": "CE-SURROUNDINGS-6",
+      "text": "Do you have written procedures for adding, changing, and removing user access?",
+      "tier": "basic",
+      "group": "SURROUNDINGS",
+      "references": [
+        "CISA Cyber Essentials: Your surroundings"
+      ],
+      "why": "Without a defined process, access changes are missed and permissions drift out of control.",
+      "fix": "Document how access is requested, approved, changed, and revoked.",
+      "links": [
+        {
+          "label": "CISA Cyber Essentials",
+          "url": "https://www.cisa.gov/cyber-essentials"
+        },
+        {
+          "label": "Cyber Essentials Toolkits",
+          "url": "https://www.cisa.gov/resources-tools/resources/cyber-essentials-toolkits"
+        }
+      ]
+    },
+    {
+      "id": "CE-SURROUNDINGS-7",
+      "text": "Do you separate everyday user accounts from privileged administrator accounts?",
+      "tier": "basic",
+      "group": "SURROUNDINGS",
+      "references": [
+        "CISA Cyber Essentials: Your surroundings"
+      ],
+      "why": "Using admin accounts for daily work means routine mistakes can hand attackers full control.",
+      "fix": "Give administrators separate standard accounts for everyday tasks.",
+      "links": [
+        {
+          "label": "CISA Cyber Essentials",
+          "url": "https://www.cisa.gov/cyber-essentials"
+        },
+        {
+          "label": "Cyber Essentials Toolkits",
+          "url": "https://www.cisa.gov/resources-tools/resources/cyber-essentials-toolkits"
+        }
+      ]
+    },
+    {
+      "id": "CE-DATA-1",
+      "text": "Do you know what sensitive or critical information is stored across your systems?",
+      "tier": "basic",
+      "group": "DATA",
+      "references": [
+        "CISA Cyber Essentials: Your data"
+      ],
+      "why": "You cannot protect or back up data you have not identified and located.",
+      "fix": "Inventory where your critical and sensitive information lives.",
+      "links": [
+        {
+          "label": "CISA Cyber Essentials",
+          "url": "https://www.cisa.gov/cyber-essentials"
+        },
+        {
+          "label": "Cyber Essentials Toolkits",
+          "url": "https://www.cisa.gov/resources-tools/resources/cyber-essentials-toolkits"
+        }
+      ]
+    },
+    {
+      "id": "CE-DATA-2",
+      "text": "Do you run regular, automated backups of your critical data and systems?",
+      "tier": "basic",
+      "group": "DATA",
+      "references": [
+        "CISA Cyber Essentials: Your data"
+      ],
+      "why": "Without recent backups, ransomware or hardware failure can cause permanent data loss.",
+      "fix": "Set up scheduled, automated backups of your important data and systems.",
+      "links": [
+        {
+          "label": "CISA Cyber Essentials",
+          "url": "https://www.cisa.gov/cyber-essentials"
+        },
+        {
+          "label": "Cyber Essentials Toolkits",
+          "url": "https://www.cisa.gov/resources-tools/resources/cyber-essentials-toolkits"
+        }
+      ]
+    },
+    {
+      "id": "CE-DATA-3",
+      "text": "Do you keep at least one backup copy offline or otherwise isolated from your network?",
+      "tier": "basic",
+      "group": "DATA",
+      "references": [
+        "CISA Cyber Essentials: Your data"
+      ],
+      "why": "Backups connected to your network can be encrypted or deleted in the same attack.",
+      "fix": "Store at least one backup copy offline or in isolated, immutable storage.",
+      "links": [
+        {
+          "label": "CISA Cyber Essentials",
+          "url": "https://www.cisa.gov/cyber-essentials"
+        },
+        {
+          "label": "Cyber Essentials Toolkits",
+          "url": "https://www.cisa.gov/resources-tools/resources/cyber-essentials-toolkits"
+        }
+      ]
+    },
+    {
+      "id": "CE-DATA-4",
+      "text": "Are your backups encrypted and physically protected from unauthorized access?",
+      "tier": "basic",
+      "group": "DATA",
+      "references": [
+        "CISA Cyber Essentials: Your data"
+      ],
+      "why": "Unprotected backups can be stolen or read, exposing all the data they contain.",
+      "fix": "Encrypt backup media and store it in a physically secured location.",
+      "links": [
+        {
+          "label": "CISA Cyber Essentials",
+          "url": "https://www.cisa.gov/cyber-essentials"
+        },
+        {
+          "label": "Cyber Essentials Toolkits",
+          "url": "https://www.cisa.gov/resources-tools/resources/cyber-essentials-toolkits"
+        }
+      ]
+    },
+    {
+      "id": "CE-DATA-5",
+      "text": "Do you regularly test that your backups can be restored successfully?",
+      "tier": "basic",
+      "group": "DATA",
+      "references": [
+        "CISA Cyber Essentials: Your data"
+      ],
+      "why": "A backup that fails to restore is worthless in the moment you need it most.",
+      "fix": "Periodically perform a test restore to confirm your backups work.",
+      "links": [
+        {
+          "label": "CISA Cyber Essentials",
+          "url": "https://www.cisa.gov/cyber-essentials"
+        },
+        {
+          "label": "Cyber Essentials Toolkits",
+          "url": "https://www.cisa.gov/resources-tools/resources/cyber-essentials-toolkits"
+        }
+      ]
+    },
+    {
+      "id": "CE-DATA-6",
+      "text": "Do you use malware protection to defend the data on your devices and network?",
+      "tier": "basic",
+      "group": "DATA",
+      "references": [
+        "CISA Cyber Essentials: Your data"
+      ],
+      "why": "Malware can corrupt, steal, or lock up your data before you notice anything is wrong.",
+      "fix": "Deploy and keep current antivirus or anti-malware tools on your devices.",
+      "links": [
+        {
+          "label": "CISA Cyber Essentials",
+          "url": "https://www.cisa.gov/cyber-essentials"
+        },
+        {
+          "label": "Cyber Essentials Toolkits",
+          "url": "https://www.cisa.gov/resources-tools/resources/cyber-essentials-toolkits"
+        }
+      ]
+    },
+    {
+      "id": "CE-DATA-7",
+      "text": "Do you securely erase data from devices before disposing of or reusing them?",
+      "tier": "basic",
+      "group": "DATA",
+      "references": [
+        "CISA Cyber Essentials: Your data"
+      ],
+      "why": "Discarded drives that still hold data can leak sensitive information to whoever finds them.",
+      "fix": "Wipe or destroy storage media before devices leave your control.",
+      "links": [
+        {
+          "label": "CISA Cyber Essentials",
+          "url": "https://www.cisa.gov/cyber-essentials"
+        },
+        {
+          "label": "Cyber Essentials Toolkits",
+          "url": "https://www.cisa.gov/resources-tools/resources/cyber-essentials-toolkits"
+        }
+      ]
+    },
+    {
+      "id": "CE-RESPONSE-1",
+      "text": "Have you developed a written incident response plan for cyber attacks?",
+      "tier": "basic",
+      "group": "RESPONSE",
+      "references": [
+        "CISA Cyber Essentials: Your crisis response"
+      ],
+      "why": "Without a plan, people improvise under pressure and small incidents spiral out of control.",
+      "fix": "Write a basic incident response plan covering roles, steps, and contacts.",
+      "links": [
+        {
+          "label": "CISA Cyber Essentials",
+          "url": "https://www.cisa.gov/cyber-essentials"
+        },
+        {
+          "label": "Cyber Essentials Toolkits",
+          "url": "https://www.cisa.gov/resources-tools/resources/cyber-essentials-toolkits"
+        }
+      ]
+    },
+    {
+      "id": "CE-RESPONSE-2",
+      "text": "Do you have a disaster recovery plan to restore operations after a disruption?",
+      "tier": "basic",
+      "group": "RESPONSE",
+      "references": [
+        "CISA Cyber Essentials: Your crisis response"
+      ],
+      "why": "Without a recovery plan, downtime drags on and losses mount after an incident.",
+      "fix": "Document the steps and resources needed to bring critical systems back online.",
+      "links": [
+        {
+          "label": "CISA Cyber Essentials",
+          "url": "https://www.cisa.gov/cyber-essentials"
+        },
+        {
+          "label": "Cyber Essentials Toolkits",
+          "url": "https://www.cisa.gov/resources-tools/resources/cyber-essentials-toolkits"
+        }
+      ]
+    },
+    {
+      "id": "CE-RESPONSE-3",
+      "text": "Do you know who to contact for help during a cyber incident, including law enforcement and vendors?",
+      "tier": "basic",
+      "group": "RESPONSE",
+      "references": [
+        "CISA Cyber Essentials: Your crisis response"
+      ],
+      "why": "Scrambling to find help mid-crisis wastes time when every minute matters.",
+      "fix": "Prepare a contact list of internal leads, vendors, insurers, and authorities.",
+      "links": [
+        {
+          "label": "CISA Cyber Essentials",
+          "url": "https://www.cisa.gov/cyber-essentials"
+        },
+        {
+          "label": "Cyber Essentials Toolkits",
+          "url": "https://www.cisa.gov/resources-tools/resources/cyber-essentials-toolkits"
+        }
+      ]
+    },
+    {
+      "id": "CE-RESPONSE-4",
+      "text": "Do employees know the internal steps for reporting and escalating an incident?",
+      "tier": "basic",
+      "group": "RESPONSE",
+      "references": [
+        "CISA Cyber Essentials: Your crisis response"
+      ],
+      "why": "If staff do not know how to escalate, warnings never reach the people who can respond.",
+      "fix": "Share a clear internal escalation path and make sure everyone understands it.",
+      "links": [
+        {
+          "label": "CISA Cyber Essentials",
+          "url": "https://www.cisa.gov/cyber-essentials"
+        },
+        {
+          "label": "Cyber Essentials Toolkits",
+          "url": "https://www.cisa.gov/resources-tools/resources/cyber-essentials-toolkits"
+        }
+      ]
+    },
+    {
+      "id": "CE-RESPONSE-5",
+      "text": "Have you identified which systems and operations to prioritize when restoring service?",
+      "tier": "basic",
+      "group": "RESPONSE",
+      "references": [
+        "CISA Cyber Essentials: Your crisis response"
+      ],
+      "why": "Without set priorities, recovery efforts scatter and the most vital functions stay down longer.",
+      "fix": "Rank your critical systems so you know what to restore first.",
+      "links": [
+        {
+          "label": "CISA Cyber Essentials",
+          "url": "https://www.cisa.gov/cyber-essentials"
+        },
+        {
+          "label": "Cyber Essentials Toolkits",
+          "url": "https://www.cisa.gov/resources-tools/resources/cyber-essentials-toolkits"
+        }
+      ]
+    },
+    {
+      "id": "CE-RESPONSE-6",
+      "text": "Do you practice or exercise your response and recovery plans regularly?",
+      "tier": "basic",
+      "group": "RESPONSE",
+      "references": [
+        "CISA Cyber Essentials: Your crisis response"
+      ],
+      "why": "Plans that are never rehearsed tend to fail when a real incident strikes.",
+      "fix": "Run a tabletop exercise to walk through your plans and find the gaps.",
+      "links": [
+        {
+          "label": "CISA Cyber Essentials",
+          "url": "https://www.cisa.gov/cyber-essentials"
+        },
+        {
+          "label": "Cyber Essentials Toolkits",
+          "url": "https://www.cisa.gov/resources-tools/resources/cyber-essentials-toolkits"
+        }
+      ]
+    },
+    {
+      "id": "CE-RESPONSE-7",
+      "text": "Do you review and update your response plans after incidents or major changes?",
+      "tier": "basic",
+      "group": "RESPONSE",
+      "references": [
+        "CISA Cyber Essentials: Your crisis response"
+      ],
+      "why": "Outdated plans reflect systems and contacts that no longer exist when you need them.",
+      "fix": "Update your plans after each incident, exercise, or significant business change.",
+      "links": [
+        {
+          "label": "CISA Cyber Essentials",
+          "url": "https://www.cisa.gov/cyber-essentials"
+        },
+        {
+          "label": "Cyber Essentials Toolkits",
+          "url": "https://www.cisa.gov/resources-tools/resources/cyber-essentials-toolkits"
+        }
+      ]
+    }
+  ]
+}
