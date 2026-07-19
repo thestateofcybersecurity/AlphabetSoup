@@ -1178,6 +1178,17 @@ body {
   text-transform: none;
   letter-spacing: 0;
 }
+.plan-load-date {
+  font-size: 0.52rem;
+  color: var(--ink-soft);
+  text-transform: none;
+  letter-spacing: 0;
+  opacity: 0.85;
+}
+.plan-capacity {
+  margin-top: 10px;
+  font-weight: 600;
+}
 
 /* ---- board: drag-and-drop + calendar dates ---- */
 .board-col-head {
