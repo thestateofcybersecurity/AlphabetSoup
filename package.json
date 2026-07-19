@@ -5,18 +5,22 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "tsc --noEmit && vite build && tsx scripts/generate-pages.ts",
+    "build": "tsc --noEmit && vite build && tsx scripts/generate-pages.ts && tsx scripts/og-images.ts",
     "preview": "vite preview",
     "test": "vitest run",
     "test:watch": "vitest",
     "test:e2e": "playwright test",
     "validate:data": "tsx scripts/validate-data.ts",
     "check:links": "tsx scripts/check-links.ts",
-    "shots": "vite preview --port 4188 --strictPort & sleep 3 && OUT=./shots BASE=http://localhost:4188 node scripts/shots.mjs; kill %1"
+    "shots": "vite preview --port 4188 --strictPort & sleep 3 && OUT=./shots BASE=http://localhost:4188 node scripts/shots.mjs; kill %1",
+    "og:images": "tsx scripts/og-images.ts"
   },
   "devDependencies": {
+    "@fontsource/ibm-plex-sans": "^5.3.0",
     "@playwright/test": "^1.49.0",
+    "@resvg/resvg-js": "^2.6.2",
     "@types/node": "^24.10.1",
+    "satori": "^0.28.0",
     "tsx": "^4.19.0",
     "typescript": "^5.6.0",
     "vite": "^8.1.5",
