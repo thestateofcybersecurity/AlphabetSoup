@@ -186,45 +186,63 @@ function renderSummary(tasks: RoadmapTask[]): void {
   const progress = planProgress(tasks, state);
   const hours = totalHours(tasks);
   const counts = statusCounts(tasks, state);
-
-  const line = el('div', 'plan-summary-line');
-  line.textContent = `${progress.done}/${progress.total} done` + (hours > 0 ? ` · ${hours} estimated hours` : '');
-  summary.appendChild(line);
-
-  // One-line program maturity: driven by KPI attainment where KPIs exist.
   const maturity = programMaturity(tasks, state);
   const kc = kpiAttainmentCounts(tasks, state);
-  const maturityLine = el('div', 'plan-maturity');
-  maturityLine.appendChild(el('span', 'plan-maturity-level', maturity.level));
-  maturityLine.appendChild(
-    el('span', 'deck-sub', `${kc.total > 0 ? 'maturity (KPI attainment)' : 'program maturity'} · ${maturity.percent}%`),
+  const mp = milestoneProgress(tasks, state);
+
+  const metrics = el('div', 'plan-metrics');
+  const tile = (label: string): HTMLElement => {
+    const t = el('div', 'plan-tile');
+    t.appendChild(el('div', 'plan-tile-label', label));
+    metrics.appendChild(t);
+    return t;
+  };
+
+  // Progress tile: headline percent, the count line (with any effort estimate), and a bar.
+  const pctDone = progress.total ? Math.round((progress.done / progress.total) * 100) : 0;
+  const progTile = tile('Progress');
+  progTile.appendChild(el('div', 'plan-tile-value', `${pctDone}%`));
+  progTile.appendChild(
+    el('div', 'plan-summary-line', `${progress.done}/${progress.total} done` + (hours > 0 ? ` · ${hours} estimated hours` : '')),
+  );
+  const track = el('div', 'plan-progress-track');
+  const fill = el('div', 'plan-progress-fill');
+  fill.style.width = `${pctDone}%`;
+  track.appendChild(fill);
+  progTile.appendChild(track);
+
+  // Maturity tile: level word driven by KPI attainment where KPIs exist.
+  const matTile = tile('Maturity');
+  const maturityBox = el('div', 'plan-maturity');
+  maturityBox.appendChild(el('div', 'plan-maturity-level', maturity.level));
+  maturityBox.appendChild(
+    el('div', 'deck-sub', `${kc.total > 0 ? 'maturity (KPI attainment)' : 'program maturity'} · ${maturity.percent}%`),
   );
   const mTrack = el('div', 'plan-maturity-track');
   const mFill = el('div', 'plan-maturity-fill');
   mFill.style.width = `${maturity.percent}%`;
   mTrack.appendChild(mFill);
-  maturityLine.appendChild(mTrack);
-  summary.appendChild(maturityLine);
+  maturityBox.appendChild(mTrack);
+  matTile.appendChild(maturityBox);
 
+  // KPI attainment tile (only when the source carries KPIs).
   if (kc.total > 0) {
-    summary.appendChild(
+    const kpiTile = tile('KPIs met');
+    kpiTile.appendChild(el('div', 'plan-tile-value', `${kc.met}/${kc.total}`));
+    kpiTile.appendChild(
       el('div', 'deck-sub plan-kpi-counts', `KPIs: ${kc.met} met · ${kc.partial} partial · ${kc.unmet} unmet (of ${kc.total})`),
     );
   }
 
-  const mp = milestoneProgress(tasks, state);
+  // Milestone rollup tile (only when the source carries milestones).
   if (mp.total > 0) {
-    summary.appendChild(el('div', 'deck-sub plan-milestone-counts', `Milestones: ${mp.done} of ${mp.total} done`));
+    const msTile = tile('Milestones');
+    msTile.appendChild(el('div', 'plan-tile-value', `${mp.done}/${mp.total}`));
+    msTile.appendChild(el('div', 'deck-sub plan-milestone-counts', `Milestones: ${mp.done} of ${mp.total} done`));
   }
 
-  // Progress bar.
-  const track = el('div', 'plan-progress-track');
-  const fill = el('div', 'plan-progress-fill');
-  fill.style.width = `${progress.total ? (progress.done / progress.total) * 100 : 0}%`;
-  track.appendChild(fill);
-  summary.appendChild(track);
-
-  // Status breakdown.
+  // Status breakdown tile.
+  const statusTile = tile('Status');
   const chips = el('div', 'plan-status-row');
   const statusLabel: Record<TaskStatus, string> = { planned: 'planned', 'in-progress': 'in progress', done: 'done' };
   for (const status of ['planned', 'in-progress', 'done'] as TaskStatus[]) {
@@ -233,22 +251,28 @@ function renderSummary(tasks: RoadmapTask[]): void {
     chip.appendChild(document.createTextNode(`${counts[status]} ${statusLabel[status]}`));
     chips.appendChild(chip);
   }
-  summary.appendChild(chips);
+  statusTile.appendChild(chips);
 
-  // Per-quarter capacity: bar by hours when estimates exist, else task count,
-  // with the calendar range so it reads as a timeline.
+  summary.appendChild(metrics);
+
+  // Capacity-by-quarter card: bars sized by hours when estimates exist, else by
+  // task count, each labeled with its calendar range so it reads as a timeline.
   const load = planLoad(tasks, state);
   const quarters = source() === 'vciso' ? QUARTERS : QUARTERS.filter((q) => q !== 'Onboarding');
   const byHours = hours > 0;
   const value = (q: Quarter) => (byHours ? load[q].hours : load[q].count);
   const max = Math.max(1, ...quarters.map(value));
 
+  const capCard = el('div', 'plan-capacity-card');
+  const capHead = el('div', 'plan-capacity-head');
+  capHead.appendChild(el('div', 'plan-tile-label', 'Capacity by quarter'));
   if (byHours) {
     const heaviest = quarters.reduce((a, b) => (load[b].hours > load[a].hours ? b : a), quarters[0]);
-    const cap = el('div', 'deck-sub plan-capacity');
-    cap.textContent = `Total effort: ${hours}h · heaviest quarter: ${heaviest} (${load[heaviest].hours}h)`;
-    summary.appendChild(cap);
+    capHead.appendChild(
+      el('div', 'deck-sub plan-capacity', `Total effort: ${hours}h · heaviest quarter: ${heaviest} (${load[heaviest].hours}h)`),
+    );
   }
+  capCard.appendChild(capHead);
 
   const loadWrap = el('div', 'plan-load');
   for (const quarter of quarters) {
@@ -265,7 +289,8 @@ function renderSummary(tasks: RoadmapTask[]): void {
     if (range && range !== 'Setup') cell.appendChild(el('div', 'plan-load-date', range));
     loadWrap.appendChild(cell);
   }
-  summary.appendChild(loadWrap);
+  capCard.appendChild(loadWrap);
+  summary.appendChild(capCard);
 }
 
 /* -------------------------------- board ------------------------------- */

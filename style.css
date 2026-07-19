@@ -938,19 +938,49 @@ body {
 
 .plan-controls {
   display: flex;
-  align-items: end;
-  gap: 12px;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 14px 28px;
   flex-wrap: wrap;
-  margin-bottom: 10px;
+  padding: 14px 16px;
+  margin-bottom: 16px;
+  border: 1.5px solid var(--line);
+  border-radius: 14px;
+  background: color-mix(in srgb, var(--paper-raised) 55%, transparent);
+}
+
+.plan-config,
+.plan-actions {
+  display: flex;
+  align-items: flex-end;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.plan-actions {
+  gap: 6px;
+  margin-left: auto;
+}
+
+/* Keep the inline checkbox aligned with the bottom of the neighbouring selects. */
+.plan-config .check-wrap {
+  padding-bottom: 9px;
+}
+
+.plan-actions .ghost-btn-danger {
+  color: color-mix(in srgb, #b23b2e 78%, var(--ink));
+  border-color: color-mix(in srgb, #b23b2e 32%, var(--line));
+}
+
+.plan-actions .ghost-btn-danger:hover {
+  color: #fff;
+  background: #b23b2e;
+  border-color: #b23b2e;
 }
 
 .plan-summary {
-  font-family: var(--font-mono);
-  font-size: 0.75rem;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
   color: var(--ink-soft);
-  margin-bottom: 14px;
+  margin-bottom: 18px;
 }
 
 .board {
@@ -1068,62 +1098,100 @@ body {
   color: var(--ink-soft);
 }
 
-/* ---- summary dashboard ---- */
+/* ---- summary dashboard: stat tiles + capacity card ---- */
+.plan-metrics {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(158px, 1fr));
+  gap: 12px;
+  margin-bottom: 12px;
+}
+.plan-tile {
+  border: 1.5px solid var(--line);
+  border-radius: 12px;
+  background: var(--paper-raised);
+  padding: 12px 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+}
+.plan-tile-label {
+  font-family: var(--font-mono);
+  font-size: 0.6rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+}
+.plan-tile-value {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 1.7rem;
+  line-height: 1;
+  color: var(--ink);
+}
 .plan-summary-line {
-  margin-bottom: 8px;
+  font-size: 0.72rem;
+  color: var(--ink-soft);
 }
 .plan-progress-track {
   height: 8px;
   border-radius: 999px;
   background: color-mix(in srgb, var(--line) 60%, transparent);
   overflow: hidden;
-  max-width: 420px;
+  margin-top: auto;
 }
 .plan-progress-fill {
   height: 100%;
   background: #3f8f5f;
   border-radius: 999px;
+  transition: width 0.25s ease;
 }
 .plan-maturity {
   display: flex;
-  align-items: center;
-  gap: 10px;
-  margin-top: 10px;
-  flex-wrap: wrap;
+  flex-direction: column;
+  gap: 6px;
 }
 .plan-maturity-level {
   font-family: var(--font-display);
   font-weight: 700;
-  font-size: 1.05rem;
+  font-size: 1.5rem;
+  line-height: 1;
   text-transform: none;
   letter-spacing: 0;
   color: var(--tomato);
 }
+.plan-maturity .deck-sub {
+  font-size: 0.68rem;
+}
 .plan-maturity-track {
-  flex: 1;
-  min-width: 120px;
-  max-width: 260px;
   height: 6px;
   border-radius: 999px;
   background: color-mix(in srgb, var(--line) 60%, transparent);
   overflow: hidden;
+  margin-top: 1px;
 }
 .plan-maturity-fill {
   height: 100%;
   background: var(--tomato);
   border-radius: 999px;
+  transition: width 0.25s ease;
+}
+.plan-kpi-counts,
+.plan-milestone-counts {
+  font-size: 0.66rem;
 }
 
 .plan-status-row {
   display: flex;
-  flex-wrap: wrap;
-  gap: 12px;
-  margin-top: 8px;
+  flex-direction: column;
+  gap: 6px;
+  margin-top: 1px;
 }
 .plan-stat {
   display: inline-flex;
   align-items: center;
-  gap: 5px;
+  gap: 7px;
+  font-size: 0.74rem;
+  color: var(--ink-soft);
 }
 .plan-stat-dot {
   width: 9px;
@@ -1131,6 +1199,7 @@ body {
   border-radius: 50%;
   display: inline-block;
   background: var(--ink-soft);
+  flex: none;
 }
 .plan-stat-in-progress .plan-stat-dot {
   background: var(--tomato);
@@ -1138,12 +1207,27 @@ body {
 .plan-stat-done .plan-stat-dot {
   background: #3f8f5f;
 }
+
+.plan-capacity-card {
+  border: 1.5px solid var(--line);
+  border-radius: 12px;
+  background: var(--paper-raised);
+  padding: 13px 16px 15px;
+}
+.plan-capacity-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 8px 16px;
+  flex-wrap: wrap;
+  margin-bottom: 4px;
+}
 .plan-load {
   display: flex;
   gap: 8px;
   align-items: flex-end;
   margin-top: 12px;
-  height: 64px;
+  height: 72px;
 }
 .plan-load-cell {
   display: flex;
@@ -1203,16 +1287,26 @@ body {
   opacity: 0.8;
   text-transform: none;
 }
+.board-col-head {
+  border-bottom: 1px solid color-mix(in srgb, var(--line) 70%, transparent);
+  padding-bottom: 6px;
+}
 .board-col.drop-hover {
   border-color: var(--tomato);
   background: color-mix(in srgb, var(--tomato) 8%, transparent);
 }
 .task-card {
   cursor: grab;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease, transform 0.15s ease;
+}
+.task-card:hover {
+  border-color: color-mix(in srgb, var(--tomato) 45%, var(--line));
+  box-shadow: 0 4px 12px color-mix(in srgb, var(--ink) 9%, transparent);
 }
 .task-card.dragging {
   opacity: 0.4;
   cursor: grabbing;
+  box-shadow: none;
 }
 
 /* ---- program goal depth (objective, KPIs, standards, milestones) ---- */

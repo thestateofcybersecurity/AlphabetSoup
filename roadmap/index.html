@@ -40,56 +40,60 @@
 
   <main id="main" class="ladle ladle-wide">
     <div class="plan-controls">
-      <label class="select-wrap"><span>plan source</span>
-        <select id="plan-source" class="panel-select">
-          <option value="program">Security program (16 goals with KPIs)</option>
-          <option value="csf">NIST CSF 2.0 (22 categories)</option>
-          <option value="cis">CIS Controls v8 (18 controls)</option>
-          <option value="vciso">vCISO engagement template</option>
-          <option value="gaps">My assessment gaps</option>
-        </select>
-      </label>
-      <label class="select-wrap" id="ig-wrap"><span>implementation group</span>
-        <select id="plan-ig" class="panel-select">
-          <option value="1">IG1 (essential)</option>
-          <option value="2">IG2</option>
-          <option value="3" selected>IG3 (everything)</option>
-        </select>
-      </label>
-      <label class="select-wrap" id="pkg-wrap" hidden><span>package</span>
-        <select id="plan-pkg" class="panel-select">
-          <option value="Small">Small</option>
-          <option value="Medium">Medium</option>
-          <option value="Large" selected>Large</option>
-        </select>
-      </label>
-      <label class="select-wrap" id="gaps-wrap" hidden><span>from assessment</span>
-        <select id="plan-gaps-assessment" class="panel-select">
-          <option value="ransomware">Ransomware readiness</option>
-          <option value="cpg">CISA Performance Goals</option>
-          <option value="cis-ig1">CIS IG1 essentials</option>
-          <option value="cis-v8">CIS Controls v8 (all safeguards)</option>
-          <option value="nist-csf">NIST CSF 2.0</option>
-          <option value="nist-800171">NIST 800-171 / CMMC</option>
-          <option value="cyber-essentials">CISA Cyber Essentials</option>
-          <option value="zero-trust">CISA Zero Trust Maturity Model</option>
-          <option value="ssdf">NIST SSDF (secure development)</option>
-          <option value="pci-dss">PCI DSS v4.0</option>
-        </select>
-      </label>
-      <label class="select-wrap"><span>program start</span>
-        <input type="month" id="plan-start" class="panel-select" />
-      </label>
-      <label class="select-wrap"><span>group</span>
-        <select id="plan-group" class="panel-select"></select>
-      </label>
-      <label class="check-wrap"><input type="checkbox" id="plan-hide-done" /><span>hide done</span></label>
-      <button class="ghost-btn" id="plan-copy">copy summary</button>
-      <button class="ghost-btn" id="plan-export">export csv</button>
-      <button class="ghost-btn" id="plan-export-json">export json</button>
-      <label class="ghost-btn" for="plan-import">import<input type="file" id="plan-import" accept="application/json,.json" hidden /></label>
-      <button class="ghost-btn" id="plan-print">print</button>
-      <button class="ghost-btn" id="plan-reset">reset plan</button>
+      <div class="plan-config">
+        <label class="select-wrap"><span>plan source</span>
+          <select id="plan-source" class="panel-select">
+            <option value="program">Security program (16 goals with KPIs)</option>
+            <option value="csf">NIST CSF 2.0 (22 categories)</option>
+            <option value="cis">CIS Controls v8 (18 controls)</option>
+            <option value="vciso">vCISO engagement template</option>
+            <option value="gaps">My assessment gaps</option>
+          </select>
+        </label>
+        <label class="select-wrap" id="ig-wrap"><span>implementation group</span>
+          <select id="plan-ig" class="panel-select">
+            <option value="1">IG1 (essential)</option>
+            <option value="2">IG2</option>
+            <option value="3" selected>IG3 (everything)</option>
+          </select>
+        </label>
+        <label class="select-wrap" id="pkg-wrap" hidden><span>package</span>
+          <select id="plan-pkg" class="panel-select">
+            <option value="Small">Small</option>
+            <option value="Medium">Medium</option>
+            <option value="Large" selected>Large</option>
+          </select>
+        </label>
+        <label class="select-wrap" id="gaps-wrap" hidden><span>from assessment</span>
+          <select id="plan-gaps-assessment" class="panel-select">
+            <option value="ransomware">Ransomware readiness</option>
+            <option value="cpg">CISA Performance Goals</option>
+            <option value="cis-ig1">CIS IG1 essentials</option>
+            <option value="cis-v8">CIS Controls v8 (all safeguards)</option>
+            <option value="nist-csf">NIST CSF 2.0</option>
+            <option value="nist-800171">NIST 800-171 / CMMC</option>
+            <option value="cyber-essentials">CISA Cyber Essentials</option>
+            <option value="zero-trust">CISA Zero Trust Maturity Model</option>
+            <option value="ssdf">NIST SSDF (secure development)</option>
+            <option value="pci-dss">PCI DSS v4.0</option>
+          </select>
+        </label>
+        <label class="select-wrap"><span>program start</span>
+          <input type="month" id="plan-start" class="panel-select" />
+        </label>
+        <label class="select-wrap"><span>group</span>
+          <select id="plan-group" class="panel-select"></select>
+        </label>
+        <label class="check-wrap"><input type="checkbox" id="plan-hide-done" /><span>hide done</span></label>
+      </div>
+      <div class="plan-actions">
+        <button class="ghost-btn" id="plan-copy">copy summary</button>
+        <button class="ghost-btn" id="plan-export">export csv</button>
+        <button class="ghost-btn" id="plan-export-json">export json</button>
+        <label class="ghost-btn" for="plan-import">import<input type="file" id="plan-import" accept="application/json,.json" hidden /></label>
+        <button class="ghost-btn" id="plan-print">print</button>
+        <button class="ghost-btn ghost-btn-danger" id="plan-reset">reset plan</button>
+      </div>
     </div>
     <div class="plan-summary" id="plan-summary"></div>
     <div class="board" id="plan-board"></div>
