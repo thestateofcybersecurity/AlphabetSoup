@@ -1,0 +1,793 @@
+{
+  "categories": [
+    {
+      "id": "GV",
+      "name": "Govern"
+    },
+    {
+      "id": "ID",
+      "name": "Identify"
+    },
+    {
+      "id": "PR",
+      "name": "Protect"
+    },
+    {
+      "id": "DE",
+      "name": "Detect"
+    },
+    {
+      "id": "RS",
+      "name": "Respond"
+    },
+    {
+      "id": "RC",
+      "name": "Recover"
+    }
+  ],
+  "questions": [
+    {
+      "id": "1.A",
+      "text": "Have you written down who is responsible and accountable for cybersecurity, and shared those roles across your business?",
+      "tier": "basic",
+      "group": "GV",
+      "references": [
+        "CISA CPG 1.A",
+        "NIST CSF GV.RR-02"
+      ],
+      "why": "Addresses a lack of clear cybersecurity accountability, investment, or effectiveness, which leaves security gaps that no one owns or fixes.",
+      "fix": "Document cybersecurity roles and responsibilities in a written policy, and name the person accountable for the program.",
+      "links": [
+        {
+          "label": "CISA Cross-Sector Cybersecurity Performance Goals",
+          "url": "https://www.cisa.gov/cross-sector-cybersecurity-performance-goals"
+        },
+        {
+          "label": "NIST Cybersecurity Framework 2.0",
+          "url": "https://www.nist.gov/cyberframework"
+        }
+      ]
+    },
+    {
+      "id": "1.B",
+      "text": "Do you have written cybersecurity policies that leadership reviews and updates at least once a year?",
+      "tier": "basic",
+      "group": "GV",
+      "references": [
+        "CISA CPG 1.B",
+        "NIST CSF GV.OV-03"
+      ],
+      "why": "Addresses insufficient policies to manage risk; without policies that keep pace with new threats and technology, cyber risk goes unmanaged.",
+      "fix": "Write down your cybersecurity risk strategy and policies, then schedule a leadership review at least once a year.",
+      "links": [
+        {
+          "label": "CISA Cybersecurity Performance Goals 2.0",
+          "url": "https://www.cisa.gov/cybersecurity-performance-goals-2-0-cpg-2-0"
+        },
+        {
+          "label": "NIST Cybersecurity Framework 2.0",
+          "url": "https://www.nist.gov/cyberframework"
+        }
+      ]
+    },
+    {
+      "id": "1.C",
+      "text": "Do you have a written plan for how you would respond to a cyberattack, and do you practice it at least once a year?",
+      "tier": "basic",
+      "group": "GV",
+      "references": [
+        "CISA CPG 1.C",
+        "NIST CSF ID.IM-02",
+        "NIST CSF ID.IM-04"
+      ],
+      "why": "Addresses the inability to quickly isolate, contain, eradicate, and communicate about incidents, which lets damage grow unchecked.",
+      "fix": "Write a basic incident response plan covering your likely scenarios, then run a tabletop drill at least once a year.",
+      "links": [
+        {
+          "label": "CISA Cross-Sector Cybersecurity Performance Goals",
+          "url": "https://www.cisa.gov/cross-sector-cybersecurity-performance-goals"
+        },
+        {
+          "label": "StopRansomware.gov (CISA)",
+          "url": "https://www.cisa.gov/stopransomware"
+        }
+      ]
+    },
+    {
+      "id": "1.D",
+      "text": "Do your contracts require vendors and service providers to promptly tell you about security incidents and vulnerabilities in their products?",
+      "tier": "advanced",
+      "group": "GV",
+      "references": [
+        "CISA CPG 1.D",
+        "NIST CSF GV.SC-01",
+        "NIST CSF GV.SC-05"
+      ],
+      "why": "Addresses weak supply chain risk management; a vendor breach or flaw can reach your systems before you ever hear about it.",
+      "fix": "Add clauses to vendor contracts and service-level agreements requiring notice of security incidents and vulnerabilities within a set timeframe.",
+      "links": [
+        {
+          "label": "CISA Cross-Sector Cybersecurity Performance Goals",
+          "url": "https://www.cisa.gov/cross-sector-cybersecurity-performance-goals"
+        },
+        {
+          "label": "CIS Critical Security Controls list",
+          "url": "https://www.cisecurity.org/controls/cis-controls-list"
+        }
+      ]
+    },
+    {
+      "id": "1.E",
+      "text": "If an outside company remotely manages your IT or systems, do you track and manage the security risks that relationship creates?",
+      "tier": "advanced",
+      "group": "GV",
+      "references": [
+        "CISA CPG 1.E",
+        "NIST CSF GV.SC-07"
+      ],
+      "why": "Addresses adversaries exploiting trusted third-party access; a compromised managed service provider can hand attackers deep access to your environment.",
+      "fix": "List the managed service providers with access to your systems, and review their contracts for security duties and incident notification.",
+      "links": [
+        {
+          "label": "CISA Cybersecurity Performance Goals 2.0",
+          "url": "https://www.cisa.gov/cybersecurity-performance-goals-2-0-cpg-2-0"
+        },
+        {
+          "label": "CIS Critical Security Controls list",
+          "url": "https://www.cisecurity.org/controls/cis-controls-list"
+        }
+      ]
+    },
+    {
+      "id": "2.A",
+      "text": "Do you keep an up-to-date inventory of your organization's hardware, software, data, and systems?",
+      "tier": "basic",
+      "group": "ID",
+      "references": [
+        "CISA CPG 2.A",
+        "NIST CSF ID.AM-01"
+      ],
+      "why": "Addresses attackers using unknown or unmanaged devices as entry points; you cannot protect assets you do not know you have.",
+      "fix": "Start a simple inventory of all hardware and software, and update it on a regular schedule, especially for business-critical systems.",
+      "links": [
+        {
+          "label": "CISA Cross-Sector Cybersecurity Performance Goals",
+          "url": "https://www.cisa.gov/cross-sector-cybersecurity-performance-goals"
+        },
+        {
+          "label": "CIS Critical Security Controls list",
+          "url": "https://www.cisecurity.org/controls/cis-controls-list"
+        }
+      ]
+    },
+    {
+      "id": "2.B",
+      "text": "Do you patch or otherwise fix known security vulnerabilities on your systems in a timely way, especially internet-facing ones?",
+      "tier": "advanced",
+      "group": "ID",
+      "references": [
+        "CISA CPG 2.B",
+        "NIST CSF ID.RA-01",
+        "NIST CSF ID.RA-08"
+      ],
+      "why": "Addresses adversaries who routinely target unpatched, internet-exposed systems, using known software flaws to gain their initial foothold.",
+      "fix": "Set up a vulnerability management routine, and start by patching anything listed on CISA's Known Exploited Vulnerabilities Catalog.",
+      "links": [
+        {
+          "label": "CISA Cross-Sector Cybersecurity Performance Goals",
+          "url": "https://www.cisa.gov/cross-sector-cybersecurity-performance-goals"
+        },
+        {
+          "label": "CISA Known Exploited Vulnerabilities Catalog",
+          "url": "https://www.cisa.gov/known-exploited-vulnerabilities-catalog"
+        }
+      ]
+    },
+    {
+      "id": "2.C",
+      "text": "Do you have an independent expert test whether your security controls actually work, for example through penetration tests?",
+      "tier": "advanced",
+      "group": "ID",
+      "references": [
+        "CISA CPG 2.C",
+        "NIST CSF ID.RA-01",
+        "NIST CSF ID.RA-03"
+      ],
+      "why": "Addresses gaps in cyber defenses or overconfidence in existing protections that have never been tested by an outside party.",
+      "fix": "Engage a qualified third party to run a penetration test or security assessment, then fix the high-priority findings.",
+      "links": [
+        {
+          "label": "CISA Cross-Sector Cybersecurity Performance Goals",
+          "url": "https://www.cisa.gov/cross-sector-cybersecurity-performance-goals"
+        },
+        {
+          "label": "CISA Cyber Hygiene Services",
+          "url": "https://www.cisa.gov/resources-tools/resources/cisa-cyber-hygiene-services"
+        }
+      ]
+    },
+    {
+      "id": "2.D",
+      "text": "Do you give security researchers an easy, public way to report vulnerabilities they find in your systems?",
+      "tier": "intermediate",
+      "group": "ID",
+      "references": [
+        "CISA CPG 2.D",
+        "NIST CSF ID.RA-08"
+      ],
+      "why": "Addresses the risk that, if researchers cannot easily report weaknesses, flaws stay open longer and adversaries may exploit them first.",
+      "fix": "Publish a simple way to report vulnerabilities (an email address or web form), and consider a security.txt file per RFC 9116.",
+      "links": [
+        {
+          "label": "CISA Cross-Sector Cybersecurity Performance Goals",
+          "url": "https://www.cisa.gov/cross-sector-cybersecurity-performance-goals"
+        },
+        {
+          "label": "NIST Cybersecurity Framework 2.0",
+          "url": "https://www.nist.gov/cyberframework"
+        }
+      ]
+    },
+    {
+      "id": "2.E",
+      "text": "Do you keep an accurate, up-to-date diagram of how your networks are connected?",
+      "tier": "basic",
+      "group": "ID",
+      "references": [
+        "CISA CPG 2.E",
+        "NIST CSF ID.AM-03",
+        "NIST CSF PR.PS-01"
+      ],
+      "why": "Addresses an incomplete or inaccurate understanding of network topology, which slows down incident response and recovery.",
+      "fix": "Create a current network diagram of your IT and any OT networks, and update it whenever the network changes.",
+      "links": [
+        {
+          "label": "CISA Cross-Sector Cybersecurity Performance Goals",
+          "url": "https://www.cisa.gov/cross-sector-cybersecurity-performance-goals"
+        },
+        {
+          "label": "NIST Cybersecurity Framework 2.0",
+          "url": "https://www.nist.gov/cyberframework"
+        }
+      ]
+    },
+    {
+      "id": "3.A",
+      "text": "Do you change the default manufacturer passwords on all new hardware, software, and devices before connecting them?",
+      "tier": "basic",
+      "group": "PR",
+      "references": [
+        "CISA CPG 3.A",
+        "NIST CSF PR.AA-01"
+      ],
+      "why": "Addresses attackers who look up and reuse default account passwords to gain initial access or move through a network.",
+      "fix": "Adopt a policy that requires changing every default password before a device or system is connected to your network.",
+      "links": [
+        {
+          "label": "CISA Cross-Sector Cybersecurity Performance Goals",
+          "url": "https://www.cisa.gov/cross-sector-cybersecurity-performance-goals"
+        },
+        {
+          "label": "CISA Secure Our World",
+          "url": "https://www.cisa.gov/secure-our-world"
+        }
+      ]
+    },
+    {
+      "id": "3.B",
+      "text": "Do you require passwords to be long (about 16 characters or more) on the systems that can support it?",
+      "tier": "basic",
+      "group": "PR",
+      "references": [
+        "CISA CPG 3.B",
+        "NIST CSF PR.AA-01"
+      ],
+      "why": "Addresses adversaries who crack short passwords quickly with brute-force tools, whether online or against stolen password hashes.",
+      "fix": "Set a system-enforced minimum password length, and encourage passphrases and a password manager to make long passwords easy.",
+      "links": [
+        {
+          "label": "CISA Cross-Sector Cybersecurity Performance Goals",
+          "url": "https://www.cisa.gov/cross-sector-cybersecurity-performance-goals"
+        },
+        {
+          "label": "Have I Been Pwned (check exposed passwords)",
+          "url": "https://haveibeenpwned.com/"
+        }
+      ]
+    },
+    {
+      "id": "3.C",
+      "text": "Do you make sure accounts use unique passwords, instead of the same password being reused across systems?",
+      "tier": "basic",
+      "group": "PR",
+      "references": [
+        "CISA CPG 3.C",
+        "NIST CSF PR.AA-01"
+      ],
+      "why": "Addresses reused credentials, which let an attacker who steals one password move laterally across many systems, including between IT and OT.",
+      "fix": "Give each account and service its own unique password, and use a password manager to keep track of them.",
+      "links": [
+        {
+          "label": "CISA Cross-Sector Cybersecurity Performance Goals",
+          "url": "https://www.cisa.gov/cross-sector-cybersecurity-performance-goals"
+        },
+        {
+          "label": "Have I Been Pwned (check exposed passwords)",
+          "url": "https://haveibeenpwned.com/"
+        }
+      ]
+    },
+    {
+      "id": "3.D",
+      "text": "When someone leaves your organization, do you disable their accounts and collect their badges and keys the same day?",
+      "tier": "basic",
+      "group": "PR",
+      "references": [
+        "CISA CPG 3.D",
+        "NIST CSF PR.AA-01"
+      ],
+      "why": "Addresses adversaries who abuse the still-active accounts of former staff to get in and avoid detection.",
+      "fix": "Create an offboarding checklist that revokes all accounts and returns physical access on an employee's departure day.",
+      "links": [
+        {
+          "label": "CISA Cross-Sector Cybersecurity Performance Goals",
+          "url": "https://www.cisa.gov/cross-sector-cybersecurity-performance-goals"
+        },
+        {
+          "label": "NIST Cybersecurity Framework 2.0",
+          "url": "https://www.nist.gov/cyberframework"
+        }
+      ]
+    },
+    {
+      "id": "3.E",
+      "text": "Do you log failed login attempts and get alerted when there is a suspicious burst of them?",
+      "tier": "intermediate",
+      "group": "PR",
+      "references": [
+        "CISA CPG 3.E",
+        "NIST CSF PR.AA-01"
+      ],
+      "why": "Addresses automated, credential-based attacks such as password guessing, spraying, and stuffing, which show up as repeated failed logins.",
+      "fix": "Turn on logging of failed logins, and set an alert for an unusual number of attempts in a short window.",
+      "links": [
+        {
+          "label": "CISA Cross-Sector Cybersecurity Performance Goals",
+          "url": "https://www.cisa.gov/cross-sector-cybersecurity-performance-goals"
+        },
+        {
+          "label": "StopRansomware.gov (CISA)",
+          "url": "https://www.cisa.gov/stopransomware"
+        }
+      ]
+    },
+    {
+      "id": "3.F",
+      "text": "Do you require a second factor (like an app or security key) beyond a password to access your important accounts?",
+      "tier": "intermediate",
+      "group": "PR",
+      "references": [
+        "CISA CPG 3.F",
+        "NIST CSF PR.AA-03"
+      ],
+      "why": "Addresses the risk that, with only a password, an adversary who guesses or steals it can log in freely; MFA adds a second barrier.",
+      "fix": "Turn on MFA for remote access and privileged accounts first, using phishing-resistant methods (like FIDO security keys) where possible.",
+      "links": [
+        {
+          "label": "CISA Cross-Sector Cybersecurity Performance Goals",
+          "url": "https://www.cisa.gov/cross-sector-cybersecurity-performance-goals"
+        },
+        {
+          "label": "FIDO Alliance: What is FIDO?",
+          "url": "https://fidoalliance.org/what-is-fido/"
+        }
+      ]
+    },
+    {
+      "id": "3.G",
+      "text": "Do your administrators use a separate account for everyday tasks like email and web browsing, apart from their admin account?",
+      "tier": "basic",
+      "group": "PR",
+      "references": [
+        "CISA CPG 3.G",
+        "NIST CSF PR.AA-05"
+      ],
+      "why": "Addresses the risk that, if an admin's everyday account is compromised, attackers gain administrator access unless privileges are kept separate.",
+      "fix": "Give administrators a second, standard account for routine work, and reserve admin accounts for admin tasks only.",
+      "links": [
+        {
+          "label": "CISA Cross-Sector Cybersecurity Performance Goals",
+          "url": "https://www.cisa.gov/cross-sector-cybersecurity-performance-goals"
+        },
+        {
+          "label": "CIS Critical Security Controls list",
+          "url": "https://www.cisecurity.org/controls/cis-controls-list"
+        }
+      ]
+    },
+    {
+      "id": "3.H",
+      "text": "Do you limit each user, role, and process to only the access it actually needs to do its job?",
+      "tier": "basic",
+      "group": "PR",
+      "references": [
+        "CISA CPG 3.H",
+        "NIST CSF PR.AA-05"
+      ],
+      "why": "Addresses excess access, which lets adversaries move undetected across systems and reach sensitive data and critical systems.",
+      "fix": "Review access permissions (ideally each quarter), and remove any rights that are not needed for the person's role.",
+      "links": [
+        {
+          "label": "CISA Cybersecurity Performance Goals 2.0",
+          "url": "https://www.cisa.gov/cybersecurity-performance-goals-2-0-cpg-2-0"
+        },
+        {
+          "label": "CIS Critical Security Controls list",
+          "url": "https://www.cisecurity.org/controls/cis-controls-list"
+        }
+      ]
+    },
+    {
+      "id": "3.I",
+      "text": "Have you divided your network into segments so a breach in one area cannot easily spread to everything else?",
+      "tier": "advanced",
+      "group": "PR",
+      "references": [
+        "CISA CPG 3.I",
+        "NIST CSF PR.IR-01",
+        "NIST CSF DE.CM-01"
+      ],
+      "why": "Addresses a flat network, which lets an intruder who gets in reach sensitive data, spaces, and critical infrastructure unimpeded.",
+      "fix": "Place routers or firewalls between network zones to separate traffic, and physically segment OT areas where possible.",
+      "links": [
+        {
+          "label": "CISA Cross-Sector Cybersecurity Performance Goals",
+          "url": "https://www.cisa.gov/cross-sector-cybersecurity-performance-goals"
+        },
+        {
+          "label": "CIS Critical Security Controls list",
+          "url": "https://www.cisecurity.org/controls/cis-controls-list"
+        }
+      ]
+    },
+    {
+      "id": "3.J",
+      "text": "Do all staff get cybersecurity awareness training when they start and at least once a year after that?",
+      "tier": "basic",
+      "group": "PR",
+      "references": [
+        "CISA CPG 3.J",
+        "NIST CSF PR.AT-01",
+        "NIST CSF PR.AT-02"
+      ],
+      "why": "Addresses untrained users, who are easier targets for phishing, social engineering, and other attacks that rely on human error.",
+      "fix": "Provide new hires initial security training, run refreshers for everyone at least annually, and add role-based training for key staff.",
+      "links": [
+        {
+          "label": "CISA Cross-Sector Cybersecurity Performance Goals",
+          "url": "https://www.cisa.gov/cross-sector-cybersecurity-performance-goals"
+        },
+        {
+          "label": "CISA Secure Our World",
+          "url": "https://www.cisa.gov/secure-our-world"
+        }
+      ]
+    },
+    {
+      "id": "3.K",
+      "text": "Do you encrypt sensitive data both when it is stored and when it travels across your network?",
+      "tier": "advanced",
+      "group": "PR",
+      "references": [
+        "CISA CPG 3.K",
+        "NIST CSF PR.DS-01",
+        "NIST CSF PR.DS-02"
+      ],
+      "why": "Addresses adversaries positioned on the network who sniff, alter, or steal sensitive and operational data that is not encrypted.",
+      "fix": "Identify your most sensitive data, apply up-to-date encryption for it in transit and at rest, and never store passwords in plaintext.",
+      "links": [
+        {
+          "label": "CISA Cross-Sector Cybersecurity Performance Goals",
+          "url": "https://www.cisa.gov/cross-sector-cybersecurity-performance-goals"
+        },
+        {
+          "label": "NIST Cybersecurity Framework 2.0",
+          "url": "https://www.nist.gov/cyberframework"
+        }
+      ]
+    },
+    {
+      "id": "3.L",
+      "text": "Have you turned on email security protections like SPF, DKIM, and DMARC to fight spoofing and phishing?",
+      "tier": "basic",
+      "group": "PR",
+      "references": [
+        "CISA CPG 3.L",
+        "NIST CSF PR.DS-01",
+        "NIST CSF PR.DS-02"
+      ],
+      "why": "Addresses attackers who spoof your domain and send convincing phishing emails to your people and customers when these protections are missing.",
+      "fix": "Enable STARTTLS, SPF, and DKIM on your email, and set DMARC to a reject policy.",
+      "links": [
+        {
+          "label": "CISA Cross-Sector Cybersecurity Performance Goals",
+          "url": "https://www.cisa.gov/cross-sector-cybersecurity-performance-goals"
+        },
+        {
+          "label": "NIST Cybersecurity Framework 2.0",
+          "url": "https://www.nist.gov/cyberframework"
+        }
+      ]
+    },
+    {
+      "id": "3.M",
+      "text": "Do you block Office macros and USB autorun by default, allowing them only when specifically needed?",
+      "tier": "basic",
+      "group": "PR",
+      "references": [
+        "CISA CPG 3.M",
+        "NIST CSF PR.PS-01",
+        "NIST CSF ID.RA-07"
+      ],
+      "why": "Addresses attackers who rely on users opening files with malicious macros, or on autorun, to execute code on a system.",
+      "fix": "Set a policy that disables macros and autorun by default, with an approval process for the rare cases that truly need them.",
+      "links": [
+        {
+          "label": "CISA Cross-Sector Cybersecurity Performance Goals",
+          "url": "https://www.cisa.gov/cross-sector-cybersecurity-performance-goals"
+        },
+        {
+          "label": "NIST Cybersecurity Framework 2.0",
+          "url": "https://www.nist.gov/cyberframework"
+        }
+      ]
+    },
+    {
+      "id": "3.N",
+      "text": "Do you have a process to review, test, and approve changes to your systems before they go live?",
+      "tier": "advanced",
+      "group": "PR",
+      "references": [
+        "CISA CPG 3.N",
+        "NIST CSF PR.PS-01",
+        "NIST CSF PR.PS-03"
+      ],
+      "why": "Addresses unmanaged changes, which can break critical systems and make it harder to maintain, respond to, and recover operations.",
+      "fix": "Put a change management policy in place that requires approval and testing before configuration or system changes are deployed.",
+      "links": [
+        {
+          "label": "CISA Cross-Sector Cybersecurity Performance Goals",
+          "url": "https://www.cisa.gov/cross-sector-cybersecurity-performance-goals"
+        },
+        {
+          "label": "NIST Cybersecurity Framework 2.0",
+          "url": "https://www.nist.gov/cyberframework"
+        }
+      ]
+    },
+    {
+      "id": "3.O",
+      "text": "Do you regularly back up critical systems, store the backups offline, and test that you can actually restore from them?",
+      "tier": "advanced",
+      "group": "PR",
+      "references": [
+        "CISA CPG 3.O",
+        "NIST CSF PR.IR-01",
+        "NIST CSF DE.CM-01"
+      ],
+      "why": "Addresses ransomware and other adversaries that destroy data and disable recovery, so untested or online-only backups may fail when needed.",
+      "fix": "Back up business-critical systems on a schedule, keep copies offline, and test a full restore at least once a year.",
+      "links": [
+        {
+          "label": "CISA Cross-Sector Cybersecurity Performance Goals",
+          "url": "https://www.cisa.gov/cross-sector-cybersecurity-performance-goals"
+        },
+        {
+          "label": "StopRansomware.gov (CISA)",
+          "url": "https://www.cisa.gov/stopransomware"
+        }
+      ]
+    },
+    {
+      "id": "3.P",
+      "text": "Do you require review and approval before new hardware, firmware, or software is installed on your systems?",
+      "tier": "intermediate",
+      "group": "PR",
+      "references": [
+        "CISA CPG 3.P",
+        "NIST CSF PR.PS-02",
+        "NIST CSF PR.PS-03"
+      ],
+      "why": "Addresses unapproved or tampered hardware and software, which can introduce compromised products or hidden malware into your environment.",
+      "fix": "Create an approval process, and keep a list of allowed hardware, firmware, and software with approved versions.",
+      "links": [
+        {
+          "label": "CISA Cross-Sector Cybersecurity Performance Goals",
+          "url": "https://www.cisa.gov/cross-sector-cybersecurity-performance-goals"
+        },
+        {
+          "label": "CIS Critical Security Controls list",
+          "url": "https://www.cisecurity.org/controls/cis-controls-list"
+        }
+      ]
+    },
+    {
+      "id": "3.Q",
+      "text": "Do you collect security logs from your systems and store them securely in a central place?",
+      "tier": "intermediate",
+      "group": "PR",
+      "references": [
+        "CISA CPG 3.Q",
+        "NIST CSF PR.PS-04"
+      ],
+      "why": "Addresses the risk that, without collected and protected logs, you cannot detect intrusions or investigate what an attacker did.",
+      "fix": "Send security logs to a central system that only authorized staff can access, and alert when a critical log source stops.",
+      "links": [
+        {
+          "label": "CISA Cross-Sector Cybersecurity Performance Goals",
+          "url": "https://www.cisa.gov/cross-sector-cybersecurity-performance-goals"
+        },
+        {
+          "label": "NIST Cybersecurity Framework 2.0",
+          "url": "https://www.nist.gov/cyberframework"
+        }
+      ]
+    },
+    {
+      "id": "3.R",
+      "text": "Do you prevent unauthorized USB drives and other removable devices from connecting to your systems?",
+      "tier": "advanced",
+      "group": "PR",
+      "references": [
+        "CISA CPG 3.R",
+        "NIST CSF PR.DS-01"
+      ],
+      "why": "Addresses attackers who copy malware onto removable media (like USB drives) to breach systems, including disconnected or air-gapped ones.",
+      "fix": "Set policies that block unauthorized USB and removable media, for example by limiting USB use or disabling ports.",
+      "links": [
+        {
+          "label": "CISA Cross-Sector Cybersecurity Performance Goals",
+          "url": "https://www.cisa.gov/cross-sector-cybersecurity-performance-goals"
+        },
+        {
+          "label": "NIST Cybersecurity Framework 2.0",
+          "url": "https://www.nist.gov/cyberframework"
+        }
+      ]
+    },
+    {
+      "id": "3.S",
+      "text": "Do you make sure internet-facing systems expose no unnecessary services and are kept patched?",
+      "tier": "advanced",
+      "group": "PR",
+      "references": [
+        "CISA CPG 3.S",
+        "NIST CSF PR.IR-01"
+      ],
+      "why": "Addresses adversaries who exploit weaknesses, bugs, or misconfigurations in internet-facing systems to gain their first network foothold.",
+      "fix": "Keep internet-facing assets patched, remove unneeded services, and never expose management interfaces to the public internet.",
+      "links": [
+        {
+          "label": "CISA Cross-Sector Cybersecurity Performance Goals",
+          "url": "https://www.cisa.gov/cross-sector-cybersecurity-performance-goals"
+        },
+        {
+          "label": "CISA Known Exploited Vulnerabilities Catalog",
+          "url": "https://www.cisa.gov/known-exploited-vulnerabilities-catalog"
+        }
+      ]
+    },
+    {
+      "id": "4.A",
+      "text": "Do you run antivirus or anti-malware that is kept updated and set to scan automatically on your systems?",
+      "tier": "intermediate",
+      "group": "DE",
+      "references": [
+        "CISA CPG 4.A",
+        "NIST CSF DE.CM-09"
+      ],
+      "why": "Addresses malware such as payloads, droppers, and backdoors, which let adversaries control machines, evade defenses, and act after a breach.",
+      "fix": "Deploy antivirus or anti-malware on your endpoints, keep it updated, and set it to scan email and removable media automatically.",
+      "links": [
+        {
+          "label": "CISA Cross-Sector Cybersecurity Performance Goals",
+          "url": "https://www.cisa.gov/cross-sector-cybersecurity-performance-goals"
+        },
+        {
+          "label": "CISA Secure Our World",
+          "url": "https://www.cisa.gov/secure-our-world"
+        }
+      ]
+    },
+    {
+      "id": "4.B",
+      "text": "Do you have defined criteria and a process to recognize a suspicious security event and escalate it?",
+      "tier": "advanced",
+      "group": "DE",
+      "references": [
+        "CISA CPG 4.B",
+        "NIST CSF DE.AE-08"
+      ],
+      "why": "Addresses the risk that, without a way to spot adverse events, initial access, privilege escalation, and lateral movement go unnoticed.",
+      "fix": "Define what counts as a suspicious event, document how to escalate it, and connect it to your incident response plan.",
+      "links": [
+        {
+          "label": "CISA Cross-Sector Cybersecurity Performance Goals",
+          "url": "https://www.cisa.gov/cross-sector-cybersecurity-performance-goals"
+        },
+        {
+          "label": "NIST Cybersecurity Framework 2.0",
+          "url": "https://www.nist.gov/cyberframework"
+        }
+      ]
+    },
+    {
+      "id": "5.A",
+      "text": "Do you have a plan for who to communicate with, and how, during a cybersecurity incident?",
+      "tier": "basic",
+      "group": "RS",
+      "references": [
+        "CISA CPG 5.A",
+        "NIST CSF RS.CO-03"
+      ],
+      "why": "Addresses the risk that, without set communication procedures, an incident disrupts coordination among responders, slowing resolution and worsening damage.",
+      "fix": "Write a communications plan that lists internal and external stakeholders and how you will reach them during an incident.",
+      "links": [
+        {
+          "label": "CISA Cybersecurity Performance Goals 2.0",
+          "url": "https://www.cisa.gov/cybersecurity-performance-goals-2-0-cpg-2-0"
+        },
+        {
+          "label": "NIST Cybersecurity Framework 2.0",
+          "url": "https://www.nist.gov/cyberframework"
+        }
+      ]
+    },
+    {
+      "id": "5.B",
+      "text": "Do you have written procedures for who to report a confirmed cyber incident to, and how, including CISA?",
+      "tier": "intermediate",
+      "group": "RS",
+      "references": [
+        "CISA CPG 5.B",
+        "NIST CSF RS.CO-02",
+        "NIST CSF RS.MA-01"
+      ],
+      "why": "Addresses the risk that, without timely reporting, CISA and others cannot help you or see whether a broader campaign is hitting your sector.",
+      "fix": "Document to whom and how you report confirmed incidents (regulators, ISACs, CISA), and the timeframes that apply.",
+      "links": [
+        {
+          "label": "CISA Cross-Sector Cybersecurity Performance Goals",
+          "url": "https://www.cisa.gov/cross-sector-cybersecurity-performance-goals"
+        },
+        {
+          "label": "StopRansomware.gov (CISA)",
+          "url": "https://www.cisa.gov/stopransomware"
+        }
+      ]
+    },
+    {
+      "id": "6.A",
+      "text": "Can you recover and restore your critical systems after a cyber incident, and do you learn from each one?",
+      "tier": "advanced",
+      "group": "RC",
+      "references": [
+        "CISA CPG 6.A",
+        "NIST CSF RC.RP-01",
+        "NIST CSF ID.IM-02"
+      ],
+      "why": "Addresses the risk that, without recovery plans, a cyber incident can leave critical assets, services, or systems down for a long time.",
+      "fix": "Build and maintain recovery plans for your critical systems, then run a post-incident review to improve them after any event.",
+      "links": [
+        {
+          "label": "CISA Cross-Sector Cybersecurity Performance Goals",
+          "url": "https://www.cisa.gov/cross-sector-cybersecurity-performance-goals"
+        },
+        {
+          "label": "StopRansomware.gov (CISA)",
+          "url": "https://www.cisa.gov/stopransomware"
+        }
+      ]
+    }
+  ]
+}

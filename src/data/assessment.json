@@ -53,6 +53,22 @@
         "CIS Control 11 - Data Recovery",
         "Protecting Data from Ransomware and Other Data Loss Events: National Cybersecurity Center of Excellence (NCCoE), 2020",
         "CRR Supplemental Resource Guide Volume 1, Asset Management Version 1.1"
+      ],
+      "why": "Ransomware encrypts your live files and often any backups still connected to the network, so offsite copies with several days of versions are what let you recover without paying.",
+      "fix": "Set up automated daily backups to an offsite or cloud location that keeps at least 30 days of versions and stays disconnected (offline or immutable) from your network.",
+      "links": [
+        {
+          "label": "CISA #StopRansomware Guide",
+          "url": "https://www.cisa.gov/stopransomware/ransomware-guide"
+        },
+        {
+          "label": "CIS Control 11: Data Recovery",
+          "url": "https://www.cisecurity.org/controls/data-recovery"
+        },
+        {
+          "label": "NIST SP 800-34: Contingency Planning Guide",
+          "url": "https://csrc.nist.gov/pubs/sp/800/34/r1/final"
+        }
       ]
     },
     {
@@ -66,6 +82,18 @@
         "CIS Control 11 - Data Recovery",
         "Protecting Data from Ransomware and Other Data Loss Events: National Cybersecurity Center of Excellence (NCCoE), 2020",
         "CRR Supplemental Resource Guide Volume 1, Asset Management Version 1.1"
+      ],
+      "why": "A backup you have never restored may be corrupt or incomplete, and you find that out only during a ransomware crisis when it is too late to fix.",
+      "fix": "Schedule at least one full test restore each year to confirm the backups actually work and to learn how long a real recovery would take.",
+      "links": [
+        {
+          "label": "CIS Control 11: Data Recovery",
+          "url": "https://www.cisecurity.org/controls/data-recovery"
+        },
+        {
+          "label": "NIST SP 800-34: Contingency Planning Guide",
+          "url": "https://csrc.nist.gov/pubs/sp/800/34/r1/final"
+        }
       ]
     },
     {
@@ -79,6 +107,18 @@
         "Selecting a Protective DNS Service: National Security Agency, 2021",
         "DNS protection – GCA Quad 9",
         "NIST SP 800-53 Rev. 5: SC-7, SC-20, SC-21, SC-22, AC-4"
+      ],
+      "why": "A lot of ransomware reaches machines through malicious websites and links, and DNS filtering blocks those connections before the download can even start.",
+      "fix": "Turn on a protective DNS service (a filtering DNS resolver or DNS firewall) so requests to known-malicious domains are automatically blocked.",
+      "links": [
+        {
+          "label": "CIS Control 9: Email and Web Browser Protections",
+          "url": "https://www.cisecurity.org/controls/email-and-web-browser-protections"
+        },
+        {
+          "label": "CISA #StopRansomware Guide",
+          "url": "https://www.cisa.gov/stopransomware/ransomware-guide"
+        }
       ]
     },
     {
@@ -91,6 +131,18 @@
         "CIS Control 9 - Email and Web Browser Protections",
         "NIST SP 800-53 Rev. 5: SC-7, SC-20, SC-21, SC-22, AC-4",
         "Securing Your Web Browser, CISA: updated 2015"
+      ],
+      "why": "Unmanaged browsers can silently run risky scripts, plugins, and downloads that quietly deliver ransomware onto a device.",
+      "fix": "Standardize and lock down browser security settings across the organization, disabling risky plugins and enforcing safe download and scripting policies.",
+      "links": [
+        {
+          "label": "CIS Control 9: Email and Web Browser Protections",
+          "url": "https://www.cisecurity.org/controls/email-and-web-browser-protections"
+        },
+        {
+          "label": "CISA #StopRansomware Guide",
+          "url": "https://www.cisa.gov/stopransomware/ransomware-guide"
+        }
       ]
     },
     {
@@ -102,6 +154,18 @@
         "NIST SP 800-53 Rev. 5: AT-2, AT-3, CP-4, IR-3",
         "NIST SP 800-84, Guide to Test, Training, and Exercise Programs for IT Plans and Capabilities",
         "NIST SP 800-171 Rev. 2, Protecting Controlled Unclassified Information in Nonfederal Systems and Organizations"
+      ],
+      "why": "Phishing is a top way ransomware gets in, and practicing your response ahead of time keeps a real incident from turning into confusion and delay.",
+      "fix": "Run a yearly tabletop exercise that walks your team through responding to a phishing-driven intrusion, using a free CISA exercise package.",
+      "links": [
+        {
+          "label": "CISA Tabletop Exercise Packages",
+          "url": "https://www.cisa.gov/resources-tools/services/cisa-tabletop-exercise-packages"
+        },
+        {
+          "label": "CISA #StopRansomware Guide",
+          "url": "https://www.cisa.gov/stopransomware/ransomware-guide"
+        }
       ]
     },
     {
@@ -114,6 +178,18 @@
         "CISA and MS-ISAC Ransomware Guide",
         "Cyber Readiness Institute’s Ransomware Playbook",
         "NIST SP 800-53 Rev. 5: AT-2, AT-3"
+      ],
+      "why": "Employees who cannot spot a phishing email are the easiest entry point for ransomware, since a single click can compromise the whole network.",
+      "fix": "Provide regular security awareness training that teaches staff to recognize and report phishing emails, suspicious links, and unexpected attachments.",
+      "links": [
+        {
+          "label": "CIS Control 14: Security Awareness and Skills Training",
+          "url": "https://www.cisecurity.org/controls/security-awareness-and-skills-training"
+        },
+        {
+          "label": "CISA #StopRansomware Guide",
+          "url": "https://www.cisa.gov/stopransomware/ransomware-guide"
+        }
       ]
     },
     {
@@ -125,6 +201,18 @@
         "NIST SP 800-177 Revision 1, Trustworthy Email",
         "CISA and MS-ISAC Ransomware Guide",
         "Cyber Readiness Institute’s Ransomware Playbook"
+      ],
+      "why": "Most ransomware arrives as a malicious attachment or link in email, so filtering that content stops many attacks before a user ever sees them.",
+      "fix": "Enable email filtering that scans for malicious attachments, links, and spoofed senders, and quarantines suspicious messages automatically.",
+      "links": [
+        {
+          "label": "CIS Control 9: Email and Web Browser Protections",
+          "url": "https://www.cisecurity.org/controls/email-and-web-browser-protections"
+        },
+        {
+          "label": "CISA #StopRansomware Guide",
+          "url": "https://www.cisa.gov/stopransomware/ransomware-guide"
+        }
       ]
     },
     {
@@ -138,6 +226,18 @@
         "CIS Control 12, Network Infrastructure Management",
         "NIST SP 800-53 Rev. 5: SI-4",
         "CRR Supplemental Resource Guide Volume 2, Controls Management Version 1.1"
+      ],
+      "why": "Ransomware crews probe and enter through your network edge, and watching perimeter traffic is how you catch the intrusion early.",
+      "fix": "Set up monitoring at your network boundary (firewall and IDS logs with alerts) and assign someone to review it for unusual inbound or outbound activity.",
+      "links": [
+        {
+          "label": "CIS Control 13: Network Monitoring and Defense",
+          "url": "https://www.cisecurity.org/controls/network-monitoring-and-defense"
+        },
+        {
+          "label": "NIST SP 800-137: Information Security Continuous Monitoring",
+          "url": "https://csrc.nist.gov/pubs/sp/800/137/final"
+        }
       ]
     },
     {
@@ -151,6 +251,18 @@
         "CIS Control 12, Network Infrastructure Management",
         "NIST SP 800-53 Rev. 5: SI-4",
         "CRR Supplemental Resource Guide Volume 2, Controls Management Version 1.1"
+      ],
+      "why": "Once inside, ransomware spreads sideways between machines, and only internal traffic monitoring reveals that movement before it reaches critical systems.",
+      "fix": "Monitor internal (east-west) network traffic so you can detect a device scanning or connecting to others in unusual ways.",
+      "links": [
+        {
+          "label": "CIS Control 13: Network Monitoring and Defense",
+          "url": "https://www.cisecurity.org/controls/network-monitoring-and-defense"
+        },
+        {
+          "label": "NIST SP 800-137: Information Security Continuous Monitoring",
+          "url": "https://csrc.nist.gov/pubs/sp/800/137/final"
+        }
       ]
     },
     {
@@ -164,6 +276,18 @@
         "CIS Control 12, Network Infrastructure Management",
         "NIST SP 800-53 Rev. 5: SI-4",
         "CRR Supplemental Resource Guide Volume 2, Controls Management Version 1.1"
+      ],
+      "why": "A flat network lets ransomware jump from one infected machine to everything else, while segmentation confines it to a small area.",
+      "fix": "Divide the network into segments (VLANs or subnets) that isolate critical systems, and restrict traffic between them to only what is needed.",
+      "links": [
+        {
+          "label": "CIS Control 12: Network Infrastructure Management",
+          "url": "https://www.cisecurity.org/controls/network-infrastructure-management"
+        },
+        {
+          "label": "CISA Cybersecurity Performance Goals (CPGs)",
+          "url": "https://www.cisa.gov/cross-sector-cybersecurity-performance-goals"
+        }
       ]
     },
     {
@@ -177,6 +301,18 @@
         "NIST SP 800-53 Rev. 5: SI-4",
         "CRR Supplemental Resource Guide Volume 2, Controls Management Version 1.1",
         "CRR Supplemental Resource Guide Volume 4, Vulnerability Management Version 1.1"
+      ],
+      "why": "Without knowing what normal traffic looks like, the sudden spikes and odd connections that signal a ransomware attack blend into the everyday noise.",
+      "fix": "Establish a baseline of normal network activity and configure alerts that flag meaningful deviations from it.",
+      "links": [
+        {
+          "label": "CIS Control 13: Network Monitoring and Defense",
+          "url": "https://www.cisecurity.org/controls/network-monitoring-and-defense"
+        },
+        {
+          "label": "NIST SP 800-137: Information Security Continuous Monitoring",
+          "url": "https://csrc.nist.gov/pubs/sp/800/137/final"
+        }
       ]
     },
     {
@@ -189,6 +325,18 @@
         "NIST SP 800-137, Information Security Continuous Monitoring (ISCM)",
         "CRR Supplemental Resource Guide Volume 1, Asset Management Version 1.1",
         "CIS Control 1: Inventory and Control of Enterprise Assets"
+      ],
+      "why": "You cannot protect, patch, or recover devices and software you do not know you have, and unknown assets are often where ransomware takes hold.",
+      "fix": "Build and maintain a current inventory of all hardware and software, updating it as assets are added or retired.",
+      "links": [
+        {
+          "label": "CIS Control 1: Inventory and Control of Enterprise Assets",
+          "url": "https://www.cisecurity.org/controls/inventory-and-control-of-enterprise-assets"
+        },
+        {
+          "label": "CIS Control 2: Inventory and Control of Software Assets",
+          "url": "https://www.cisecurity.org/controls/inventory-and-control-of-software-assets"
+        }
       ]
     },
     {
@@ -201,6 +349,18 @@
         "CIS Control 1: Inventory and Control of Enterprise Assets",
         "CIS Control 2: Inventory and Control of Software Assets",
         "NIST SP 800-53 Rev. 5: SA-22, PL-2, SA-3"
+      ],
+      "why": "Outdated, unsupported systems no longer receive security fixes, leaving permanent holes that ransomware readily exploits.",
+      "fix": "Identify and remove or replace any hardware and software that is past end-of-life and no longer gets vendor security updates.",
+      "links": [
+        {
+          "label": "CIS Control 2: Inventory and Control of Software Assets",
+          "url": "https://www.cisecurity.org/controls/inventory-and-control-of-software-assets"
+        },
+        {
+          "label": "CISA Cybersecurity Performance Goals (CPGs)",
+          "url": "https://www.cisa.gov/cross-sector-cybersecurity-performance-goals"
+        }
       ]
     },
     {
@@ -213,6 +373,18 @@
         "NIST SP 800-137, Information Security Continuous Monitoring (ISCM)",
         "CRR Supplemental Resource Guide Volume 1, Asset Management Version 1.1",
         "CIS Control 1: Inventory and Control of Enterprise Assets"
+      ],
+      "why": "Unauthorized devices plugged into your network can introduce ransomware or give an attacker a foothold that bypasses your defenses.",
+      "fix": "Use asset discovery or network access control to detect unknown devices and automatically alert your IT staff.",
+      "links": [
+        {
+          "label": "CIS Control 1: Inventory and Control of Enterprise Assets",
+          "url": "https://www.cisecurity.org/controls/inventory-and-control-of-enterprise-assets"
+        },
+        {
+          "label": "NIST SP 800-137: Information Security Continuous Monitoring",
+          "url": "https://csrc.nist.gov/pubs/sp/800/137/final"
+        }
       ]
     },
     {
@@ -225,6 +397,18 @@
         "NIST SP 800-137, Information Security Continuous Monitoring (ISCM)",
         "CRR Supplemental Resource Guide Volume 1, Asset Management Version 1.1",
         "CIS Control 1: Inventory and Control of Enterprise Assets"
+      ],
+      "why": "Detecting an unauthorized device does little good if it stays connected and can still spread ransomware or leak data.",
+      "fix": "Put a process in place to automatically quarantine or remove unknown devices from the network as soon as they are detected.",
+      "links": [
+        {
+          "label": "CIS Control 1: Inventory and Control of Enterprise Assets",
+          "url": "https://www.cisecurity.org/controls/inventory-and-control-of-enterprise-assets"
+        },
+        {
+          "label": "CISA Cybersecurity Performance Goals (CPGs)",
+          "url": "https://www.cisa.gov/cross-sector-cybersecurity-performance-goals"
+        }
       ]
     },
     {
@@ -238,6 +422,18 @@
         "NIST SP 800-128, Guide for Security-Focused Configuration Management",
         "CRR Supplemental Resource Guide Volume 3, Configuration and Change Management Version 1.1",
         "CIS Control 4: Secure Configuration of Enterprise Assets and Software"
+      ],
+      "why": "Devices and software shipped with default or loose settings expose services and accounts that ransomware operators use to get in.",
+      "fix": "Adopt documented, approved secure configuration standards and apply them consistently to all hardware and software.",
+      "links": [
+        {
+          "label": "CIS Control 4: Secure Configuration of Enterprise Assets and Software",
+          "url": "https://www.cisecurity.org/controls/secure-configuration-of-enterprise-assets-and-software"
+        },
+        {
+          "label": "NIST SP 800-128: Security-Focused Configuration Management",
+          "url": "https://csrc.nist.gov/pubs/sp/800/128/final"
+        }
       ]
     },
     {
@@ -251,6 +447,18 @@
         "NIST SP 800-128, Guide for Security-Focused Configuration Management",
         "CRR Supplemental Resource Guide Volume 3, Configuration and Change Management Version 1.1",
         "CIS Control 4: Secure Configuration of Enterprise Assets and Software"
+      ],
+      "why": "Inconsistent, hand-built systems drift into insecure states that create openings for ransomware and slow down recovery.",
+      "fix": "Create standard hardened baseline images and use them to deploy and rebuild hardware and software consistently.",
+      "links": [
+        {
+          "label": "CIS Control 4: Secure Configuration of Enterprise Assets and Software",
+          "url": "https://www.cisecurity.org/controls/secure-configuration-of-enterprise-assets-and-software"
+        },
+        {
+          "label": "NIST SP 800-128: Security-Focused Configuration Management",
+          "url": "https://csrc.nist.gov/pubs/sp/800/128/final"
+        }
       ]
     },
     {
@@ -264,6 +472,18 @@
         "NIST SP 800-128, Guide for Security-Focused Configuration Management",
         "CRR Supplemental Resource Guide Volume 3, Configuration and Change Management Version 1.1",
         "CIS Control 4: Secure Configuration of Enterprise Assets and Software"
+      ],
+      "why": "Generic configurations leave optional features and weak defaults enabled that attackers exploit to plant ransomware.",
+      "fix": "Apply recognized security hardening guides (such as CIS Benchmarks) to lock down system configurations.",
+      "links": [
+        {
+          "label": "CIS Control 4: Secure Configuration of Enterprise Assets and Software",
+          "url": "https://www.cisecurity.org/controls/secure-configuration-of-enterprise-assets-and-software"
+        },
+        {
+          "label": "NIST SP 800-128: Security-Focused Configuration Management",
+          "url": "https://csrc.nist.gov/pubs/sp/800/128/final"
+        }
       ]
     },
     {
@@ -277,6 +497,22 @@
         "CISA Security Tip (ST04-006) Understanding Patches and Software Updates",
         "NIST National Vulnerability Database",
         "NIST SP 800-40 Rev. 3, Guide to Enterprise Patch Management Technologies"
+      ],
+      "why": "Internet-facing software with known flaws is one of the most common ways ransomware gangs break in, often within days of a vulnerability becoming public.",
+      "fix": "Patch public-facing systems on a strict schedule (Critical within 15 days, High within 30) and prioritize known-exploited vulnerabilities.",
+      "links": [
+        {
+          "label": "CIS Control 7: Continuous Vulnerability Management",
+          "url": "https://www.cisecurity.org/controls/continuous-vulnerability-management"
+        },
+        {
+          "label": "NIST SP 800-40: Guide to Enterprise Patch Management",
+          "url": "https://csrc.nist.gov/pubs/sp/800/40/r4/final"
+        },
+        {
+          "label": "CISA Cybersecurity Performance Goals (CPGs)",
+          "url": "https://www.cisa.gov/cross-sector-cybersecurity-performance-goals"
+        }
       ]
     },
     {
@@ -290,6 +526,18 @@
         "CISA Security Tip (ST04-006) Understanding Patches and Software Updates",
         "NIST National Vulnerability Database",
         "NIST SP 800-40 Rev. 3, Guide to Enterprise Patch Management Technologies"
+      ],
+      "why": "Unpatched internal systems and firewalls give ransomware room to spread and gain more control once an attacker is already inside.",
+      "fix": "Establish a patch process that closes Critical and High vulnerabilities on internal software and firewalls within 30 days.",
+      "links": [
+        {
+          "label": "CIS Control 7: Continuous Vulnerability Management",
+          "url": "https://www.cisecurity.org/controls/continuous-vulnerability-management"
+        },
+        {
+          "label": "NIST SP 800-40: Guide to Enterprise Patch Management",
+          "url": "https://csrc.nist.gov/pubs/sp/800/40/r4/final"
+        }
       ]
     },
     {
@@ -303,6 +551,18 @@
         "CISA Security Tip (ST04-006) Understanding Patches and Software Updates",
         "NIST National Vulnerability Database",
         "NIST SP 800-40 Rev. 3, Guide to Enterprise Patch Management Technologies"
+      ],
+      "why": "Slow patching anywhere in the environment leaves exploitable gaps that ransomware actors actively scan for.",
+      "fix": "Tighten your patch program so all software and firewalls are fixed within 15 days for Critical and 30 days for High vulnerabilities.",
+      "links": [
+        {
+          "label": "CIS Control 7: Continuous Vulnerability Management",
+          "url": "https://www.cisecurity.org/controls/continuous-vulnerability-management"
+        },
+        {
+          "label": "NIST SP 800-40: Guide to Enterprise Patch Management",
+          "url": "https://csrc.nist.gov/pubs/sp/800/40/r4/final"
+        }
       ]
     },
     {
@@ -316,6 +576,18 @@
         "CISA Security Tip (ST04-006) Understanding Patches and Software Updates",
         "NIST National Vulnerability Database",
         "NIST SP 800-40 Rev. 3, Guide to Enterprise Patch Management Technologies"
+      ],
+      "why": "Attackers often weaponize new vulnerabilities within days, so anything slower than rapid patching leaves a dangerous exposure window.",
+      "fix": "Mature your patch program to remediate Critical vulnerabilities within 3 days and High within 7 across all systems.",
+      "links": [
+        {
+          "label": "CIS Control 7: Continuous Vulnerability Management",
+          "url": "https://www.cisecurity.org/controls/continuous-vulnerability-management"
+        },
+        {
+          "label": "NIST SP 800-40: Guide to Enterprise Patch Management",
+          "url": "https://csrc.nist.gov/pubs/sp/800/40/r4/final"
+        }
       ]
     },
     {
@@ -329,6 +601,18 @@
         "Cyber Readiness Institute’s Cyber Readiness Program",
         "CRR Supplemental Resource Guide Volume 1, Asset Management Version 1.1",
         "Global Cyber Alliance Small Business Toolkit"
+      ],
+      "why": "Weak or reused passwords are easily guessed or cracked, handing ransomware operators direct access to accounts and systems.",
+      "fix": "Require long, unique passwords for every account and provide a password manager so staff can realistically follow the rule.",
+      "links": [
+        {
+          "label": "CIS Control 5: Account Management",
+          "url": "https://www.cisecurity.org/controls/account-management"
+        },
+        {
+          "label": "CISA Cybersecurity Performance Goals (CPGs)",
+          "url": "https://www.cisa.gov/cross-sector-cybersecurity-performance-goals"
+        }
       ]
     },
     {
@@ -342,6 +626,22 @@
         "NSA Transition to Multi Factor Authentication",
         "CRR Supplemental Resource Guide Volume 1, Asset Management Version 1.1",
         "Global Cyber Alliance Small Business Toolkit"
+      ],
+      "why": "If an admin or remote-access password is stolen through phishing, multi-factor authentication is often the only thing that stops the attacker from using it.",
+      "fix": "Turn on two-factor authentication for all administrator and remote-access accounts first, since these are the highest-value targets.",
+      "links": [
+        {
+          "label": "CISA: More than a Password (MFA)",
+          "url": "https://www.cisa.gov/MFA"
+        },
+        {
+          "label": "CISA Multifactor Authentication",
+          "url": "https://www.cisa.gov/topics/cybersecurity-best-practices/multifactor-authentication"
+        },
+        {
+          "label": "CIS Control 5: Account Management",
+          "url": "https://www.cisecurity.org/controls/account-management"
+        }
       ]
     },
     {
@@ -355,6 +655,18 @@
         "NSA Transition to Multi Factor Authentication",
         "CRR Supplemental Resource Guide Volume 1, Asset Management Version 1.1",
         "Cyber Readiness Institute’s Ransomware Playbook"
+      ],
+      "why": "Any account without MFA is a potential entry point, so extending it to everyone closes the gaps attackers look for.",
+      "fix": "Roll out two-factor authentication to all users, prioritizing phishing-resistant methods (such as security keys) where available.",
+      "links": [
+        {
+          "label": "CISA: More than a Password (MFA)",
+          "url": "https://www.cisa.gov/MFA"
+        },
+        {
+          "label": "CISA Multifactor Authentication",
+          "url": "https://www.cisa.gov/topics/cybersecurity-best-practices/multifactor-authentication"
+        }
       ]
     },
     {
@@ -367,6 +679,18 @@
         "National Security Administration, Least Privilege, IA Guidance Security Tips, 2017",
         "National Security Administration, Top Ten Cybersecurity Mitigation Strategies, 2018",
         "NIST SP 800-53 Rev. 5: CM-5"
+      ],
+      "why": "When everyday accounts have more access than they need, one compromised user lets ransomware reach and encrypt far more of your data.",
+      "fix": "Write and enforce a least-privilege policy that grants each account only the access its role actually requires.",
+      "links": [
+        {
+          "label": "CIS Control 6: Access Control Management",
+          "url": "https://www.cisecurity.org/controls/access-control-management"
+        },
+        {
+          "label": "CISA Cybersecurity Performance Goals (CPGs)",
+          "url": "https://www.cisa.gov/cross-sector-cybersecurity-performance-goals"
+        }
       ]
     },
     {
@@ -379,6 +703,18 @@
         "National Security Administration, Least Privilege, IA Guidance Security Tips, 2017",
         "National Security Administration, Top Ten Cybersecurity Mitigation Strategies, 2018",
         "NIST SP 800-53 Rev. 5: CM-5"
+      ],
+      "why": "Policies alone are easy to ignore; without technical enforcement, over-privileged accounts still hand ransomware a wide path across systems.",
+      "fix": "Enforce least privilege with technical controls such as role-based permissions and removing local administrator rights, not policy alone.",
+      "links": [
+        {
+          "label": "CIS Control 6: Access Control Management",
+          "url": "https://www.cisecurity.org/controls/access-control-management"
+        },
+        {
+          "label": "CISA Cybersecurity Performance Goals (CPGs)",
+          "url": "https://www.cisa.gov/cross-sector-cybersecurity-performance-goals"
+        }
       ]
     },
     {
@@ -392,6 +728,18 @@
         "CIS Controls Version 8",
         "NIST SP 800-115, Technical Guide to Information Security Testing and Assessment",
         "NIST SP 800-53 Rev. 5: AU-2, AU-3, AC-2 (7), AC-6 (9)"
+      ],
+      "why": "Admin accounts are prime ransomware targets, and without logs of their activity you cannot detect misuse or reconstruct how an attack unfolded.",
+      "fix": "Enable and retain audit logs for all privileged accounts, and review them regularly for unusual actions.",
+      "links": [
+        {
+          "label": "CIS Control 8: Audit Log Management",
+          "url": "https://www.cisecurity.org/controls/audit-log-management"
+        },
+        {
+          "label": "NIST SP 800-92: Guide to Computer Security Log Management",
+          "url": "https://csrc.nist.gov/pubs/sp/800/92/final"
+        }
       ]
     },
     {
@@ -403,6 +751,18 @@
         "NIST SP 800-167: Allowlisting",
         "NIST SP 800-53 Rev. 5: CM-7(5)",
         "CIS Controls Version 8"
+      ],
+      "why": "Known malicious and unwanted programs are common ransomware delivery tools, and blocking them stops a recognized threat from ever running.",
+      "fix": "Maintain a blocklist of known-bad software and configure systems to prevent it from executing.",
+      "links": [
+        {
+          "label": "NIST SP 800-167: Guide to Application Whitelisting",
+          "url": "https://csrc.nist.gov/pubs/sp/800/167/final"
+        },
+        {
+          "label": "CIS Control 2: Inventory and Control of Software Assets",
+          "url": "https://www.cisecurity.org/controls/inventory-and-control-of-software-assets"
+        }
       ]
     },
     {
@@ -414,6 +774,18 @@
         "NIST SP 800-167: Allowlisting",
         "NIST SP 800-53 Rev. 5: CM-7(5)",
         "CIS Controls Version 8"
+      ],
+      "why": "Blocking only known-bad software misses brand-new ransomware, while an approved-software list is a stronger foundation for stopping anything unexpected.",
+      "fix": "Document an allowlist of the software your organization actually needs and has approved for use.",
+      "links": [
+        {
+          "label": "NIST SP 800-167: Guide to Application Whitelisting",
+          "url": "https://csrc.nist.gov/pubs/sp/800/167/final"
+        },
+        {
+          "label": "CIS Control 2: Inventory and Control of Software Assets",
+          "url": "https://www.cisecurity.org/controls/inventory-and-control-of-software-assets"
+        }
       ]
     },
     {
@@ -425,6 +797,18 @@
         "NIST SP 800-167: Allowlisting",
         "NIST SP 800-53 Rev. 5: CM-7(5)",
         "CIS Controls Version 8"
+      ],
+      "why": "An allowlist only protects you if it is actually enforced, so that unapproved or malicious programs simply cannot run.",
+      "fix": "Organize the allowlist by software publisher and enforce it so only approved applications are permitted to execute.",
+      "links": [
+        {
+          "label": "NIST SP 800-167: Guide to Application Whitelisting",
+          "url": "https://csrc.nist.gov/pubs/sp/800/167/final"
+        },
+        {
+          "label": "CIS Control 2: Inventory and Control of Software Assets",
+          "url": "https://www.cisecurity.org/controls/inventory-and-control-of-software-assets"
+        }
       ]
     },
     {
@@ -438,6 +822,22 @@
         "NIST SP 800-61 Rev. 2, Computer Security Incident Handling Guide",
         "NIST SP 800-34 Rev. 1, Contingency Planning Guide for Federal Information Systems",
         "NIST SP 800-53 Rev. 5: IR-8"
+      ],
+      "why": "Without a written plan, a ransomware attack becomes chaotic, and every delay in responding lets the damage and downtime grow.",
+      "fix": "Develop a written incident response plan that defines roles, steps, and contacts for handling a cyber incident.",
+      "links": [
+        {
+          "label": "CISA #StopRansomware Guide",
+          "url": "https://www.cisa.gov/stopransomware/ransomware-guide"
+        },
+        {
+          "label": "NIST SP 800-61: Computer Security Incident Handling Guide",
+          "url": "https://csrc.nist.gov/pubs/sp/800/61/r2/final"
+        },
+        {
+          "label": "CIS Control 17: Incident Response Management",
+          "url": "https://www.cisecurity.org/controls/incident-response-management"
+        }
       ]
     },
     {
@@ -451,6 +851,18 @@
         "NIST SP 800-61 Rev. 2, Computer Security Incident Handling Guide",
         "NIST SP 800-34 Rev. 1, Contingency Planning Guide for Federal Information Systems",
         "NIST SP 800-53 Rev. 5: IR-6"
+      ],
+      "why": "If staff do not know how or when to report a suspected incident, ransomware can spread for hours before the right people even hear about it.",
+      "fix": "Define clear reporting and escalation paths so incidents reach the right internal and external stakeholders quickly.",
+      "links": [
+        {
+          "label": "NIST SP 800-61: Computer Security Incident Handling Guide",
+          "url": "https://csrc.nist.gov/pubs/sp/800/61/r2/final"
+        },
+        {
+          "label": "CIS Control 17: Incident Response Management",
+          "url": "https://www.cisecurity.org/controls/incident-response-management"
+        }
       ]
     },
     {
@@ -464,6 +876,18 @@
         "NIST SP 800-184, Guide for Cybersecurity Event Recovery",
         "NIST SP 800-34 Rev. 1, Contingency Planning Guide for Federal Information Systems",
         "NIST SP 800-53 Rev. 5: CP-2"
+      ],
+      "why": "Without knowing which systems and data are most critical, you cannot prioritize protection or recovery when ransomware forces hard choices.",
+      "fix": "Perform a business impact assessment to identify critical systems, acceptable downtime, and recovery priorities.",
+      "links": [
+        {
+          "label": "NIST SP 800-34: Contingency Planning Guide",
+          "url": "https://csrc.nist.gov/pubs/sp/800/34/r1/final"
+        },
+        {
+          "label": "NIST SP 800-184: Guide for Cybersecurity Event Recovery",
+          "url": "https://csrc.nist.gov/pubs/sp/800/184/final"
+        }
       ]
     },
     {
@@ -476,6 +900,18 @@
         "NIST SP 800-39 Managing Information Security Risk",
         "CRR Supplemental Resource Guide Volume 7, Risk Management Version 1.1",
         "CRR Supplemental Resource Guide Volume 6, Service Continuity Management Version 1.1"
+      ],
+      "why": "Without defined risk tolerances, decisions about which ransomware risks to fix first become inconsistent and often too slow.",
+      "fix": "Define your organization's risk criteria and tolerances so security investment targets the risks that matter most.",
+      "links": [
+        {
+          "label": "NIST SP 800-39: Managing Information Security Risk",
+          "url": "https://csrc.nist.gov/pubs/sp/800/39/final"
+        },
+        {
+          "label": "NIST SP 800-37: Risk Management Framework",
+          "url": "https://csrc.nist.gov/pubs/sp/800/37/r2/final"
+        }
       ]
     },
     {
@@ -488,6 +924,18 @@
         "CIS Controls Version 8",
         "NIST SP 800-115, Technical Guide to Information Security Testing and Assessment",
         "NIST SP 800-53 Rev. 5: AT-3, PM-13"
+      ],
+      "why": "Different roles face different attack paths, and generic training leaves high-risk staff (admins, finance) unprepared for the tactics used against them.",
+      "fix": "Provide role-based security training tailored to the specific responsibilities and risks of each job function.",
+      "links": [
+        {
+          "label": "CIS Control 14: Security Awareness and Skills Training",
+          "url": "https://www.cisecurity.org/controls/security-awareness-and-skills-training"
+        },
+        {
+          "label": "CISA #StopRansomware Guide",
+          "url": "https://www.cisa.gov/stopransomware/ransomware-guide"
+        }
       ]
     },
     {
@@ -500,6 +948,18 @@
         "NIST SP 800-115, Technical Guide to Information Security Testing and Assessment",
         "NIST SP 800-53 Rev. 5: CM-8",
         "NIST SP 800-61 Rev. 2, Computer Security Incident Handling Guide"
+      ],
+      "why": "An unauthorized device on the network can carry ransomware or open a backdoor that skips your normal protections.",
+      "fix": "Deploy tools that detect unknown or unauthorized hardware connecting to your network.",
+      "links": [
+        {
+          "label": "CIS Control 1: Inventory and Control of Enterprise Assets",
+          "url": "https://www.cisecurity.org/controls/inventory-and-control-of-enterprise-assets"
+        },
+        {
+          "label": "NIST SP 800-137: Information Security Continuous Monitoring",
+          "url": "https://csrc.nist.gov/pubs/sp/800/137/final"
+        }
       ]
     },
     {
@@ -511,6 +971,18 @@
         "CIS Controls Version 8",
         "NIST SP 800-53 Rev. 5: AT-3",
         "NIST SP 800-61 Rev. 2, Computer Security Incident Handling Guide"
+      ],
+      "why": "Employees who plug in unauthorized devices, often unknowingly, create repeat openings for ransomware unless the behavior is addressed.",
+      "fix": "Counsel and educate users who attempt to install unauthorized hardware so the behavior is corrected.",
+      "links": [
+        {
+          "label": "CIS Control 14: Security Awareness and Skills Training",
+          "url": "https://www.cisecurity.org/controls/security-awareness-and-skills-training"
+        },
+        {
+          "label": "CIS Control 1: Inventory and Control of Enterprise Assets",
+          "url": "https://www.cisecurity.org/controls/inventory-and-control-of-enterprise-assets"
+        }
       ]
     },
     {
@@ -522,6 +994,18 @@
         "NIST SP 800-167: Allowlisting",
         "NIST SP 800-53 Rev. 5: CM-7(5)",
         "CIS Controls Version 8"
+      ],
+      "why": "Attackers can abuse outdated or tampered versions of otherwise trusted software, so allowlisting must be precise enough to catch them.",
+      "fix": "Extend the enforced allowlist to specify approved publishers and version numbers, allowing only those to run.",
+      "links": [
+        {
+          "label": "NIST SP 800-167: Guide to Application Whitelisting",
+          "url": "https://csrc.nist.gov/pubs/sp/800/167/final"
+        },
+        {
+          "label": "CIS Control 2: Inventory and Control of Software Assets",
+          "url": "https://www.cisecurity.org/controls/inventory-and-control-of-software-assets"
+        }
       ]
     },
     {
@@ -535,6 +1019,22 @@
         "NIST SP 800-61 Rev. 2, Computer Security Incident Handling Guide",
         "NIST SP 800-34 Rev. 1, Contingency Planning Guide for Federal Information Systems",
         "NIST SP 800-53 Rev. 5: IR-1, CP-1, CP-2"
+      ],
+      "why": "Ransomware can take whole systems offline, and without disaster recovery procedures, restoring operations can take far longer than the business can afford.",
+      "fix": "Develop disaster recovery procedures that document how to restore systems and data after a major disruption.",
+      "links": [
+        {
+          "label": "NIST SP 800-34: Contingency Planning Guide",
+          "url": "https://csrc.nist.gov/pubs/sp/800/34/r1/final"
+        },
+        {
+          "label": "NIST SP 800-184: Guide for Cybersecurity Event Recovery",
+          "url": "https://csrc.nist.gov/pubs/sp/800/184/final"
+        },
+        {
+          "label": "CISA #StopRansomware Guide",
+          "url": "https://www.cisa.gov/stopransomware/ransomware-guide"
+        }
       ]
     },
     {
@@ -545,6 +1045,18 @@
       "references": [
         "CRR Supplemental Resource Guide Volume 5, Incident Management Version 1.1",
         "NIST SP 800-53 Rev. 5: CP-4, IR-3"
+      ],
+      "why": "Practicing a ransomware scenario in advance exposes gaps in your plan while it is safe to do so, not in the middle of a live attack.",
+      "fix": "Run a yearly incident response tabletop exercise built around a ransomware scenario, using a free CISA exercise package.",
+      "links": [
+        {
+          "label": "CISA Tabletop Exercise Packages",
+          "url": "https://www.cisa.gov/resources-tools/services/cisa-tabletop-exercise-packages"
+        },
+        {
+          "label": "CISA #StopRansomware Guide",
+          "url": "https://www.cisa.gov/stopransomware/ransomware-guide"
+        }
       ]
     },
     {
@@ -555,6 +1067,18 @@
       "references": [
         "CRR Supplemental Resource Guide Volume 5, Incident Management Version 1.1",
         "NIST SP 800-53 Rev. 5: CP-4, IR-3"
+      ],
+      "why": "Response plans and staff change over time, so exercising only once a year can leave newer gaps untested when ransomware strikes.",
+      "fix": "Increase incident response tabletop exercises to at least twice a year to keep the plan and the team sharp.",
+      "links": [
+        {
+          "label": "CISA Tabletop Exercise Packages",
+          "url": "https://www.cisa.gov/resources-tools/services/cisa-tabletop-exercise-packages"
+        },
+        {
+          "label": "CIS Control 17: Incident Response Management",
+          "url": "https://www.cisecurity.org/controls/incident-response-management"
+        }
       ]
     },
     {
@@ -565,6 +1089,18 @@
       "references": [
         "CRR Supplemental Resource Guide Volume 5, Incident Management Version 1.1",
         "NIST SP 800-53 Rev. 5: CP-4, IR-3, IR-4"
+      ],
+      "why": "A tabletop discussion is not the same as actually executing recovery, and only a hands-on exercise shows whether your team can really restore systems.",
+      "fix": "Conduct at least one hands-on (functional) incident response exercise each year that actually tests your recovery steps.",
+      "links": [
+        {
+          "label": "CISA Tabletop Exercise Packages",
+          "url": "https://www.cisa.gov/resources-tools/services/cisa-tabletop-exercise-packages"
+        },
+        {
+          "label": "CIS Control 17: Incident Response Management",
+          "url": "https://www.cisecurity.org/controls/incident-response-management"
+        }
       ]
     },
     {
@@ -575,6 +1111,18 @@
       "references": [
         "CRR Supplemental Resource Guide Volume 5, Incident Management Version 1.1",
         "NIST SP 800-53 Rev. 5: CP-4, IR-3, IR-4"
+      ],
+      "why": "Recovery skills fade and environments change, so a single yearly hands-on exercise may not keep the team ready for a real ransomware event.",
+      "fix": "Perform hands-on incident response exercises at least twice a year to maintain recovery readiness.",
+      "links": [
+        {
+          "label": "CISA Tabletop Exercise Packages",
+          "url": "https://www.cisa.gov/resources-tools/services/cisa-tabletop-exercise-packages"
+        },
+        {
+          "label": "CIS Control 17: Incident Response Management",
+          "url": "https://www.cisecurity.org/controls/incident-response-management"
+        }
       ]
     },
     {
@@ -585,6 +1133,18 @@
       "references": [
         "NIST SP 800-160, Volume 2, Developing Cyber Resilient Systems",
         "NIST SP 800-53 Rev. 5: CP-2, CP-7, CP-6, CP-8, CP-9, CP-10, MA-6"
+      ],
+      "why": "If ransomware disables a critical system with no backup in place, operations can halt entirely until it is rebuilt from scratch.",
+      "fix": "Add redundancy for your most critical systems so operations can continue if one is knocked offline.",
+      "links": [
+        {
+          "label": "NIST SP 800-160 Vol. 2: Developing Cyber-Resilient Systems",
+          "url": "https://csrc.nist.gov/pubs/sp/800/160/v2/r1/final"
+        },
+        {
+          "label": "CIS Control 11: Data Recovery",
+          "url": "https://www.cisecurity.org/controls/data-recovery"
+        }
       ]
     },
     {
@@ -595,6 +1155,18 @@
       "references": [
         "NIST SP 800-160, Volume 2, Developing Cyber Resilient Systems",
         "NIST SP 800-53 Rev. 5: CP-7, CP-8, CP-11, CP-13, PL-8, SA-14, SC-6, SI-17"
+      ],
+      "why": "Isolated redundancy still leaves single points of failure that ransomware can hit, causing wider outages than expected.",
+      "fix": "Extend redundancy and resiliency across systems and data organization-wide so no single failure can stop operations.",
+      "links": [
+        {
+          "label": "NIST SP 800-160 Vol. 2: Developing Cyber-Resilient Systems",
+          "url": "https://csrc.nist.gov/pubs/sp/800/160/v2/r1/final"
+        },
+        {
+          "label": "CISA Cybersecurity Performance Goals (CPGs)",
+          "url": "https://www.cisa.gov/cross-sector-cybersecurity-performance-goals"
+        }
       ]
     },
     {
@@ -607,6 +1179,18 @@
         "CRR Supplemental Resource Guide Volume 7, Risk Management Version 1.1",
         "CISA Security Tip (ST18-007): Questions Every CEO Should Ask About Cyber Risks",
         "NIST SP 800-53 Rev. 5: PM-9, CA-3"
+      ],
+      "why": "Connected systems and vendors share risk, so a ransomware infection in one can spread into yours through trusted links you may have overlooked.",
+      "fix": "Map how your interconnected systems and third parties expose you to inherited risk, and address the weakest links.",
+      "links": [
+        {
+          "label": "NIST SP 800-37: Risk Management Framework",
+          "url": "https://csrc.nist.gov/pubs/sp/800/37/r2/final"
+        },
+        {
+          "label": "CISA Cybersecurity Performance Goals (CPGs)",
+          "url": "https://www.cisa.gov/cross-sector-cybersecurity-performance-goals"
+        }
       ]
     },
     {
@@ -618,6 +1202,18 @@
         "CRR Supplemental Resource Guide Volume 7, Risk Management Version 1.1",
         "CISA Security Tip (ST18-007): Questions Every CEO Should Ask About Cyber Risks",
         "NIST SP 800-53 Rev. 5: PM-9"
+      ],
+      "why": "Without weighing the real cost and likelihood of each risk, remediation effort can go to minor issues while the gaps ransomware exploits stay open.",
+      "fix": "Apply quantitative risk analysis to prioritize remediation by potential impact and likelihood.",
+      "links": [
+        {
+          "label": "NIST SP 800-39: Managing Information Security Risk",
+          "url": "https://csrc.nist.gov/pubs/sp/800/39/final"
+        },
+        {
+          "label": "NIST SP 800-37: Risk Management Framework",
+          "url": "https://csrc.nist.gov/pubs/sp/800/37/r2/final"
+        }
       ]
     }
   ]

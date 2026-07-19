@@ -1081,13 +1081,255 @@ body {
   text-decoration: underline;
 }
 
+/* ---- answer states (semantic, independent of the section accent) ---- */
+
+.state-yes.active {
+  background: #3f8f5f;
+  color: #fff;
+}
+.state-alt.active {
+  background: #c98a1a;
+  color: #fff;
+}
+.state-na.active {
+  background: var(--ink-soft);
+  color: var(--paper);
+}
+.state-no.active {
+  background: #c8401f;
+  color: #fff;
+}
+
+/* ---- per-question guidance disclosure ---- */
+
+.q-guidance {
+  margin: 2px 0 0;
+  font-size: 0.85rem;
+}
+.q-guidance > summary {
+  cursor: pointer;
+  color: var(--tomato);
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  list-style: none;
+}
+.q-guidance > summary::-webkit-details-marker {
+  display: none;
+}
+.q-guidance > summary::before {
+  content: '＋ ';
+}
+.q-guidance[open] > summary::before {
+  content: '－ ';
+}
+.q-guidance-body {
+  padding: 6px 0 4px;
+  line-height: 1.5;
+}
+.q-guidance-body p {
+  margin: 4px 0;
+}
+.q-links {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  margin-top: 4px;
+}
+.q-links a {
+  color: var(--tomato);
+  text-decoration: none;
+  font-size: 0.8rem;
+}
+.q-links a:hover {
+  text-decoration: underline;
+}
+
+/* ---- per-question working-session tools ---- */
+
+.q-tools-wrap {
+  margin: 2px 0 2px;
+}
+.q-tools {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+.q-tool {
+  appearance: none;
+  border: 1px solid var(--line);
+  background: transparent;
+  border-radius: 999px;
+  font-family: var(--font-mono);
+  font-size: 0.66rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+  padding: 4px 10px;
+  cursor: pointer;
+}
+.q-tool.on {
+  background: var(--tomato);
+  border-color: var(--tomato);
+  color: #fff;
+}
+.q-note {
+  display: block;
+  width: 100%;
+  margin-top: 6px;
+  min-height: 54px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--font-body);
+  font-size: 0.85rem;
+  padding: 8px 10px;
+  resize: vertical;
+}
+
+/* ---- results: attainment, distribution, radar ---- */
+
+.attain-badge {
+  display: inline-block;
+  margin-top: 6px;
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  padding: 4px 10px;
+  border-radius: 999px;
+  border: 1.5px solid var(--line);
+}
+.attain-basic {
+  border-color: #3f8f5f;
+  color: #3f8f5f;
+}
+.attain-intermediate {
+  border-color: #c98a1a;
+  color: #c98a1a;
+}
+.attain-advanced {
+  background: #3f8f5f;
+  border-color: #3f8f5f;
+  color: #fff;
+}
+.attain-none {
+  color: var(--ink-soft);
+}
+
+.dist {
+  margin-top: 14px;
+}
+.dist-track {
+  display: flex;
+  height: 14px;
+  border-radius: 999px;
+  overflow: hidden;
+  border: 1px solid var(--line);
+}
+.dist-cell {
+  height: 100%;
+}
+.dist-yes {
+  background: #3f8f5f;
+}
+.dist-alt {
+  background: #c98a1a;
+}
+.dist-no {
+  background: #c8401f;
+}
+.dist-na {
+  background: var(--ink-soft);
+}
+.dist-unanswered {
+  background: color-mix(in srgb, var(--line) 70%, transparent);
+}
+.dist-legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 8px;
+  font-size: 0.72rem;
+  color: var(--ink-soft);
+}
+.dist-key {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+.dist-dot {
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  display: inline-block;
+}
+
+.radar {
+  display: block;
+  max-width: 280px;
+  margin: 4px auto 0;
+}
+.radar-ring {
+  fill: none;
+  stroke: var(--line);
+  stroke-width: 1;
+}
+.radar-axis {
+  stroke: var(--line);
+  stroke-width: 1;
+}
+.radar-area {
+  fill: color-mix(in srgb, var(--tomato) 28%, transparent);
+  stroke: var(--tomato);
+  stroke-width: 2;
+  stroke-linejoin: round;
+}
+.radar-label {
+  fill: var(--ink-soft);
+  font-family: var(--font-mono);
+  font-size: 9px;
+}
+
+.ranked-goals {
+  margin: 6px 0 10px;
+  padding-left: 20px;
+}
+.ranked-goals li {
+  margin: 3px 0;
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+}
+.ranked-name {
+  font-weight: 600;
+}
+.gap-fix {
+  margin: 4px 0 0;
+  font-size: 0.85rem;
+  color: var(--ink);
+}
+.gap-note {
+  margin: 4px 0 0;
+  font-size: 0.85rem;
+  color: var(--ink-soft);
+  font-style: italic;
+}
+
 @media print {
   .site-nav,
   .colophon,
   .quiz-top,
   .steam,
-  .hero {
+  .hero,
+  .q-tools-wrap {
     display: none !important;
+  }
+
+  .q-guidance[open] > summary {
+    display: none;
   }
 
   body {

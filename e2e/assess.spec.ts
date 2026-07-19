@@ -14,11 +14,13 @@ test('assessment flows from intro to scored results with gap guidance', async ({
   await expect(page.locator('#assess-progress')).toHaveText('4/48 answered');
 
   await page.locator('#assess-done').click();
-  await expect(page.locator('.quiz-score-big')).toHaveText('6%'); // 3 of 48 yes
+  await expect(page.locator('.quiz-score-big')).toHaveText('6%'); // 3 of 48 satisfied
   await expect(page.locator('.assess-band')).toHaveText('High risk');
   await expect(page.locator('.score-bar').first()).toBeVisible();
+  // Each gap shows its concrete first step.
+  await expect(page.locator('.gap-fix').first()).not.toBeEmpty();
   // Gap list links CIS references into the framework section.
-  await expect(page.locator('.gap-refs a').first()).toHaveAttribute('href', /frameworks\/cis\/\?q=/);
+  await expect(page.locator('.gap-refs a[href*="frameworks/cis"]').first()).toBeVisible();
 });
 
 test('answers persist across reloads', async ({ page }) => {
@@ -29,9 +31,26 @@ test('answers persist across reloads', async ({ page }) => {
 
   // Reload keeps ?a=ransomware and resumes straight into the form with the answer intact.
   await page.reload();
-  await expect(page.locator('.assess-row').first().locator('.yesno-btn.active')).toHaveText('yes');
+  await expect(page.locator('.assess-row').first().locator('.yesno-btn.active')).toHaveText('Yes');
 
   // A fresh visit to the intro offers Resume for the started assessment.
   await page.goto('/assess/');
   await expect(ransomwareCard.locator('.primary-btn')).toHaveText('Resume');
+});
+
+test('CISA CPG module scores with N/A excluded and shows guidance', async ({ page }) => {
+  await page.goto('/assess/?a=cpg');
+  await expect(page.locator('#assess-progress')).toHaveText('0/34 answered');
+  // Every practice carries an expandable guidance block.
+  await expect(page.locator('.q-guidance').first()).toBeVisible();
+
+  const rows = page.locator('.assess-row');
+  // First question yes, second not applicable: N/A drops out of the denominator.
+  await rows.nth(0).locator('.yesno-btn', { hasText: 'Yes' }).click();
+  await rows.nth(1).locator('.yesno-btn', { hasText: 'N/A' }).click();
+  await page.locator('#assess-done').click();
+  // 1 satisfied of 1 applicable (the N/A is excluded), rest unanswered -> still low overall.
+  await expect(page.locator('.dist')).toBeVisible();
+  await expect(page.locator('.radar')).toBeVisible();
+  await expect(page.locator('.attain-badge')).toBeVisible();
 });

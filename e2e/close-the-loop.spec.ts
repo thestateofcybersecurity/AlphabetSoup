@@ -2,8 +2,8 @@ import { expect, test } from '@playwright/test';
 
 test('assessment gaps flow into the roadmap planner', async ({ page }) => {
   await page.goto('/assess/');
-  // Two assessment cards on the intro.
-  await expect(page.locator('#assess-intro .assess-card')).toHaveCount(2);
+  // Three assessment cards on the intro (ransomware, CISA CPG, CIS IG1).
+  await expect(page.locator('#assess-intro .assess-card')).toHaveCount(3);
   await page
     .locator('.assess-card[data-assessment="ransomware"] .primary-btn')
     .click();
