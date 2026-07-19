@@ -27,6 +27,8 @@ export interface AcronymEntry {
   difficulty: Difficulty;
   explanation: string;
   sources: Source[];
+  /** Curated related / commonly-confused acronym keys. */
+  related?: string[];
 }
 
 export type AcronymData = Record<string, AcronymEntry>;

@@ -11,6 +11,23 @@ test('security program is the default source with goal depth', async ({ page }) 
   await expect(first.locator('.std-chips a[href*="frameworks"]').first()).toBeVisible();
 });
 
+test('milestones are checkable and roll up on the card and dashboard', async ({ page }) => {
+  await page.goto('/roadmap/');
+  await page.evaluate(() => localStorage.removeItem('alphabetsoup:roadmap:program'));
+  await page.reload();
+  const card = page.locator('.task-card').first();
+  await expect(card.locator('.task-milestones')).toHaveText('0/6 milestones');
+  await card.locator('.task-depth summary').click();
+  await card.locator('.milestone-row input[type="checkbox"]').nth(0).check();
+  await card.locator('.milestone-row input[type="checkbox"]').nth(1).check();
+  await expect(card.locator('.task-milestones')).toHaveText('2/6 milestones');
+  await expect(card.locator('.task-depth')).toHaveJSProperty('open', true); // stays open
+  await expect(page.locator('.plan-milestone-counts')).toContainText('2 of');
+  // Persists across reload.
+  await page.reload();
+  await expect(page.locator('.task-card').first().locator('.task-milestones')).toHaveText('2/6 milestones');
+});
+
 test('marking KPI attainment drives the maturity rollup', async ({ page }) => {
   await page.goto('/roadmap/');
   await page.evaluate(() => localStorage.removeItem('alphabetsoup:roadmap:program'));

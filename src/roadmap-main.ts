@@ -17,6 +17,7 @@ import {
   csfPlan,
   gapsPlan,
   kpiAttainmentCounts,
+  milestoneProgress,
   nextStatus,
   planLoad,
   planProgress,
@@ -199,6 +200,11 @@ function renderSummary(tasks: RoadmapTask[]): void {
     );
   }
 
+  const mp = milestoneProgress(tasks, state);
+  if (mp.total > 0) {
+    summary.appendChild(el('div', 'deck-sub plan-milestone-counts', `Milestones: ${mp.done} of ${mp.total} done`));
+  }
+
   // Progress bar.
   const track = el('div', 'plan-progress-track');
   const fill = el('div', 'plan-progress-fill');
@@ -278,6 +284,12 @@ function standardChip(ref: StandardRef): HTMLElement {
   return el('span', 'std-chip', `${ref.framework} ${ref.ref}`);
 }
 
+function milestoneCountText(task: RoadmapTask): string {
+  const marks = taskState(task).milestonesDone ?? {};
+  const done = (task.milestones ?? []).filter((_, i) => marks[String(i)]).length;
+  return `${done}/${task.milestones?.length ?? 0} milestones`;
+}
+
 /** Expandable depth for a curated program goal: why, standards, KPIs, milestones. */
 function depthNode(task: RoadmapTask): HTMLElement | null {
   const has = task.objective || task.why || (task.kpis && task.kpis.length) || (task.milestones && task.milestones.length) || (task.standards && task.standards.length);
@@ -330,9 +342,28 @@ function depthNode(task: RoadmapTask): HTMLElement | null {
     body.appendChild(list);
   }
   if (task.milestones && task.milestones.length) {
-    body.appendChild(el('div', 'depth-label', 'Milestones'));
+    body.appendChild(el('div', 'depth-label', 'Milestones (check off as you go)'));
     const list = el('ul', 'depth-list depth-milestones');
-    for (const step of task.milestones) list.appendChild(el('li', undefined, step));
+    task.milestones.forEach((step, index) => {
+      const li = el('li', 'milestone-row');
+      const label = el('label', 'milestone-label');
+      const cb = el('input') as HTMLInputElement;
+      cb.type = 'checkbox';
+      cb.checked = Boolean(taskState(task).milestonesDone?.[String(index)]);
+      if (cb.checked) li.classList.add('done');
+      cb.addEventListener('change', () => {
+        setTaskState(task, { milestonesDone: { ...taskState(task).milestonesDone, [String(index)]: cb.checked } });
+        li.classList.toggle('done', cb.checked);
+        const card = cb.closest('.task-card');
+        const count = card?.querySelector('.task-milestones');
+        if (count) count.textContent = milestoneCountText(task);
+        refreshSummary();
+      });
+      label.appendChild(cb);
+      label.appendChild(el('span', undefined, step));
+      li.appendChild(label);
+      list.appendChild(li);
+    });
     body.appendChild(list);
   }
   details.appendChild(body);
@@ -378,6 +409,9 @@ function taskCard(task: RoadmapTask, quarters: Quarter[]): HTMLElement {
     ),
   );
 
+  if (task.milestones?.length) {
+    card.appendChild(el('div', 'task-milestones deck-sub', milestoneCountText(task)));
+  }
   const depth = depthNode(task);
   if (depth) card.appendChild(depth);
 

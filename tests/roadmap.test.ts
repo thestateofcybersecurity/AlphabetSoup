@@ -11,6 +11,7 @@ import {
   csfPlan,
   gapsPlan,
   kpiAttainmentCounts,
+  milestoneProgress,
   nextStatus,
   planLoad,
   planProgress,
@@ -109,7 +110,7 @@ describe('plan state helpers', () => {
     );
     expect(csv).toContain('"Task, with ""comma"""');
     expect(csv.split('\n')[0]).toBe(
-      'id,task,group,quarter,status,owner,target_date,notes,standards,kpis,hours',
+      'id,task,group,quarter,status,owner,target_date,notes,standards,kpis,milestones,hours',
     );
     expect(csv).toContain('Dana,2026-03-01,kickoff');
   });
@@ -248,5 +249,24 @@ describe('framework KPI depth', () => {
 
     const csfTasks = csfPlan(csf, kpi.csf);
     expect(csfTasks.find((t) => t.id === 'GV.OC')!.kpis?.length).toBeGreaterThanOrEqual(2);
+  });
+});
+
+describe('milestone tracking', () => {
+  it('counts completed milestones across program goals', () => {
+    const plan = programPlan(program);
+    const withMilestones = plan.filter((t) => (t.milestones?.length ?? 0) > 0);
+    expect(withMilestones.length).toBeGreaterThan(0);
+    // Nothing checked yet.
+    expect(milestoneProgress(plan, {}).done).toBe(0);
+    const total = milestoneProgress(plan, {}).total;
+    expect(total).toBeGreaterThan(0);
+    // Check the first two milestones of the first goal.
+    const g = withMilestones[0];
+    const state = { [g.id]: { quarter: g.defaultQuarter, status: 'planned' as const, milestonesDone: { '0': true, '1': true } } };
+    expect(milestoneProgress(plan, state).done).toBe(2);
+    // Milestone completion flows into the CSV as done/total.
+    const csv = planToCsv([g], state);
+    expect(csv).toContain(`2/${g.milestones!.length}`);
   });
 });

@@ -182,13 +182,113 @@ function show(view: 'intro' | 'form' | 'results'): void {
 
 /* -------------------------------- intro ------------------------------- */
 
+/** Read a given assessment's stored answers (used for the posture overview). */
+function answersFor(id: string): Answers {
+  try {
+    const raw =
+      localStorage.getItem(`alphabetsoup:assessment:${id}`) ??
+      (id === 'ransomware' ? localStorage.getItem(LEGACY_KEY) : null);
+    return raw ? migrateAnswers(JSON.parse(raw) as Record<string, string>) : {};
+  } catch {
+    return {};
+  }
+}
+
+function historyFor(id: string): Snapshot[] {
+  try {
+    return JSON.parse(localStorage.getItem(`alphabetsoup:assessment-history:${id}`) ?? '[]') as Snapshot[];
+  } catch {
+    return [];
+  }
+}
+
+/** Whole days since a YYYY-MM-DD date, in local time. */
+function daysSince(dateStr: string): number {
+  const [y, m, d] = dateStr.split('-').map(Number);
+  const then = Date.UTC(y, m - 1, d);
+  const now = new Date();
+  const today = Date.UTC(now.getFullYear(), now.getMonth(), now.getDate());
+  return Math.max(0, Math.round((today - then) / 86_400_000));
+}
+
+const REVIEW_AFTER_DAYS = 90;
+
+interface Posture {
+  started: boolean;
+  result: ReturnType<typeof scoreAssessment>;
+  history: Snapshot[];
+}
+
+function postureFor(def: AssessmentDef): Posture {
+  const a = answersFor(def.id);
+  return {
+    started: Object.keys(a).length > 0,
+    result: scoreAssessment(def.data, a, def.config),
+    history: historyFor(def.id),
+  };
+}
+
+/** A compact posture strip for an assessment card: score, band, coverage, trend, cadence. */
+function postureStrip(def: AssessmentDef): HTMLElement {
+  const { started, result, history } = postureFor(def);
+  const strip = el('div', 'posture-strip');
+  if (!started) {
+    strip.appendChild(el('span', 'posture-score muted', 'not started'));
+    return strip;
+  }
+  strip.appendChild(
+    el('span', 'posture-score', result.insufficient ? '—' : `${result.overallPercent}%`),
+  );
+  const meta = el('div', 'posture-meta');
+  meta.appendChild(
+    el('span', 'deck-sub', result.insufficient ? 'not enough answered' : readinessBand(result.overallPercent).label),
+  );
+  meta.appendChild(el('span', 'deck-sub', `${result.answered}/${result.total} answered`));
+  const delta = latestDelta(history);
+  if (delta && delta.delta !== 0) {
+    meta.appendChild(el('span', `deck-sub trend-${delta.delta > 0 ? 'up' : 'down'}`, `${delta.delta > 0 ? '▲' : '▼'} ${Math.abs(delta.delta)} pts`));
+  }
+  const last = history[history.length - 1];
+  if (last) {
+    const days = daysSince(last.date);
+    const due = days >= REVIEW_AFTER_DAYS;
+    meta.appendChild(el('span', due ? 'posture-due' : 'deck-sub', due ? `due for review (${days}d)` : `assessed ${days === 0 ? 'today' : `${days}d ago`}`));
+  }
+  strip.appendChild(meta);
+  return strip;
+}
+
+function renderPostureSummary(): HTMLElement | null {
+  const postures = ASSESSMENTS.map((def) => ({ def, ...postureFor(def) }));
+  const done = postures.filter((p) => p.started && !p.result.insufficient);
+  const summary = el('div', 'posture-summary');
+  if (done.length === 0) {
+    summary.appendChild(el('span', undefined, 'Pick an assessment below to see where you stand. Nothing leaves your browser.'));
+    return summary;
+  }
+  const weakest = [...done].sort((a, b) => a.result.overallPercent - b.result.overallPercent)[0];
+  const overdue = done.filter((p) => {
+    const last = p.history[p.history.length - 1];
+    return last && daysSince(last.date) >= REVIEW_AFTER_DAYS;
+  });
+  summary.appendChild(el('strong', undefined, `${done.length} of ${ASSESSMENTS.length} assessed`));
+  summary.appendChild(el('span', undefined, ` · weakest area: ${weakest.def.name} at ${weakest.result.overallPercent}%`));
+  if (overdue.length > 0) {
+    summary.appendChild(el('span', 'posture-due', ` · ${overdue.length} due for review`));
+  }
+  return summary;
+}
+
 function renderIntro(): void {
   const intro = byId('assess-intro');
   intro.innerHTML = '';
+  const summary = renderPostureSummary();
+  if (summary) intro.appendChild(summary);
   for (const def of ASSESSMENTS) {
     const card = el('div', 'assess-card');
     card.dataset.assessment = def.id;
     card.appendChild(el('h2', 'assess-h', def.name));
+    card.appendChild(postureStrip(def));
     card.appendChild(el('p', undefined, def.blurb));
     card.appendChild(el('p', 'deck-sub', `${def.data.questions.length} questions. Answers stay in this browser.`));
     const actions = el('div', 'deck-actions');
