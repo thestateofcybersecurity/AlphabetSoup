@@ -5,23 +5,27 @@ import igsRaw from '../src/data/cis-igs.json';
 import vcisoRaw from '../src/data/vciso-tasks.json';
 import type { CisData, CsfData } from '../src/lib/frameworks';
 import programRaw from '../src/data/security-program.json';
+import kpiRaw from '../src/data/roadmap-kpis.json';
 import {
   cisPlan,
   csfPlan,
   gapsPlan,
+  kpiAttainmentCounts,
   nextStatus,
   planLoad,
   planProgress,
   planToCsv,
+  programMaturity,
   programPlan,
   quarterDateRange,
   statusCounts,
   totalHours,
   vcisoPlan,
 } from '../src/lib/roadmap';
-import type { ProgramGoal } from '../src/lib/roadmap';
+import type { GoalDepth, PlanState, ProgramGoal } from '../src/lib/roadmap';
 
 const program = programRaw as { goals: ProgramGoal[] };
+const kpi = kpiRaw as { csf: Record<string, GoalDepth>; cis: Record<string, GoalDepth> };
 import type { VcisoTask } from '../src/lib/roadmap';
 import type { AssessmentData } from '../src/lib/assessment';
 
@@ -181,5 +185,68 @@ describe('load and schedule helpers', () => {
     expect(quarterDateRange('2026-01', 'Q4')).toBe('Oct 2026 to Dec 2026');
     expect(quarterDateRange('2026-11', 'Q2')).toBe('Feb 2027 to Apr 2027');
     expect(quarterDateRange('2026-01', 'Onboarding')).toBe('Setup');
+  });
+
+  it('rolls plan status up into a maturity level', () => {
+    const tasks = csfPlan(csf);
+    expect(programMaturity(tasks, {})).toEqual({ percent: 0, level: 'Initial' });
+    const allDone = Object.fromEntries(
+      tasks.map((t) => [t.id, { quarter: t.defaultQuarter, status: 'done' as const }]),
+    );
+    expect(programMaturity(tasks, allDone)).toEqual({ percent: 100, level: 'Optimizing' });
+    // Half in progress -> 25% -> Developing.
+    const half = Object.fromEntries(
+      tasks.slice(0, 11).map((t) => [t.id, { quarter: t.defaultQuarter, status: 'in-progress' as const }]),
+    );
+    const m = programMaturity(tasks, half);
+    expect(m.percent).toBe(25);
+    expect(m.level).toBe('Developing');
+  });
+
+  it('drives maturity from KPI attainment when goals have KPIs', () => {
+    // One goal, two KPIs: both met -> 100; one met one unmet -> 50; partial counts half.
+    const withKpis = programPlan(program).slice(0, 1);
+    const id = withKpis[0].id;
+    const n = withKpis[0].kpis!.length;
+    const allMet: PlanState = {
+      [id]: {
+        quarter: 'Q1',
+        status: 'planned',
+        kpiStatus: Object.fromEntries(Array.from({ length: n }, (_, i) => [String(i), 'met'])),
+      },
+    };
+    // Status is still "planned" but KPIs are all met -> maturity 100, proving KPI-driven.
+    expect(programMaturity(withKpis, allMet).percent).toBe(100);
+
+    const oneMet: PlanState = { [id]: { quarter: 'Q1', status: 'done', kpiStatus: { '0': 'met' } } };
+    expect(programMaturity(withKpis, oneMet).percent).toBe(Math.round((1 / n) * 100));
+
+    const counts = kpiAttainmentCounts(withKpis, allMet);
+    expect(counts.met).toBe(n);
+    expect(counts.total).toBe(n);
+  });
+});
+
+describe('framework KPI depth', () => {
+  it('has objective, KPIs, and standards for every CIS control and CSF category', () => {
+    for (let n = 1; n <= 18; n++) {
+      const d = kpi.cis[String(n)];
+      expect(d.objective!.length).toBeGreaterThan(10);
+      expect(d.kpis!.length).toBeGreaterThanOrEqual(2);
+      expect(d.standards!.length).toBeGreaterThanOrEqual(1);
+    }
+    expect(Object.keys(kpi.csf)).toHaveLength(22);
+  });
+
+  it('merges depth into CIS and CSF plans', () => {
+    const cisTasks = cisPlan(cis, igs, 3, kpi.cis);
+    const c1 = cisTasks.find((t) => t.id === '1')!;
+    expect(c1.kpis?.length).toBeGreaterThanOrEqual(2);
+    expect(c1.standards?.some((s) => /CIS/.test(s.framework))).toBe(true);
+    // Without depth, tasks stay lean.
+    expect(cisPlan(cis, igs, 3).find((t) => t.id === '1')!.kpis).toBeUndefined();
+
+    const csfTasks = csfPlan(csf, kpi.csf);
+    expect(csfTasks.find((t) => t.id === 'GV.OC')!.kpis?.length).toBeGreaterThanOrEqual(2);
   });
 });
