@@ -42,8 +42,18 @@ export type PlanState = Record<string, TaskState>;
 export const QUARTERS: Quarter[] = ['Onboarding', 'Q1', 'Q2', 'Q3', 'Q4'];
 export const STATUS_CYCLE: TaskStatus[] = ['planned', 'in-progress', 'done'];
 
+/** Optional per-item depth (objective, KPIs, standards) merged into framework tasks. */
+export interface GoalDepth {
+  objective?: string;
+  kpis?: string[];
+  standards?: StandardRef[];
+}
+
+const mergeDepth = (task: RoadmapTask, depth?: GoalDepth): RoadmapTask =>
+  depth ? { ...task, objective: depth.objective, kpis: depth.kpis, standards: depth.standards } : task;
+
 /** One task per CSF 2.0 category, spread across the year by function. */
-export function csfPlan(csf: CsfData): RoadmapTask[] {
+export function csfPlan(csf: CsfData, depth?: Record<string, GoalDepth>): RoadmapTask[] {
   const functionQuarter: Record<string, Quarter> = {
     GV: 'Q1',
     ID: 'Q1',
@@ -69,18 +79,28 @@ export function csfPlan(csf: CsfData): RoadmapTask[] {
         functionOrder.indexOf(a[1].fn) - functionOrder.indexOf(b[1].fn) ||
         a[0].localeCompare(b[0]),
     )
-    .map(([code, info]) => ({
-      id: code,
-      label: `${code}: ${info.name}`,
-      group: CSF_FUNCTIONS.find(([c]) => c === info.fn)?.[1] ?? info.fn,
-      detail: `${info.count} subcategories`,
-      defaultQuarter: functionQuarter[info.fn] ?? 'Q4',
-      link: `../frameworks/nist-csf/?q=${code.toLowerCase()}`,
-    }));
+    .map(([code, info]) =>
+      mergeDepth(
+        {
+          id: code,
+          label: `${code}: ${info.name}`,
+          group: CSF_FUNCTIONS.find(([c]) => c === info.fn)?.[1] ?? info.fn,
+          detail: `${info.count} subcategories`,
+          defaultQuarter: functionQuarter[info.fn] ?? 'Q4',
+          link: `../frameworks/nist-csf/?q=${code.toLowerCase()}`,
+        },
+        depth?.[code],
+      ),
+    );
 }
 
 /** One task per CIS control, scoped to an implementation group. */
-export function cisPlan(cis: CisData, igMap: Record<string, number>, ig: 1 | 2 | 3): RoadmapTask[] {
+export function cisPlan(
+  cis: CisData,
+  igMap: Record<string, number>,
+  ig: 1 | 2 | 3,
+  depth?: Record<string, GoalDepth>,
+): RoadmapTask[] {
   const controls = new Map<number, { name: string; inScope: number; total: number }>();
   for (const id of Object.keys(cis)) {
     const entry = cis[id];
@@ -94,14 +114,19 @@ export function cisPlan(cis: CisData, igMap: Record<string, number>, ig: 1 | 2 |
   return [...controls.entries()]
     .sort((a, b) => a[0] - b[0])
     .filter(([, info]) => info.inScope > 0)
-    .map(([control, info]) => ({
-      id: String(control),
-      label: `Control ${control}: ${info.name}`,
-      group: `IG${ig} scope`,
-      detail: `${info.inScope} of ${info.total} safeguards in IG${ig}`,
-      defaultQuarter: quarterFor(control),
-      link: `../frameworks/cis/?q=${control}.`,
-    }));
+    .map(([control, info]) =>
+      mergeDepth(
+        {
+          id: String(control),
+          label: `Control ${control}: ${info.name}`,
+          group: `IG${ig} scope`,
+          detail: `${info.inScope} of ${info.total} safeguards in IG${ig}`,
+          defaultQuarter: quarterFor(control),
+          link: `../frameworks/cis/?q=${control}.`,
+        },
+        depth?.[String(control)],
+      ),
+    );
 }
 
 export interface VcisoTask {
@@ -251,6 +276,36 @@ export function statusCounts(tasks: RoadmapTask[], state: PlanState): Record<Tas
   const counts: Record<TaskStatus, number> = { planned: 0, 'in-progress': 0, done: 0 };
   for (const task of tasks) counts[state[task.id]?.status ?? 'planned'] += 1;
   return counts;
+}
+
+export interface Maturity {
+  percent: number;
+  level: string;
+}
+
+const MATURITY_LEVELS: { min: number; label: string }[] = [
+  { min: 0, label: 'Initial' },
+  { min: 20, label: 'Developing' },
+  { min: 40, label: 'Defined' },
+  { min: 60, label: 'Managed' },
+  { min: 80, label: 'Optimizing' },
+];
+
+/**
+ * Roll the plan's status up into a single maturity indicator: each goal scores
+ * done = 1, in progress = 0.5, planned = 0. The percentage maps to a CMMI-style
+ * level so a whole program reads as one number.
+ */
+export function programMaturity(tasks: RoadmapTask[], state: PlanState): Maturity {
+  if (tasks.length === 0) return { percent: 0, level: 'Initial' };
+  let score = 0;
+  for (const task of tasks) {
+    const status = state[task.id]?.status ?? 'planned';
+    score += status === 'done' ? 1 : status === 'in-progress' ? 0.5 : 0;
+  }
+  const percent = Math.round((score / tasks.length) * 100);
+  const level = [...MATURITY_LEVELS].reverse().find((l) => percent >= l.min)?.label ?? 'Initial';
+  return { percent, level };
 }
 
 const MONTHS = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];

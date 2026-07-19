@@ -1,0 +1,824 @@
+{
+  "csf": {
+    "GV.OC": {
+      "objective": "Ensure the business understands its mission, legal obligations, and stakeholder expectations so cybersecurity decisions support real business priorities.",
+      "kpis": [
+        "Percent of critical business processes with a documented cybersecurity dependency mapped (target 100%)",
+        "Number of legal, regulatory, and contractual security requirements identified and tracked (target: complete register reviewed annually)"
+      ],
+      "standards": [
+        {
+          "framework": "NIST CSF",
+          "ref": "GV.OC"
+        },
+        {
+          "framework": "CIS",
+          "ref": "Control 17"
+        }
+      ]
+    },
+    "GV.OV": {
+      "objective": "Give leadership clear, regular visibility into cybersecurity risk so they can direct and adjust the strategy.",
+      "kpis": [
+        "Percent of scheduled leadership cybersecurity reviews completed on time in the last 12 months (target 100%)",
+        "Number of days between a material risk change and its report to leadership (target 30 days or fewer)"
+      ],
+      "standards": [
+        {
+          "framework": "NIST CSF",
+          "ref": "GV.OV"
+        },
+        {
+          "framework": "CIS",
+          "ref": "Control 17"
+        }
+      ]
+    },
+    "GV.PO": {
+      "objective": "Establish and maintain written security policies that set clear expectations for how the organization protects its systems and data.",
+      "kpis": [
+        "Percent of required security policies approved and reviewed within the last 12 months (target 100%)",
+        "Percent of employees who have acknowledged current security policies (target 95% or higher)"
+      ],
+      "standards": [
+        {
+          "framework": "NIST CSF",
+          "ref": "GV.PO"
+        },
+        {
+          "framework": "CIS",
+          "ref": "Control 14"
+        }
+      ]
+    },
+    "GV.RM": {
+      "objective": "Define how the organization decides which cybersecurity risks to accept, reduce, transfer, or avoid.",
+      "kpis": [
+        "Percent of identified risks with a documented treatment decision and owner (target 100%)",
+        "Percent of risks reassessed within their defined review cycle (target 90% or higher)"
+      ],
+      "standards": [
+        {
+          "framework": "NIST CSF",
+          "ref": "GV.RM"
+        },
+        {
+          "framework": "CIS",
+          "ref": "Control 17"
+        }
+      ]
+    },
+    "GV.RR": {
+      "objective": "Assign clear cybersecurity roles, responsibilities, and authority so nothing critical falls through the cracks.",
+      "kpis": [
+        "Percent of defined security responsibilities with a named, accountable owner (target 100%)",
+        "Percent of security roles reviewed and confirmed in the last 12 months (target 100%)"
+      ],
+      "standards": [
+        {
+          "framework": "NIST CSF",
+          "ref": "GV.RR"
+        },
+        {
+          "framework": "CIS",
+          "ref": "Control 5"
+        }
+      ]
+    },
+    "GV.SC": {
+      "objective": "Manage the cybersecurity risk that comes from vendors, suppliers, and third-party technology the business relies on.",
+      "kpis": [
+        "Percent of critical vendors with a completed security assessment (target 100%)",
+        "Percent of vendor contracts that include required security and breach-notification terms (target 90% or higher)"
+      ],
+      "standards": [
+        {
+          "framework": "NIST CSF",
+          "ref": "GV.SC"
+        },
+        {
+          "framework": "CIS",
+          "ref": "Control 15"
+        }
+      ]
+    },
+    "ID.AM": {
+      "objective": "Maintain an accurate, current inventory of hardware, software, data, and services so the business can protect what it owns.",
+      "kpis": [
+        "Percent of enterprise devices present in the asset inventory (target 95% or higher)",
+        "Percent of installed software recorded and approved in the software inventory (target 95% or higher)"
+      ],
+      "standards": [
+        {
+          "framework": "NIST CSF",
+          "ref": "ID.AM"
+        },
+        {
+          "framework": "CIS",
+          "ref": "Control 1"
+        },
+        {
+          "framework": "CIS",
+          "ref": "Control 2"
+        }
+      ]
+    },
+    "ID.IM": {
+      "objective": "Learn from assessments, tests, and incidents to continuously improve the cybersecurity program.",
+      "kpis": [
+        "Percent of improvement actions from reviews and incidents closed by their due date (target 90% or higher)",
+        "Number of lessons-learned reviews completed after significant incidents or exercises (target: one per qualifying event)"
+      ],
+      "standards": [
+        {
+          "framework": "NIST CSF",
+          "ref": "ID.IM"
+        },
+        {
+          "framework": "CIS",
+          "ref": "Control 17"
+        },
+        {
+          "framework": "CIS",
+          "ref": "Control 18"
+        }
+      ]
+    },
+    "ID.RA": {
+      "objective": "Identify and analyze threats and vulnerabilities to understand the actual risk to the organization.",
+      "kpis": [
+        "Percent of critical assets scanned for vulnerabilities on schedule (target 100%)",
+        "Median time to remediate critical vulnerabilities (target 30 days or fewer)"
+      ],
+      "standards": [
+        {
+          "framework": "NIST CSF",
+          "ref": "ID.RA"
+        },
+        {
+          "framework": "CIS",
+          "ref": "Control 7"
+        },
+        {
+          "framework": "CIS",
+          "ref": "Control 18"
+        }
+      ]
+    },
+    "PR.AA": {
+      "objective": "Ensure only the right people and devices can access systems and data, with strong identity verification.",
+      "kpis": [
+        "Percent of user accounts protected by multi-factor authentication (target 100% for privileged and remote access)",
+        "Percent of access rights reviewed and confirmed in the last 90 days (target 100% for privileged accounts)"
+      ],
+      "standards": [
+        {
+          "framework": "NIST CSF",
+          "ref": "PR.AA"
+        },
+        {
+          "framework": "CIS",
+          "ref": "Control 5"
+        },
+        {
+          "framework": "CIS",
+          "ref": "Control 6"
+        }
+      ]
+    },
+    "PR.AT": {
+      "objective": "Give employees the awareness and training they need to recognize and avoid cybersecurity threats.",
+      "kpis": [
+        "Percent of staff who completed required security awareness training in the last 12 months (target 95% or higher)",
+        "Simulated phishing click rate across the workforce (target 5% or lower)"
+      ],
+      "standards": [
+        {
+          "framework": "NIST CSF",
+          "ref": "PR.AT"
+        },
+        {
+          "framework": "CIS",
+          "ref": "Control 14"
+        }
+      ]
+    },
+    "PR.DS": {
+      "objective": "Protect the confidentiality, integrity, and availability of data at rest and in transit.",
+      "kpis": [
+        "Percent of sensitive data stores with encryption enabled (target 100%)",
+        "Percent of critical data sets with tested, recoverable backups (target 100%)"
+      ],
+      "standards": [
+        {
+          "framework": "NIST CSF",
+          "ref": "PR.DS"
+        },
+        {
+          "framework": "CIS",
+          "ref": "Control 3"
+        },
+        {
+          "framework": "CIS",
+          "ref": "Control 11"
+        }
+      ]
+    },
+    "PR.IR": {
+      "objective": "Build and maintain technology infrastructure that resists disruption and keeps critical services running.",
+      "kpis": [
+        "Percent of critical systems with redundancy or failover in place (target 100%)",
+        "Percent of resilience or recovery tests passed against defined recovery-time targets (target 90% or higher)"
+      ],
+      "standards": [
+        {
+          "framework": "NIST CSF",
+          "ref": "PR.IR"
+        },
+        {
+          "framework": "CIS",
+          "ref": "Control 11"
+        },
+        {
+          "framework": "CIS",
+          "ref": "Control 12"
+        }
+      ]
+    },
+    "PR.PS": {
+      "objective": "Keep platforms, devices, and software securely configured and patched to reduce the attack surface.",
+      "kpis": [
+        "Percent of systems meeting the approved secure configuration baseline (target 90% or higher)",
+        "Percent of critical and high patches applied within the defined window (target 95% or higher)"
+      ],
+      "standards": [
+        {
+          "framework": "NIST CSF",
+          "ref": "PR.PS"
+        },
+        {
+          "framework": "CIS",
+          "ref": "Control 4"
+        },
+        {
+          "framework": "CIS",
+          "ref": "Control 7"
+        }
+      ]
+    },
+    "RC.CO": {
+      "objective": "Communicate clearly with staff, customers, and stakeholders during recovery so trust and coordination are maintained.",
+      "kpis": [
+        "Percent of recovery communications delivered within the timeframe set in the recovery plan (target 100%)",
+        "Percent of key stakeholder contacts verified as current in the last 12 months (target 100%)"
+      ],
+      "standards": [
+        {
+          "framework": "NIST CSF",
+          "ref": "RC.CO"
+        },
+        {
+          "framework": "CIS",
+          "ref": "Control 17"
+        }
+      ]
+    },
+    "RC.RP": {
+      "objective": "Restore affected systems and data quickly and correctly after an incident, following a tested recovery plan.",
+      "kpis": [
+        "Percent of recovery objectives met during actual incidents or tests (target 90% or higher)",
+        "Percent of critical systems with a documented and tested recovery procedure (target 100%)"
+      ],
+      "standards": [
+        {
+          "framework": "NIST CSF",
+          "ref": "RC.RP"
+        },
+        {
+          "framework": "CIS",
+          "ref": "Control 11"
+        },
+        {
+          "framework": "CIS",
+          "ref": "Control 17"
+        }
+      ]
+    },
+    "RS.AN": {
+      "objective": "Investigate incidents thoroughly to understand scope, root cause, and impact so response is effective.",
+      "kpis": [
+        "Percent of incidents with a completed root-cause analysis (target 100% of significant incidents)",
+        "Median time to determine the scope and impact of an incident (target 24 hours or fewer)"
+      ],
+      "standards": [
+        {
+          "framework": "NIST CSF",
+          "ref": "RS.AN"
+        },
+        {
+          "framework": "CIS",
+          "ref": "Control 8"
+        },
+        {
+          "framework": "CIS",
+          "ref": "Control 17"
+        }
+      ]
+    },
+    "RS.CO": {
+      "objective": "Coordinate incident response internally and externally, including required notifications to authorities and stakeholders.",
+      "kpis": [
+        "Percent of incidents reported to required parties within mandated timeframes (target 100%)",
+        "Percent of incidents with response roles and communications executed per the plan (target 90% or higher)"
+      ],
+      "standards": [
+        {
+          "framework": "NIST CSF",
+          "ref": "RS.CO"
+        },
+        {
+          "framework": "CIS",
+          "ref": "Control 17"
+        }
+      ]
+    },
+    "RS.MA": {
+      "objective": "Manage incidents in a consistent, organized way from detection through closure.",
+      "kpis": [
+        "Percent of incidents handled per the documented response plan (target 100%)",
+        "Median time from detection to containment (target 8 hours or fewer for high-severity incidents)"
+      ],
+      "standards": [
+        {
+          "framework": "NIST CSF",
+          "ref": "RS.MA"
+        },
+        {
+          "framework": "CIS",
+          "ref": "Control 17"
+        }
+      ]
+    },
+    "RS.MI": {
+      "objective": "Contain and neutralize incidents to limit their spread and reduce damage to the business.",
+      "kpis": [
+        "Median time to contain a confirmed incident (target 4 hours or fewer for high-severity incidents)",
+        "Percent of incidents contained before spreading to additional systems (target 90% or higher)"
+      ],
+      "standards": [
+        {
+          "framework": "NIST CSF",
+          "ref": "RS.MI"
+        },
+        {
+          "framework": "CIS",
+          "ref": "Control 10"
+        },
+        {
+          "framework": "CIS",
+          "ref": "Control 17"
+        }
+      ]
+    },
+    "DE.AE": {
+      "objective": "Analyze security alerts and events to accurately identify and prioritize genuine adverse events.",
+      "kpis": [
+        "Percent of high-severity alerts triaged within the defined service target (target 95% or higher)",
+        "Percent of confirmed incidents that were first identified by internal detection (target 80% or higher)"
+      ],
+      "standards": [
+        {
+          "framework": "NIST CSF",
+          "ref": "DE.AE"
+        },
+        {
+          "framework": "CIS",
+          "ref": "Control 8"
+        },
+        {
+          "framework": "CIS",
+          "ref": "Control 13"
+        }
+      ]
+    },
+    "DE.CM": {
+      "objective": "Continuously monitor networks, systems, and users to detect threats and unauthorized activity quickly.",
+      "kpis": [
+        "Percent of critical assets under continuous monitoring (target 100%)",
+        "Percent of critical systems sending logs to centralized monitoring (target 95% or higher)"
+      ],
+      "standards": [
+        {
+          "framework": "NIST CSF",
+          "ref": "DE.CM"
+        },
+        {
+          "framework": "CIS",
+          "ref": "Control 8"
+        },
+        {
+          "framework": "CIS",
+          "ref": "Control 13"
+        }
+      ]
+    }
+  },
+  "cis": {
+    "1": {
+      "objective": "Maintain an accurate, continuously updated inventory of every device connected to the business so nothing unknown can quietly become a foothold for attackers.",
+      "kpis": [
+        "Percent of enterprise assets recorded in the authoritative inventory (target 95%+)",
+        "Frequency of inventory reconciliation against the live network (target at least monthly)",
+        "Time to detect and record a newly connected unauthorized device (target under 1 week)"
+      ],
+      "standards": [
+        {
+          "framework": "CIS",
+          "ref": "Control 1"
+        },
+        {
+          "framework": "NIST CSF",
+          "ref": "ID.AM"
+        },
+        {
+          "framework": "CISA CPG",
+          "ref": "1.A"
+        }
+      ]
+    },
+    "2": {
+      "objective": "Know exactly what software runs across the business and block anything unapproved, shrinking the attack surface to only trusted, supported applications.",
+      "kpis": [
+        "Percent of installed software captured in the authorized software inventory (target 95%+)",
+        "Percent of assets enforcing application allowlisting (target 90%+)",
+        "Number of unsupported or end-of-life applications still in use (target 0)"
+      ],
+      "standards": [
+        {
+          "framework": "CIS",
+          "ref": "Control 2"
+        },
+        {
+          "framework": "NIST CSF",
+          "ref": "ID.AM"
+        },
+        {
+          "framework": "NIST CSF",
+          "ref": "PR.PS"
+        }
+      ]
+    },
+    "3": {
+      "objective": "Identify, classify, and safeguard sensitive data throughout its life so it is protected at rest, in transit, and when disposed of.",
+      "kpis": [
+        "Percent of sensitive data stores that are classified and inventoried (target 90%+)",
+        "Percent of sensitive data encrypted at rest and in transit (target 100%)",
+        "Frequency of data access and retention review (target at least annually)"
+      ],
+      "standards": [
+        {
+          "framework": "CIS",
+          "ref": "Control 3"
+        },
+        {
+          "framework": "NIST CSF",
+          "ref": "PR.DS"
+        },
+        {
+          "framework": "NIST CSF",
+          "ref": "ID.AM"
+        }
+      ]
+    },
+    "4": {
+      "objective": "Apply and maintain secure, hardened configurations on all devices and software so systems ship and stay in a defensible baseline rather than an insecure default.",
+      "kpis": [
+        "Percent of assets built from an approved secure configuration baseline (target 95%+)",
+        "Percent of assets passing automated configuration compliance scans (target 90%+)",
+        "Percent of default and vendor accounts and passwords changed or disabled (target 100%)"
+      ],
+      "standards": [
+        {
+          "framework": "CIS",
+          "ref": "Control 4"
+        },
+        {
+          "framework": "NIST CSF",
+          "ref": "PR.PS"
+        },
+        {
+          "framework": "NIST CSF",
+          "ref": "PR.IR"
+        }
+      ]
+    },
+    "5": {
+      "objective": "Manage the full lifecycle of user, administrator, and service accounts so only current, authorized people and systems hold credentials.",
+      "kpis": [
+        "Percent of accounts tied to an active, authorized owner (target 100%)",
+        "Time to disable accounts after a person leaves or changes role (target under 24 hours)",
+        "Frequency of account inventory and access review (target at least quarterly)"
+      ],
+      "standards": [
+        {
+          "framework": "CIS",
+          "ref": "Control 5"
+        },
+        {
+          "framework": "NIST CSF",
+          "ref": "PR.AA"
+        },
+        {
+          "framework": "CISA CPG",
+          "ref": "2.D"
+        }
+      ]
+    },
+    "6": {
+      "objective": "Grant, enforce, and revoke access rights based on least privilege and strong authentication so each account can reach only what its role requires.",
+      "kpis": [
+        "Percent of remote and administrative access protected by multi-factor authentication (target 100%)",
+        "Percent of access grants reviewed and confirmed as least privilege (target 90%+)",
+        "Frequency of privileged access rights review (target at least quarterly)"
+      ],
+      "standards": [
+        {
+          "framework": "CIS",
+          "ref": "Control 6"
+        },
+        {
+          "framework": "NIST CSF",
+          "ref": "PR.AA"
+        },
+        {
+          "framework": "CISA CPG",
+          "ref": "2.H"
+        }
+      ]
+    },
+    "7": {
+      "objective": "Continuously find and fix security weaknesses across systems and software before attackers can exploit them.",
+      "kpis": [
+        "Mean time to remediate critical vulnerabilities (target under 15 days)",
+        "Frequency of authenticated vulnerability scans (target at least monthly)",
+        "Percent of assets covered by automated patch management (target 95%+)"
+      ],
+      "standards": [
+        {
+          "framework": "CIS",
+          "ref": "Control 7"
+        },
+        {
+          "framework": "NIST CSF",
+          "ref": "ID.RA"
+        },
+        {
+          "framework": "NIST CSF",
+          "ref": "ID.IM"
+        }
+      ]
+    },
+    "8": {
+      "objective": "Collect, protect, and retain audit logs so security events can be detected, investigated, and reconstructed after an incident.",
+      "kpis": [
+        "Percent of critical systems forwarding logs to central storage (target 95%+)",
+        "Log retention period met against policy (target at least 90 days)",
+        "Percent of time source clocks are synchronized for accurate timestamps (target 99%+)"
+      ],
+      "standards": [
+        {
+          "framework": "CIS",
+          "ref": "Control 8"
+        },
+        {
+          "framework": "NIST CSF",
+          "ref": "DE.CM"
+        },
+        {
+          "framework": "NIST CSF",
+          "ref": "DE.AE"
+        }
+      ]
+    },
+    "9": {
+      "objective": "Reduce the risk from the two most common attack routes, email and web browsing, by filtering malicious content before it reaches users.",
+      "kpis": [
+        "Percent of inbound email filtered for spam, phishing, and malicious attachments (target 100%)",
+        "Percent of endpoints enforcing DNS filtering or a web content filter (target 95%+)",
+        "Percent of browsers and email clients running a supported, patched version (target 95%+)"
+      ],
+      "standards": [
+        {
+          "framework": "CIS",
+          "ref": "Control 9"
+        },
+        {
+          "framework": "NIST CSF",
+          "ref": "PR.PS"
+        },
+        {
+          "framework": "NIST CSF",
+          "ref": "DE.CM"
+        }
+      ]
+    },
+    "10": {
+      "objective": "Prevent, detect, and remove malicious software across the business so infections are stopped early and contained.",
+      "kpis": [
+        "Percent of endpoints and servers running centrally managed anti-malware (target 100%)",
+        "Percent of anti-malware agents with current signatures or definitions (target 98%+)",
+        "Percent of removable media scanned automatically on connection (target 100%)"
+      ],
+      "standards": [
+        {
+          "framework": "CIS",
+          "ref": "Control 10"
+        },
+        {
+          "framework": "NIST CSF",
+          "ref": "DE.CM"
+        },
+        {
+          "framework": "NIST CSF",
+          "ref": "PR.PS"
+        }
+      ]
+    },
+    "11": {
+      "objective": "Maintain reliable, tested backups so the business can recover its data and operations quickly after ransomware, failure, or disaster.",
+      "kpis": [
+        "Percent of critical systems with automated backups on schedule (target 100%)",
+        "Frequency of successful backup restoration tests (target at least quarterly)",
+        "Percent of backups held offline, offsite, or immutable (target 100%)"
+      ],
+      "standards": [
+        {
+          "framework": "CIS",
+          "ref": "Control 11"
+        },
+        {
+          "framework": "NIST CSF",
+          "ref": "RC.RP"
+        },
+        {
+          "framework": "NIST CSF",
+          "ref": "PR.DS"
+        }
+      ]
+    },
+    "12": {
+      "objective": "Securely design, configure, and manage network devices so the network itself does not become an easy path for attackers.",
+      "kpis": [
+        "Percent of network devices running a supported, patched firmware version (target 95%+)",
+        "Percent of network device configurations reviewed against a secure baseline (target 90%+)",
+        "Frequency of network architecture and rule review (target at least annually)"
+      ],
+      "standards": [
+        {
+          "framework": "CIS",
+          "ref": "Control 12"
+        },
+        {
+          "framework": "NIST CSF",
+          "ref": "PR.IR"
+        },
+        {
+          "framework": "NIST CSF",
+          "ref": "PR.PS"
+        }
+      ]
+    },
+    "13": {
+      "objective": "Monitor network traffic and defenses so suspicious activity and intrusions are detected and blocked in time to limit damage.",
+      "kpis": [
+        "Percent of network segments covered by intrusion detection or monitoring (target 90%+)",
+        "Mean time to detect anomalous network activity (target under 24 hours)",
+        "Percent of critical alerts triaged within the defined service window (target 95%+)"
+      ],
+      "standards": [
+        {
+          "framework": "CIS",
+          "ref": "Control 13"
+        },
+        {
+          "framework": "NIST CSF",
+          "ref": "DE.CM"
+        },
+        {
+          "framework": "NIST CSF",
+          "ref": "DE.AE"
+        }
+      ]
+    },
+    "14": {
+      "objective": "Build a security-aware workforce through training so employees recognize and resist phishing, social engineering, and unsafe behavior.",
+      "kpis": [
+        "Percent of staff completing security awareness training on schedule (target 95%+)",
+        "Phishing simulation click rate (target under 5 percent)",
+        "Frequency of awareness training delivery (target at least annually)"
+      ],
+      "standards": [
+        {
+          "framework": "CIS",
+          "ref": "Control 14"
+        },
+        {
+          "framework": "NIST CSF",
+          "ref": "PR.AT"
+        },
+        {
+          "framework": "CISA CPG",
+          "ref": "2.I"
+        }
+      ]
+    },
+    "15": {
+      "objective": "Assess and monitor third-party service providers so vendors handling business data or systems meet the security standards the business relies on.",
+      "kpis": [
+        "Percent of service providers captured in the vendor inventory (target 100%)",
+        "Percent of critical providers assessed for security before or during onboarding (target 90%+)",
+        "Frequency of vendor security review (target at least annually)"
+      ],
+      "standards": [
+        {
+          "framework": "CIS",
+          "ref": "Control 15"
+        },
+        {
+          "framework": "NIST CSF",
+          "ref": "GV.SC"
+        },
+        {
+          "framework": "NIST CSF",
+          "ref": "ID.RA"
+        }
+      ]
+    },
+    "16": {
+      "objective": "Build and maintain software securely so applications the business develops or operates do not introduce exploitable weaknesses.",
+      "kpis": [
+        "Percent of in-house applications covered by security testing before release (target 90%+)",
+        "Mean time to remediate high-severity application vulnerabilities (target under 30 days)",
+        "Percent of developers trained in secure coding practices (target 90%+)"
+      ],
+      "standards": [
+        {
+          "framework": "CIS",
+          "ref": "Control 16"
+        },
+        {
+          "framework": "NIST CSF",
+          "ref": "PR.PS"
+        },
+        {
+          "framework": "NIST CSF",
+          "ref": "ID.RA"
+        }
+      ]
+    },
+    "17": {
+      "objective": "Prepare, document, and practice an incident response process so the business can react quickly and consistently when a security event occurs.",
+      "kpis": [
+        "Existence of a documented, current incident response plan with named roles (target yes, reviewed annually)",
+        "Frequency of incident response exercises or tabletops (target at least annually)",
+        "Mean time to contain a confirmed incident (target under 24 hours)"
+      ],
+      "standards": [
+        {
+          "framework": "CIS",
+          "ref": "Control 17"
+        },
+        {
+          "framework": "NIST CSF",
+          "ref": "RS.MA"
+        },
+        {
+          "framework": "NIST CSF",
+          "ref": "RS.MI"
+        }
+      ]
+    },
+    "18": {
+      "objective": "Test defenses through simulated attacks so real-world weaknesses are found and fixed before adversaries exploit them.",
+      "kpis": [
+        "Frequency of penetration testing on critical systems (target at least annually)",
+        "Mean time to remediate critical findings from penetration tests (target under 30 days)",
+        "Percent of prior test findings verified as remediated (target 90%+)"
+      ],
+      "standards": [
+        {
+          "framework": "CIS",
+          "ref": "Control 18"
+        },
+        {
+          "framework": "NIST CSF",
+          "ref": "ID.IM"
+        },
+        {
+          "framework": "NIST CSF",
+          "ref": "ID.RA"
+        }
+      ]
+    }
+  }
+}

@@ -973,6 +973,36 @@ body {
   background: #3f8f5f;
   border-radius: 999px;
 }
+.plan-maturity {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 10px;
+  flex-wrap: wrap;
+}
+.plan-maturity-level {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 1.05rem;
+  text-transform: none;
+  letter-spacing: 0;
+  color: var(--tomato);
+}
+.plan-maturity-track {
+  flex: 1;
+  min-width: 120px;
+  max-width: 260px;
+  height: 6px;
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--line) 60%, transparent);
+  overflow: hidden;
+}
+.plan-maturity-fill {
+  height: 100%;
+  background: var(--tomato);
+  border-radius: 999px;
+}
+
 .plan-status-row {
   display: flex;
   flex-wrap: wrap;

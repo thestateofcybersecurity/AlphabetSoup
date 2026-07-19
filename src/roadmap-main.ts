@@ -5,6 +5,7 @@ import vcisoRaw from './data/vciso-tasks.json';
 import assessRaw from './data/assessment.json';
 import cpgRaw from './data/assessment-cpg.json';
 import programRaw from './data/security-program.json';
+import roadmapKpisRaw from './data/roadmap-kpis.json';
 import type { CisData, CsfData } from './lib/frameworks';
 import { cisIg1Assessment } from './lib/assessment';
 import type { Answers, AssessmentData } from './lib/assessment';
@@ -17,13 +18,16 @@ import {
   planLoad,
   planProgress,
   planToCsv,
+  programMaturity,
   programPlan,
   quarterDateRange,
   statusCounts,
   totalHours,
   vcisoPlan,
 } from './lib/roadmap';
-import type { ProgramGoal, PlanState, Quarter, RoadmapTask, StandardRef, TaskState, TaskStatus, VcisoTask } from './lib/roadmap';
+import type { GoalDepth, ProgramGoal, PlanState, Quarter, RoadmapTask, StandardRef, TaskState, TaskStatus, VcisoTask } from './lib/roadmap';
+
+const kpiDepth = roadmapKpisRaw as { csf: Record<string, GoalDepth>; cis: Record<string, GoalDepth> };
 
 const csf = csfRaw as CsfData;
 const cis = cisRaw as CisData;
@@ -112,7 +116,7 @@ function saveState(): void {
 function currentTasks(): RoadmapTask[] {
   const s = source();
   if (s === 'program') return programPlan(program);
-  if (s === 'cis') return cisPlan(cis, igs, Number(sel('plan-ig').value) as 1 | 2 | 3);
+  if (s === 'cis') return cisPlan(cis, igs, Number(sel('plan-ig').value) as 1 | 2 | 3, kpiDepth.cis);
   if (s === 'vciso') return vcisoPlan(vciso, sel('plan-pkg').value as 'Small' | 'Medium' | 'Large');
   if (s === 'gaps') {
     const assessment = GAP_ASSESSMENTS.find((a) => a.id === gapsAssessmentId());
@@ -120,7 +124,7 @@ function currentTasks(): RoadmapTask[] {
     const answers = assessmentAnswers(assessment.id);
     return Object.keys(answers).length === 0 ? [] : gapsPlan(assessment.data, answers);
   }
-  return csfPlan(csf);
+  return csfPlan(csf, kpiDepth.csf);
 }
 
 function taskState(task: RoadmapTask): TaskState {
@@ -156,6 +160,18 @@ function renderSummary(tasks: RoadmapTask[]): void {
   const line = el('div', 'plan-summary-line');
   line.textContent = `${progress.done}/${progress.total} done` + (hours > 0 ? ` · ${hours} estimated hours` : '');
   summary.appendChild(line);
+
+  // One-line program maturity, rolled up from goal status.
+  const maturity = programMaturity(tasks, state);
+  const maturityLine = el('div', 'plan-maturity');
+  maturityLine.appendChild(el('span', 'plan-maturity-level', maturity.level));
+  maturityLine.appendChild(el('span', 'deck-sub', `program maturity · ${maturity.percent}%`));
+  const mTrack = el('div', 'plan-maturity-track');
+  const mFill = el('div', 'plan-maturity-fill');
+  mFill.style.width = `${maturity.percent}%`;
+  mTrack.appendChild(mFill);
+  maturityLine.appendChild(mTrack);
+  summary.appendChild(maturityLine);
 
   // Progress bar.
   const track = el('div', 'plan-progress-track');
@@ -238,11 +254,18 @@ function standardChip(ref: StandardRef): HTMLElement {
 
 /** Expandable depth for a curated program goal: why, standards, KPIs, milestones. */
 function depthNode(task: RoadmapTask): HTMLElement | null {
-  const has = task.why || (task.kpis && task.kpis.length) || (task.milestones && task.milestones.length) || (task.standards && task.standards.length);
+  const has = task.objective || task.why || (task.kpis && task.kpis.length) || (task.milestones && task.milestones.length) || (task.standards && task.standards.length);
   if (!has) return null;
   const details = el('details', 'task-depth');
   details.appendChild(el('summary', undefined, 'Objective, KPIs, and standards'));
   const body = el('div', 'task-depth-body');
+  // Show the objective here when the card's detail line is not already it.
+  if (task.objective && task.objective !== task.detail) {
+    const p = el('p');
+    p.appendChild(el('strong', undefined, 'Objective: '));
+    p.appendChild(document.createTextNode(task.objective));
+    body.appendChild(p);
+  }
   if (task.why) {
     const p = el('p');
     p.appendChild(el('strong', undefined, 'Why: '));
