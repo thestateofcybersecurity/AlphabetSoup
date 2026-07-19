@@ -20,6 +20,10 @@ export interface RoadmapTask {
 export interface TaskState {
   quarter: Quarter;
   status: TaskStatus;
+  owner?: string;
+  /** Target date, YYYY-MM-DD. */
+  date?: string;
+  note?: string;
 }
 
 export type PlanState = Record<string, TaskState>;
@@ -120,21 +124,41 @@ export function vcisoPlan(tasks: VcisoTask[], pkg: 'Small' | 'Medium' | 'Large')
     }));
 }
 
-/** One task per assessment gap (question not answered yes), basics first. */
+/**
+ * One task per assessment gap, basics first. A gap is any applicable question
+ * that is not satisfied: unanswered or "no". "N/A" and compensating-control
+ * ("alt") answers are not gaps, matching the assessment scoring.
+ */
 export function gapsPlan(assessment: AssessmentData, answers: Answers): RoadmapTask[] {
   const tierQuarter: Record<string, Quarter> = { basic: 'Q1', intermediate: 'Q2', advanced: 'Q3' };
   const groupNames = new Map(assessment.categories.map((c) => [c.id, c.name]));
+  const csfRef = (refs: string[]): string | undefined => {
+    for (const r of refs) {
+      const m = r.match(/\b([A-Z]{2}\.[A-Z]{2}-\d{2})\b/);
+      if (m) return m[1];
+    }
+    return undefined;
+  };
   return assessment.questions
-    .filter((question) => answers[question.id] !== 'yes')
+    .filter((question) => {
+      const answer = answers[question.id];
+      return answer !== 'yes' && answer !== 'alt' && answer !== 'na';
+    })
     .map((question) => {
       const cisRef = question.references.map(cisControlFromReference).find((c) => c !== null);
+      const csf = csfRef(question.references);
+      const link = cisRef
+        ? `../frameworks/cis/?q=${cisRef}.`
+        : csf
+          ? `../frameworks/nist-csf/?q=${csf.toLowerCase()}`
+          : undefined;
       return {
         id: question.id,
         label: question.text,
         group: groupNames.get(question.group) ?? question.group,
         detail: `${question.tier} tier gap`,
         defaultQuarter: tierQuarter[question.tier] ?? 'Q4',
-        ...(cisRef ? { link: `../frameworks/cis/?q=${cisRef}.` } : {}),
+        ...(link ? { link } : {}),
       };
     });
 }
@@ -152,19 +176,58 @@ export function nextStatus(status: TaskStatus): TaskStatus {
   return STATUS_CYCLE[(STATUS_CYCLE.indexOf(status) + 1) % STATUS_CYCLE.length];
 }
 
+/** Task count and estimated hours per quarter, using each task's current or default quarter. */
+export function planLoad(tasks: RoadmapTask[], state: PlanState): Record<Quarter, { count: number; hours: number }> {
+  const load = {} as Record<Quarter, { count: number; hours: number }>;
+  for (const quarter of QUARTERS) load[quarter] = { count: 0, hours: 0 };
+  for (const task of tasks) {
+    const quarter = state[task.id]?.quarter ?? task.defaultQuarter;
+    load[quarter].count += 1;
+    load[quarter].hours += task.hours ?? 0;
+  }
+  for (const quarter of QUARTERS) load[quarter].hours = Math.round(load[quarter].hours * 10) / 10;
+  return load;
+}
+
+export function statusCounts(tasks: RoadmapTask[], state: PlanState): Record<TaskStatus, number> {
+  const counts: Record<TaskStatus, number> = { planned: 0, 'in-progress': 0, done: 0 };
+  for (const task of tasks) counts[state[task.id]?.status ?? 'planned'] += 1;
+  return counts;
+}
+
+const MONTHS = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+
+/** Map a quarter to a calendar range from a program start month ("YYYY-MM"). */
+export function quarterDateRange(start: string, quarter: Quarter): string {
+  if (quarter === 'Onboarding') return 'Setup';
+  const offset: Record<Exclude<Quarter, 'Onboarding'>, number> = { Q1: 0, Q2: 3, Q3: 6, Q4: 9 };
+  const [year, month] = start.split('-').map(Number);
+  if (!year || !month) return '';
+  const startIndex = month - 1 + offset[quarter as Exclude<Quarter, 'Onboarding'>];
+  const endIndex = startIndex + 2;
+  const sy = year + Math.floor(startIndex / 12);
+  const ey = year + Math.floor(endIndex / 12);
+  const sLabel = `${MONTHS[((startIndex % 12) + 12) % 12]} ${sy}`;
+  const eLabel = `${MONTHS[((endIndex % 12) + 12) % 12]} ${ey}`;
+  return `${sLabel} to ${eLabel}`;
+}
+
 const csvEscape = (value: string): string =>
   /[",\n]/.test(value) ? `"${value.replace(/"/g, '""')}"` : value;
 
 export function planToCsv(tasks: RoadmapTask[], state: PlanState): string {
-  const rows = [['id', 'task', 'group', 'quarter', 'status', 'hours']];
+  const rows = [['id', 'task', 'group', 'quarter', 'status', 'owner', 'target_date', 'notes', 'hours']];
   for (const task of tasks) {
-    const taskState = state[task.id] ?? { quarter: task.defaultQuarter, status: 'planned' };
+    const s = state[task.id] ?? { quarter: task.defaultQuarter, status: 'planned' };
     rows.push([
       task.id,
       task.label,
       task.group,
-      taskState.quarter,
-      taskState.status,
+      s.quarter,
+      s.status,
+      s.owner ?? '',
+      s.date ?? '',
+      s.note ?? '',
       task.hours != null ? String(task.hours) : '',
     ]);
   }

@@ -23,7 +23,9 @@ test('assessment gaps flow into the roadmap planner', async ({ page }) => {
 
 test('roadmap gaps source without an assessment points back to assess', async ({ page }) => {
   await page.goto('/roadmap/?source=gaps');
-  await expect(page.locator('#plan-summary a')).toContainText('readiness assessment');
+  const link = page.locator('#plan-summary a');
+  await expect(link).toContainText('assessment');
+  await expect(link).toHaveAttribute('href', /\.\.\/assess\//);
 });
 
 test('CIS IG1 assessment scores by control without tier chips', async ({ page }) => {
