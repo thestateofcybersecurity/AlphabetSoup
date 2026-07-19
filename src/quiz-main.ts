@@ -3,8 +3,8 @@ import { shareOrCopy } from './lib/share';
 import {
   answerCurrent,
   createSession,
+  dueForReview,
   isDone,
-  missedBank,
   recordRound,
   reviewSession,
   scorePercent,
@@ -53,6 +53,57 @@ function saveProgress(progress: QuizProgress): void {
   }
 }
 
+/* ---- exam mode + in-flight session resume ---- */
+
+const SESSION_KEY = 'alphabetsoup:quiz-session';
+const EXAM_PASS = 72;
+let examMode = false;
+let examStartMs = 0;
+
+function today(): string {
+  const n = new Date();
+  return `${n.getFullYear()}-${String(n.getMonth() + 1).padStart(2, '0')}-${String(n.getDate()).padStart(2, '0')}`;
+}
+
+interface SavedSession {
+  slug: string;
+  session: QuizSession;
+  fullRound: boolean;
+  exam: boolean;
+  roundCorrect: number[];
+  roundMissed: number[];
+}
+
+function persistSession(): void {
+  if (!currentMeta || !session) return;
+  try {
+    localStorage.setItem(
+      SESSION_KEY,
+      JSON.stringify({ slug: currentMeta.slug, session, fullRound, exam: examMode, roundCorrect, roundMissed } as SavedSession),
+    );
+  } catch {
+    // ignore
+  }
+}
+
+function clearSavedSession(): void {
+  try {
+    localStorage.removeItem(SESSION_KEY);
+  } catch {
+    // ignore
+  }
+}
+
+function loadSavedSession(): SavedSession | null {
+  try {
+    const raw = localStorage.getItem(SESSION_KEY);
+    const saved = raw ? (JSON.parse(raw) as SavedSession) : null;
+    return saved && saved.session.position < saved.session.order.length ? saved : null;
+  } catch {
+    return null;
+  }
+}
+
 function el<K extends keyof HTMLElementTagNameMap>(
   tag: K,
   className?: string,
@@ -91,12 +142,15 @@ function renderDeckGrid(): void {
     );
     const actions = el('div', 'deck-actions');
     const start = el('button', 'primary-btn', meta.mode === 'choice' ? 'Start quiz' : 'Study cards');
-    start.addEventListener('click', () => void startDeck(meta));
+    start.addEventListener('click', () => {
+      if (meta.mode === 'choice') renderSetup(meta);
+      else void startDeck(meta, meta.count, false);
+    });
     actions.appendChild(start);
-    const bank = missedBank(loadProgress(), meta.slug);
-    if (bank.length > 0) {
-      const drill = el('button', 'ghost-btn missed', `Drill missed (${bank.length})`);
-      drill.addEventListener('click', () => void startDrill(meta));
+    const due = dueForReview(loadProgress(), meta.slug, today());
+    if (due.length > 0) {
+      const drill = el('button', 'ghost-btn missed', `Review due (${due.length})`);
+      drill.addEventListener('click', () => void startReview(meta));
       actions.appendChild(drill);
     }
     if (meta.certKey) {
@@ -109,32 +163,93 @@ function renderDeckGrid(): void {
   }
 }
 
-/** Start a session made only of this deck's persistently missed questions. */
-async function startDrill(meta: DeckMeta): Promise<void> {
+/** A pre-quiz setup: choose how many questions and whether to run a timed exam. */
+function renderSetup(meta: DeckMeta): void {
+  const player = playerShell();
+  player.appendChild(el('p', 'quiz-question', `${meta.name}: set up your round`));
+  const options = [...new Set([10, 20, meta.count].filter((n) => n <= meta.count))].sort((a, b) => a - b);
+  let count = Math.min(QUESTIONS_PER_RUN, meta.count);
+
+  const countRow = el('div', 'setup-row');
+  countRow.appendChild(el('span', 'setup-label', 'Questions'));
+  const countBtns = el('div', 'seg');
+  for (const n of options) {
+    const btn = el('button', 'seg-btn', n === meta.count ? `All (${n})` : String(n));
+    btn.type = 'button';
+    if (n === count) btn.classList.add('active');
+    btn.addEventListener('click', () => {
+      count = n;
+      countBtns.querySelectorAll('.seg-btn').forEach((b) => b.classList.remove('active'));
+      btn.classList.add('active');
+    });
+    countBtns.appendChild(btn);
+  }
+  countRow.appendChild(countBtns);
+  player.appendChild(countRow);
+
+  const examWrap = el('label', 'setup-check');
+  const exam = el('input') as HTMLInputElement;
+  exam.type = 'checkbox';
+  examWrap.appendChild(exam);
+  examWrap.appendChild(el('span', undefined, `Exam mode: timed, ${EXAM_PASS}% to pass`));
+  player.appendChild(examWrap);
+
+  const actions = el('div', 'deck-actions');
+  const go = el('button', 'primary-btn', 'Start');
+  go.addEventListener('click', () => void startDeck(meta, count, exam.checked));
+  actions.appendChild(go);
+  const back = el('button', 'ghost-btn', 'cancel');
+  back.addEventListener('click', renderDeckGrid);
+  actions.appendChild(back);
+  player.appendChild(actions);
+}
+
+/** Start a session made only of this deck's questions that are due for review. */
+async function startReview(meta: DeckMeta): Promise<void> {
   currentMeta = meta;
   currentDeck = await loadDeck(meta.slug);
-  const bank = new Set(missedBank(loadProgress(), meta.slug));
+  const due = new Set(dueForReview(loadProgress(), meta.slug, today()));
   const indexes = currentDeck.questions
     .map((question, index) => ({ question, index }))
-    .filter(({ question }) => bank.has(question.q))
+    .filter(({ question }) => due.has(question.q))
     .map(({ index }) => index);
   fullRound = false;
+  examMode = false;
   roundCorrect = [];
   roundMissed = [];
   session = { order: shuffle(indexes), position: 0, correct: 0, missed: [] };
+  persistSession();
   renderQuestion();
 }
 
-async function startDeck(meta: DeckMeta): Promise<void> {
+async function startDeck(meta: DeckMeta, count: number, exam: boolean): Promise<void> {
   currentMeta = meta;
   currentDeck = await loadDeck(meta.slug);
-  session = createSession(currentDeck.questions.length, QUESTIONS_PER_RUN);
+  session = createSession(currentDeck.questions.length, count);
   fullRound = true;
+  examMode = exam;
+  examStartMs = exam ? Date.now() : 0;
   roundCorrect = [];
   roundMissed = [];
   const url = new URL(location.href);
   url.searchParams.set('deck', meta.slug);
   history.replaceState(null, '', url);
+  persistSession();
+  renderQuestion();
+}
+
+/** Resume a persisted in-flight session after a reload. */
+async function resumeSession(saved: SavedSession): Promise<void> {
+  const meta = deckIndex.find((m) => m.slug === saved.slug);
+  if (!meta) return;
+  currentMeta = meta;
+  currentDeck = await loadDeck(meta.slug);
+  session = saved.session;
+  fullRound = saved.fullRound;
+  examMode = saved.exam;
+  examStartMs = saved.exam ? Date.now() : 0;
+  roundCorrect = saved.roundCorrect;
+  roundMissed = saved.roundMissed;
   renderQuestion();
 }
 
@@ -145,12 +260,18 @@ function trackAnswer(questionIndex: number, correct: boolean): void {
 function commitRound(): void {
   if (!currentDeck || !currentMeta || !session) return;
   const toText = (indexes: number[]) => indexes.map((i) => currentDeck!.questions[i].q);
-  const progress = recordRound(loadProgress(), currentMeta.slug, {
-    ...(fullRound ? { percent: scorePercent(session) } : {}),
-    missedQuestions: toText(roundMissed),
-    correctQuestions: toText(roundCorrect),
-  });
+  const progress = recordRound(
+    loadProgress(),
+    currentMeta.slug,
+    {
+      ...(fullRound ? { percent: scorePercent(session) } : {}),
+      missedQuestions: toText(roundMissed),
+      correctQuestions: toText(roundCorrect),
+    },
+    today(),
+  );
   saveProgress(progress);
+  clearSavedSession();
 }
 
 function playerShell(): HTMLElement {
@@ -175,9 +296,15 @@ function playerShell(): HTMLElement {
   return player;
 }
 
+function examClock(): string {
+  if (!examMode || !examStartMs) return '';
+  const secs = Math.floor((Date.now() - examStartMs) / 1000);
+  return ` · ${Math.floor(secs / 60)}:${String(secs % 60).padStart(2, '0')}`;
+}
+
 function updateProgress(): void {
   if (!session) return;
-  byId('quiz-progress').textContent = `${Math.min(session.position + 1, session.order.length)}/${session.order.length} · ${session.correct} correct`;
+  byId('quiz-progress').textContent = `${Math.min(session.position + 1, session.order.length)}/${session.order.length} · ${session.correct} correct${examClock()}`;
 }
 
 function renderQuestion(): void {
@@ -229,6 +356,7 @@ function renderChoice(player: HTMLElement, question: ChoiceQuestion): void {
       list.querySelectorAll('.choice-btn').forEach((b) => b.classList.add('locked'));
       session = answerCurrent(session!, correct);
       trackAnswer(questionIndex, correct);
+      persistSession();
       if (question.why) {
         const why = el('div', 'why-box');
         why.setAttribute('role', 'status');
@@ -259,12 +387,14 @@ function renderFlip(player: HTMLElement, question: FlipQuestion): void {
     knew.addEventListener('click', () => {
       session = answerCurrent(session!, true);
       trackAnswer(questionIndex, true);
+      persistSession();
       renderQuestion();
     });
     const missed = el('button', 'ghost-btn missed', 'Missed it');
     missed.addEventListener('click', () => {
       session = answerCurrent(session!, false);
       trackAnswer(questionIndex, false);
+      persistSession();
       renderQuestion();
     });
     grade.appendChild(knew);
@@ -289,6 +419,13 @@ function renderResults(): void {
   score.appendChild(el('span', 'quiz-score-big', `${percent}%`));
   const scoreMeta = el('div');
   scoreMeta.appendChild(el('span', 'deck-sub', `${session.correct} of ${session.order.length} correct`));
+  if (examMode && fullRound) {
+    const passed = percent >= EXAM_PASS;
+    const secs = examStartMs ? Math.floor((Date.now() - examStartMs) / 1000) : 0;
+    const verdict = el('div', `exam-verdict ${passed ? 'pass' : 'fail'}`, passed ? `PASS (needed ${EXAM_PASS}%)` : `FAIL (needed ${EXAM_PASS}%)`);
+    scoreMeta.appendChild(verdict);
+    scoreMeta.appendChild(el('div', 'deck-sub', `Timed exam · ${Math.floor(secs / 60)}:${String(secs % 60).padStart(2, '0')}`));
+  }
   if (!fullRound) {
     scoreMeta.appendChild(el('div', 'deck-sub', 'Review round, not counted toward your best score.'));
   }
@@ -320,7 +457,10 @@ function renderResults(): void {
     actions.appendChild(share);
   }
   const again = el('button', 'ghost-btn', 'New round');
-  again.addEventListener('click', () => void startDeck(currentMeta!));
+  again.addEventListener('click', () => {
+    if (currentMeta!.mode === 'choice') renderSetup(currentMeta!);
+    else void startDeck(currentMeta!, currentMeta!.count, false);
+  });
   actions.appendChild(again);
   const back = el('button', 'ghost-btn', 'All decks');
   back.addEventListener('click', renderDeckGrid);
@@ -333,7 +473,14 @@ function main(): void {
   renderDeckGrid();
   const requested = new URLSearchParams(location.search).get('deck');
   const meta = deckIndex.find((m) => m.slug === requested);
-  if (meta) void startDeck(meta);
+  if (meta) {
+    // Deep link / share link: start straight away with a default round.
+    void startDeck(meta, Math.min(QUESTIONS_PER_RUN, meta.count), false);
+    return;
+  }
+  // No deck requested: resume an in-flight session if one was left mid-round.
+  const saved = loadSavedSession();
+  if (saved) void resumeSession(saved);
 }
 
 main();

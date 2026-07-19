@@ -47,3 +47,30 @@ test('cert definition page links to its practice deck', async ({ page }) => {
   await expect(page).toHaveURL(/quiz\/\?deck=cissp/);
   await expect(page.locator('.quiz-title')).toHaveText('CISSP');
 });
+
+test('exam-mode setup picks a count, runs timed, and shows pass or fail', async ({ page }) => {
+  await page.goto('/quiz/');
+  // First choice deck opens the setup screen instead of starting immediately.
+  const startBtn = page.locator('.deck-card .primary-btn', { hasText: 'Start quiz' }).first();
+  await startBtn.click();
+  await expect(page.locator('.quiz-question')).toContainText('set up your round');
+  await page.locator('.seg-btn', { hasText: '10' }).click();
+  await page.locator('.setup-check input').check();
+  await page.getByRole('button', { name: 'Start', exact: true }).click();
+  await expect(page.locator('#quiz-progress')).toContainText('/10');
+  // Answer all ten (first choice each), then land on results.
+  for (let i = 0; i < 10; i++) {
+    await page.locator('.choice-btn').first().click();
+    await page.locator('.quiz-next').click();
+  }
+  await expect(page.locator('.exam-verdict')).toHaveText(/PASS|FAIL/);
+});
+
+test('an in-flight round resumes after a reload', async ({ page }) => {
+  await page.goto('/quiz/?deck=ceh'); // auto-starts a 20-question round
+  await page.locator('.choice-btn').first().click();
+  await page.locator('.quiz-next').click(); // advance to question 2
+  await page.goto('/quiz/'); // reload with no deck param
+  await expect(page.locator('#quiz-progress')).toContainText('2/20');
+  await expect(page.locator('.quiz-question')).toBeVisible();
+});

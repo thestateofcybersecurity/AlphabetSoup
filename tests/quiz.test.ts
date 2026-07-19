@@ -4,12 +4,15 @@ import { fileURLToPath } from 'node:url';
 import {
   answerCurrent,
   createSession,
+  dueForReview,
   isDone,
+  recordRound,
   reviewSession,
+  scheduledCount,
   scorePercent,
   shuffledChoices,
 } from '../src/lib/quiz';
-import type { ChoiceDeck, Deck, DeckMeta, FlipDeck } from '../src/lib/quiz';
+import type { ChoiceDeck, Deck, DeckMeta, FlipDeck, QuizProgress } from '../src/lib/quiz';
 import deckIndex from '../src/data/quiz/index.json';
 
 const quizDir = fileURLToPath(new URL('../src/data/quiz', import.meta.url));
@@ -104,5 +107,37 @@ describe('quiz session', () => {
     const { choices, correctIndex } = shuffledChoices(question, rng([0.9, 0.1, 0.6, 0.2]));
     expect([...choices].sort()).toEqual(['a', 'b', 'c', 'd']);
     expect(choices[correctIndex]).toBe('c');
+  });
+});
+
+describe('spaced repetition', () => {
+  it('schedules missed questions due now and advances correct ones', () => {
+    let progress: QuizProgress = {};
+    // Miss two questions today.
+    progress = recordRound(progress, 'deck', { percent: 50, missedQuestions: ['Q1', 'Q2'], correctQuestions: [] }, '2026-01-01');
+    expect(scheduledCount(progress, 'deck')).toBe(2);
+    expect(dueForReview(progress, 'deck', '2026-01-01')).toEqual(['Q1', 'Q2']);
+
+    // Review round: get Q1 right (box 1 -> 2, due +2 days), Q2 wrong (stays box 1, due now).
+    progress = recordRound(progress, 'deck', { missedQuestions: ['Q2'], correctQuestions: ['Q1'] }, '2026-01-01');
+    const sched = progress.deck.schedule!;
+    expect(sched.Q1.box).toBe(2);
+    expect(sched.Q1.due).toBe('2026-01-03');
+    // Q1 is no longer due on the 1st, Q2 still is.
+    expect(dueForReview(progress, 'deck', '2026-01-01')).toEqual(['Q2']);
+    // On the 3rd, Q1 comes due again.
+    expect(dueForReview(progress, 'deck', '2026-01-03')).toContain('Q1');
+  });
+
+  it('graduates a question out of the schedule after the top box', () => {
+    let progress: QuizProgress = { deck: { attempts: 0, best: 0, missed: {}, schedule: { Q1: { box: 5, due: '2026-01-01' } } } };
+    progress = recordRound(progress, 'deck', { missedQuestions: [], correctQuestions: ['Q1'] }, '2026-01-01');
+    expect(scheduledCount(progress, 'deck')).toBe(0);
+  });
+
+  it('leaves the schedule untouched when no date is given (backward compatible)', () => {
+    const progress = recordRound({}, 'deck', { percent: 80, missedQuestions: ['Q1'], correctQuestions: [] });
+    expect(progress.deck.schedule).toEqual({});
+    expect(progress.deck.missed.Q1).toBe(1);
   });
 });

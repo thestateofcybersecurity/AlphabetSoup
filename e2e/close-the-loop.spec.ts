@@ -54,7 +54,7 @@ test('quiz shows rationales and builds a drill bank', async ({ page }) => {
   const cehCard = page.locator('.deck-card', { hasText: 'CEH' }).first();
   await expect(cehCard.locator('.deck-sub')).toContainText('best');
   // Random clicking virtually guarantees misses; the drill button should exist.
-  await expect(cehCard.locator('.ghost-btn.missed')).toContainText('Drill missed');
+  await expect(cehCard.locator('.ghost-btn.missed')).toContainText('Review due');
 });
 
 test('generated pages carry the site nav', async ({ page }) => {

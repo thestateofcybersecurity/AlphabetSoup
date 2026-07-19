@@ -1918,6 +1918,62 @@ a.std-chip:hover {
   gap: 14px;
 }
 
+/* ---- quiz setup (exam mode) ---- */
+.setup-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin: 10px 0;
+}
+.setup-label {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+}
+.seg {
+  display: inline-flex;
+  border: 1.5px solid var(--line);
+  border-radius: 999px;
+  overflow: hidden;
+}
+.seg-btn {
+  appearance: none;
+  border: none;
+  background: transparent;
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  color: var(--ink-soft);
+  padding: 7px 14px;
+  cursor: pointer;
+}
+.seg-btn.active {
+  background: var(--tomato);
+  color: #fff;
+}
+.setup-check {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 8px 0 14px;
+  font-size: 0.9rem;
+}
+.exam-verdict {
+  font-family: var(--font-mono);
+  font-weight: 600;
+  font-size: 0.8rem;
+  letter-spacing: 0.06em;
+  margin-top: 2px;
+}
+.exam-verdict.pass {
+  color: #3f8f5f;
+}
+.exam-verdict.fail {
+  color: #c8401f;
+}
+
 .quiz-score-big {
   font-family: var(--font-display);
   font-weight: 900;
