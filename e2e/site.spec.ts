@@ -11,6 +11,16 @@ test('homepage searches and expands an entry', async ({ page }) => {
   await expect(first.locator('.permalink')).toHaveAttribute('href', 'definitions/siem.html');
 });
 
+test('definition page has a per-term social image', async ({ page }) => {
+  const res = await page.goto('/definitions/siem.html');
+  await expect(page.locator('meta[property="og:image"]')).toHaveAttribute('content', /\/og\/siem\.png$/);
+  await expect(page.locator('meta[name="twitter:card"]')).toHaveAttribute('content', 'summary_large_image');
+  // The generated image is served and is a real PNG.
+  const img = await page.request.get(new URL('/og/siem.png', res!.url()).href);
+  expect(img.status()).toBe(200);
+  expect(img.headers()['content-type']).toContain('image/png');
+});
+
 test('category pill narrows results (no difficulty dropdown)', async ({ page }) => {
   await page.goto('/');
   await expect(page.locator('#difficulty')).toHaveCount(0);

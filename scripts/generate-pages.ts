@@ -168,8 +168,10 @@ function definitionPage(key: string, entry: AcronymEntry): string {
   <meta property="og:title" content="${esc(entry.display)}: ${esc(entry.expansion)}">
   <meta property="og:description" content="${description}">
   <meta property="og:url" content="${url}">
-  <meta property="og:image" content="${SITE}/og-image.png">
-  <meta name="twitter:card" content="summary">
+  <meta property="og:image" content="${SITE}/og/${slug}.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta name="twitter:card" content="summary_large_image">
   <link rel="icon" href="../icon.svg" type="image/svg+xml">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
