@@ -18,10 +18,12 @@ const records: FrameworkRecord[] = Object.keys(csf)
     heading: csf[id].text,
     metaphor: csf[id].metaphor,
     translation: csf[id].translation,
+    keywords: `${csf[id].function} ${csf[id].category}`,
   }));
 
 initFrameworkPage({
   records,
+  section: 'csf',
   groups: CSF_FUNCTIONS.map(([code, name]) => ({ value: code, label: name })),
   kicker: (record) => `${csf[record.id].function} / ${csf[record.id].category}`,
   countNoun: 'subcategories',

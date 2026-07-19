@@ -20,6 +20,14 @@ export interface FrameworkPageConfig {
   /** Cross-framework links shown on each card (unofficial mapping). */
   related?: (record: FrameworkRecord) => RelatedLink[];
   relatedLabel?: string;
+  /** Section id used for the coverage-tracking storage key. */
+  section: string;
+  /** Optional secondary filter (e.g. CIS implementation group). */
+  secondary?: {
+    label: string;
+    pills: Array<{ value: string; label: string; title?: string }>;
+    match: (record: FrameworkRecord, value: string) => boolean;
+  };
 }
 
 const RESULT_CAP = 60;
@@ -37,15 +45,42 @@ function el<K extends keyof HTMLElementTagNameMap>(
 
 export function initFrameworkPage(config: FrameworkPageConfig): void {
   const byId = (id: string) => document.getElementById(id) as HTMLElement;
-  const state = { query: '', group: '' };
+  const state = { query: '', group: '', secondary: '' };
 
   byId('hero-count').textContent = String(config.records.length);
+
+  // Coverage tracking: a set of ids the user has marked reviewed.
+  const coverageKey = `alphabetsoup:framework-reviewed:${config.section}`;
+  let reviewed = new Set<string>();
+  try {
+    reviewed = new Set(JSON.parse(localStorage.getItem(coverageKey) ?? '[]') as string[]);
+  } catch {
+    reviewed = new Set();
+  }
+  function saveReviewed(): void {
+    try {
+      localStorage.setItem(coverageKey, JSON.stringify([...reviewed]));
+    } catch {
+      // private mode: session-only
+    }
+  }
+
+  function filtered(): FrameworkRecord[] {
+    let results = searchFramework(config.records, state.query, state.group);
+    if (config.secondary && state.secondary) {
+      results = results.filter((r) => config.secondary!.match(r, state.secondary));
+    }
+    return results;
+  }
 
   function card(record: FrameworkRecord): HTMLElement {
     const article = el('article', 'fw-card');
     article.id = frameworkSlug(record.id);
     const head = el('div', 'fw-head');
     head.appendChild(el('span', 'fw-id', record.id));
+    for (const badge of record.badges ?? []) {
+      head.appendChild(el('span', `fw-badge ig-${badge.toLowerCase()}`, badge));
+    }
     head.appendChild(el('span', 'fw-kicker', config.kicker(record)));
     article.appendChild(head);
     article.appendChild(el('p', 'fw-heading', record.heading));
@@ -67,11 +102,39 @@ export function initFrameworkPage(config: FrameworkPageConfig): void {
       article.appendChild(map);
     }
     const links = el('div', 'entry-links');
+    const review = el('button', 'fw-review', reviewed.has(record.id) ? '✓ reviewed' : 'mark reviewed');
+    review.setAttribute('aria-pressed', String(reviewed.has(record.id)));
+    if (reviewed.has(record.id)) review.classList.add('on');
+    review.addEventListener('click', () => {
+      if (reviewed.has(record.id)) reviewed.delete(record.id);
+      else reviewed.add(record.id);
+      saveReviewed();
+      const on = reviewed.has(record.id);
+      review.classList.toggle('on', on);
+      review.textContent = on ? '✓ reviewed' : 'mark reviewed';
+      review.setAttribute('aria-pressed', String(on));
+      article.classList.toggle('is-reviewed', on);
+      updateCoverage();
+    });
+    if (reviewed.has(record.id)) article.classList.add('is-reviewed');
+    links.appendChild(review);
     const permalink = el('a', 'permalink', 'permalink');
     permalink.href = `${frameworkSlug(record.id)}.html`;
     links.appendChild(permalink);
     article.appendChild(links);
     return article;
+  }
+
+  function updateCoverage(): void {
+    const scope = filtered();
+    const done = scope.filter((r) => reviewed.has(r.id)).length;
+    const bar = byId('fw-coverage');
+    if (!bar) return;
+    const pct = scope.length ? Math.round((done / scope.length) * 100) : 0;
+    bar.querySelector<HTMLElement>('.fw-coverage-fill')!.style.width = `${pct}%`;
+    bar.querySelector<HTMLElement>('.fw-coverage-text')!.textContent =
+      `${done} of ${scope.length} reviewed (${pct}%)`;
+    bar.hidden = scope.length === 0;
   }
 
   function renderSotd(): void {
@@ -89,10 +152,11 @@ export function initFrameworkPage(config: FrameworkPageConfig): void {
   }
 
   function render(): void {
-    const results = searchFramework(config.records, state.query, state.group);
+    const results = filtered();
     const shown = results.slice(0, RESULT_CAP);
-    byId('sotd').hidden = Boolean(state.query || state.group);
-    byId('result-meta').textContent = state.query || state.group
+    const filtering = Boolean(state.query || state.group || state.secondary);
+    byId('sotd').hidden = filtering;
+    byId('result-meta').textContent = filtering
       ? `${results.length} match${results.length === 1 ? '' : 'es'}${results.length > RESULT_CAP ? `, showing first ${RESULT_CAP}` : ''}`
       : `browsing all ${config.records.length} ${config.countNoun}`;
 
@@ -101,49 +165,64 @@ export function initFrameworkPage(config: FrameworkPageConfig): void {
     if (results.length === 0) {
       const empty = el('div', 'empty-bowl');
       empty.appendChild(el('div', 'big', 'Empty bowl.'));
-      empty.appendChild(el('div', undefined, 'Nothing matches that. Try an ID or a word from the control.'));
+      empty.appendChild(el('div', undefined, 'Nothing matches that. Try an ID, a control name, or a word from the description.'));
       container.appendChild(empty);
+      updateCoverage();
       return;
     }
     const fragment = document.createDocumentFragment();
     for (const record of shown) fragment.appendChild(card(record));
     container.appendChild(fragment);
+    updateCoverage();
   }
 
-  // Filter pills
-  const pillRow = byId('group-pills');
-  pillRow.setAttribute('role', 'group');
-  pillRow.setAttribute('aria-label', 'Filter');
-  const allPill = el('button', 'pill active', 'all');
-  allPill.dataset.group = '';
-  allPill.addEventListener('click', () => {
-    state.group = '';
-    syncPills();
-    render();
-  });
-  pillRow.appendChild(allPill);
-  for (const group of config.groups) {
-    const pill = el('button', 'pill', group.label);
-    pill.dataset.group = group.value;
-    if (group.title) {
-      pill.title = group.title;
-      pill.setAttribute('aria-label', group.title);
-    }
-    pill.addEventListener('click', () => {
-      state.group = state.group === group.value ? '' : group.value;
-      syncPills();
+  function buildPillRow(
+    rowId: string,
+    key: 'group' | 'secondary',
+    dataAttr: string,
+    ariaLabel: string,
+    pills: Array<{ value: string; label: string; title?: string }>,
+  ): void {
+    const row = byId(rowId);
+    if (!row) return;
+    row.setAttribute('role', 'group');
+    row.setAttribute('aria-label', ariaLabel);
+    const all = el('button', 'pill active', 'all');
+    all.dataset[dataAttr] = '';
+    all.addEventListener('click', () => {
+      state[key] = '';
+      sync();
       render();
     });
-    pillRow.appendChild(pill);
+    row.appendChild(all);
+    for (const p of pills) {
+      const pill = el('button', 'pill', p.label);
+      pill.dataset[dataAttr] = p.value;
+      if (p.title) {
+        pill.title = p.title;
+        pill.setAttribute('aria-label', p.title);
+      }
+      pill.addEventListener('click', () => {
+        state[key] = state[key] === p.value ? '' : p.value;
+        sync();
+        render();
+      });
+      row.appendChild(pill);
+    }
+    function sync(): void {
+      row.querySelectorAll<HTMLButtonElement>('.pill').forEach((pill) => {
+        const active = (pill.dataset[dataAttr] ?? '') === state[key];
+        pill.classList.toggle('active', active);
+        pill.setAttribute('aria-pressed', String(active));
+      });
+    }
+    sync();
   }
-  function syncPills(): void {
-    pillRow.querySelectorAll<HTMLButtonElement>('.pill').forEach((pill) => {
-      const active = (pill.dataset.group ?? '') === state.group;
-      pill.classList.toggle('active', active);
-      pill.setAttribute('aria-pressed', String(active));
-    });
+
+  buildPillRow('group-pills', 'group', 'group', 'Filter', config.groups);
+  if (config.secondary) {
+    buildPillRow('secondary-pills', 'secondary', 'secondary', config.secondary.label, config.secondary.pills);
   }
-  syncPills();
 
   // Search box
   const input = byId('search') as HTMLInputElement;
