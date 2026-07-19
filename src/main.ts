@@ -1,5 +1,6 @@
 import { allData, sortedKeys } from './data';
-import { searchEntries } from './lib/search';
+import { searchEntries, suggest } from './lib/search';
+import { relatedFor } from './lib/related';
 import type { SearchFilter } from './lib/search';
 import { dailyIndex, dayNumber, localDateString } from './lib/daily';
 import { detectFrameworkQuery } from './lib/framework-search';
@@ -272,6 +273,23 @@ function render(): void {
     const empty = el('div', 'empty-bowl');
     empty.appendChild(el('div', 'big', 'Empty bowl.'));
     empty.appendChild(el('div', undefined, 'No acronym matches that. Try fewer letters, or a word from its expansion.'));
+    const near = state.query ? suggest(data, state.query) : null;
+    if (near) {
+      const hint = el('div', 'did-you-mean');
+      hint.appendChild(document.createTextNode('Did you mean '));
+      const link = el('button', 'link-btn', data[near].display);
+      link.addEventListener('click', () => {
+        const input = byId('search') as HTMLInputElement;
+        input.value = near;
+        state.query = near;
+        (byId('clear-search') as HTMLButtonElement).hidden = false;
+        resetPaging();
+        render();
+      });
+      hint.appendChild(link);
+      hint.appendChild(document.createTextNode('?'));
+      empty.appendChild(hint);
+    }
     results.appendChild(empty);
     return;
   }
@@ -302,6 +320,19 @@ function render(): void {
     permalink.href = `definitions/${slugForKey(key)}.html`;
     links.appendChild(permalink);
     body.appendChild(links);
+
+    const related = relatedFor(key, data);
+    if (related.length > 0) {
+      const relatedRow = el('div', 'entry-related');
+      relatedRow.appendChild(el('span', 'entry-related-label', 'See also'));
+      for (const relKey of related) {
+        const chip = el('a', 'related-chip', data[relKey].display);
+        chip.href = `definitions/${slugForKey(relKey)}.html`;
+        chip.title = data[relKey].expansion;
+        relatedRow.appendChild(chip);
+      }
+      body.appendChild(relatedRow);
+    }
     details.appendChild(body);
     fragment.appendChild(details);
   }

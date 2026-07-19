@@ -67,6 +67,24 @@ test('legacy slugs redirect to canonical pages', async ({ page }) => {
   await expect(page).toHaveURL(/definitions\/soc2\.html/);
 });
 
+test('a typo offers a did-you-mean suggestion', async ({ page }) => {
+  await page.goto('/');
+  await page.locator('#search').fill('siemm');
+  const dym = page.locator('.did-you-mean');
+  await expect(dym).toContainText('Did you mean');
+  await dym.locator('.link-btn').click();
+  await expect(page.locator('#search')).toHaveValue('SIEM');
+  await expect(page.locator('.entry-key').first()).toHaveText('SIEM');
+});
+
+test('an expanded entry shows related see-also chips', async ({ page }) => {
+  await page.goto('/?q=siem');
+  const first = page.locator('.entry').first();
+  await first.locator('summary').click();
+  await expect(first.locator('.entry-related-label')).toHaveText('See also');
+  await expect(first.locator('.related-chip').first()).toHaveAttribute('href', /definitions\//);
+});
+
 test('difficulty filter narrows results and toggles aria-pressed', async ({ page }) => {
   await page.goto('/');
   const easy = page.locator('#difficulty-pills .pill', { hasText: 'easy' });

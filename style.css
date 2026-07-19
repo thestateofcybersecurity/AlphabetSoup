@@ -848,6 +848,52 @@ body {
   color: var(--ink-soft);
 }
 
+.did-you-mean {
+  margin-top: 12px;
+  color: var(--ink);
+}
+.link-btn {
+  appearance: none;
+  border: none;
+  background: none;
+  padding: 0;
+  font: inherit;
+  color: var(--tomato);
+  font-weight: 600;
+  cursor: pointer;
+  text-decoration: underline;
+}
+
+/* related / see-also chips on an expanded entry */
+.entry-related {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px;
+  margin-top: 10px;
+}
+.entry-related-label {
+  font-family: var(--font-mono);
+  font-size: 0.62rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+}
+.related-chip {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  text-decoration: none;
+  border: 1.5px solid var(--line);
+  border-radius: 999px;
+  padding: 3px 10px;
+  color: var(--ink);
+  white-space: nowrap;
+}
+.related-chip:hover {
+  border-color: var(--tomato);
+  color: var(--tomato);
+}
+
 .empty-bowl .big {
   font-family: var(--font-display);
   font-style: italic;
