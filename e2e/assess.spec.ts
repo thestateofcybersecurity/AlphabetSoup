@@ -84,6 +84,37 @@ test('answer buttons are an accessible radiogroup', async ({ page }) => {
   await expect(yes).toHaveAttribute('aria-checked', 'true');
 });
 
+test('NIST CSF 2.0 module is single-tier and links outcomes to framework pages', async ({ page }) => {
+  await page.goto('/assess/?a=nist-csf');
+  await expect(page.locator('#assess-progress')).toHaveText('0/106 answered');
+
+  const rows = page.locator('.assess-row');
+  await rows.nth(0).locator('.yesno-btn', { hasText: 'Yes' }).click();
+  await rows.nth(1).locator('.yesno-btn', { hasText: 'No' }).click();
+  await page.locator('#assess-done').click();
+
+  // CSF has no per-outcome maturity tiers, so the tier card and badge stay hidden.
+  await expect(page.locator('.attain-badge')).toHaveCount(0);
+  await expect(page.locator('.radar')).toBeVisible();
+  // Gaps link the CSF subcategory into the plain-English framework section.
+  await expect(page.locator('.gap-refs a[href*="frameworks/nist-csf"]').first()).toBeVisible();
+});
+
+test('CIS Controls v8 module tiers safeguards by Implementation Group', async ({ page }) => {
+  await page.goto('/assess/?a=cis-v8');
+  await expect(page.locator('#assess-progress')).toHaveText('0/153 answered');
+
+  // Answering every basic-tier (IG1) safeguard yes attains the basic tier only.
+  const ig1Buttons = page.locator('.assess-row:has(.chip:text-is("basic")) .yesno-btn.state-yes');
+  const count = await ig1Buttons.count();
+  expect(count).toBe(56);
+  for (let i = 0; i < count; i++) await ig1Buttons.nth(i).click();
+  await page.locator('#assess-done').click();
+
+  await expect(page.locator('.attain-badge')).toContainText('basic');
+  await expect(page.locator('.gap-refs a[href*="frameworks/cis"]').first()).toBeVisible();
+});
+
 test('CISA CPG module scores with N/A excluded and shows guidance', async ({ page }) => {
   await page.goto('/assess/?a=cpg');
   await expect(page.locator('#assess-progress')).toHaveText('0/34 answered');

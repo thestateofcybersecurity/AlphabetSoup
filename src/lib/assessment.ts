@@ -301,18 +301,29 @@ interface CisLikeEntry {
   title: string;
 }
 
-/** A generated assessment covering every CIS v8 IG1 safeguard as a yes/no check. */
-export function cisIg1Assessment(
+const compareSafeguardIds = (a: string, b: string): number => {
+  const [a1, a2] = a.split('.').map(Number);
+  const [b1, b2] = b.split('.').map(Number);
+  return a1 - b1 || a2 - b2;
+};
+
+/** IG level to maturity tier: IG1 is the essential floor, IG3 the most advanced. */
+const IG_TIER: Record<number, Tier> = { 1: 'basic', 2: 'intermediate', 3: 'advanced' };
+
+/**
+ * A generated assessment over CIS v8 safeguards as yes/no checks. `maxIg` bounds
+ * which safeguards are included (cumulative: 1 gives IG1 only, 3 gives all 153),
+ * and each safeguard's Implementation Group becomes its maturity tier, so the
+ * cumulative tier attainment reads as IG progress.
+ */
+export function cisControlsAssessment(
   cis: Record<string, CisLikeEntry>,
   igMap: Record<string, number>,
+  maxIg = 3,
 ): AssessmentData {
   const ids = Object.keys(cis)
-    .filter((id) => igMap[id] === 1)
-    .sort((a, b) => {
-      const [a1, a2] = a.split('.').map(Number);
-      const [b1, b2] = b.split('.').map(Number);
-      return a1 - b1 || a2 - b2;
-    });
+    .filter((id) => (igMap[id] ?? 3) <= maxIg)
+    .sort(compareSafeguardIds);
   const categories: AssessmentCategory[] = [];
   const seen = new Set<number>();
   for (const id of ids) {
@@ -325,9 +336,59 @@ export function cisIg1Assessment(
   const questions: AssessmentQuestion[] = ids.map((id) => ({
     id,
     text: `Do you ${sentenceCase(cis[id].title)}?`,
-    tier: 'basic',
+    tier: IG_TIER[igMap[id] ?? 3] ?? 'advanced',
     group: String(cis[id].control),
     references: [`CIS Safeguard ${id}: ${cis[id].title}`],
+  }));
+  return { categories, questions };
+}
+
+/** A generated assessment covering every CIS v8 IG1 safeguard as a yes/no check. */
+export function cisIg1Assessment(
+  cis: Record<string, CisLikeEntry>,
+  igMap: Record<string, number>,
+): AssessmentData {
+  return cisControlsAssessment(cis, igMap, 1);
+}
+
+interface CsfLikeEntry {
+  function: string;
+  functionCode: string;
+  category: string;
+  categoryCode: string;
+  text: string;
+}
+
+/** NIST CSF 2.0 functions in canonical order. */
+const CSF_FUNCTION_ORDER = ['GV', 'ID', 'PR', 'DE', 'RS', 'RC'];
+
+/**
+ * A generated self-assessment over the NIST CSF 2.0 subcategories. Each
+ * subcategory outcome (verbatim NIST wording) is a yes/no check grouped by its
+ * function; references link back to the plain-English framework pages. CSF has
+ * no per-outcome maturity tiers, so every question sits in a single tier.
+ */
+export function csfAssessment(csf: Record<string, CsfLikeEntry>): AssessmentData {
+  const ids = Object.keys(csf).sort((a, b) => {
+    const fa = CSF_FUNCTION_ORDER.indexOf(csf[a].functionCode);
+    const fb = CSF_FUNCTION_ORDER.indexOf(csf[b].functionCode);
+    return fa - fb || a.localeCompare(b);
+  });
+  const categories: AssessmentCategory[] = [];
+  const seen = new Set<string>();
+  for (const id of ids) {
+    const code = csf[id].functionCode;
+    if (!seen.has(code)) {
+      seen.add(code);
+      categories.push({ id: code, name: `${csf[id].function} (${code})` });
+    }
+  }
+  const questions: AssessmentQuestion[] = ids.map((id) => ({
+    id,
+    text: `${csf[id].category}: is this outcome achieved? ${csf[id].text}`,
+    tier: 'basic',
+    group: csf[id].functionCode,
+    references: [`NIST CSF ${id}`],
   }));
   return { categories, questions };
 }

@@ -7,7 +7,7 @@ import cpgRaw from './data/assessment-cpg.json';
 import programRaw from './data/security-program.json';
 import roadmapKpisRaw from './data/roadmap-kpis.json';
 import type { CisData, CsfData } from './lib/frameworks';
-import { cisIg1Assessment } from './lib/assessment';
+import { cisControlsAssessment, cisIg1Assessment, csfAssessment } from './lib/assessment';
 import { copyWithToast } from './lib/share';
 import type { Answers, AssessmentData } from './lib/assessment';
 import {
@@ -50,6 +50,8 @@ const GAP_ASSESSMENTS: { id: string; name: string; data: AssessmentData }[] = [
   { id: 'ransomware', name: 'Ransomware readiness', data: assessRaw as AssessmentData },
   { id: 'cpg', name: 'CISA Performance Goals', data: cpgRaw as AssessmentData },
   { id: 'cis-ig1', name: 'CIS IG1 essentials', data: cisIg1Assessment(cis, igs) },
+  { id: 'cis-v8', name: 'CIS Controls v8 (all safeguards)', data: cisControlsAssessment(cis, igs) },
+  { id: 'nist-csf', name: 'NIST CSF 2.0', data: csfAssessment(csf) },
 ];
 
 function gapsAssessmentId(): string {
