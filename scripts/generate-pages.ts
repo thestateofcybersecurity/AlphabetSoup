@@ -58,6 +58,9 @@ const QUIZ_LINKS: Record<string, string> = {
   PNPT: 'pnpt',
 };
 
+/** Terms where the BIA (Business Impact Assessment) tool is a natural next step. */
+const BIA_LINKS = new Set(['BIA', 'BCP', 'BCDR', 'DRP', 'RTO', 'RPO', 'ERM']);
+
 const dist = `${root}dist`;
 mkdirSync(`${dist}/definitions`, { recursive: true });
 mkdirSync(`${dist}/frameworks/nist-csf`, { recursive: true });
@@ -195,7 +198,7 @@ function definitionPage(key: string, entry: AcronymEntry): string {
     <h2>More in ${entry.category}</h2>
     <div class="related">${related}</div>
     ${
-      FRAMEWORK_LINKS[key] || QUIZ_LINKS[key]
+      FRAMEWORK_LINKS[key] || QUIZ_LINKS[key] || BIA_LINKS.has(key)
         ? `<h2>Go deeper</h2>\n    <div class="related">${
             FRAMEWORK_LINKS[key]
               ? `<a href="../frameworks/${FRAMEWORK_LINKS[key].path}/">${esc(FRAMEWORK_LINKS[key].label)} &rarr;</a>`
@@ -203,6 +206,10 @@ function definitionPage(key: string, entry: AcronymEntry): string {
           }${
             QUIZ_LINKS[key]
               ? `<a href="../quiz/?deck=${QUIZ_LINKS[key]}">Practice ${esc(entry.display)} questions &rarr;</a>`
+              : ''
+          }${
+            BIA_LINKS.has(key)
+              ? `<a href="${BIA_NAV}" rel="noopener" target="_blank">Assess business impact with the BIA tool &rarr;</a>`
               : ''
           }</div>`
         : ''
