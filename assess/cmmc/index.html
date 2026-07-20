@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="color-scheme" content="light dark" />
+  <meta name="description" content="CMMC in plain English: what the Cybersecurity Maturity Model Certification is, how Levels 1 and 2 differ, and how DoD contractors get assessed. Fact-checked against the 32 CFR Part 170 final rule." />
+  <meta property="og:type" content="article" />
+  <meta property="og:title" content="CMMC in plain English | Cybersecurity Alphabet Soup" />
+  <meta property="og:description" content="A plain-English guide to CMMC Levels 1 and 2 for DoD contractors: FCI vs CUI, assessments, affirmations, POA&Ms, and the phased rollout." />
+  <meta property="og:url" content="https://cybersecurityalphabetsoup.com/assess/cmmc/" />
+  <meta property="og:image" content="https://cybersecurityalphabetsoup.com/og-image.png" />
+  <title>CMMC in plain English | Cybersecurity Alphabet Soup</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,700;0,9..144,900;1,9..144,500&family=IBM+Plex+Mono:wght@500;600&family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet" />
+  <link rel="icon" href="/icon.svg" type="image/svg+xml" />
+  <link rel="stylesheet" href="/style.css" />
+  <style>
+    .guide-prose { max-width: 760px; margin: 0 auto 34px; font-size: 1.02rem; line-height: 1.65; }
+    .guide-prose p { margin: 0 0 16px; }
+    .guide-h2 {
+      font-family: var(--font-mono); font-size: 0.78rem; letter-spacing: 0.16em;
+      text-transform: uppercase; color: var(--tomato-deep); margin: 34px 0 14px;
+    }
+    .guide-cta {
+      display: inline-block; margin: 6px 0 8px; border: 2px solid var(--tomato);
+      border-radius: 12px; padding: 12px 20px; font-weight: 600; text-decoration: none;
+      color: #fff; background: var(--tomato);
+    }
+    .guide-cta:hover { background: var(--tomato-deep); border-color: var(--tomato-deep); }
+    .level-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 14px; margin: 4px 0 10px; }
+    .level-card { border: 1.5px solid var(--tomato); border-radius: 12px; background: var(--paper-raised); padding: 16px 18px; }
+    .level-card h3 { margin: 0 0 4px; font-size: 1.1rem; color: var(--tomato-deep); }
+    .level-meta { font-family: var(--font-mono); font-size: 0.7rem; letter-spacing: 0.04em; color: var(--ink-soft); margin: 0 0 10px; text-transform: uppercase; }
+    .level-card p { margin: 0; font-size: 0.92rem; line-height: 1.55; color: var(--ink); }
+    .level-card dl { margin: 0 0 10px; font-size: 0.86rem; }
+    .level-card dt { font-family: var(--font-mono); font-size: 0.64rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink-soft); margin-top: 6px; }
+    .level-card dd { margin: 0; }
+    .source-list { list-style: none; padding: 0; margin: 8px 0 0; font-size: 0.9rem; }
+    .source-list li { margin: 0 0 8px; }
+    .guide-note { font-size: 0.86rem; color: var(--ink-soft); }
+  </style>
+</head>
+<body class="theme-assess">
+  <a class="skip-link" href="#main">Skip to content</a>
+  <div class="steam" aria-hidden="true"></div>
+
+  <nav class="site-nav" aria-label="Site">
+    <a href="../../">Acronyms</a>
+    <a href="../../frameworks/nist-csf/">NIST CSF</a>
+    <a href="../../frameworks/cis/">CIS Controls</a>
+    <a href="../../quiz/">Quiz</a>
+    <a href="../" aria-current="page">Assess</a>
+    <a href="../../roadmap/">Roadmap</a>
+    <a href="../../about/">About</a>
+    <a href="https://mitre.cybersecurityalphabetsoup.com/" rel="noopener" target="_blank">MITRE ATT&amp;CK</a>
+    <a href="https://bia.cybersecurityalphabetsoup.com/" rel="noopener" target="_blank" title="Business Impact Assessment">BIA</a><a class="nav-play" href="https://thestateofcybersecurity.github.io/cyberdle/" rel="noopener" target="_blank">Play Cyberdle</a>
+  </nav>
+
+  <header class="hero hero-compact">
+    <p class="kicker">defense contracting &middot; in plain English</p>
+    <h1 class="title">CMMC<br /><em>in plain English</em></h1>
+    <p class="tagline">What the Cybersecurity Maturity Model Certification is, how Levels 1 and 2 differ, and how you actually get assessed.</p>
+  </header>
+
+  <main id="main" class="ladle">
+    <section class="guide-prose" aria-label="CMMC guide">
+      <p>CMMC (Cybersecurity Maturity Model Certification) is the Defense Department's program for verifying that its contractors and subcontractors actually protect sensitive government information on their systems. If your company does business with the DoD and handles Federal Contract Information (FCI) or Controlled Unclassified Information (CUI), CMMC decides whether you are eligible to win and keep those contracts. The program is now in force: the rule that created it (32 CFR Part 170) took effect on December 16, 2024, and the rule that puts CMMC requirements into actual contracts (the 48 CFR acquisition rule) took effect on November 10, 2025.</p>
+
+      <a class="guide-cta" href="../?a=nist-800171">Run the NIST 800-171 / CMMC self-assessment &rarr;</a>
+
+      <h2 class="guide-h2">The three levels</h2>
+      <div class="level-grid">
+        <div class="level-card">
+          <h3>Level 1</h3>
+          <p class="level-meta">Protects FCI</p>
+          <dl>
+            <dt>Requirements</dt><dd>15 requirements (FAR 52.204-21)</dd>
+            <dt>Assessment</dt><dd>Annual self-assessment; company enters results and an annual affirmation into SPRS, no third party involved</dd>
+          </dl>
+          <p>Level 1 is the entry tier for companies that only handle Federal Contract Information, meaning basic non-public information tied to a government contract. It covers 15 fundamental safeguards drawn straight from the FAR 52.204-21 basic safeguarding clause, things like using passwords, limiting who can access systems, and running antivirus. You check your own systems once a year, then a senior company official affirms in the government's SPRS database that all 15 are met. There is no partial credit and no plan to fix things later: every requirement has to be fully in place.</p>
+        </div>
+        <div class="level-card">
+          <h3>Level 2</h3>
+          <p class="level-meta">Protects CUI</p>
+          <dl>
+            <dt>Requirements</dt><dd>110 requirements (NIST SP 800-171 Rev 2)</dd>
+            <dt>Assessment</dt><dd>Every three years, self-assessment or certified third party (C3PAO) depending on the contract, plus an annual SPRS affirmation</dd>
+          </dl>
+          <p>Level 2 applies once you store, process, or transmit Controlled Unclassified Information, which is more sensitive government data. It maps to the full set of 110 security requirements in NIST SP 800-171 Revision 2 (broken into 320 detailed assessment objectives). Some contracts let you self-assess against these controls; higher-stakes contracts require a certified independent assessor, called a C3PAO, to verify them. Either way the assessment is renewed every three years, and a senior official must sign an affirmation in SPRS every year that the controls remain in place.</p>
+        </div>
+        <div class="level-card">
+          <h3>Level 3</h3>
+          <p class="level-meta">Protects high-priority CUI</p>
+          <dl>
+            <dt>Requirements</dt><dd>110 plus 24 selected from NIST SP 800-172</dd>
+            <dt>Assessment</dt><dd>Government-led DIBCAC (DCMA) assessment, after a Level 2 C3PAO certification</dd>
+          </dl>
+          <p>Level 3 is reserved for the most sensitive programs facing advanced threats, and it layers 24 selected enhanced requirements from NIST SP 800-172 on top of the full Level 2 baseline. It is assessed by the government itself through DCMA's DIBCAC, and only after you already hold a Level 2 certification for that scope.</p>
+        </div>
+      </div>
+
+      <h2 class="guide-h2">FCI vs CUI</h2>
+      <p>The level you need depends on the kind of government information you touch. Federal Contract Information (FCI) is non-public information provided by or generated for the government under a contract, but not intended for public release; think of routine contract details that are not published.</p>
+      <p>Controlled Unclassified Information (CUI) is more sensitive. It is government information that laws, regulations, or policies say must be safeguarded, even though it is not classified. Examples include certain technical drawings, specifications, and other data marked as controlled.</p>
+      <p>The rule of thumb: if you only handle FCI, you are looking at Level 1; once CUI is in the picture, you move up to Level 2 (or Level 3 for the highest-priority programs).</p>
+
+      <h2 class="guide-h2">How you get assessed</h2>
+      <p>There are three ways your compliance can be checked, and the contract tells you which one applies. A self-assessment means you evaluate your own systems and record the result. A C3PAO assessment means a Certified Third-Party Assessment Organization, an accredited independent company, verifies your Level 2 controls. A DIBCAC assessment means the government's own assessors (part of the Defense Contract Management Agency) review you, which is how Level 3 is handled.</p>
+      <p>Level 1 is always an annual self-assessment. Level 2 is done every three years, either as a self-assessment or by a C3PAO, depending on the contract. Level 3 is a government-led DIBCAC assessment that comes after a Level 2 certification is in place.</p>
+      <p>Each solicitation states the exact requirement using standard options: Level 1 Self-Assessment, Level 2 Self-Assessment, Level 2 C3PAO assessment, or Level 3 DIBCAC assessment.</p>
+
+      <h2 class="guide-h2">Affirmations, POA&amp;Ms, and scores</h2>
+      <p>At Level 2, your compliance is expressed as a score in the government's Supplier Performance Risk System (SPRS). A perfect score is 110, one point for every NIST SP 800-171 requirement met, with points subtracted for gaps (some requirements are weighted more heavily than one point).</p>
+      <p>A Plan of Action and Milestones (POA&amp;M) is a documented plan to close remaining gaps. At Level 2 you can only qualify for a POA&amp;M if your score is at least 88 out of 110, and only lower-weighted (1-point) requirements are eligible to be deferred; the most critical controls cannot be placed on a POA&amp;M. Level 1 does not allow POA&amp;Ms at all: every requirement must be met.</p>
+      <p>If you qualify with open items, you receive a Conditional certification and have 180 days to close everything on the POA&amp;M and pass a closeout check; otherwise the conditional status expires. Regardless of level, a senior company official must submit an affirmation in SPRS confirming ongoing compliance, and that affirmation has to be renewed every year.</p>
+
+      <h2 class="guide-h2">The phased rollout</h2>
+      <p>CMMC is being introduced gradually rather than all at once. The acquisition rule that adds CMMC to contracts took effect on November 10, 2025, which started Phase 1.</p>
+      <p>Phase 1 (beginning November 10, 2025) generally introduces Level 1 and Level 2 self-assessment requirements into new contracts. Phase 2, about one year later, phases in Level 2 C3PAO certification requirements. Phase 3, the following year, brings in Level 3 DIBCAC assessments. Phase 4, one year after that (around November 2028), reflects full implementation across applicable DoD contracts.</p>
+      <p>Which contracts carry a CMMC requirement, and at which level, is decided contract by contract, so the timeline above is the broad ramp rather than a hard switch for every company at once.</p>
+
+      <h2 class="guide-h2">Where to start</h2>
+      <p>The most practical first step is to figure out whether you handle FCI, CUI, or both, since that determines your target level. If you are aiming at Level 2, download NIST SP 800-171 Revision 2 and work through its 110 requirements, using the DoD self-scoring methodology to calculate your SPRS score out of 110 and to see where your gaps are.</p>
+      <p>From there, build a plan to close the gaps before an assessment window, and remember that only lower-weighted items can sit on a POA&amp;M and only if you already score at least 88. To get oriented quickly, run the <a href="../?a=nist-800171">NIST 800-171 / CMMC self-assessment</a> on this site to gauge roughly where you stand, then dig into the official NIST and DoD source material for the details.</p>
+
+      <h2 class="guide-h2">Sources</h2>
+      <ul class="source-list">
+        <li><a href="https://dodcio.defense.gov/CMMC/" rel="noopener">DoD CIO CMMC</a></li>
+        <li><a href="https://www.ecfr.gov/current/title-32/subtitle-A/chapter-I/subchapter-G/part-170" rel="noopener">32 CFR Part 170 (CMMC Program final rule, effective Dec 16, 2024)</a></li>
+        <li><a href="https://www.federalregister.gov/documents/2024/10/15/2024-22905/cybersecurity-maturity-model-certification-cmmc-program" rel="noopener">CMMC Program final rule in the Federal Register (Oct 15, 2024)</a></li>
+        <li><a href="https://csrc.nist.gov/pubs/sp/800/171/r2/upd1/final" rel="noopener">NIST SP 800-171 Rev 2 (protecting CUI)</a></li>
+        <li><a href="https://csrc.nist.gov/pubs/sp/800/172/final" rel="noopener">NIST SP 800-172 (enhanced requirements for high-priority CUI)</a></li>
+      </ul>
+      <p class="guide-note">An unofficial plain-English companion. The official DoD and NIST source material above is the authority for compliance.</p>
+    </section>
+  </main>
+
+  <footer class="colophon">
+    <p>
+      Ready to measure where you stand?
+      <a class="cyberdle-link" href="../?a=nist-800171">Run the NIST 800-171 / CMMC self-assessment &rarr;</a>
+    </p>
+    <p class="fine-print">
+      Part of <a href="../../">Cybersecurity Alphabet Soup</a>. Plain-English guidance, not legal or compliance advice.
+    </p>
+  </footer>
+</body>
+</html>
