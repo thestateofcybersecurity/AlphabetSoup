@@ -150,6 +150,12 @@ body {
   --broth: #8fbf7f;
 }
 
+.theme-ai {
+  --tomato: #6d4a9c;
+  --tomato-deep: #543a7a;
+  --broth: #a98fd0;
+}
+
 @media (prefers-color-scheme: dark) {
   .theme-csf {
     --tomato: #5da4c9;
@@ -161,6 +167,12 @@ body {
     --tomato: #6fb383;
     --tomato-deep: #92c9a2;
     --broth: #4f8a5f;
+  }
+
+  .theme-ai {
+    --tomato: #b79be0;
+    --tomato-deep: #cbb6ea;
+    --broth: #7c5fa8;
   }
 }
 

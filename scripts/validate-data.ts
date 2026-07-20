@@ -1,10 +1,10 @@
 import { readFileSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
 import { validateData } from '../src/data/validate';
-import { validateCis, validateCsf } from '../src/lib/frameworks';
+import { validateAi, validateCis, validateCsf } from '../src/lib/frameworks';
 import { TIER_ORDER } from '../src/lib/assessment';
 import type { AcronymData } from '../src/lib/types';
-import type { CisData, CsfData } from '../src/lib/frameworks';
+import type { AiData, CisData, CsfData } from '../src/lib/frameworks';
 import type { AssessmentData } from '../src/lib/assessment';
 
 const load = <T>(rel: string): T =>
@@ -35,6 +35,7 @@ function validateAssessment(data: AssessmentData): string[] {
 const acronyms = load<AcronymData>('../src/data/acronyms.json');
 const csf = load<CsfData>('../src/data/nist-csf.json');
 const cis = load<CisData>('../src/data/cis.json');
+const ai = load<AiData>('../src/data/ai-frameworks.json');
 const map = load<Record<string, string[]>>('../src/data/csf-cis-map.json');
 const cmmc = load<AssessmentData>('../src/data/assessment-800171.json');
 const cyberEssentials = load<AssessmentData>('../src/data/assessment-cyber-essentials.json');
@@ -58,6 +59,7 @@ const problems = [
   ...validateData(acronyms).map((e) => `acronyms: ${e}`),
   ...validateCsf(csf).map((e) => `nist-csf: ${e}`),
   ...validateCis(cis).map((e) => `cis: ${e}`),
+  ...validateAi(ai).map((e) => `ai-frameworks: ${e}`),
   ...mapProblems.map((e) => `csf-cis-map: ${e}`),
   ...validateAssessment(cmmc).map((e) => `800-171: ${e}`),
   ...validateAssessment(cyberEssentials).map((e) => `cyber-essentials: ${e}`),
@@ -72,6 +74,6 @@ if (problems.length > 0) {
   process.exit(1);
 }
 console.log(
-  `Data OK: ${Object.keys(acronyms).length} acronyms, ${Object.keys(csf).length} CSF subcategories, ${Object.keys(cis).length} CIS safeguards, ` +
+  `Data OK: ${Object.keys(acronyms).length} acronyms, ${Object.keys(csf).length} CSF subcategories, ${Object.keys(cis).length} CIS safeguards, ${ai.length} AI framework entries, ` +
     `${cmmc.questions.length} 800-171/CMMC, ${cyberEssentials.questions.length} Cyber Essentials, ${ztmm.questions.length} ZTMM, ${ssdf.questions.length} SSDF, ${pci.questions.length} PCI DSS.`,
 );

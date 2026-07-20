@@ -19,6 +19,30 @@ export interface CisEntry {
 export type CsfData = Record<string, CsfEntry>;
 export type CisData = Record<string, CisEntry>;
 
+export interface AiEntry {
+  /** Official code, used as the display id and slug, e.g. "LLM01", "GOVERN 1", "AML.TA0004". */
+  code: string;
+  framework: string;
+  frameworkCode: string;
+  category: string;
+  title: string;
+  official: string;
+  metaphor: string;
+  translation: string;
+  sourceLabel: string;
+  sourceUrl: string;
+}
+
+export type AiData = AiEntry[];
+
+/** The four AI frameworks translated in the /frameworks/ai/ section (filter pills, in order). */
+export const AI_FRAMEWORKS: ReadonlyArray<readonly [string, string]> = [
+  ['AIRMF', 'NIST AI RMF'],
+  ['OWASP-LLM', 'OWASP LLM Top 10'],
+  ['ATLAS', 'MITRE ATLAS'],
+  ['ISO42001', 'ISO/IEC 42001'],
+];
+
 export const CSF_FUNCTIONS: ReadonlyArray<readonly [string, string]> = [
   ['GV', 'Govern'],
   ['ID', 'Identify'],
@@ -103,6 +127,34 @@ export function validateCis(data: CisData): string[] {
     if ((counts[Number(control)] ?? 0) !== expected) {
       errors.push(`control ${control}: expected ${expected} safeguards, found ${counts[Number(control)] ?? 0}`);
     }
+  }
+  return errors;
+}
+
+export function validateAi(data: AiData): string[] {
+  const errors: string[] = [];
+  const groups = new Set(AI_FRAMEWORKS.map(([code]) => code));
+  const seen = new Set<string>();
+  const slugs = new Set<string>();
+  for (const entry of data) {
+    const where = `[${entry.code}]`;
+    if (!entry.code?.trim()) errors.push(`${where} missing code`);
+    if (seen.has(entry.code)) errors.push(`${where} duplicate code`);
+    seen.add(entry.code);
+    const slug = frameworkSlug(entry.code);
+    if (slugs.has(slug)) errors.push(`${where} duplicate slug ${slug}`);
+    slugs.add(slug);
+    if (!groups.has(entry.frameworkCode)) errors.push(`${where} unknown frameworkCode ${entry.frameworkCode}`);
+    if (!entry.title?.trim()) errors.push(`${where} missing title`);
+    if (!entry.official?.trim()) errors.push(`${where} missing official`);
+    for (const field of ['official', 'title'] as const) {
+      if (entry[field]?.includes('—')) errors.push(`${where} ${field} contains an em dash`);
+    }
+    if (!/^https?:\/\//.test(entry.sourceUrl ?? '')) errors.push(`${where} invalid sourceUrl`);
+    checkProse(where, entry, errors);
+  }
+  for (const [code] of AI_FRAMEWORKS) {
+    if (!data.some((entry) => entry.frameworkCode === code)) errors.push(`framework ${code}: no entries`);
   }
   return errors;
 }
