@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="color-scheme" content="light dark" />
+  <meta name="description" content="Cybersecurity career paths: role-based learning routes (SOC analyst, GRC, cloud, offensive, leadership) that map the certification quiz decks, glossary categories, and frameworks on this site into a plan." />
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Cybersecurity career paths | Cybersecurity Alphabet Soup" />
+  <meta property="og:description" content="Role-based learning routes that connect the cert quiz decks, glossary categories, and frameworks on this site." />
+  <meta property="og:url" content="https://cybersecurityalphabetsoup.com/careers/" />
+  <meta property="og:image" content="https://cybersecurityalphabetsoup.com/og-image.png" />
+  <title>Cybersecurity career paths | Cybersecurity Alphabet Soup</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,700;0,9..144,900;1,9..144,500&family=IBM+Plex+Mono:wght@500;600&family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet" />
+  <link rel="icon" href="/icon.svg" type="image/svg+xml" />
+  <link rel="stylesheet" href="/style.css" />
+  <style>
+    .paths-intro { max-width: 720px; margin: 0 auto 18px; text-align: center; color: var(--ink-soft); line-height: 1.6; }
+    .path-list { max-width: 860px; margin: 0 auto 34px; display: flex; flex-direction: column; gap: 18px; }
+    .path { border: 1.5px solid var(--line); border-radius: 14px; background: var(--paper-raised); padding: 20px 22px; }
+    .path h2 { margin: 0 0 4px; font-size: 1.3rem; font-family: var(--font-display); color: var(--ink); }
+    .path-blurb { margin: 0 0 14px; color: var(--ink-soft); line-height: 1.55; font-size: 0.96rem; }
+    .path-row { margin: 10px 0; }
+    .path-label { font-family: var(--font-mono); font-size: 0.62rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--tomato-deep); display: block; margin-bottom: 7px; }
+    .chip-row { display: flex; flex-wrap: wrap; gap: 7px; }
+    .chip {
+      font-family: var(--font-mono); font-size: 0.72rem; letter-spacing: 0.03em;
+      border: 1.5px solid var(--line); border-radius: 999px; padding: 6px 12px;
+      text-decoration: none; color: var(--ink); background: var(--paper);
+      white-space: nowrap;
+    }
+    .chip:hover { border-color: var(--tomato); color: var(--tomato); }
+    .chip.deck { border-color: var(--tomato); color: var(--tomato-deep); }
+    .path-note { max-width: 860px; margin: 0 auto 20px; color: var(--ink-soft); font-size: 0.88rem; text-align: center; }
+  </style>
+</head>
+<body class="theme-quiz">
+  <a class="skip-link" href="#main">Skip to content</a>
+  <div class="steam" aria-hidden="true"></div>
+
+  <nav class="site-nav" aria-label="Site">
+    <a href="../">Acronyms</a>
+    <a href="../frameworks/nist-csf/">NIST CSF</a>
+    <a href="../frameworks/cis/">CIS Controls</a>
+    <a href="../quiz/" aria-current="page">Quiz</a>
+    <a href="../assess/">Assess</a>
+    <a href="../roadmap/">Roadmap</a>
+    <a href="../about/">About</a>
+    <a href="https://mitre.cybersecurityalphabetsoup.com/" rel="noopener" target="_blank">MITRE ATT&amp;CK</a>
+    <a href="https://bia.cybersecurityalphabetsoup.com/" rel="noopener" target="_blank" title="Business Impact Assessment">BIA</a><a class="nav-play" href="https://thestateofcybersecurity.github.io/cyberdle/" rel="noopener" target="_blank">Play Cyberdle</a>
+  </nav>
+
+  <header class="hero hero-compact">
+    <p class="kicker">find your lane &middot; then start studying</p>
+    <h1 class="title">Career<br /><em>paths</em></h1>
+    <p class="tagline">Six role-based routes through this site. Each one connects the certification decks, glossary categories, and frameworks that matter for that job.</p>
+  </header>
+
+  <main id="main" class="ladle">
+    <p class="paths-intro">Not sure which certification to chase? Pick the role that fits where you are headed, then work the decks in order, look up the language as you go, and read the frameworks that the role lives in. Everything here is free and stays in your browser.</p>
+
+    <div class="path-list">
+      <section class="path" aria-label="Foundations">
+        <h2>Foundations (start here)</h2>
+        <p class="path-blurb">Brand new to security, or switching in from IT? Build the vocabulary and the mental model first, then everything else gets easier. Start with fundamentals, then earn a broad entry certification.</p>
+        <div class="path-row"><span class="path-label">Practice decks</span><div class="chip-row">
+          <a class="chip deck" href="../quiz/?deck=fundamentals">Cybersecurity fundamentals</a>
+          <a class="chip deck" href="../quiz/?deck=security-plus">CompTIA Security+</a>
+        </div></div>
+        <div class="path-row"><span class="path-label">Glossary categories</span><div class="chip-row">
+          <a class="chip" href="../?category=protocols">Protocols</a>
+          <a class="chip" href="../?category=network">Network</a>
+          <a class="chip" href="../?category=identity">Identity</a>
+        </div></div>
+        <div class="path-row"><span class="path-label">Frameworks &amp; tools</span><div class="chip-row">
+          <a class="chip" href="../frameworks/nist-csf/">NIST CSF 2.0</a>
+          <a class="chip" href="../frameworks/cis/">CIS Controls</a>
+        </div></div>
+      </section>
+
+      <section class="path" aria-label="SOC analyst and blue team">
+        <h2>SOC analyst &amp; blue team</h2>
+        <p class="path-blurb">Detection, triage, and response: the people watching the alerts and running down incidents. Grow from the Security+ base into analyst and hands-on defensive certifications, with forensics for when things go wrong.</p>
+        <div class="path-row"><span class="path-label">Practice decks</span><div class="chip-row">
+          <a class="chip deck" href="../quiz/?deck=security-plus">Security+</a>
+          <a class="chip deck" href="../quiz/?deck=cysa">CompTIA CySA+</a>
+          <a class="chip deck" href="../quiz/?deck=gsec">GSEC</a>
+          <a class="chip deck" href="../quiz/?deck=sscp">SSCP</a>
+          <a class="chip deck" href="../quiz/?deck=chfi">CHFI</a>
+        </div></div>
+        <div class="path-row"><span class="path-label">Glossary categories</span><div class="chip-row">
+          <a class="chip" href="../?category=attacks">Attacks</a>
+          <a class="chip" href="../?category=operations">Operations</a>
+          <a class="chip" href="../?category=network">Network</a>
+        </div></div>
+        <div class="path-row"><span class="path-label">Frameworks &amp; tools</span><div class="chip-row">
+          <a class="chip" href="../frameworks/nist-csf/?q=DE">NIST CSF: Detect</a>
+          <a class="chip" href="../frameworks/cis/">CIS Controls</a>
+          <a class="chip" href="../assess/">Ransomware readiness</a>
+          <a class="chip" href="https://mitre.cybersecurityalphabetsoup.com/" rel="noopener" target="_blank">MITRE ATT&amp;CK</a>
+        </div></div>
+      </section>
+
+      <section class="path" aria-label="Governance risk and compliance">
+        <h2>Governance, risk &amp; compliance (GRC)</h2>
+        <p class="path-blurb">Audit, risk management, and the policies that hold a program together. This track is heavy on management certifications and on frameworks; the tools here (assessments, roadmap, the CMMC scorer) are the day job.</p>
+        <div class="path-row"><span class="path-label">Practice decks</span><div class="chip-row">
+          <a class="chip deck" href="../quiz/?deck=cisa">CISA</a>
+          <a class="chip deck" href="../quiz/?deck=crisc">CRISC</a>
+          <a class="chip deck" href="../quiz/?deck=cism">CISM</a>
+          <a class="chip deck" href="../quiz/?deck=cissp">CISSP</a>
+        </div></div>
+        <div class="path-row"><span class="path-label">Glossary categories</span><div class="chip-row">
+          <a class="chip" href="../?category=governance">Governance</a>
+          <a class="chip" href="../?category=identity">Identity</a>
+        </div></div>
+        <div class="path-row"><span class="path-label">Frameworks &amp; tools</span><div class="chip-row">
+          <a class="chip" href="../frameworks/nist-csf/?q=GV">NIST CSF: Govern</a>
+          <a class="chip" href="../assess/">Self-assessments</a>
+          <a class="chip" href="../assess/?a=nist-800171">NIST 800-171 / CMMC</a>
+          <a class="chip" href="../roadmap/">Roadmap planner</a>
+        </div></div>
+      </section>
+
+      <section class="path" aria-label="Cloud security">
+        <h2>Cloud security</h2>
+        <p class="path-blurb">Securing workloads and identities across AWS, Azure, and GCP. Pair a broad base with the two vendor-neutral cloud certifications, and lean hard on identity and protocol fluency.</p>
+        <div class="path-row"><span class="path-label">Practice decks</span><div class="chip-row">
+          <a class="chip deck" href="../quiz/?deck=security-plus">Security+</a>
+          <a class="chip deck" href="../quiz/?deck=ccsk">CCSK</a>
+          <a class="chip deck" href="../quiz/?deck=ccsp">CCSP</a>
+        </div></div>
+        <div class="path-row"><span class="path-label">Glossary categories</span><div class="chip-row">
+          <a class="chip" href="../?category=cloud">Cloud</a>
+          <a class="chip" href="../?category=identity">Identity</a>
+          <a class="chip" href="../?category=protocols">Protocols</a>
+        </div></div>
+        <div class="path-row"><span class="path-label">Frameworks &amp; tools</span><div class="chip-row">
+          <a class="chip" href="../frameworks/nist-csf/">NIST CSF 2.0</a>
+          <a class="chip" href="../frameworks/cis/">CIS Controls</a>
+        </div></div>
+      </section>
+
+      <section class="path" aria-label="Offensive security and penetration testing">
+        <h2>Offensive security &amp; pentesting</h2>
+        <p class="path-blurb">Red team, ethical hacking, and hands-on penetration testing. This track runs from the survey-level certifications into the practical, exam-in-a-lab credentials, with attack and app-security vocabulary throughout.</p>
+        <div class="path-row"><span class="path-label">Practice decks</span><div class="chip-row">
+          <a class="chip deck" href="../quiz/?deck=ceh">CEH</a>
+          <a class="chip deck" href="../quiz/?deck=pentest-plus">CompTIA PenTest+</a>
+          <a class="chip deck" href="../quiz/?deck=pnpt">PNPT</a>
+          <a class="chip deck" href="../quiz/?deck=oscp">OSCP</a>
+          <a class="chip deck" href="../quiz/?deck=lpt">LPT</a>
+        </div></div>
+        <div class="path-row"><span class="path-label">Glossary categories</span><div class="chip-row">
+          <a class="chip" href="../?category=attacks">Attacks</a>
+          <a class="chip" href="../?category=appsec">AppSec</a>
+          <a class="chip" href="../?category=network">Network</a>
+        </div></div>
+        <div class="path-row"><span class="path-label">Frameworks &amp; tools</span><div class="chip-row">
+          <a class="chip" href="https://mitre.cybersecurityalphabetsoup.com/" rel="noopener" target="_blank">MITRE ATT&amp;CK</a>
+          <a class="chip" href="../frameworks/cis/">CIS Controls</a>
+        </div></div>
+      </section>
+
+      <section class="path" aria-label="Security leadership and management">
+        <h2>Security leadership &amp; management</h2>
+        <p class="path-blurb">The CISO track: strategy, risk in business terms, and running the program. Management certifications carry this path, and the frameworks and planning tools here are what leadership actually operates.</p>
+        <div class="path-row"><span class="path-label">Practice decks</span><div class="chip-row">
+          <a class="chip deck" href="../quiz/?deck=cissp">CISSP</a>
+          <a class="chip deck" href="../quiz/?deck=cism">CISM</a>
+          <a class="chip deck" href="../quiz/?deck=cisa">CISA</a>
+          <a class="chip deck" href="../quiz/?deck=crisc">CRISC</a>
+          <a class="chip deck" href="../quiz/?deck=casp">CASP+ / SecurityX</a>
+        </div></div>
+        <div class="path-row"><span class="path-label">Glossary categories</span><div class="chip-row">
+          <a class="chip" href="../?category=governance">Governance</a>
+          <a class="chip" href="../?category=operations">Operations</a>
+        </div></div>
+        <div class="path-row"><span class="path-label">Frameworks &amp; tools</span><div class="chip-row">
+          <a class="chip" href="../frameworks/nist-csf/?q=GV">NIST CSF: Govern</a>
+          <a class="chip" href="../roadmap/">Roadmap planner</a>
+          <a class="chip" href="../assess/">Self-assessments</a>
+          <a class="chip" href="https://bia.cybersecurityalphabetsoup.com/" rel="noopener" target="_blank">Business Impact Assessment</a>
+        </div></div>
+      </section>
+    </div>
+
+    <p class="path-note">Certifications appear on more than one path on purpose: a CISSP serves both GRC and leadership, and Security+ underpins almost everything. Follow the path, not the exact order.</p>
+  </main>
+
+  <footer class="colophon">
+    <p>
+      Ready to drill?
+      <a class="cyberdle-link" href="../quiz/">Open the quiz decks &rarr;</a>
+    </p>
+    <p class="fine-print">
+      Part of <a href="../">Cybersecurity Alphabet Soup</a>. Free, private, and built to make this field make sense.
+    </p>
+  </footer>
+</body>
+</html>

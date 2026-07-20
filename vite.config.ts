@@ -12,6 +12,7 @@ export default defineConfig({
         nistcsf: 'frameworks/nist-csf/index.html',
         cis: 'frameworks/cis/index.html',
         quiz: 'quiz/index.html',
+        careers: 'careers/index.html',
         assess: 'assess/index.html',
         roadmap: 'roadmap/index.html',
         about: 'about/index.html',
