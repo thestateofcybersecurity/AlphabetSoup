@@ -14,6 +14,7 @@ export default defineConfig({
         quiz: 'quiz/index.html',
         assess: 'assess/index.html',
         roadmap: 'roadmap/index.html',
+        about: 'about/index.html',
       },
     },
   },
