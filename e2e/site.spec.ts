@@ -66,6 +66,17 @@ test('static definition page renders with sources and related terms', async ({ p
   await expect(page.locator('.related a').first()).toBeVisible();
 });
 
+test('continuity terms cross-link to the BIA tool; unrelated terms do not', async ({ page }) => {
+  await page.goto('/definitions/bia.html');
+  const deeper = page.locator('.related a', { hasText: 'BIA tool' });
+  await expect(deeper).toHaveAttribute('href', 'https://bia.cybersecurityalphabetsoup.com/');
+  await expect(deeper).toHaveAttribute('target', '_blank');
+
+  // An unrelated acronym gets no BIA cross-link in its body.
+  await page.goto('/definitions/aes.html');
+  await expect(page.locator('.related a', { hasText: 'BIA tool' })).toHaveCount(0);
+});
+
 test('legacy slugs redirect to canonical pages', async ({ page }) => {
   // The old site used "pci dss.html" (space) and "cipp-us.html" (hyphen).
   await page.goto('/definitions/pci%20dss.html');
