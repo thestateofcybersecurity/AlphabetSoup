@@ -13,6 +13,7 @@ export default defineConfig({
         cis: 'frameworks/cis/index.html',
         ai: 'frameworks/ai/index.html',
         quiz: 'quiz/index.html',
+        careers: 'careers/index.html',
         assess: 'assess/index.html',
         cmmc: 'assess/cmmc/index.html',
         roadmap: 'roadmap/index.html',

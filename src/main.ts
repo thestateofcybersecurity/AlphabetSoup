@@ -357,10 +357,17 @@ function render(): void {
 function initSearch(): void {
   const input = byId('search') as HTMLInputElement;
   const clear = byId('clear-search') as HTMLButtonElement;
-  const query = new URLSearchParams(location.search).get('q');
+  const params = new URLSearchParams(location.search);
+  const query = params.get('q');
   if (query) {
     input.value = query;
     state.query = query;
+  }
+  // Deep link to a category, e.g. /?category=governance (used by the career-paths page).
+  const category = params.get('category');
+  if (category && (CATEGORIES as readonly string[]).includes(category)) {
+    state.category = category as Category;
+    syncPills();
   }
   input.addEventListener('input', () => {
     state.query = input.value;
