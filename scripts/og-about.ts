@@ -17,6 +17,9 @@ const fontDir = require.resolve('@fontsource/ibm-plex-sans/package.json').replac
 const bold = readFileSync(`${fontDir}/ibm-plex-sans-latin-700-normal.woff`);
 const regular = readFileSync(`${fontDir}/ibm-plex-sans-latin-400-normal.woff`);
 
+const headshot = readFileSync(`${root}public/parker-brissette.jpg`);
+const headshotUri = `data:image/jpeg;base64,${headshot.toString('base64')}`;
+
 const PAPER = '#f7efe2';
 const INK = '#23303a';
 const INK_SOFT = '#5c6a72';
@@ -58,13 +61,24 @@ const card = node(
         'About the builder',
       ),
     ]),
-    node('div', { display: 'flex', flexDirection: 'column' }, [
-      node('div', { display: 'flex', fontSize: '104px', fontWeight: 700, color: INK, lineHeight: 1 }, 'Parker Brissette'),
-      node(
-        'div',
-        { display: 'flex', fontSize: '40px', color: INK_SOFT, marginTop: '20px' },
-        'Cybersecurity leader, translating security into plain English',
-      ),
+    node('div', { display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '56px' }, [
+      node('div', { display: 'flex', flexDirection: 'column', flex: 1 }, [
+        node('div', { display: 'flex', fontSize: '78px', fontWeight: 700, color: INK, lineHeight: 1.02 }, 'Parker Brissette'),
+        node(
+          'div',
+          { display: 'flex', fontSize: '32px', color: INK_SOFT, marginTop: '18px' },
+          'Cybersecurity leader, translating security into plain English',
+        ),
+      ]),
+      {
+        type: 'img',
+        props: {
+          src: headshotUri,
+          width: 258,
+          height: 300,
+          style: { borderRadius: '20px', border: `3px solid ${TOMATO}` },
+        },
+      },
     ]),
     node(
       'div',

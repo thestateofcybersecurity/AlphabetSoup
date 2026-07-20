@@ -17,4 +17,13 @@ test('about page has an OG image and Person structured data', async ({ page }) =
   const img = await page.request.get(new URL('/og-about.png', res!.url()).href);
   expect(img.status()).toBe(200);
   expect(img.headers()['content-type']).toContain('image/png');
+
+  // Person image points at the real headshot, which is present and served.
+  expect(data.image).toContain('/parker-brissette.jpg');
+  const headshot = page.locator('.about-headshot img');
+  await expect(headshot).toBeVisible();
+  await expect(headshot).toHaveAttribute('alt', 'Parker Brissette');
+  const shot = await page.request.get(new URL('/parker-brissette.jpg', res!.url()).href);
+  expect(shot.status()).toBe(200);
+  expect(shot.headers()['content-type']).toContain('image/jpeg');
 });
