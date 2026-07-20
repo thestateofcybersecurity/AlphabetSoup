@@ -59,10 +59,14 @@ test('quiz shows rationales and builds a drill bank', async ({ page }) => {
 
 test('generated pages carry the site nav', async ({ page }) => {
   await page.goto('/definitions/siem.html');
-  await expect(page.locator('.gnav a')).toHaveCount(8);
+  await expect(page.locator('.gnav a')).toHaveCount(9);
   await expect(page.locator('.gnav a', { hasText: 'MITRE' })).toHaveAttribute(
     'href',
     'https://mitre.cybersecurityalphabetsoup.com/',
+  );
+  await expect(page.locator('.gnav a', { hasText: 'BIA' })).toHaveAttribute(
+    'href',
+    'https://bia.cybersecurityalphabetsoup.com/',
   );
   await page.goto('/frameworks/cis/1-1.html');
   await expect(page.locator('.gnav a', { hasText: 'Quiz' })).toHaveAttribute('href', '../../quiz/');
