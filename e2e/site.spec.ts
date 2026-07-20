@@ -44,6 +44,9 @@ test('MITRE and Cyberdle nav links open in a new tab', async ({ page }) => {
   await page.goto('/');
   await expect(page.locator('.site-nav a', { hasText: 'MITRE' })).toHaveAttribute('target', '_blank');
   await expect(page.locator('.site-nav a', { hasText: 'Cyberdle' })).toHaveAttribute('target', '_blank');
+  const bia = page.locator('.site-nav a', { hasText: 'BIA' });
+  await expect(bia).toHaveAttribute('href', 'https://bia.cybersecurityalphabetsoup.com/');
+  await expect(bia).toHaveAttribute('target', '_blank');
 });
 
 test('soup of the day links to a definition page', async ({ page }) => {

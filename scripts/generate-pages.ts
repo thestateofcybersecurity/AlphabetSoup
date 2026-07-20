@@ -117,6 +117,7 @@ a:focus-visible,button:focus-visible{outline:2px solid var(--tomato);outline-off
 
 const CYBERDLE_NAV = 'https://thestateofcybersecurity.github.io/cyberdle/';
 const MITRE_NAV = 'https://mitre.cybersecurityalphabetsoup.com/';
+const BIA_NAV = 'https://bia.cybersecurityalphabetsoup.com/';
 
 /** Compact site nav for generated pages; prefix is the relative path to site root. */
 function navHtml(prefix: string): string {
@@ -130,7 +131,7 @@ function navHtml(prefix: string): string {
   ];
   return `<nav class="gnav">${links
     .map(([href, label]) => `<a href="${href}">${label}</a>`)
-    .join('')}<a href="${MITRE_NAV}" rel="noopener" target="_blank">MITRE ATT&amp;CK</a><a class="play-link" href="${CYBERDLE_NAV}" rel="noopener" target="_blank">Cyberdle</a></nav>`;
+    .join('')}<a href="${MITRE_NAV}" rel="noopener" target="_blank">MITRE ATT&amp;CK</a><a href="${BIA_NAV}" rel="noopener" target="_blank" title="Business Impact Assessment">BIA</a><a class="play-link" href="${CYBERDLE_NAV}" rel="noopener" target="_blank">Cyberdle</a></nav>`;
 }
 
 const relatedKeys = (key: string): string[] => relatedFor(key, data);
