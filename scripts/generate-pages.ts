@@ -4,7 +4,7 @@ import { resolveLegacySlug, slugForKey } from '../src/lib/slug';
 import { frameworkSlug } from '../src/lib/frameworks';
 import { relatedFor } from '../src/lib/related';
 import type { AcronymData, AcronymEntry } from '../src/lib/types';
-import type { CisData, CsfData } from '../src/lib/frameworks';
+import type { AiData, CisData, CsfData } from '../src/lib/frameworks';
 
 const SITE = 'https://cybersecurityalphabetsoup.com';
 const CYBERDLE = 'https://thestateofcybersecurity.github.io/cyberdle/';
@@ -13,6 +13,7 @@ const root = fileURLToPath(new URL('..', import.meta.url));
 const data = JSON.parse(readFileSync(`${root}src/data/acronyms.json`, 'utf8')) as AcronymData;
 const csf = JSON.parse(readFileSync(`${root}src/data/nist-csf.json`, 'utf8')) as CsfData;
 const cis = JSON.parse(readFileSync(`${root}src/data/cis.json`, 'utf8')) as CisData;
+const ai = JSON.parse(readFileSync(`${root}src/data/ai-frameworks.json`, 'utf8')) as AiData;
 const cisIgs = JSON.parse(readFileSync(`${root}src/data/cis-igs.json`, 'utf8')) as Record<string, number>;
 const legacy = JSON.parse(readFileSync(`${root}src/data/legacy-slugs.json`, 'utf8')) as {
   definitions: string[];
@@ -65,6 +66,7 @@ const dist = `${root}dist`;
 mkdirSync(`${dist}/definitions`, { recursive: true });
 mkdirSync(`${dist}/frameworks/nist-csf`, { recursive: true });
 mkdirSync(`${dist}/frameworks/cis`, { recursive: true });
+mkdirSync(`${dist}/frameworks/ai`, { recursive: true });
 
 const esc = (value: string): string =>
   value.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
@@ -128,6 +130,7 @@ function navHtml(prefix: string): string {
     [`${prefix}`, 'Acronyms'],
     [`${prefix}frameworks/nist-csf/`, 'NIST CSF'],
     [`${prefix}frameworks/cis/`, 'CIS Controls'],
+    [`${prefix}frameworks/ai/`, 'AI Security'],
     [`${prefix}quiz/`, 'Quiz'],
     [`${prefix}assess/`, 'Assess'],
     [`${prefix}roadmap/`, 'Roadmap'],
@@ -298,7 +301,7 @@ interface FrameworkPageInput {
   heading: string;
   metaphor: string;
   translation: string;
-  sectionPath: 'nist-csf' | 'cis';
+  sectionPath: 'nist-csf' | 'cis' | 'ai';
   sectionLabel: string;
   officialName: string;
   officialUrl: string;
@@ -454,17 +457,44 @@ cisIds.forEach((id, i) => {
   );
 });
 
+// 4b. AI security framework pages (NIST AI RMF, OWASP LLM Top 10, MITRE ATLAS, ISO/IEC 42001).
+ai.forEach((entry, i) => {
+  const prevEntry = ai[i - 1];
+  const nextEntry = ai[i + 1];
+  writeFileSync(
+    `${dist}/frameworks/ai/${frameworkSlug(entry.code)}.html`,
+    frameworkPage({
+      id: entry.code,
+      kickerTop: `${entry.framework} / ${entry.title.length <= 40 ? entry.title : entry.category}`,
+      heading: entry.official,
+      metaphor: entry.metaphor,
+      translation: entry.translation,
+      sectionPath: 'ai',
+      sectionLabel: 'AI security in plain English',
+      officialName: entry.sourceLabel,
+      officialUrl: entry.sourceUrl,
+      // Keep prev/next within the same framework (do not cross AI RMF -> OWASP).
+      prev: prevEntry?.frameworkCode === entry.frameworkCode ? prevEntry.code : undefined,
+      next: nextEntry?.frameworkCode === entry.frameworkCode ? nextEntry.code : undefined,
+      accent: '#6d4a9c',
+      accentDark: '#b79be0',
+    }),
+  );
+});
+
 // 5. Sitemap and robots.
 const urls = [
   `${SITE}/`,
   `${SITE}/frameworks/nist-csf/`,
   `${SITE}/frameworks/cis/`,
+  `${SITE}/frameworks/ai/`,
   `${SITE}/quiz/`,
   `${SITE}/assess/`,
   `${SITE}/roadmap/`,
   ...keys.map((key) => `${SITE}/definitions/${slugForKey(key)}.html`),
   ...csfIds.map((id) => `${SITE}/frameworks/nist-csf/${frameworkSlug(id)}.html`),
   ...cisIds.map((id) => `${SITE}/frameworks/cis/${frameworkSlug(id)}.html`),
+  ...ai.map((entry) => `${SITE}/frameworks/ai/${frameworkSlug(entry.code)}.html`),
 ];
 const sitemap = `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
@@ -475,5 +505,5 @@ writeFileSync(`${dist}/sitemap.xml`, sitemap);
 writeFileSync(`${dist}/robots.txt`, `User-agent: *\nAllow: /\n\nSitemap: ${SITE}/sitemap.xml\n`);
 
 console.log(
-  `Generated ${keys.length} definition pages, ${csfIds.length} CSF pages, ${cisIds.length} CIS pages, ${aliases} legacy aliases, ${fallbacks} search fallbacks, ${rootRedirects} root redirects, sitemap with ${urls.length} URLs.`,
+  `Generated ${keys.length} definition pages, ${csfIds.length} CSF pages, ${cisIds.length} CIS pages, ${ai.length} AI pages, ${aliases} legacy aliases, ${fallbacks} search fallbacks, ${rootRedirects} root redirects, sitemap with ${urls.length} URLs.`,
 );
