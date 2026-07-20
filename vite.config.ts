@@ -14,6 +14,7 @@ export default defineConfig({
         ai: 'frameworks/ai/index.html',
         quiz: 'quiz/index.html',
         assess: 'assess/index.html',
+        cmmc: 'assess/cmmc/index.html',
         roadmap: 'roadmap/index.html',
         about: 'about/index.html',
       },
