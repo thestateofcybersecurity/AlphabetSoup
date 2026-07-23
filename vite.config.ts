@@ -21,6 +21,7 @@ export default defineConfig({
         crosswalk: 'tools/crosswalk/index.html',
         boardMetrics: 'tools/board-metrics/index.html',
         runbook: 'tools/runbook/index.html',
+        cloudBaseline: 'tools/cloud-baseline/index.html',
         roadmap: 'roadmap/index.html',
         about: 'about/index.html',
       },

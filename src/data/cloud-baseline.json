@@ -1,0 +1,1160 @@
+{
+  "meta": {
+    "title": "Cloud Security Baseline Generator",
+    "version": "1.0.0",
+    "note": "A prioritized hardening baseline grounded in the CIS Foundations Benchmarks. Guidance to adapt, not an audit or a substitute for provider documentation.",
+    "sources": [
+      {
+        "name": "CIS AWS Foundations Benchmark",
+        "url": "https://www.cisecurity.org/benchmark/amazon_web_services"
+      },
+      {
+        "name": "CIS Microsoft Azure Foundations Benchmark",
+        "url": "https://www.cisecurity.org/benchmark/azure"
+      },
+      {
+        "name": "CIS Google Cloud Platform Foundation Benchmark",
+        "url": "https://www.cisecurity.org/benchmark/google_cloud_computing_platform"
+      }
+    ]
+  },
+  "providers": [
+    {
+      "id": "aws",
+      "name": "AWS"
+    },
+    {
+      "id": "azure",
+      "name": "Azure"
+    },
+    {
+      "id": "gcp",
+      "name": "Google Cloud"
+    }
+  ],
+  "workloads": [
+    {
+      "id": "saas",
+      "name": "SaaS product",
+      "hint": "A customer-facing application you build and run."
+    },
+    {
+      "id": "corp-it",
+      "name": "Corporate IT",
+      "hint": "Employee identity, email, and internal systems."
+    },
+    {
+      "id": "data-platform",
+      "name": "Data platform",
+      "hint": "Analytics or data lake holding large regulated datasets."
+    }
+  ],
+  "compliance": [
+    {
+      "id": "soc2",
+      "name": "SOC 2"
+    },
+    {
+      "id": "hipaa",
+      "name": "HIPAA"
+    },
+    {
+      "id": "cmmc",
+      "name": "CMMC"
+    },
+    {
+      "id": "pci",
+      "name": "PCI DSS"
+    }
+  ],
+  "domains": [
+    {
+      "id": "identity",
+      "name": "Identity"
+    },
+    {
+      "id": "logging",
+      "name": "Logging"
+    },
+    {
+      "id": "network",
+      "name": "Network"
+    },
+    {
+      "id": "workload",
+      "name": "Workload"
+    },
+    {
+      "id": "data",
+      "name": "Data"
+    }
+  ],
+  "controls": [
+    {
+      "id": "aws-identity-root-mfa",
+      "provider": "aws",
+      "domain": "identity",
+      "title": "Enable hardware or virtual MFA on the AWS account root user",
+      "rationale": "The root user can do anything in the account and cannot be constrained by IAM policy. Without MFA, a single leaked root password gives an attacker total control of the account.",
+      "priority": "critical",
+      "workloads": [
+        "saas",
+        "corp-it",
+        "data-platform"
+      ],
+      "compliance": [
+        "soc2",
+        "hipaa",
+        "cmmc",
+        "pci"
+      ],
+      "cisRef": "CIS AWS Foundations 1.5"
+    },
+    {
+      "id": "aws-identity-remove-root-keys",
+      "provider": "aws",
+      "domain": "identity",
+      "title": "Delete root user access keys and avoid using root for daily tasks",
+      "rationale": "Long-lived root access keys grant programmatic god-mode access that bypasses per-user auditing. If they leak, the entire account is compromised with no way to scope the damage.",
+      "priority": "critical",
+      "workloads": [
+        "saas",
+        "corp-it",
+        "data-platform"
+      ],
+      "compliance": [
+        "soc2",
+        "hipaa",
+        "cmmc",
+        "pci"
+      ],
+      "cisRef": "CIS AWS Foundations 1.4"
+    },
+    {
+      "id": "aws-identity-password-policy",
+      "provider": "aws",
+      "domain": "identity",
+      "title": "Set a strong IAM account password policy (length, complexity, reuse limits)",
+      "rationale": "A weak password policy lets users pick guessable credentials that are easy to brute force or spray. Enforcing minimum length and reuse prevention raises the bar for credential attacks.",
+      "priority": "high",
+      "workloads": [
+        "saas",
+        "corp-it",
+        "data-platform"
+      ],
+      "compliance": [
+        "soc2",
+        "hipaa",
+        "cmmc",
+        "pci"
+      ],
+      "cisRef": "CIS AWS Foundations 1.8"
+    },
+    {
+      "id": "aws-identity-mfa-all-users",
+      "provider": "aws",
+      "domain": "identity",
+      "title": "Require MFA for all IAM users and IAM Identity Center human logins",
+      "rationale": "Console passwords alone are frequently phished or reused across sites. Enforcing MFA on every human login blocks the large majority of credential-based account takeovers.",
+      "priority": "critical",
+      "workloads": [
+        "saas",
+        "corp-it",
+        "data-platform"
+      ],
+      "compliance": [
+        "soc2",
+        "hipaa",
+        "cmmc",
+        "pci"
+      ],
+      "cisRef": "CIS AWS Foundations 1.10"
+    },
+    {
+      "id": "aws-identity-sso-identity-center",
+      "provider": "aws",
+      "domain": "identity",
+      "title": "Centralize human access via IAM Identity Center with federated SSO",
+      "rationale": "Managing standalone IAM users per account leads to orphaned credentials and inconsistent offboarding. IAM Identity Center provides central, temporary, role-based access tied to your identity provider.",
+      "priority": "high",
+      "workloads": [
+        "saas",
+        "corp-it",
+        "data-platform"
+      ],
+      "compliance": [
+        "soc2",
+        "hipaa",
+        "cmmc"
+      ],
+      "cisRef": "CIS AWS Foundations 1.x (identity federation)"
+    },
+    {
+      "id": "aws-identity-least-privilege-keys",
+      "provider": "aws",
+      "domain": "identity",
+      "title": "Use IAM roles over long-lived keys and rotate or retire stale credentials",
+      "rationale": "Long-lived access keys are a top cause of cloud breaches when they leak in code or logs. Preferring short-lived role credentials and pruning unused keys shrinks the credential attack surface.",
+      "priority": "high",
+      "workloads": [
+        "saas",
+        "corp-it",
+        "data-platform"
+      ],
+      "compliance": [
+        "soc2",
+        "hipaa",
+        "cmmc",
+        "pci"
+      ],
+      "cisRef": "CIS AWS Foundations 1.14"
+    },
+    {
+      "id": "aws-logging-cloudtrail-all-regions",
+      "provider": "aws",
+      "domain": "logging",
+      "title": "Enable a multi-region CloudTrail trail with log file validation",
+      "rationale": "CloudTrail is the authoritative record of API activity across the account; without it you cannot investigate incidents or prove compliance. Multi-region coverage and log validation prevent blind spots and tampering.",
+      "priority": "critical",
+      "workloads": [
+        "saas",
+        "corp-it",
+        "data-platform"
+      ],
+      "compliance": [
+        "soc2",
+        "hipaa",
+        "cmmc",
+        "pci"
+      ],
+      "cisRef": "CIS AWS Foundations 3.1"
+    },
+    {
+      "id": "aws-logging-config-enabled",
+      "provider": "aws",
+      "domain": "logging",
+      "title": "Enable AWS Config in all regions to record resource configuration history",
+      "rationale": "AWS Config tracks how resources are configured and how they change over time, which is essential for drift detection and audit evidence. Without it you cannot show whether controls stayed in place.",
+      "priority": "high",
+      "workloads": [
+        "saas",
+        "corp-it",
+        "data-platform"
+      ],
+      "compliance": [
+        "soc2",
+        "hipaa",
+        "cmmc"
+      ],
+      "cisRef": "CIS AWS Foundations 3.5"
+    },
+    {
+      "id": "aws-logging-central-log-integrity",
+      "provider": "aws",
+      "domain": "logging",
+      "title": "Store logs in a separate, restricted archive made immutable with S3 Object Lock and versioning",
+      "rationale": "Send logs to a dedicated, tightly restricted account or bucket and make them immutable with S3 Object Lock (compliance mode) plus versioning, so an attacker who gains access cannot erase the evidence of their activity.",
+      "priority": "high",
+      "workloads": [
+        "saas",
+        "corp-it",
+        "data-platform"
+      ],
+      "compliance": [
+        "soc2",
+        "hipaa",
+        "cmmc",
+        "pci"
+      ],
+      "cisRef": "CIS AWS Foundations 3.3"
+    },
+    {
+      "id": "aws-logging-guardduty",
+      "provider": "aws",
+      "domain": "logging",
+      "title": "Enable Amazon GuardDuty threat detection in every active region",
+      "rationale": "GuardDuty continuously analyzes CloudTrail, VPC flow, and DNS logs to surface compromised credentials, crypto mining, and reconnaissance. Without it, malicious activity often goes unnoticed for weeks.",
+      "priority": "high",
+      "workloads": [
+        "saas",
+        "corp-it",
+        "data-platform"
+      ],
+      "compliance": [
+        "soc2",
+        "hipaa",
+        "cmmc",
+        "pci"
+      ],
+      "cisRef": "CIS AWS Foundations 3.x (threat detection)"
+    },
+    {
+      "id": "aws-network-restrict-sensitive-ports",
+      "provider": "aws",
+      "domain": "network",
+      "title": "Block 0.0.0.0/0 ingress to SSH, RDP, and database ports in security groups",
+      "rationale": "Security groups open to the entire internet on admin or database ports are scanned and attacked within minutes. Restricting ingress to known ranges or bastions removes an easy entry point.",
+      "priority": "critical",
+      "workloads": [
+        "saas",
+        "corp-it",
+        "data-platform"
+      ],
+      "compliance": [
+        "soc2",
+        "hipaa",
+        "cmmc",
+        "pci"
+      ],
+      "cisRef": "CIS AWS Foundations 5.2"
+    },
+    {
+      "id": "aws-network-default-sg-hygiene",
+      "provider": "aws",
+      "domain": "network",
+      "title": "Restrict the default security group of every VPC to deny all traffic",
+      "rationale": "Resources launched without an explicit security group inherit the default one, which can silently allow unintended access. Locking the default group down prevents accidental exposure.",
+      "priority": "standard",
+      "workloads": [
+        "saas",
+        "corp-it",
+        "data-platform"
+      ],
+      "compliance": [
+        "soc2",
+        "cmmc",
+        "pci"
+      ],
+      "cisRef": "CIS AWS Foundations 5.4"
+    },
+    {
+      "id": "aws-network-vpc-flow-logs",
+      "provider": "aws",
+      "domain": "network",
+      "title": "Enable VPC Flow Logs on all VPCs and ship them to central storage",
+      "rationale": "Flow logs capture accepted and rejected network traffic, which is critical for detecting exfiltration and lateral movement. Without them, network-layer incidents cannot be reconstructed.",
+      "priority": "high",
+      "workloads": [
+        "saas",
+        "corp-it",
+        "data-platform"
+      ],
+      "compliance": [
+        "soc2",
+        "hipaa",
+        "cmmc",
+        "pci"
+      ],
+      "cisRef": "CIS AWS Foundations 3.7"
+    },
+    {
+      "id": "aws-network-private-subnets",
+      "provider": "aws",
+      "domain": "network",
+      "title": "Place databases and internal workloads in private subnets behind NAT",
+      "rationale": "Backend systems in public subnets are directly reachable from the internet, expanding the attack surface. Isolating them in private subnets forces traffic through controlled gateways and load balancers.",
+      "priority": "high",
+      "workloads": [
+        "saas",
+        "data-platform"
+      ],
+      "compliance": [
+        "soc2",
+        "hipaa",
+        "cmmc",
+        "pci"
+      ],
+      "cisRef": "CIS AWS Foundations 5.x (network segmentation)"
+    },
+    {
+      "id": "aws-workload-imdsv2",
+      "provider": "aws",
+      "domain": "workload",
+      "title": "Enforce IMDSv2 (token-required) on all EC2 instances and launch templates",
+      "rationale": "IMDSv1 lets SSRF flaws in an application steal instance role credentials from the metadata endpoint. Requiring IMDSv2 session tokens closes this common credential theft path.",
+      "priority": "high",
+      "workloads": [
+        "saas",
+        "corp-it",
+        "data-platform"
+      ],
+      "compliance": [
+        "soc2",
+        "hipaa",
+        "cmmc",
+        "pci"
+      ],
+      "cisRef": "CIS AWS Foundations 5.6"
+    },
+    {
+      "id": "aws-workload-ssm-patching",
+      "provider": "aws",
+      "domain": "workload",
+      "title": "Manage OS patching and access with Systems Manager instead of SSH keys",
+      "rationale": "Unpatched instances and static SSH keys are frequent breach vectors. Systems Manager Patch Manager keeps hosts current and Session Manager provides audited, keyless access.",
+      "priority": "high",
+      "workloads": [
+        "saas",
+        "corp-it",
+        "data-platform"
+      ],
+      "compliance": [
+        "soc2",
+        "hipaa",
+        "cmmc",
+        "pci"
+      ],
+      "cisRef": "CIS AWS Foundations 4.x (workload hardening)"
+    },
+    {
+      "id": "aws-workload-ecr-image-scanning",
+      "provider": "aws",
+      "domain": "workload",
+      "title": "Enable ECR image scanning and encrypt container repositories",
+      "rationale": "Container images often ship with known vulnerable packages that reach production unnoticed. Enabling ECR scan on push surfaces critical CVEs before they are deployed.",
+      "priority": "standard",
+      "workloads": [
+        "saas",
+        "data-platform"
+      ],
+      "compliance": [
+        "soc2",
+        "hipaa",
+        "cmmc",
+        "pci"
+      ],
+      "cisRef": "CIS AWS Foundations 4.x (image scanning)"
+    },
+    {
+      "id": "aws-data-s3-block-public-access",
+      "provider": "aws",
+      "domain": "data",
+      "title": "Turn on S3 Block Public Access at the account and bucket level",
+      "rationale": "Misconfigured S3 buckets are one of the most common causes of large data leaks. Account-level Block Public Access prevents any bucket or object from being made public by mistake.",
+      "priority": "critical",
+      "workloads": [
+        "saas",
+        "corp-it",
+        "data-platform"
+      ],
+      "compliance": [
+        "soc2",
+        "hipaa",
+        "cmmc",
+        "pci"
+      ],
+      "cisRef": "CIS AWS Foundations 2.1.5"
+    },
+    {
+      "id": "aws-data-default-encryption-kms",
+      "provider": "aws",
+      "domain": "data",
+      "title": "Enforce default encryption at rest with KMS on S3, EBS, and RDS",
+      "rationale": "Unencrypted volumes and buckets expose regulated data if snapshots, disks, or backups are accessed. KMS-managed encryption with key policies protects data and supports auditable key control.",
+      "priority": "high",
+      "workloads": [
+        "saas",
+        "corp-it",
+        "data-platform"
+      ],
+      "compliance": [
+        "soc2",
+        "hipaa",
+        "cmmc",
+        "pci"
+      ],
+      "cisRef": "CIS AWS Foundations 2.1.1"
+    },
+    {
+      "id": "aws-data-backup-recovery",
+      "provider": "aws",
+      "domain": "data",
+      "title": "Configure AWS Backup with encrypted, immutable copies and tested restores",
+      "rationale": "Ransomware and accidental deletion can destroy primary data if backups are missing or writable. Centralized, immutable backups with periodic restore tests ensure recoverability.",
+      "priority": "high",
+      "workloads": [
+        "saas",
+        "corp-it",
+        "data-platform"
+      ],
+      "compliance": [
+        "soc2",
+        "hipaa",
+        "cmmc"
+      ],
+      "cisRef": "CIS AWS Foundations 2.x (data resilience)"
+    },
+    {
+      "id": "azure-identity-admin-mfa",
+      "provider": "azure",
+      "domain": "identity",
+      "title": "Enforce phishing-resistant MFA for all Entra ID Global Administrators",
+      "rationale": "Global Administrator accounts control the entire tenant; without MFA a single stolen credential grants full takeover of identities, subscriptions, and data.",
+      "priority": "critical",
+      "workloads": [
+        "saas",
+        "corp-it",
+        "data-platform"
+      ],
+      "compliance": [
+        "soc2",
+        "hipaa",
+        "cmmc",
+        "pci"
+      ],
+      "cisRef": "CIS Azure Foundations 1.1.1"
+    },
+    {
+      "id": "azure-identity-all-user-mfa",
+      "provider": "azure",
+      "domain": "identity",
+      "title": "Require MFA for all Entra ID users via Conditional Access",
+      "rationale": "Standard user accounts are the most common initial access vector; requiring MFA for every sign-in blocks password spray and credential replay attacks.",
+      "priority": "critical",
+      "workloads": [
+        "saas",
+        "corp-it",
+        "data-platform"
+      ],
+      "compliance": [
+        "soc2",
+        "hipaa",
+        "cmmc",
+        "pci"
+      ],
+      "cisRef": "CIS Azure Foundations 1.1.2"
+    },
+    {
+      "id": "azure-identity-block-legacy-auth",
+      "provider": "azure",
+      "domain": "identity",
+      "title": "Block legacy authentication protocols with a Conditional Access policy",
+      "rationale": "Legacy protocols (POP, IMAP, SMTP, older Office clients) cannot enforce MFA, so attackers use them to bypass modern controls. Blocking them closes that gap.",
+      "priority": "high",
+      "workloads": [
+        "saas",
+        "corp-it",
+        "data-platform"
+      ],
+      "compliance": [
+        "soc2",
+        "hipaa",
+        "cmmc",
+        "pci"
+      ],
+      "cisRef": "CIS Azure Foundations 1.2"
+    },
+    {
+      "id": "azure-identity-limit-global-admins",
+      "provider": "azure",
+      "domain": "identity",
+      "title": "Limit Global Administrators to fewer than five dedicated accounts",
+      "rationale": "Every extra Global Administrator widens the tenant attack surface; keeping the count low and using purpose-built accounts reduces standing high-privilege exposure.",
+      "priority": "high",
+      "workloads": [
+        "saas",
+        "corp-it",
+        "data-platform"
+      ],
+      "compliance": [
+        "soc2",
+        "cmmc",
+        "pci"
+      ],
+      "cisRef": "CIS Azure Foundations 1.3"
+    },
+    {
+      "id": "azure-identity-pim-privileged-roles",
+      "provider": "azure",
+      "domain": "identity",
+      "title": "Enable Entra ID PIM just-in-time activation for privileged roles",
+      "rationale": "Privileged Identity Management removes standing admin access by requiring time-bound, approved activation; this shrinks the window an attacker can abuse elevated roles.",
+      "priority": "high",
+      "workloads": [
+        "saas",
+        "corp-it",
+        "data-platform"
+      ],
+      "compliance": [
+        "soc2",
+        "hipaa",
+        "cmmc",
+        "pci"
+      ],
+      "cisRef": "CIS Azure Foundations 1.1.4"
+    },
+    {
+      "id": "azure-logging-defender-plans-on",
+      "provider": "azure",
+      "domain": "logging",
+      "title": "Enable Microsoft Defender for Cloud paid plans across all resource types",
+      "rationale": "Defender for Cloud provides threat detection and security posture alerts; leaving it on the free tier means server, storage, and database intrusions go undetected.",
+      "priority": "high",
+      "workloads": [
+        "saas",
+        "corp-it",
+        "data-platform"
+      ],
+      "compliance": [
+        "soc2",
+        "hipaa",
+        "cmmc",
+        "pci"
+      ],
+      "cisRef": "CIS Azure Foundations 2.1"
+    },
+    {
+      "id": "azure-logging-diagnostic-to-workspace",
+      "provider": "azure",
+      "domain": "logging",
+      "title": "Route diagnostic settings and Activity Log to a Log Analytics workspace",
+      "rationale": "Centralized diagnostic and Activity Log collection in Azure Monitor is required for investigation and correlation; without it, incident evidence is scattered or lost.",
+      "priority": "high",
+      "workloads": [
+        "saas",
+        "corp-it",
+        "data-platform"
+      ],
+      "compliance": [
+        "soc2",
+        "hipaa",
+        "cmmc",
+        "pci"
+      ],
+      "cisRef": "CIS Azure Foundations 5.1"
+    },
+    {
+      "id": "azure-logging-activity-retention",
+      "provider": "azure",
+      "domain": "logging",
+      "title": "Retain Activity Log data for at least 365 days",
+      "rationale": "Long retention supports forensic timelines and compliance audits; short retention erases the evidence needed to reconstruct an incident after slow-moving compromise.",
+      "priority": "standard",
+      "workloads": [
+        "saas",
+        "corp-it",
+        "data-platform"
+      ],
+      "compliance": [
+        "soc2",
+        "hipaa",
+        "cmmc",
+        "pci"
+      ],
+      "cisRef": "CIS Azure Foundations 5.1.2"
+    },
+    {
+      "id": "azure-network-no-rdp-ssh-internet",
+      "provider": "azure",
+      "domain": "network",
+      "title": "Deny inbound RDP and SSH from the Internet in all NSG rules",
+      "rationale": "Management ports open to the Internet are continuously scanned and brute forced; restricting 3389 and 22 to bastion or trusted ranges removes a top ransomware entry path.",
+      "priority": "critical",
+      "workloads": [
+        "saas",
+        "corp-it",
+        "data-platform"
+      ],
+      "compliance": [
+        "soc2",
+        "hipaa",
+        "cmmc",
+        "pci"
+      ],
+      "cisRef": "CIS Azure Foundations 6.1"
+    },
+    {
+      "id": "azure-network-nsg-flow-logs",
+      "provider": "azure",
+      "domain": "network",
+      "title": "Enable NSG flow logs and review overly permissive rules",
+      "rationale": "Flow logs give visibility into allowed and denied traffic; combined with regular rule review they catch any-any exposures before attackers exploit them.",
+      "priority": "high",
+      "workloads": [
+        "saas",
+        "corp-it",
+        "data-platform"
+      ],
+      "compliance": [
+        "soc2",
+        "hipaa",
+        "cmmc",
+        "pci"
+      ],
+      "cisRef": "CIS Azure Foundations 6.5"
+    },
+    {
+      "id": "azure-network-private-endpoints",
+      "provider": "azure",
+      "domain": "network",
+      "title": "Use Private Endpoints for PaaS storage, databases, and Key Vault",
+      "rationale": "Private Endpoints keep traffic to managed services on the Azure backbone and off public IPs, reducing data exfiltration and public exposure of sensitive stores.",
+      "priority": "high",
+      "workloads": [
+        "saas",
+        "data-platform"
+      ],
+      "compliance": [
+        "soc2",
+        "hipaa",
+        "cmmc",
+        "pci"
+      ],
+      "cisRef": "CIS Azure Foundations 6"
+    },
+    {
+      "id": "azure-workload-defender-for-servers",
+      "provider": "azure",
+      "domain": "workload",
+      "title": "Enable Defender for Servers with endpoint protection on all VMs",
+      "rationale": "Defender for Servers adds EDR, vulnerability assessment, and behavioral alerts to virtual machines; without it, compromised hosts run malware undetected.",
+      "priority": "high",
+      "workloads": [
+        "saas",
+        "corp-it",
+        "data-platform"
+      ],
+      "compliance": [
+        "soc2",
+        "hipaa",
+        "cmmc",
+        "pci"
+      ],
+      "cisRef": "CIS Azure Foundations 2.1"
+    },
+    {
+      "id": "azure-workload-update-management",
+      "provider": "azure",
+      "domain": "workload",
+      "title": "Enable Azure Update Manager for automated OS patching of VMs",
+      "rationale": "Unpatched operating systems are a leading exploitation vector; centralized update management ensures critical CVEs are remediated on a predictable schedule.",
+      "priority": "high",
+      "workloads": [
+        "saas",
+        "corp-it",
+        "data-platform"
+      ],
+      "compliance": [
+        "soc2",
+        "hipaa",
+        "cmmc",
+        "pci"
+      ],
+      "cisRef": "CIS Azure Foundations 2"
+    },
+    {
+      "id": "azure-workload-disk-encryption",
+      "provider": "azure",
+      "domain": "workload",
+      "title": "Enable encryption at host or Azure Disk Encryption on all VM disks",
+      "rationale": "Encrypting OS and data disks protects information at rest if underlying storage is accessed; unencrypted disks risk data disclosure during theft or misconfiguration.",
+      "priority": "standard",
+      "workloads": [
+        "saas",
+        "corp-it",
+        "data-platform"
+      ],
+      "compliance": [
+        "soc2",
+        "hipaa",
+        "cmmc",
+        "pci"
+      ],
+      "cisRef": "CIS Azure Foundations 7.2"
+    },
+    {
+      "id": "azure-data-storage-public-access-off",
+      "provider": "azure",
+      "domain": "data",
+      "title": "Disable public blob access on all storage accounts",
+      "rationale": "Publicly accessible storage accounts and containers are a frequent cause of mass data leaks; disabling public access ensures data is reachable only via authorized paths.",
+      "priority": "critical",
+      "workloads": [
+        "saas",
+        "corp-it",
+        "data-platform"
+      ],
+      "compliance": [
+        "soc2",
+        "hipaa",
+        "cmmc",
+        "pci"
+      ],
+      "cisRef": "CIS Azure Foundations 3.7"
+    },
+    {
+      "id": "azure-data-secure-transfer-tls",
+      "provider": "azure",
+      "domain": "data",
+      "title": "Require secure transfer and TLS 1.2 minimum on storage accounts",
+      "rationale": "Enforcing HTTPS and a modern TLS floor prevents data from traversing the network in cleartext or over weak ciphers vulnerable to interception.",
+      "priority": "high",
+      "workloads": [
+        "saas",
+        "corp-it",
+        "data-platform"
+      ],
+      "compliance": [
+        "soc2",
+        "hipaa",
+        "cmmc",
+        "pci"
+      ],
+      "cisRef": "CIS Azure Foundations 3.1"
+    },
+    {
+      "id": "azure-data-keyvault-purge-protection",
+      "provider": "azure",
+      "domain": "data",
+      "title": "Enable Key Vault soft-delete and purge protection",
+      "rationale": "Purge protection stops attackers or accidental actions from permanently destroying keys and secrets; without it, deleted cryptographic material can be lost irrecoverably.",
+      "priority": "high",
+      "workloads": [
+        "saas",
+        "corp-it",
+        "data-platform"
+      ],
+      "compliance": [
+        "soc2",
+        "hipaa",
+        "cmmc",
+        "pci"
+      ],
+      "cisRef": "CIS Azure Foundations 8.4"
+    },
+    {
+      "id": "gcp-identity-enforce-2sv",
+      "provider": "gcp",
+      "domain": "identity",
+      "title": "Enforce 2-Step Verification (2SV/MFA) for all Cloud Identity and Workspace users",
+      "rationale": "Passwords alone are routinely phished or reused; enforcing 2SV org-wide stops the vast majority of account takeovers. Without it, one stolen credential can compromise the whole GCP organization.",
+      "priority": "critical",
+      "workloads": [
+        "saas",
+        "corp-it",
+        "data-platform"
+      ],
+      "compliance": [
+        "soc2",
+        "hipaa",
+        "cmmc",
+        "pci"
+      ],
+      "cisRef": "CIS GCP Foundations 1.2"
+    },
+    {
+      "id": "gcp-identity-restrict-primitive-roles",
+      "provider": "gcp",
+      "domain": "identity",
+      "title": "Avoid primitive Owner and Editor roles; use predefined or custom least-privilege roles",
+      "rationale": "Primitive roles (Owner, Editor) grant broad, project-wide access that ignores least privilege and is hard to audit. Overuse means a single compromised principal can read, modify, or destroy nearly everything in the project.",
+      "priority": "high",
+      "workloads": [
+        "saas",
+        "corp-it",
+        "data-platform"
+      ],
+      "compliance": [
+        "soc2",
+        "hipaa",
+        "cmmc",
+        "pci"
+      ],
+      "cisRef": "CIS GCP Foundations 1.x (IAM roles)"
+    },
+    {
+      "id": "gcp-identity-restrict-sa-key-creation",
+      "provider": "gcp",
+      "domain": "identity",
+      "title": "Restrict service account key creation and rotate or eliminate user-managed keys",
+      "rationale": "Long-lived, user-managed service account keys are a common credential-leak vector and rarely rotated. Enforce the iam.disableServiceAccountKeyCreation org policy and prefer Workload Identity Federation so leaked keys cannot grant standing access.",
+      "priority": "high",
+      "workloads": [
+        "saas",
+        "corp-it",
+        "data-platform"
+      ],
+      "compliance": [
+        "soc2",
+        "hipaa",
+        "cmmc",
+        "pci"
+      ],
+      "cisRef": "CIS GCP Foundations 1.4"
+    },
+    {
+      "id": "gcp-identity-corporate-sso",
+      "provider": "gcp",
+      "domain": "identity",
+      "title": "Use Cloud Identity or SSO federation and restrict access to the corporate domain",
+      "rationale": "Centralizing users in Cloud Identity with SSO lets you enforce provisioning, deprovisioning, and session policy from one place. The Domain Restricted Sharing org policy blocks IAM grants to outside accounts, preventing accidental external access.",
+      "priority": "high",
+      "workloads": [
+        "saas",
+        "corp-it",
+        "data-platform"
+      ],
+      "compliance": [
+        "soc2",
+        "hipaa",
+        "cmmc"
+      ],
+      "cisRef": "CIS GCP Foundations 1.1"
+    },
+    {
+      "id": "gcp-identity-separation-of-duties",
+      "provider": "gcp",
+      "domain": "identity",
+      "title": "Separate duties for key and IAM admin roles; avoid single-person control of secrets",
+      "rationale": "One principal holding both administration and approval powers (for example Cloud KMS admin plus encrypter/decrypter) can act unchecked. Splitting these roles enforces separation of duties and limits insider or takeover blast radius.",
+      "priority": "standard",
+      "workloads": [
+        "saas",
+        "corp-it",
+        "data-platform"
+      ],
+      "compliance": [
+        "soc2",
+        "cmmc",
+        "pci"
+      ],
+      "cisRef": "CIS GCP Foundations 1.11"
+    },
+    {
+      "id": "gcp-logging-enable-audit-logs",
+      "provider": "gcp",
+      "domain": "logging",
+      "title": "Enable Cloud Audit Logs including Data Access logs across all services",
+      "rationale": "Admin Activity logs are on by default, but Data Access logs (who read or wrote data) must be enabled explicitly. Without them you cannot reconstruct a breach or prove access during an audit.",
+      "priority": "critical",
+      "workloads": [
+        "saas",
+        "corp-it",
+        "data-platform"
+      ],
+      "compliance": [
+        "soc2",
+        "hipaa",
+        "cmmc",
+        "pci"
+      ],
+      "cisRef": "CIS GCP Foundations 2.1"
+    },
+    {
+      "id": "gcp-logging-sink-retained-bucket",
+      "provider": "gcp",
+      "domain": "logging",
+      "title": "Configure an org-level log sink to a retained, access-controlled bucket",
+      "rationale": "A centralized aggregated export sink to Cloud Storage or a Log bucket preserves logs beyond default retention and beyond a compromised project. Apply retention locks and tight IAM so attackers cannot delete or tamper with the trail.",
+      "priority": "high",
+      "workloads": [
+        "saas",
+        "corp-it",
+        "data-platform"
+      ],
+      "compliance": [
+        "soc2",
+        "hipaa",
+        "cmmc",
+        "pci"
+      ],
+      "cisRef": "CIS GCP Foundations 2.2"
+    },
+    {
+      "id": "gcp-logging-scc-and-alerting",
+      "provider": "gcp",
+      "domain": "logging",
+      "title": "Enable Security Command Center and log-based metric alerts on key changes",
+      "rationale": "Security Command Center surfaces misconfigurations and threats across the org, and log-based metric alerts catch high-risk events (IAM changes, firewall edits, VPC route changes) in near real time. Without alerting, dangerous changes go unnoticed until impact.",
+      "priority": "high",
+      "workloads": [
+        "saas",
+        "corp-it",
+        "data-platform"
+      ],
+      "compliance": [
+        "soc2",
+        "hipaa",
+        "cmmc",
+        "pci"
+      ],
+      "cisRef": "CIS GCP Foundations 2.4"
+    },
+    {
+      "id": "gcp-network-no-default-network",
+      "provider": "gcp",
+      "domain": "network",
+      "title": "Delete the default VPC network and remove overly permissive default firewall rules",
+      "rationale": "The auto-created default network ships with permissive firewall rules (for example allow-internal and open ICMP) that violate least privilege. Removing it forces intentional, segmented network design instead of accidental exposure.",
+      "priority": "high",
+      "workloads": [
+        "saas",
+        "corp-it",
+        "data-platform"
+      ],
+      "compliance": [
+        "soc2",
+        "hipaa",
+        "cmmc",
+        "pci"
+      ],
+      "cisRef": "CIS GCP Foundations 3.1"
+    },
+    {
+      "id": "gcp-network-restrict-ssh-rdp",
+      "provider": "gcp",
+      "domain": "network",
+      "title": "Block 0.0.0.0/0 ingress to SSH (22) and RDP (3389); use IAP for admin access",
+      "rationale": "Firewall rules opening SSH or RDP to the entire internet invite brute-force and exploitation of exposed management ports. Restrict source ranges and route admin access through Identity-Aware Proxy so no port is publicly reachable.",
+      "priority": "critical",
+      "workloads": [
+        "saas",
+        "corp-it",
+        "data-platform"
+      ],
+      "compliance": [
+        "soc2",
+        "hipaa",
+        "cmmc",
+        "pci"
+      ],
+      "cisRef": "CIS GCP Foundations 3.6"
+    },
+    {
+      "id": "gcp-network-vpc-flow-logs",
+      "provider": "gcp",
+      "domain": "network",
+      "title": "Enable VPC Flow Logs and Private Google Access on production subnets",
+      "rationale": "VPC Flow Logs give the network telemetry needed for intrusion detection, forensics, and traffic review. Private Google Access lets instances reach Google APIs without public IPs, shrinking the internet-facing attack surface.",
+      "priority": "standard",
+      "workloads": [
+        "saas",
+        "corp-it",
+        "data-platform"
+      ],
+      "compliance": [
+        "soc2",
+        "hipaa",
+        "cmmc",
+        "pci"
+      ],
+      "cisRef": "CIS GCP Foundations 3.9"
+    },
+    {
+      "id": "gcp-workload-shielded-vms",
+      "provider": "gcp",
+      "domain": "workload",
+      "title": "Enable Shielded VM (Secure Boot, vTPM, integrity monitoring) on Compute instances",
+      "rationale": "Shielded VM defends against boot- and kernel-level rootkits and verifies instance integrity at startup. Without it, a compromised boot chain can persist undetected beneath the operating system.",
+      "priority": "high",
+      "workloads": [
+        "saas",
+        "corp-it",
+        "data-platform"
+      ],
+      "compliance": [
+        "soc2",
+        "hipaa",
+        "cmmc",
+        "pci"
+      ],
+      "cisRef": "CIS GCP Foundations 4.8"
+    },
+    {
+      "id": "gcp-workload-gke-binary-authorization",
+      "provider": "gcp",
+      "domain": "workload",
+      "title": "Harden GKE with private clusters, Binary Authorization, and Workload Identity",
+      "rationale": "Private clusters remove public control-plane and node exposure, Binary Authorization blocks unsigned or untrusted images, and Workload Identity replaces node service account keys. Together they stop untrusted code and lateral movement in the cluster.",
+      "priority": "high",
+      "workloads": [
+        "saas",
+        "data-platform"
+      ],
+      "compliance": [
+        "soc2",
+        "hipaa",
+        "cmmc",
+        "pci"
+      ],
+      "cisRef": "CIS GKE Benchmark 5.10"
+    },
+    {
+      "id": "gcp-workload-os-patch-management",
+      "provider": "gcp",
+      "domain": "workload",
+      "title": "Use VM Manager OS patch management to remediate vulnerabilities on a schedule",
+      "rationale": "Unpatched operating systems are among the most exploited entry points. VM Manager patch deployments and compliance reporting keep Compute Engine fleets current and give evidence of a managed patch cadence.",
+      "priority": "standard",
+      "workloads": [
+        "saas",
+        "corp-it",
+        "data-platform"
+      ],
+      "compliance": [
+        "soc2",
+        "hipaa",
+        "cmmc",
+        "pci"
+      ],
+      "cisRef": "CIS GCP Foundations 4.x"
+    },
+    {
+      "id": "gcp-data-uniform-bucket-access",
+      "provider": "gcp",
+      "domain": "data",
+      "title": "Block public GCS buckets and enforce uniform bucket-level access org-wide",
+      "rationale": "Public or ACL-managed buckets are a leading cause of cloud data leaks. Public Access Prevention plus uniform bucket-level access disable anonymous access and fine-grained ACLs so permissions are governed consistently by IAM.",
+      "priority": "critical",
+      "workloads": [
+        "saas",
+        "corp-it",
+        "data-platform"
+      ],
+      "compliance": [
+        "soc2",
+        "hipaa",
+        "cmmc",
+        "pci"
+      ],
+      "cisRef": "CIS GCP Foundations 5.1"
+    },
+    {
+      "id": "gcp-data-cmek-encryption",
+      "provider": "gcp",
+      "domain": "data",
+      "title": "Encrypt sensitive GCS, BigQuery, and disks with customer-managed keys (CMEK) in Cloud KMS",
+      "rationale": "CMEK gives you control over key rotation, access, and revocation beyond Google-managed defaults, which many regulated frameworks expect. Revoking or disabling a key can cut off access to data during an incident.",
+      "priority": "standard",
+      "workloads": [
+        "saas",
+        "data-platform"
+      ],
+      "compliance": [
+        "soc2",
+        "hipaa",
+        "cmmc",
+        "pci"
+      ],
+      "cisRef": "CIS GCP Foundations (CMEK)"
+    },
+    {
+      "id": "gcp-data-bigquery-access-control",
+      "provider": "gcp",
+      "domain": "data",
+      "title": "Restrict BigQuery dataset access and prevent datasets shared to allAuthenticatedUsers",
+      "rationale": "Datasets granted to allUsers or allAuthenticatedUsers expose regulated analytics data broadly. Scope dataset and table IAM to specific principals and use authorized views so sensitive columns are not overshared.",
+      "priority": "high",
+      "workloads": [
+        "data-platform"
+      ],
+      "compliance": [
+        "soc2",
+        "hipaa",
+        "cmmc",
+        "pci"
+      ],
+      "cisRef": "CIS GCP Foundations 7.1"
+    }
+  ]
+}

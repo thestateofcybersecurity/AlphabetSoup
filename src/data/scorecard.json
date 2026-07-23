@@ -110,7 +110,8 @@
           "Progress tracking in localStorage"
         ],
         "day1Value": "Turns the vague first-quarter mandate of assess our cloud posture into a concrete, framework-mapped worklist in an afternoon.",
-        "status": "planned"
+        "status": "live",
+        "href": "cloud-baseline/"
       }
     },
     {

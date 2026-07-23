@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="color-scheme" content="light dark" />
+  <meta name="description" content="Turn assess our cloud posture into a concrete worklist: pick your provider (AWS, Azure, Google Cloud), workload profile, and compliance targets, and get a prioritized hardening checklist mapped to CIS Benchmarks, ordered identity first, as a printable 30/60/90 day plan. Everything stays in your browser." />
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Cloud Security Baseline Generator | Cybersecurity Alphabet Soup" />
+  <meta property="og:description" content="Pick provider, workload, and compliance targets and get a prioritized, CIS-mapped cloud hardening checklist as a printable 30/60/90 day plan." />
+  <meta property="og:url" content="https://cybersecurityalphabetsoup.com/tools/cloud-baseline/" />
+  <meta property="og:image" content="https://cybersecurityalphabetsoup.com/og-frameworks.png" />
+  <title>Cloud Security Baseline Generator | Cybersecurity Alphabet Soup</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,700;0,9..144,900;1,9..144,500&family=IBM+Plex+Mono:wght@500;600&family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet" />
+  <link rel="icon" href="/icon.svg" type="image/svg+xml" />
+  <link rel="stylesheet" href="/style.css" />
+  <style>
+    .cb-wrap { max-width: 920px; margin: 0 auto; }
+    .cb-privacy { font-size: 0.84rem; color: var(--ink-soft); margin: 0 0 22px; }
+    .cb-section-head { font-family: var(--font-mono); font-size: 0.76rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--tomato-deep); margin: 22px 0 8px; }
+
+    .cb-opts { display: flex; flex-wrap: wrap; gap: 8px; }
+    .cb-opt {
+      display: inline-flex; align-items: center; gap: 8px; cursor: pointer; font-size: 0.9rem; font-weight: 600;
+      border: 1.5px solid var(--line); border-radius: 999px; padding: 7px 15px; background: var(--paper); color: var(--ink);
+    }
+    .cb-opt:hover { border-color: var(--tomato); }
+    .cb-opt.selected { border-color: var(--tomato); background: color-mix(in srgb, var(--tomato) 10%, var(--paper)); }
+    .cb-opt input { accent-color: var(--tomato); }
+    .cb-hint { font-size: 0.8rem; color: var(--ink-soft); margin: 5px 0 0; }
+
+    /* summary */
+    .cb-summary { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; margin: 4px 0 6px; }
+    .cb-cov-chip { font-size: 0.78rem; font-weight: 600; border-radius: 999px; padding: 3px 11px; border: 1.5px solid var(--tomato); color: var(--tomato-deep); background: color-mix(in srgb, var(--tomato) 8%, var(--paper)); }
+    .cb-progress-line { font-family: var(--font-mono); font-size: 0.76rem; color: var(--ink-soft); margin: 0 0 16px; }
+
+    /* plan windows */
+    .cb-window { margin: 0 0 20px; }
+    .cb-window-head { display: flex; align-items: baseline; gap: 10px; border-top: 2px solid var(--tomato); padding-top: 10px; margin-bottom: 8px; }
+    .cb-window-title { font-family: var(--font-display); font-weight: 700; font-size: 1.3rem; }
+    .cb-window-meta { font-family: var(--font-mono); font-size: 0.74rem; color: var(--ink-soft); }
+    .cb-window-bar { height: 6px; border-radius: 4px; background: color-mix(in srgb, var(--tomato) 16%, var(--paper)); overflow: hidden; margin-bottom: 12px; }
+    .cb-window-fill { height: 100%; background: var(--tomato); border-radius: 4px; transition: width 0.2s ease; }
+
+    .cb-controls { list-style: none; padding: 0; margin: 0; display: grid; gap: 8px; }
+    .cb-control { border: 1.5px solid var(--line); border-radius: 12px; padding: 11px 15px; background: var(--paper-raised); display: grid; grid-template-columns: auto 1fr; column-gap: 12px; align-items: start; }
+    .cb-control.done { opacity: 0.62; }
+    .cb-control.done .cb-control-title { text-decoration: line-through; }
+    .cb-control input[type="checkbox"] { margin-top: 3px; width: 18px; height: 18px; accent-color: var(--tomato); cursor: pointer; }
+    .cb-control-body { min-width: 0; }
+    .cb-control-top { display: flex; flex-wrap: wrap; align-items: baseline; gap: 8px; }
+    .cb-control-title { font-weight: 600; font-size: 0.96rem; }
+    .cb-tag { font-family: var(--font-mono); font-size: 0.62rem; letter-spacing: 0.04em; text-transform: uppercase; border-radius: 5px; padding: 1px 6px; border: 1px solid var(--line); color: var(--ink-soft); }
+    .cb-tag.pri-critical { border-color: #b0402e; color: #b0402e; }
+    .cb-tag.pri-high { border-color: #b07d2e; color: #b07d2e; }
+    .cb-tag.pri-standard { border-color: var(--line); color: var(--ink-soft); }
+    .cb-tag.cb-prov { border-color: var(--tomato); color: var(--tomato-deep); }
+    .cb-control-rationale { font-size: 0.86rem; color: var(--ink-soft); line-height: 1.5; margin: 4px 0 6px; }
+    .cb-chips { display: flex; flex-wrap: wrap; gap: 5px; align-items: center; }
+    .cb-cmp { font-family: var(--font-mono); font-size: 0.62rem; text-transform: uppercase; letter-spacing: 0.04em; border-radius: 5px; padding: 1px 6px; border: 1px solid var(--line); color: var(--ink-soft); }
+    .cb-cmp.on { border-color: var(--tomato); background: var(--tomato); color: #fff; }
+    .cb-cis { font-family: var(--font-mono); font-size: 0.66rem; color: var(--ink-soft); margin-left: auto; }
+
+    .cb-empty { font-size: 0.95rem; color: var(--ink-soft); }
+    .cb-win-empty { font-size: 0.86rem; color: var(--ink-soft); font-style: italic; }
+
+    .cb-doc { border: 2px solid var(--tomato); border-radius: 16px; background: var(--paper-raised); padding: 20px 22px; margin-top: 8px; }
+    .cb-actions { display: flex; flex-wrap: wrap; gap: 10px; margin: 0 0 14px; }
+    .cb-btn { font: inherit; font-size: 0.85rem; font-weight: 600; cursor: pointer; border: 1.5px solid var(--tomato); color: var(--tomato-deep); background: transparent; border-radius: 10px; padding: 7px 14px; }
+    .cb-btn:hover { background: var(--tomato); color: #fff; }
+    .cb-btn-primary { background: var(--tomato); color: #fff; }
+    .cb-btn-primary:hover { background: var(--tomato-deep); border-color: var(--tomato-deep); }
+
+    @media print {
+      .site-nav, .hero, .cb-config, .cb-actions, .colophon, .steam, .cb-privacy { display: none !important; }
+      .cb-doc { border: none; padding: 0; }
+      .cb-control { break-inside: avoid; }
+    }
+  </style>
+</head>
+<body class="theme-cloud">
+  <a class="skip-link" href="#main">Skip to content</a>
+  <div class="steam" aria-hidden="true"></div>
+
+  <nav class="site-nav" aria-label="Site">
+    <a href="../../">Acronyms</a>
+    <a href="../../frameworks/nist-csf/">NIST CSF</a>
+    <a href="../../frameworks/cis/">CIS Controls</a>
+    <a href="../../frameworks/ai/">AI Security</a>
+    <a href="../../quiz/">Quiz</a>
+    <a href="../../assess/">Assess</a>
+    <a href="../../roadmap/">Roadmap</a>
+    <a href="https://mitre.cybersecurityalphabetsoup.com/" rel="noopener" target="_blank">MITRE ATT&amp;CK</a>
+    <a href="https://bia.cybersecurityalphabetsoup.com/" rel="noopener" target="_blank" title="Business Impact Assessment">BIA</a><a class="nav-play" href="https://thestateofcybersecurity.github.io/cyberdle/" rel="noopener" target="_blank">Play Cyberdle</a>
+  </nav>
+
+  <header class="hero hero-compact">
+    <p class="kicker">cloud hardening &middot; <span id="control-count">54</span> baseline controls</p>
+    <h1 class="title">Cloud security<br /><em>baseline generator</em></h1>
+    <p class="tagline">Pick your provider, workload profile, and compliance targets, and get a prioritized hardening checklist mapped to the CIS Benchmarks: identity first, then logging, network, workload, and data, laid out as a printable 30/60/90 day plan you can track.</p>
+  </header>
+
+  <main id="main" class="ladle cb-wrap">
+    <p class="cb-privacy">A CIS-grounded starting baseline to adapt, not an audit or a substitute for provider documentation. Your selections and progress live only in your browser; nothing is uploaded.</p>
+
+    <div class="cb-config">
+      <section aria-label="Providers">
+        <h2 class="cb-section-head">Cloud providers</h2>
+        <div id="providers" class="cb-opts" role="group" aria-label="Cloud providers"></div>
+      </section>
+
+      <section aria-label="Workload profile">
+        <h2 class="cb-section-head">Workload profile</h2>
+        <div id="workloads" class="cb-opts" role="group" aria-label="Workload profile"></div>
+        <p class="cb-hint" id="workload-hint"></p>
+      </section>
+
+      <section aria-label="Compliance targets">
+        <h2 class="cb-section-head">Compliance targets (optional)</h2>
+        <div id="compliance" class="cb-opts" role="group" aria-label="Compliance targets"></div>
+        <p class="cb-hint">Selecting a target pulls the controls that serve it earlier in the plan and shows which items map to it.</p>
+      </section>
+    </div>
+
+    <section class="cb-output" id="output" aria-label="Hardening plan" aria-live="polite"></section>
+  </main>
+
+  <footer class="colophon">
+    <p>
+      Why this tool exists:
+      <a class="cyberdle-link" href="../">see the 2026 security leadership scorecard it was built from &rarr;</a>
+    </p>
+    <p>
+      Want the controls behind the checklist?
+      <a class="cyberdle-link" href="../../frameworks/cis/">Read the CIS Controls in plain English &rarr;</a>
+    </p>
+    <p class="fine-print">
+      An unofficial plain-English tool, not compliance advice. Grounded in the
+      <a href="https://www.cisecurity.org/cis-benchmarks" rel="noopener">CIS Foundations Benchmarks</a> for AWS, Azure, and Google Cloud.
+    </p>
+  </footer>
+
+  <script type="module" src="/src/cloud-baseline-main.ts"></script>
+</body>
+</html>
