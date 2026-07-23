@@ -1,0 +1,203 @@
+{
+  "meta": {
+    "title": "Board Metrics Builder",
+    "version": "1.0.0",
+    "note": "A curated menu of board-ready security metrics with anchored guidance bands. Thresholds are seasoned-practitioner guidance, not compliance requirements; tune them to your program.",
+    "sources": [
+      {
+        "name": "Verizon Data Breach Investigations Report",
+        "url": "https://www.verizon.com/business/resources/reports/dbir/"
+      },
+      {
+        "name": "CISA Known Exploited Vulnerabilities and remediation guidance",
+        "url": "https://www.cisa.gov/known-exploited-vulnerabilities-catalog"
+      },
+      {
+        "name": "NIST SP 800-53 / CSF 2.0",
+        "url": "https://www.nist.gov/cyberframework"
+      }
+    ]
+  },
+  "metrics": [
+    {
+      "id": "edr-critical-coverage",
+      "name": "Critical Asset EDR Coverage",
+      "short": "EDR coverage",
+      "unit": "%",
+      "category": "Exposure",
+      "question": "What share of our most important systems can we actually see and defend in real time?",
+      "definition": "The percentage of critical assets (servers, endpoints, and workloads deemed business-essential) running active endpoint detection and response agents that report to central monitoring.",
+      "direction": "higher-better",
+      "thresholds": {
+        "good": 98,
+        "act": 90
+      },
+      "boardFraming": "Every unmonitored critical system is a blind spot where an attacker can operate unseen, raising the odds of a costly, undetected breach."
+    },
+    {
+      "id": "mttr-critical-incidents",
+      "name": "Mean Time to Respond, Critical",
+      "short": "MTTR",
+      "unit": "hours",
+      "category": "Response",
+      "question": "Once a serious incident starts, how quickly do we contain the damage?",
+      "definition": "The average elapsed time, in hours, from detection of a critical incident to its containment or remediation across the reporting period.",
+      "direction": "lower-better",
+      "thresholds": {
+        "good": 8,
+        "act": 24
+      },
+      "boardFraming": "The longer an attacker stays active, the more data, downtime, and recovery cost we absorb; faster containment directly limits financial loss."
+    },
+    {
+      "id": "mttd-incidents",
+      "name": "Mean Time to Detect",
+      "short": "MTTD",
+      "unit": "days",
+      "category": "Response",
+      "question": "How long do threats sit in our environment before we notice them?",
+      "definition": "The average time, in days, between when an intrusion or malicious activity first begins and when our team detects it.",
+      "direction": "lower-better",
+      "thresholds": {
+        "good": 1,
+        "act": 7
+      },
+      "boardFraming": "Threats that go undetected for days or weeks give attackers time to steal data and spread, turning a small event into a major loss."
+    },
+    {
+      "id": "critical-patch-latency",
+      "name": "Critical Vuln Patch Latency",
+      "short": "Patch latency",
+      "unit": "days",
+      "category": "Exposure",
+      "question": "How fast do we close the dangerous security holes attackers target first?",
+      "definition": "The average number of days to deploy fixes for critical and high-severity vulnerabilities, measured from vendor disclosure or discovery to remediation.",
+      "direction": "lower-better",
+      "thresholds": {
+        "good": 15,
+        "act": 30
+      },
+      "boardFraming": "Known, unpatched flaws are the most common way breaches happen; slow patching leaves an open door long after the risk is public."
+    },
+    {
+      "id": "phishing-failure-rate",
+      "name": "Phishing Simulation Failure Rate",
+      "short": "Phish fail rate",
+      "unit": "%",
+      "category": "Human risk",
+      "question": "How likely are our employees to fall for a realistic phishing attack?",
+      "definition": "The percentage of employees who clicked a link or entered credentials during simulated phishing exercises run in the reporting period.",
+      "direction": "lower-better",
+      "thresholds": {
+        "good": 5,
+        "act": 15
+      },
+      "boardFraming": "Most breaches start with a single employee clicking a bad link; a high failure rate means our people are an open path into the business."
+    },
+    {
+      "id": "awareness-training-completion",
+      "name": "Security Training Completion",
+      "short": "Training done",
+      "unit": "%",
+      "category": "Human risk",
+      "question": "Have our people completed the training that helps them spot and avoid attacks?",
+      "definition": "The percentage of in-scope employees who completed required security awareness training within the assigned period.",
+      "direction": "higher-better",
+      "thresholds": {
+        "good": 95,
+        "act": 80
+      },
+      "boardFraming": "Untrained staff are easier targets; broad completion reduces the human mistakes behind most successful attacks."
+    },
+    {
+      "id": "mfa-critical-coverage",
+      "name": "MFA Coverage, Critical Systems",
+      "short": "MFA coverage",
+      "unit": "%",
+      "category": "Exposure",
+      "question": "How well are our most sensitive accounts protected against stolen passwords?",
+      "definition": "The percentage of critical systems and privileged accounts protected by multi-factor authentication rather than passwords alone.",
+      "direction": "higher-better",
+      "thresholds": {
+        "good": 100,
+        "act": 90
+      },
+      "boardFraming": "Stolen passwords are cheap and common for attackers; multi-factor authentication is the single most effective, low-cost block against account takeover."
+    },
+    {
+      "id": "open-critical-vulns-past-sla",
+      "name": "Open Critical Vulns Past SLA",
+      "short": "Vulns past SLA",
+      "unit": "count",
+      "category": "Exposure",
+      "question": "How many serious security holes have we left open longer than our own deadline allows?",
+      "definition": "The count of critical and high-severity vulnerabilities that remain unremediated beyond their internal service-level deadline at period end.",
+      "direction": "lower-better",
+      "thresholds": {
+        "good": 0,
+        "act": 10
+      },
+      "boardFraming": "Each overdue flaw is a known risk we have chosen to leave open, and known-but-unfixed issues are a common finding after a breach."
+    },
+    {
+      "id": "high-risk-vendors-unremediated",
+      "name": "High-Risk Vendors Unremediated",
+      "short": "Vendor risk open",
+      "unit": "count",
+      "category": "Third-party",
+      "question": "How many of our risky suppliers still have unresolved security problems?",
+      "definition": "The count of high-risk third parties or vendors with identified security gaps that have not yet been remediated or accepted with a plan.",
+      "direction": "lower-better",
+      "thresholds": {
+        "good": 0,
+        "act": 5
+      },
+      "boardFraming": "Attackers increasingly break in through weak suppliers; unresolved vendor risks extend our exposure to systems we do not fully control."
+    },
+    {
+      "id": "overdue-audit-findings",
+      "name": "Overdue Compliance Findings",
+      "short": "Overdue findings",
+      "unit": "count",
+      "category": "Compliance",
+      "question": "How many audit or compliance issues are past their deadline to fix?",
+      "definition": "The count of internal or external audit and compliance findings that remain open past their agreed remediation due date.",
+      "direction": "lower-better",
+      "thresholds": {
+        "good": 0,
+        "act": 5
+      },
+      "boardFraming": "Overdue findings signal control gaps that can trigger regulatory penalties, failed audits, and lost customer or partner trust."
+    },
+    {
+      "id": "backup-restore-success",
+      "name": "Backup Restore Test Success",
+      "short": "Restore success",
+      "unit": "%",
+      "category": "Resilience",
+      "question": "If we lost our data tomorrow, could we actually get it back?",
+      "definition": "The percentage of scheduled backup restore tests that successfully recovered data within expected time and completeness during the period.",
+      "direction": "higher-better",
+      "thresholds": {
+        "good": 95,
+        "act": 80
+      },
+      "boardFraming": "Backups only protect us if they actually restore; proven recovery is our last line of defense against ransomware and major outages."
+    },
+    {
+      "id": "privileged-accounts-reviewed",
+      "name": "Privileged Accounts Reviewed",
+      "short": "Priv reviewed",
+      "unit": "%",
+      "category": "Compliance",
+      "question": "Have we checked that only the right people still hold our most powerful access?",
+      "definition": "The percentage of privileged and administrative accounts formally reviewed and re-certified for continued need during the reporting period.",
+      "direction": "higher-better",
+      "thresholds": {
+        "good": 100,
+        "act": 85
+      },
+      "boardFraming": "Unchecked admin access (from role changes or departed staff) is a prime target for attackers and insiders; regular review shrinks that risk."
+    }
+  ]
+}

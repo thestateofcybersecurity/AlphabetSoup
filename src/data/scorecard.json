@@ -177,7 +177,8 @@
           "Data stays in the browser, consistent with the site's privacy promise"
         ],
         "day1Value": "The first board meeting arrives fast in a new seat; this produces a credible, consistent reporting artifact before the team has built anything.",
-        "status": "planned"
+        "status": "live",
+        "href": "board-metrics/"
       }
     },
     {

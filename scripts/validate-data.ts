@@ -63,6 +63,40 @@ function validateCrosswalk(data: CrosswalkData, csf: CsfData, cis: CisData): str
   return out;
 }
 
+interface BoardMetric {
+  id: string;
+  name: string;
+  short: string;
+  unit: string;
+  direction: string;
+  thresholds: { good: number; act: number };
+  question: string;
+  definition: string;
+  boardFraming: string;
+}
+
+/** Structural checks for the board metrics catalog. */
+function validateBoardMetrics(metrics: BoardMetric[]): string[] {
+  const out: string[] = [];
+  const seen = new Set<string>();
+  for (const m of metrics) {
+    if (seen.has(m.id)) out.push(`duplicate metric id ${m.id}`);
+    seen.add(m.id);
+    if (!['higher-better', 'lower-better'].includes(m.direction)) out.push(`${m.id}: bad direction ${m.direction}`);
+    if (!['%', 'days', 'count', 'hours'].includes(m.unit)) out.push(`${m.id}: bad unit ${m.unit}`);
+    const { good, act } = m.thresholds;
+    if (m.direction === 'higher-better' && !(good >= act)) out.push(`${m.id}: higher-better needs good>=act (${good}/${act})`);
+    if (m.direction === 'lower-better' && !(good <= act)) out.push(`${m.id}: lower-better needs good<=act (${good}/${act})`);
+    for (const field of ['name', 'short', 'question', 'definition', 'boardFraming'] as const) {
+      if (!m[field]?.trim()) out.push(`${m.id}: empty ${field}`);
+      if (m[field]?.includes('—')) out.push(`${m.id}: em dash in ${field}`);
+    }
+    if (m.name.length > 42) out.push(`${m.id}: name too long`);
+    if (m.short.length > 18) out.push(`${m.id}: short too long`);
+  }
+  return out;
+}
+
 const acronyms = load<AcronymData>('../src/data/acronyms.json');
 const csf = load<CsfData>('../src/data/nist-csf.json');
 const cis = load<CisData>('../src/data/cis.json');
@@ -74,6 +108,7 @@ const ztmm = load<AssessmentData>('../src/data/assessment-ztmm.json');
 const ssdf = load<AssessmentData>('../src/data/assessment-ssdf.json');
 const pci = load<AssessmentData>('../src/data/assessment-pci-dss.json');
 const crosswalk = load<CrosswalkData>('../src/data/crosswalk.json');
+const boardMetrics = load<{ metrics: BoardMetric[] }>('../src/data/board-metrics.json');
 
 const mapProblems: string[] = [];
 for (const csfId of Object.keys(csf)) {
@@ -99,6 +134,7 @@ const problems = [
   ...validateAssessment(ssdf).map((e) => `ssdf: ${e}`),
   ...validateAssessment(pci).map((e) => `pci-dss: ${e}`),
   ...validateCrosswalk(crosswalk, csf, cis).map((e) => `crosswalk: ${e}`),
+  ...validateBoardMetrics(boardMetrics.metrics).map((e) => `board-metrics: ${e}`),
 ];
 
 if (problems.length > 0) {
@@ -108,5 +144,5 @@ if (problems.length > 0) {
 }
 console.log(
   `Data OK: ${Object.keys(acronyms).length} acronyms, ${Object.keys(csf).length} CSF subcategories, ${Object.keys(cis).length} CIS safeguards, ${ai.length} AI framework entries, ` +
-    `${cmmc.questions.length} 800-171/CMMC, ${cyberEssentials.questions.length} Cyber Essentials, ${ztmm.questions.length} ZTMM, ${ssdf.questions.length} SSDF, ${pci.questions.length} PCI DSS, ${crosswalk.controls.length} crosswalk domains.`,
+    `${cmmc.questions.length} 800-171/CMMC, ${cyberEssentials.questions.length} Cyber Essentials, ${ztmm.questions.length} ZTMM, ${ssdf.questions.length} SSDF, ${pci.questions.length} PCI DSS, ${crosswalk.controls.length} crosswalk domains, ${boardMetrics.metrics.length} board metrics.`,
 );
