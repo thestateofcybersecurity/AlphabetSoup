@@ -210,6 +210,20 @@ body {
   }
 }
 
+.theme-runbook {
+  --tomato: #4d5aa8;
+  --tomato-deep: #3b4788;
+  --broth: #9aa6e6;
+}
+
+@media (prefers-color-scheme: dark) {
+  .theme-runbook {
+    --tomato: #97a3e6;
+    --tomato-deep: #b3bcf0;
+    --broth: #5a66a8;
+  }
+}
+
 @media (prefers-color-scheme: dark) {
   .theme-quiz {
     --tomato: #c08fd6;

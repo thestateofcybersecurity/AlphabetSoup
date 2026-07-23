@@ -97,6 +97,43 @@ function validateBoardMetrics(metrics: BoardMetric[]): string[] {
   return out;
 }
 
+interface RunbookScenario {
+  id: string;
+  name: string;
+  tagline: string;
+  summary: string;
+  phases: { name: string; steps: string[] }[];
+  roles: { role: string; focus: string }[];
+  escalation: string[];
+  decisionPoints: string[];
+  commsTemplates: { audience: string; draft: string }[];
+  injects: { time: string; title: string; detail: string; facilitatorNote: string; expectedAction: string }[];
+  gapQuestions: string[];
+}
+
+/** Structural checks for the runbook scenario library. */
+function validateRunbooks(scenarios: RunbookScenario[]): string[] {
+  const out: string[] = [];
+  const PHASES = ['Detect and triage', 'Contain', 'Eradicate', 'Recover', 'Post-incident review'];
+  const AUDIENCES = ['Employees', 'Customers', 'Executives and board', 'Regulators'];
+  const KNOWN = new Set(['org', 'size', 'cloud', 'mdr', 'dataTypes', 'process']);
+  const seen = new Set<string>();
+  for (const s of scenarios) {
+    if (seen.has(s.id)) out.push(`duplicate scenario id ${s.id}`);
+    seen.add(s.id);
+    if (s.phases.map((p) => p.name).join('|') !== PHASES.join('|')) out.push(`${s.id}: phases must be ${PHASES.join(', ')}`);
+    if (s.commsTemplates.map((c) => c.audience).join('|') !== AUDIENCES.join('|')) out.push(`${s.id}: comms audiences must be ${AUDIENCES.join(', ')}`);
+    if (s.injects.length < 5 || s.injects.length > 7) out.push(`${s.id}: injects ${s.injects.length} (need 5 to 7)`);
+    if (s.tagline.length > 70) out.push(`${s.id}: tagline too long`);
+    const blob = JSON.stringify(s);
+    if (blob.includes('—')) out.push(`${s.id}: em dash present`);
+    for (const token of blob.match(/\{(\w+)\}/g) ?? []) {
+      if (!KNOWN.has(token.slice(1, -1))) out.push(`${s.id}: unknown placeholder ${token}`);
+    }
+  }
+  return out;
+}
+
 const acronyms = load<AcronymData>('../src/data/acronyms.json');
 const csf = load<CsfData>('../src/data/nist-csf.json');
 const cis = load<CisData>('../src/data/cis.json');
@@ -109,6 +146,7 @@ const ssdf = load<AssessmentData>('../src/data/assessment-ssdf.json');
 const pci = load<AssessmentData>('../src/data/assessment-pci-dss.json');
 const crosswalk = load<CrosswalkData>('../src/data/crosswalk.json');
 const boardMetrics = load<{ metrics: BoardMetric[] }>('../src/data/board-metrics.json');
+const runbooks = load<{ scenarios: RunbookScenario[] }>('../src/data/runbooks.json');
 
 const mapProblems: string[] = [];
 for (const csfId of Object.keys(csf)) {
@@ -135,6 +173,7 @@ const problems = [
   ...validateAssessment(pci).map((e) => `pci-dss: ${e}`),
   ...validateCrosswalk(crosswalk, csf, cis).map((e) => `crosswalk: ${e}`),
   ...validateBoardMetrics(boardMetrics.metrics).map((e) => `board-metrics: ${e}`),
+  ...validateRunbooks(runbooks.scenarios).map((e) => `runbooks: ${e}`),
 ];
 
 if (problems.length > 0) {
@@ -144,5 +183,5 @@ if (problems.length > 0) {
 }
 console.log(
   `Data OK: ${Object.keys(acronyms).length} acronyms, ${Object.keys(csf).length} CSF subcategories, ${Object.keys(cis).length} CIS safeguards, ${ai.length} AI framework entries, ` +
-    `${cmmc.questions.length} 800-171/CMMC, ${cyberEssentials.questions.length} Cyber Essentials, ${ztmm.questions.length} ZTMM, ${ssdf.questions.length} SSDF, ${pci.questions.length} PCI DSS, ${crosswalk.controls.length} crosswalk domains, ${boardMetrics.metrics.length} board metrics.`,
+    `${cmmc.questions.length} 800-171/CMMC, ${cyberEssentials.questions.length} Cyber Essentials, ${ztmm.questions.length} ZTMM, ${ssdf.questions.length} SSDF, ${pci.questions.length} PCI DSS, ${crosswalk.controls.length} crosswalk domains, ${boardMetrics.metrics.length} board metrics, ${runbooks.scenarios.length} runbook scenarios.`,
 );
