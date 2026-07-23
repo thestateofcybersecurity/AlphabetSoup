@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="color-scheme" content="light dark" />
+  <meta name="description" content="Answer customer security questionnaires in an hour instead of days: paste incoming questions and get matched draft answers from a canonical library you own and edit, see the gaps with no answer yet, and export a standing trust package that pre-empts most questionnaires. Everything, including your answers, stays in your browser." />
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Trust Package and Questionnaire Answer Library | Cybersecurity Alphabet Soup" />
+  <meta property="og:description" content="Paste questionnaire questions, get matched draft answers from a library you own and edit, see the gaps, and export a standing trust package. Nothing leaves your browser." />
+  <meta property="og:url" content="https://cybersecurityalphabetsoup.com/tools/trust-package/" />
+  <meta property="og:image" content="https://cybersecurityalphabetsoup.com/og-frameworks.png" />
+  <title>Trust Package and Questionnaire Answer Library | Cybersecurity Alphabet Soup</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,700;0,9..144,900;1,9..144,500&family=IBM+Plex+Mono:wght@500;600&family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet" />
+  <link rel="icon" href="/icon.svg" type="image/svg+xml" />
+  <link rel="stylesheet" href="/style.css" />
+  <style>
+    .tp-wrap { max-width: 940px; margin: 0 auto; }
+    .tp-privacy { font-size: 0.84rem; color: var(--ink-soft); margin: 0 0 22px; }
+    .tp-section-head { font-family: var(--font-display); font-weight: 700; font-size: 1.3rem; margin: 26px 0 4px; }
+    .tp-section-sub { font-size: 0.88rem; color: var(--ink-soft); margin: 0 0 12px; line-height: 1.5; }
+
+    .tp-btn { font: inherit; font-size: 0.85rem; font-weight: 600; cursor: pointer; border: 1.5px solid var(--tomato); color: var(--tomato-deep); background: transparent; border-radius: 10px; padding: 7px 14px; }
+    .tp-btn:hover { background: var(--tomato); color: #fff; }
+    .tp-btn-primary { background: var(--tomato); color: #fff; }
+    .tp-btn-primary:hover { background: var(--tomato-deep); border-color: var(--tomato-deep); }
+    .tp-btn-quiet { border-color: var(--line); color: var(--ink-soft); }
+    .tp-actions { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; }
+
+    textarea, input[type="text"] { font: inherit; font-size: 0.92rem; padding: 9px 12px; border: 1.5px solid var(--line); border-radius: 10px; background: var(--paper); color: var(--ink); width: 100%; }
+    textarea { resize: vertical; line-height: 1.5; }
+
+    /* match results */
+    .tp-match { border: 1.5px solid var(--line); border-radius: 12px; padding: 12px 15px; margin-bottom: 10px; background: var(--paper-raised); }
+    .tp-match-q { font-weight: 600; font-size: 0.95rem; margin: 0 0 8px; }
+    .tp-ans { border: 1.5px solid var(--line); border-radius: 10px; padding: 10px 12px; margin-bottom: 6px; background: var(--paper); }
+    .tp-ans-top { display: flex; flex-wrap: wrap; align-items: baseline; gap: 8px; margin-bottom: 4px; }
+    .tp-ans-cat { font-family: var(--font-mono); font-size: 0.62rem; letter-spacing: 0.04em; text-transform: uppercase; color: var(--ink-soft); }
+    .tp-conf { font-family: var(--font-mono); font-size: 0.6rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; border-radius: 5px; padding: 1px 7px; color: #fff; }
+    .tp-conf.high { background: #3e7d4f; }
+    .tp-conf.medium { background: #b07d2e; }
+    .tp-conf.low { background: #8a8a8a; }
+    .tp-copy { margin-left: auto; }
+    .tp-copy button { font: inherit; font-size: 0.72rem; font-weight: 600; cursor: pointer; border: 1.5px solid var(--line); color: var(--tomato-deep); background: transparent; border-radius: 8px; padding: 3px 9px; }
+    .tp-copy button:hover { border-color: var(--tomato); }
+    .tp-ans-text { font-size: 0.9rem; line-height: 1.55; margin: 0; white-space: pre-wrap; }
+    .tp-nomatch { font-size: 0.9rem; color: var(--ink-soft); font-style: italic; }
+    .tp-gaps { border: 1.5px solid #b0402e; border-radius: 12px; padding: 12px 15px; margin-top: 6px; background: color-mix(in srgb, #b0402e 5%, var(--paper)); }
+    .tp-gaps h3 { font-family: var(--font-mono); font-size: 0.72rem; letter-spacing: 0.08em; text-transform: uppercase; color: #b0402e; margin: 0 0 6px; }
+    .tp-gaps ul { margin: 0; padding-left: 20px; font-size: 0.9rem; line-height: 1.5; }
+
+    /* library */
+    .tp-lib-toolbar { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; margin: 0 0 10px; }
+    .tp-lib-count { font-family: var(--font-mono); font-size: 0.74rem; color: var(--ink-soft); margin-right: auto; }
+    .tp-cat { margin: 0 0 6px; }
+    .tp-cat summary { cursor: pointer; font-weight: 700; font-size: 1rem; padding: 8px 0; border-top: 1.5px solid var(--line); }
+    .tp-cat summary .tp-cat-n { font-family: var(--font-mono); font-weight: 400; font-size: 0.72rem; color: var(--ink-soft); margin-left: 6px; }
+    .tp-entry { border: 1.5px solid var(--line); border-radius: 10px; padding: 10px 13px; margin: 0 0 8px; background: var(--paper-raised); }
+    .tp-entry-q { font-weight: 600; font-size: 0.9rem; margin: 0 0 6px; }
+    .tp-entry textarea { min-height: 70px; }
+    .tp-entry-meta { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; margin-top: 5px; }
+    .tp-fresh { font-family: var(--font-mono); font-size: 0.68rem; color: var(--ink-soft); }
+    .tp-edited { font-family: var(--font-mono); font-size: 0.62rem; color: var(--tomato-deep); border: 1px solid var(--tomato); border-radius: 5px; padding: 0 6px; }
+
+    /* trust package */
+    .tp-facts { display: grid; gap: 10px; margin: 0 0 12px; }
+    .tp-field label { display: block; font-size: 0.8rem; font-weight: 600; color: var(--ink-soft); margin-bottom: 3px; }
+    .tp-doc { border: 2px solid var(--tomato); border-radius: 16px; background: var(--paper-raised); padding: 22px 24px; margin-top: 10px; }
+    .tp-doc h2 { font-family: var(--font-display); font-weight: 700; font-size: 1.5rem; margin: 0 0 4px; }
+    .tp-doc h3 { font-family: var(--font-mono); font-size: 0.74rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--tomato-deep); margin: 18px 0 6px; }
+    .tp-doc p { font-size: 0.92rem; line-height: 1.6; margin: 0 0 8px; white-space: pre-wrap; }
+    .tp-doc .tp-faq-q { font-weight: 600; margin: 10px 0 2px; }
+
+    @media print {
+      .site-nav, .hero, .tp-match-section, .tp-library-section, .tp-facts, .tp-actions, .colophon, .steam, .tp-privacy, .tp-build-controls { display: none !important; }
+      .tp-doc { border: none; padding: 0; }
+      .tp-doc .tp-faq-q, .tp-doc p { break-inside: avoid; }
+    }
+  </style>
+</head>
+<body class="theme-trust">
+  <a class="skip-link" href="#main">Skip to content</a>
+  <div class="steam" aria-hidden="true"></div>
+
+  <nav class="site-nav" aria-label="Site">
+    <a href="../../">Acronyms</a>
+    <a href="../../frameworks/nist-csf/">NIST CSF</a>
+    <a href="../../frameworks/cis/">CIS Controls</a>
+    <a href="../../frameworks/ai/">AI Security</a>
+    <a href="../../quiz/">Quiz</a>
+    <a href="../../assess/">Assess</a>
+    <a href="../../roadmap/">Roadmap</a>
+    <a href="https://mitre.cybersecurityalphabetsoup.com/" rel="noopener" target="_blank">MITRE ATT&amp;CK</a>
+    <a href="https://bia.cybersecurityalphabetsoup.com/" rel="noopener" target="_blank" title="Business Impact Assessment">BIA</a><a class="nav-play" href="https://thestateofcybersecurity.github.io/cyberdle/" rel="noopener" target="_blank">Play Cyberdle</a>
+  </nav>
+
+  <header class="hero hero-compact">
+    <p class="kicker">customer trust &middot; <span id="entry-count">39</span> library answers</p>
+    <h1 class="title">Trust package &amp;<br /><em>answer library</em></h1>
+    <p class="tagline">Paste an incoming security questionnaire and get matched draft answers from a canonical library you own and edit, see the questions with no answer yet, and export a standing trust package that pre-empts most questionnaires. Your answers never leave your browser, which is the point for this content.</p>
+  </header>
+
+  <main id="main" class="ladle tp-wrap">
+    <p class="tp-privacy">The library ships with generic starter answers to edit into your own; several contain [bracketed placeholders] to fill in. This is a drafting aid, not a substitute for review by whoever signs the questionnaire. Everything stays in your browser.</p>
+
+    <section class="tp-match-section" aria-label="Answer a questionnaire">
+      <h2 class="tp-section-head">Answer a questionnaire</h2>
+      <p class="tp-section-sub">Paste one or more questions (one per line). Nothing is uploaded; matching runs entirely in your browser.</p>
+      <textarea id="query" rows="4" placeholder="e.g. How is customer data encrypted at rest and in transit?&#10;Do you perform annual penetration testing?"></textarea>
+      <div class="tp-actions" style="margin-top:10px;">
+        <button type="button" class="tp-btn tp-btn-primary" id="match-btn">Match answers</button>
+        <button type="button" class="tp-btn tp-btn-quiet" id="clear-query">Clear</button>
+      </div>
+      <div id="match-results" style="margin-top:14px;"></div>
+    </section>
+
+    <section class="tp-library-section" aria-label="Answer library">
+      <h2 class="tp-section-head">Your answer library</h2>
+      <p class="tp-section-sub">Edit any answer to match your program; edits and freshness dates are saved in your browser. Export to back up or share with a teammate.</p>
+      <div class="tp-lib-toolbar">
+        <span class="tp-lib-count" id="lib-count"></span>
+        <button type="button" class="tp-btn" id="export-lib">Export library (JSON)</button>
+        <button type="button" class="tp-btn tp-btn-quiet" id="import-lib">Import</button>
+        <button type="button" class="tp-btn tp-btn-quiet" id="reset-lib">Reset to defaults</button>
+        <input type="file" id="import-file" accept="application/json" hidden />
+      </div>
+      <div id="library"></div>
+    </section>
+
+    <section class="tp-build-section" aria-label="Build trust package">
+      <h2 class="tp-section-head">Standing trust package</h2>
+      <p class="tp-section-sub">Fill the program facts, then generate a printable one-document trust package (overview, certifications, subprocessors, and the full answer FAQ) to send proactively.</p>
+      <div class="tp-facts tp-build-controls">
+        <div class="tp-field"><label for="tp-company">Company or program name</label><input id="tp-company" type="text" placeholder="e.g. Acme Corp" /></div>
+        <div class="tp-field"><label for="tp-overview">Program overview</label><textarea id="tp-overview" rows="3" placeholder="A short description of your security program and its ownership."></textarea></div>
+        <div class="tp-field"><label for="tp-certs">Certifications and attestations</label><textarea id="tp-certs" rows="2" placeholder="e.g. SOC 2 Type II (report available under NDA), ISO 27001"></textarea></div>
+        <div class="tp-field"><label for="tp-subs">Subprocessors</label><textarea id="tp-subs" rows="2" placeholder="e.g. AWS (hosting), Stripe (payments), ..."></textarea></div>
+      </div>
+      <div class="tp-actions tp-build-controls">
+        <button type="button" class="tp-btn tp-btn-primary" id="build-btn">Build trust package</button>
+        <button type="button" class="tp-btn" id="print-doc" hidden>Print</button>
+      </div>
+      <div id="trust-doc"></div>
+    </section>
+  </main>
+
+  <footer class="colophon">
+    <p>
+      Why this tool exists:
+      <a class="cyberdle-link" href="../">see the 2026 security leadership scorecard it was built from &rarr;</a>
+    </p>
+    <p class="fine-print">
+      An unofficial plain-English tool, not legal or contractual advice. Starter answers reflect common vendor questionnaire frameworks
+      (SIG, CAIQ, the standard VSA); always review before sending.
+    </p>
+  </footer>
+
+  <script type="module" src="/src/trust-package-main.ts"></script>
+</body>
+</html>

@@ -24,6 +24,7 @@ export default defineConfig({
         cloudBaseline: 'tools/cloud-baseline/index.html',
         ssdlc: 'tools/ssdlc/index.html',
         automationRoi: 'tools/automation-roi/index.html',
+        trustPackage: 'tools/trust-package/index.html',
         roadmap: 'roadmap/index.html',
         about: 'about/index.html',
       },
