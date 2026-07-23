@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="color-scheme" content="light dark" />
+  <meta name="description" content="Rate your pipeline against a secure-SDLC maturity rubric (SAST, dependency and secret scanning, IaC review, threat modeling, signing, and more) and get a maturity score by phase plus a sequenced adoption plan ordered by leverage-to-friction, with an engineer-facing one-pager. Everything stays in your browser." />
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Secure SDLC Gap Checker | Cybersecurity Alphabet Soup" />
+  <meta property="og:description" content="Rate your pipeline, get a maturity score by phase plus a sequenced adoption plan ordered by leverage-to-friction and an engineer-facing one-pager." />
+  <meta property="og:url" content="https://cybersecurityalphabetsoup.com/tools/ssdlc/" />
+  <meta property="og:image" content="https://cybersecurityalphabetsoup.com/og-frameworks.png" />
+  <title>Secure SDLC Gap Checker | Cybersecurity Alphabet Soup</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,700;0,9..144,900;1,9..144,500&family=IBM+Plex+Mono:wght@500;600&family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet" />
+  <link rel="icon" href="/icon.svg" type="image/svg+xml" />
+  <link rel="stylesheet" href="/style.css" />
+  <style>
+    .sd-wrap { max-width: 920px; margin: 0 auto; }
+    .sd-privacy { font-size: 0.84rem; color: var(--ink-soft); margin: 0 0 22px; }
+    .sd-section-head { font-family: var(--font-mono); font-size: 0.76rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--tomato-deep); margin: 24px 0 8px; }
+
+    .sd-stack-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+    .sd-field { display: grid; gap: 4px; }
+    .sd-field label { font-size: 0.8rem; font-weight: 600; color: var(--ink-soft); }
+    .sd-field input { font: inherit; font-size: 0.9rem; padding: 8px 12px; border: 1.5px solid var(--line); border-radius: 10px; background: var(--paper); color: var(--ink); width: 100%; }
+
+    /* rubric */
+    .sd-phase-group { margin: 0 0 18px; }
+    .sd-phase-name { font-family: var(--font-display); font-weight: 700; font-size: 1.2rem; margin: 14px 0 8px; padding-top: 10px; border-top: 1.5px solid var(--line); }
+    .sd-practice { border: 1.5px solid var(--line); border-radius: 12px; padding: 12px 15px; margin-bottom: 8px; background: var(--paper-raised); }
+    .sd-practice-top { display: flex; flex-wrap: wrap; align-items: baseline; gap: 8px; }
+    .sd-practice-name { font-weight: 600; font-size: 0.98rem; }
+    .sd-lf { font-family: var(--font-mono); font-size: 0.6rem; letter-spacing: 0.04em; text-transform: uppercase; border-radius: 5px; padding: 1px 6px; border: 1px solid var(--line); color: var(--ink-soft); }
+    .sd-lf.lev-high { border-color: #3e7d4f; color: #3e7d4f; }
+    .sd-ref { font-family: var(--font-mono); font-size: 0.64rem; color: var(--ink-soft); margin-left: auto; }
+    .sd-practice-why { font-size: 0.84rem; color: var(--ink-soft); line-height: 1.5; margin: 4px 0 9px; }
+    .sd-ladder { display: grid; grid-template-columns: repeat(4, 1fr); gap: 6px; }
+    .sd-rung {
+      cursor: pointer; text-align: left; border: 1.5px solid var(--line); border-radius: 8px; padding: 7px 9px;
+      background: var(--paper); font: inherit; color: var(--ink);
+    }
+    .sd-rung:hover { border-color: var(--tomato); }
+    .sd-rung.on { border-color: var(--tomato); background: color-mix(in srgb, var(--tomato) 12%, var(--paper)); }
+    .sd-rung-label { display: block; font-weight: 600; font-size: 0.8rem; }
+    .sd-rung-idx { font-family: var(--font-mono); font-size: 0.6rem; color: var(--ink-soft); }
+    .sd-rung-detail { font-size: 0.86rem; color: var(--ink-soft); line-height: 1.45; margin: 7px 0 0; min-height: 1.2em; }
+    @media (max-width: 640px) { .sd-ladder { grid-template-columns: 1fr 1fr; } .sd-stack-grid { grid-template-columns: 1fr; } }
+
+    /* output */
+    .sd-doc { border: 2px solid var(--tomato); border-radius: 16px; background: var(--paper-raised); padding: 22px 24px; margin-top: 8px; }
+    .sd-actions { display: flex; flex-wrap: wrap; gap: 10px; margin: 0 0 14px; }
+    .sd-btn { font: inherit; font-size: 0.85rem; font-weight: 600; cursor: pointer; border: 1.5px solid var(--tomato); color: var(--tomato-deep); background: transparent; border-radius: 10px; padding: 7px 14px; }
+    .sd-btn:hover { background: var(--tomato); color: #fff; }
+    .sd-btn-primary { background: var(--tomato); color: #fff; }
+    .sd-btn-primary:hover { background: var(--tomato-deep); border-color: var(--tomato-deep); }
+
+    .sd-overall { display: flex; align-items: baseline; gap: 12px; margin: 0 0 4px; }
+    .sd-overall-pct { font-family: var(--font-display); font-weight: 900; font-size: 2.4rem; color: var(--tomato-deep); line-height: 1; }
+    .sd-overall-label { font-size: 0.9rem; color: var(--ink-soft); }
+    .sd-phases { display: grid; gap: 8px; margin: 12px 0 4px; }
+    .sd-phase-row { display: grid; grid-template-columns: 120px 1fr auto; gap: 10px; align-items: center; }
+    .sd-phase-lbl { font-weight: 600; font-size: 0.88rem; }
+    .sd-phase-track { height: 10px; border-radius: 6px; background: color-mix(in srgb, var(--tomato) 15%, var(--paper)); overflow: hidden; border: 1px solid var(--line); }
+    .sd-phase-fill { height: 100%; background: var(--tomato); border-radius: 6px; }
+    .sd-phase-pct { font-family: var(--font-mono); font-size: 0.76rem; color: var(--ink-soft); }
+
+    .sd-block-head { font-family: var(--font-display); font-weight: 700; font-size: 1.2rem; margin: 22px 0 8px; padding-top: 14px; border-top: 1.5px solid var(--line); }
+    .sd-block-sub { font-size: 0.86rem; color: var(--ink-soft); margin: 0 0 10px; }
+
+    .sd-plan { list-style: none; padding: 0; margin: 0; display: grid; gap: 8px; counter-reset: step; }
+    .sd-step { border: 1.5px solid var(--line); border-left-width: 5px; border-left-color: var(--tomato); border-radius: 10px; padding: 11px 14px; background: var(--paper); display: grid; grid-template-columns: auto 1fr; gap: 12px; }
+    .sd-step-num { font-family: var(--font-display); font-weight: 900; font-size: 1.3rem; color: var(--tomato-deep); }
+    .sd-step-top { display: flex; flex-wrap: wrap; align-items: baseline; gap: 8px; }
+    .sd-step-name { font-weight: 700; font-size: 0.96rem; }
+    .sd-move { font-family: var(--font-mono); font-size: 0.78rem; color: var(--ink); margin: 4px 0; }
+    .sd-move b { color: var(--tomato-deep); }
+    .sd-step-why { font-size: 0.86rem; color: var(--ink-soft); line-height: 1.5; margin: 3px 0 0; }
+
+    .sd-onepager { list-style: none; padding: 0; margin: 0; display: grid; gap: 7px; }
+    .sd-op-item { font-size: 0.92rem; line-height: 1.55; padding-left: 16px; position: relative; }
+    .sd-op-item::before { content: "\2192"; position: absolute; left: 0; color: var(--tomato); }
+    .sd-op-item b { font-weight: 600; }
+
+    .sd-done { font-size: 0.95rem; color: var(--ink-soft); }
+
+    @media print {
+      .site-nav, .hero, .sd-stack, .sd-rubric, .sd-actions, .colophon, .steam, .sd-privacy { display: none !important; }
+      .sd-doc { border: none; padding: 0; }
+      .sd-step, .sd-op-item { break-inside: avoid; }
+    }
+  </style>
+</head>
+<body class="theme-ssdlc">
+  <a class="skip-link" href="#main">Skip to content</a>
+  <div class="steam" aria-hidden="true"></div>
+
+  <nav class="site-nav" aria-label="Site">
+    <a href="../../">Acronyms</a>
+    <a href="../../frameworks/nist-csf/">NIST CSF</a>
+    <a href="../../frameworks/cis/">CIS Controls</a>
+    <a href="../../frameworks/ai/">AI Security</a>
+    <a href="../../quiz/">Quiz</a>
+    <a href="../../assess/">Assess</a>
+    <a href="../../roadmap/">Roadmap</a>
+    <a href="https://mitre.cybersecurityalphabetsoup.com/" rel="noopener" target="_blank">MITRE ATT&amp;CK</a>
+    <a href="https://bia.cybersecurityalphabetsoup.com/" rel="noopener" target="_blank" title="Business Impact Assessment">BIA</a><a class="nav-play" href="https://thestateofcybersecurity.github.io/cyberdle/" rel="noopener" target="_blank">Play Cyberdle</a>
+  </nav>
+
+  <header class="hero hero-compact">
+    <p class="kicker">devsecops maturity &middot; <span id="practice-count">19</span> practices</p>
+    <h1 class="title">Secure SDLC<br /><em>gap checker</em></h1>
+    <p class="tagline">Rate your pipeline against an anchored maturity rubric for the practices that matter (scanning, secrets, IaC review, threat modeling, signing, and more), and get a maturity score by phase plus a sequenced adoption plan that starts with the highest-leverage, lowest-friction wins, and an engineer-facing one-pager.</p>
+  </header>
+
+  <main id="main" class="ladle sd-wrap">
+    <p class="sd-privacy">A rubric to adapt, not a certification. Leverage and friction ratings sequence the plan; tune them to your teams. Your ratings live only in your browser; nothing is uploaded.</p>
+
+    <section class="sd-stack" aria-label="Stack facts">
+      <h2 class="sd-section-head">Your stack (optional, for the printout)</h2>
+      <div class="sd-stack-grid">
+        <div class="sd-field"><label for="sd-langs">Primary languages</label><input id="sd-langs" type="text" placeholder="e.g. TypeScript, Go, Python" /></div>
+        <div class="sd-field"><label for="sd-ci">CI system</label><input id="sd-ci" type="text" placeholder="e.g. GitHub Actions" /></div>
+        <div class="sd-field"><label for="sd-cloud">Cloud</label><input id="sd-cloud" type="text" placeholder="e.g. AWS" /></div>
+        <div class="sd-field"><label for="sd-deploy">Deployment model</label><input id="sd-deploy" type="text" placeholder="e.g. containers on Kubernetes" /></div>
+      </div>
+    </section>
+
+    <section class="sd-rubric" aria-label="Maturity rubric">
+      <h2 class="sd-section-head">Rate where you are today</h2>
+      <div id="rubric"></div>
+    </section>
+
+    <section class="sd-output" id="output" aria-label="Scorecard and plan" aria-live="polite"></section>
+  </main>
+
+  <footer class="colophon">
+    <p>
+      Why this tool exists:
+      <a class="cyberdle-link" href="../">see the 2026 security leadership scorecard it was built from &rarr;</a>
+    </p>
+    <p>
+      Want to formally assess against the framework?
+      <a class="cyberdle-link" href="../../assess/">Run the SSDF assessment &rarr;</a>
+    </p>
+    <p class="fine-print">
+      An unofficial plain-English tool, not a certification. Grounded in
+      <a href="https://csrc.nist.gov/pubs/sp/800/218/final" rel="noopener">NIST SP 800-218 (SSDF)</a> and
+      <a href="https://owaspsamm.org/" rel="noopener">OWASP SAMM</a>.
+    </p>
+  </footer>
+
+  <script type="module" src="/src/ssdlc-main.ts"></script>
+</body>
+</html>

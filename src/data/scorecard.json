@@ -313,7 +313,8 @@
           "Print and share views"
         ],
         "day1Value": "The first engineering-leadership meeting becomes a collaboration over a concrete plan instead of a negotiation over abstract policy.",
-        "status": "planned"
+        "status": "live",
+        "href": "ssdlc/"
       }
     },
     {

@@ -173,6 +173,44 @@ function validateCloudBaseline(controls: CloudControl[]): string[] {
   return out;
 }
 
+interface SsdlcPractice {
+  id: string;
+  name: string;
+  phase: string;
+  why: string;
+  leverage: string;
+  friction: string;
+  ssdfRef: string;
+  levels: { label: string; detail: string }[];
+  engineerNote: string;
+}
+
+/** Structural checks for the secure SDLC maturity rubric. */
+function validateSsdlc(data: { phases: { id: string }[]; practices: SsdlcPractice[] }): string[] {
+  const out: string[] = [];
+  const PHASES = new Set(data.phases.map((p) => p.id));
+  const RATINGS = new Set(['high', 'medium', 'low']);
+  const SSDF = /^(PO|PS|PW|RV)\.\d+$/;
+  const seen = new Set<string>();
+  for (const p of data.practices) {
+    if (seen.has(p.id)) out.push(`duplicate practice id ${p.id}`);
+    seen.add(p.id);
+    if (!PHASES.has(p.phase)) out.push(`${p.id}: bad phase ${p.phase}`);
+    if (!RATINGS.has(p.leverage)) out.push(`${p.id}: bad leverage`);
+    if (!RATINGS.has(p.friction)) out.push(`${p.id}: bad friction`);
+    if (!SSDF.test(p.ssdfRef)) out.push(`${p.id}: bad ssdfRef ${p.ssdfRef}`);
+    if (!Array.isArray(p.levels) || p.levels.length !== 4) out.push(`${p.id}: needs 4 ladder levels`);
+    else for (const [i, l] of p.levels.entries()) if (!l.label?.trim() || !l.detail?.trim()) out.push(`${p.id}: level ${i} incomplete`);
+    for (const field of ['name', 'why', 'engineerNote'] as const) {
+      if (!p[field]?.trim()) out.push(`${p.id}: empty ${field}`);
+    }
+    if (p.name.length > 60) out.push(`${p.id}: name too long`);
+    if (JSON.stringify(p).includes('—')) out.push(`${p.id}: em dash`);
+  }
+  for (const phase of data.phases) if (!data.practices.some((p) => p.phase === phase.id)) out.push(`no practices in phase ${phase.id}`);
+  return out;
+}
+
 const acronyms = load<AcronymData>('../src/data/acronyms.json');
 const csf = load<CsfData>('../src/data/nist-csf.json');
 const cis = load<CisData>('../src/data/cis.json');
@@ -187,6 +225,7 @@ const crosswalk = load<CrosswalkData>('../src/data/crosswalk.json');
 const boardMetrics = load<{ metrics: BoardMetric[] }>('../src/data/board-metrics.json');
 const runbooks = load<{ scenarios: RunbookScenario[] }>('../src/data/runbooks.json');
 const cloudBaseline = load<{ controls: CloudControl[] }>('../src/data/cloud-baseline.json');
+const ssdlc = load<{ phases: { id: string }[]; practices: SsdlcPractice[] }>('../src/data/ssdlc.json');
 
 const mapProblems: string[] = [];
 for (const csfId of Object.keys(csf)) {
@@ -215,6 +254,7 @@ const problems = [
   ...validateBoardMetrics(boardMetrics.metrics).map((e) => `board-metrics: ${e}`),
   ...validateRunbooks(runbooks.scenarios).map((e) => `runbooks: ${e}`),
   ...validateCloudBaseline(cloudBaseline.controls).map((e) => `cloud-baseline: ${e}`),
+  ...validateSsdlc(ssdlc).map((e) => `ssdlc: ${e}`),
 ];
 
 if (problems.length > 0) {
@@ -224,5 +264,5 @@ if (problems.length > 0) {
 }
 console.log(
   `Data OK: ${Object.keys(acronyms).length} acronyms, ${Object.keys(csf).length} CSF subcategories, ${Object.keys(cis).length} CIS safeguards, ${ai.length} AI framework entries, ` +
-    `${cmmc.questions.length} 800-171/CMMC, ${cyberEssentials.questions.length} Cyber Essentials, ${ztmm.questions.length} ZTMM, ${ssdf.questions.length} SSDF, ${pci.questions.length} PCI DSS, ${crosswalk.controls.length} crosswalk domains, ${boardMetrics.metrics.length} board metrics, ${runbooks.scenarios.length} runbook scenarios, ${cloudBaseline.controls.length} cloud baseline controls.`,
+    `${cmmc.questions.length} 800-171/CMMC, ${cyberEssentials.questions.length} Cyber Essentials, ${ztmm.questions.length} ZTMM, ${ssdf.questions.length} SSDF, ${pci.questions.length} PCI DSS, ${crosswalk.controls.length} crosswalk domains, ${boardMetrics.metrics.length} board metrics, ${runbooks.scenarios.length} runbook scenarios, ${cloudBaseline.controls.length} cloud baseline controls, ${ssdlc.practices.length} SDLC practices.`,
 );

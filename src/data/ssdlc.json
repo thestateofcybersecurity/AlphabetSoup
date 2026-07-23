@@ -1,0 +1,577 @@
+{
+  "meta": {
+    "title": "Secure SDLC Gap Checker",
+    "version": "1.0.0",
+    "note": "A maturity rubric grounded in NIST SSDF (SP 800-218) and OWASP SAMM. Leverage and friction ratings are practitioner guidance to sequence adoption, not a certification.",
+    "sources": [
+      {
+        "name": "NIST SP 800-218 Secure Software Development Framework (SSDF)",
+        "url": "https://csrc.nist.gov/pubs/sp/800/218/final"
+      },
+      {
+        "name": "OWASP SAMM (Software Assurance Maturity Model)",
+        "url": "https://owaspsamm.org/"
+      }
+    ]
+  },
+  "phases": [
+    {
+      "id": "design",
+      "name": "Design"
+    },
+    {
+      "id": "code",
+      "name": "Code"
+    },
+    {
+      "id": "build",
+      "name": "Build and CI"
+    },
+    {
+      "id": "test",
+      "name": "Test"
+    },
+    {
+      "id": "release",
+      "name": "Release"
+    },
+    {
+      "id": "operate",
+      "name": "Operate"
+    }
+  ],
+  "practices": [
+    {
+      "id": "threat-modeling",
+      "name": "Threat modeling",
+      "phase": "design",
+      "why": "Finding design flaws before code is written is far cheaper than patching them in production, and it surfaces the abuse cases a feature spec usually skips.",
+      "leverage": "high",
+      "friction": "high",
+      "ssdfRef": "PW.1",
+      "levels": [
+        {
+          "label": "None",
+          "detail": "Designs ship with no structured look at how a feature could be attacked."
+        },
+        {
+          "label": "Ad hoc",
+          "detail": "A senior engineer occasionally sketches threats for a big feature, informally and inconsistently."
+        },
+        {
+          "label": "Repeatable",
+          "detail": "New or changed high-risk features get a lightweight threat model using a shared template."
+        },
+        {
+          "label": "Integrated",
+          "detail": "Threat models are a required, tracked design-review step with owners and follow-up on mitigations."
+        }
+      ],
+      "engineerNote": "You run a 30-minute template-driven session only on features touching auth, data, or trust boundaries, so most changes are untouched."
+    },
+    {
+      "id": "security-requirements",
+      "name": "Security requirements",
+      "phase": "design",
+      "why": "Writing security expectations (authz, data handling, logging) into the spec up front prevents the vague, expensive rework that happens when they surface during review or an audit.",
+      "leverage": "medium",
+      "friction": "medium",
+      "ssdfRef": "PO.1",
+      "levels": [
+        {
+          "label": "None",
+          "detail": "Requirements cover features and performance but say nothing about security or data handling."
+        },
+        {
+          "label": "Ad hoc",
+          "detail": "Security needs come up verbally in reviews, depending on who is in the room."
+        },
+        {
+          "label": "Standardized",
+          "detail": "A reusable checklist of security and privacy requirements is attached to relevant stories."
+        },
+        {
+          "label": "Traceable",
+          "detail": "Security requirements are tracked to acceptance criteria and verified before release."
+        }
+      ],
+      "engineerNote": "You pull from a short pre-written checklist during design instead of inventing requirements later, which removes surprise rework at review time."
+    },
+    {
+      "id": "secrets-management",
+      "name": "Secrets management",
+      "phase": "code",
+      "why": "Keeping credentials out of code and config and in a managed store limits the blast radius when a repo, laptop, or log leaks, which is one of the most common breach paths.",
+      "leverage": "high",
+      "friction": "medium",
+      "ssdfRef": "PS.1",
+      "levels": [
+        {
+          "label": "None",
+          "detail": "Passwords, keys, and tokens live hardcoded in source or checked-in config."
+        },
+        {
+          "label": "Ad hoc",
+          "detail": "Some secrets move to environment variables or local files, handled per team."
+        },
+        {
+          "label": "Centralized",
+          "detail": "Secrets live in a managed vault or secrets manager, injected at runtime."
+        },
+        {
+          "label": "Governed",
+          "detail": "Secrets are centrally stored, access-scoped, rotated, and audited automatically."
+        }
+      ],
+      "engineerNote": "You reference a secret by name from a vault client instead of pasting values, so local runs and deploys get the right credential without you tracking it."
+    },
+    {
+      "id": "secure-coding-standards",
+      "name": "Secure coding standards",
+      "phase": "code",
+      "why": "Agreed patterns for input handling, output encoding, and error handling stop the same avoidable bug classes (injection, unsafe deserialization) from recurring across teams.",
+      "leverage": "medium",
+      "friction": "medium",
+      "ssdfRef": "PW.5",
+      "levels": [
+        {
+          "label": "None",
+          "detail": "Each engineer decides how to handle input, auth, and errors on their own."
+        },
+        {
+          "label": "Ad hoc",
+          "detail": "Some tribal knowledge and scattered wiki notes exist but nothing is agreed or enforced."
+        },
+        {
+          "label": "Documented",
+          "detail": "A language-specific secure coding guide with paved-road patterns is published and referenced."
+        },
+        {
+          "label": "Reinforced",
+          "detail": "Standards are backed by linters, shared libraries, and templates so the safe path is the default."
+        }
+      ],
+      "engineerNote": "The safe patterns ship as linter rules and shared helpers, so you follow the standard by using the paved road, not by memorizing a document."
+    },
+    {
+      "id": "security-code-review",
+      "name": "Security code review",
+      "phase": "code",
+      "why": "A human eye on security-relevant changes catches logic and authorization flaws that automated scanners miss, especially in auth, access control, and money-handling paths.",
+      "leverage": "high",
+      "friction": "medium",
+      "ssdfRef": "PW.7",
+      "levels": [
+        {
+          "label": "None",
+          "detail": "Code merges with no security-focused review beyond normal functional review."
+        },
+        {
+          "label": "Ad hoc",
+          "detail": "Reviewers flag security issues occasionally when they happen to notice them."
+        },
+        {
+          "label": "Guided",
+          "detail": "Security-sensitive changes get a review using a shared checklist of what to look for."
+        },
+        {
+          "label": "Assured",
+          "detail": "High-risk paths require a reviewer with security context, and coverage is tracked."
+        }
+      ],
+      "engineerNote": "Only changes touching sensitive paths trigger the extra security lens, so routine pull requests move at their normal pace."
+    },
+    {
+      "id": "sast",
+      "name": "Static application security testing (SAST)",
+      "phase": "build",
+      "why": "Scanning source for known-dangerous patterns catches injection, unsafe APIs, and similar bug classes early, when they are cheap to fix and still in the author's head.",
+      "leverage": "medium",
+      "friction": "medium",
+      "ssdfRef": "PW.7",
+      "levels": [
+        {
+          "label": "None",
+          "detail": "No automated analysis of source for security-relevant defects."
+        },
+        {
+          "label": "Ad hoc",
+          "detail": "An engineer runs a scanner locally now and then and reads the output manually."
+        },
+        {
+          "label": "Automated",
+          "detail": "SAST runs on every pull request and posts findings automatically."
+        },
+        {
+          "label": "Tuned",
+          "detail": "Rules are tuned for low noise, high-severity findings block merge, and results are triaged."
+        }
+      ],
+      "engineerNote": "It runs in the background on your pull request and only blocks on a small tuned set of high-confidence, high-severity findings, not style noise."
+    },
+    {
+      "id": "sca-dependency-scanning",
+      "name": "SCA dependency scanning",
+      "phase": "build",
+      "why": "Most application code is third-party dependencies, so scanning them for known vulnerabilities catches a large share of real risk with almost no effort from engineers.",
+      "leverage": "high",
+      "friction": "low",
+      "ssdfRef": "PW.4",
+      "levels": [
+        {
+          "label": "None",
+          "detail": "Nobody tracks which open-source versions are pulled in or whether they have known CVEs."
+        },
+        {
+          "label": "Ad hoc",
+          "detail": "Dependencies get checked manually before a big release or during an audit."
+        },
+        {
+          "label": "Automated",
+          "detail": "Every build scans dependencies against a vulnerability database and reports findings."
+        },
+        {
+          "label": "Managed",
+          "detail": "Findings are prioritized by reachability and severity, with SLAs and auto-update pull requests."
+        }
+      ],
+      "engineerNote": "It flags vulnerable packages on your pull request and often opens the upgrade for you, so patching is a review, not a research project."
+    },
+    {
+      "id": "secret-scanning-ci",
+      "name": "Secret scanning in CI",
+      "phase": "build",
+      "why": "Automatically catching committed keys and tokens before they merge prevents the very common and costly mistake of a live credential landing in git history.",
+      "leverage": "high",
+      "friction": "low",
+      "ssdfRef": "PS.1",
+      "levels": [
+        {
+          "label": "None",
+          "detail": "Nothing checks commits for accidentally committed credentials."
+        },
+        {
+          "label": "Ad hoc",
+          "detail": "Secrets are caught only when a person happens to spot them in review."
+        },
+        {
+          "label": "Automated",
+          "detail": "CI scans every commit and pull request for secret patterns and alerts on hits."
+        },
+        {
+          "label": "Enforced",
+          "detail": "Detected secrets block the merge and trigger a defined rotation and revocation process."
+        }
+      ],
+      "engineerNote": "It only fires on a real detected credential, so a clean pull request never even sees it, and a hit tells you exactly what to rotate."
+    },
+    {
+      "id": "iac-scanning",
+      "name": "Infrastructure as code scanning",
+      "phase": "build",
+      "why": "Checking Terraform, Kubernetes, and similar definitions before apply catches risky misconfigurations (open storage, permissive rules) while they are still a code change, not a live incident.",
+      "leverage": "medium",
+      "friction": "low",
+      "ssdfRef": "PW.7",
+      "levels": [
+        {
+          "label": "None",
+          "detail": "Infrastructure definitions merge and deploy with no security checks."
+        },
+        {
+          "label": "Ad hoc",
+          "detail": "Someone occasionally eyeballs a config for obvious mistakes before applying it."
+        },
+        {
+          "label": "Automated",
+          "detail": "Every infra change is scanned against misconfiguration policies in the pipeline."
+        },
+        {
+          "label": "Enforced",
+          "detail": "High-severity misconfigurations block the apply, with documented exceptions and owners."
+        }
+      ],
+      "engineerNote": "It checks your infra change against clear policies in CI, so you learn about an open bucket or wide-open rule before it ships, not after."
+    },
+    {
+      "id": "sbom",
+      "name": "Software bill of materials (SBOM)",
+      "phase": "build",
+      "why": "A generated inventory of everything shipped lets you answer within minutes which builds contain a newly disclosed vulnerable component, instead of scrambling for days.",
+      "leverage": "medium",
+      "friction": "low",
+      "ssdfRef": "PS.3",
+      "levels": [
+        {
+          "label": "None",
+          "detail": "There is no reliable list of what components and versions ship in a build."
+        },
+        {
+          "label": "Ad hoc",
+          "detail": "Someone assembles a component list by hand when a customer or auditor asks."
+        },
+        {
+          "label": "Automated",
+          "detail": "The pipeline generates a standard-format SBOM for each build automatically."
+        },
+        {
+          "label": "Operationalized",
+          "detail": "SBOMs are stored, queryable, and wired into incident response for fast impact analysis."
+        }
+      ],
+      "engineerNote": "The build produces the SBOM for you as an artifact, so it costs you nothing at commit time and pays off the day a new CVE lands."
+    },
+    {
+      "id": "dast",
+      "name": "Dynamic application security testing (DAST)",
+      "phase": "test",
+      "why": "Exercises a running application the way an attacker would, catching injection, auth, and configuration flaws that only appear at runtime and slip past static analysis.",
+      "leverage": "medium",
+      "friction": "high",
+      "ssdfRef": "PW.8",
+      "levels": [
+        {
+          "label": "None",
+          "detail": "No dynamic testing; running app is never probed for security flaws."
+        },
+        {
+          "label": "Ad hoc",
+          "detail": "Occasional manual scans, usually before a big release or an audit."
+        },
+        {
+          "label": "Automated",
+          "detail": "A DAST scan runs against a staging deploy on a schedule or per release."
+        },
+        {
+          "label": "Enforced",
+          "detail": "Scans gate promotion, findings have owners, and false positives are tuned out."
+        }
+      ],
+      "engineerNote": "DAST runs against a deployed staging environment on its own schedule, so it reports findings out of band rather than blocking your commits or pull requests."
+    },
+    {
+      "id": "container-image-scanning",
+      "name": "Container image vulnerability scanning",
+      "phase": "test",
+      "why": "Most container risk lives in the base image and OS packages you inherited, not your code; scanning surfaces known-vulnerable layers before they ship to production.",
+      "leverage": "high",
+      "friction": "low",
+      "ssdfRef": "PW.4",
+      "levels": [
+        {
+          "label": "None",
+          "detail": "Images ship without any check for known-vulnerable OS or library layers."
+        },
+        {
+          "label": "Ad hoc",
+          "detail": "Someone scans an image manually now and then, results not tracked."
+        },
+        {
+          "label": "Automated",
+          "detail": "Every image build is scanned automatically and results are recorded."
+        },
+        {
+          "label": "Enforced",
+          "detail": "Builds fail on new critical or high findings, with a documented exception path."
+        }
+      ],
+      "engineerNote": "Scanning hooks into the image build you already run, adds a few seconds, and points you at a base-image bump rather than asking you to rewrite anything."
+    },
+    {
+      "id": "security-regression-tests",
+      "name": "Security regression and abuse-case tests",
+      "phase": "test",
+      "why": "Turns each fixed vulnerability and known abuse case into an automated test so the same bug cannot quietly return in a later change.",
+      "leverage": "medium",
+      "friction": "medium",
+      "ssdfRef": "PW.8",
+      "levels": [
+        {
+          "label": "None",
+          "detail": "No automated tests target abuse cases or previously fixed security bugs."
+        },
+        {
+          "label": "Ad hoc",
+          "detail": "A few security tests exist but are written inconsistently and rarely added."
+        },
+        {
+          "label": "Automated",
+          "detail": "Security and abuse-case tests run in CI alongside the normal test suite."
+        },
+        {
+          "label": "Enforced",
+          "detail": "Every security fix ships with a regression test, tracked as part of done."
+        }
+      ],
+      "engineerNote": "These are ordinary unit and integration tests in your existing suite, so they run at normal test speed and fail loudly the moment a fixed issue reappears."
+    },
+    {
+      "id": "artifact-signing",
+      "name": "Artifact signing and build provenance",
+      "phase": "release",
+      "why": "Signing artifacts and recording how they were built lets you prove that what runs in production is what your pipeline actually produced, closing off tampering and supply-chain swaps.",
+      "leverage": "medium",
+      "friction": "high",
+      "ssdfRef": "PS.2",
+      "levels": [
+        {
+          "label": "None",
+          "detail": "Artifacts are unsigned and there is no record of how they were built."
+        },
+        {
+          "label": "Ad hoc",
+          "detail": "Some artifacts are signed manually or inconsistently, provenance is informal."
+        },
+        {
+          "label": "Automated",
+          "detail": "The pipeline signs artifacts and generates provenance on every build."
+        },
+        {
+          "label": "Enforced",
+          "detail": "Deploys verify signatures and provenance, and unsigned artifacts are rejected."
+        }
+      ],
+      "engineerNote": "Signing and provenance run automatically at build time in CI, so once the signing keys and trust root are set up, your day-to-day commit and review flow does not change."
+    },
+    {
+      "id": "pipeline-hardening",
+      "name": "CI/CD pipeline hardening",
+      "phase": "release",
+      "why": "The pipeline holds credentials and pushes straight to production, so least-privilege CI, protected branches, no long-lived secrets, and pinned actions remove one of the highest-value attacker targets.",
+      "leverage": "high",
+      "friction": "low",
+      "ssdfRef": "PO.5",
+      "levels": [
+        {
+          "label": "None",
+          "detail": "Broad CI tokens, long-lived secrets, unpinned actions, and unprotected branches."
+        },
+        {
+          "label": "Ad hoc",
+          "detail": "Some controls exist on a few repos but nothing is applied consistently."
+        },
+        {
+          "label": "Automated",
+          "detail": "Least-privilege credentials, protected branches, and pinned actions are the default."
+        },
+        {
+          "label": "Enforced",
+          "detail": "Policy enforces short-lived credentials and pinned actions across all repos, with drift alerts."
+        }
+      ],
+      "engineerNote": "This is mostly config on the pipeline you already have (short-lived tokens, pinned actions, branch protection), so it tightens security without touching how you write or ship code."
+    },
+    {
+      "id": "deployment-gates",
+      "name": "Production deployment gates",
+      "phase": "release",
+      "why": "Change control on production deploys gives a clear approval and audit trail for what reaches users, so risky changes get a second look and every release is traceable.",
+      "leverage": "medium",
+      "friction": "medium",
+      "ssdfRef": "PO.4",
+      "levels": [
+        {
+          "label": "None",
+          "detail": "Anyone can push to production with no approval or record of the change."
+        },
+        {
+          "label": "Ad hoc",
+          "detail": "Approvals happen informally over chat and are not consistently recorded."
+        },
+        {
+          "label": "Automated",
+          "detail": "The pipeline requires a defined approval step and logs who deployed what."
+        },
+        {
+          "label": "Enforced",
+          "detail": "Risk-based gates and required approvers are enforced with a full, auditable trail."
+        }
+      ],
+      "engineerNote": "Gates are risk-scoped so routine low-risk changes flow through automatically, and approvals live in the pipeline rather than in a separate ticketing detour."
+    },
+    {
+      "id": "runtime-monitoring",
+      "name": "Runtime security monitoring and alerting",
+      "phase": "operate",
+      "why": "Logging and alerting on security-relevant events in production is how you notice an attack or abuse in progress instead of learning about it from a customer or a breach report.",
+      "leverage": "high",
+      "friction": "medium",
+      "ssdfRef": "RV.1",
+      "levels": [
+        {
+          "label": "None",
+          "detail": "No logging or alerting on authentication, access, or other security events."
+        },
+        {
+          "label": "Ad hoc",
+          "detail": "Some events are logged but nobody watches them and there are no alerts."
+        },
+        {
+          "label": "Automated",
+          "detail": "Security events are logged centrally and alert on defined suspicious patterns."
+        },
+        {
+          "label": "Enforced",
+          "detail": "Alerts route to an owner with response runbooks, and coverage is reviewed regularly."
+        }
+      ],
+      "engineerNote": "This builds on the logging and metrics stack you already run; you emit a few security-relevant events and the alerting is configured once, not per feature."
+    },
+    {
+      "id": "vuln-disclosure-sla",
+      "name": "Vulnerability disclosure and remediation SLA",
+      "phase": "operate",
+      "why": "A published intake path plus a severity-based remediation SLA means outside reports reach the right team and get fixed on a predictable clock instead of sitting in an inbox.",
+      "leverage": "high",
+      "friction": "low",
+      "ssdfRef": "RV.2",
+      "levels": [
+        {
+          "label": "None",
+          "detail": "No way for anyone to report a vulnerability and no target for fixing one."
+        },
+        {
+          "label": "Ad hoc",
+          "detail": "Reports trickle in through personal email with no owner or timeline."
+        },
+        {
+          "label": "Automated",
+          "detail": "A published intake path routes reports to an owner with SLA targets by severity."
+        },
+        {
+          "label": "Enforced",
+          "detail": "SLA adherence is tracked and reported, and misses are escalated and reviewed."
+        }
+      ],
+      "engineerNote": "For engineers this is mostly a documented intake path and severity clock, so reports arrive as triaged, prioritized work rather than surprise fire drills."
+    },
+    {
+      "id": "dependency-update-automation",
+      "name": "Automated dependency updates",
+      "phase": "operate",
+      "why": "Most exploited vulnerabilities are known and already patched upstream; automating updates keeps you close to current so patching does not depend on someone remembering to check.",
+      "leverage": "high",
+      "friction": "low",
+      "ssdfRef": "RV.2",
+      "levels": [
+        {
+          "label": "None",
+          "detail": "Dependencies are updated only manually, usually long after a fix is available."
+        },
+        {
+          "label": "Ad hoc",
+          "detail": "Updates happen occasionally when someone notices, with no regular cadence."
+        },
+        {
+          "label": "Automated",
+          "detail": "A bot opens dependency update pull requests on a regular schedule."
+        },
+        {
+          "label": "Enforced",
+          "detail": "Updates auto-merge when tests pass, and security patches meet a defined timeline."
+        }
+      ],
+      "engineerNote": "A tool like Dependabot or Renovate opens small, pre-tested pull requests that auto-merge when your CI is green, so patching becomes a quick review instead of manual chasing."
+    }
+  ]
+}

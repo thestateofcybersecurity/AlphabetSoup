@@ -238,6 +238,20 @@ body {
   }
 }
 
+.theme-ssdlc {
+  --tomato: #3f8f6b;
+  --tomato-deep: #2d6d51;
+  --broth: #8fc7ac;
+}
+
+@media (prefers-color-scheme: dark) {
+  .theme-ssdlc {
+    --tomato: #63c095;
+    --tomato-deep: #83d4ae;
+    --broth: #3a7358;
+  }
+}
+
 @media (prefers-color-scheme: dark) {
   .theme-quiz {
     --tomato: #c08fd6;
