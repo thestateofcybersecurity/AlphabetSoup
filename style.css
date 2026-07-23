@@ -196,6 +196,20 @@ body {
   }
 }
 
+.theme-board {
+  --tomato: #9c4a5f;
+  --tomato-deep: #7d3a4c;
+  --broth: #cf93a2;
+}
+
+@media (prefers-color-scheme: dark) {
+  .theme-board {
+    --tomato: #d68fa0;
+    --tomato-deep: #e4aab7;
+    --broth: #8f5a68;
+  }
+}
+
 @media (prefers-color-scheme: dark) {
   .theme-quiz {
     --tomato: #c08fd6;

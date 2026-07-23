@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="color-scheme" content="light dark" />
+  <meta name="description" content="Build a board-ready security update in minutes: pick from a curated menu of KPIs and KRIs boards actually understand, enter current and prior values, and get a print-ready one-page summary with status bands, trend arrows, and a plain-English talk track for each metric. Everything stays in your browser." />
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Board Metrics Builder | Cybersecurity Alphabet Soup" />
+  <meta property="og:description" content="Pick board-ready security KPIs and KRIs, enter current and prior values, and generate a print-ready one-page posture summary with trends and a plain-English talk track." />
+  <meta property="og:url" content="https://cybersecurityalphabetsoup.com/tools/board-metrics/" />
+  <meta property="og:image" content="https://cybersecurityalphabetsoup.com/og-frameworks.png" />
+  <title>Board Metrics Builder | Cybersecurity Alphabet Soup</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,700;0,9..144,900;1,9..144,500&family=IBM+Plex+Mono:wght@500;600&family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet" />
+  <link rel="icon" href="/icon.svg" type="image/svg+xml" />
+  <link rel="stylesheet" href="/style.css" />
+  <style>
+    .bm-wrap { max-width: 900px; margin: 0 auto; }
+    .bm-privacy { font-size: 0.84rem; color: var(--ink-soft); margin: 0 0 22px; }
+    .bm-section-head { font-family: var(--font-mono); font-size: 0.76rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--tomato-deep); margin: 26px 0 10px; }
+
+    /* report header inputs */
+    .bm-meta-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+    .bm-field { display: grid; gap: 4px; }
+    .bm-field label { font-size: 0.8rem; font-weight: 600; color: var(--ink-soft); }
+    .bm-field input, .bm-field textarea {
+      font: inherit; font-size: 0.92rem; padding: 8px 12px; border: 1.5px solid var(--line);
+      border-radius: 10px; background: var(--paper); color: var(--ink); width: 100%;
+    }
+    .bm-field textarea { resize: vertical; min-height: 46px; }
+    .bm-field.wide { grid-column: 1 / -1; }
+
+    /* metric picker */
+    .bm-pick-group { margin: 0 0 14px; }
+    .bm-pick-cat { font-family: var(--font-mono); font-size: 0.66rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink-soft); margin: 0 0 6px; }
+    .bm-pick-opts { display: flex; flex-wrap: wrap; gap: 6px; }
+    .bm-pick {
+      display: inline-flex; align-items: center; gap: 7px; cursor: pointer; font-size: 0.86rem; font-weight: 600;
+      border: 1.5px solid var(--line); border-radius: 999px; padding: 6px 13px; background: var(--paper);
+    }
+    .bm-pick:hover { border-color: var(--tomato); }
+    .bm-pick.selected { border-color: var(--tomato); background: color-mix(in srgb, var(--tomato) 8%, var(--paper)); }
+    .bm-pick input { accent-color: var(--tomato); }
+
+    /* value entry */
+    .bm-inputs { list-style: none; padding: 0; margin: 6px 0 0; display: grid; gap: 8px; }
+    .bm-input-row {
+      display: grid; grid-template-columns: 1fr auto auto; gap: 10px; align-items: center;
+      border: 1.5px solid var(--line); border-radius: 10px; padding: 8px 12px; background: var(--paper-raised);
+    }
+    .bm-input-name { font-weight: 600; font-size: 0.9rem; }
+    .bm-input-name small { display: block; font-weight: 400; color: var(--ink-soft); font-size: 0.76rem; }
+    .bm-input-row .bm-num { display: grid; gap: 2px; justify-items: center; }
+    .bm-input-row .bm-num span { font-family: var(--font-mono); font-size: 0.6rem; letter-spacing: 0.06em; text-transform: uppercase; color: var(--ink-soft); }
+    .bm-input-row input[type="number"] {
+      width: 92px; font: inherit; font-size: 0.9rem; padding: 6px 8px; text-align: right;
+      border: 1.5px solid var(--line); border-radius: 8px; background: var(--paper); color: var(--ink);
+    }
+    .bm-empty { font-size: 0.9rem; color: var(--ink-soft); }
+
+    /* one-page summary */
+    .bm-report { border: 2px solid var(--tomato); border-radius: 16px; background: var(--paper-raised); padding: 22px 24px; margin: 26px 0; }
+    .bm-report-title { font-family: var(--font-display); font-weight: 700; font-size: 1.5rem; margin: 0 0 2px; }
+    .bm-report-sub { font-family: var(--font-mono); font-size: 0.76rem; letter-spacing: 0.06em; color: var(--ink-soft); margin: 0 0 14px; }
+    .bm-tally { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; margin: 0 0 6px; }
+    .bm-tally-chip { font-size: 0.78rem; font-weight: 700; border-radius: 999px; padding: 3px 11px; color: #fff; }
+    .bm-bar { display: flex; height: 12px; border-radius: 8px; overflow: hidden; border: 1px solid var(--line); margin: 4px 0 20px; }
+    .bm-bar span { display: block; height: 100%; }
+    .st-good { background: #3e7d4f; }
+    .st-watch { background: #b07d2e; }
+    .st-act { background: #b0402e; }
+
+    .bm-cards { display: grid; gap: 12px; }
+    .bm-card { border: 1.5px solid var(--line); border-radius: 12px; padding: 14px 16px; background: var(--paper); border-left-width: 5px; }
+    .bm-card.st-b-good { border-left-color: #3e7d4f; }
+    .bm-card.st-b-watch { border-left-color: #b07d2e; }
+    .bm-card.st-b-act { border-left-color: #b0402e; }
+    .bm-card-top { display: flex; flex-wrap: wrap; align-items: baseline; gap: 10px; }
+    .bm-card-name { font-weight: 700; font-size: 1.02rem; flex: 1 1 auto; }
+    .bm-card-val { font-family: var(--font-mono); font-weight: 600; font-size: 1.15rem; }
+    .bm-status { font-size: 0.68rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; color: #fff; border-radius: 6px; padding: 2px 8px; }
+    .bm-status.st-b-good { background: #3e7d4f; }
+    .bm-status.st-b-watch { background: #b07d2e; }
+    .bm-status.st-b-act { background: #b0402e; }
+    .bm-trend { display: inline-flex; align-items: center; gap: 5px; font-size: 0.8rem; font-family: var(--font-mono); margin-top: 6px; }
+    .bm-trend.tr-improving { color: #3e7d4f; }
+    .bm-trend.tr-worsening { color: #b0402e; }
+    .bm-trend.tr-flat { color: var(--ink-soft); }
+    .bm-spark { vertical-align: middle; }
+    .bm-talk { font-size: 0.92rem; line-height: 1.55; margin: 8px 0 0; color: var(--ink); }
+    .bm-note { display: block; font-size: 0.82rem; color: var(--ink-soft); margin-top: 4px; }
+
+    .bm-callout { border: 1.5px solid var(--line); border-radius: 12px; padding: 12px 16px; margin-top: 14px; background: var(--paper); }
+    .bm-callout h4 { font-family: var(--font-mono); font-size: 0.68rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--tomato-deep); margin: 0 0 4px; }
+    .bm-callout p { margin: 0; font-size: 0.95rem; line-height: 1.5; }
+
+    .bm-btn {
+      font: inherit; font-size: 0.88rem; font-weight: 600; cursor: pointer;
+      border: 1.5px solid var(--tomato); color: var(--tomato-deep); background: transparent;
+      border-radius: 10px; padding: 8px 16px;
+    }
+    .bm-btn:hover { background: var(--tomato); color: #fff; }
+    .bm-btn-primary { background: var(--tomato); color: #fff; }
+    .bm-btn-primary:hover { background: var(--tomato-deep); border-color: var(--tomato-deep); }
+    .bm-btn-quiet { border-color: var(--line); color: var(--ink-soft); }
+    .bm-actions { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 18px; align-items: center; }
+
+    .bm-register { list-style: none; padding: 0; margin: 10px 0 0; }
+    .bm-reg-item { display: flex; flex-wrap: wrap; align-items: center; gap: 10px; border: 1.5px solid var(--line); border-radius: 10px; padding: 10px 14px; margin-bottom: 8px; background: var(--paper-raised); }
+    .bm-reg-name { font-weight: 600; flex: 1 1 auto; }
+    .bm-reg-meta { font-family: var(--font-mono); font-size: 0.72rem; color: var(--ink-soft); }
+    .bm-reg-actions { display: flex; gap: 6px; }
+    .bm-reg-actions .bm-btn { padding: 4px 10px; font-size: 0.78rem; }
+
+    @media (max-width: 620px) { .bm-meta-grid { grid-template-columns: 1fr; } }
+    @media print {
+      .site-nav, .hero, .bm-build, .bm-actions, #register-section, .colophon, .steam { display: none !important; }
+      .bm-report { border: none; padding: 0; margin: 0; }
+    }
+  </style>
+</head>
+<body class="theme-board">
+  <a class="skip-link" href="#main">Skip to content</a>
+  <div class="steam" aria-hidden="true"></div>
+
+  <nav class="site-nav" aria-label="Site">
+    <a href="../../">Acronyms</a>
+    <a href="../../frameworks/nist-csf/">NIST CSF</a>
+    <a href="../../frameworks/cis/">CIS Controls</a>
+    <a href="../../frameworks/ai/">AI Security</a>
+    <a href="../../quiz/">Quiz</a>
+    <a href="../../assess/">Assess</a>
+    <a href="../../roadmap/">Roadmap</a>
+    <a href="https://mitre.cybersecurityalphabetsoup.com/" rel="noopener" target="_blank">MITRE ATT&amp;CK</a>
+    <a href="https://bia.cybersecurityalphabetsoup.com/" rel="noopener" target="_blank" title="Business Impact Assessment">BIA</a><a class="nav-play" href="https://thestateofcybersecurity.github.io/cyberdle/" rel="noopener" target="_blank">Play Cyberdle</a>
+  </nav>
+
+  <header class="hero hero-compact">
+    <p class="kicker">board-fluent reporting &middot; <span id="metric-count">12</span> curated metrics</p>
+    <h1 class="title">Board metrics<br /><em>builder</em></h1>
+    <p class="tagline">Pick from a curated menu of security KPIs and KRIs that boards actually understand, enter this quarter's and last quarter's numbers, and get a print-ready one-page posture summary with status bands, trend arrows, and a plain-English talk track for every metric.</p>
+  </header>
+
+  <main id="main" class="ladle bm-wrap">
+    <p class="bm-privacy">Status bands are seasoned-practitioner guidance, not compliance thresholds; tune them to your program. Your numbers live only in your browser; nothing is uploaded.</p>
+
+    <div class="bm-build">
+      <section aria-label="Report details">
+        <h2 class="bm-section-head">Report details</h2>
+        <div class="bm-meta-grid">
+          <div class="bm-field"><label for="org">Organization or program</label><input id="org" type="text" placeholder="e.g. Acme Corp security" /></div>
+          <div class="bm-field"><label for="period">Reporting period</label><input id="period" type="text" placeholder="e.g. Q3 FY26" /></div>
+          <div class="bm-field wide"><label for="highlight">One narrative highlight</label><textarea id="highlight" placeholder="The one thing the board should remember from this quarter."></textarea></div>
+          <div class="bm-field wide"><label for="ask">One ask</label><textarea id="ask" placeholder="The single decision, budget line, or support you need from them."></textarea></div>
+        </div>
+      </section>
+
+      <section aria-label="Choose metrics">
+        <h2 class="bm-section-head">Choose your metrics</h2>
+        <div id="picker"></div>
+      </section>
+
+      <section aria-label="Enter values">
+        <h2 class="bm-section-head">Enter this period and last period</h2>
+        <ul id="inputs" class="bm-inputs"></ul>
+      </section>
+    </div>
+
+    <section class="bm-report" id="report" aria-label="Board summary" aria-live="polite"></section>
+
+    <section id="register-section" hidden aria-label="Saved reports">
+      <h2 class="bm-section-head">Saved reports</h2>
+      <ul class="bm-register" id="register"></ul>
+      <p class="print-hide"><button type="button" class="bm-btn" id="export-register">Export reports as JSON</button></p>
+    </section>
+  </main>
+
+  <footer class="colophon">
+    <p>
+      Why this tool exists:
+      <a class="cyberdle-link" href="../">see the 2026 security leadership scorecard it was built from &rarr;</a>
+    </p>
+    <p class="fine-print">
+      An unofficial plain-English tool, not compliance advice. Threshold guidance informed by:
+      <a href="https://www.verizon.com/business/resources/reports/dbir/" rel="noopener">Verizon DBIR</a>,
+      <a href="https://www.cisa.gov/known-exploited-vulnerabilities-catalog" rel="noopener">CISA KEV</a>,
+      <a href="https://www.nist.gov/cyberframework" rel="noopener">NIST CSF 2.0</a>.
+    </p>
+  </footer>
+
+  <script type="module" src="/src/board-metrics-main.ts"></script>
+</body>
+</html>
