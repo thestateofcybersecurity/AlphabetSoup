@@ -29,8 +29,16 @@ function esc(text: string): string {
 
 function loadRegister(): RegisterEntry[] {
   try {
-    const raw = JSON.parse(localStorage.getItem(REGISTER_KEY) ?? '[]');
-    return Array.isArray(raw) ? (raw as RegisterEntry[]) : [];
+    const raw: unknown = JSON.parse(localStorage.getItem(REGISTER_KEY) ?? '[]');
+    if (!Array.isArray(raw)) return [];
+    // localStorage is user-editable; keep only well-formed entries.
+    return raw.filter(
+      (e): e is RegisterEntry =>
+        !!e &&
+        typeof e === 'object' &&
+        typeof (e as RegisterEntry).name === 'string' &&
+        typeof (e as RegisterEntry).answers === 'object',
+    );
   } catch {
     return [];
   }
@@ -202,16 +210,18 @@ function renderRegister(): void {
   if (entries.length === 0) return;
 
   const tierLabel = Object.fromEntries(rubric.tiers.map((t) => [t.id, t.label]));
-  const validTiers = new Set(rubric.tiers.map((t) => t.id));
+  // Stored values never reach unescaped HTML: entries are addressed by index,
+  // the tier is allowlisted against the rubric, and the score is coerced.
   host.innerHTML = entries
-    .map((entry) => {
-      const safeId = esc(String(entry.id));
-      const safeTier = validTiers.has(entry.tier) ? entry.tier : 'unknown';
+    .map((entry, index) => {
+      const tier = tierLabel[entry.tier] ? entry.tier : 'low';
+      const score = Number(entry.score) || 0;
+      const saved = new Date(entry.savedAt);
       return `
-      <li class="rt-reg-item" data-id="${safeId}">
-        <span class="rt-reg-badge tier-${safeTier}">${esc(tierLabel[safeTier as TierId] ?? safeTier)}</span>
+      <li class="rt-reg-item" data-index="${index}">
+        <span class="rt-reg-badge tier-${tier}">${esc(tierLabel[tier])}</span>
         <span class="rt-reg-name">${esc(entry.name)}</span>
-        <span class="rt-reg-meta">${entry.score}/${rubric.meta.maxScore} &middot; ${new Date(entry.savedAt).toLocaleDateString()}</span>
+        <span class="rt-reg-meta">${score}/${rubric.meta.maxScore} &middot; ${Number.isNaN(saved.getTime()) ? '' : saved.toLocaleDateString()}</span>
         <span class="rt-reg-actions">
           <button type="button" class="rt-btn" data-action="load">Load</button>
           <button type="button" class="rt-btn rt-btn-quiet" data-action="delete">Delete</button>
@@ -225,12 +235,12 @@ function initRegister(): void {
   $('#register').addEventListener('click', (event) => {
     const button = (event.target as HTMLElement).closest('button[data-action]') as HTMLButtonElement | null;
     if (!button) return;
-    const id = (button.closest('.rt-reg-item') as HTMLElement).dataset.id;
+    const index = Number((button.closest('.rt-reg-item') as HTMLElement).dataset.index);
     const entries = loadRegister();
-    const entry = entries.find((e) => e.id === id);
+    const entry = entries[index];
     if (!entry) return;
     if (button.dataset.action === 'delete') {
-      saveRegister(entries.filter((e) => e.id !== id));
+      saveRegister(entries.filter((_, i) => i !== index));
       renderRegister();
     } else {
       answers = { ...entry.answers };
