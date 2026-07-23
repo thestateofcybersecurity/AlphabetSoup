@@ -134,6 +134,45 @@ function validateRunbooks(scenarios: RunbookScenario[]): string[] {
   return out;
 }
 
+interface CloudControl {
+  id: string;
+  provider: string;
+  domain: string;
+  title: string;
+  rationale: string;
+  priority: string;
+  workloads: string[];
+  compliance: string[];
+  cisRef?: string;
+}
+
+/** Structural checks for the cloud security baseline ruleset. */
+function validateCloudBaseline(controls: CloudControl[]): string[] {
+  const out: string[] = [];
+  const PROVIDERS = new Set(['aws', 'azure', 'gcp']);
+  const DOMAINS = new Set(['identity', 'logging', 'network', 'workload', 'data']);
+  const PRIORITIES = new Set(['critical', 'high', 'standard']);
+  const WORKLOADS = new Set(['saas', 'corp-it', 'data-platform']);
+  const COMPLIANCE = new Set(['soc2', 'hipaa', 'cmmc', 'pci']);
+  const seen = new Set<string>();
+  for (const c of controls) {
+    if (seen.has(c.id)) out.push(`duplicate control id ${c.id}`);
+    seen.add(c.id);
+    if (!PROVIDERS.has(c.provider)) out.push(`${c.id}: bad provider ${c.provider}`);
+    if (!DOMAINS.has(c.domain)) out.push(`${c.id}: bad domain ${c.domain}`);
+    if (!PRIORITIES.has(c.priority)) out.push(`${c.id}: bad priority ${c.priority}`);
+    if (!c.workloads?.length || !c.workloads.every((w) => WORKLOADS.has(w))) out.push(`${c.id}: bad workloads`);
+    if (!c.compliance?.every((x) => COMPLIANCE.has(x))) out.push(`${c.id}: bad compliance`);
+    for (const field of ['title', 'rationale', 'cisRef'] as const) {
+      if (!c[field]?.trim()) out.push(`${c.id}: empty ${field}`);
+      if (c[field]?.includes('—')) out.push(`${c.id}: em dash in ${field}`);
+    }
+    if (c.title.length > 95) out.push(`${c.id}: title too long`);
+  }
+  for (const p of PROVIDERS) if (!controls.some((c) => c.provider === p)) out.push(`no controls for provider ${p}`);
+  return out;
+}
+
 const acronyms = load<AcronymData>('../src/data/acronyms.json');
 const csf = load<CsfData>('../src/data/nist-csf.json');
 const cis = load<CisData>('../src/data/cis.json');
@@ -147,6 +186,7 @@ const pci = load<AssessmentData>('../src/data/assessment-pci-dss.json');
 const crosswalk = load<CrosswalkData>('../src/data/crosswalk.json');
 const boardMetrics = load<{ metrics: BoardMetric[] }>('../src/data/board-metrics.json');
 const runbooks = load<{ scenarios: RunbookScenario[] }>('../src/data/runbooks.json');
+const cloudBaseline = load<{ controls: CloudControl[] }>('../src/data/cloud-baseline.json');
 
 const mapProblems: string[] = [];
 for (const csfId of Object.keys(csf)) {
@@ -174,6 +214,7 @@ const problems = [
   ...validateCrosswalk(crosswalk, csf, cis).map((e) => `crosswalk: ${e}`),
   ...validateBoardMetrics(boardMetrics.metrics).map((e) => `board-metrics: ${e}`),
   ...validateRunbooks(runbooks.scenarios).map((e) => `runbooks: ${e}`),
+  ...validateCloudBaseline(cloudBaseline.controls).map((e) => `cloud-baseline: ${e}`),
 ];
 
 if (problems.length > 0) {
@@ -183,5 +224,5 @@ if (problems.length > 0) {
 }
 console.log(
   `Data OK: ${Object.keys(acronyms).length} acronyms, ${Object.keys(csf).length} CSF subcategories, ${Object.keys(cis).length} CIS safeguards, ${ai.length} AI framework entries, ` +
-    `${cmmc.questions.length} 800-171/CMMC, ${cyberEssentials.questions.length} Cyber Essentials, ${ztmm.questions.length} ZTMM, ${ssdf.questions.length} SSDF, ${pci.questions.length} PCI DSS, ${crosswalk.controls.length} crosswalk domains, ${boardMetrics.metrics.length} board metrics, ${runbooks.scenarios.length} runbook scenarios.`,
+    `${cmmc.questions.length} 800-171/CMMC, ${cyberEssentials.questions.length} Cyber Essentials, ${ztmm.questions.length} ZTMM, ${ssdf.questions.length} SSDF, ${pci.questions.length} PCI DSS, ${crosswalk.controls.length} crosswalk domains, ${boardMetrics.metrics.length} board metrics, ${runbooks.scenarios.length} runbook scenarios, ${cloudBaseline.controls.length} cloud baseline controls.`,
 );
