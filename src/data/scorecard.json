@@ -41,7 +41,8 @@
           "Export gap register as CSV"
         ],
         "day1Value": "Week one in any new seat: map what exists against what is owed and walk into the first leadership meeting with a defensible coverage number.",
-        "status": "planned"
+        "status": "live",
+        "href": "crosswalk/"
       }
     },
     {

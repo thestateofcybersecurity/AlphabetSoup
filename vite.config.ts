@@ -18,6 +18,7 @@ export default defineConfig({
         cmmc: 'assess/cmmc/index.html',
         tools: 'tools/index.html',
         aiRisk: 'tools/ai-risk/index.html',
+        crosswalk: 'tools/crosswalk/index.html',
         roadmap: 'roadmap/index.html',
         about: 'about/index.html',
       },

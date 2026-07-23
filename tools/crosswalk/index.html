@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="color-scheme" content="light dark" />
+  <meta name="description" content="Map your security program once and read your coverage against NIST CSF 2.0, ISO 27001:2022, SOC 2, and CIS v8 at the same time. Check off the control domains you run, get a coverage percentage per framework, and export a gap register ranked by leverage. Everything stays in your browser." />
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Control Crosswalk Mapper | Cybersecurity Alphabet Soup" />
+  <meta property="og:description" content="Check off the control domains you run and read your coverage against NIST CSF, ISO 27001, SOC 2, and CIS v8 at once, with a gap register ranked by leverage." />
+  <meta property="og:url" content="https://cybersecurityalphabetsoup.com/tools/crosswalk/" />
+  <meta property="og:image" content="https://cybersecurityalphabetsoup.com/og-frameworks.png" />
+  <title>Control Crosswalk Mapper | Cybersecurity Alphabet Soup</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,700;0,9..144,900;1,9..144,500&family=IBM+Plex+Mono:wght@500;600&family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet" />
+  <link rel="icon" href="/icon.svg" type="image/svg+xml" />
+  <link rel="stylesheet" href="/style.css" />
+  <style>
+    .cw-wrap { max-width: 900px; margin: 0 auto; }
+    .cw-privacy { font-size: 0.84rem; color: var(--ink-soft); margin: 0 0 22px; }
+    .cw-section-head { font-family: var(--font-mono); font-size: 0.76rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--tomato-deep); margin: 26px 0 10px; }
+
+    /* scope picker */
+    .cw-scope-opts { display: flex; flex-wrap: wrap; gap: 8px; }
+    .cw-scope-opt {
+      display: inline-flex; align-items: center; gap: 8px; cursor: pointer;
+      border: 1.5px solid var(--line); border-radius: 10px; padding: 8px 14px; background: var(--paper);
+      font-size: 0.9rem; font-weight: 600;
+    }
+    .cw-scope-opt:hover { border-color: var(--tomato); }
+    .cw-scope-opt.selected { border-color: var(--tomato); background: color-mix(in srgb, var(--tomato) 8%, var(--paper)); }
+    .cw-scope-opt input { accent-color: var(--tomato); }
+    .cw-scope-opt .cw-scope-name { font-family: var(--font-mono); font-size: 0.8rem; }
+
+    /* control list */
+    .cw-controls-sub { font-family: var(--font-mono); font-size: 0.75rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink-soft); margin: 0 0 12px; }
+    .cw-controls { list-style: none; padding: 0; margin: 0; display: grid; gap: 10px; }
+    .cw-control {
+      border: 1.5px solid var(--line); border-radius: 12px; background: var(--paper-raised);
+      padding: 12px 16px; display: grid; grid-template-columns: auto 1fr; column-gap: 12px; align-items: start;
+    }
+    .cw-control.done { border-color: var(--tomato); background: color-mix(in srgb, var(--tomato) 6%, var(--paper-raised)); }
+    .cw-control input[type="checkbox"] { margin-top: 4px; width: 18px; height: 18px; accent-color: var(--tomato); cursor: pointer; }
+    .cw-control-body { min-width: 0; }
+    .cw-control-title { font-weight: 600; font-size: 1rem; cursor: pointer; }
+    .cw-control-summary { font-size: 0.86rem; color: var(--ink-soft); line-height: 1.5; margin: 3px 0 8px; }
+    .cw-maps { display: grid; gap: 5px; }
+    .cw-map-row { display: flex; flex-wrap: wrap; gap: 5px; align-items: baseline; }
+    .cw-map-label { font-family: var(--font-mono); font-size: 0.64rem; letter-spacing: 0.06em; text-transform: uppercase; color: var(--ink-soft); min-width: 62px; }
+    .cw-chip {
+      display: inline-block; font-family: var(--font-mono); font-size: 0.66rem; letter-spacing: 0.02em;
+      border: 1px solid var(--line); color: var(--ink); border-radius: 6px; padding: 1px 6px; text-decoration: none;
+    }
+    a.cw-chip:hover { border-color: var(--tomato); color: var(--tomato-deep); }
+
+    /* result */
+    .cw-result { border: 2px solid var(--tomato); border-radius: 16px; background: var(--paper-raised); padding: 22px 24px; margin: 26px 0; }
+    .cw-cov { display: grid; gap: 14px; margin: 4px 0 8px; }
+    .cw-cov-row { display: grid; grid-template-columns: 1fr; gap: 4px; }
+    .cw-cov-top { display: flex; justify-content: space-between; align-items: baseline; gap: 10px; }
+    .cw-cov-name { font-weight: 600; font-size: 0.95rem; }
+    .cw-cov-num { font-family: var(--font-mono); font-size: 0.8rem; color: var(--ink-soft); }
+    .cw-cov-track { height: 12px; border-radius: 8px; background: color-mix(in srgb, var(--tomato) 14%, var(--paper)); overflow: hidden; border: 1px solid var(--line); }
+    .cw-cov-fill { height: 100%; background: var(--tomato); border-radius: 8px 0 0 8px; transition: width 0.25s ease; }
+    .cw-lead { font-size: 0.95rem; line-height: 1.55; margin: 0 0 6px; }
+
+    .cw-gap-table { width: 100%; border-collapse: collapse; font-size: 0.86rem; margin-top: 8px; }
+    .cw-gap-table th, .cw-gap-table td { text-align: left; padding: 7px 10px; border-bottom: 1px solid var(--line); }
+    .cw-gap-table th { font-family: var(--font-mono); font-size: 0.66rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink-soft); }
+    .cw-gap-table td.num, .cw-gap-table th.num { text-align: right; font-family: var(--font-mono); }
+    .cw-gap-lever { font-weight: 700; color: var(--tomato-deep); }
+    .cw-empty { font-size: 0.9rem; color: var(--ink-soft); }
+
+    .cw-btn {
+      font: inherit; font-size: 0.88rem; font-weight: 600; cursor: pointer;
+      border: 1.5px solid var(--tomato); color: var(--tomato-deep); background: transparent;
+      border-radius: 10px; padding: 8px 16px;
+    }
+    .cw-btn:hover { background: var(--tomato); color: #fff; }
+    .cw-btn-primary { background: var(--tomato); color: #fff; }
+    .cw-btn-primary:hover { background: var(--tomato-deep); border-color: var(--tomato-deep); }
+    .cw-btn-quiet { border-color: var(--line); color: var(--ink-soft); }
+    .cw-actions { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 18px; align-items: center; }
+    .cw-actions input[type="text"] {
+      flex: 1 1 240px; font: inherit; font-size: 0.9rem; padding: 8px 12px;
+      border: 1.5px solid var(--line); border-radius: 10px; background: var(--paper); color: var(--ink);
+    }
+
+    /* register */
+    .cw-register { list-style: none; padding: 0; margin: 10px 0 0; }
+    .cw-reg-item { display: flex; flex-wrap: wrap; align-items: center; gap: 10px; border: 1.5px solid var(--line); border-radius: 10px; padding: 10px 14px; margin-bottom: 8px; background: var(--paper-raised); }
+    .cw-reg-name { font-weight: 600; flex: 1 1 auto; }
+    .cw-reg-meta { font-family: var(--font-mono); font-size: 0.72rem; color: var(--ink-soft); }
+    .cw-reg-actions { display: flex; gap: 6px; }
+    .cw-reg-actions .cw-btn { padding: 4px 10px; font-size: 0.78rem; }
+    @media print {
+      .site-nav, .hero, .cw-scope, .cw-controls-wrap, .cw-actions, #register-section, .colophon, .steam { display: none !important; }
+      .cw-result { border: none; padding: 0; }
+    }
+  </style>
+</head>
+<body class="theme-crosswalk">
+  <a class="skip-link" href="#main">Skip to content</a>
+  <div class="steam" aria-hidden="true"></div>
+
+  <nav class="site-nav" aria-label="Site">
+    <a href="../../">Acronyms</a>
+    <a href="../../frameworks/nist-csf/">NIST CSF</a>
+    <a href="../../frameworks/cis/">CIS Controls</a>
+    <a href="../../frameworks/ai/">AI Security</a>
+    <a href="../../quiz/">Quiz</a>
+    <a href="../../assess/">Assess</a>
+    <a href="../../roadmap/">Roadmap</a>
+    <a href="https://mitre.cybersecurityalphabetsoup.com/" rel="noopener" target="_blank">MITRE ATT&amp;CK</a>
+    <a href="https://bia.cybersecurityalphabetsoup.com/" rel="noopener" target="_blank" title="Business Impact Assessment">BIA</a><a class="nav-play" href="https://thestateofcybersecurity.github.io/cyberdle/" rel="noopener" target="_blank">Play Cyberdle</a>
+  </nav>
+
+  <header class="hero hero-compact">
+    <p class="kicker">framework fluency &middot; <span id="domain-count">24</span> control domains</p>
+    <h1 class="title">Control crosswalk<br /><em>mapper</em></h1>
+    <p class="tagline">Map your security program once. Check off the control domains you actually run and read your coverage against NIST CSF 2.0, ISO 27001:2022, SOC 2, and CIS Controls v8 at the same time, with a gap register ranked by how many requirements each missing domain would unlock.</p>
+  </header>
+
+  <main id="main" class="ladle cw-wrap">
+    <p class="cw-privacy">This is an unofficial, plain-English crosswalk for planning, not an audit. Coverage is measured against the requirements this crosswalk maps, not every clause of each framework. Your checklist lives only in your browser; nothing is uploaded.</p>
+
+    <section class="cw-scope" aria-label="Frameworks in scope">
+      <h2 class="cw-section-head">Frameworks to measure against</h2>
+      <div id="scope" class="cw-scope-opts" role="group" aria-label="Frameworks to measure against"></div>
+    </section>
+
+    <section class="cw-controls-wrap" aria-label="Control domains">
+      <h2 class="cw-section-head">Your controls</h2>
+      <p class="cw-controls-sub" id="controls-sub" role="status"></p>
+      <ul id="controls" class="cw-controls"></ul>
+    </section>
+
+    <section class="cw-result cw-panel" id="result" aria-label="Coverage and gaps" aria-live="polite"></section>
+
+    <section id="register-section" hidden aria-label="Saved program profiles">
+      <h2 class="cw-section-head">Saved profiles</h2>
+      <ul class="cw-register" id="register"></ul>
+      <p class="print-hide"><button type="button" class="cw-btn" id="export-register">Export profiles as JSON</button></p>
+    </section>
+  </main>
+
+  <footer class="colophon">
+    <p>
+      Why this tool exists:
+      <a class="cyberdle-link" href="../">see the 2026 security leadership scorecard it was built from &rarr;</a>
+    </p>
+    <p>
+      Want the frameworks behind the mappings?
+      <a class="cyberdle-link" href="../../frameworks/nist-csf/">Read NIST CSF 2.0</a> and
+      <a class="cyberdle-link" href="../../frameworks/cis/">CIS Controls v8 in plain English &rarr;</a>
+    </p>
+    <p class="fine-print">
+      An unofficial plain-English tool, not legal or compliance advice. Grounded in:
+      <a href="https://www.nist.gov/cyberframework" rel="noopener">NIST CSF 2.0</a>,
+      <a href="https://www.iso.org/standard/27001" rel="noopener">ISO/IEC 27001:2022</a>,
+      <a href="https://www.aicpa-cima.com/resources/download/2017-trust-services-criteria-with-revised-points-of-focus-2022" rel="noopener">AICPA SOC 2 TSC</a>,
+      <a href="https://www.cisecurity.org/controls/v8" rel="noopener">CIS Controls v8</a>.
+    </p>
+  </footer>
+
+  <script type="module" src="/src/crosswalk-main.ts"></script>
+</body>
+</html>
