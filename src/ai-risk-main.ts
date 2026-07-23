@@ -210,25 +210,46 @@ function renderRegister(): void {
   if (entries.length === 0) return;
 
   const tierLabel = Object.fromEntries(rubric.tiers.map((t) => [t.id, t.label]));
-  // Stored values never reach unescaped HTML: entries are addressed by index,
-  // the tier is allowlisted against the rubric, and the score is coerced.
-  host.innerHTML = entries
-    .map((entry, index) => {
-      const tier = tierLabel[entry.tier] ? entry.tier : 'low';
-      const score = Number(entry.score) || 0;
-      const saved = new Date(entry.savedAt);
-      return `
-      <li class="rt-reg-item" data-index="${index}">
-        <span class="rt-reg-badge tier-${tier}">${esc(tierLabel[tier])}</span>
-        <span class="rt-reg-name">${esc(entry.name)}</span>
-        <span class="rt-reg-meta">${score}/${rubric.meta.maxScore} &middot; ${Number.isNaN(saved.getTime()) ? '' : saved.toLocaleDateString()}</span>
-        <span class="rt-reg-actions">
-          <button type="button" class="rt-btn" data-action="load">Load</button>
-          <button type="button" class="rt-btn rt-btn-quiet" data-action="delete">Delete</button>
-        </span>
-      </li>`;
-    })
-    .join('');
+  // localStorage is user-editable, so stored values are built into the list
+  // with textContent (never innerHTML), the tier class is allowlisted against
+  // the rubric, the score is coerced, and entries are addressed by index.
+  const span = (className: string, text: string): HTMLSpanElement => {
+    const el = document.createElement('span');
+    el.className = className;
+    el.textContent = text;
+    return el;
+  };
+  host.textContent = '';
+  entries.forEach((entry, index) => {
+    const tier = tierLabel[entry.tier] ? entry.tier : 'low';
+    const score = Number(entry.score) || 0;
+    const saved = new Date(entry.savedAt);
+    const savedText = Number.isNaN(saved.getTime()) ? '' : ` · ${saved.toLocaleDateString()}`;
+
+    const item = document.createElement('li');
+    item.className = 'rt-reg-item';
+    item.dataset.index = String(index);
+    item.append(
+      span(`rt-reg-badge tier-${tier}`, tierLabel[tier]),
+      span('rt-reg-name', entry.name),
+      span('rt-reg-meta', `${score}/${rubric.meta.maxScore}${savedText}`),
+    );
+
+    const actions = span('rt-reg-actions', '');
+    for (const [action, label, className] of [
+      ['load', 'Load', 'rt-btn'],
+      ['delete', 'Delete', 'rt-btn rt-btn-quiet'],
+    ] as const) {
+      const button = document.createElement('button');
+      button.type = 'button';
+      button.className = className;
+      button.dataset.action = action;
+      button.textContent = label;
+      actions.append(button);
+    }
+    item.append(actions);
+    host.append(item);
+  });
 }
 
 function initRegister(): void {
