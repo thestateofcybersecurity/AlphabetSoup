@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="color-scheme" content="light dark" />
+  <meta name="description" content="Generate a tailored incident-response runbook skeleton and a ready-to-run tabletop exercise in minutes: pick a scenario (ransomware, BEC, account takeover, third-party breach, AI data leak), describe your org in six fields, and get roles, an escalation ladder, decision points, communications drafts, timed injects, and gap questions. Everything stays in your browser." />
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Runbook and Tabletop Generator | Cybersecurity Alphabet Soup" />
+  <meta property="og:description" content="Pick a scenario, describe your org in six fields, and generate a tailored IR runbook skeleton plus a ready-to-run tabletop with timed injects and facilitator notes." />
+  <meta property="og:url" content="https://cybersecurityalphabetsoup.com/tools/runbook/" />
+  <meta property="og:image" content="https://cybersecurityalphabetsoup.com/og-frameworks.png" />
+  <title>Runbook and Tabletop Generator | Cybersecurity Alphabet Soup</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,700;0,9..144,900;1,9..144,500&family=IBM+Plex+Mono:wght@500;600&family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet" />
+  <link rel="icon" href="/icon.svg" type="image/svg+xml" />
+  <link rel="stylesheet" href="/style.css" />
+  <style>
+    .rb-wrap { max-width: 900px; margin: 0 auto; }
+    .rb-privacy { font-size: 0.84rem; color: var(--ink-soft); margin: 0 0 22px; }
+    .rb-section-head { font-family: var(--font-mono); font-size: 0.76rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--tomato-deep); margin: 26px 0 10px; }
+
+    /* scenario picker */
+    .rb-scenario-opts { display: grid; grid-template-columns: repeat(auto-fill, minmax(230px, 1fr)); gap: 10px; }
+    .rb-scenario-opt {
+      text-align: left; cursor: pointer; border: 1.5px solid var(--line); border-radius: 12px;
+      padding: 12px 14px; background: var(--paper); font: inherit; color: var(--ink);
+    }
+    .rb-scenario-opt:hover { border-color: var(--tomato); }
+    .rb-scenario-opt.selected { border-color: var(--tomato); background: color-mix(in srgb, var(--tomato) 8%, var(--paper)); }
+    .rb-scenario-name { font-weight: 700; font-size: 1rem; }
+    .rb-scenario-tag { font-size: 0.82rem; color: var(--ink-soft); margin-top: 3px; line-height: 1.4; }
+
+    /* profile form */
+    .rb-profile-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+    .rb-field { display: grid; gap: 4px; }
+    .rb-field label { font-size: 0.8rem; font-weight: 600; color: var(--ink-soft); }
+    .rb-field label .rb-used { font-family: var(--font-mono); font-size: 0.62rem; color: var(--tomato-deep); margin-left: 6px; letter-spacing: 0.04em; }
+    .rb-field input {
+      font: inherit; font-size: 0.92rem; padding: 8px 12px; border: 1.5px solid var(--line);
+      border-radius: 10px; background: var(--paper); color: var(--ink); width: 100%;
+    }
+
+    /* generated output */
+    .rb-actions { display: flex; flex-wrap: wrap; gap: 10px; margin: 0 0 16px; align-items: center; }
+    .rb-btn {
+      font: inherit; font-size: 0.85rem; font-weight: 600; cursor: pointer;
+      border: 1.5px solid var(--tomato); color: var(--tomato-deep); background: transparent;
+      border-radius: 10px; padding: 7px 14px;
+    }
+    .rb-btn:hover { background: var(--tomato); color: #fff; }
+    .rb-btn-primary { background: var(--tomato); color: #fff; }
+    .rb-btn-primary:hover { background: var(--tomato-deep); border-color: var(--tomato-deep); }
+
+    .rb-doc { border: 2px solid var(--tomato); border-radius: 16px; background: var(--paper-raised); padding: 22px 24px; }
+    .rb-doc-title { font-family: var(--font-display); font-weight: 700; font-size: 1.55rem; margin: 0 0 2px; }
+    .rb-doc-for { font-family: var(--font-mono); font-size: 0.76rem; letter-spacing: 0.05em; color: var(--ink-soft); margin: 0 0 8px; }
+    .rb-doc-summary { font-size: 0.98rem; line-height: 1.6; margin: 0 0 8px; }
+    .rb-block-head { font-family: var(--font-display); font-weight: 700; font-size: 1.2rem; margin: 22px 0 8px; padding-top: 14px; border-top: 1.5px solid var(--line); }
+    .rb-sub { font-family: var(--font-mono); font-size: 0.72rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--tomato-deep); margin: 16px 0 6px; }
+    .rb-list { margin: 4px 0 8px; padding-left: 20px; font-size: 0.93rem; line-height: 1.55; }
+    .rb-list li { margin-bottom: 5px; }
+
+    .rb-roles { list-style: none; padding: 0; margin: 4px 0 8px; display: grid; gap: 6px; }
+    .rb-role { border: 1.5px solid var(--line); border-radius: 10px; padding: 8px 12px; background: var(--paper); font-size: 0.9rem; }
+    .rb-role b { color: var(--ink); }
+
+    .rb-phase { margin: 0 0 10px; }
+    .rb-phase-name { font-weight: 700; font-size: 0.98rem; margin: 8px 0 2px; }
+
+    .rb-comms { display: grid; gap: 8px; }
+    .rb-comm { border: 1.5px solid var(--line); border-radius: 10px; padding: 10px 14px; background: var(--paper); }
+    .rb-comm-aud { font-family: var(--font-mono); font-size: 0.68rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--tomato-deep); margin: 0 0 4px; }
+    .rb-comm-draft { font-size: 0.9rem; line-height: 1.55; margin: 0; white-space: pre-wrap; }
+
+    .rb-injects { list-style: none; padding: 0; margin: 4px 0 0; display: grid; gap: 10px; counter-reset: inject; }
+    .rb-inject { border: 1.5px solid var(--line); border-left-width: 5px; border-left-color: var(--tomato); border-radius: 10px; padding: 11px 15px; background: var(--paper); }
+    .rb-inject-top { display: flex; flex-wrap: wrap; align-items: baseline; gap: 10px; }
+    .rb-inject-time { font-family: var(--font-mono); font-size: 0.72rem; font-weight: 600; color: #fff; background: var(--tomato); border-radius: 6px; padding: 2px 8px; }
+    .rb-inject-title { font-weight: 700; font-size: 0.96rem; }
+    .rb-inject-detail { font-size: 0.92rem; line-height: 1.55; margin: 6px 0; }
+    .rb-inject-meta { font-size: 0.85rem; color: var(--ink-soft); margin: 3px 0 0; }
+    .rb-inject-meta b { color: var(--tomato-deep); font-weight: 600; }
+
+    .rb-empty { font-size: 0.95rem; color: var(--ink-soft); }
+
+    @media (max-width: 620px) { .rb-profile-grid { grid-template-columns: 1fr; } }
+    @media print {
+      .site-nav, .hero, .rb-scenario, .rb-profile, .rb-actions, .colophon, .steam, .rb-privacy { display: none !important; }
+      .rb-doc { border: none; padding: 0; }
+      .rb-inject, .rb-comm, .rb-role { break-inside: avoid; }
+    }
+  </style>
+</head>
+<body class="theme-runbook">
+  <a class="skip-link" href="#main">Skip to content</a>
+  <div class="steam" aria-hidden="true"></div>
+
+  <nav class="site-nav" aria-label="Site">
+    <a href="../../">Acronyms</a>
+    <a href="../../frameworks/nist-csf/">NIST CSF</a>
+    <a href="../../frameworks/cis/">CIS Controls</a>
+    <a href="../../frameworks/ai/">AI Security</a>
+    <a href="../../quiz/">Quiz</a>
+    <a href="../../assess/">Assess</a>
+    <a href="../../roadmap/">Roadmap</a>
+    <a href="https://mitre.cybersecurityalphabetsoup.com/" rel="noopener" target="_blank">MITRE ATT&amp;CK</a>
+    <a href="https://bia.cybersecurityalphabetsoup.com/" rel="noopener" target="_blank" title="Business Impact Assessment">BIA</a><a class="nav-play" href="https://thestateofcybersecurity.github.io/cyberdle/" rel="noopener" target="_blank">Play Cyberdle</a>
+  </nav>
+
+  <header class="hero hero-compact">
+    <p class="kicker">incident readiness &middot; <span id="scenario-count">5</span> scenarios</p>
+    <h1 class="title">Runbook &amp; tabletop<br /><em>generator</em></h1>
+    <p class="tagline">Pick an incident scenario, describe your organization in six fields, and generate a tailored response runbook skeleton plus a ready-to-run tabletop exercise: roles, an escalation ladder, decision points, communications drafts, timed injects with facilitator notes, and the gap questions to answer before the real thing.</p>
+  </header>
+
+  <main id="main" class="ladle rb-wrap">
+    <p class="rb-privacy">This is a starting skeleton to adapt, not a finished plan or legal advice. Your organization details live only in your browser; nothing is uploaded.</p>
+
+    <section class="rb-scenario" aria-label="Choose a scenario">
+      <h2 class="rb-section-head">Pick a scenario</h2>
+      <div id="scenarios" class="rb-scenario-opts"></div>
+    </section>
+
+    <section class="rb-profile" aria-label="Describe your organization">
+      <h2 class="rb-section-head">Describe your organization</h2>
+      <div id="profile" class="rb-profile-grid"></div>
+    </section>
+
+    <section class="rb-output" id="output" aria-label="Generated runbook and tabletop" aria-live="polite"></section>
+  </main>
+
+  <footer class="colophon">
+    <p>
+      Why this tool exists:
+      <a class="cyberdle-link" href="../">see the 2026 security leadership scorecard it was built from &rarr;</a>
+    </p>
+    <p>
+      Running a real business-impact analysis next?
+      <a class="cyberdle-link" href="https://bia.cybersecurityalphabetsoup.com/" rel="noopener" target="_blank">Use the BIA tool to size the disruption &rarr;</a>
+    </p>
+    <p class="fine-print">
+      An unofficial plain-English tool, not legal or compliance advice. Flow grounded in:
+      <a href="https://csrc.nist.gov/pubs/sp/800/61/r3/final" rel="noopener">NIST SP 800-61</a> and
+      <a href="https://www.cisa.gov/resources-tools/resources/federal-government-cybersecurity-incident-and-vulnerability-response-playbooks" rel="noopener">CISA response playbooks</a>.
+    </p>
+  </footer>
+
+  <script type="module" src="/src/runbook-main.ts"></script>
+</body>
+</html>

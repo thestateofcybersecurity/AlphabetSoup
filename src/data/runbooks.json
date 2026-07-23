@@ -1,0 +1,901 @@
+{
+  "meta": {
+    "title": "Runbook and Tabletop Generator",
+    "version": "1.0.0",
+    "note": "Scenario skeletons to adapt, grounded in NIST SP 800-61 and CISA response playbooks. Not a finished plan or legal advice.",
+    "sources": [
+      {
+        "name": "NIST SP 800-61r3 Incident Response Recommendations",
+        "url": "https://csrc.nist.gov/pubs/sp/800/61/r3/final"
+      },
+      {
+        "name": "CISA Incident and Vulnerability Response Playbooks",
+        "url": "https://www.cisa.gov/resources-tools/resources/federal-government-cybersecurity-incident-and-vulnerability-response-playbooks"
+      }
+    ]
+  },
+  "scenarios": [
+    {
+      "id": "ransomware",
+      "name": "Ransomware",
+      "tagline": "Encrypted systems and a ransom note halt operations.",
+      "summary": "An attacker has deployed ransomware across {org}, encrypting endpoints and servers and leaving a ransom note. Critical systems supporting {process} are offline, and there is a risk that {dataTypes} was stolen before encryption. The business faces downtime costs, possible data exposure, and regulatory notification obligations.",
+      "phases": [
+        {
+          "name": "Detect and triage",
+          "steps": [
+            "Confirm the alert is real ransomware by checking for encrypted files, ransom notes, and mass file-change activity across {cloud}.",
+            "Open a formal incident, assign an Incident Commander, and start a timestamped log of every action and decision.",
+            "Engage {mdr} to pull endpoint and identity telemetry and identify patient zero and the initial access vector.",
+            "Estimate blast radius by listing affected hosts, servers, and any systems tied to {process}.",
+            "Assess whether {dataTypes} may have been accessed or exfiltrated, since that drives breach-notification timing.",
+            "Notify the cyber-insurance carrier and legal counsel early; engaging a forensics or negotiation firm before the insurer approves can void coverage."
+          ]
+        },
+        {
+          "name": "Contain",
+          "steps": [
+            "Isolate infected hosts from the network (disable ports, quarantine via EDR) while keeping them powered on to preserve memory evidence.",
+            "Disable or reset compromised accounts and rotate credentials for privileged and service accounts in {cloud}.",
+            "Block known malicious IOCs (domains, hashes, IPs) at the firewall and email gateway with help from {mdr}.",
+            "Protect backups immediately by taking backup systems offline or read-only so they cannot be encrypted or deleted.",
+            "Segment or shut down systems supporting {process} if lateral spread is active and cannot yet be stopped."
+          ]
+        },
+        {
+          "name": "Eradicate",
+          "steps": [
+            "Identify the ransomware variant and initial access method (phishing, exposed RDP, vulnerable service) to close the entry point.",
+            "Remove malware, persistence mechanisms, scheduled tasks, and any attacker tooling from all affected hosts.",
+            "Patch the exploited vulnerability and disable or harden the exposed service across the environment.",
+            "Reset all potentially exposed credentials, including domain admin, service accounts, and API keys.",
+            "Validate with {mdr} that no active attacker footholds or command-and-control channels remain."
+          ]
+        },
+        {
+          "name": "Recover",
+          "steps": [
+            "Verify backup integrity and confirm backups predate the compromise before restoring anything.",
+            "Rebuild or restore systems in priority order, bringing {process} back first where it is safe to do so.",
+            "Restore into a clean, monitored network segment and scan each system before returning it to production.",
+            "Confirm business functions work end to end and watch closely for signs of reinfection.",
+            "Keep enhanced monitoring in place for several weeks after recovery to catch attacker return attempts."
+          ]
+        },
+        {
+          "name": "Post-incident review",
+          "steps": [
+            "Hold a blameless review within two weeks covering timeline, root cause, and response gaps.",
+            "Document lessons learned and assign owners and due dates for each remediation item.",
+            "Confirm all regulatory and contractual notifications were completed and recorded.",
+            "Update the runbook, detection rules, and backup strategy based on what was learned.",
+            "Report outcomes and residual risk to executives and, where required, the board."
+          ]
+        }
+      ],
+      "roles": [
+        {
+          "role": "Incident Commander",
+          "focus": "Owns the overall response, declares severity, coordinates all workstreams, and controls the pay/no-pay decision process."
+        },
+        {
+          "role": "Technical Lead",
+          "focus": "Directs containment, eradication, and recovery across {cloud} and validates that systems are clean before restore."
+        },
+        {
+          "role": "Forensics Lead",
+          "focus": "Preserves evidence, determines root cause and scope, and assesses whether {dataTypes} was exfiltrated."
+        },
+        {
+          "role": "Comms and Legal",
+          "focus": "Manages internal and external messaging, breach-notification timing, and law-enforcement engagement."
+        },
+        {
+          "role": "Backup and Recovery Lead",
+          "focus": "Protects and validates backups, then plans and executes restoration in priority order."
+        },
+        {
+          "role": "Executive Sponsor",
+          "focus": "Approves major spend, ransom decisions, and business tradeoffs; keeps leadership and the board informed."
+        }
+      ],
+      "escalation": [
+        "Sev-3 (single endpoint encrypted, contained quickly): handle within the IR team and monitor for spread.",
+        "Sev-2 (multiple hosts or a server affected, spread suspected): activate the full IR team, notify executives, and engage {mdr}.",
+        "Sev-1 (critical systems down or {dataTypes} exfiltration confirmed): declare a major incident, activate crisis management, engage legal and law enforcement, and brief the board.",
+        "Sev-1 sustained (extended outage or extortion pressure): convene the crisis team on a standing bridge and prepare public and regulator communications."
+      ],
+      "decisionPoints": [
+        "Do we pay the ransom, and who holds the authority to decide? Before any payment, screen the threat actor against OFAC and other sanctions lists and consult law enforcement, since paying certain sanctioned groups can itself be unlawful.",
+        "Do we take {process} fully offline to stop the spread, accepting the business impact?",
+        "Have we confirmed backups are clean and complete enough to recover without paying?",
+        "Do we notify law enforcement, and at what point do we involve them?",
+        "Has {dataTypes} been exfiltrated, and does that trigger a regulatory notification clock?",
+        "Do we engage an external forensics or ransomware negotiation firm?"
+      ],
+      "commsTemplates": [
+        {
+          "audience": "Employees",
+          "draft": "We are responding to a security incident affecting some {org} systems. As a precaution, please do not log in to affected systems, avoid connecting personal devices to the network, and report anything unusual to the security team immediately. We will share updates as we learn more; thank you for your cooperation."
+        },
+        {
+          "audience": "Customers",
+          "draft": "We recently identified a security incident affecting some of our systems and took immediate action to contain it. We are working to restore normal service and are investigating whether any information was affected. If we determine that your data was involved, we will contact you directly with details and guidance."
+        },
+        {
+          "audience": "Executives and board",
+          "draft": "At [time/date] we confirmed a ransomware incident affecting critical systems. Containment is underway, backups are being protected and validated, and forensics is assessing whether data was exfiltrated. Key decisions ahead include recovery approach and any ransom consideration; we will brief you again at [time] or sooner if the situation changes."
+        },
+        {
+          "audience": "Regulators",
+          "draft": "We are notifying you of a ransomware incident detected on [date] that may have affected regulated data. We have contained the affected systems, engaged forensic specialists, and begun assessing the scope. We will provide a fuller account, including the categories and number of records potentially affected, as our investigation progresses and within the required timeframe."
+        }
+      ],
+      "injects": [
+        {
+          "time": "T+0 min",
+          "title": "Ransom note discovered",
+          "detail": "A finance employee reports files renamed with an odd extension and a ransom note demanding payment in cryptocurrency within 72 hours.",
+          "facilitatorNote": "Watch whether the team confirms scope before acting and opens a formal incident with a scribe.",
+          "expectedAction": "Declare an incident, assign an Incident Commander, start a log, and begin scoping affected systems."
+        },
+        {
+          "time": "T+15 min",
+          "title": "Spread detected",
+          "detail": "Monitoring shows the same encryption activity on three file servers and several endpoints across two sites.",
+          "facilitatorNote": "See if they isolate hosts without powering them off and prioritize protecting backups.",
+          "expectedAction": "Isolate affected hosts, engage {mdr}, and take backups offline or read-only."
+        },
+        {
+          "time": "T+1 hr",
+          "title": "Business process down",
+          "detail": "The team supporting {process} reports they cannot work; a manager is pushing to restore systems immediately.",
+          "facilitatorNote": "Probe how they balance business pressure against the risk of restoring into a compromised network.",
+          "expectedAction": "Hold the line on containment, communicate a realistic timeline, and resist premature restoration."
+        },
+        {
+          "time": "T+3 hr",
+          "title": "Exfiltration evidence",
+          "detail": "Forensics finds a large outbound data transfer before encryption, suggesting {dataTypes} was stolen.",
+          "facilitatorNote": "Watch for recognition that this is now a data breach with notification obligations.",
+          "expectedAction": "Engage legal, start the breach-notification assessment, and preserve the exfiltration evidence."
+        },
+        {
+          "time": "T+6 hr",
+          "title": "Attacker pressure",
+          "detail": "The attacker emails a sample of stolen data and threatens to publish it if payment is not made within 24 hours.",
+          "facilitatorNote": "See whether the pay/no-pay authority and process are clear and whether anyone replies without approval.",
+          "expectedAction": "Route the decision through the defined authority, avoid unauthorized contact, and consider law enforcement and a negotiation firm."
+        },
+        {
+          "time": "T+24 hr",
+          "title": "Backup problem",
+          "detail": "The most recent backups are found to be incomplete for a key system, adding days to the recovery estimate.",
+          "facilitatorNote": "Probe how this changes the pay/no-pay calculus and the recovery plan.",
+          "expectedAction": "Reassess recovery options, update executives on timeline, and prioritize alternative restore paths."
+        },
+        {
+          "time": "T+48 hr",
+          "title": "Media inquiry",
+          "detail": "A reporter contacts {org} asking to confirm a ransomware attack and stolen customer data.",
+          "facilitatorNote": "Watch whether all inquiries route to a single approved spokesperson and whether messaging is consistent.",
+          "expectedAction": "Route to the designated spokesperson, use approved holding statements, and align internal and external messaging."
+        }
+      ],
+      "gapQuestions": [
+        "Are our backups isolated, immutable, and tested so ransomware cannot reach or destroy them?",
+        "Who holds the authority to approve or reject a ransom payment, and is that documented?",
+        "Do we know our breach-notification deadlines for the {dataTypes} we hold and the jurisdictions we operate in?",
+        "Do we have a retainer with a forensics or incident-response firm we can call within an hour?",
+        "How quickly can we isolate a compromised segment or an entire site if needed?",
+        "Do we have offline copies of the response plan and contact lists if primary systems are encrypted?",
+        "Have we practiced restoring critical systems supporting {process}, and how long does it actually take?"
+      ]
+    },
+    {
+      "id": "bec",
+      "name": "Business Email Compromise",
+      "tagline": "A hijacked or spoofed mailbox drives a fraudulent payment.",
+      "summary": "An attacker has compromised or convincingly impersonated an email account at {org} to trick staff into sending funds or changing payment details. Finance workflows tied to {process} are the primary target, and a fraudulent wire may already be in flight. Rapid action can still recall funds and stop further fraud, but the window is short.",
+      "phases": [
+        {
+          "name": "Detect and triage",
+          "steps": [
+            "Confirm the report: identify the suspicious email, the requested action, and whether any payment or data change has occurred.",
+            "Open an incident, assign an Incident Commander, and record a timeline of messages, approvals, and transactions.",
+            "Determine whether an internal mailbox was actually compromised or whether this is external spoofing or lookalike domain abuse.",
+            "Check sign-in logs in {cloud} for unusual logins, impossible travel, or new locations tied to the affected account.",
+            "Quantify exposure: amounts involved, vendors or customers affected, and any {dataTypes} that may have been exposed."
+          ]
+        },
+        {
+          "name": "Contain",
+          "steps": [
+            "If funds have moved, contact the sending bank immediately to request a recall or freeze on the fraudulent transfer.",
+            "Reset the password for the affected mailbox and revoke active sessions and tokens in {cloud}.",
+            "Hunt for and remove malicious inbox rules, forwarding rules, and delegate access the attacker created for persistence.",
+            "Enforce multi-factor authentication on the account and review MFA methods for any attacker-added devices.",
+            "Freeze pending payments and alert finance to verify any recent or in-flight changes to vendor banking details."
+          ]
+        },
+        {
+          "name": "Eradicate",
+          "steps": [
+            "Confirm how the account was compromised (phishing, credential reuse, session theft) and close that path.",
+            "Remove all attacker persistence: inbox rules, forwarding, OAuth app grants, and mail delegations across affected accounts.",
+            "Audit other mailboxes for the same malicious rules or grants, since attackers often move laterally.",
+            "Reset credentials and MFA for any additional accounts showing signs of access.",
+            "Block the attacker infrastructure (sender domains, lookalike domains, IPs) at the email gateway."
+          ]
+        },
+        {
+          "name": "Recover",
+          "steps": [
+            "Confirm the mailbox is clean and restore normal access for the legitimate user.",
+            "Work with the bank and, if needed, law enforcement to track recall status and recover funds.",
+            "Verify and re-establish correct vendor and payroll banking details through an out-of-band channel.",
+            "Re-enable paused payment workflows once verification controls are confirmed working.",
+            "Monitor the affected accounts and finance activity closely for repeat attempts."
+          ]
+        },
+        {
+          "name": "Post-incident review",
+          "steps": [
+            "Run a blameless review of how the request bypassed existing payment and verification controls.",
+            "Document financial loss, recovery amount, and root cause with owners for each fix.",
+            "Confirm whether the incident triggers notification duties for affected parties or regulators.",
+            "Strengthen payment verification, email authentication (SPF, DKIM, DMARC), and staff awareness.",
+            "Report the outcome and residual fraud risk to executives and finance leadership."
+          ]
+        }
+      ],
+      "roles": [
+        {
+          "role": "Incident Commander",
+          "focus": "Owns the response, coordinates finance, IT, and legal, and drives the funds-recovery clock."
+        },
+        {
+          "role": "Fraud and Finance Lead",
+          "focus": "Contacts the bank for wire recall, freezes payments, and verifies vendor banking changes out of band."
+        },
+        {
+          "role": "Technical Lead",
+          "focus": "Secures the mailbox in {cloud}, revokes sessions, and removes malicious rules, forwarding, and app grants."
+        },
+        {
+          "role": "Comms and Legal",
+          "focus": "Advises on notification duties, manages messaging to affected vendors or customers, and engages law enforcement."
+        },
+        {
+          "role": "Forensics Lead",
+          "focus": "Determines how the account was compromised, the scope of access, and whether {dataTypes} was exposed."
+        },
+        {
+          "role": "Executive Sponsor",
+          "focus": "Approves recovery actions and spend and keeps leadership informed of financial exposure."
+        }
+      ],
+      "escalation": [
+        "Sev-3 (spoofed email caught before any payment or change): warn staff, block the sender, and monitor for follow-ups.",
+        "Sev-2 (mailbox compromise confirmed but no funds moved): activate the IR team, secure the account, and hunt for persistence.",
+        "Sev-1 (fraudulent payment sent or {dataTypes} exposed): declare a major incident, trigger the bank recall process, and engage legal and law enforcement.",
+        "Sev-1 sustained (large loss or multiple accounts compromised): convene crisis management and prepare vendor and regulator communications."
+      ],
+      "decisionPoints": [
+        "Have we contacted the bank to recall the wire, and are we inside the recall window?",
+        "Was an internal mailbox actually compromised, or is this external impersonation only?",
+        "Do we notify the affected vendor or customer that their communications were impersonated?",
+        "Do we pause all outbound payments until verification controls are confirmed?",
+        "Does this incident trigger a regulatory or contractual notification obligation?",
+        "Do we file a report with law enforcement or a fraud reporting center, and when?"
+      ],
+      "commsTemplates": [
+        {
+          "audience": "Employees",
+          "draft": "We are investigating a business email compromise attempt at {org}. Please be extra cautious with any email requesting payments, gift cards, or changes to banking details, and verify such requests by phone using a known number. Do not act on urgent financial requests by email alone, and report suspicious messages to the security team."
+        },
+        {
+          "audience": "Customers",
+          "draft": "We want to make you aware that {org} was targeted by an email impersonation attempt. If you receive any message claiming to be from us with new payment instructions, please do not act on it and verify directly through your usual contact. We take the security of our communications seriously and are investigating the matter."
+        },
+        {
+          "audience": "Executives and board",
+          "draft": "At [time/date] we identified a business email compromise involving [account/vendor] and a fraudulent payment of [amount]. We have contacted the bank to attempt recall, secured the affected mailbox, and are hunting for further attacker access. We will update you on recovery status and any notification obligations by [time]."
+        },
+        {
+          "audience": "Regulators",
+          "draft": "We are notifying you of a business email compromise incident identified on [date] that involved unauthorized access to a corporate email account and may have exposed regulated data. We have contained the account, engaged forensic support, and begun scoping the impact. We will provide further detail on affected records within the required timeframe."
+        }
+      ],
+      "injects": [
+        {
+          "time": "T+0 min",
+          "title": "Urgent payment request",
+          "detail": "An accounts-payable clerk reports an email from a senior leader asking to urgently wire funds to a new account for a confidential deal.",
+          "facilitatorNote": "Watch whether the team treats this as suspicious and verifies through an independent channel before acting.",
+          "expectedAction": "Open an incident, do not process the payment, and verify the request by phone using a known number."
+        },
+        {
+          "time": "T+15 min",
+          "title": "Payment already sent",
+          "detail": "It emerges that a similar request earlier that morning was paid; a wire of a significant amount has already left the account.",
+          "facilitatorNote": "Time is critical here; see how fast they move to the bank and whether they know who to call.",
+          "expectedAction": "Immediately contact the sending bank to request a recall or freeze and start the funds-recovery clock."
+        },
+        {
+          "time": "T+45 min",
+          "title": "Mailbox rule found",
+          "detail": "IT discovers a hidden inbox rule in the CFO mailbox auto-forwarding and deleting messages from a specific vendor.",
+          "facilitatorNote": "Check whether they recognize this as active persistence and secure the account, not just delete the rule.",
+          "expectedAction": "Reset the password, revoke sessions and tokens, remove the rule, and search other mailboxes for the same."
+        },
+        {
+          "time": "T+1 hr",
+          "title": "Vendor bank change",
+          "detail": "Finance finds that a real vendor's banking details were changed last week based on an emailed request.",
+          "facilitatorNote": "Probe whether they verify the change out of band and check how many payments used the altered details.",
+          "expectedAction": "Freeze payments to that vendor, verify correct details by phone, and reverse any fraudulent changes."
+        },
+        {
+          "time": "T+2 hr",
+          "title": "Second account flagged",
+          "detail": "Sign-in logs show suspicious logins to a second employee mailbox from the same foreign IP address.",
+          "facilitatorNote": "Watch for recognition of lateral movement and a broader containment sweep.",
+          "expectedAction": "Secure the second account, expand the hunt across {cloud}, and reset affected credentials and MFA."
+        },
+        {
+          "time": "T+4 hr",
+          "title": "Bank response",
+          "detail": "The bank reports that part of the wire was recalled but a portion has already been withdrawn by the attacker.",
+          "facilitatorNote": "See how they handle partial loss, law-enforcement reporting, and financial disclosure.",
+          "expectedAction": "Document the loss, file a report with law enforcement or a fraud center, and brief executives on exposure."
+        },
+        {
+          "time": "T+1 day",
+          "title": "Data exposure question",
+          "detail": "Forensics confirms the attacker had mailbox access for two weeks, including messages containing {dataTypes}.",
+          "facilitatorNote": "Watch whether the team pivots to breach-notification assessment, not just fraud response.",
+          "expectedAction": "Engage legal, assess notification obligations, and scope which records and parties were affected."
+        }
+      ],
+      "gapQuestions": [
+        "Do we require out-of-band verification (a callback to a known number) for all payment and banking-detail changes?",
+        "Do our finance staff know exactly who to call at the bank to recall a wire, and how fast can they reach them?",
+        "Is MFA enforced on all mailboxes, and can we quickly detect and remove malicious inbox and forwarding rules?",
+        "Have we configured SPF, DKIM, and DMARC to reduce spoofing and lookalike-domain attacks?",
+        "Do we have a dual-approval control for payments above a set threshold tied to {process}?",
+        "Can we pull sign-in and audit logs from {cloud} quickly enough to scope a mailbox compromise?",
+        "Do we know our fraud-reporting and notification obligations when a payment fraud involves {dataTypes}?"
+      ]
+    },
+    {
+      "id": "account-takeover",
+      "name": "Account Takeover",
+      "tagline": "An attacker seizes valid credentials and hijacks an account.",
+      "summary": "An attacker has gained control of a legitimate user or admin account at {org}, likely through phishing, credential stuffing, or session-token theft. With valid access to {cloud}, they can reach systems and data supporting {process} while appearing to be a trusted user. The stakes include data theft, further compromise, and abuse of the account's privileges before the takeover is noticed.",
+      "phases": [
+        {
+          "name": "Detect and triage",
+          "steps": [
+            "Confirm the takeover by reviewing sign-in logs for impossible travel, new devices, or unusual locations on the account.",
+            "Open an incident, assign an Incident Commander, and log every observed attacker action with timestamps.",
+            "Determine the account's privilege level and what systems, data, and roles in {process} it can reach.",
+            "Check whether the attacker created new accounts, elevated privileges, or accessed {dataTypes}.",
+            "Engage {mdr} to correlate activity and identify how the credentials or session were obtained."
+          ]
+        },
+        {
+          "name": "Contain",
+          "steps": [
+            "Revoke all active sessions and tokens for the account so a stolen session cannot continue to be used.",
+            "Reset the account password and force re-authentication across {cloud}.",
+            "Reset and re-enroll MFA for the account, removing any attacker-registered devices or methods.",
+            "Disable or lock any new accounts or elevated privileges the attacker created.",
+            "Block attacker infrastructure and, if the account is highly privileged, restrict access to systems supporting {process}."
+          ]
+        },
+        {
+          "name": "Eradicate",
+          "steps": [
+            "Identify the root cause (phishing, reused password, token theft, MFA fatigue) and close that entry point.",
+            "Remove attacker persistence: new credentials, OAuth grants, API keys, mail rules, and added recovery methods.",
+            "Review and revert any configuration or permission changes the attacker made.",
+            "Reset credentials for any downstream accounts or services the compromised account could reach.",
+            "Confirm with {mdr} that no attacker sessions, tokens, or footholds remain active."
+          ]
+        },
+        {
+          "name": "Recover",
+          "steps": [
+            "Restore legitimate access for the user after verifying their identity through a trusted channel.",
+            "Confirm the account's permissions and settings are returned to a known-good state.",
+            "Validate that systems and data touched by the account are intact and unmodified.",
+            "Re-enable any access that was restricted during containment once it is safe.",
+            "Apply enhanced monitoring to the account and related systems for repeat attempts."
+          ]
+        },
+        {
+          "name": "Post-incident review",
+          "steps": [
+            "Hold a blameless review of how the credentials were stolen and how detection performed.",
+            "Document scope, data accessed, and root cause with assigned remediation owners.",
+            "Confirm whether accessed {dataTypes} triggers any notification obligations.",
+            "Strengthen authentication (phishing-resistant MFA), monitoring, and least-privilege controls.",
+            "Report the outcome and residual identity risk to executives."
+          ]
+        }
+      ],
+      "roles": [
+        {
+          "role": "Incident Commander",
+          "focus": "Owns the response, prioritizes revocation and reset actions, and coordinates all workstreams."
+        },
+        {
+          "role": "Identity and Access Lead",
+          "focus": "Executes session and token revocation, password and MFA resets, and privilege review in {cloud}."
+        },
+        {
+          "role": "Technical Lead",
+          "focus": "Hunts for persistence and lateral movement and validates that no attacker access remains."
+        },
+        {
+          "role": "Forensics Lead",
+          "focus": "Determines how credentials were obtained, the scope of attacker activity, and whether {dataTypes} was accessed."
+        },
+        {
+          "role": "Comms and Legal",
+          "focus": "Advises on notification duties and manages messaging to affected users, customers, or regulators."
+        },
+        {
+          "role": "Executive Sponsor",
+          "focus": "Approves disruptive containment of privileged accounts and keeps leadership informed of exposure."
+        }
+      ],
+      "escalation": [
+        "Sev-3 (single standard user account, no sensitive access): reset the account, revoke sessions, and monitor.",
+        "Sev-2 (account with access to sensitive systems or data): activate the IR team, hunt for persistence, and engage {mdr}.",
+        "Sev-1 (admin or privileged account compromised, or {dataTypes} accessed): declare a major incident, engage legal, and consider a broader credential reset.",
+        "Sev-1 sustained (multiple accounts or identity provider compromised): convene crisis management and prepare customer and regulator communications."
+      ],
+      "decisionPoints": [
+        "Do we immediately lock the account, accepting user disruption, or watch briefly to scope attacker activity first?",
+        "Is this a single-account issue or a sign of broader identity-provider or credential compromise?",
+        "Do we force a password and session reset across a wider group of users as a precaution?",
+        "Has the attacker accessed {dataTypes} in a way that triggers a notification obligation?",
+        "Do we notify the affected user and any customers whose data the account could reach?",
+        "Do we need to rotate downstream secrets and API keys the account had access to?"
+      ],
+      "commsTemplates": [
+        {
+          "audience": "Employees",
+          "draft": "We are responding to an account takeover incident at {org}. You may be prompted to reset your password and re-enroll multi-factor authentication as a precaution. Please complete these steps promptly, do not approve any login prompts you did not initiate, and report unexpected MFA requests to the security team."
+        },
+        {
+          "audience": "Customers",
+          "draft": "We identified unauthorized access to an account within {org} and have secured it. We are investigating whether any of your information was affected and will contact you directly if it was. As a precaution, we recommend resetting your password and enabling multi-factor authentication on your account with us."
+        },
+        {
+          "audience": "Executives and board",
+          "draft": "At [time/date] we confirmed the takeover of a [standard/privileged] account. We have revoked its sessions and tokens, reset credentials and MFA, and are hunting for persistence and lateral movement. We are assessing what data was accessed and any notification obligations, and will update you by [time]."
+        },
+        {
+          "audience": "Regulators",
+          "draft": "We are notifying you of an account takeover incident detected on [date] in which an attacker gained access to a legitimate account and may have accessed regulated data. We have secured the account, revoked attacker access, and engaged forensic support. We will provide further detail on the categories and number of records affected within the required timeframe."
+        }
+      ],
+      "injects": [
+        {
+          "time": "T+0 min",
+          "title": "Impossible travel alert",
+          "detail": "An alert fires for a user logging in from two countries within minutes; the user confirms they did not travel or log in.",
+          "facilitatorNote": "Watch whether the team confirms the alert and moves quickly to revoke access rather than just resetting the password.",
+          "expectedAction": "Open an incident, revoke active sessions and tokens, and begin scoping the account's access."
+        },
+        {
+          "time": "T+15 min",
+          "title": "MFA changed",
+          "detail": "The account shows a new MFA device registered an hour ago and the user's recovery email was altered.",
+          "facilitatorNote": "Check whether they recognize this as persistence and reset MFA and recovery methods, not just the password.",
+          "expectedAction": "Reset and re-enroll MFA, remove attacker devices and recovery methods, and force re-authentication."
+        },
+        {
+          "time": "T+45 min",
+          "title": "Privilege escalation",
+          "detail": "Logs show the attacker added the account to an admin group and created a second account with elevated rights.",
+          "facilitatorNote": "Probe whether they hunt for and disable attacker-created accounts and reverse permission changes.",
+          "expectedAction": "Disable the new account, revert the group change, and expand the investigation to related accounts."
+        },
+        {
+          "time": "T+1 hr",
+          "title": "Data access",
+          "detail": "The attacker accessed a repository containing {dataTypes} while using the compromised account.",
+          "facilitatorNote": "Watch for the pivot to a data-breach assessment and evidence preservation.",
+          "expectedAction": "Engage legal, preserve access logs, and begin scoping which records were exposed."
+        },
+        {
+          "time": "T+2 hr",
+          "title": "OAuth grant found",
+          "detail": "A suspicious third-party OAuth application was granted broad access to the account's data.",
+          "facilitatorNote": "See whether the team knows to revoke app grants, since these survive a password reset.",
+          "expectedAction": "Revoke the OAuth grant, audit other accounts for the same app, and review what data it could reach."
+        },
+        {
+          "time": "T+4 hr",
+          "title": "Second account signal",
+          "detail": "The same attacker infrastructure appears in sign-in attempts against several other accounts.",
+          "facilitatorNote": "Probe whether they recognize a possible credential-stuffing campaign and consider a wider reset.",
+          "expectedAction": "Decide on a broader forced reset, block the infrastructure, and increase monitoring across {cloud}."
+        },
+        {
+          "time": "T+1 day",
+          "title": "Root cause found",
+          "detail": "Forensics traces the takeover to a phishing page that captured the password and a valid session token.",
+          "facilitatorNote": "Watch whether they move to close the entry point and address token theft, not only the one account.",
+          "expectedAction": "Remove the phishing infrastructure, evaluate phishing-resistant MFA, and confirm no other users were caught."
+        }
+      ],
+      "gapQuestions": [
+        "Can we revoke a user's sessions and tokens quickly, and does our MFA survive session-token theft?",
+        "How fast can we detect impossible travel, new-device logins, and suspicious MFA activity?",
+        "Do we enforce phishing-resistant MFA, especially for privileged and admin accounts?",
+        "Do we have a documented process to reset MFA and recovery methods, not just passwords?",
+        "Can we quickly find and revoke malicious OAuth grants and API keys tied to an account?",
+        "Do we apply least privilege so a single account takeover cannot reach {dataTypes} or all of {process}?",
+        "Do we know our notification obligations if an attacker accessed regulated data through a valid account?"
+      ]
+    },
+    {
+      "id": "third-party-breach",
+      "name": "Third-party breach",
+      "tagline": "A key vendor is breached and the blast radius reaches you",
+      "summary": "A vendor or supplier that {org} depends on has disclosed a security breach, and their access or the data they hold could expose {dataTypes} and disrupt {process}. The immediate task is to confirm what data and system access the vendor held, close shared credentials and API keys, and meet contractual and regulatory notification obligations. Treat the vendor's incident as your own until you can prove otherwise.",
+      "phases": [
+        {
+          "name": "Detect and triage",
+          "steps": [
+            "Log the initial notice (vendor advisory, {mdr} alert, news report, or regulator contact) with timestamp and source.",
+            "Confirm the report is genuine by contacting the vendor through a known, trusted channel rather than a link in the notice.",
+            "Inventory every integration with the vendor: data feeds, API keys, SSO/federation, VPN or network links, and standing access into {cloud}.",
+            "Classify what data the vendor stored or processed for you, especially {dataTypes}, and roughly how many records are in scope.",
+            "Open an incident ticket, assign an Incident Commander, and set an initial severity based on the access and data at risk.",
+            "Notify the cyber-insurance carrier and legal counsel early; engaging a forensics or negotiation firm before the insurer approves can void coverage."
+          ]
+        },
+        {
+          "name": "Contain",
+          "steps": [
+            "Rotate or revoke all shared credentials, API keys, tokens, and certificates issued to or shared with the vendor.",
+            "Disable the vendor's SSO/federation trust and any standing accounts they hold in {cloud} until access can be re-verified.",
+            "Restrict or pause the vendor integration that touches {process} if there is any sign of active misuse.",
+            "Ask {mdr} to hunt for suspicious logins, data pulls, or lateral movement tied to vendor accounts or IP ranges.",
+            "Preserve logs from the affected integrations before they roll off so they are available for investigation."
+          ]
+        },
+        {
+          "name": "Eradicate",
+          "steps": [
+            "Confirm with the vendor that the root cause on their side is contained before you restore any trust.",
+            "Remove any backdoors, unauthorized accounts, or forwarding rules created through the vendor's access.",
+            "Reissue clean credentials and certificates, and verify no old secrets remain valid anywhere in {cloud}.",
+            "Validate the integrity of data the vendor could have altered, and restore from known-good sources where needed.",
+            "Require written evidence of the vendor's remediation before re-enabling their access."
+          ]
+        },
+        {
+          "name": "Recover",
+          "steps": [
+            "Re-enable the vendor integration in stages, starting with low-risk functions and monitoring each step.",
+            "Confirm {process} is running normally and that data flows are complete and accurate.",
+            "Stand up heightened monitoring for downstream fraud, account takeover, or phishing that reuses exposed data.",
+            "Notify affected customers, partners, and regulators per the obligations confirmed by Legal.",
+            "Track any watch items (credit monitoring, forced password resets) to closure with owners and dates."
+          ]
+        },
+        {
+          "name": "Post-incident review",
+          "steps": [
+            "Hold a blameless review within two weeks and document the timeline from first notice to recovery.",
+            "Assess the vendor's handling and update their risk rating and contract terms accordingly.",
+            "Review third-party access broadly and remove standing access that is no longer justified.",
+            "Update the vendor inventory, data-flow map, and notification playbook with what you learned.",
+            "Assign remediation actions with owners and due dates, and schedule a follow-up to verify closure."
+          ]
+        }
+      ],
+      "roles": [
+        {
+          "role": "Incident Commander",
+          "focus": "Owns the response end to end, sets severity, runs the bridge, and makes go/no-go calls on cutting off and restoring vendor access."
+        },
+        {
+          "role": "Vendor and Procurement Liaison",
+          "focus": "Single point of contact to the vendor; obtains the breach scope, evidence of remediation, and drives contractual notification clauses."
+        },
+        {
+          "role": "Technical Lead",
+          "focus": "Directs credential rotation, integration containment in {cloud}, log preservation, and threat hunting with {mdr}."
+        },
+        {
+          "role": "Comms and Legal",
+          "focus": "Confirms notification obligations and deadlines, drafts internal and external messaging, and manages regulator contact."
+        },
+        {
+          "role": "Data Governance and Privacy",
+          "focus": "Determines which {dataTypes} were in scope, record counts, and affected data subjects to size notification duties."
+        },
+        {
+          "role": "Fraud and Risk Monitor",
+          "focus": "Watches for downstream fraud and account takeover using exposed data and coordinates customer protection measures."
+        }
+      ],
+      "escalation": [
+        "Sev-3 (vendor reports a breach but no evidence of exposure to your data or access): monitor, open a ticket, and task the Vendor Liaison to gather scope.",
+        "Sev-2 (vendor held your {dataTypes} or had system access that is plausibly in scope): activate the response team, rotate shared secrets, and brief Legal on notification timelines.",
+        "Sev-1 (confirmed misuse of vendor access against your environment or confirmed exposure of regulated data): declare a major incident, engage executives, and start regulator and customer notification workstreams.",
+        "Sev-1 with active fraud or operational impact to {process}: convene the crisis team, consider outside counsel and forensics, and prepare board-level reporting."
+      ],
+      "decisionPoints": [
+        "Do we cut off the vendor's access now and accept the disruption to {process}, or keep it live under heightened monitoring?",
+        "Have we confirmed exactly which {dataTypes} and how many records were in scope, or are we still working from the vendor's estimate?",
+        "Do our contracts and applicable regulations require notification, and if so, what is the earliest deadline?",
+        "Can we trust the vendor's own investigation, or do we need independent forensic evidence before restoring access?",
+        "Should we proactively notify customers and partners now, or wait until scope is confirmed to avoid retracting statements?",
+        "Do we have a viable fallback for {process} if the vendor stays offline for days or weeks?"
+      ],
+      "commsTemplates": [
+        {
+          "audience": "Employees",
+          "draft": "Team, a vendor that {org} works with has reported a security incident, and we are actively reviewing whether any of our data or systems are affected. Please do not discuss this externally or on social media, and route any questions from customers or press to the incident team. If you use the vendor's tools, you may be asked to re-authenticate or reset access; follow only instructions that come directly from IT."
+        },
+        {
+          "audience": "Customers",
+          "draft": "We are writing to let you know that a third-party service provider used by {org} experienced a security incident. We are investigating what, if any, of your information was involved and have taken steps to secure our systems, including changing access credentials. If we determine your data was affected, we will contact you directly with specific guidance. In the meantime, remain alert to unexpected emails or calls that ask for personal or account information."
+        },
+        {
+          "audience": "Executives and board",
+          "draft": "A vendor supporting {process} has disclosed a breach. Current assessment: the vendor held or could access [data types] and [system access]; confirmed impact to {org} is [confirmed / not yet confirmed]. We have rotated shared credentials, restricted the integration, and engaged {mdr} and Legal. Key decisions ahead are vendor access restoration and notification timing; we will provide the next update by [time]."
+        },
+        {
+          "audience": "Regulators",
+          "draft": "{org} is notifying you of a security incident involving a third-party service provider that processes data on our behalf. Based on our assessment to date, the incident may involve [categories of data] affecting approximately [number] individuals. We are conducting an investigation, have taken containment measures, and will supplement this notice as additional facts are confirmed. Our point of contact for this matter is [name, role, contact]."
+        }
+      ],
+      "injects": [
+        {
+          "time": "T+0 min",
+          "title": "Vendor advisory arrives",
+          "detail": "A core SaaS vendor emails a brief notice that they detected unauthorized access to their environment and are investigating. No specifics on customer impact yet.",
+          "facilitatorNote": "Watch whether the team verifies the notice through a trusted channel and starts an integration inventory rather than waiting.",
+          "expectedAction": "Open an incident, assign an Incident Commander, verify the notice with the vendor, and begin listing all integrations and shared secrets."
+        },
+        {
+          "time": "T+30 min",
+          "title": "Shared API key in scope",
+          "detail": "The technical team finds that a long-lived API key shared with the vendor grants read access to a data store holding {dataTypes}.",
+          "facilitatorNote": "Probe how fast they move to rotate the key and whether they check logs for use of that key before rotating.",
+          "expectedAction": "Preserve relevant logs, rotate or revoke the key, and task {mdr} with hunting for prior misuse of that credential."
+        },
+        {
+          "time": "T+2 hr",
+          "title": "Vendor confirms data access",
+          "detail": "The vendor confirms attackers accessed a database that included customer records they process for {org}, but cannot yet confirm exfiltration.",
+          "facilitatorNote": "See whether Legal is pulled in on notification clocks and whether the team distinguishes access from confirmed exfiltration.",
+          "expectedAction": "Engage Legal to assess contractual and regulatory obligations, size the affected records, and prepare draft notifications without sending yet."
+        },
+        {
+          "time": "T+6 hr",
+          "title": "Suspicious logins detected",
+          "detail": "{mdr} reports several successful logins to a {cloud} app using the vendor's federated identity from an unfamiliar location.",
+          "facilitatorNote": "Test the decision to sever the vendor's SSO trust despite the operational hit to {process}.",
+          "expectedAction": "Disable the vendor federation trust, force re-authentication, and investigate what the suspicious sessions accessed."
+        },
+        {
+          "time": "T+24 hr",
+          "title": "Downstream fraud reports",
+          "detail": "Customer support logs a spike in calls about phishing messages that reference real order details, suggesting exposed data is being used.",
+          "facilitatorNote": "Watch for a coordinated customer-protection and comms response rather than treating each call in isolation.",
+          "expectedAction": "Stand up fraud monitoring, publish customer guidance, and align comms so support and public messaging match."
+        },
+        {
+          "time": "T+72 hr",
+          "title": "Regulator inquiry",
+          "detail": "A data protection regulator sends an inquiry after media coverage, asking whether {org} customers are affected and what notice is planned.",
+          "facilitatorNote": "Assess whether the team has a single owner for regulator contact and consistent facts across channels.",
+          "expectedAction": "Route through Comms and Legal, respond within the required window with confirmed facts, and commit to supplementing as the investigation continues."
+        },
+        {
+          "time": "T+1 week",
+          "title": "Restore or replace decision",
+          "detail": "The vendor provides a remediation summary and asks to fully restore the integration; some internal stakeholders want to switch vendors.",
+          "facilitatorNote": "Look for evidence-based restoration criteria rather than restoring under business pressure alone.",
+          "expectedAction": "Require written remediation evidence, restore access in stages under monitoring, and log a formal vendor risk decision."
+        }
+      ],
+      "gapQuestions": [
+        "Do we maintain a current inventory of every vendor, the data they hold, and the access they have into our environment?",
+        "Can we rotate every credential, API key, and token shared with a given vendor quickly, and do we know where each one is used?",
+        "Do our vendor contracts specify breach notification timelines, evidence rights, and audit rights we can actually enforce?",
+        "Do we know our own regulatory notification deadlines when a processor rather than we suffer the breach?",
+        "Which business processes have a workable fallback if a critical vendor goes offline for days?",
+        "Do we have log retention and access sufficient to investigate misuse of vendor credentials after the fact?",
+        "Who is the single accountable owner for vendor communication and for regulator communication during an incident?"
+      ]
+    },
+    {
+      "id": "ai-data-leak",
+      "name": "AI data leak",
+      "tagline": "Sensitive data is exposed through an AI tool or feature",
+      "summary": "Sensitive or regulated data has been exposed through an AI tool, for example staff pasting {dataTypes} into a public LLM or a misconfigured AI feature leaking data to the wrong users. The goal is to establish what was exposed and to which service, whether it now sits in vendor logs or a training set, and how to request deletion, while gating the tool and meeting privacy obligations. Keep the response measured: many of these events are contained data handling errors rather than intrusions, but they can still trigger notification duties.",
+      "phases": [
+        {
+          "name": "Detect and triage",
+          "steps": [
+            "Capture how the exposure surfaced (user self-report, DLP alert from {mdr}, vendor notice, or a misrouted AI output) with timestamp and source.",
+            "Identify the specific AI service involved and whether it is a sanctioned tool or unapproved shadow use.",
+            "Determine what data was entered or exposed, focusing on whether {dataTypes} or other regulated data was included.",
+            "Establish scope: how many users, how many prompts or records, and over what time window.",
+            "Assign an Incident Commander and set severity based on data sensitivity and where the data now resides."
+          ]
+        },
+        {
+          "name": "Contain",
+          "steps": [
+            "Gate or disable the AI tool or feature for the affected users or the whole org until the exposure is understood.",
+            "For a misconfigured AI feature, correct the permission or sharing setting so data stops flowing to the wrong parties.",
+            "Preserve evidence: prompt and output history, DLP logs, and configuration state before anything is changed further.",
+            "Instruct affected staff to stop using the tool for sensitive data and to avoid deleting anything on their own.",
+            "Check whether exposed data (credentials, keys, or {dataTypes}) needs immediate rotation or downstream protection."
+          ]
+        },
+        {
+          "name": "Eradicate",
+          "steps": [
+            "Contact the AI vendor to confirm data handling: retention period, whether inputs train models, and log storage.",
+            "Submit formal deletion or opt-out requests for the exposed data and record the vendor's confirmation.",
+            "Correct the root cause: fix the misconfiguration, or apply policy and technical controls that blocked the risky usage.",
+            "Verify no copies persist in connected systems, exports, browser history, or {cloud} integrations tied to the tool.",
+            "Confirm the vendor's answer on training data, since data already used in training may not be fully retrievable."
+          ]
+        },
+        {
+          "name": "Recover",
+          "steps": [
+            "Re-enable the AI tool only with guardrails in place, such as DLP, data-loss prompts, or an approved enterprise tier.",
+            "Communicate updated acceptable-use guidance so staff know what they may and may not put into AI tools.",
+            "Complete any required notifications to affected individuals and regulators per Legal's assessment.",
+            "Monitor for misuse of any exposed data and provide protective steps to affected people if warranted.",
+            "Confirm the corrected configuration or control holds under normal use before closing the incident."
+          ]
+        },
+        {
+          "name": "Post-incident review",
+          "steps": [
+            "Hold a blameless review and document how the data reached the AI service and why controls did not catch it.",
+            "Assess whether the exposure met notification thresholds and record the reasoning for the decision made.",
+            "Update AI acceptable-use policy, approved-tool lists, and DLP rules based on what was learned.",
+            "Provide targeted training to the affected team and broader awareness on safe AI use.",
+            "Assign remediation actions with owners and due dates, and schedule a check to confirm closure."
+          ]
+        }
+      ],
+      "roles": [
+        {
+          "role": "Incident Commander",
+          "focus": "Owns the response, sets severity based on data sensitivity, and decides when to gate or restore the AI tool."
+        },
+        {
+          "role": "Data Governance and Privacy",
+          "focus": "Determines which {dataTypes} were exposed, assesses notification thresholds, and drives deletion and opt-out requests."
+        },
+        {
+          "role": "Technical Lead",
+          "focus": "Identifies the AI service, preserves prompt and config evidence, fixes misconfigurations, and applies DLP or gating in {cloud}."
+        },
+        {
+          "role": "Comms and Legal",
+          "focus": "Assesses regulatory obligations and deadlines, manages vendor deletion agreements, and drafts internal and external messaging."
+        },
+        {
+          "role": "AI Vendor Liaison",
+          "focus": "Engages the AI provider on data retention, training use, and log deletion, and secures written confirmation of actions."
+        },
+        {
+          "role": "HR and People Partner",
+          "focus": "Handles staff-facing guidance sensitively, keeping the response corrective and educational rather than punitive."
+        }
+      ],
+      "escalation": [
+        "Sev-3 (staff pasted low-sensitivity internal data into an AI tool, no regulated data involved): coach the user, log the event, and review policy gaps.",
+        "Sev-2 ({dataTypes} or other regulated data entered into a public AI service, limited scope): activate the response team, gate the tool, and open a vendor deletion request.",
+        "Sev-1 (large-scale exposure of regulated data, or a misconfigured AI feature leaking data to unauthorized parties): declare a major incident, engage executives, and start privacy notification workstreams.",
+        "Sev-1 with data confirmed in a training set or already redistributed: convene the crisis team, involve outside privacy counsel, and prepare regulator and individual notifications."
+      ],
+      "decisionPoints": [
+        "Do we disable the AI tool org-wide now, or gate it only for the affected users while we investigate?",
+        "Have we confirmed exactly which {dataTypes} were exposed and to which specific AI service?",
+        "Does this exposure meet the threshold for notifying regulators or affected individuals under applicable law?",
+        "Has the vendor confirmed whether our inputs are used for training or retained in logs, and can they delete them?",
+        "Is any exposed data still exploitable (credentials, keys, personal data) such that we must rotate or protect it now?",
+        "Do we treat this as a policy and training failure, an intrusion, or both, and does that change who we involve?"
+      ],
+      "commsTemplates": [
+        {
+          "audience": "Employees",
+          "draft": "Team, we identified an incident where sensitive information was entered into an AI tool that is not approved for that kind of data. We are working to contain it, and access to the tool may be limited while we investigate. Effective immediately, do not enter customer data, regulated data, credentials, or confidential information into any public AI service. If you have done so recently, please tell the incident team; this is about fixing the exposure, not assigning blame."
+        },
+        {
+          "audience": "Customers",
+          "draft": "We are contacting you because {org} identified an incident in which some information may have been exposed through an AI tool used in our operations. We have taken steps to contain the exposure and to request deletion of the affected data from the service provider. If our review shows your information was involved, we will provide specific details and guidance. We recommend staying alert to unexpected messages requesting personal or account information."
+        },
+        {
+          "audience": "Executives and board",
+          "draft": "We are managing an incident involving sensitive data exposed through an AI tool. Current assessment: [data types] were exposed to [AI service], affecting approximately [scope]; the tool has been [gated / disabled] and we have requested vendor deletion. Open questions are whether the data entered a training set and whether notification thresholds are met. Legal is assessing obligations, and we will update you by [time]."
+        },
+        {
+          "audience": "Regulators",
+          "draft": "{org} is notifying you of an incident in which personal data may have been exposed through a third-party AI service. Our current assessment indicates the exposure involved [categories of data] relating to approximately [number] individuals. We have contained the exposure, requested deletion from the provider, and are investigating whether the data was retained or used for model training. We will supplement this notice as facts are confirmed; our contact for this matter is [name, role, contact]."
+        }
+      ],
+      "injects": [
+        {
+          "time": "T+0 min",
+          "title": "Self-report from staff",
+          "detail": "An employee reports that a colleague pasted a spreadsheet containing {dataTypes} into a public chatbot to summarize it.",
+          "facilitatorNote": "Watch for a calm, non-punitive intake and whether the team immediately identifies the specific service and data.",
+          "expectedAction": "Open an incident, assign an Incident Commander, identify the exact AI service, and start scoping what was pasted."
+        },
+        {
+          "time": "T+30 min",
+          "title": "Scope is wider than reported",
+          "detail": "Review of browser and DLP logs shows the same person used the tool several times over the past month with similar data.",
+          "facilitatorNote": "Probe whether the team looks beyond the single reported event and checks for other users doing the same.",
+          "expectedAction": "Expand scope across time and users, preserve the logs, and gate the tool for at least the affected group."
+        },
+        {
+          "time": "T+2 hr",
+          "title": "Is it a public or enterprise tier",
+          "detail": "The team learns the tool was the free public tier, whose terms allow inputs to be used to improve the model by default.",
+          "facilitatorNote": "See whether they distinguish enterprise terms from public terms and grasp the training-data implication.",
+          "expectedAction": "Engage the vendor on retention and training use, and open a formal deletion or opt-out request in writing."
+        },
+        {
+          "time": "T+6 hr",
+          "title": "Misconfigured AI feature found",
+          "detail": "Separately, a security review finds an internal AI assistant in {cloud} was surfacing documents to users who should not see them.",
+          "facilitatorNote": "Test whether the team treats the misconfiguration as its own exposure and moves to correct permissions fast.",
+          "expectedAction": "Correct the sharing or permission setting, preserve config state, and determine who accessed what."
+        },
+        {
+          "time": "T+24 hr",
+          "title": "Vendor response is limited",
+          "detail": "The AI vendor confirms inputs are retained in logs for 30 days but cannot confirm whether the data already influenced a model.",
+          "facilitatorNote": "Watch how the team handles partial answers and whether Legal weighs this into notification decisions.",
+          "expectedAction": "Document the vendor's answer, escalate the training-data question, and factor uncertainty into the notification assessment."
+        },
+        {
+          "time": "T+72 hr",
+          "title": "Notification threshold call",
+          "detail": "Legal must decide whether the exposure of {dataTypes} meets the threshold to notify regulators and affected individuals.",
+          "facilitatorNote": "Assess whether the decision is documented with clear reasoning rather than made informally.",
+          "expectedAction": "Make and record a defensible notification decision, and prepare notices if the threshold is met."
+        },
+        {
+          "time": "T+1 week",
+          "title": "Restore with guardrails",
+          "detail": "Business teams want the AI tool back on because it saves significant time on {process}.",
+          "facilitatorNote": "Look for guardrails such as an enterprise tier, DLP, and clear acceptable-use rules before restoration.",
+          "expectedAction": "Re-enable only with controls in place, publish updated AI usage guidance, and log the risk decision."
+        }
+      ],
+      "gapQuestions": [
+        "Do we have an approved list of AI tools and clear acceptable-use rules for what data may be entered into each?",
+        "Can our DLP or monitoring detect regulated data being sent to public AI services today?",
+        "Do we know the data retention and training-use terms of the AI tools our staff actually use?",
+        "Do we have a defined process to request data deletion or opt-out from an AI vendor, and who owns it?",
+        "How would we determine whether an AI exposure meets our regulatory notification thresholds?",
+        "Are internal AI features reviewed for access controls so they do not surface data to the wrong users?",
+        "Is our AI incident response oriented toward correction and training rather than punishing staff who self-report?"
+      ]
+    }
+  ]
+}

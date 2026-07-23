@@ -20,6 +20,7 @@ export default defineConfig({
         aiRisk: 'tools/ai-risk/index.html',
         crosswalk: 'tools/crosswalk/index.html',
         boardMetrics: 'tools/board-metrics/index.html',
+        runbook: 'tools/runbook/index.html',
         roadmap: 'roadmap/index.html',
         about: 'about/index.html',
       },
