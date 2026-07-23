@@ -58,6 +58,28 @@ test('CIS page: IG badges, IG filter, keyword search, and coverage tracking', as
   await expect(page.locator('.fw-coverage-text')).toContainText('1 of 56 reviewed');
 });
 
+test('framework pages page through all results with Show more', async ({ page }) => {
+  await page.goto('/frameworks/cis/');
+  // 153 safeguards: the first page caps at 60 and offers a Show more, so nothing is cut off.
+  await expect(page.locator('.fw-card')).toHaveCount(60);
+  await expect(page.locator('#result-meta')).toContainText('showing 60 of 153');
+  await expect(page.locator('.show-more')).toBeVisible();
+
+  await page.locator('.show-more').click();
+  await expect(page.locator('.fw-card')).toHaveCount(120);
+  await page.locator('.show-more').click();
+  await expect(page.locator('.fw-card')).toHaveCount(153);
+  // Everything is revealed: the meta reads "browsing all" and the button is gone.
+  await expect(page.locator('#result-meta')).toContainText('browsing all 153');
+  await expect(page.locator('.show-more')).toHaveCount(0);
+
+  // Changing a filter resets paging back to the first page.
+  await page.locator('#search').fill('malware');
+  await expect(page.locator('.show-more')).toHaveCount(0);
+  await page.locator('#clear-search').click();
+  await expect(page.locator('.fw-card')).toHaveCount(60);
+});
+
 test('homepage hints framework queries and nav links both ways', async ({ page }) => {
   await page.goto('/');
   await page.locator('#search').fill('8.1');
