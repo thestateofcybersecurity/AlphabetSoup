@@ -32,6 +32,37 @@ function validateAssessment(data: AssessmentData): string[] {
   return out;
 }
 
+interface CrosswalkData {
+  frameworks: { id: 'csf' | 'cis' | 'iso' | 'soc2'; total: number }[];
+  controls: { id: string; domain: string; summary: string; mappings: Record<string, string[]> }[];
+}
+
+/** Structural + reference checks for the control crosswalk. */
+function validateCrosswalk(data: CrosswalkData, csf: CsfData, cis: CisData): string[] {
+  const out: string[] = [];
+  const isoRe = /^A\.(5\.(3[0-7]|[12]?[0-9])|6\.[1-8]|7\.(1[0-4]|[1-9])|8\.(3[0-4]|[12]?[0-9]))$/;
+  const soc2Re = /^(CC[1-9]\.[1-9]|A1\.[1-3]|C1\.[1-2]|PI1\.[1-5]|P[1-8]\.[1-9])$/;
+  const seen = new Set<string>();
+  for (const c of data.controls) {
+    if (seen.has(c.id)) out.push(`duplicate domain id ${c.id}`);
+    seen.add(c.id);
+    const total = c.mappings.csf.length + c.mappings.cis.length + c.mappings.iso.length + c.mappings.soc2.length;
+    if (total === 0) out.push(`${c.id}: no mappings`);
+    for (const field of ['domain', 'summary'] as const) {
+      if (c[field]?.includes('—')) out.push(`${c.id}: em dash in ${field}`);
+    }
+    for (const id of c.mappings.csf) if (!(id in csf)) out.push(`${c.id}: unknown CSF id ${id}`);
+    for (const id of c.mappings.cis) if (!(id in cis)) out.push(`${c.id}: unknown CIS id ${id}`);
+    for (const id of c.mappings.iso) if (!isoRe.test(id)) out.push(`${c.id}: invalid ISO id ${id}`);
+    for (const id of c.mappings.soc2) if (!soc2Re.test(id)) out.push(`${c.id}: invalid SOC2 id ${id}`);
+  }
+  for (const f of data.frameworks) {
+    const distinct = new Set(data.controls.flatMap((c) => c.mappings[f.id]));
+    if (distinct.size !== f.total) out.push(`${f.id}: total ${f.total} != ${distinct.size} distinct mapped ids`);
+  }
+  return out;
+}
+
 const acronyms = load<AcronymData>('../src/data/acronyms.json');
 const csf = load<CsfData>('../src/data/nist-csf.json');
 const cis = load<CisData>('../src/data/cis.json');
@@ -42,6 +73,7 @@ const cyberEssentials = load<AssessmentData>('../src/data/assessment-cyber-essen
 const ztmm = load<AssessmentData>('../src/data/assessment-ztmm.json');
 const ssdf = load<AssessmentData>('../src/data/assessment-ssdf.json');
 const pci = load<AssessmentData>('../src/data/assessment-pci-dss.json');
+const crosswalk = load<CrosswalkData>('../src/data/crosswalk.json');
 
 const mapProblems: string[] = [];
 for (const csfId of Object.keys(csf)) {
@@ -66,6 +98,7 @@ const problems = [
   ...validateAssessment(ztmm).map((e) => `ztmm: ${e}`),
   ...validateAssessment(ssdf).map((e) => `ssdf: ${e}`),
   ...validateAssessment(pci).map((e) => `pci-dss: ${e}`),
+  ...validateCrosswalk(crosswalk, csf, cis).map((e) => `crosswalk: ${e}`),
 ];
 
 if (problems.length > 0) {
@@ -75,5 +108,5 @@ if (problems.length > 0) {
 }
 console.log(
   `Data OK: ${Object.keys(acronyms).length} acronyms, ${Object.keys(csf).length} CSF subcategories, ${Object.keys(cis).length} CIS safeguards, ${ai.length} AI framework entries, ` +
-    `${cmmc.questions.length} 800-171/CMMC, ${cyberEssentials.questions.length} Cyber Essentials, ${ztmm.questions.length} ZTMM, ${ssdf.questions.length} SSDF, ${pci.questions.length} PCI DSS.`,
+    `${cmmc.questions.length} 800-171/CMMC, ${cyberEssentials.questions.length} Cyber Essentials, ${ztmm.questions.length} ZTMM, ${ssdf.questions.length} SSDF, ${pci.questions.length} PCI DSS, ${crosswalk.controls.length} crosswalk domains.`,
 );

@@ -182,6 +182,20 @@ body {
   --broth: #c9a0dc;
 }
 
+.theme-crosswalk {
+  --tomato: #b5713e;
+  --tomato-deep: #935827;
+  --broth: #dcae90;
+}
+
+@media (prefers-color-scheme: dark) {
+  .theme-crosswalk {
+    --tomato: #d69a6f;
+    --tomato-deep: #e4b892;
+    --broth: #a3785a;
+  }
+}
+
 @media (prefers-color-scheme: dark) {
   .theme-quiz {
     --tomato: #c08fd6;
