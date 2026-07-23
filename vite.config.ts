@@ -23,6 +23,7 @@ export default defineConfig({
         runbook: 'tools/runbook/index.html',
         cloudBaseline: 'tools/cloud-baseline/index.html',
         ssdlc: 'tools/ssdlc/index.html',
+        automationRoi: 'tools/automation-roi/index.html',
         roadmap: 'roadmap/index.html',
         about: 'about/index.html',
       },

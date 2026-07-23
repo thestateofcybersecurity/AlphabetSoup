@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="color-scheme" content="light dark" />
+  <meta name="description" content="Turn 'bring us efficiency' into a numbers-backed automation roadmap: inventory your team's recurring work with volumes and handle times, and get a backlog ranked by hours saved per month, a suggested automation pattern and playbook skeleton per item, and a before/after capacity model. The math is shown on screen and everything stays in your browser." />
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Automation ROI Ranker | Cybersecurity Alphabet Soup" />
+  <meta property="og:description" content="Inventory recurring security work and get a backlog ranked by hours saved per month, with a suggested pattern per item and a before/after capacity model." />
+  <meta property="og:url" content="https://cybersecurityalphabetsoup.com/tools/automation-roi/" />
+  <meta property="og:image" content="https://cybersecurityalphabetsoup.com/og-frameworks.png" />
+  <title>Automation ROI Ranker | Cybersecurity Alphabet Soup</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,700;0,9..144,900;1,9..144,500&family=IBM+Plex+Mono:wght@500;600&family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet" />
+  <link rel="icon" href="/icon.svg" type="image/svg+xml" />
+  <link rel="stylesheet" href="/style.css" />
+  <style>
+    .ar-wrap { max-width: 940px; margin: 0 auto; }
+    .ar-privacy { font-size: 0.84rem; color: var(--ink-soft); margin: 0 0 22px; }
+    .ar-section-head { font-family: var(--font-mono); font-size: 0.76rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--tomato-deep); margin: 22px 0 8px; }
+
+    /* inventory */
+    .ar-inv-head, .ar-row {
+      display: grid; grid-template-columns: 1.6fr 1.3fr 0.7fr 0.7fr 0.9fr auto; gap: 8px; align-items: center;
+    }
+    .ar-inv-head { font-family: var(--font-mono); font-size: 0.62rem; letter-spacing: 0.06em; text-transform: uppercase; color: var(--ink-soft); padding: 0 4px 4px; }
+    .ar-row { border: 1.5px solid var(--line); border-radius: 10px; padding: 8px; margin-bottom: 8px; background: var(--paper-raised); }
+    .ar-row input, .ar-row select {
+      font: inherit; font-size: 0.86rem; padding: 6px 8px; border: 1.5px solid var(--line);
+      border-radius: 8px; background: var(--paper); color: var(--ink); width: 100%; min-width: 0;
+    }
+    .ar-row input[type="number"] { text-align: right; }
+    .ar-del { border: 1.5px solid var(--line); color: var(--ink-soft); background: transparent; border-radius: 8px; cursor: pointer; font-size: 1rem; line-height: 1; padding: 6px 10px; }
+    .ar-del:hover { border-color: #b0402e; color: #b0402e; }
+    .ar-add { font: inherit; font-size: 0.86rem; font-weight: 600; cursor: pointer; border: 1.5px dashed var(--tomato); color: var(--tomato-deep); background: transparent; border-radius: 10px; padding: 9px 16px; }
+    .ar-add:hover { background: color-mix(in srgb, var(--tomato) 8%, var(--paper)); }
+    .ar-row-labels { display: none; }
+    @media (max-width: 720px) {
+      .ar-inv-head { display: none; }
+      .ar-row { grid-template-columns: 1fr 1fr; }
+      .ar-row .ar-cell-name { grid-column: 1 / -1; }
+      .ar-row .ar-del { grid-column: 2; justify-self: end; }
+      .ar-row-labels { display: block; font-family: var(--font-mono); font-size: 0.58rem; text-transform: uppercase; letter-spacing: 0.04em; color: var(--ink-soft); margin-bottom: 2px; }
+    }
+
+    /* output */
+    .ar-doc { border: 2px solid var(--tomato); border-radius: 16px; background: var(--paper-raised); padding: 22px 24px; margin-top: 8px; }
+    .ar-actions { display: flex; flex-wrap: wrap; gap: 10px; margin: 0 0 14px; }
+    .ar-btn { font: inherit; font-size: 0.85rem; font-weight: 600; cursor: pointer; border: 1.5px solid var(--tomato); color: var(--tomato-deep); background: transparent; border-radius: 10px; padding: 7px 14px; }
+    .ar-btn:hover { background: var(--tomato); color: #fff; }
+    .ar-btn-primary { background: var(--tomato); color: #fff; }
+    .ar-btn-primary:hover { background: var(--tomato-deep); border-color: var(--tomato-deep); }
+
+    .ar-capacity { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin: 0 0 6px; }
+    .ar-stat { border: 1.5px solid var(--line); border-radius: 12px; padding: 12px 14px; background: var(--paper); }
+    .ar-stat-num { font-family: var(--font-display); font-weight: 900; font-size: 1.9rem; color: var(--tomato-deep); line-height: 1; }
+    .ar-stat-lbl { font-size: 0.8rem; color: var(--ink-soft); margin-top: 4px; }
+    .ar-cap-note { font-size: 0.82rem; color: var(--ink-soft); margin: 6px 0 0; }
+    @media (max-width: 640px) { .ar-capacity { grid-template-columns: 1fr; } }
+
+    .ar-block-head { font-family: var(--font-display); font-weight: 700; font-size: 1.2rem; margin: 22px 0 8px; padding-top: 14px; border-top: 1.5px solid var(--line); }
+    .ar-backlog { list-style: none; padding: 0; margin: 0; display: grid; gap: 8px; }
+    .ar-item { border: 1.5px solid var(--line); border-left-width: 5px; border-left-color: var(--tomato); border-radius: 10px; padding: 12px 15px; background: var(--paper); display: grid; grid-template-columns: auto 1fr; gap: 12px; }
+    .ar-item-num { font-family: var(--font-display); font-weight: 900; font-size: 1.3rem; color: var(--tomato-deep); }
+    .ar-item-top { display: flex; flex-wrap: wrap; align-items: baseline; gap: 8px; }
+    .ar-item-name { font-weight: 700; font-size: 1rem; }
+    .ar-hours { font-family: var(--font-mono); font-weight: 600; font-size: 0.95rem; color: var(--tomato-deep); margin-left: auto; }
+    .ar-tag { font-family: var(--font-mono); font-size: 0.62rem; letter-spacing: 0.04em; text-transform: uppercase; border-radius: 5px; padding: 1px 6px; border: 1px solid var(--line); color: var(--ink-soft); }
+    .ar-tag.gate { border-color: var(--tomato); color: var(--tomato-deep); }
+    .ar-math { font-family: var(--font-mono); font-size: 0.74rem; color: var(--ink-soft); margin: 6px 0; }
+    .ar-pattern { font-size: 0.9rem; margin: 4px 0 0; }
+    .ar-pattern b { color: var(--tomato-deep); }
+    .ar-skeleton { margin: 6px 0 0; }
+    .ar-skeleton summary { cursor: pointer; font-size: 0.82rem; color: var(--tomato-deep); font-weight: 600; }
+    .ar-skeleton ol { margin: 6px 0 2px; padding-left: 20px; font-size: 0.86rem; line-height: 1.5; color: var(--ink); }
+    .ar-empty { font-size: 0.95rem; color: var(--ink-soft); }
+
+    @media print {
+      .site-nav, .hero, .ar-inventory, .ar-actions, .colophon, .steam, .ar-privacy { display: none !important; }
+      .ar-doc { border: none; padding: 0; }
+      .ar-item { break-inside: avoid; }
+    }
+  </style>
+</head>
+<body class="theme-automation">
+  <a class="skip-link" href="#main">Skip to content</a>
+  <div class="steam" aria-hidden="true"></div>
+
+  <nav class="site-nav" aria-label="Site">
+    <a href="../../">Acronyms</a>
+    <a href="../../frameworks/nist-csf/">NIST CSF</a>
+    <a href="../../frameworks/cis/">CIS Controls</a>
+    <a href="../../frameworks/ai/">AI Security</a>
+    <a href="../../quiz/">Quiz</a>
+    <a href="../../assess/">Assess</a>
+    <a href="../../roadmap/">Roadmap</a>
+    <a href="https://mitre.cybersecurityalphabetsoup.com/" rel="noopener" target="_blank">MITRE ATT&amp;CK</a>
+    <a href="https://bia.cybersecurityalphabetsoup.com/" rel="noopener" target="_blank" title="Business Impact Assessment">BIA</a><a class="nav-play" href="https://thestateofcybersecurity.github.io/cyberdle/" rel="noopener" target="_blank">Play Cyberdle</a>
+  </nav>
+
+  <header class="hero hero-compact">
+    <p class="kicker">automation roi &middot; hours returned per month</p>
+    <h1 class="title">Automation<br /><em>ROI ranker</em></h1>
+    <p class="tagline">Inventory your team's recurring work with monthly volumes and handle times, and get an automation backlog ranked by hours saved per month, each item paired with a suggested pattern and playbook skeleton, plus a before-and-after capacity model to show leadership. The math is shown on screen.</p>
+  </header>
+
+  <main id="main" class="ladle ar-wrap">
+    <p class="ar-privacy">A transparent estimator to make the case, not a guarantee. The automatable and oversight factors are heuristics shown per item so you can adjust them to your reality. Your inventory lives only in your browser; nothing is uploaded.</p>
+
+    <section class="ar-inventory" aria-label="Task inventory">
+      <h2 class="ar-section-head">Your recurring work</h2>
+      <div class="ar-inv-head" aria-hidden="true">
+        <span>Task</span><span>Category</span><span>Volume/mo</span><span>Min each</span><span>Error risk</span><span></span>
+      </div>
+      <div id="rows"></div>
+      <button type="button" class="ar-add" id="add-row">+ Add a task</button>
+    </section>
+
+    <section class="ar-output" id="output" aria-label="Ranked backlog" aria-live="polite"></section>
+  </main>
+
+  <footer class="colophon">
+    <p>
+      Why this tool exists:
+      <a class="cyberdle-link" href="../">see the 2026 security leadership scorecard it was built from &rarr;</a>
+    </p>
+    <p class="fine-print">
+      An unofficial plain-English tool, not a financial guarantee. Automation patterns follow common SOAR and
+      <a href="https://csrc.nist.gov/pubs/sp/800/61/r3/final" rel="noopener">NIST SP 800-61</a> incident-response practice.
+    </p>
+  </footer>
+
+  <script type="module" src="/src/automation-roi-main.ts"></script>
+</body>
+</html>

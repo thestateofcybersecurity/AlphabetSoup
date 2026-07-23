@@ -1,0 +1,77 @@
+{
+  "meta": {
+    "title": "Automation ROI Ranker",
+    "version": "1.0.0",
+    "note": "A transparent estimator, not a guarantee. The automatable and oversight factors are practitioner heuristics shown on screen so you can sanity-check and adjust the inputs.",
+    "fteHoursPerMonth": 140,
+    "sources": [
+      { "name": "NIST SP 800-61 and SOAR practice", "url": "https://csrc.nist.gov/pubs/sp/800/61/r3/final" }
+    ]
+  },
+  "categories": [
+    { "id": "alert-triage", "name": "Alert triage and enrichment", "defaultPattern": "ai-triage", "automatable": 0.7 },
+    { "id": "enrichment", "name": "Indicator enrichment", "defaultPattern": "soar", "automatable": 0.85 },
+    { "id": "phishing", "name": "Phishing report handling", "defaultPattern": "soar", "automatable": 0.8 },
+    { "id": "vuln-triage", "name": "Vulnerability triage and ticketing", "defaultPattern": "scheduled-script", "automatable": 0.75 },
+    { "id": "evidence", "name": "Evidence and audit collection", "defaultPattern": "scheduled-script", "automatable": 0.9 },
+    { "id": "reporting", "name": "Reporting and metrics", "defaultPattern": "scheduled-script", "automatable": 0.9 },
+    { "id": "compliance", "name": "Compliance and control checks", "defaultPattern": "compliance-automation", "automatable": 0.85 },
+    { "id": "provisioning", "name": "Access provisioning and deprovisioning", "defaultPattern": "soar", "automatable": 0.8 },
+    { "id": "other", "name": "Other recurring task", "defaultPattern": "scheduled-script", "automatable": 0.6 }
+  ],
+  "sensitivities": [
+    { "id": "low", "name": "Low", "autoRetain": 1.0, "note": "A wrong result is cheap and easy to catch, so it can run unattended." },
+    { "id": "medium", "name": "Medium", "autoRetain": 0.85, "note": "Mostly automatable, with spot checks or an exception queue." },
+    { "id": "high", "name": "High", "autoRetain": 0.6, "note": "A wrong result is costly, so keep a human in the loop on the decision." }
+  ],
+  "patterns": [
+    {
+      "id": "soar",
+      "name": "SOAR playbook",
+      "blurb": "A security orchestration playbook that triggers on an event, gathers context, decides, and acts across your tools.",
+      "skeleton": [
+        "Trigger: the event or alert that starts the playbook",
+        "Enrich: pull context from your tools automatically",
+        "Decide: apply rules or a risk score to branch",
+        "Act: contain, ticket, or notify based on the branch",
+        "Record: write the outcome back for audit and metrics"
+      ]
+    },
+    {
+      "id": "scheduled-script",
+      "name": "Scheduled script or job",
+      "blurb": "A script on a schedule or pipeline trigger that collects, transforms, and delivers, with an alert only when it breaks.",
+      "skeleton": [
+        "Schedule: run on a cron or pipeline trigger",
+        "Collect: pull the data or evidence from the source",
+        "Transform: normalize it into the format you need",
+        "Deliver: file, ticket, dashboard, or storage location",
+        "Alert on failure: notify a human only when the job breaks"
+      ]
+    },
+    {
+      "id": "ai-triage",
+      "name": "AI-assisted triage with a human gate",
+      "blurb": "A model drafts a summary and suggested disposition; a human approves before anything acts, so judgment stays with a person.",
+      "skeleton": [
+        "Intake: collect the item and its context",
+        "Summarize: the model drafts a summary and suggested disposition",
+        "Human gate: an analyst approves, edits, or rejects",
+        "Act: execute the approved action automatically",
+        "Learn: capture corrections to improve the prompts and rules"
+      ]
+    },
+    {
+      "id": "compliance-automation",
+      "name": "Compliance-as-code automation",
+      "blurb": "Control checks expressed as code or queries that gather evidence on a schedule and flag drift before an audit.",
+      "skeleton": [
+        "Define: express the control check as code or a query",
+        "Collect: gather evidence from systems on a schedule",
+        "Evaluate: compare current state to the required state",
+        "Report: produce pass or fail evidence for auditors",
+        "Alert: flag drift so it is fixed before the audit"
+      ]
+    }
+  ]
+}
