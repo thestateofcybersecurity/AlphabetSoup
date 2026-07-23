@@ -46,6 +46,11 @@ function el<K extends keyof HTMLElementTagNameMap>(
 export function initFrameworkPage(config: FrameworkPageConfig): void {
   const byId = (id: string) => document.getElementById(id) as HTMLElement;
   const state = { query: '', group: '', secondary: '' };
+  // How many results are revealed; grows via "Show more". Reset when filters change.
+  let shownCount = RESULT_CAP;
+  const resetPaging = (): void => {
+    shownCount = RESULT_CAP;
+  };
 
   byId('hero-count').textContent = String(config.records.length);
 
@@ -153,12 +158,16 @@ export function initFrameworkPage(config: FrameworkPageConfig): void {
 
   function render(): void {
     const results = filtered();
-    const shown = results.slice(0, RESULT_CAP);
+    const shown = results.slice(0, shownCount);
     const filtering = Boolean(state.query || state.group || state.secondary);
     byId('sotd').hidden = filtering;
+    const total = results.length;
+    const showing = shown.length;
     byId('result-meta').textContent = filtering
-      ? `${results.length} match${results.length === 1 ? '' : 'es'}${results.length > RESULT_CAP ? `, showing first ${RESULT_CAP}` : ''}`
-      : `browsing all ${config.records.length} ${config.countNoun}`;
+      ? `${total} match${total === 1 ? '' : 'es'}${total > showing ? `, showing ${showing}` : ''}`
+      : total > showing
+        ? `showing ${showing} of ${total} ${config.countNoun}`
+        : `browsing all ${total} ${config.countNoun}`;
 
     const container = byId('results');
     container.innerHTML = '';
@@ -173,6 +182,16 @@ export function initFrameworkPage(config: FrameworkPageConfig): void {
     const fragment = document.createDocumentFragment();
     for (const record of shown) fragment.appendChild(card(record));
     container.appendChild(fragment);
+
+    if (total > showing) {
+      const remaining = total - showing;
+      const more = el('button', 'show-more', `Show more (${remaining} more)`);
+      more.addEventListener('click', () => {
+        shownCount += RESULT_CAP;
+        render();
+      });
+      container.appendChild(more);
+    }
     updateCoverage();
   }
 
@@ -191,6 +210,7 @@ export function initFrameworkPage(config: FrameworkPageConfig): void {
     all.dataset[dataAttr] = '';
     all.addEventListener('click', () => {
       state[key] = '';
+      resetPaging();
       sync();
       render();
     });
@@ -204,6 +224,7 @@ export function initFrameworkPage(config: FrameworkPageConfig): void {
       }
       pill.addEventListener('click', () => {
         state[key] = state[key] === p.value ? '' : p.value;
+        resetPaging();
         sync();
         render();
       });
@@ -235,12 +256,14 @@ export function initFrameworkPage(config: FrameworkPageConfig): void {
   input.addEventListener('input', () => {
     state.query = input.value;
     clear.hidden = input.value === '';
+    resetPaging();
     render();
   });
   clear.addEventListener('click', () => {
     input.value = '';
     state.query = '';
     clear.hidden = true;
+    resetPaging();
     input.focus();
     render();
   });
