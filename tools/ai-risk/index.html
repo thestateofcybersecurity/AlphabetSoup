@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="color-scheme" content="light dark" />
+  <meta name="description" content="Tier any AI use case in five minutes: answer eight anchored questions and get a risk tier, the review path, required controls mapped to the NIST AI RMF and OWASP LLM Top 10, and a ready-to-paste policy snippet. Everything stays in your browser." />
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="AI Use Case Risk Tiering | Cybersecurity Alphabet Soup" />
+  <meta property="og:description" content="Eight anchored questions, an instant risk tier, the review path, required controls mapped to NIST AI RMF and OWASP LLM Top 10, and a ready-to-paste policy snippet." />
+  <meta property="og:url" content="https://cybersecurityalphabetsoup.com/tools/ai-risk/" />
+  <meta property="og:image" content="https://cybersecurityalphabetsoup.com/og-frameworks.png" />
+  <title>AI Use Case Risk Tiering | Cybersecurity Alphabet Soup</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,700;0,9..144,900;1,9..144,500&family=IBM+Plex+Mono:wght@500;600&family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet" />
+  <link rel="icon" href="/icon.svg" type="image/svg+xml" />
+  <link rel="stylesheet" href="/style.css" />
+  <style>
+    .rt-wrap { max-width: 820px; margin: 0 auto; }
+    .rt-question { border: 1.5px solid var(--line); border-radius: 14px; background: var(--paper-raised); padding: 18px 20px 16px; margin: 0 0 18px; }
+    .rt-question legend { font-weight: 600; font-size: 1.05rem; padding: 0 6px; }
+    .rt-qnum {
+      display: inline-block; min-width: 1.6em; text-align: center; margin-right: 6px;
+      font-family: var(--font-mono); font-size: 0.75rem; color: #fff;
+      background: var(--tomato); border-radius: 8px; padding: 2px 4px;
+    }
+    .rt-help { margin: 4px 0 12px; font-size: 0.88rem; color: var(--ink-soft); }
+    .rt-options { display: grid; gap: 8px; }
+    .rt-option {
+      display: grid; grid-template-columns: auto 1fr; grid-template-rows: auto auto; column-gap: 10px;
+      align-items: start; border: 1.5px solid var(--line); border-radius: 10px;
+      padding: 10px 12px; cursor: pointer; background: var(--paper);
+    }
+    .rt-option:hover { border-color: var(--tomato); }
+    .rt-option.selected { border-color: var(--tomato); background: color-mix(in srgb, var(--tomato) 8%, var(--paper)); }
+    .rt-option input { grid-row: 1 / span 2; margin-top: 4px; accent-color: var(--tomato); }
+    .rt-option-label { font-weight: 600; font-size: 0.95rem; }
+    .rt-option-detail { grid-column: 2; font-size: 0.84rem; color: var(--ink-soft); line-height: 1.45; }
+    .rt-progress { font-family: var(--font-mono); font-size: 0.75rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink-soft); margin: 0 0 14px; }
+    .rt-result { border: 2px solid var(--tomato); border-radius: 16px; background: var(--paper-raised); padding: 22px 24px; margin: 26px 0; }
+    .rt-verdict { display: flex; align-items: center; gap: 14px; margin-bottom: 10px; }
+    .rt-badge { font-weight: 700; font-size: 1.15rem; color: #fff; border-radius: 10px; padding: 6px 14px; }
+    .tier-low .rt-badge, .rt-reg-badge.tier-low { background: #3e7d4f; }
+    .tier-medium .rt-badge, .rt-reg-badge.tier-medium { background: #b07d2e; }
+    .tier-high .rt-badge, .rt-reg-badge.tier-high { background: #b0402e; }
+    .rt-score { font-family: var(--font-mono); font-size: 0.9rem; color: var(--ink-soft); }
+    .rt-summary { font-size: 1rem; line-height: 1.6; margin: 0 0 16px; }
+    .rt-result h3 { font-family: var(--font-mono); font-size: 0.76rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--tomato-deep); margin: 20px 0 8px; }
+    .rt-result ul, .rt-result ol { margin: 6px 0 8px; padding-left: 22px; font-size: 0.93rem; line-height: 1.55; }
+    .rt-result li { margin-bottom: 6px; }
+    .rt-controls-head { font-size: 0.85rem; margin: 12px 0 4px; color: var(--ink); }
+    .rt-refs { white-space: nowrap; }
+    .rt-ref {
+      display: inline-block; margin-left: 4px; font-family: var(--font-mono); font-size: 0.66rem;
+      letter-spacing: 0.04em; border: 1px solid var(--tomato); color: var(--tomato-deep);
+      border-radius: 6px; padding: 1px 6px; text-decoration: none; vertical-align: 1px;
+    }
+    .rt-ref:hover { background: var(--tomato); color: #fff; }
+    .rt-refs-note { font-size: 0.8rem; color: var(--ink-soft); }
+    .rt-snippet pre { white-space: pre-wrap; font-size: 0.85rem; line-height: 1.55; background: var(--paper); border: 1.5px solid var(--line); border-radius: 10px; padding: 14px 16px; }
+    .rt-btn {
+      font: inherit; font-size: 0.88rem; font-weight: 600; cursor: pointer;
+      border: 1.5px solid var(--tomato); color: var(--tomato-deep); background: transparent;
+      border-radius: 10px; padding: 8px 16px;
+    }
+    .rt-btn:hover { background: var(--tomato); color: #fff; }
+    .rt-btn-primary { background: var(--tomato); color: #fff; }
+    .rt-btn-primary:hover { background: var(--tomato-deep); border-color: var(--tomato-deep); }
+    .rt-btn-quiet { border-color: var(--line); color: var(--ink-soft); }
+    .rt-actions { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 18px; align-items: center; }
+    .rt-actions input[type="text"] {
+      flex: 1 1 240px; font: inherit; font-size: 0.9rem; padding: 8px 12px;
+      border: 1.5px solid var(--line); border-radius: 10px; background: var(--paper); color: var(--ink);
+    }
+    .rt-register { list-style: none; padding: 0; margin: 10px 0 0; }
+    .rt-reg-item { display: flex; flex-wrap: wrap; align-items: center; gap: 10px; border: 1.5px solid var(--line); border-radius: 10px; padding: 10px 14px; margin-bottom: 8px; background: var(--paper-raised); }
+    .rt-reg-badge { font-size: 0.7rem; font-weight: 700; color: #fff; border-radius: 6px; padding: 2px 8px; text-transform: uppercase; letter-spacing: 0.06em; }
+    .rt-reg-name { font-weight: 600; flex: 1 1 auto; }
+    .rt-reg-meta { font-family: var(--font-mono); font-size: 0.72rem; color: var(--ink-soft); }
+    .rt-reg-actions { display: flex; gap: 6px; }
+    .rt-reg-actions .rt-btn { padding: 4px 10px; font-size: 0.78rem; }
+    .rt-privacy { font-size: 0.84rem; color: var(--ink-soft); margin: 0 0 22px; }
+    @media print {
+      .site-nav, .hero, .rt-intake, .print-hide, #register-section, .colophon, .steam { display: none !important; }
+      .rt-result { border: none; padding: 0; }
+    }
+  </style>
+</head>
+<body class="theme-ai">
+  <a class="skip-link" href="#main">Skip to content</a>
+  <div class="steam" aria-hidden="true"></div>
+
+  <nav class="site-nav" aria-label="Site">
+    <a href="../../">Acronyms</a>
+    <a href="../../frameworks/nist-csf/">NIST CSF</a>
+    <a href="../../frameworks/cis/">CIS Controls</a>
+    <a href="../../frameworks/ai/">AI Security</a>
+    <a href="../../quiz/">Quiz</a>
+    <a href="../../assess/">Assess</a>
+    <a href="../../roadmap/">Roadmap</a>
+    <a href="https://mitre.cybersecurityalphabetsoup.com/" rel="noopener" target="_blank">MITRE ATT&amp;CK</a>
+    <a href="https://bia.cybersecurityalphabetsoup.com/" rel="noopener" target="_blank" title="Business Impact Assessment">BIA</a><a class="nav-play" href="https://thestateofcybersecurity.github.io/cyberdle/" rel="noopener" target="_blank">Play Cyberdle</a>
+  </nav>
+
+  <header class="hero hero-compact">
+    <p class="kicker">ai governance &middot; <span id="question-count">8</span> questions, <span id="tier-count">3</span> tiers</p>
+    <h1 class="title">AI use case<br /><em>risk tiering</em></h1>
+    <p class="tagline">Answer eight anchored questions about a proposed AI use case and get its risk tier, the review path it should follow, the controls it needs mapped to the NIST AI RMF and the OWASP LLM Top 10, and a policy snippet ready to paste.</p>
+  </header>
+
+  <main id="main" class="ladle rt-wrap">
+    <p class="rt-privacy">Scoring is deterministic and anchored: the same answers always produce the same tier, and nothing is self-declared. Assessments live only in your browser; nothing is uploaded.</p>
+
+    <section class="rt-intake" aria-label="Use case intake">
+      <p class="rt-progress" id="progress" role="status"></p>
+      <form id="questions"></form>
+    </section>
+
+    <section class="rt-result rt-panel" id="result" hidden aria-label="Risk tier result" aria-live="polite"></section>
+
+    <section id="register-section" hidden aria-label="Assessed use case register">
+      <h2 class="rt-controls-head" style="font-size:1.05rem;">Use case register</h2>
+      <ul class="rt-register" id="register"></ul>
+      <p class="print-hide"><button type="button" class="rt-btn" id="export-register">Export register as JSON</button></p>
+    </section>
+  </main>
+
+  <footer class="colophon">
+    <p>
+      Want the frameworks behind the tiers?
+      <a class="cyberdle-link" href="../../frameworks/ai/">Read the NIST AI RMF and OWASP LLM Top 10 in plain English &rarr;</a>
+    </p>
+    <p class="fine-print">
+      An unofficial plain-English tool, not legal or compliance advice. Grounded in:
+      <a href="https://www.nist.gov/itl/ai-risk-management-framework" rel="noopener">NIST AI RMF</a>,
+      <a href="https://genai.owasp.org/llm-top-10/" rel="noopener">OWASP Top 10 for LLMs</a>,
+      <a href="https://www.iso.org/standard/42001" rel="noopener">ISO/IEC 42001</a>.
+    </p>
+  </footer>
+
+  <script type="module" src="/src/ai-risk-main.ts"></script>
+</body>
+</html>

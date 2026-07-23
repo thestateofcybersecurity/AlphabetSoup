@@ -1,0 +1,178 @@
+{
+  "meta": {
+    "title": "AI Use Case Risk Tiering",
+    "version": "1.0.0",
+    "maxScore": 24,
+    "sources": [
+      { "name": "NIST AI Risk Management Framework", "url": "https://www.nist.gov/itl/ai-risk-management-framework" },
+      { "name": "NIST AI 600-1 Generative AI Profile", "url": "https://www.nist.gov/publications/artificial-intelligence-risk-management-framework-generative-artificial-intelligence" },
+      { "name": "OWASP Top 10 for LLM Applications", "url": "https://genai.owasp.org/llm-top-10/" },
+      { "name": "ISO/IEC 42001", "url": "https://www.iso.org/standard/42001" }
+    ]
+  },
+  "questions": [
+    {
+      "id": "data",
+      "prompt": "What is the most sensitive data this use case touches?",
+      "help": "Count everything the AI can see: prompts, uploads, connected sources, and anything retrieved on its behalf.",
+      "options": [
+        { "value": "public", "points": 0, "label": "Public or synthetic data", "detail": "Marketing copy, published docs, or made-up sample data. Nothing here would matter if it leaked." },
+        { "value": "internal", "points": 1, "label": "Internal business data", "detail": "Non-public but low harm: process docs, internal wikis, code without secrets." },
+        { "value": "confidential", "points": 2, "label": "Confidential data", "detail": "Customer records, employee PII, financials, unreleased plans, or proprietary source code." },
+        { "value": "regulated", "points": 3, "minTier": "high", "gateReason": "Regulated or high-sensitivity data always takes the High tier path, regardless of the rest of the score.", "label": "Regulated or high-sensitivity data", "detail": "PHI, payment card data, CUI, credentials and secrets, or anything with legal handling rules attached." }
+      ]
+    },
+    {
+      "id": "audience",
+      "prompt": "Who sees or is affected by the output?",
+      "help": "The wider the audience, the less chance someone catches a bad output before it does damage.",
+      "options": [
+        { "value": "self", "points": 0, "label": "Just the person using it", "detail": "A personal productivity aid. The user is the only consumer of the output." },
+        { "value": "team", "points": 1, "label": "An internal team", "detail": "Output is shared with colleagues who have context to question it." },
+        { "value": "org", "points": 2, "label": "The whole company or business partners", "detail": "Output reaches people who will take it at face value." },
+        { "value": "external", "points": 3, "label": "Customers or the public", "detail": "Output is customer-facing or published. Errors become reputation and liability events." }
+      ]
+    },
+    {
+      "id": "autonomy",
+      "prompt": "How much does the AI act on its own?",
+      "help": "This is the agentic question: does a person do the work, approve the work, or find out afterward?",
+      "options": [
+        { "value": "suggest", "points": 0, "label": "Suggests only; a person does the work", "detail": "The AI recommends. A human performs every action themselves." },
+        { "value": "draft", "points": 1, "label": "Produces drafts a person edits and uses", "detail": "The AI creates artifacts, but a human reviews and owns what ships." },
+        { "value": "gated", "points": 2, "label": "Acts in systems with per-action human approval", "detail": "The AI executes steps, but each consequential action needs an explicit human yes." },
+        { "value": "autonomous", "points": 3, "minTier": "high", "gateReason": "Autonomous action without per-action approval always takes the High tier path.", "label": "Acts autonomously without per-action approval", "detail": "The AI takes actions on its own; humans supervise the aggregate, not each step." }
+      ]
+    },
+    {
+      "id": "oversight",
+      "prompt": "How are outputs reviewed before they matter?",
+      "help": "Oversight is the safety net for every other answer. Be honest about what reviewers actually do, not what the process says.",
+      "options": [
+        { "value": "every", "points": 0, "label": "A qualified person reviews every output", "detail": "Someone with the expertise to spot errors checks each output before it is used." },
+        { "value": "sampled", "points": 1, "label": "Outputs are spot-checked on a sample", "detail": "Routine sampling with feedback into the process, but not every output is read." },
+        { "value": "exception", "points": 2, "label": "Reviewed only when something looks wrong", "detail": "Review happens on complaint or anomaly. Silent failures pass through." },
+        { "value": "none", "points": 3, "minTier": "medium", "gateReason": "No routine human review rules out the pre-approved path on its own.", "label": "No routine human review", "detail": "Outputs flow directly to their audience or into systems without inspection." }
+      ]
+    },
+    {
+      "id": "consequence",
+      "prompt": "If the output is wrong, what is the worst realistic outcome?",
+      "help": "Assume the failure nobody catches. What does it cost?",
+      "options": [
+        { "value": "rework", "points": 0, "label": "Wasted time or rework", "detail": "Someone redoes the work. Annoying, not harmful." },
+        { "value": "internal", "points": 1, "label": "A bad internal decision", "detail": "Wrong analysis steers an internal choice that is correctable once noticed." },
+        { "value": "customer", "points": 2, "label": "Customer harm or financial loss", "detail": "A customer gets wrong information or money moves incorrectly." },
+        { "value": "rights", "points": 3, "minTier": "high", "gateReason": "Outcomes affecting safety, legal standing, or individual rights always take the High tier path.", "label": "Safety, legal, or rights-affecting harm", "detail": "Decisions touching employment, credit, health, or anything a regulator would call consequential." }
+      ]
+    },
+    {
+      "id": "model",
+      "prompt": "Where does the model run, and what happens to your prompts?",
+      "help": "The answer is in the vendor terms. If nobody has read them, that is itself the answer.",
+      "options": [
+        { "value": "enterprise", "points": 0, "label": "Enterprise agreement with no-training terms", "detail": "Contract bars the provider from training on your data, with retention controls and breach terms." },
+        { "value": "inhouse", "points": 1, "label": "In-house or self-hosted model you control", "detail": "Data stays on infrastructure you operate, but you own the whole security burden." },
+        { "value": "standard", "points": 2, "label": "Vendor tool on standard terms", "detail": "Retention or training rights are permissive or unclear in the standard agreement." },
+        { "value": "unknown", "points": 3, "minTier": "medium", "gateReason": "Consumer-grade tools or unreviewed terms rule out the pre-approved path on their own.", "label": "Consumer or free tier, or nobody has checked", "detail": "Personal accounts, free tiers, or a tool nobody has vetted. Classic shadow AI." }
+      ]
+    },
+    {
+      "id": "access",
+      "prompt": "What systems and tools can the AI reach?",
+      "help": "For agents and integrations: what could it touch on its worst day, not its average one?",
+      "options": [
+        { "value": "none", "points": 0, "label": "Nothing; it only sees what the user gives it", "detail": "No connectors, no tools. The user pastes in, the AI answers back." },
+        { "value": "read", "points": 1, "label": "Read-only access to internal sources", "detail": "It can retrieve from wikis, drives, or databases, but cannot change anything." },
+        { "value": "write_nonprod", "points": 2, "label": "Write access to non-production systems", "detail": "It can create or modify content in low-stakes systems: tickets, drafts, dev environments." },
+        { "value": "write_prod", "points": 3, "minTier": "high", "gateReason": "Write or execute access to production or financial systems always takes the High tier path.", "label": "Write or execute access to production systems", "detail": "It can act on production, financial, or customer-facing systems." }
+      ]
+    },
+    {
+      "id": "training",
+      "prompt": "Is your data used to train or fine-tune anything?",
+      "help": "Data that enters a model's weights is very hard to get back out.",
+      "options": [
+        { "value": "no", "points": 0, "label": "No retention, no training", "detail": "Prompts are processed and discarded; nothing feeds back into any model." },
+        { "value": "retained", "points": 1, "label": "Retained, but contractually excluded from training", "detail": "The provider stores data for a period but the contract bars training on it." },
+        { "value": "finetune", "points": 2, "label": "Used to fine-tune an internal model", "detail": "Your data shapes a model you control. Powerful, and a new asset to protect." },
+        { "value": "external", "points": 3, "minTier": "medium", "gateReason": "Data that may train an external model rules out the pre-approved path on its own.", "label": "Provider may train on it, or nobody knows", "detail": "Terms permit training on your inputs, or the question has never been asked." }
+      ]
+    }
+  ],
+  "tiers": [
+    {
+      "id": "low",
+      "label": "Low risk",
+      "scoreMin": 0,
+      "scoreMax": 5,
+      "summary": "Routine productivity use. The blast radius is small: low-sensitivity data, a person stays in the loop, and a wrong answer costs rework rather than customers.",
+      "reviewPath": {
+        "name": "Pre-approved path",
+        "description": "No review meeting needed. Register the use case, follow the acceptable-use basics, and go. Security finds out from the inventory, not from an incident.",
+        "steps": [
+          "Record the use case in the AI inventory",
+          "Confirm the tool is on the approved list",
+          "Start using it; re-run this tiering if data, audience, or autonomy changes"
+        ]
+      },
+      "controls": [
+        { "text": "Record the use case, its owner, and the tool in the organization's AI inventory.", "refs": ["GOVERN 1"] },
+        { "text": "Use only tools from the approved AI tool list, under the acceptable-use policy.", "refs": ["GOVERN 6"] },
+        { "text": "Make sure users know what data may and may not go into the tool.", "refs": ["GOVERN 2", "LLM02"] },
+        { "text": "Re-run this tiering whenever the use case changes its data, audience, or autonomy.", "refs": ["MAP 1"] }
+      ],
+      "policySnippet": "This use case is classified LOW RISK under the AI use policy. It may proceed on the pre-approved path under standard acceptable use. The use case is recorded in the AI inventory, uses an approved tool, and must be re-tiered if its data sensitivity, audience, or level of autonomy changes."
+    },
+    {
+      "id": "medium",
+      "label": "Medium risk",
+      "scoreMin": 6,
+      "scoreMax": 12,
+      "summary": "Real business exposure. Confidential data, wider audiences, or thinner oversight mean a failure would be felt beyond one desk. Worth a named owner and documented checks, not a committee.",
+      "reviewPath": {
+        "name": "Lightweight review",
+        "description": "Security reviews the completed intake asynchronously and responds within five business days. The goal is a named owner and documented pre-launch checks, not a meeting.",
+        "steps": [
+          "Submit this assessment plus the one-page intended-use description",
+          "Security reviews async and may ask clarifying questions",
+          "Launch after written acknowledgment; re-review annually"
+        ]
+      },
+      "controls": [
+        { "text": "Name a business owner and a risk owner who are accountable for the use case.", "refs": ["GOVERN 2"] },
+        { "text": "Write one page covering intended use, known limitations, and prohibited uses.", "refs": ["MAP 1"] },
+        { "text": "Review vendor terms for data retention, training rights, and breach notification before go-live.", "refs": ["GOVERN 6", "MAP 4"] },
+        { "text": "Test outputs against acceptance criteria before launch, including failure modes like hallucination and prompt injection.", "refs": ["MEASURE 2", "LLM01", "LLM09"] },
+        { "text": "Define where humans review outputs, and what triggers escalation to a person.", "refs": ["GOVERN 3"] },
+        { "text": "Give users a way to report bad outputs, and track what comes in.", "refs": ["MEASURE 3", "MANAGE 4"] }
+      ],
+      "policySnippet": "This use case is classified MEDIUM RISK under the AI use policy. It may proceed after lightweight security review. A named business owner and risk owner are accountable. Intended use and limitations are documented, vendor terms have been reviewed, outputs were tested against acceptance criteria before launch, and human review checkpoints and an issue-reporting channel are in place. The classification is re-reviewed annually and on any material change."
+    },
+    {
+      "id": "high",
+      "label": "High risk",
+      "scoreMin": 13,
+      "scoreMax": 24,
+      "summary": "Consequential use. Regulated data, real autonomy, production access, or rights-affecting outcomes put this in formal governance territory: assessed before launch, monitored after, and switch-off-able at any time.",
+      "reviewPath": {
+        "name": "Formal governance gate",
+        "description": "A written risk assessment goes to the AI governance body, or the CISO where none exists yet. Nothing reaches production without documented sign-off, and the approval carries a scheduled re-review date.",
+        "steps": [
+          "Complete a written risk assessment covering the controls below",
+          "Present to the AI governance body (or CISO) for documented sign-off",
+          "Launch only after approval; re-review at least annually and on any material change"
+        ]
+      },
+      "controls": [
+        { "text": "Complete a written risk assessment and obtain documented sign-off before any production use.", "refs": ["GOVERN 1", "MAP 5"] },
+        { "text": "Document model provenance, data lineage, and version history for the system.", "refs": ["MAP 2", "LLM03"] },
+        { "text": "Run adversarial testing before launch: prompt injection, jailbreaks, data extraction, and abuse of tool permissions.", "refs": ["MEASURE 2", "LLM01", "LLM07"] },
+        { "text": "Grant least-privilege, individually scoped credentials for every tool or system the AI can call, and log every action it takes.", "refs": ["LLM06", "LLM05"] },
+        { "text": "Monitor in production with defined quality and safety metrics, thresholds, and alerts.", "refs": ["MEASURE 3", "MANAGE 4"] },
+        { "text": "Keep a tested way to disable the system fast, and an incident runbook that names who pulls that switch.", "refs": ["MANAGE 2", "MANAGE 4"] }
+      ],
+      "policySnippet": "This use case is classified HIGH RISK under the AI use policy. It may not enter production until a written risk assessment is approved through the formal AI governance gate. Required controls include documented provenance and data lineage, pre-launch adversarial testing, least-privilege tool permissions with full action logging, production monitoring against defined thresholds, and a tested deactivation procedure with a named owner. The approval carries a mandatory re-review at least annually and on any material change."
+    }
+  ]
+}
