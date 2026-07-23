@@ -22,6 +22,7 @@ export default defineConfig({
         boardMetrics: 'tools/board-metrics/index.html',
         runbook: 'tools/runbook/index.html',
         cloudBaseline: 'tools/cloud-baseline/index.html',
+        ssdlc: 'tools/ssdlc/index.html',
         roadmap: 'roadmap/index.html',
         about: 'about/index.html',
       },
