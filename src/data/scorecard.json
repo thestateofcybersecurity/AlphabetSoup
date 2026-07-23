@@ -1,0 +1,349 @@
+{
+  "meta": {
+    "title": "What Employers Actually Want: The 2026 Security Leadership Scorecard",
+    "description": "Ten demands that repeat across real cybersecurity job descriptions, distilled from a corpus of roughly 60 live, verified postings applied to in July 2026, spanning manager to SVP/CISO seats across fintech, healthcare, legal services, manufacturing, data centers, SaaS, and the public sector.",
+    "methodology": "Each card's frequency is an estimate of how often the demand appeared as an explicit requirement or responsibility in the corpus. Phrasings are paraphrased composites of how job descriptions express the demand, not verbatim quotes.",
+    "corpusSize": 60,
+    "corpusWindow": "June-July 2026",
+    "seniorityRange": "Manager through SVP / CISO",
+    "author": "Parker Brissette",
+    "version": "1.0.0",
+    "lastUpdated": "2026-07-22"
+  },
+  "cards": [
+    {
+      "id": "framework-fluency",
+      "rank": 1,
+      "title": "Framework fluency, proven through audit",
+      "frequencyPct": 90,
+      "plainEnglish": "Nearly every posting names the same four anchors: NIST CSF, ISO/IEC 27001, SOC 2, and CIS Controls. What they want is not familiarity; it is someone who has designed the control set, collected the evidence, and sat across from the auditor, repeatedly.",
+      "howJDsSayIt": [
+        "Design and operate an ISMS aligned to ISO 27001 and NIST frameworks",
+        "Lead SOC 2 Type II audits end to end, from evidence through examiner",
+        "Mature the program against NIST CSF with measurable control maturity"
+      ],
+      "whyItMatters": "Frameworks are the shared language of security programs, boards, auditors, and customers. One well-engineered control set can satisfy all of them at once; a candidate who has done that saves the organization from running compliance as a parallel project.",
+      "onTheJobTool": {
+        "name": "Control Crosswalk Mapper",
+        "elevatorPitch": "Pick the frameworks your organization owes (NIST CSF, ISO 27001 Annex A, SOC 2 TSC, CIS v8) and get one unified control list showing which single control satisfies which requirements across all of them, plus the gaps.",
+        "inputs": [
+          "Frameworks in scope (multi-select)",
+          "Optional: controls already implemented (checklist import)"
+        ],
+        "outputs": [
+          "Unified control list with cross-framework mappings",
+          "Coverage percentage per framework",
+          "Gap register sorted by how many frameworks each missing control unlocks"
+        ],
+        "mvpFeatures": [
+          "Static crosswalk dataset (reuse the site's existing NIST CSF and CIS data as the spine)",
+          "Checkbox state in localStorage",
+          "Export gap register as CSV"
+        ],
+        "day1Value": "Week one in any new seat: map what exists against what is owed and walk into the first leadership meeting with a defensible coverage number.",
+        "status": "planned"
+      }
+    },
+    {
+      "id": "ai-security-governance",
+      "rank": 2,
+      "title": "AI security and governance",
+      "frequencyPct": 65,
+      "plainEnglish": "The 2026 differentiator. Two-thirds of postings now ask for it, and the asks are getting specific: NIST AI RMF and the OWASP Top 10 for LLMs by name, ISO/IEC 42001 adoption, securing AI agents and their tool permissions, and governance that enables AI adoption instead of blocking it.",
+      "howJDsSayIt": [
+        "Establish AI security governance for tool adoption and AI-specific risks",
+        "Secure AI-powered services across model integrity, privacy, and prompt security",
+        "Experience with NIST AI RMF and OWASP LLM Top 10 preferred"
+      ],
+      "whyItMatters": "Every company is adopting AI faster than its policies can follow. Almost no security candidates can prove real AI governance work, so the few who can are differentiated instantly.",
+      "onTheJobTool": {
+        "name": "AI Use Case Risk Tiering Tool",
+        "elevatorPitch": "Answer eight questions about a proposed AI use case (data sensitivity, autonomy, audience, human oversight) and get an instant risk tier (low, medium, high) with the exact review path, required controls, and a ready-to-paste policy snippet for that tier.",
+        "inputs": [
+          "Guided intake: data classification touched, external vs internal audience, agentic autonomy level, human-in-the-loop status, vendor vs in-house model, output consequence level"
+        ],
+        "outputs": [
+          "Risk tier with rationale",
+          "Required controls checklist for that tier (mapped to NIST AI RMF functions)",
+          "Review path (pre-approved / lightweight / formal gate)",
+          "Register entry export"
+        ],
+        "mvpFeatures": [
+          "Deterministic scoring rubric (anchored, never self-declared, same philosophy as the BIA app)",
+          "Tier definitions editable in one JSON config",
+          "localStorage register of assessed use cases"
+        ],
+        "day1Value": "The single most requested AI governance artifact in current JDs, working on day one: intake to tier to controls in five minutes per use case.",
+        "status": "live",
+        "href": "ai-risk/"
+      }
+    },
+    {
+      "id": "cloud-security",
+      "rank": 3,
+      "title": "Cloud security across AWS, Azure, and GCP",
+      "frequencyPct": 85,
+      "plainEnglish": "Nearly universal, with AWS most often named first, and identity increasingly treated as the real perimeter: Entra ID or Okta, privileged access management, conditional access, and zero trust design.",
+      "howJDsSayIt": [
+        "Deep AWS security expertise; multi-cloud a plus",
+        "Own cloud security architecture including IAM, logging, and workload protection",
+        "Hands-on with the Microsoft security suite: Entra ID, Defender, Purview"
+      ],
+      "whyItMatters": "The infrastructure is the cloud now. Organizations want leaders who can read an IAM policy and an architecture diagram themselves, not just review the summary.",
+      "onTheJobTool": {
+        "name": "Cloud Security Baseline Generator",
+        "elevatorPitch": "Select provider, workload types, and compliance targets, and get a prioritized hardening checklist (identity first, then logging, network, workload) mapped to CIS Benchmarks and the frameworks in scope.",
+        "inputs": [
+          "Provider(s)",
+          "Workload profile (SaaS product, corporate IT, data platform)",
+          "Compliance targets (SOC 2, HIPAA, CMMC, PCI)"
+        ],
+        "outputs": [
+          "Ordered baseline checklist with rationale per item",
+          "Mapping of each item to the compliance targets it serves",
+          "Printable 30/60/90 hardening plan"
+        ],
+        "mvpFeatures": [
+          "Static ruleset JSON per provider",
+          "Priority weighting by compliance target",
+          "Progress tracking in localStorage"
+        ],
+        "day1Value": "Turns the vague first-quarter mandate of assess our cloud posture into a concrete, framework-mapped worklist in an afternoon.",
+        "status": "planned"
+      }
+    },
+    {
+      "id": "incident-response",
+      "rank": 4,
+      "title": "Incident response and resilience, tested for real",
+      "frequencyPct": 80,
+      "plainEnglish": "Owned and exercised response plans with scenario runbooks (ransomware, business email compromise, account takeover), business continuity and disaster recovery alignment, and evidence you can command a severity-one incident calmly.",
+      "howJDsSayIt": [
+        "Own and test incident response plans and scenario runbooks",
+        "Direct incident response, disaster recovery, and business continuity",
+        "Serve as the senior escalation point for major security events"
+      ],
+      "whyItMatters": "Boards ask one question after every headline breach: would that ruin us? The answer depends entirely on preparation done before the incident, which is what these postings are really buying.",
+      "onTheJobTool": {
+        "name": "Runbook and Tabletop Generator",
+        "elevatorPitch": "Pick a scenario and describe the organization in six fields, and generate a tailored response runbook skeleton plus a ready-to-run tabletop exercise with timed injects that reference your actual environment.",
+        "inputs": [
+          "Scenario (ransomware, BEC, account takeover, third-party breach, AI data leak)",
+          "Org profile: size, cloud stack, MDR partner, regulated data types, key business process"
+        ],
+        "outputs": [
+          "Runbook skeleton: roles, escalation ladder, decision points, communications templates",
+          "Tabletop script with 5-7 injects and facilitator notes",
+          "Gap questions to answer before the real thing"
+        ],
+        "mvpFeatures": [
+          "Template engine over scenario JSON (the BIA app already proves this pattern with data-driven tabletops)",
+          "Print-friendly output",
+          "Scenario library expandable via config"
+        ],
+        "day1Value": "Schedule a tabletop in month one, generated from the new environment's real details, and hand leadership their first resilience evidence.",
+        "status": "planned"
+      }
+    },
+    {
+      "id": "board-communication",
+      "rank": 5,
+      "title": "Board-fluent risk communication",
+      "frequencyPct": 75,
+      "plainEnglish": "Translate technical risk into business and financial impact for boards, investors, and auditors: KPIs and KRIs that mean something, dashboards that drive decisions, and posture narratives without jargon.",
+      "howJDsSayIt": [
+        "Build security KPIs and board-level dashboards translating technical risk into business impact",
+        "Present security posture to the board, executives, investors, and external auditors",
+        "Communicate complex risk to non-technical audiences"
+      ],
+      "whyItMatters": "Security budgets are approved by people who will never read a vulnerability report. The leader who converts risk into dollars, decisions, and trade-offs gets the resources; the one who presents scanner output does not.",
+      "onTheJobTool": {
+        "name": "Board Metrics Builder",
+        "elevatorPitch": "Choose from a curated menu of security KPIs and KRIs that boards actually understand, enter current values, and generate a clean one-page posture summary with trend arrows, plain-English framing, and a risk-to-business-impact translation for each metric.",
+        "inputs": [
+          "Metric selection (coverage, MTTR, phishing resilience, patch latency, vendor risk, audit findings aging)",
+          "Current and prior period values",
+          "One narrative highlight and one ask"
+        ],
+        "outputs": [
+          "Print-ready one-page board summary",
+          "Per-metric plain-English talk track",
+          "Quarter-over-quarter trend view"
+        ],
+        "mvpFeatures": [
+          "Metric definitions with anchored good/watch/act thresholds",
+          "Client-side chart rendering",
+          "Data stays in the browser, consistent with the site's privacy promise"
+        ],
+        "day1Value": "The first board meeting arrives fast in a new seat; this produces a credible, consistent reporting artifact before the team has built anything.",
+        "status": "planned"
+      }
+    },
+    {
+      "id": "regulatory-compliance",
+      "rank": 6,
+      "title": "Industry regulation, owned through the exam",
+      "frequencyPct": 70,
+      "plainEnglish": "Beyond the base frameworks, every industry adds its own regulator: HIPAA and HITRUST in healthcare, GLBA, the FTC Safeguards Rule, FFIEC, SEC and FINRA in financial services, CMMC and NIST 800-171 in defense manufacturing, FERPA in education, GDPR and CCPA everywhere. Postings want someone who has faced the examiner, not read the standard.",
+      "howJDsSayIt": [
+        "Ensure compliance with the FTC Safeguards Rule in partnership with the compliance officer",
+        "Maintain HIPAA, HITRUST, and state privacy compliance across products",
+        "Lead CMMC Level 2 readiness across manufacturing operations"
+      ],
+      "whyItMatters": "Regulatory failure is the one security outcome that is guaranteed to reach the board. Employers pay a premium for leaders who arrive already knowing which obligations attach to their business model.",
+      "onTheJobTool": {
+        "name": "Regulatory Applicability Mapper",
+        "elevatorPitch": "Answer questions about the business (data types handled, industries served, customer geography, government contracts) and get the list of regulations that actually apply, each with its enforcement body, core obligations, and a first-90-days action list.",
+        "inputs": [
+          "Data types (PHI, payment, consumer financial, CUI, children's, EU/UK personal data)",
+          "Industry and customer types",
+          "Geographies",
+          "Contract types (federal, DoD, state)"
+        ],
+        "outputs": [
+          "Applicable regulation list with why-it-applies rationale",
+          "Obligation summaries in plain English",
+          "Combined first-90-days compliance action plan"
+        ],
+        "mvpFeatures": [
+          "Decision-tree JSON over a curated regulation dataset (natural extension of the site's glossary discipline)",
+          "Sources cited per regulation",
+          "Exportable action plan"
+        ],
+        "day1Value": "The new-CISO question of what do we actually owe, answered systematically in the first week instead of discovered in the first audit.",
+        "status": "planned"
+      }
+    },
+    {
+      "id": "third-party-trust",
+      "rank": 7,
+      "title": "Third-party risk and customer trust",
+      "frequencyPct": 65,
+      "plainEnglish": "Two directions of the same muscle. Inbound: run vendor risk from intake through offboarding with control-based assessments and MSSP/MDR oversight. Outbound: answer customer security questionnaires, due diligence requests, and RFPs fast enough that security accelerates sales instead of stalling them.",
+      "howJDsSayIt": [
+        "Manage the vendor lifecycle with security due diligence and ongoing monitoring",
+        "Own customer security questionnaires and build a reusable trust package",
+        "Serve as security lead for client reviews and investor due diligence"
+      ],
+      "whyItMatters": "Every breach postmortem finds a vendor, and every enterprise deal now includes a security review. Organizations increasingly see the questionnaire response as a revenue event.",
+      "onTheJobTool": {
+        "name": "Trust Package and Questionnaire Answer Library",
+        "elevatorPitch": "A canonical library of security program answers organized by topic; paste an incoming questionnaire question and get the closest matched draft answers, then export a standing trust package (program overview, certifications, subprocessors, FAQ) that pre-empts most questionnaires entirely.",
+        "inputs": [
+          "One-time: program facts entered by topic (encryption, access control, IR, BCP, subprocessors)",
+          "Per-use: pasted questionnaire questions"
+        ],
+        "outputs": [
+          "Matched draft answers with confidence indicators",
+          "Gap list of questions with no library answer yet",
+          "Printable trust package document"
+        ],
+        "mvpFeatures": [
+          "Keyword and category matching client-side (no data leaves the browser, which matters for this content)",
+          "Library import/export as JSON",
+          "Answer freshness dates"
+        ],
+        "day1Value": "The first customer questionnaire in a new job usually takes days; with the library populated during onboarding it takes an hour, and sales notices.",
+        "status": "planned"
+      }
+    },
+    {
+      "id": "automation-efficiency",
+      "rank": 8,
+      "title": "Automation and doing more with less",
+      "frequencyPct": 60,
+      "plainEnglish": "Lean teams are the stated assumption. Postings ask for automation of repetitive, high-volume work: alert triage and enrichment, evidence collection, reporting, and reductions in mean time to contain, increasingly with AI in the loop and controls managed as code.",
+      "howJDsSayIt": [
+        "Identify and automate repetitive, high-volume security tasks",
+        "Drive automation that reduces mean time to containment",
+        "Leverage AI and compliance automation to scale the program"
+      ],
+      "whyItMatters": "Security headcount grows slower than attack surface everywhere. The leader who can quantify which work to automate first, and then actually ship it, effectively multiplies the team.",
+      "onTheJobTool": {
+        "name": "Automation ROI Ranker",
+        "elevatorPitch": "Inventory the team's recurring work (alert types, evidence tasks, reports) with volumes and handle times, and get a ranked automation backlog by hours returned per month, each with a suggested automation pattern and a playbook skeleton.",
+        "inputs": [
+          "Task inventory: name, category, monthly volume, minutes per instance, error sensitivity, current tooling"
+        ],
+        "outputs": [
+          "Ranked backlog by hours saved and risk-adjusted feasibility",
+          "Suggested pattern per item (SOAR playbook, scheduled script, AI-assisted triage with human gate, compliance automation)",
+          "Before/after capacity model to show leadership"
+        ],
+        "mvpFeatures": [
+          "Simple scoring model, transparent math shown on screen",
+          "localStorage inventory",
+          "Export backlog as CSV"
+        ],
+        "day1Value": "Converts the vague mandate of bring us efficiency into a defensible, numbers-backed automation roadmap in the first month.",
+        "status": "planned"
+      }
+    },
+    {
+      "id": "devsecops",
+      "rank": 9,
+      "title": "DevSecOps and security in the SDLC",
+      "frequencyPct": 55,
+      "plainEnglish": "Security embedded where the work happens: scanning and secret detection in CI/CD, infrastructure-as-code review, threat modeling at design time, and paved roads that make the secure path the fast path, with adoption measured by outcomes rather than scanner volume.",
+      "howJDsSayIt": [
+        "Implement DevSecOps practices and embed security into CI/CD pipelines",
+        "Partner with engineering to integrate security into the SDLC",
+        "Proven track record driving secure development adoption"
+      ],
+      "whyItMatters": "Gate-at-the-end security gets routed around. Organizations shipping software want security leaders engineers respect, which requires meeting them inside their own pipeline.",
+      "onTheJobTool": {
+        "name": "Secure SDLC Gap Checker",
+        "elevatorPitch": "Walk through a pipeline checklist (SAST, dependency scanning, secrets, IaC review, threat modeling triggers, artifact signing) against what the organization actually runs, and get a maturity score plus a sequenced adoption plan that starts with the highest-leverage, lowest-friction controls.",
+        "inputs": [
+          "Current pipeline practices (guided checklist)",
+          "Stack facts: languages, CI system, cloud, deployment model"
+        ],
+        "outputs": [
+          "SDLC maturity scorecard by phase",
+          "Sequenced adoption plan with friction ratings",
+          "Engineer-facing one-pager explaining what changes and why it will not slow them down"
+        ],
+        "mvpFeatures": [
+          "Anchored maturity rubric per practice",
+          "Plan ordering by leverage-to-friction ratio",
+          "Print and share views"
+        ],
+        "day1Value": "The first engineering-leadership meeting becomes a collaboration over a concrete plan instead of a negotiation over abstract policy.",
+        "status": "planned"
+      }
+    },
+    {
+      "id": "player-coach",
+      "rank": 10,
+      "title": "Player-coach leadership",
+      "frequencyPct": 55,
+      "plainEnglish": "The most consistent cultural demand at every level: build, mentor, and retain a team while staying hands-on enough to do the technical work yourself. Often paired with leading distributed or offshore teams and managing MSSP partners as an extension of staff.",
+      "howJDsSayIt": [
+        "Hands-on leadership style balancing execution and delegation",
+        "Hire, develop, and manage security engineers while remaining technical",
+        "Lead onshore and offshore teams and co-sourced partners"
+      ],
+      "whyItMatters": "Lean teams cannot afford a leader who only delegates, and growing teams cannot afford one who only does. The player-coach is the profile that survives both budget cycles and talent markets.",
+      "onTheJobTool": {
+        "name": "Team Skills Matrix and Growth Planner",
+        "elevatorPitch": "Map each team member against the competencies the program needs (drawn from these ten cards), visualize coverage and single-points-of-failure, and generate individual growth plans that link each gap to concrete study resources, including certification paths.",
+        "inputs": [
+          "Team roster with self and manager ratings per competency",
+          "Program priorities (which of the ten demands matter most this year)"
+        ],
+        "outputs": [
+          "Team heatmap with bus-factor warnings",
+          "Per-person growth plan with resource links",
+          "Hiring-priority profile for the next requisition"
+        ],
+        "mvpFeatures": [
+          "Competency model is this dataset itself, one source of truth",
+          "Links into existing certification study decks and framework guides",
+          "All data local to the browser"
+        ],
+        "day1Value": "The 30-day team assessment every new leader owes their boss, produced systematically, with growth plans that make the team feel invested in rather than audited.",
+        "status": "planned"
+      }
+    }
+  ]
+}

@@ -491,6 +491,7 @@ const urls = [
   `${SITE}/quiz/`,
   `${SITE}/assess/`,
   `${SITE}/roadmap/`,
+  `${SITE}/tools/`,
   `${SITE}/tools/ai-risk/`,
   `${SITE}/careers/`,
   `${SITE}/about/`,

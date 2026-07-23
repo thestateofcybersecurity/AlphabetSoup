@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="color-scheme" content="light dark" />
+  <meta name="description" content="What employers actually want from security leaders in 2026: ten demands distilled from roughly 60 live job postings, ranked by how often they appear, each paired with a working on-the-job tool built on this site." />
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="What Employers Actually Want: The 2026 Security Leadership Scorecard | Cybersecurity Alphabet Soup" />
+  <meta property="og:description" content="Ten demands that repeat across real security leadership job descriptions, ranked by frequency, each paired with a working on-the-job tool." />
+  <meta property="og:url" content="https://cybersecurityalphabetsoup.com/tools/" />
+  <meta property="og:image" content="https://cybersecurityalphabetsoup.com/og-image.png" />
+  <title>What Employers Actually Want: The 2026 Security Leadership Scorecard | Cybersecurity Alphabet Soup</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,700;0,9..144,900;1,9..144,500&family=IBM+Plex+Mono:wght@500;600&family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet" />
+  <link rel="icon" href="/icon.svg" type="image/svg+xml" />
+  <link rel="stylesheet" href="/style.css" />
+  <style>
+    .sc-intro { max-width: 720px; margin: 0 auto 26px; text-align: center; color: var(--ink-soft); line-height: 1.6; font-size: 0.95rem; }
+    .sc-list { max-width: 860px; margin: 0 auto 34px; display: flex; flex-direction: column; gap: 20px; }
+    .sc-card { border: 1.5px solid var(--line); border-radius: 14px; background: var(--paper-raised); padding: 20px 22px; }
+    .sc-head { display: grid; grid-template-columns: auto 1fr; grid-template-rows: auto auto; column-gap: 14px; row-gap: 6px; align-items: center; margin-bottom: 10px; }
+    .sc-rank {
+      grid-row: 1 / span 2; font-family: var(--font-display); font-weight: 900; font-size: 2.2rem;
+      color: var(--tomato); line-height: 1; min-width: 1.2em; text-align: center;
+    }
+    .sc-title { margin: 0; font-size: 1.25rem; font-family: var(--font-display); color: var(--ink); }
+    .sc-freq { display: flex; align-items: center; gap: 10px; }
+    .sc-freq-track { flex: 0 1 220px; height: 8px; border-radius: 999px; background: var(--line); overflow: hidden; }
+    .sc-freq-fill { height: 100%; border-radius: 999px; background: var(--tomato); }
+    .sc-freq-label { font-family: var(--font-mono); font-size: 0.68rem; letter-spacing: 0.06em; color: var(--ink-soft); text-transform: uppercase; }
+    .sc-plain { margin: 0 0 12px; line-height: 1.6; font-size: 0.96rem; }
+    .sc-details { margin: 0 0 8px; }
+    .sc-details summary {
+      cursor: pointer; font-family: var(--font-mono); font-size: 0.7rem; letter-spacing: 0.12em;
+      text-transform: uppercase; color: var(--tomato-deep); padding: 4px 0;
+    }
+    .sc-details ul { margin: 6px 0 10px; padding-left: 20px; }
+    .sc-details li, .sc-details p { font-size: 0.9rem; line-height: 1.55; color: var(--ink); margin: 0 0 6px; }
+    .sc-details p { margin-top: 6px; }
+    .sc-tool { border: 1.5px dashed var(--line); border-radius: 12px; padding: 14px 16px; margin-top: 12px; }
+    .sc-tool.live { border-style: solid; border-color: var(--tomato); }
+    .sc-tool-kicker { font-family: var(--font-mono); font-size: 0.64rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--ink-soft); margin: 0 0 4px; }
+    .sc-tool-name { font-weight: 700; font-size: 1.05rem; margin: 0 0 6px; color: var(--ink); }
+    .sc-tool-pitch { font-size: 0.9rem; line-height: 1.55; margin: 0 0 8px; }
+    .sc-tool-day1 { font-size: 0.85rem; line-height: 1.5; color: var(--ink-soft); margin: 0 0 10px; }
+    .sc-tool-cta {
+      display: inline-block; font-weight: 600; font-size: 0.9rem; text-decoration: none;
+      color: #fff; background: var(--tomato); border-radius: 10px; padding: 9px 18px;
+    }
+    .sc-tool-cta:hover { background: var(--tomato-deep); }
+    .sc-tool-soon {
+      display: inline-block; font-family: var(--font-mono); font-size: 0.68rem; letter-spacing: 0.1em;
+      text-transform: uppercase; color: var(--ink-soft); border: 1.5px solid var(--line);
+      border-radius: 999px; padding: 5px 12px;
+    }
+    .sc-method { max-width: 720px; margin: 0 auto 28px; font-size: 0.85rem; color: var(--ink-soft); line-height: 1.6; text-align: center; }
+  </style>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <div class="steam" aria-hidden="true"></div>
+
+  <nav class="site-nav" aria-label="Site">
+    <a href="../">Acronyms</a>
+    <a href="../frameworks/nist-csf/">NIST CSF</a>
+    <a href="../frameworks/cis/">CIS Controls</a>
+    <a href="../frameworks/ai/">AI Security</a>
+    <a href="../quiz/">Quiz</a>
+    <a href="../assess/">Assess</a>
+    <a href="../roadmap/">Roadmap</a>
+    <a href="https://mitre.cybersecurityalphabetsoup.com/" rel="noopener" target="_blank">MITRE ATT&amp;CK</a>
+    <a href="https://bia.cybersecurityalphabetsoup.com/" rel="noopener" target="_blank" title="Business Impact Assessment">BIA</a><a class="nav-play" href="https://thestateofcybersecurity.github.io/cyberdle/" rel="noopener" target="_blank">Play Cyberdle</a>
+  </nav>
+
+  <header class="hero hero-compact">
+    <p class="kicker">read from <span id="corpus-size">60</span> real postings &middot; <span id="live-count">1 of 10</span> tools live</p>
+    <h1 class="title">What employers<br /><em>actually want</em></h1>
+    <p class="tagline">The 2026 security leadership scorecard: ten demands that repeat across real job descriptions, ranked by how often they appear, each paired with an on-the-job tool that proves the skill instead of claiming it.</p>
+  </header>
+
+  <main id="main" class="ladle">
+    <p class="sc-intro">Every card below is a pattern from live postings for manager through SVP and CISO seats: what the demand is in plain English, how job descriptions phrase it, why organizations pay for it, and the tool a leader would actually use in the first ninety days. Tools marked live run right here, free, with nothing uploaded.</p>
+    <div class="sc-list" id="cards"></div>
+    <p class="sc-method" id="methodology-text"></p>
+  </main>
+
+  <footer class="colophon">
+    <p>
+      Studying for the seat instead of holding it yet?
+      <a class="cyberdle-link" href="../careers/">Follow a career path through the quiz decks and frameworks &rarr;</a>
+    </p>
+    <p class="fine-print">
+      Part of <a href="../">Cybersecurity Alphabet Soup</a>. Frequencies are estimates from a hand-read corpus of postings, not a survey.
+    </p>
+  </footer>
+
+  <script type="module" src="/src/scorecard-main.ts"></script>
+</body>
+</html>
