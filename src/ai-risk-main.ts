@@ -202,19 +202,22 @@ function renderRegister(): void {
   if (entries.length === 0) return;
 
   const tierLabel = Object.fromEntries(rubric.tiers.map((t) => [t.id, t.label]));
+  const validTiers = new Set(rubric.tiers.map((t) => t.id));
   host.innerHTML = entries
-    .map(
-      (entry) => `
-      <li class="rt-reg-item" data-id="${entry.id}">
-        <span class="rt-reg-badge tier-${entry.tier}">${esc(tierLabel[entry.tier] ?? entry.tier)}</span>
+    .map((entry) => {
+      const safeId = esc(String(entry.id));
+      const safeTier = validTiers.has(entry.tier) ? entry.tier : 'unknown';
+      return `
+      <li class="rt-reg-item" data-id="${safeId}">
+        <span class="rt-reg-badge tier-${safeTier}">${esc(tierLabel[safeTier as TierId] ?? safeTier)}</span>
         <span class="rt-reg-name">${esc(entry.name)}</span>
         <span class="rt-reg-meta">${entry.score}/${rubric.meta.maxScore} &middot; ${new Date(entry.savedAt).toLocaleDateString()}</span>
         <span class="rt-reg-actions">
           <button type="button" class="rt-btn" data-action="load">Load</button>
           <button type="button" class="rt-btn rt-btn-quiet" data-action="delete">Delete</button>
         </span>
-      </li>`,
-    )
+      </li>`;
+    })
     .join('');
 }
 
