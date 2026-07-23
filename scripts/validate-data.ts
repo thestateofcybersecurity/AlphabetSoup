@@ -211,6 +211,34 @@ function validateSsdlc(data: { phases: { id: string }[]; practices: SsdlcPractic
   return out;
 }
 
+interface AutomationRoi {
+  categories: { id: string; name: string; defaultPattern: string; automatable: number }[];
+  sensitivities: { id: string; name: string; autoRetain: number; note: string }[];
+  patterns: { id: string; name: string; blurb: string; skeleton: string[] }[];
+}
+
+/** Structural checks for the automation ROI ruleset. */
+function validateAutomationRoi(data: AutomationRoi): string[] {
+  const out: string[] = [];
+  const patternIds = new Set(data.patterns.map((p) => p.id));
+  const seen = new Set<string>();
+  for (const c of data.categories) {
+    if (seen.has(c.id)) out.push(`duplicate category id ${c.id}`);
+    seen.add(c.id);
+    if (!patternIds.has(c.defaultPattern)) out.push(`${c.id}: unknown defaultPattern ${c.defaultPattern}`);
+    if (!(c.automatable > 0 && c.automatable <= 1)) out.push(`${c.id}: automatable out of range`);
+  }
+  for (const s of data.sensitivities) {
+    if (!(s.autoRetain > 0 && s.autoRetain <= 1)) out.push(`${s.id}: autoRetain out of range`);
+  }
+  for (const p of data.patterns) {
+    if (!p.blurb?.trim()) out.push(`${p.id}: empty blurb`);
+    if (!Array.isArray(p.skeleton) || p.skeleton.length < 3) out.push(`${p.id}: skeleton too short`);
+  }
+  if (JSON.stringify(data).includes('—')) out.push('em dash present');
+  return out;
+}
+
 const acronyms = load<AcronymData>('../src/data/acronyms.json');
 const csf = load<CsfData>('../src/data/nist-csf.json');
 const cis = load<CisData>('../src/data/cis.json');
@@ -226,6 +254,7 @@ const boardMetrics = load<{ metrics: BoardMetric[] }>('../src/data/board-metrics
 const runbooks = load<{ scenarios: RunbookScenario[] }>('../src/data/runbooks.json');
 const cloudBaseline = load<{ controls: CloudControl[] }>('../src/data/cloud-baseline.json');
 const ssdlc = load<{ phases: { id: string }[]; practices: SsdlcPractice[] }>('../src/data/ssdlc.json');
+const automationRoi = load<AutomationRoi>('../src/data/automation-roi.json');
 
 const mapProblems: string[] = [];
 for (const csfId of Object.keys(csf)) {
@@ -255,6 +284,7 @@ const problems = [
   ...validateRunbooks(runbooks.scenarios).map((e) => `runbooks: ${e}`),
   ...validateCloudBaseline(cloudBaseline.controls).map((e) => `cloud-baseline: ${e}`),
   ...validateSsdlc(ssdlc).map((e) => `ssdlc: ${e}`),
+  ...validateAutomationRoi(automationRoi).map((e) => `automation-roi: ${e}`),
 ];
 
 if (problems.length > 0) {
@@ -264,5 +294,5 @@ if (problems.length > 0) {
 }
 console.log(
   `Data OK: ${Object.keys(acronyms).length} acronyms, ${Object.keys(csf).length} CSF subcategories, ${Object.keys(cis).length} CIS safeguards, ${ai.length} AI framework entries, ` +
-    `${cmmc.questions.length} 800-171/CMMC, ${cyberEssentials.questions.length} Cyber Essentials, ${ztmm.questions.length} ZTMM, ${ssdf.questions.length} SSDF, ${pci.questions.length} PCI DSS, ${crosswalk.controls.length} crosswalk domains, ${boardMetrics.metrics.length} board metrics, ${runbooks.scenarios.length} runbook scenarios, ${cloudBaseline.controls.length} cloud baseline controls, ${ssdlc.practices.length} SDLC practices.`,
+    `${cmmc.questions.length} 800-171/CMMC, ${cyberEssentials.questions.length} Cyber Essentials, ${ztmm.questions.length} ZTMM, ${ssdf.questions.length} SSDF, ${pci.questions.length} PCI DSS, ${crosswalk.controls.length} crosswalk domains, ${boardMetrics.metrics.length} board metrics, ${runbooks.scenarios.length} runbook scenarios, ${cloudBaseline.controls.length} cloud baseline controls, ${ssdlc.practices.length} SDLC practices, ${automationRoi.categories.length} automation categories.`,
 );

@@ -280,7 +280,8 @@
           "Export backlog as CSV"
         ],
         "day1Value": "Converts the vague mandate of bring us efficiency into a defensible, numbers-backed automation roadmap in the first month.",
-        "status": "planned"
+        "status": "live",
+        "href": "automation-roi/"
       }
     },
     {
