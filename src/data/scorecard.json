@@ -215,7 +215,8 @@
           "Exportable action plan"
         ],
         "day1Value": "The new-CISO question of what do we actually owe, answered systematically in the first week instead of discovered in the first audit.",
-        "status": "planned"
+        "status": "live",
+        "href": "reg-mapper/"
       }
     },
     {

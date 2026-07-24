@@ -280,6 +280,20 @@ body {
   }
 }
 
+.theme-reg {
+  --tomato: #3a6b6b;
+  --tomato-deep: #2a5151;
+  --broth: #8fbdbd;
+}
+
+@media (prefers-color-scheme: dark) {
+  .theme-reg {
+    --tomato: #6fb0b0;
+    --tomato-deep: #8fc9c9;
+    --broth: #345c5c;
+  }
+}
+
 @media (prefers-color-scheme: dark) {
   .theme-quiz {
     --tomato: #c08fd6;
