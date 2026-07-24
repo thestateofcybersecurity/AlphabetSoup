@@ -1,0 +1,878 @@
+{
+  "meta": {
+    "title": "Regulatory Applicability Mapper",
+    "version": "1.0.0",
+    "note": "An educational mapping of common US and EU regulations to a business profile. Applicability often turns on thresholds this tool does not capture. Not legal advice or a compliance determination; confirm with counsel.",
+    "sources": [
+      {
+        "name": "FTC business guidance",
+        "url": "https://www.ftc.gov/business-guidance"
+      }
+    ]
+  },
+  "questions": [
+    {
+      "id": "dataTypes",
+      "label": "What kinds of data does your business handle?",
+      "help": "Select all that apply.",
+      "options": [
+        {
+          "id": "phi",
+          "label": "Protected health information (PHI)"
+        },
+        {
+          "id": "cardholder",
+          "label": "Payment card data"
+        },
+        {
+          "id": "consumer-financial",
+          "label": "Consumer financial information"
+        },
+        {
+          "id": "cui",
+          "label": "Controlled Unclassified Information (CUI)"
+        },
+        {
+          "id": "children",
+          "label": "Children's data (under 13)"
+        },
+        {
+          "id": "eu-personal",
+          "label": "Personal data of people in the EU or UK"
+        },
+        {
+          "id": "ca-personal",
+          "label": "Personal data of California residents"
+        },
+        {
+          "id": "other-state-personal",
+          "label": "Personal data of other US state residents"
+        },
+        {
+          "id": "student",
+          "label": "Student education records"
+        },
+        {
+          "id": "biometric",
+          "label": "Biometric identifiers (fingerprints, face scans)"
+        }
+      ]
+    },
+    {
+      "id": "industry",
+      "label": "What industry does your business operate in or serve?",
+      "help": "Select all that apply.",
+      "options": [
+        {
+          "id": "healthcare",
+          "label": "Healthcare"
+        },
+        {
+          "id": "financial-services",
+          "label": "Financial services"
+        },
+        {
+          "id": "defense-industrial",
+          "label": "Defense or industrial base"
+        },
+        {
+          "id": "education",
+          "label": "Education"
+        },
+        {
+          "id": "retail-ecommerce",
+          "label": "Retail or ecommerce"
+        },
+        {
+          "id": "technology-saas",
+          "label": "Technology or SaaS"
+        },
+        {
+          "id": "other",
+          "label": "Other"
+        }
+      ]
+    },
+    {
+      "id": "contracts",
+      "label": "Do you hold government contracts?",
+      "help": "Select all that apply.",
+      "options": [
+        {
+          "id": "federal-civilian",
+          "label": "US federal (civilian agency)"
+        },
+        {
+          "id": "dod",
+          "label": "US Department of Defense"
+        },
+        {
+          "id": "state-local",
+          "label": "US state or local government"
+        },
+        {
+          "id": "none",
+          "label": "No government contracts"
+        }
+      ]
+    },
+    {
+      "id": "companyProfile",
+      "label": "Does your company match any of these?",
+      "help": "Select all that apply.",
+      "options": [
+        {
+          "id": "us-public-company",
+          "label": "US publicly traded company"
+        },
+        {
+          "id": "broker-dealer-investment",
+          "label": "Broker-dealer or investment firm"
+        },
+        {
+          "id": "none-of-these",
+          "label": "None of these"
+        }
+      ]
+    }
+  ],
+  "regulations": [
+    {
+      "id": "hipaa",
+      "name": "Health Insurance Portability and Accountability Act (HIPAA), including the HITECH Act amendments",
+      "short": "HIPAA",
+      "enforcer": "U.S. Department of Health and Human Services, Office for Civil Rights (HHS OCR); state attorneys general may also enforce.",
+      "appliesTo": "Covered entities (health plans, healthcare clearinghouses, and healthcare providers that transmit health information electronically) and their business associates that create, receive, maintain, or transmit protected health information.",
+      "triggers": [
+        {
+          "condition": {
+            "dataTypes": [
+              "phi"
+            ]
+          },
+          "because": "You indicated you handle protected health information, which is the category HIPAA governs; if you are a covered entity or a business associate, the Privacy, Security, and Breach Notification Rules apply."
+        }
+      ],
+      "obligations": [
+        "Implement administrative, physical, and technical safeguards under the Security Rule to protect electronic protected health information.",
+        "Follow the Privacy Rule limits on the use and disclosure of protected health information and honor individual access rights.",
+        "Execute business associate agreements with vendors that handle protected health information on your behalf.",
+        "Notify affected individuals, HHS, and in some cases the media of breaches of unsecured protected health information within required timeframes.",
+        "Conduct and document an enterprise-wide risk analysis and maintain written policies and workforce training."
+      ],
+      "first90": [
+        "Determine whether you are a covered entity, a business associate, or neither, and document the basis for that conclusion.",
+        "Complete a Security Rule risk analysis covering where protected health information is stored, processed, and transmitted.",
+        "Inventory vendors touching protected health information and put business associate agreements in place.",
+        "Stand up breach detection and a notification procedure that meets the timing requirements.",
+        "Draft or refresh Privacy and Security policies and deliver workforce training."
+      ],
+      "sources": [
+        {
+          "name": "HHS HIPAA for Professionals",
+          "url": "https://www.hhs.gov/hipaa/for-professionals/index.html"
+        },
+        {
+          "name": "HIPAA Security Rule, 45 CFR Part 164 Subpart C",
+          "url": "https://www.ecfr.gov/current/title-45/subtitle-A/subchapter-C/part-164"
+        }
+      ],
+      "caveat": "HIPAA applies only if you are a covered entity or a business associate; merely holding health-related data (for example as an employer or a consumer wellness app) does not automatically make you subject to it."
+    },
+    {
+      "id": "pci-dss",
+      "name": "Payment Card Industry Data Security Standard (PCI DSS)",
+      "short": "PCI DSS",
+      "enforcer": "PCI Security Standards Council maintains the standard; enforcement is contractual through the card brands (Visa, Mastercard, and others) and your acquiring bank, not a government agency.",
+      "appliesTo": "Any organization that stores, processes, or transmits cardholder data or sensitive authentication data, and entities that can affect the security of that data.",
+      "triggers": [
+        {
+          "condition": {
+            "dataTypes": [
+              "cardholder"
+            ]
+          },
+          "because": "You indicated you handle payment card data, which brings you into scope of the card brands' PCI DSS requirements through your merchant or service provider agreements."
+        }
+      ],
+      "obligations": [
+        "Protect stored cardholder data and never store prohibited sensitive authentication data after authorization.",
+        "Encrypt cardholder data in transit across open or public networks.",
+        "Maintain network segmentation, access controls, and vulnerability management for the cardholder data environment.",
+        "Complete the annual validation appropriate to your merchant or service provider level (self-assessment questionnaire or Report on Compliance).",
+        "Log and monitor access to cardholder data and test security controls regularly."
+      ],
+      "first90": [
+        "Map cardholder data flows and define the scope of your cardholder data environment.",
+        "Reduce scope where possible by tokenizing, outsourcing, or segmenting so fewer systems touch card data.",
+        "Determine your merchant or service provider level and the matching self-assessment questionnaire type.",
+        "Remediate obvious gaps such as stored authentication data, default passwords, and unencrypted transmission.",
+        "Confirm your acquirer's validation and reporting expectations and deadlines."
+      ],
+      "sources": [
+        {
+          "name": "PCI Security Standards Council Document Library",
+          "url": "https://www.pcisecuritystandards.org/document_library/"
+        },
+        {
+          "name": "PCI DSS v4 at a Glance",
+          "url": "https://www.pcisecuritystandards.org/standards/pci-dss/"
+        }
+      ],
+      "caveat": "PCI DSS is a contractual standard enforced by the payment brands and acquiring banks, not a law; your specific validation requirements depend on transaction volume and how you handle card data."
+    },
+    {
+      "id": "glba",
+      "name": "Gramm-Leach-Bliley Act (GLBA), Title V Privacy provisions",
+      "short": "GLBA",
+      "enforcer": "Federal Trade Commission for many non-bank financial institutions, plus federal banking regulators (OCC, Federal Reserve, FDIC, NCUA), the CFPB, and the SEC depending on the entity type.",
+      "appliesTo": "Financial institutions, meaning businesses significantly engaged in financial activities, that collect nonpublic personal information about consumers.",
+      "triggers": [
+        {
+          "condition": {
+            "dataTypes": [
+              "consumer-financial"
+            ]
+          },
+          "because": "You indicated you handle consumers' nonpublic personal financial information, the data category GLBA protects, so if you qualify as a financial institution its Privacy and Safeguards requirements apply."
+        },
+        {
+          "condition": {
+            "industry": [
+              "financial-services"
+            ]
+          },
+          "because": "You operate in financial services, where firms are frequently GLBA-covered financial institutions; confirm whether your activities meet that definition."
+        }
+      ],
+      "obligations": [
+        "Provide consumers with clear privacy notices describing your information sharing practices.",
+        "Give consumers the ability to opt out of certain sharing of nonpublic personal information with nonaffiliated third parties.",
+        "Maintain an information security program to protect customer information under the Safeguards Rule.",
+        "Oversee service providers that receive customer information.",
+        "Guard against pretexting and unauthorized access to customer information."
+      ],
+      "first90": [
+        "Determine whether your business meets the definition of a financial institution and which regulator oversees you.",
+        "Inventory the nonpublic personal information you collect, share, and store.",
+        "Review or draft your consumer privacy notice and opt-out mechanism.",
+        "Assess your information security program against the Safeguards Rule.",
+        "Review service provider contracts for security and confidentiality obligations."
+      ],
+      "sources": [
+        {
+          "name": "FTC Gramm-Leach-Bliley Act Guidance",
+          "url": "https://www.ftc.gov/business-guidance/privacy-security/gramm-leach-bliley-act"
+        },
+        {
+          "name": "GLBA, 15 U.S.C. Chapter 94",
+          "url": "https://www.govinfo.gov/content/pkg/USCODE-2021-title15/html/USCODE-2021-title15-chap94.htm"
+        }
+      ],
+      "caveat": "GLBA applies only to entities that qualify as financial institutions; holding some financial data as an ordinary merchant does not by itself trigger it, and which regulator enforces depends on your entity type."
+    },
+    {
+      "id": "ftc-safeguards",
+      "name": "FTC Standards for Safeguarding Customer Information (the Safeguards Rule under GLBA)",
+      "short": "FTC Safeguards Rule",
+      "enforcer": "Federal Trade Commission.",
+      "appliesTo": "Non-bank financial institutions subject to FTC jurisdiction, including a broad set of businesses such as mortgage lenders, auto dealers, payday lenders, tax preparers, and certain finders and advisors.",
+      "triggers": [
+        {
+          "condition": {
+            "dataTypes": [
+              "consumer-financial"
+            ]
+          },
+          "because": "You indicated you handle consumer financial information; if you are a non-bank financial institution under FTC jurisdiction, the Safeguards Rule requires a formal information security program."
+        },
+        {
+          "condition": {
+            "industry": [
+              "financial-services"
+            ]
+          },
+          "because": "You operate in financial services, and non-bank financial institutions in this space are directly subject to the FTC Safeguards Rule."
+        }
+      ],
+      "obligations": [
+        "Designate a qualified individual to oversee the information security program.",
+        "Perform a written risk assessment and base safeguards on it.",
+        "Implement specific controls including access controls, encryption of customer information at rest and in transit, and multifactor authentication.",
+        "Monitor and test the effectiveness of safeguards and oversee service providers.",
+        "Maintain a written incident response plan and report certain notification events to the FTC."
+      ],
+      "first90": [
+        "Confirm whether you are a non-bank financial institution under FTC jurisdiction.",
+        "Appoint the qualified individual responsible for the security program.",
+        "Complete the required written risk assessment.",
+        "Verify the mandated technical controls including encryption and multifactor authentication are in place.",
+        "Create or update your written incident response plan."
+      ],
+      "sources": [
+        {
+          "name": "FTC Safeguards Rule Overview",
+          "url": "https://www.ftc.gov/business-guidance/resources/ftc-safeguards-rule-what-your-business-needs-know"
+        },
+        {
+          "name": "Safeguards Rule, 16 CFR Part 314",
+          "url": "https://www.ecfr.gov/current/title-16/chapter-I/subchapter-C/part-314"
+        }
+      ],
+      "caveat": "The Safeguards Rule covers non-bank financial institutions under FTC jurisdiction; banks and other entities regulated by federal banking agencies follow parallel rules from their own regulators, and some smaller obligations scale with the number of consumers you have."
+    },
+    {
+      "id": "gdpr",
+      "name": "General Data Protection Regulation (GDPR), Regulation (EU) 2016/679",
+      "short": "GDPR",
+      "enforcer": "European Union and EEA national data protection authorities (supervisory authorities), coordinated by the European Data Protection Board.",
+      "appliesTo": "Organizations established in the EU or EEA, and organizations outside it that offer goods or services to, or monitor the behavior of, individuals located in the EU or EEA.",
+      "triggers": [
+        {
+          "condition": {
+            "dataTypes": [
+              "eu-personal"
+            ]
+          },
+          "because": "You indicated you process personal data of people in the EU or EEA, which brings you within GDPR's territorial scope even if your organization is based elsewhere."
+        }
+      ],
+      "obligations": [
+        "Identify a lawful basis for each processing activity and honor data subject rights such as access, erasure, and portability.",
+        "Provide transparent privacy notices and, where required, obtain valid consent.",
+        "Maintain records of processing and, where required, appoint a data protection officer or an EU representative.",
+        "Apply data protection by design and by default and conduct data protection impact assessments for high-risk processing.",
+        "Report qualifying personal data breaches to the supervisory authority within 72 hours and use valid mechanisms for international data transfers."
+      ],
+      "first90": [
+        "Map what EU or EEA personal data you process, why, and where it flows.",
+        "Assign a lawful basis to each processing activity and document it.",
+        "Update privacy notices and consent flows to meet GDPR transparency standards.",
+        "Assess whether you need an EU representative or a data protection officer.",
+        "Establish a 72-hour breach notification procedure and review your international transfer mechanisms."
+      ],
+      "sources": [
+        {
+          "name": "Official GDPR Text (EUR-Lex)",
+          "url": "https://eur-lex.europa.eu/eli/reg/2016/679/oj"
+        },
+        {
+          "name": "European Data Protection Board",
+          "url": "https://www.edpb.europa.eu/edpb_en"
+        }
+      ],
+      "caveat": "GDPR turns on whether you target or monitor individuals in the EU or EEA, not merely whether some data subjects happen to be European; incidental data about an EU person without offering goods or services to them may not by itself establish scope."
+    },
+    {
+      "id": "ccpa-cpra",
+      "name": "California Consumer Privacy Act as amended by the California Privacy Rights Act (CCPA/CPRA)",
+      "short": "CCPA/CPRA",
+      "enforcer": "California Privacy Protection Agency and the California Attorney General.",
+      "appliesTo": "For-profit businesses that do business in California, collect California residents' personal information, and meet at least one statutory threshold.",
+      "triggers": [
+        {
+          "condition": {
+            "dataTypes": [
+              "ca-personal"
+            ]
+          },
+          "because": "You indicated you handle personal information of California residents, which is the data CCPA/CPRA governs; whether you are covered then depends on meeting a revenue or volume threshold."
+        }
+      ],
+      "obligations": [
+        "Provide notices at collection and a privacy policy describing categories collected, purposes, and consumer rights.",
+        "Honor consumer rights to know, delete, correct, and opt out of sale or sharing, and to limit use of sensitive personal information.",
+        "Offer clear opt-out mechanisms, including recognizing opt-out preference signals.",
+        "Enter into compliant contracts with service providers, contractors, and third parties.",
+        "Implement reasonable security and conduct risk assessments and cybersecurity audits where required."
+      ],
+      "first90": [
+        "Confirm whether you meet a coverage threshold and document the analysis.",
+        "Inventory personal information and sensitive personal information you collect and how it is shared or sold.",
+        "Update your notice at collection and privacy policy.",
+        "Stand up consumer rights request intake and an opt-out mechanism that honors preference signals.",
+        "Review vendor contracts for required CCPA/CPRA terms."
+      ],
+      "sources": [
+        {
+          "name": "California Privacy Protection Agency",
+          "url": "https://cppa.ca.gov/"
+        },
+        {
+          "name": "California Attorney General CCPA Page",
+          "url": "https://oag.ca.gov/privacy/ccpa"
+        }
+      ],
+      "caveat": "CCPA/CPRA applies only if you meet a threshold: roughly 25 million dollars in annual gross revenue, buying, selling, or sharing the personal information of 100,000 or more California consumers or households, or deriving 50 percent or more of revenue from selling or sharing personal information; simply holding California data does not guarantee coverage."
+    },
+    {
+      "id": "state-consumer-privacy",
+      "name": "U.S. State Comprehensive Consumer Privacy Laws (for example Virginia VCDPA, Colorado CPA, Connecticut, Utah, Texas, Oregon, and others)",
+      "short": "State Privacy Laws",
+      "enforcer": "The attorney general of each enacting state; Colorado also grants rulemaking to its Department of Law.",
+      "appliesTo": "Businesses that process personal data of residents of a state with a comprehensive privacy law and that meet that state's processing volume or revenue thresholds.",
+      "triggers": [
+        {
+          "condition": {
+            "dataTypes": [
+              "other-state-personal"
+            ]
+          },
+          "because": "You indicated you handle personal data of residents in states with comprehensive privacy laws; if you meet the applicable state thresholds, obligations similar to Virginia's and Colorado's laws apply."
+        }
+      ],
+      "obligations": [
+        "Provide a clear privacy notice describing data categories, purposes, sharing, and consumer rights.",
+        "Honor consumer rights to access, correct, delete, obtain a copy, and opt out of targeted advertising, sale, and certain profiling.",
+        "Obtain consent before processing sensitive data in most of these states.",
+        "Conduct data protection assessments for higher-risk processing such as targeted advertising and sales.",
+        "Enter into data processing contracts with processors and honor universal opt-out mechanisms where required."
+      ],
+      "first90": [
+        "Identify which state laws apply based on where your consumers reside and whether you meet each state's threshold.",
+        "Build a single rights-request process that can satisfy the strictest applicable state.",
+        "Classify sensitive data and implement a consent mechanism where required.",
+        "Add opt-out mechanisms for targeted advertising and sales, including recognized preference signals.",
+        "Complete data protection assessments for qualifying processing activities."
+      ],
+      "sources": [
+        {
+          "name": "Virginia Consumer Data Protection Act (Code of Virginia)",
+          "url": "https://law.lis.virginia.gov/vacodefull/title59.1/chapter53/"
+        },
+        {
+          "name": "Colorado Privacy Act (Colorado Attorney General)",
+          "url": "https://coag.gov/resources/colorado-privacy-act/"
+        }
+      ],
+      "caveat": "Each state law has its own thresholds (commonly processing the data of 100,000 or more residents, or 25,000 or more combined with deriving revenue from data sales), and coverage, exemptions, and definitions vary by state, so applicability must be checked state by state."
+    },
+    {
+      "id": "coppa",
+      "name": "Children's Online Privacy Protection Act (COPPA) and the FTC COPPA Rule",
+      "short": "COPPA",
+      "enforcer": "Federal Trade Commission; state attorneys general may also bring actions.",
+      "appliesTo": "Operators of websites or online services directed to children under 13, and operators with actual knowledge that they collect personal information from children under 13.",
+      "triggers": [
+        {
+          "condition": {
+            "dataTypes": [
+              "children"
+            ]
+          },
+          "because": "You indicated you collect personal information from children under 13, which triggers COPPA's parental consent and data handling requirements."
+        }
+      ],
+      "obligations": [
+        "Post a clear online privacy policy describing your practices for children's personal information.",
+        "Provide direct notice to parents and obtain verifiable parental consent before collecting personal information from children.",
+        "Give parents the ability to review, delete, and control further collection of their child's information.",
+        "Collect only the personal information reasonably necessary and retain it only as long as needed.",
+        "Maintain reasonable security for children's personal information and oversee third parties that receive it."
+      ],
+      "first90": [
+        "Assess whether your service is directed to children under 13 or whether you have actual knowledge of collecting their data.",
+        "Implement a verifiable parental consent mechanism.",
+        "Draft a COPPA-compliant privacy policy and parental direct notice.",
+        "Review data minimization and retention practices for children's data.",
+        "Audit third-party SDKs and plugins that may collect children's information through your service."
+      ],
+      "sources": [
+        {
+          "name": "FTC COPPA Guidance for Business",
+          "url": "https://www.ftc.gov/business-guidance/privacy-security/childrens-privacy"
+        },
+        {
+          "name": "COPPA Rule, 16 CFR Part 312",
+          "url": "https://www.ecfr.gov/current/title-16/chapter-I/subchapter-C/part-312"
+        }
+      ],
+      "caveat": "COPPA covers children under 13 specifically; teen data is addressed by other laws, and whether a service is child-directed depends on a multi-factor analysis, so mixed-audience services need careful evaluation."
+    },
+    {
+      "id": "ferpa",
+      "name": "Family Educational Rights and Privacy Act (FERPA)",
+      "short": "FERPA",
+      "enforcer": "U.S. Department of Education, Student Privacy Policy Office.",
+      "appliesTo": "Educational agencies and institutions that receive funds under applicable U.S. Department of Education programs, and by extension the vendors acting as school officials on their behalf.",
+      "triggers": [
+        {
+          "condition": {
+            "dataTypes": [
+              "student"
+            ]
+          },
+          "because": "You handle student education records, which brings FERPA into scope for the institution and, by contract, its vendors acting as school officials."
+        }
+      ],
+      "obligations": [
+        "Protect the confidentiality of personally identifiable information in student education records.",
+        "Provide eligible students and parents rights to inspect, review, and seek amendment of education records.",
+        "Obtain consent before disclosing education records unless an exception applies, such as the school official exception.",
+        "Bind vendors that access education records to FERPA-consistent use and redisclosure limits.",
+        "Provide annual notification of rights and maintain records of certain disclosures."
+      ],
+      "first90": [
+        "Confirm whether the institution receives covered Department of Education funding or whether you serve such an institution as a school official.",
+        "Inventory where personally identifiable information from education records is stored and processed.",
+        "Review consent and disclosure practices against FERPA exceptions.",
+        "Align vendor agreements with the school official exception requirements.",
+        "Verify the annual notification of rights and disclosure recordkeeping are in place."
+      ],
+      "sources": [
+        {
+          "name": "U.S. Department of Education FERPA",
+          "url": "https://studentprivacy.ed.gov/ferpa"
+        },
+        {
+          "name": "FERPA Regulations, 34 CFR Part 99",
+          "url": "https://www.ecfr.gov/current/title-34/subtitle-A/part-99"
+        }
+      ],
+      "caveat": "FERPA binds funded educational institutions directly; a vendor is reached only through its contract as a school official, and student data held outside the education context (for example a consumer app) may fall under other laws instead."
+    },
+    {
+      "id": "cmmc",
+      "name": "Cybersecurity Maturity Model Certification (CMMC 2.0)",
+      "short": "CMMC",
+      "enforcer": "U.S. Department of Defense, administered through the DoD Chief Information Officer and the Cyber Accreditation Body ecosystem, and enforced via contract by DoD contracting officers.",
+      "appliesTo": "Contractors and subcontractors in the Department of Defense supply chain (the Defense Industrial Base) as required by their DoD contracts once the rule is phased into solicitations.",
+      "triggers": [
+        {
+          "condition": {
+            "contracts": [
+              "dod"
+            ]
+          },
+          "because": "You indicated you hold or pursue Department of Defense contracts, and CMMC is being phased into DoD solicitations as a condition of award for contractors handling federal contract information or controlled unclassified information."
+        },
+        {
+          "condition": {
+            "industry": [
+              "defense-industrial"
+            ]
+          },
+          "because": "You operate in the defense industrial base, where DoD contracts flow CMMC requirements down to subcontractors."
+        }
+      ],
+      "obligations": [
+        "Achieve the CMMC level required by your contract, which ranges from basic safeguarding to advanced protection.",
+        "Implement the underlying security requirements, drawn from FAR basic safeguarding and NIST SP 800-171 for controlled unclassified information.",
+        "Complete a self-assessment or a certified third-party assessment depending on the required level.",
+        "Maintain a System Security Plan and, where allowed, a Plan of Action and Milestones.",
+        "Provide an annual affirmation of continued compliance by a senior official."
+      ],
+      "first90": [
+        "Determine whether your contracts involve federal contract information, controlled unclassified information, or both, which sets your target CMMC level.",
+        "Perform a gap assessment against the applicable requirements (NIST SP 800-171 for the common level).",
+        "Document a System Security Plan and Plan of Action and Milestones.",
+        "Remediate high-impact gaps and prepare for self-assessment or third-party assessment.",
+        "Confirm flow-down obligations to your subcontractors."
+      ],
+      "sources": [
+        {
+          "name": "DoD CMMC Program Office",
+          "url": "https://dodcio.defense.gov/cmmc/"
+        },
+        {
+          "name": "CMMC Program Final Rule, 32 CFR Part 170",
+          "url": "https://www.ecfr.gov/current/title-32/subtitle-A/chapter-I/subchapter-D/part-170"
+        }
+      ],
+      "caveat": "CMMC applies through Department of Defense contracts and is being phased in over time; the required level depends on whether your contract involves controlled unclassified information (higher level) or only federal contract information (lower level), so handling CUI raises the bar rather than being the trigger by itself."
+    },
+    {
+      "id": "nist-800-171",
+      "name": "NIST Special Publication 800-171, Protecting Controlled Unclassified Information in Nonfederal Systems and Organizations",
+      "short": "NIST SP 800-171",
+      "enforcer": "Not an independent regulator; imposed contractually by federal agencies, chiefly through DFARS clause 252.204-7012 for Department of Defense and increasingly through FAR requirements for civilian agencies.",
+      "appliesTo": "Nonfederal organizations that process, store, or transmit controlled unclassified information under a federal contract or agreement that invokes the standard.",
+      "triggers": [
+        {
+          "condition": {
+            "dataTypes": [
+              "cui"
+            ]
+          },
+          "because": "You indicated you handle controlled unclassified information, which federal contracts commonly require to be protected using the NIST SP 800-171 security requirements."
+        },
+        {
+          "condition": {
+            "contracts": [
+              "federal-civilian",
+              "dod"
+            ]
+          },
+          "because": "You indicated you hold federal civilian or Department of Defense contracts, which frequently flow down NIST SP 800-171 obligations when controlled unclassified information is involved."
+        }
+      ],
+      "obligations": [
+        "Implement the security requirements across the control families covering access, awareness, audit, configuration, incident response, and more.",
+        "Maintain a System Security Plan describing how each requirement is met.",
+        "Track unmet requirements in a Plan of Action and Milestones.",
+        "For DoD contracts under DFARS, report the assessment score and provide rapid incident reporting.",
+        "Flow the requirements down to subcontractors that handle controlled unclassified information."
+      ],
+      "first90": [
+        "Confirm which contracts invoke NIST SP 800-171 and identify where controlled unclassified information resides.",
+        "Conduct a gap assessment against the current revision of the requirements.",
+        "Produce or update the System Security Plan and Plan of Action and Milestones.",
+        "For DoD, calculate and submit the assessment score as required.",
+        "Add flow-down clauses and verify subcontractor readiness."
+      ],
+      "sources": [
+        {
+          "name": "NIST SP 800-171 Publication",
+          "url": "https://csrc.nist.gov/pubs/sp/800/171/r3/final"
+        },
+        {
+          "name": "DFARS 252.204-7012 (Acquisition.gov)",
+          "url": "https://www.acquisition.gov/dfars/252.204-7012-safeguarding-covered-defense-information-and-cyber-incident-reporting"
+        }
+      ],
+      "caveat": "NIST SP 800-171 is a standard applied through contract, not a freestanding law; it governs when a federal contract invokes it for controlled unclassified information, so holding CUI outside any such contract may not trigger it."
+    },
+    {
+      "id": "sec-cyber-disclosure",
+      "name": "SEC Cybersecurity Risk Management, Strategy, Governance, and Incident Disclosure Rules",
+      "short": "SEC Cyber Disclosure",
+      "enforcer": "U.S. Securities and Exchange Commission.",
+      "appliesTo": "Public companies (registrants) that file periodic reports with the SEC, with some accommodations for foreign private issuers and smaller reporting companies.",
+      "triggers": [
+        {
+          "condition": {
+            "companyProfile": [
+              "us-public-company"
+            ]
+          },
+          "because": "You indicated you are a U.S. public company, which must disclose material cybersecurity incidents and describe its cyber risk management and governance in SEC filings."
+        }
+      ],
+      "obligations": [
+        "Disclose material cybersecurity incidents on Form 8-K, generally within four business days of determining materiality.",
+        "Describe processes for assessing, identifying, and managing material cybersecurity risks in annual reports.",
+        "Disclose the board's oversight and management's role regarding cybersecurity risk.",
+        "Maintain disclosure controls that surface cyber incidents to decision-makers for timely materiality assessment.",
+        "Provide comparable disclosures for foreign private issuers on the applicable forms."
+      ],
+      "first90": [
+        "Establish a materiality assessment process that ties incident response to disclosure decisions.",
+        "Define the four-business-day Form 8-K workflow and responsible owners.",
+        "Draft the risk management, strategy, and governance disclosures for your annual report.",
+        "Brief the board and management on their disclosed oversight roles.",
+        "Test escalation from security operations to disclosure decision-makers."
+      ],
+      "sources": [
+        {
+          "name": "SEC Final Rule on Cybersecurity Disclosure",
+          "url": "https://www.sec.gov/rules/final/2023/33-11216.pdf"
+        },
+        {
+          "name": "SEC Press Release Adopting the Rules",
+          "url": "https://www.sec.gov/news/press-release/2023-139"
+        }
+      ],
+      "caveat": "These rules apply to SEC registrants (public companies); private companies are not directly covered, and timing accommodations and phase-ins differ for smaller reporting companies and foreign private issuers."
+    },
+    {
+      "id": "sox",
+      "name": "Sarbanes-Oxley Act of 2002 (SOX)",
+      "short": "SOX",
+      "enforcer": "U.S. Securities and Exchange Commission, with auditing oversight by the Public Company Accounting Oversight Board (PCAOB).",
+      "appliesTo": "Public companies subject to SEC reporting, their officers, and their external auditors; certain provisions also reach private companies (for example anti-retaliation and document destruction rules).",
+      "triggers": [
+        {
+          "condition": {
+            "companyProfile": [
+              "us-public-company"
+            ]
+          },
+          "because": "You indicated you are a U.S. public company, which is subject to SOX requirements for internal control over financial reporting and executive certifications."
+        }
+      ],
+      "obligations": [
+        "Maintain and assess internal control over financial reporting, including relevant IT general controls.",
+        "Have the CEO and CFO certify the accuracy of financial reports and the effectiveness of controls.",
+        "Support external auditor attestation on internal controls where required by filer status.",
+        "Preserve the independence and oversight role of the audit committee.",
+        "Maintain records and avoid altering or destroying documents in violation of the Act."
+      ],
+      "first90": [
+        "Scope the systems and processes that feed financial reporting, including key IT general controls.",
+        "Document and test control design and operating effectiveness.",
+        "Establish the CEO and CFO certification process tied to each filing.",
+        "Coordinate with external auditors on scope and timing.",
+        "Confirm records retention and document-integrity practices meet the Act."
+      ],
+      "sources": [
+        {
+          "name": "Sarbanes-Oxley Act (Congress.gov)",
+          "url": "https://www.congress.gov/bill/107th-congress/house-bill/3763"
+        },
+        {
+          "name": "SEC Implementation of SOX",
+          "url": "https://www.sec.gov/rules-regulations/sarbanes-oxley-section-404"
+        }
+      ],
+      "caveat": "Most SOX obligations apply to SEC-reporting public companies; a few provisions reach private companies, and the external auditor attestation requirement depends on filer status, so smaller reporting companies may be partly exempt."
+    },
+    {
+      "id": "finra",
+      "name": "Financial Industry Regulatory Authority (FINRA) Rules",
+      "short": "FINRA",
+      "enforcer": "Financial Industry Regulatory Authority, a self-regulatory organization overseen by the U.S. Securities and Exchange Commission.",
+      "appliesTo": "Broker-dealers registered with FINRA and their associated persons; investment advisers that are not also broker-dealers are generally regulated by the SEC or states rather than FINRA.",
+      "triggers": [
+        {
+          "condition": {
+            "companyProfile": [
+              "broker-dealer-investment"
+            ]
+          },
+          "because": "You indicated you are a broker-dealer or investment firm; registered broker-dealers are FINRA members subject to its conduct, supervision, and recordkeeping rules."
+        }
+      ],
+      "obligations": [
+        "Maintain written supervisory procedures and a supervisory system reasonably designed for compliance.",
+        "Meet books and records and financial responsibility requirements, coordinated with SEC rules.",
+        "Protect customer information and maintain cybersecurity controls consistent with FINRA and SEC expectations.",
+        "Ensure fair dealing, suitability, and communications standards with customers.",
+        "Report specified events and cooperate with examinations and enforcement."
+      ],
+      "first90": [
+        "Confirm your registration status and which FINRA rules apply to your business lines.",
+        "Review written supervisory procedures for current coverage and gaps.",
+        "Assess cybersecurity and customer information protections against FINRA and SEC guidance.",
+        "Verify books and records and reporting obligations are being met.",
+        "Prepare for examination readiness and event reporting workflows."
+      ],
+      "sources": [
+        {
+          "name": "FINRA Rules and Guidance",
+          "url": "https://www.finra.org/rules-guidance"
+        },
+        {
+          "name": "FINRA Cybersecurity Topic Page",
+          "url": "https://www.finra.org/rules-guidance/key-topics/cybersecurity"
+        }
+      ],
+      "caveat": "FINRA governs registered broker-dealers; a firm that is only a registered investment adviser and not a broker-dealer generally answers to the SEC or state securities regulators instead, so the broker-dealer status is what matters."
+    },
+    {
+      "id": "bipa",
+      "name": "Illinois Biometric Information Privacy Act (BIPA)",
+      "short": "BIPA",
+      "enforcer": "Primarily enforced by private lawsuits (a private right of action) brought by affected individuals in Illinois courts.",
+      "appliesTo": "Private entities that collect, use, store, or disclose biometric identifiers or biometric information of individuals in Illinois.",
+      "triggers": [
+        {
+          "condition": {
+            "dataTypes": [
+              "biometric"
+            ]
+          },
+          "because": "You indicated you handle biometric identifiers such as fingerprints, facial geometry, or voiceprints; if any subjects are in Illinois, BIPA's notice, consent, and handling requirements apply."
+        }
+      ],
+      "obligations": [
+        "Provide written notice and obtain informed written consent before collecting biometric identifiers or information.",
+        "Maintain a publicly available written retention and destruction policy for biometric data.",
+        "Refrain from selling, leasing, or profiting from biometric identifiers or information.",
+        "Limit disclosure and protect biometric data using a reasonable standard of care.",
+        "Destroy biometric data when the initial purpose is satisfied or within the statutory time limit."
+      ],
+      "first90": [
+        "Identify any biometric identifiers you collect and whether subjects are located in Illinois.",
+        "Implement a written notice and informed written consent process before collection.",
+        "Publish a retention and destruction schedule for biometric data.",
+        "Review vendor and disclosure practices for compliance with the sale and profit prohibition.",
+        "Assess data security controls specific to biometric identifiers."
+      ],
+      "sources": [
+        {
+          "name": "Illinois BIPA, 740 ILCS 14 (Illinois General Assembly)",
+          "url": "https://www.ilga.gov/legislation/ilcs/ilcs3.asp?ActID=3004&ChapterID=57"
+        },
+        {
+          "name": "Illinois Attorney General Consumer Privacy",
+          "url": "https://illinoisattorneygeneral.gov/consumers/privacy.html"
+        }
+      ],
+      "caveat": "BIPA is Illinois-specific but the most litigated biometric law due to its private right of action; other states such as Texas and Washington have their own biometric laws with different enforcement, so scope depends on where your subjects are located."
+    },
+    {
+      "id": "state-breach-notification",
+      "name": "U.S. State Data Breach Notification Laws (all 50 states plus D.C. and territories)",
+      "short": "State Breach Notification",
+      "enforcer": "State attorneys general and, in some states, other regulators; several states also allow a private right of action.",
+      "appliesTo": "Any organization that owns or licenses computerized personal information about residents of a given state, regardless of the organization's own location.",
+      "triggers": [
+        {
+          "condition": {
+            "dataTypes": [
+              "ca-personal"
+            ]
+          },
+          "because": "You handle personal information of California residents, so a breach of that data triggers California's notification law and likely others."
+        },
+        {
+          "condition": {
+            "dataTypes": [
+              "other-state-personal"
+            ]
+          },
+          "because": "You handle personal information of residents in other states, each of which has a breach notification law that can require notice after a qualifying incident."
+        },
+        {
+          "condition": {
+            "dataTypes": [
+              "consumer-financial"
+            ]
+          },
+          "because": "Financial account information is a protected data element under state breach laws, so a breach involving it can trigger notification duties."
+        },
+        {
+          "condition": {
+            "dataTypes": [
+              "phi"
+            ]
+          },
+          "because": "Health and medical information is a protected data element in many state breach laws, in addition to any HIPAA breach obligations."
+        },
+        {
+          "condition": {
+            "dataTypes": [
+              "biometric"
+            ]
+          },
+          "because": "Biometric data is a covered data element in a growing number of state breach notification statutes."
+        }
+      ],
+      "obligations": [
+        "Notify affected residents after a breach of personal information within the timeframe each applicable state requires.",
+        "Notify state attorneys general or other regulators when thresholds are met.",
+        "Notify consumer reporting agencies where required by the number of residents affected.",
+        "Provide specific content in notices, which varies by state, and sometimes offer credit monitoring.",
+        "Maintain reasonable security safeguards, which several states require alongside notification."
+      ],
+      "first90": [
+        "Map which states' residents' personal information you hold to know which laws can apply.",
+        "Build a breach response plan that can meet the shortest applicable notification deadlines.",
+        "Create notice templates that can be tailored to each state's content requirements.",
+        "Define regulator and consumer reporting agency notification thresholds and contacts.",
+        "Review your reasonable security safeguards, since some states require them by statute."
+      ],
+      "sources": [
+        {
+          "name": "NCSL Security Breach Notification Laws",
+          "url": "https://www.ncsl.org/technology-and-communication/security-breach-notification-laws"
+        },
+        {
+          "name": "California Data Breach Notification Law (Civil Code 1798.82)",
+          "url": "https://leginfo.legislature.ca.gov/faces/codes_displaySection.xhtml?sectionNum=1798.82.&lawCode=CIV"
+        }
+      ],
+      "caveat": "Every state has a breach notification law, but each defines personal information, timing, and thresholds differently, and obligations are triggered by a qualifying breach rather than by merely holding data, so the specific applicable statutes depend on the residency of the affected individuals."
+    }
+  ]
+}

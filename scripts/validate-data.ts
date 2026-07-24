@@ -266,6 +266,51 @@ function validateTrustLibrary(data: { categories: { id: string }[]; entries: Tru
   return out;
 }
 
+interface RegData {
+  questions: { id: string; label: string; options: { id: string; label: string }[] }[];
+  regulations: {
+    id: string;
+    name: string;
+    short: string;
+    enforcer: string;
+    appliesTo: string;
+    triggers: { condition: Record<string, string[]>; because: string }[];
+    obligations: string[];
+    first90: string[];
+    sources: { name: string; url: string }[];
+    caveat: string;
+  }[];
+}
+
+/** Structural + reference checks for the regulation applicability dataset. */
+function validateRegulations(data: RegData): string[] {
+  const out: string[] = [];
+  const optsByQ = new Map(data.questions.map((q) => [q.id, new Set(q.options.map((o) => o.id))]));
+  const seen = new Set<string>();
+  for (const r of data.regulations) {
+    if (seen.has(r.id)) out.push(`duplicate regulation id ${r.id}`);
+    seen.add(r.id);
+    for (const field of ['name', 'short', 'enforcer', 'appliesTo', 'caveat'] as const) {
+      if (!r[field]?.trim()) out.push(`${r.id}: empty ${field}`);
+    }
+    if (!r.triggers?.length) out.push(`${r.id}: no triggers`);
+    for (const t of r.triggers ?? []) {
+      if (!t.because?.trim()) out.push(`${r.id}: trigger missing rationale`);
+      for (const [qid, opts] of Object.entries(t.condition ?? {})) {
+        const valid = optsByQ.get(qid);
+        if (!valid) out.push(`${r.id}: trigger references unknown question ${qid}`);
+        else for (const o of opts) if (!valid.has(o)) out.push(`${r.id}: trigger references unknown option ${qid}/${o}`);
+      }
+    }
+    if (!r.obligations?.length) out.push(`${r.id}: no obligations`);
+    if (!r.first90?.length) out.push(`${r.id}: no first90`);
+    if (!r.sources?.length) out.push(`${r.id}: no sources`);
+    for (const s of r.sources ?? []) if (!/^https:\/\//.test(s.url ?? '')) out.push(`${r.id}: non-https source`);
+    if (JSON.stringify(r).includes('—')) out.push(`${r.id}: em dash`);
+  }
+  return out;
+}
+
 const acronyms = load<AcronymData>('../src/data/acronyms.json');
 const csf = load<CsfData>('../src/data/nist-csf.json');
 const cis = load<CisData>('../src/data/cis.json');
@@ -283,6 +328,7 @@ const cloudBaseline = load<{ controls: CloudControl[] }>('../src/data/cloud-base
 const ssdlc = load<{ phases: { id: string }[]; practices: SsdlcPractice[] }>('../src/data/ssdlc.json');
 const automationRoi = load<AutomationRoi>('../src/data/automation-roi.json');
 const trustLibrary = load<{ categories: { id: string }[]; entries: TrustEntry[] }>('../src/data/trust-library.json');
+const regulations = load<RegData>('../src/data/regulations.json');
 
 const mapProblems: string[] = [];
 for (const csfId of Object.keys(csf)) {
@@ -314,6 +360,7 @@ const problems = [
   ...validateSsdlc(ssdlc).map((e) => `ssdlc: ${e}`),
   ...validateAutomationRoi(automationRoi).map((e) => `automation-roi: ${e}`),
   ...validateTrustLibrary(trustLibrary).map((e) => `trust-library: ${e}`),
+  ...validateRegulations(regulations).map((e) => `regulations: ${e}`),
 ];
 
 if (problems.length > 0) {
@@ -323,5 +370,5 @@ if (problems.length > 0) {
 }
 console.log(
   `Data OK: ${Object.keys(acronyms).length} acronyms, ${Object.keys(csf).length} CSF subcategories, ${Object.keys(cis).length} CIS safeguards, ${ai.length} AI framework entries, ` +
-    `${cmmc.questions.length} 800-171/CMMC, ${cyberEssentials.questions.length} Cyber Essentials, ${ztmm.questions.length} ZTMM, ${ssdf.questions.length} SSDF, ${pci.questions.length} PCI DSS, ${crosswalk.controls.length} crosswalk domains, ${boardMetrics.metrics.length} board metrics, ${runbooks.scenarios.length} runbook scenarios, ${cloudBaseline.controls.length} cloud baseline controls, ${ssdlc.practices.length} SDLC practices, ${automationRoi.categories.length} automation categories, ${trustLibrary.entries.length} trust answers.`,
+    `${cmmc.questions.length} 800-171/CMMC, ${cyberEssentials.questions.length} Cyber Essentials, ${ztmm.questions.length} ZTMM, ${ssdf.questions.length} SSDF, ${pci.questions.length} PCI DSS, ${crosswalk.controls.length} crosswalk domains, ${boardMetrics.metrics.length} board metrics, ${runbooks.scenarios.length} runbook scenarios, ${cloudBaseline.controls.length} cloud baseline controls, ${ssdlc.practices.length} SDLC practices, ${automationRoi.categories.length} automation categories, ${trustLibrary.entries.length} trust answers, ${regulations.regulations.length} regulations.`,
 );
