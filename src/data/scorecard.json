@@ -350,7 +350,8 @@
           "All data local to the browser"
         ],
         "day1Value": "The 30-day team assessment every new leader owes their boss, produced systematically, with growth plans that make the team feel invested in rather than audited.",
-        "status": "planned"
+        "status": "live",
+        "href": "skills-matrix/"
       }
     }
   ]

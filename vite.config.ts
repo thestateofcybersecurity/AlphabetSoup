@@ -26,6 +26,7 @@ export default defineConfig({
         automationRoi: 'tools/automation-roi/index.html',
         trustPackage: 'tools/trust-package/index.html',
         regMapper: 'tools/reg-mapper/index.html',
+        skillsMatrix: 'tools/skills-matrix/index.html',
         roadmap: 'roadmap/index.html',
         about: 'about/index.html',
       },

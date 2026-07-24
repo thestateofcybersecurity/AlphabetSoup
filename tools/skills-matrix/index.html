@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="color-scheme" content="light dark" />
+  <meta name="description" content="Map your security team against the ten competencies employers actually want, spot single-points-of-failure, and generate per-person growth plans linked to concrete study resources plus a hiring-priority profile for your next requisition. The 30-day team assessment every new leader owes their boss. Everything stays in your browser." />
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Team Skills Matrix and Growth Planner | Cybersecurity Alphabet Soup" />
+  <meta property="og:description" content="Map your team against the ten competencies employers want, spot bus-factor risks, and generate per-person growth plans and a hiring-priority profile. Nothing leaves your browser." />
+  <meta property="og:url" content="https://cybersecurityalphabetsoup.com/tools/skills-matrix/" />
+  <meta property="og:image" content="https://cybersecurityalphabetsoup.com/og-frameworks.png" />
+  <title>Team Skills Matrix and Growth Planner | Cybersecurity Alphabet Soup</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,700;0,9..144,900;1,9..144,500&family=IBM+Plex+Mono:wght@500;600&family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet" />
+  <link rel="icon" href="/icon.svg" type="image/svg+xml" />
+  <link rel="stylesheet" href="/style.css" />
+  <style>
+    .sm-wrap { max-width: 980px; margin: 0 auto; }
+    .sm-privacy { font-size: 0.84rem; color: var(--ink-soft); margin: 0 0 22px; }
+    .sm-section-head { font-family: var(--font-display); font-weight: 700; font-size: 1.3rem; margin: 26px 0 4px; }
+    .sm-section-sub { font-size: 0.86rem; color: var(--ink-soft); margin: 0 0 12px; line-height: 1.5; }
+
+    .sm-btn { font: inherit; font-size: 0.85rem; font-weight: 600; cursor: pointer; border: 1.5px solid var(--tomato); color: var(--tomato-deep); background: transparent; border-radius: 10px; padding: 7px 14px; }
+    .sm-btn:hover { background: var(--tomato); color: #fff; }
+    .sm-btn-primary { background: var(--tomato); color: #fff; }
+    .sm-btn-primary:hover { background: var(--tomato-deep); border-color: var(--tomato-deep); }
+    .sm-btn-quiet { border-color: var(--line); color: var(--ink-soft); }
+    .sm-actions { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; margin: 12px 0 0; }
+
+    /* priorities */
+    .sm-pri-opts { display: flex; flex-wrap: wrap; gap: 7px; }
+    .sm-pri { display: inline-flex; align-items: center; gap: 7px; cursor: pointer; font-size: 0.84rem; font-weight: 500; border: 1.5px solid var(--line); border-radius: 999px; padding: 6px 13px; background: var(--paper); }
+    .sm-pri:hover { border-color: var(--tomato); }
+    .sm-pri.selected { border-color: var(--tomato); background: color-mix(in srgb, var(--tomato) 10%, var(--paper)); font-weight: 600; }
+    .sm-pri input { accent-color: var(--tomato); }
+
+    /* matrix / heatmap */
+    .sm-matrix-wrap { overflow-x: auto; border: 1.5px solid var(--line); border-radius: 12px; }
+    table.sm-matrix { border-collapse: collapse; width: 100%; font-size: 0.84rem; }
+    .sm-matrix th, .sm-matrix td { padding: 6px 8px; text-align: center; border-bottom: 1px solid var(--line); border-right: 1px solid var(--line); }
+    .sm-matrix th.sm-member-h, .sm-matrix td.sm-member-c { text-align: left; position: sticky; left: 0; background: var(--paper-raised); z-index: 1; min-width: 150px; }
+    .sm-matrix thead th { font-family: var(--font-mono); font-size: 0.62rem; letter-spacing: 0.02em; text-transform: uppercase; color: var(--ink-soft); vertical-align: bottom; background: var(--paper-raised); }
+    .sm-matrix thead th.pri { color: var(--tomato-deep); }
+    .sm-col-star { color: var(--tomato); }
+    .sm-member-c input { font: inherit; font-size: 0.86rem; border: none; background: transparent; color: var(--ink); width: 100%; padding: 4px 2px; }
+    .sm-member-c input:focus { outline: 1.5px solid var(--tomato); border-radius: 6px; }
+    .sm-cell select { font: inherit; font-size: 0.8rem; border: 1px solid var(--line); border-radius: 6px; padding: 3px 4px; background: var(--paper); color: var(--ink); width: 44px; cursor: pointer; }
+    .sm-lvl-0 { background: color-mix(in srgb, #b0402e 10%, var(--paper)); }
+    .sm-lvl-1 { background: color-mix(in srgb, #b0402e 6%, var(--paper)); }
+    .sm-lvl-2 { background: color-mix(in srgb, #b07d2e 12%, var(--paper)); }
+    .sm-lvl-3 { background: color-mix(in srgb, #3e7d4f 14%, var(--paper)); }
+    .sm-lvl-4 { background: color-mix(in srgb, #3e7d4f 26%, var(--paper)); }
+    .sm-del { border: 1.5px solid var(--line); color: var(--ink-soft); background: transparent; border-radius: 6px; cursor: pointer; font-size: 0.95rem; line-height: 1; padding: 3px 8px; }
+    .sm-del:hover { border-color: #b0402e; color: #b0402e; }
+    .sm-foot td { font-family: var(--font-mono); font-size: 0.68rem; color: var(--ink-soft); background: var(--paper-raised); }
+    .sm-foot td.bus { color: #b0402e; font-weight: 600; }
+    .sm-empty-roster { padding: 16px; font-size: 0.9rem; color: var(--ink-soft); }
+
+    /* results */
+    .sm-doc { border: 2px solid var(--tomato); border-radius: 16px; background: var(--paper-raised); padding: 22px 24px; margin-top: 12px; }
+    .sm-stat-row { display: flex; flex-wrap: wrap; gap: 12px; margin: 0 0 6px; }
+    .sm-stat { border: 1.5px solid var(--line); border-radius: 12px; padding: 10px 14px; background: var(--paper); }
+    .sm-stat-num { font-family: var(--font-display); font-weight: 900; font-size: 1.7rem; color: var(--tomato-deep); line-height: 1; }
+    .sm-stat-lbl { font-size: 0.78rem; color: var(--ink-soft); margin-top: 3px; }
+
+    .sm-block-head { font-family: var(--font-display); font-weight: 700; font-size: 1.15rem; margin: 20px 0 6px; padding-top: 12px; border-top: 1.5px solid var(--line); }
+    .sm-warn { border: 1.5px solid #b0402e; border-radius: 10px; background: color-mix(in srgb, #b0402e 5%, var(--paper)); padding: 8px 13px; margin-bottom: 6px; font-size: 0.9rem; }
+    .sm-warn b { color: #b0402e; }
+    .sm-good { font-size: 0.9rem; color: #3e7d4f; }
+
+    .sm-person { border: 1.5px solid var(--line); border-radius: 10px; margin-bottom: 6px; background: var(--paper); }
+    .sm-person summary { cursor: pointer; font-weight: 600; font-size: 0.95rem; padding: 9px 13px; }
+    .sm-person summary .sm-person-gaps { font-family: var(--font-mono); font-weight: 400; font-size: 0.72rem; color: var(--ink-soft); margin-left: 6px; }
+    .sm-gap { padding: 4px 13px 4px 26px; font-size: 0.88rem; line-height: 1.5; }
+    .sm-gap-name { font-weight: 600; }
+    .sm-gap-meta { font-family: var(--font-mono); font-size: 0.68rem; color: var(--ink-soft); }
+    .sm-gap-res a { color: var(--tomato-deep); font-size: 0.82rem; margin-right: 8px; }
+    .sm-person-done { padding: 9px 13px; font-size: 0.88rem; color: #3e7d4f; }
+
+    .sm-hire { list-style: none; padding: 0; margin: 0; display: grid; gap: 6px; }
+    .sm-hire li { border: 1.5px solid var(--line); border-radius: 10px; padding: 9px 13px; background: var(--paper); font-size: 0.9rem; }
+    .sm-hire b { color: var(--tomato-deep); }
+    .sm-empty { font-size: 0.95rem; color: var(--ink-soft); }
+
+    @media print {
+      .site-nav, .hero, .sm-priorities, .sm-actions, .sm-add, .colophon, .steam, .sm-privacy, .sm-del { display: none !important; }
+      .sm-doc { border: none; padding: 0; }
+      .sm-person[open] .sm-gap, .sm-person { break-inside: avoid; }
+    }
+  </style>
+</head>
+<body class="theme-skills">
+  <a class="skip-link" href="#main">Skip to content</a>
+  <div class="steam" aria-hidden="true"></div>
+
+  <nav class="site-nav" aria-label="Site">
+    <a href="../../">Acronyms</a>
+    <a href="../../frameworks/nist-csf/">NIST CSF</a>
+    <a href="../../frameworks/cis/">CIS Controls</a>
+    <a href="../../frameworks/ai/">AI Security</a>
+    <a href="../../quiz/">Quiz</a>
+    <a href="../../assess/">Assess</a>
+    <a href="../../roadmap/">Roadmap</a>
+    <a href="https://mitre.cybersecurityalphabetsoup.com/" rel="noopener" target="_blank">MITRE ATT&amp;CK</a>
+    <a href="https://bia.cybersecurityalphabetsoup.com/" rel="noopener" target="_blank" title="Business Impact Assessment">BIA</a><a class="nav-play" href="https://thestateofcybersecurity.github.io/cyberdle/" rel="noopener" target="_blank">Play Cyberdle</a>
+  </nav>
+
+  <header class="hero hero-compact">
+    <p class="kicker">player-coach &middot; <span id="comp-count">10</span> competencies</p>
+    <h1 class="title">Team skills matrix<br /><em>&amp; growth planner</em></h1>
+    <p class="tagline">Map each team member against the ten competencies employers actually want (the same ten this scorecard is built on), see where the team is thin or dependent on one person, and generate per-person growth plans linked to concrete study resources, plus the profile for your next hire.</p>
+  </header>
+
+  <main id="main" class="ladle sm-wrap">
+    <p class="sm-privacy">Ratings are your own judgment, meant for planning and growth conversations, not a performance review. Your roster lives only in your browser; nothing is uploaded.</p>
+
+    <section class="sm-priorities" aria-label="Program priorities">
+      <h2 class="sm-section-head">Which competencies matter most this year?</h2>
+      <p class="sm-section-sub">Mark your program priorities. They are flagged in the matrix and pushed to the top of growth plans and hiring needs.</p>
+      <div id="priorities" class="sm-pri-opts"></div>
+    </section>
+
+    <section class="sm-roster" aria-label="Team matrix">
+      <h2 class="sm-section-head">Your team</h2>
+      <p class="sm-section-sub">Rate each person 0 (none) to 4 (expert) per competency. Cells are colored by level; green is proficient or above.</p>
+      <div class="sm-matrix-wrap">
+        <table class="sm-matrix" id="matrix"></table>
+      </div>
+      <div class="sm-add sm-actions">
+        <button type="button" class="sm-btn" id="add-member">+ Add team member</button>
+      </div>
+    </section>
+
+    <section class="sm-output" id="output" aria-label="Coverage and plans" aria-live="polite"></section>
+  </main>
+
+  <footer class="colophon">
+    <p>
+      Why this tool exists:
+      <a class="cyberdle-link" href="../">see the 2026 security leadership scorecard it maps to &rarr;</a>
+    </p>
+    <p class="fine-print">
+      An unofficial plain-English planning tool, not a performance-management or HR system. Growth resources link to the free guides and tools on this site.
+    </p>
+  </footer>
+
+  <script type="module" src="/src/skills-matrix-main.ts"></script>
+</body>
+</html>

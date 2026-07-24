@@ -1,0 +1,97 @@
+{
+  "meta": {
+    "title": "Team Skills Matrix and Growth Planner",
+    "version": "1.0.0",
+    "note": "The competency model is the ten demands from the 2026 Security Leadership Scorecard, so the matrix maps your team against what employers actually want. Ratings are your own judgment; this is a planning aid, not a performance review.",
+    "sources": [{ "name": "2026 Security Leadership Scorecard", "url": "https://cybersecurityalphabetsoup.com/tools/" }]
+  },
+  "levels": [
+    { "value": 0, "label": "None", "hint": "No exposure yet." },
+    { "value": 1, "label": "Aware", "hint": "Understands the basics; needs help to apply them." },
+    { "value": 2, "label": "Working", "hint": "Can do it with some guidance." },
+    { "value": 3, "label": "Proficient", "hint": "Independent and reliable." },
+    { "value": 4, "label": "Expert", "hint": "Sets direction and mentors others." }
+  ],
+  "proficientLevel": 3,
+  "competencies": [
+    {
+      "id": "framework-fluency",
+      "name": "Framework fluency",
+      "blurb": "NIST CSF, ISO 27001, SOC 2, and CIS, proven through audit.",
+      "resources": [
+        { "label": "Control Crosswalk Mapper", "href": "../crosswalk/" },
+        { "label": "NIST CSF in plain English", "href": "../../frameworks/nist-csf/" },
+        { "label": "CIS Controls in plain English", "href": "../../frameworks/cis/" }
+      ]
+    },
+    {
+      "id": "ai-security-governance",
+      "name": "AI security and governance",
+      "blurb": "NIST AI RMF, OWASP LLM Top 10, and governance that enables AI adoption.",
+      "resources": [
+        { "label": "AI Use Case Risk Tiering", "href": "../ai-risk/" },
+        { "label": "AI Security guide", "href": "../../frameworks/ai/" }
+      ]
+    },
+    {
+      "id": "cloud-security",
+      "name": "Cloud security",
+      "blurb": "Hardening and identity across AWS, Azure, and Google Cloud.",
+      "resources": [
+        { "label": "Cloud Security Baseline Generator", "href": "../cloud-baseline/" },
+        { "label": "Certification study decks", "href": "../../quiz/" }
+      ]
+    },
+    {
+      "id": "incident-response",
+      "name": "Incident response and resilience",
+      "blurb": "Owned, exercised response plans and calm command of a severity-one event.",
+      "resources": [
+        { "label": "Runbook and Tabletop Generator", "href": "../runbook/" },
+        { "label": "Business Impact Analysis tool", "href": "https://bia.cybersecurityalphabetsoup.com/" }
+      ]
+    },
+    {
+      "id": "board-communication",
+      "name": "Board-fluent risk communication",
+      "blurb": "Translating technical risk into business impact for boards and auditors.",
+      "resources": [{ "label": "Board Metrics Builder", "href": "../board-metrics/" }]
+    },
+    {
+      "id": "regulatory-compliance",
+      "name": "Industry regulation",
+      "blurb": "HIPAA, GLBA, CMMC, GDPR, and the rest, owned through the exam.",
+      "resources": [
+        { "label": "Regulatory Applicability Mapper", "href": "../reg-mapper/" },
+        { "label": "Compliance assessments", "href": "../../assess/" }
+      ]
+    },
+    {
+      "id": "third-party-trust",
+      "name": "Third-party risk and customer trust",
+      "blurb": "Vendor risk inbound and security questionnaires outbound.",
+      "resources": [{ "label": "Trust Package and Answer Library", "href": "../trust-package/" }]
+    },
+    {
+      "id": "automation-efficiency",
+      "name": "Automation and efficiency",
+      "blurb": "Automating repetitive, high-volume security work to scale a lean team.",
+      "resources": [{ "label": "Automation ROI Ranker", "href": "../automation-roi/" }]
+    },
+    {
+      "id": "devsecops",
+      "name": "DevSecOps and the SDLC",
+      "blurb": "Security embedded in CI/CD, IaC, and the paved-road developer path.",
+      "resources": [{ "label": "Secure SDLC Gap Checker", "href": "../ssdlc/" }]
+    },
+    {
+      "id": "player-coach",
+      "name": "Player-coach leadership",
+      "blurb": "Building, mentoring, and retaining a team while staying hands-on.",
+      "resources": [
+        { "label": "Cybersecurity career paths", "href": "../../careers/" },
+        { "label": "Certification study decks", "href": "../../quiz/" }
+      ]
+    }
+  ]
+}
