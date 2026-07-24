@@ -239,6 +239,33 @@ function validateAutomationRoi(data: AutomationRoi): string[] {
   return out;
 }
 
+interface TrustEntry {
+  id: string;
+  category: string;
+  question: string;
+  keywords: string[];
+  answer: string;
+}
+
+/** Structural checks for the trust answer library. */
+function validateTrustLibrary(data: { categories: { id: string }[]; entries: TrustEntry[] }): string[] {
+  const out: string[] = [];
+  const catIds = new Set(data.categories.map((c) => c.id));
+  const seen = new Set<string>();
+  for (const e of data.entries) {
+    if (seen.has(e.id)) out.push(`duplicate entry id ${e.id}`);
+    seen.add(e.id);
+    if (!catIds.has(e.category)) out.push(`${e.id}: unknown category ${e.category}`);
+    if (!e.question?.trim()) out.push(`${e.id}: empty question`);
+    if (!e.answer?.trim()) out.push(`${e.id}: empty answer`);
+    if (!Array.isArray(e.keywords) || e.keywords.length < 3) out.push(`${e.id}: too few keywords`);
+    else for (const k of e.keywords) if (k !== k.toLowerCase()) out.push(`${e.id}: non-lowercase keyword ${k}`);
+    if (JSON.stringify(e).includes('—')) out.push(`${e.id}: em dash`);
+  }
+  for (const c of data.categories) if (!data.entries.some((e) => e.category === c.id)) out.push(`no entries in category ${c.id}`);
+  return out;
+}
+
 const acronyms = load<AcronymData>('../src/data/acronyms.json');
 const csf = load<CsfData>('../src/data/nist-csf.json');
 const cis = load<CisData>('../src/data/cis.json');
@@ -255,6 +282,7 @@ const runbooks = load<{ scenarios: RunbookScenario[] }>('../src/data/runbooks.js
 const cloudBaseline = load<{ controls: CloudControl[] }>('../src/data/cloud-baseline.json');
 const ssdlc = load<{ phases: { id: string }[]; practices: SsdlcPractice[] }>('../src/data/ssdlc.json');
 const automationRoi = load<AutomationRoi>('../src/data/automation-roi.json');
+const trustLibrary = load<{ categories: { id: string }[]; entries: TrustEntry[] }>('../src/data/trust-library.json');
 
 const mapProblems: string[] = [];
 for (const csfId of Object.keys(csf)) {
@@ -285,6 +313,7 @@ const problems = [
   ...validateCloudBaseline(cloudBaseline.controls).map((e) => `cloud-baseline: ${e}`),
   ...validateSsdlc(ssdlc).map((e) => `ssdlc: ${e}`),
   ...validateAutomationRoi(automationRoi).map((e) => `automation-roi: ${e}`),
+  ...validateTrustLibrary(trustLibrary).map((e) => `trust-library: ${e}`),
 ];
 
 if (problems.length > 0) {
@@ -294,5 +323,5 @@ if (problems.length > 0) {
 }
 console.log(
   `Data OK: ${Object.keys(acronyms).length} acronyms, ${Object.keys(csf).length} CSF subcategories, ${Object.keys(cis).length} CIS safeguards, ${ai.length} AI framework entries, ` +
-    `${cmmc.questions.length} 800-171/CMMC, ${cyberEssentials.questions.length} Cyber Essentials, ${ztmm.questions.length} ZTMM, ${ssdf.questions.length} SSDF, ${pci.questions.length} PCI DSS, ${crosswalk.controls.length} crosswalk domains, ${boardMetrics.metrics.length} board metrics, ${runbooks.scenarios.length} runbook scenarios, ${cloudBaseline.controls.length} cloud baseline controls, ${ssdlc.practices.length} SDLC practices, ${automationRoi.categories.length} automation categories.`,
+    `${cmmc.questions.length} 800-171/CMMC, ${cyberEssentials.questions.length} Cyber Essentials, ${ztmm.questions.length} ZTMM, ${ssdf.questions.length} SSDF, ${pci.questions.length} PCI DSS, ${crosswalk.controls.length} crosswalk domains, ${boardMetrics.metrics.length} board metrics, ${runbooks.scenarios.length} runbook scenarios, ${cloudBaseline.controls.length} cloud baseline controls, ${ssdlc.practices.length} SDLC practices, ${automationRoi.categories.length} automation categories, ${trustLibrary.entries.length} trust answers.`,
 );

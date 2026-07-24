@@ -266,6 +266,20 @@ body {
   }
 }
 
+.theme-trust {
+  --tomato: #4f6d8c;
+  --tomato-deep: #3a5570;
+  --broth: #9db6cf;
+}
+
+@media (prefers-color-scheme: dark) {
+  .theme-trust {
+    --tomato: #8fa8c8;
+    --tomato-deep: #aec2db;
+    --broth: #45607e;
+  }
+}
+
 @media (prefers-color-scheme: dark) {
   .theme-quiz {
     --tomato: #c08fd6;

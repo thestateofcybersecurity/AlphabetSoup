@@ -1,0 +1,632 @@
+{
+  "meta": {
+    "title": "Trust Package and Questionnaire Answer Library",
+    "version": "1.0.0",
+    "note": "Generic starter answers grounded in common vendor questionnaire frameworks (SIG, CAIQ, VSA). Edit each to reflect your program; bracketed placeholders mark company-specific facts to fill in. A drafting aid, not a substitute for review.",
+    "sources": [
+      {
+        "name": "Shared Assessments SIG",
+        "url": "https://sharedassessments.org/sig/"
+      },
+      {
+        "name": "CSA Consensus Assessments Initiative Questionnaire (CAIQ)",
+        "url": "https://cloudsecurityalliance.org/research/cloud-controls-matrix/"
+      }
+    ]
+  },
+  "categories": [
+    {
+      "id": "governance",
+      "name": "Governance and risk"
+    },
+    {
+      "id": "access-control",
+      "name": "Access control"
+    },
+    {
+      "id": "authentication",
+      "name": "Authentication"
+    },
+    {
+      "id": "encryption",
+      "name": "Encryption"
+    },
+    {
+      "id": "network-security",
+      "name": "Network security"
+    },
+    {
+      "id": "application-security",
+      "name": "Application security"
+    },
+    {
+      "id": "vulnerability-management",
+      "name": "Vulnerability management"
+    },
+    {
+      "id": "incident-response",
+      "name": "Incident response"
+    },
+    {
+      "id": "business-continuity",
+      "name": "Business continuity"
+    },
+    {
+      "id": "data-privacy",
+      "name": "Data privacy"
+    },
+    {
+      "id": "subprocessors",
+      "name": "Subprocessors and vendors"
+    },
+    {
+      "id": "personnel-physical",
+      "name": "Personnel and physical"
+    },
+    {
+      "id": "compliance-monitoring",
+      "name": "Compliance and monitoring"
+    }
+  ],
+  "entries": [
+    {
+      "id": "governance-infosec-program",
+      "category": "governance",
+      "question": "Do you maintain a formal information security program with documented policies approved by management?",
+      "keywords": [
+        "information security program",
+        "security policy",
+        "policies approved",
+        "management approval",
+        "isms",
+        "security governance"
+      ],
+      "answer": "We maintain a formal information security program built on documented policies that are reviewed and approved by management at least annually. The program aligns with recognized frameworks such as [ISO 27001 / NIST CSF / SOC 2] and is governed by a designated security function with executive sponsorship. Policies are communicated to all personnel, and adherence is monitored through regular assessments."
+    },
+    {
+      "id": "governance-risk-management",
+      "category": "governance",
+      "question": "Do you have a formal risk management process to identify, assess, and treat information security risks?",
+      "keywords": [
+        "risk management",
+        "risk assessment",
+        "risk register",
+        "risk treatment",
+        "enterprise risk",
+        "risk methodology"
+      ],
+      "answer": "We operate a documented risk management process that identifies, assesses, and prioritizes information security risks on a recurring basis and in response to significant changes. Identified risks are tracked in a risk register with assigned owners, treatment plans, and target remediation timelines. Risk posture and material risks are reported to management [and the risk committee] for oversight."
+    },
+    {
+      "id": "governance-security-roles",
+      "category": "governance",
+      "question": "Have you designated an individual or team responsible for information security, and are security roles and responsibilities defined?",
+      "keywords": [
+        "security officer",
+        "ciso",
+        "security responsibilities",
+        "roles and responsibilities",
+        "security team",
+        "accountability"
+      ],
+      "answer": "We have designated [a CISO / security leader] with overall accountability for the information security program, supported by a dedicated security team. Security roles and responsibilities are formally documented and communicated across the organization. Security objectives and program status are reviewed with leadership on a regular cadence."
+    },
+    {
+      "id": "access-control-least-privilege-rbac",
+      "category": "access-control",
+      "question": "Do you enforce least privilege and role-based access control for access to systems and data?",
+      "keywords": [
+        "least privilege",
+        "role-based access control",
+        "rbac",
+        "access control",
+        "need to know",
+        "authorization",
+        "privileged access"
+      ],
+      "answer": "Access to systems and data is granted on a least-privilege, need-to-know basis using role-based access control. Roles are defined so that personnel receive only the permissions required for their job function, and privileged access is restricted to a limited set of authorized administrators. Access requests require documented approval before provisioning."
+    },
+    {
+      "id": "access-control-joiner-mover-leaver",
+      "category": "access-control",
+      "question": "Describe your process for provisioning and deprovisioning user access when employees join, change roles, or leave.",
+      "keywords": [
+        "provisioning",
+        "deprovisioning",
+        "onboarding",
+        "offboarding",
+        "joiner mover leaver",
+        "termination access",
+        "account removal"
+      ],
+      "answer": "We follow a documented joiner, mover, and leaver process for managing the access lifecycle. Access is provisioned based on approved role assignments at onboarding, adjusted when responsibilities change, and revoked promptly upon termination, typically within [one business day]. Deprovisioning is coordinated with HR and, where feasible, automated through our identity provider to reduce the risk of orphaned accounts."
+    },
+    {
+      "id": "access-control-periodic-reviews",
+      "category": "access-control",
+      "question": "Do you perform periodic reviews of user access rights, including privileged accounts?",
+      "keywords": [
+        "access review",
+        "access recertification",
+        "periodic review",
+        "user access",
+        "privileged accounts",
+        "entitlement review"
+      ],
+      "answer": "We perform periodic user access reviews at least [quarterly] for critical systems and privileged accounts, and [annually] for other systems. System and data owners recertify that access remains appropriate for each user's role, and any excessive or unneeded access is revoked. Review results are documented and retained as evidence."
+    },
+    {
+      "id": "authentication-mfa",
+      "category": "authentication",
+      "question": "Do you require multi-factor authentication for access to systems, applications, and administrative interfaces?",
+      "keywords": [
+        "multi-factor authentication",
+        "mfa",
+        "2fa",
+        "two-factor",
+        "strong authentication",
+        "administrative access",
+        "remote access"
+      ],
+      "answer": "Multi-factor authentication is required for remote access, administrative interfaces, and access to systems that store or process sensitive data. MFA is enforced for all personnel through our identity provider, and customer-facing MFA is available for user accounts. We prioritize phishing-resistant methods where supported."
+    },
+    {
+      "id": "authentication-password-policy",
+      "category": "authentication",
+      "question": "What password and credential policies do you enforce, including complexity, length, and reuse restrictions?",
+      "keywords": [
+        "password policy",
+        "password complexity",
+        "password length",
+        "credential policy",
+        "password reuse",
+        "account lockout"
+      ],
+      "answer": "We enforce a documented password policy that includes minimum length, complexity or passphrase requirements, and restrictions on reuse of prior passwords, consistent with current [NIST 800-63] guidance. Accounts are subject to lockout or throttling after repeated failed attempts, and default credentials are changed before systems are placed into service. Passwords are never stored in plaintext and are protected using salted, industry-standard hashing."
+    },
+    {
+      "id": "authentication-sso-federation",
+      "category": "authentication",
+      "question": "Do you support single sign-on (SSO) and centralized identity federation such as SAML or OIDC?",
+      "keywords": [
+        "single sign-on",
+        "sso",
+        "saml",
+        "oidc",
+        "identity federation",
+        "scim",
+        "identity provider"
+      ],
+      "answer": "We support single sign-on via [SAML 2.0 / OIDC], allowing customers to integrate our application with their existing identity provider. This enables centralized authentication, enforcement of the customer's own access and MFA policies, and streamlined deprovisioning. We also support [SCIM] for automated user provisioning where applicable."
+    },
+    {
+      "id": "encryption-in-transit",
+      "category": "encryption",
+      "question": "Is data encrypted in transit, and what protocols and cipher standards do you use?",
+      "keywords": [
+        "encryption in transit",
+        "tls",
+        "data in transit",
+        "https",
+        "transport encryption",
+        "ssl"
+      ],
+      "answer": "All data transmitted between customers and our services, and between internal system components, is encrypted in transit using TLS 1.2 or higher. Weak protocols and ciphers are disabled, and configurations are reviewed against current industry benchmarks. Certificates are managed centrally and rotated before expiration."
+    },
+    {
+      "id": "encryption-at-rest",
+      "category": "encryption",
+      "question": "Is customer data encrypted at rest, and what encryption standard is used?",
+      "keywords": [
+        "encryption at rest",
+        "data at rest",
+        "aes-256",
+        "disk encryption",
+        "database encryption",
+        "storage encryption"
+      ],
+      "answer": "Customer data is encrypted at rest using AES-256 or an equivalent industry-standard algorithm. Encryption is applied at the storage, database, and backup layers as appropriate. This protects data confidentiality in the event of unauthorized access to underlying storage media."
+    },
+    {
+      "id": "encryption-key-management",
+      "category": "encryption",
+      "question": "How are encryption keys generated, stored, rotated, and access-controlled?",
+      "keywords": [
+        "key management",
+        "encryption keys",
+        "key rotation",
+        "kms",
+        "key storage",
+        "hsm",
+        "cryptographic keys"
+      ],
+      "answer": "Encryption keys are generated, stored, and managed through a dedicated key management service [such as a cloud KMS or HSM] with strict access controls. Access to keys is restricted to authorized services and personnel on a least-privilege basis, and key usage is logged. Keys are rotated on a defined schedule and upon suspected compromise."
+    },
+    {
+      "id": "network-security-segmentation-firewalls",
+      "category": "network-security",
+      "question": "Describe your network security controls, including firewalls, segmentation, and access restrictions.",
+      "keywords": [
+        "network security",
+        "firewall",
+        "network segmentation",
+        "security groups",
+        "network access control",
+        "perimeter security"
+      ],
+      "answer": "Our environment is protected by firewalls and security groups that restrict traffic to only required ports, protocols, and sources following a default-deny approach. Networks are segmented to separate production, non-production, and management environments, limiting lateral movement. Rule sets are reviewed periodically and changes follow our change management process."
+    },
+    {
+      "id": "network-security-ids-monitoring",
+      "category": "network-security",
+      "question": "Do you monitor network traffic for intrusions and malicious activity using IDS/IPS or equivalent controls?",
+      "keywords": [
+        "intrusion detection",
+        "ids",
+        "ips",
+        "network monitoring",
+        "threat detection",
+        "malicious activity",
+        "traffic monitoring"
+      ],
+      "answer": "We monitor network and system activity for intrusions and anomalous behavior using [intrusion detection/prevention and endpoint detection] tooling. Alerts are aggregated into centralized logging and reviewed by our security team, with escalation into our incident response process when warranted. Detection rules are updated to address emerging threats."
+    },
+    {
+      "id": "network-security-remote-access-vpn",
+      "category": "network-security",
+      "question": "How is remote and administrative access to your production environment secured?",
+      "keywords": [
+        "remote access",
+        "vpn",
+        "administrative access",
+        "bastion",
+        "jump host",
+        "zero trust",
+        "production access"
+      ],
+      "answer": "Remote and administrative access to production is restricted to authorized personnel and requires multi-factor authentication over an encrypted channel such as [a VPN, bastion host, or zero-trust access solution]. Administrative sessions are logged and monitored, and access is limited to specific roles under least privilege. Direct public exposure of management interfaces is prohibited."
+    },
+    {
+      "id": "application-security-sdlc",
+      "category": "application-security",
+      "question": "Do you follow a secure software development lifecycle (SDLC) with security integrated into development?",
+      "keywords": [
+        "secure sdlc",
+        "secure development",
+        "software development lifecycle",
+        "security by design",
+        "code review",
+        "secure coding"
+      ],
+      "answer": "We follow a secure software development lifecycle that integrates security throughout design, development, testing, and deployment. Changes undergo peer code review, and developers receive secure coding training aligned with standards such as the [OWASP Top 10]. Security requirements and threat considerations are incorporated early in the design of new features."
+    },
+    {
+      "id": "application-security-testing-sast-dast",
+      "category": "application-security",
+      "question": "Do you perform application security testing such as SAST, DAST, and dependency scanning?",
+      "keywords": [
+        "application security testing",
+        "sast",
+        "dast",
+        "static analysis",
+        "dependency scanning",
+        "sca",
+        "vulnerability scanning code"
+      ],
+      "answer": "We perform automated application security testing as part of our development pipeline, including static analysis (SAST), software composition analysis for third-party dependencies, and [dynamic analysis (DAST)] against running applications. Findings are triaged by severity and remediated according to defined timelines. Critical issues block release until resolved."
+    },
+    {
+      "id": "application-security-penetration-testing",
+      "category": "application-security",
+      "question": "Do you conduct independent penetration testing of your applications and infrastructure?",
+      "keywords": [
+        "penetration testing",
+        "pen test",
+        "third-party testing",
+        "ethical hacking",
+        "security assessment",
+        "external testing"
+      ],
+      "answer": "We engage a qualified independent firm to conduct penetration testing of our application and infrastructure at least [annually] and after significant changes. Identified findings are prioritized by risk and remediated within defined timelines, with retesting to confirm closure. A summary report or attestation letter is available to customers under [NDA] upon request."
+    },
+    {
+      "id": "vulnerability-management-scanning",
+      "category": "vulnerability-management",
+      "question": "Do you perform regular vulnerability scanning of your systems and infrastructure?",
+      "keywords": [
+        "vulnerability scanning",
+        "vulnerability management",
+        "vulnerability assessment",
+        "scanning frequency",
+        "infrastructure scanning"
+      ],
+      "answer": "We perform regular vulnerability scanning of our infrastructure and systems on at least a [monthly] basis, along with continuous monitoring for newly disclosed vulnerabilities. Identified vulnerabilities are tracked, prioritized by severity and exploitability, and assigned owners for remediation. Scan coverage includes internal and external-facing assets."
+    },
+    {
+      "id": "vulnerability-management-patching-sla",
+      "category": "vulnerability-management",
+      "question": "What are your remediation timelines (SLAs) for patching vulnerabilities based on severity?",
+      "keywords": [
+        "patch management",
+        "remediation sla",
+        "patching timeline",
+        "vulnerability remediation",
+        "critical patch",
+        "cvss"
+      ],
+      "answer": "We remediate vulnerabilities based on risk severity within defined timelines, for example critical within [15 days], high within [30 days], and medium within [90 days] of identification or vendor patch availability. Severity is assessed using [CVSS] together with contextual factors such as exposure and exploitability. Emergency patches for actively exploited issues are expedited outside the standard schedule."
+    },
+    {
+      "id": "vulnerability-management-disclosure",
+      "category": "vulnerability-management",
+      "question": "Do you maintain a responsible disclosure or bug bounty program for externally reported vulnerabilities?",
+      "keywords": [
+        "responsible disclosure",
+        "bug bounty",
+        "vulnerability disclosure",
+        "security researcher",
+        "report vulnerability",
+        "coordinated disclosure"
+      ],
+      "answer": "We maintain a documented vulnerability disclosure process that allows external researchers and customers to report suspected security issues through [a published security contact or disclosure page]. Reports are acknowledged, triaged, and remediated based on severity, and we coordinate with reporters on resolution. [We also operate a bug bounty program.]"
+    },
+    {
+      "id": "incident-response-plan",
+      "category": "incident-response",
+      "question": "Do you maintain a documented incident response plan with defined roles and escalation procedures?",
+      "keywords": [
+        "incident response plan",
+        "incident response",
+        "ir plan",
+        "escalation",
+        "security incident",
+        "response procedures"
+      ],
+      "answer": "We maintain a documented incident response plan that defines roles, responsibilities, severity classification, and escalation procedures for handling security incidents. The plan covers detection, containment, eradication, recovery, and post-incident review. It is reviewed and updated at least annually and after significant incidents or changes."
+    },
+    {
+      "id": "incident-response-breach-notification",
+      "category": "incident-response",
+      "question": "What is your timeline and process for notifying customers in the event of a data breach affecting their data?",
+      "keywords": [
+        "breach notification",
+        "data breach",
+        "notification timeline",
+        "customer notification",
+        "incident notification",
+        "72 hours"
+      ],
+      "answer": "In the event of a confirmed security breach affecting customer data, we notify affected customers without undue delay and consistent with contractual and legal requirements, typically within [72 hours] of confirmation. Notifications include the nature of the incident, data potentially involved, and remediation steps taken, to the extent known. We provide updates as our investigation progresses."
+    },
+    {
+      "id": "incident-response-tabletop-testing",
+      "category": "incident-response",
+      "question": "Do you test your incident response plan through tabletop exercises or simulations?",
+      "keywords": [
+        "tabletop exercise",
+        "incident response testing",
+        "ir test",
+        "simulation",
+        "response drill",
+        "plan testing"
+      ],
+      "answer": "We test our incident response plan at least [annually] through tabletop exercises and simulations involving relevant stakeholders. These exercises validate roles, communication paths, and decision-making, and lessons learned are used to improve the plan. Results and action items are documented and tracked to completion."
+    },
+    {
+      "id": "business-continuity-plan",
+      "category": "business-continuity",
+      "question": "Do you maintain business continuity and disaster recovery plans, and how often are they tested?",
+      "keywords": [
+        "business continuity",
+        "disaster recovery",
+        "bcp",
+        "dr plan",
+        "continuity plan",
+        "resilience",
+        "dr testing"
+      ],
+      "answer": "We maintain documented business continuity and disaster recovery plans that address the availability of critical systems and services during disruptions. These plans are reviewed and tested at least [annually], and results inform ongoing improvements. Roles, communication procedures, and recovery priorities are clearly defined."
+    },
+    {
+      "id": "business-continuity-rto-rpo",
+      "category": "business-continuity",
+      "question": "What are your defined recovery time objectives (RTO) and recovery point objectives (RPO)?",
+      "keywords": [
+        "rto",
+        "rpo",
+        "recovery time objective",
+        "recovery point objective",
+        "recovery targets",
+        "downtime tolerance"
+      ],
+      "answer": "We have defined recovery objectives for our critical services, with a target recovery time objective (RTO) of [X hours] and a recovery point objective (RPO) of [Y hours]. These objectives are validated through disaster recovery testing and reviewed periodically as our environment evolves. Specific commitments may be detailed in the applicable [SLA or contract]."
+    },
+    {
+      "id": "business-continuity-backups",
+      "category": "business-continuity",
+      "question": "Describe your data backup practices, including frequency, encryption, and restoration testing.",
+      "keywords": [
+        "backups",
+        "data backup",
+        "backup frequency",
+        "backup encryption",
+        "restore testing",
+        "backup retention"
+      ],
+      "answer": "Customer data is backed up on a regular schedule, with backups encrypted at rest and stored in a [geographically separate] location to support recovery. Backup restoration is tested periodically to validate integrity and recoverability. Retention periods are defined in accordance with operational and contractual requirements."
+    },
+    {
+      "id": "data-privacy-program-gdpr-ccpa",
+      "category": "data-privacy",
+      "question": "Do you maintain a privacy program and comply with applicable privacy regulations such as GDPR and CCPA?",
+      "keywords": [
+        "privacy program",
+        "gdpr",
+        "ccpa",
+        "data protection",
+        "privacy compliance",
+        "dpo",
+        "privacy regulation"
+      ],
+      "answer": "We maintain a privacy program designed to comply with applicable data protection laws, including [GDPR and CCPA/CPRA] where relevant. The program governs how personal data is collected, used, shared, and protected, and includes a designated [privacy contact or DPO]. We make a Data Processing Addendum available to customers who process personal data through our services."
+    },
+    {
+      "id": "data-privacy-data-subject-rights",
+      "category": "data-privacy",
+      "question": "How do you support data subject rights requests such as access, correction, and deletion?",
+      "keywords": [
+        "data subject rights",
+        "dsar",
+        "right to access",
+        "right to deletion",
+        "data subject request",
+        "erasure",
+        "personal data request"
+      ],
+      "answer": "We support data subject rights, including access, correction, and deletion, through documented processes and tooling within our application and support channels. When we act as a processor, we assist customers in fulfilling requests from their data subjects within the timeframes required by applicable law. Requests are authenticated before any action is taken."
+    },
+    {
+      "id": "data-privacy-retention-deletion",
+      "category": "data-privacy",
+      "question": "What are your data retention and secure deletion practices, including at contract termination?",
+      "keywords": [
+        "data retention",
+        "data deletion",
+        "secure deletion",
+        "data disposal",
+        "retention policy",
+        "termination data",
+        "data return"
+      ],
+      "answer": "We retain customer data only as long as needed to provide the service or as required by law, in accordance with a documented retention policy. Upon contract termination, customer data is returned or securely deleted within [a defined period, e.g. 30 to 90 days] using industry-standard methods that render it unrecoverable. Deletion covers production systems and, on a defined schedule, backups."
+    },
+    {
+      "id": "subprocessors-list-and-diligence",
+      "category": "subprocessors",
+      "question": "Do you use subprocessors or third parties to process customer data, and how are they vetted?",
+      "keywords": [
+        "subprocessors",
+        "third parties",
+        "vendor management",
+        "third-party risk",
+        "subprocessor list",
+        "due diligence",
+        "fourth party"
+      ],
+      "answer": "We use a limited set of vetted subprocessors to help deliver our services, and a current list is available at [subprocessor list URL]. Subprocessors undergo security and privacy due diligence before engagement and are subject to contractual obligations, including data protection terms consistent with our own commitments. We periodically reassess subprocessors as part of our third-party risk management program."
+    },
+    {
+      "id": "subprocessors-change-notification",
+      "category": "subprocessors",
+      "question": "How do you notify customers of changes to your subprocessors, and can they object?",
+      "keywords": [
+        "subprocessor notification",
+        "subprocessor changes",
+        "notice of new subprocessor",
+        "object to subprocessor",
+        "subprocessor updates"
+      ],
+      "answer": "We provide advance notice of new or changed subprocessors through [a subscription mechanism or our subprocessor page], typically at least [30 days] before the change takes effect. Customers may object to a new subprocessor on reasonable data protection grounds as described in our Data Processing Addendum. This process is documented in our contractual terms."
+    },
+    {
+      "id": "subprocessors-cloud-hosting",
+      "category": "subprocessors",
+      "question": "Where is customer data hosted, and which cloud infrastructure providers do you rely on?",
+      "keywords": [
+        "hosting provider",
+        "cloud provider",
+        "data hosting",
+        "data residency",
+        "infrastructure provider",
+        "data center location",
+        "aws azure gcp"
+      ],
+      "answer": "Our services are hosted on [a major cloud infrastructure provider such as AWS, Azure, or GCP] within [specified regions], and customer data is stored in [data residency location(s)]. Our hosting providers maintain independent compliance certifications such as [SOC 2 and ISO 27001] for their physical and environmental controls. Data residency options may be available depending on the plan."
+    },
+    {
+      "id": "personnel-physical-background-checks",
+      "category": "personnel-physical",
+      "question": "Do you perform background checks on employees who have access to customer data or systems?",
+      "keywords": [
+        "background checks",
+        "background screening",
+        "pre-employment screening",
+        "personnel security",
+        "employee vetting"
+      ],
+      "answer": "We conduct background checks on personnel prior to employment where permitted by applicable law, with the scope commensurate with the sensitivity of the role and access granted. Personnel are also required to sign confidentiality agreements and acknowledge our security and acceptable use policies. Screening is a standard part of our hiring process."
+    },
+    {
+      "id": "personnel-physical-security-training",
+      "category": "personnel-physical",
+      "question": "Do you provide security awareness training to employees, and how often?",
+      "keywords": [
+        "security awareness training",
+        "security training",
+        "employee training",
+        "phishing training",
+        "annual training",
+        "awareness program"
+      ],
+      "answer": "All personnel complete security awareness training at onboarding and at least [annually] thereafter, covering topics such as phishing, data handling, and incident reporting. We supplement formal training with ongoing awareness activities, including simulated phishing exercises. Completion is tracked, and role-specific training is provided where appropriate."
+    },
+    {
+      "id": "personnel-physical-data-center-controls",
+      "category": "personnel-physical",
+      "question": "What physical and environmental security controls protect the facilities where data is processed?",
+      "keywords": [
+        "physical security",
+        "data center security",
+        "environmental controls",
+        "facility access",
+        "badge access",
+        "physical access controls"
+      ],
+      "answer": "Customer data is processed in [cloud provider] data centers that maintain robust physical and environmental controls, including restricted badge access, surveillance, and environmental protections such as fire suppression and redundant power. These controls are validated through the providers' independent audits such as [SOC 2 and ISO 27001]. Our corporate offices enforce access controls appropriate to their role, and no customer data is stored on unmanaged endpoints."
+    },
+    {
+      "id": "compliance-monitoring-soc2-iso",
+      "category": "compliance-monitoring",
+      "question": "Do you hold third-party security certifications or attestations such as SOC 2, ISO 27001, or equivalent?",
+      "keywords": [
+        "soc 2",
+        "iso 27001",
+        "certification",
+        "attestation",
+        "audit report",
+        "compliance certification",
+        "third-party audit"
+      ],
+      "answer": "We undergo independent third-party assessments and maintain [SOC 2 Type II / ISO 27001 or equivalent] attestations covering the security of our services. Reports and certificates are available to customers and prospects under [NDA] upon request. Assessments are performed on a recurring, typically annual, basis by a qualified independent firm."
+    },
+    {
+      "id": "compliance-monitoring-logging-audit",
+      "category": "compliance-monitoring",
+      "question": "Do you maintain audit logs of system and user activity, and how long are they retained?",
+      "keywords": [
+        "audit logs",
+        "logging",
+        "activity logs",
+        "log retention",
+        "audit trail",
+        "log monitoring",
+        "siem"
+      ],
+      "answer": "We maintain audit logs that capture key security-relevant events, including administrative actions, authentication events, and access to sensitive data. Logs are centrally aggregated, protected against tampering, and monitored for anomalies [via a SIEM]. Logs are retained for [at least 12 months] or longer where required by policy or regulation."
+    },
+    {
+      "id": "compliance-monitoring-continuous-controls",
+      "category": "compliance-monitoring",
+      "question": "How do you continuously monitor the effectiveness of your security controls and configurations?",
+      "keywords": [
+        "continuous monitoring",
+        "control monitoring",
+        "configuration monitoring",
+        "compliance monitoring",
+        "control effectiveness",
+        "cspm"
+      ],
+      "answer": "We continuously monitor the effectiveness of our security controls through automated tooling, configuration baselines, and periodic internal reviews. Deviations from expected configurations trigger alerts and are remediated through our change and incident processes. Control performance is reviewed by management and validated during our independent audits."
+    }
+  ]
+}
