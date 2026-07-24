@@ -29,6 +29,8 @@ export default defineConfig({
         skillsMatrix: 'tools/skills-matrix/index.html',
         roadmap: 'roadmap/index.html',
         about: 'about/index.html',
+        privacy: 'privacy/index.html',
+        disclosure: 'disclosure/index.html',
       },
     },
   },

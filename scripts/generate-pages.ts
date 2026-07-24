@@ -220,6 +220,7 @@ function definitionPage(key: string, entry: AcronymEntry): string {
     <footer>
       <p class="play">Think you could have guessed it? <a href="${CYBERDLE}" rel="noopener" target="_blank">Play Cyberdle, the daily acronym game &rarr;</a></p>
       <p>Part of <a href="../">Cybersecurity Alphabet Soup</a>, a plain-English dictionary of ${Object.keys(data).length} cybersecurity acronyms.</p>
+      <p><a href="../privacy/">Privacy</a> &middot; <a href="../disclosure/">Affiliate disclosure</a></p>
     </footer>
   </div>
 </body>
@@ -387,6 +388,7 @@ ${FW_EXTRA_CSS}</style>
     <footer>
       <p class="play">Learn the language too: <a href="../../">browse the acronym glossary</a> or <a href="${CYBERDLE}" rel="noopener" target="_blank">play Cyberdle &rarr;</a></p>
       <p>Unofficial plain-English companion. Official source: <a href="${esc(input.officialUrl)}" rel="noopener">${esc(input.officialName)}</a>.</p>
+      <p><a href="../../privacy/">Privacy</a> &middot; <a href="../../disclosure/">Affiliate disclosure</a></p>
     </footer>
   </div>
 </body>
@@ -496,6 +498,8 @@ const urls = [
   `${SITE}/careers/`,
   `${SITE}/about/`,
   `${SITE}/assess/cmmc/`,
+  `${SITE}/privacy/`,
+  `${SITE}/disclosure/`,
   ...keys.map((key) => `${SITE}/definitions/${slugForKey(key)}.html`),
   ...csfIds.map((id) => `${SITE}/frameworks/nist-csf/${frameworkSlug(id)}.html`),
   ...cisIds.map((id) => `${SITE}/frameworks/cis/${frameworkSlug(id)}.html`),
