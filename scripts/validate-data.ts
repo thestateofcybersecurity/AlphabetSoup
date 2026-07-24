@@ -311,6 +311,34 @@ function validateRegulations(data: RegData): string[] {
   return out;
 }
 
+interface SkillsMatrix {
+  levels: { value: number; label: string; hint: string }[];
+  proficientLevel: number;
+  competencies: { id: string; name: string; blurb: string; resources: { label: string; href: string }[] }[];
+}
+
+/** Structural checks for the team skills matrix, including scorecard alignment. */
+function validateSkillsMatrix(data: SkillsMatrix, cardIds: Set<string>): string[] {
+  const out: string[] = [];
+  if (data.levels.length !== 5) out.push('level scale should have 5 rungs');
+  if (typeof data.proficientLevel !== 'number') out.push('missing proficientLevel');
+  const seen = new Set<string>();
+  for (const c of data.competencies) {
+    if (seen.has(c.id)) out.push(`duplicate competency id ${c.id}`);
+    seen.add(c.id);
+    if (!cardIds.has(c.id)) out.push(`${c.id}: not a scorecard card id`);
+    if (!c.name?.trim()) out.push(`${c.id}: empty name`);
+    if (!c.blurb?.trim()) out.push(`${c.id}: empty blurb`);
+    if (!c.resources?.length) out.push(`${c.id}: no resources`);
+    for (const r of c.resources ?? []) {
+      if (!r.label?.trim()) out.push(`${c.id}: resource missing label`);
+      if (!/^(\.\.\/|https:\/\/)/.test(r.href ?? '')) out.push(`${c.id}: bad resource href ${r.href}`);
+    }
+  }
+  if (JSON.stringify(data).includes('—')) out.push('em dash present');
+  return out;
+}
+
 const acronyms = load<AcronymData>('../src/data/acronyms.json');
 const csf = load<CsfData>('../src/data/nist-csf.json');
 const cis = load<CisData>('../src/data/cis.json');
@@ -329,6 +357,8 @@ const ssdlc = load<{ phases: { id: string }[]; practices: SsdlcPractice[] }>('..
 const automationRoi = load<AutomationRoi>('../src/data/automation-roi.json');
 const trustLibrary = load<{ categories: { id: string }[]; entries: TrustEntry[] }>('../src/data/trust-library.json');
 const regulations = load<RegData>('../src/data/regulations.json');
+const scorecard = load<{ cards: { id: string }[] }>('../src/data/scorecard.json');
+const skillsMatrix = load<SkillsMatrix>('../src/data/skills-matrix.json');
 
 const mapProblems: string[] = [];
 for (const csfId of Object.keys(csf)) {
@@ -361,6 +391,7 @@ const problems = [
   ...validateAutomationRoi(automationRoi).map((e) => `automation-roi: ${e}`),
   ...validateTrustLibrary(trustLibrary).map((e) => `trust-library: ${e}`),
   ...validateRegulations(regulations).map((e) => `regulations: ${e}`),
+  ...validateSkillsMatrix(skillsMatrix, new Set(scorecard.cards.map((c) => c.id))).map((e) => `skills-matrix: ${e}`),
 ];
 
 if (problems.length > 0) {
@@ -370,5 +401,5 @@ if (problems.length > 0) {
 }
 console.log(
   `Data OK: ${Object.keys(acronyms).length} acronyms, ${Object.keys(csf).length} CSF subcategories, ${Object.keys(cis).length} CIS safeguards, ${ai.length} AI framework entries, ` +
-    `${cmmc.questions.length} 800-171/CMMC, ${cyberEssentials.questions.length} Cyber Essentials, ${ztmm.questions.length} ZTMM, ${ssdf.questions.length} SSDF, ${pci.questions.length} PCI DSS, ${crosswalk.controls.length} crosswalk domains, ${boardMetrics.metrics.length} board metrics, ${runbooks.scenarios.length} runbook scenarios, ${cloudBaseline.controls.length} cloud baseline controls, ${ssdlc.practices.length} SDLC practices, ${automationRoi.categories.length} automation categories, ${trustLibrary.entries.length} trust answers, ${regulations.regulations.length} regulations.`,
+    `${cmmc.questions.length} 800-171/CMMC, ${cyberEssentials.questions.length} Cyber Essentials, ${ztmm.questions.length} ZTMM, ${ssdf.questions.length} SSDF, ${pci.questions.length} PCI DSS, ${crosswalk.controls.length} crosswalk domains, ${boardMetrics.metrics.length} board metrics, ${runbooks.scenarios.length} runbook scenarios, ${cloudBaseline.controls.length} cloud baseline controls, ${ssdlc.practices.length} SDLC practices, ${automationRoi.categories.length} automation categories, ${trustLibrary.entries.length} trust answers, ${regulations.regulations.length} regulations, ${skillsMatrix.competencies.length} team competencies.`,
 );
