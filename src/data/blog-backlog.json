@@ -6,126 +6,387 @@
       "title": "CIS Controls IG1: The Starter Set Every Small Team Can Actually Do",
       "category": "Explainer",
       "brief": "Explain CIS Controls Implementation Group 1 as the realistic starting baseline for a small or resource-constrained team: what IG1 covers, why it maps to the most common attacks, and how to work through it without a big budget.",
-      "links": ["/frameworks/cis/", "/tools/cloud-baseline/", "/assess/"]
+      "links": [
+        "/frameworks/cis/",
+        "/tools/cloud-baseline/",
+        "/assess/"
+      ]
     },
     {
       "slug": "security-analyst-to-engineer",
       "title": "From Security Analyst to Security Engineer: Making the Jump",
       "category": "Career",
       "brief": "A practical path for a SOC or security analyst who wants to move into a security engineering role: the skills to build (automation, cloud, code), how to get reps, and how to show the work.",
-      "links": ["/careers/", "/quiz/", "/tools/automation-roi/"]
+      "links": [
+        "/careers/",
+        "/quiz/",
+        "/tools/automation-roi/"
+      ]
     },
     {
       "slug": "iam-vs-pam-vs-ciem",
       "title": "IAM vs PAM vs CIEM: Sorting Out the Identity Acronyms",
       "category": "Spotlight",
       "brief": "Distinguish identity and access management, privileged access management, and cloud infrastructure entitlement management: what each governs, where they overlap, and when you need each.",
-      "links": ["/?q=IAM", "/?q=PAM", "/?q=CIEM", "/tools/cloud-baseline/"]
+      "links": [
+        "/?q=IAM",
+        "/?q=PAM",
+        "/?q=CIEM",
+        "/tools/cloud-baseline/"
+      ]
     },
     {
       "slug": "soc2-readiness-in-plain-english",
       "title": "SOC 2 Readiness in Plain English",
       "category": "Explainer",
       "brief": "Demystify what getting SOC 2 ready actually involves: the Trust Services Criteria, the difference between Type I and Type II, evidence collection, and how it overlaps with other frameworks so you do the work once.",
-      "links": ["/tools/crosswalk/", "/tools/trust-package/", "/?q=SOC%202"]
+      "links": [
+        "/tools/crosswalk/",
+        "/tools/trust-package/",
+        "/?q=SOC%202"
+      ]
     },
     {
       "slug": "first-90-days-security-leader",
       "title": "Your First 90 Days as a Security Leader",
       "category": "Career",
       "brief": "A grounded first-90-days plan for a new security manager or CISO: assess the team and program, find the single points of failure, set priorities, and produce early evidence for leadership.",
-      "links": ["/tools/", "/tools/skills-matrix/", "/roadmap/"]
+      "links": [
+        "/tools/",
+        "/tools/skills-matrix/",
+        "/roadmap/"
+      ]
     },
     {
       "slug": "encryption-at-rest-vs-in-transit",
       "title": "Encryption at Rest vs In Transit, and Why Key Management Is the Hard Part",
       "category": "Spotlight",
       "brief": "Explain encryption at rest versus in transit in plain terms, why both matter, and why key management (rotation, access, custody) is where most of the real risk and effort lives.",
-      "links": ["/?q=AES", "/?q=TLS", "/tools/cloud-baseline/"]
+      "links": [
+        "/?q=AES",
+        "/?q=TLS",
+        "/tools/cloud-baseline/"
+      ]
     },
     {
       "slug": "secure-sdlc-quick-wins",
       "title": "DevSecOps Quick Wins Engineers Will Actually Accept",
       "category": "Explainer",
       "brief": "The highest-leverage, lowest-friction ways to add security to a software pipeline (dependency and secret scanning, pipeline hardening) and how to introduce them without slowing engineers down.",
-      "links": ["/tools/ssdlc/", "/?q=SAST", "/?q=SBOM"]
+      "links": [
+        "/tools/ssdlc/",
+        "/?q=SAST",
+        "/?q=SBOM"
+      ]
     },
     {
       "slug": "cissp-study-approach",
       "title": "A Sane Way to Study for the CISSP",
       "category": "Career",
       "brief": "A realistic CISSP study approach that respects a working professional's time: how to think in the exam's mindset, what to prioritize across the eight domains, and how to practice without burning out.",
-      "links": ["/quiz/", "/careers/"]
+      "links": [
+        "/quiz/",
+        "/careers/"
+      ]
     },
     {
       "slug": "vuln-management-cvss-epss-kev",
       "title": "CVSS, EPSS, and KEV: Prioritizing Patches That Matter",
       "category": "Spotlight",
       "brief": "Explain how CVSS severity, EPSS exploit-likelihood, and the CISA Known Exploited Vulnerabilities catalog work together to prioritize patching, instead of chasing every high-severity finding.",
-      "links": ["/?q=CVSS", "/?q=KEV", "/tools/ssdlc/"]
+      "links": [
+        "/?q=CVSS",
+        "/?q=KEV",
+        "/tools/ssdlc/"
+      ]
     },
     {
       "slug": "cmmc-for-manufacturers",
       "title": "CMMC and NIST 800-171 for Defense Manufacturers",
       "category": "Explainer",
       "brief": "Explain what CMMC and NIST SP 800-171 require of defense-industrial-base contractors, how the levels and CUI fit together, and where to start on readiness.",
-      "links": ["/assess/cmmc/", "/tools/reg-mapper/"]
+      "links": [
+        "/assess/cmmc/",
+        "/tools/reg-mapper/"
+      ]
     },
     {
       "slug": "portfolio-projects-that-land-jobs",
       "title": "Cybersecurity Portfolio Projects That Actually Land Jobs",
       "category": "Career",
       "brief": "Concrete portfolio project ideas that demonstrate real security skill (a home lab, an automation, a detection, a written analysis) and how to present them so hiring managers notice.",
-      "links": ["/careers/", "/tools/"]
+      "links": [
+        "/careers/",
+        "/tools/"
+      ]
     },
     {
       "slug": "phishing-mfa-fatigue-resistant-auth",
       "title": "Phishing, MFA Fatigue, and Phishing-Resistant Authentication",
       "category": "Spotlight",
       "brief": "Explain why not all MFA is equal: how attackers defeat push-based MFA with fatigue and proxy phishing, and how phishing-resistant methods (FIDO2, passkeys) close the gap.",
-      "links": ["/?q=MFA", "/?q=FIDO", "/tools/runbook/"]
+      "links": [
+        "/?q=MFA",
+        "/?q=FIDO",
+        "/tools/runbook/"
+      ]
     },
     {
       "slug": "cloud-identity-is-the-perimeter",
       "title": "In the Cloud, Identity Is the Perimeter",
       "category": "Explainer",
       "brief": "Explain why identity, not the network edge, is the real perimeter in cloud environments, and the controls that follow (least privilege, conditional access, privileged access management, logging).",
-      "links": ["/tools/cloud-baseline/", "/?q=IAM", "/frameworks/nist-csf/"]
+      "links": [
+        "/tools/cloud-baseline/",
+        "/?q=IAM",
+        "/frameworks/nist-csf/"
+      ]
     },
     {
       "slug": "which-cloud-security-cert",
       "title": "Which Cloud Security Certification Should You Pursue?",
       "category": "Career",
       "brief": "Help a learner choose a cloud security certification path (provider certs vs vendor-neutral), matched to their goals and current level, with honest tradeoffs.",
-      "links": ["/quiz/", "/careers/", "/?q=CNAPP"]
+      "links": [
+        "/quiz/",
+        "/careers/",
+        "/?q=CNAPP"
+      ]
     },
     {
       "slug": "sbom-and-software-supply-chain",
       "title": "SBOMs and Software Supply-Chain Security, Explained",
       "category": "Spotlight",
       "brief": "Explain what a software bill of materials is, why supply-chain attacks made it matter, and how SBOMs, dependency scanning, and provenance fit into a real defense.",
-      "links": ["/?q=SBOM", "/tools/ssdlc/", "/tools/trust-package/"]
+      "links": [
+        "/?q=SBOM",
+        "/tools/ssdlc/",
+        "/tools/trust-package/"
+      ]
     },
     {
       "slug": "run-a-tabletop-that-helps",
       "title": "How to Run an Incident Tabletop That Actually Helps",
       "category": "Explainer",
       "brief": "A practical guide to running a security tabletop exercise that surfaces real gaps: choosing a scenario, timed injects, who to include, and turning findings into fixes.",
-      "links": ["/tools/runbook/", "/?q=IR"]
+      "links": [
+        "/tools/runbook/",
+        "/?q=IR"
+      ]
     },
     {
       "slug": "interviewing-for-security-roles",
       "title": "What Cybersecurity Interviews Are Really Testing",
       "category": "Career",
       "brief": "Decode what security interviews actually assess beyond trivia: judgment, communication, and how you reason about risk, with how to prepare for each.",
-      "links": ["/careers/", "/tools/"]
+      "links": [
+        "/careers/",
+        "/tools/"
+      ]
     },
     {
       "slug": "edr-vs-antivirus",
       "title": "EDR vs Antivirus: What Actually Changed",
       "category": "Spotlight",
       "brief": "Explain how endpoint detection and response differs from traditional signature-based antivirus, what EDR adds (behavioral detection, response, telemetry), and where XDR extends it.",
-      "links": ["/?q=EDR", "/?q=XDR", "/tools/automation-roi/"]
+      "links": [
+        "/?q=EDR",
+        "/?q=XDR",
+        "/tools/automation-roi/"
+      ]
+    },
+    {
+      "slug": "ransomware-defense-basics",
+      "title": "Ransomware Defense on a Small-Team Budget",
+      "category": "Explainer",
+      "brief": "A layered, practical ransomware defense a small or mid-size team can actually stand up: backups you can restore, endpoint detection, least privilege, and a plan for the bad day.",
+      "links": [
+        "/tools/runbook/",
+        "/tools/cloud-baseline/",
+        "/?q=EDR"
+      ]
+    },
+    {
+      "slug": "logging-that-earns-its-cost",
+      "title": "Logging and Detection That Earns Its Cost",
+      "category": "Explainer",
+      "brief": "What logs are actually worth collecting, what to skip, and how to turn logs into detections instead of an expensive data lake nobody reads.",
+      "links": [
+        "/tools/cloud-baseline/",
+        "/?q=SIEM",
+        "/frameworks/nist-csf/"
+      ]
+    },
+    {
+      "slug": "backups-that-actually-restore",
+      "title": "Backups That Actually Restore: RTO, RPO, and Testing",
+      "category": "Explainer",
+      "brief": "Why an untested backup is a guess, what RTO and RPO really mean, and how to prove you can recover before you need to.",
+      "links": [
+        "/tools/runbook/",
+        "/?q=RTO",
+        "/?q=RPO"
+      ]
+    },
+    {
+      "slug": "least-privilege-in-practice",
+      "title": "Making Least Privilege Real Without Breaking Everyone",
+      "category": "Explainer",
+      "brief": "How to move a team toward least privilege in practice: joiner-mover-leaver, access reviews, and privileged access, without grinding work to a halt.",
+      "links": [
+        "/?q=IAM",
+        "/?q=PAM",
+        "/tools/cloud-baseline/"
+      ]
+    },
+    {
+      "slug": "data-classification-first-step",
+      "title": "Data Classification: The Governance Step Everyone Skips",
+      "category": "Explainer",
+      "brief": "Why knowing what data you hold and how sensitive it is comes before almost every other control, and a lightweight way to start.",
+      "links": [
+        "/tools/crosswalk/",
+        "/?q=DLP",
+        "/frameworks/cis/"
+      ]
+    },
+    {
+      "slug": "vendor-risk-without-drowning",
+      "title": "A Third-Party Risk Program That Does Not Drown You",
+      "category": "Explainer",
+      "brief": "How to size a vendor risk program to your actual exposure: tiering vendors, asking the right questions, and monitoring the ones that matter.",
+      "links": [
+        "/tools/trust-package/",
+        "/tools/reg-mapper/",
+        "/?q=SIG"
+      ]
+    },
+    {
+      "slug": "grc-analyst-career",
+      "title": "What a GRC Analyst Actually Does (and How to Become One)",
+      "category": "Career",
+      "brief": "Demystify the governance, risk, and compliance analyst role: the day to day, the skills, and a path in for people who like structure and writing.",
+      "links": [
+        "/careers/",
+        "/assess/",
+        "/tools/crosswalk/"
+      ]
+    },
+    {
+      "slug": "home-lab-for-blue-team",
+      "title": "Build a Home Lab to Learn Defensive Security",
+      "category": "Career",
+      "brief": "A budget-friendly home lab plan for learning blue-team skills: what to run, what to attack it with, and how to turn it into portfolio proof.",
+      "links": [
+        "/careers/",
+        "/quiz/"
+      ]
+    },
+    {
+      "slug": "soft-skills-that-get-promoted",
+      "title": "The Soft Skills That Actually Get Security People Promoted",
+      "category": "Career",
+      "brief": "The communication and influence skills that move a security career: translating risk to the business, writing clearly, and running a room.",
+      "links": [
+        "/tools/board-metrics/",
+        "/careers/"
+      ]
+    },
+    {
+      "slug": "reading-a-security-job-description",
+      "title": "How to Read a Security Job Description and Target Your Prep",
+      "category": "Career",
+      "brief": "Decode what a security posting is really asking for, separate must-haves from wish lists, and aim your preparation at what matters.",
+      "links": [
+        "/tools/",
+        "/careers/"
+      ]
+    },
+    {
+      "slug": "certifications-worth-the-money",
+      "title": "Which Cybersecurity Certifications Are Worth the Money",
+      "category": "Career",
+      "brief": "An honest look at when certifications help, when they do not, and how to pick one that matches your goal and stage without wasting cash.",
+      "links": [
+        "/quiz/",
+        "/careers/"
+      ]
+    },
+    {
+      "slug": "mentorship-in-security",
+      "title": "Finding Mentorship in Security, From Both Sides",
+      "category": "Career",
+      "brief": "How to find a mentor in cybersecurity and how to be a good one: what to ask for, how to give back, and why it accelerates everyone.",
+      "links": [
+        "/careers/",
+        "/tools/skills-matrix/"
+      ]
+    },
+    {
+      "slug": "dlp-casb-explained",
+      "title": "DLP and CASB: Guarding Data in Motion and in SaaS",
+      "category": "Spotlight",
+      "brief": "Explain data loss prevention and cloud access security brokers: what each protects, where they overlap, and how they fit a modern SaaS-heavy environment.",
+      "links": [
+        "/?q=DLP",
+        "/?q=CASB",
+        "/tools/cloud-baseline/"
+      ]
+    },
+    {
+      "slug": "waf-vs-rasp-vs-api-security",
+      "title": "WAF, RASP, and API Security: What Protects What",
+      "category": "Spotlight",
+      "brief": "Distinguish web application firewalls, runtime application self-protection, and API security, and how they layer to defend modern apps.",
+      "links": [
+        "/?q=WAF",
+        "/?q=API",
+        "/tools/ssdlc/"
+      ]
+    },
+    {
+      "slug": "threat-intel-vs-threat-hunting",
+      "title": "Threat Intelligence vs Threat Hunting",
+      "category": "Spotlight",
+      "brief": "Clear up the difference between consuming threat intelligence and proactively hunting for threats, and how a team uses both.",
+      "links": [
+        "/?q=IOC",
+        "/tools/runbook/",
+        "/?q=SIEM"
+      ]
+    },
+    {
+      "slug": "pki-and-certificates-explained",
+      "title": "PKI and Certificates, Explained Without the Headache",
+      "category": "Spotlight",
+      "brief": "Explain public key infrastructure, certificates, and certificate authorities in plain terms, and why certificates expire and break things.",
+      "links": [
+        "/?q=PKI",
+        "/?q=TLS",
+        "/?q=CA"
+      ]
+    },
+    {
+      "slug": "soc-tiers-and-alert-fatigue",
+      "title": "SOC Tiers, Alert Fatigue, and Where Automation Helps",
+      "category": "Spotlight",
+      "brief": "How a security operations center is structured, why alert fatigue is the real enemy, and where automation genuinely reduces the load.",
+      "links": [
+        "/?q=SOC",
+        "/tools/automation-roi/",
+        "/?q=SOAR"
+      ]
+    },
+    {
+      "slug": "attack-surface-management-explained",
+      "title": "Attack Surface Management, Explained",
+      "category": "Spotlight",
+      "brief": "What attack surface management is, why the external footprint keeps growing, and how to find and reduce what an attacker can see.",
+      "links": [
+        "/?q=ASM",
+        "/tools/cloud-baseline/",
+        "/?q=CVE"
+      ]
     }
   ]
 }
