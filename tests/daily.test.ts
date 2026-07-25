@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { EPOCH, dailyIndex, dayNumber, localDateString } from '../src/lib/daily';
+import { EPOCH, dailyIndex, dayNumber, localDateString, soupIndex } from '../src/lib/daily';
 
 describe('soup of the day', () => {
   it('starts at day 1 on the epoch', () => {
@@ -23,6 +23,23 @@ describe('soup of the day', () => {
     const size = 547; // prime
     const seen = new Set<number>();
     for (let n = 1; n <= size; n++) seen.add(dailyIndex(n, size));
+    expect(seen.size).toBe(size);
+  });
+
+  it('soupIndex never equals the shared dailyIndex (stays distinct from Cyberdle)', () => {
+    // Cyberdle's acronym of the day uses dailyIndex over the same 545-entry pool.
+    for (let n = 1; n <= 2000; n++) expect(soupIndex(n, 545)).not.toBe(dailyIndex(n, 545));
+  });
+
+  it('soupIndex is in bounds and still visits every entry for coprime pools', () => {
+    const size = 547; // prime
+    const seen = new Set<number>();
+    for (let n = 1; n <= size; n++) {
+      const idx = soupIndex(n, size);
+      expect(idx).toBeGreaterThanOrEqual(0);
+      expect(idx).toBeLessThan(size);
+      seen.add(idx);
+    }
     expect(seen.size).toBe(size);
   });
 });

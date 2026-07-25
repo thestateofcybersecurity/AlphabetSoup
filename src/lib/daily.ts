@@ -26,3 +26,16 @@ export function dailyIndex(dayNum: number, poolSize: number): number {
   const PRIME = 2_654_435_761;
   return Number((BigInt(dayNum) * BigInt(PRIME)) % BigInt(poolSize));
 }
+
+/**
+ * Index for Soup of the Day. Cyberdle's "acronym of the day" uses the identical
+ * dailyIndex over the same shared acronym pool and epoch, so a plain dailyIndex
+ * would make the two features show the same term every day. Shifting by a fixed
+ * nonzero offset guarantees Soup of the Day never lands on Cyberdle's pick for
+ * the same day, while still cycling through the whole pool deterministically.
+ */
+export const SOUP_OFFSET = 271;
+export function soupIndex(dayNum: number, poolSize: number): number {
+  const offset = SOUP_OFFSET % poolSize || 1;
+  return (dailyIndex(dayNum, poolSize) + offset) % poolSize;
+}
