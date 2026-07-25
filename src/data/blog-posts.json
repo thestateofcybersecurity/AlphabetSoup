@@ -831,5 +831,120 @@
         "href": "/frameworks/nist-csf/"
       }
     ]
+  },
+  {
+    "slug": "cis-controls-ig1-starter",
+    "title": "CIS Controls IG1: The Starter Set Every Small Team Can Actually Do",
+    "description": "IG1 is the CIS Controls baseline built for small teams. Here is what it covers, why it stops common attacks, and how to work through it cheaply.",
+    "category": "Explainer",
+    "author": "Parker Brissette",
+    "date": "2026-07-25",
+    "readingMinutes": 6,
+    "tags": [
+      "cis controls",
+      "ig1",
+      "cyber hygiene",
+      "small business",
+      "baseline"
+    ],
+    "body": [
+      {
+        "type": "p",
+        "text": "If you run security for a small organization, you have probably been handed a framework and told to \"get compliant.\" The full [CIS](/?q=CIS) Critical Security Controls list can feel like a wall: dozens of controls, hundreds of underlying safeguards, and no obvious place to start. The good news is that the people who maintain the Controls already solved this problem for you. They carved out a defined subset called **Implementation Group 1**, or IG1, and it is meant to be the realistic floor for a team with a small budget and no dedicated security staff."
+      },
+      {
+        "type": "p",
+        "text": "IG1 is not a lighter, watered-down framework. It is the foundational tier of CIS Controls version 8, the set of safeguards that CIS defines as basic cyber hygiene. Every organization is expected to meet IG1 before worrying about the more advanced groups. If you want the wider context first, our [CIS Controls in plain English](/frameworks/cis/) explainer walks through all three implementation groups and how they fit together."
+      },
+      {
+        "type": "h2",
+        "text": "What IG1 actually covers"
+      },
+      {
+        "type": "p",
+        "text": "IG1 spans all 18 of the CIS Controls, but it only pulls in the safeguards that a small team can reasonably operate. Instead of asking you to build a full security program on day one, it asks you to get the fundamentals in place and keep them working. The safeguards cluster around a handful of practical ideas:"
+      },
+      {
+        "type": "list",
+        "items": [
+          "Know what you have. Keep a current inventory of the hardware and software on your network, because you cannot protect assets you cannot see.",
+          "Control accounts and access. Track who has accounts, remove access when people leave, and require strong, unique credentials.",
+          "Turn on [MFA](/?q=MFA). Multi-factor authentication on email, remote access, and administrative accounts blocks the majority of credential-based attacks.",
+          "Patch and configure. Keep operating systems and applications updated, and replace default or weak configurations.",
+          "Defend the endpoints and email. Run anti-malware or [EDR](/?q=EDR), filter email and web traffic, and disable the risky defaults that malware relies on.",
+          "Back up and know your data. Maintain tested backups and have a basic sense of what sensitive data you hold and where it lives.",
+          "Have a plan for when something goes wrong. Write down who to call and what to do so an incident does not become an improvised scramble."
+        ]
+      },
+      {
+        "type": "p",
+        "text": "None of these are exotic. That is the point. IG1 is deliberately built from measures most organizations already partly do, so the work is often about finishing and formalizing rather than buying something new."
+      },
+      {
+        "type": "h2",
+        "text": "Why IG1 maps to the attacks you will actually face"
+      },
+      {
+        "type": "p",
+        "text": "Small organizations rarely get hit by a bespoke, nation-state operation. They get hit by the same commodity attacks that hit everyone: phishing that steals a password, malware delivered through email or a browser, an unpatched internet-facing system, or an account that was never disabled after someone left. These are opportunistic, and they scale because attackers automate them."
+      },
+      {
+        "type": "p",
+        "text": "IG1 is designed against exactly that threat profile. CIS builds the Controls using data on real-world attack patterns, and IG1 concentrates on the safeguards that break the most common attack techniques. Strong authentication and MFA cut off stolen-credential attacks. Patching and secure configuration close the doors that automated scanners look for. Inventory and account control shrink the space an attacker can hide in. Backups turn a ransomware event from a business-ending crisis into a bad week."
+      },
+      {
+        "type": "quote",
+        "text": "IG1 is not the bare minimum you settle for. It is the set of controls that stops the attacks small teams are statistically most likely to see."
+      },
+      {
+        "type": "h2",
+        "text": "Working through IG1 without a big budget"
+      },
+      {
+        "type": "p",
+        "text": "The biggest advantage of IG1 is that most of it uses capabilities you already pay for. Modern operating systems, cloud identity providers, and productivity suites ship with the pieces you need; the work is turning them on and keeping them on. Here is a sequence that keeps early effort focused on the highest-impact items:"
+      },
+      {
+        "type": "list",
+        "items": [
+          "Start with an honest inventory. A shared spreadsheet of devices, software, and accounts is a valid IG1 starting point. You can automate it later.",
+          "Turn on MFA everywhere it is free, beginning with email and remote access. This is usually the single largest risk reduction per hour of effort.",
+          "Fix account lifecycle. Build a simple checklist for onboarding and offboarding so access is granted deliberately and removed promptly.",
+          "Enable automatic updates and use built-in endpoint protection before you consider paid tooling.",
+          "Set up backups and actually test a restore. An untested backup is a hope, not a control.",
+          "Write a one-page incident plan with names, phone numbers, and first steps."
+        ]
+      },
+      {
+        "type": "p",
+        "text": "If your environment lives in the cloud, a lot of IG1 comes down to configuration, and configuration is where small teams quietly drift out of compliance. Our [Cloud Security Baseline Generator](/tools/cloud-baseline/) produces a hardened starting configuration you can measure yourself against, which saves you from hand-writing baselines for services you are still learning."
+      },
+      {
+        "type": "h2",
+        "text": "Knowing when you have actually reached IG1"
+      },
+      {
+        "type": "p",
+        "text": "IG1 is a baseline, not a certificate, so \"done\" means every applicable safeguard is implemented and, just as important, still running. Configurations drift, new devices appear, and people change roles. Treat IG1 as a set of controls you maintain, not a project you close. A light quarterly review of your inventory, accounts, MFA coverage, and backups is enough to catch most drift before it becomes exposure."
+      },
+      {
+        "type": "p",
+        "text": "The hardest part is usually just seeing where you stand today. If you want a structured picture of which IG1 safeguards you already meet and which ones have gaps, run one of our [compliance assessments](/assess/) and use the results as your roadmap. Start there, close the gaps in order of impact, and you will have built the realistic security baseline that every other framework quietly assumes you already have."
+      }
+    ],
+    "related": [
+      {
+        "label": "CIS Controls in plain English",
+        "href": "/frameworks/cis/"
+      },
+      {
+        "label": "Cloud Security Baseline Generator",
+        "href": "/tools/cloud-baseline/"
+      },
+      {
+        "label": "Compliance assessments",
+        "href": "/assess/"
+      }
+    ]
   }
 ]
