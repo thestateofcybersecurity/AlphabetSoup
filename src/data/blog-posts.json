@@ -1,0 +1,835 @@
+[
+  {
+    "slug": "unify-your-security-frameworks",
+    "title": "Unify Your Security Frameworks Into One Control Set",
+    "description": "NIST CSF, ISO 27001, SOC 2, and CIS Controls overlap heavily. Learn how one control set and a crosswalk can satisfy all four at once.",
+    "category": "Explainer",
+    "author": "Parker Brissette",
+    "date": "2026-07-24",
+    "readingMinutes": 7,
+    "tags": [
+      "frameworks",
+      "compliance",
+      "nist-csf",
+      "iso-27001",
+      "governance"
+    ],
+    "body": [
+      {
+        "type": "p",
+        "text": "If your organization runs four separate compliance programs, one each for NIST CSF, ISO 27001, SOC 2, and the CIS Controls, you are paying four times for a lot of the same work. The evidence overlaps. The interviews overlap. The screenshots overlap. Your engineers answer the same questions four times a year for four different auditors who are, functionally, asking about the same controls."
+      },
+      {
+        "type": "p",
+        "text": "There is a better way, and it is not a secret. Mature security programs design one well-built control set and map that single set of controls to every framework they need to satisfy. This is the difference between running compliance as a project you dread and running it as a byproduct of security you already do. This post explains how the four frameworks overlap, what a control crosswalk is, and how coverage and gap analysis turns four programs into one."
+      },
+      {
+        "type": "h2",
+        "text": "The Four Frameworks Are Not Four Different Worlds"
+      },
+      {
+        "type": "p",
+        "text": "It helps to see what each framework is actually for, because they are built for different purposes and that is exactly why they overlap so cleanly. Each is a lens on the same question: are you managing risk to your systems and data in a disciplined, repeatable way?"
+      },
+      {
+        "type": "list",
+        "items": [
+          "[NIST CSF](/frameworks/nist-csf/) is a voluntary framework organized around six functions (Govern, Identify, Protect, Detect, Respond, Recover). It is a flexible way to describe and communicate your security posture, not a certification.",
+          "ISO 27001 is a certifiable international standard built around an information security management system (an ISMS). It cares deeply about how you govern security as an ongoing process, backed by a risk assessment and the Annex A controls.",
+          "[SOC 2](/?q=SOC%202) is an attestation report produced by an auditor against the AICPA Trust Services Criteria (security, availability, confidentiality, processing integrity, and privacy). It exists mainly to give your customers assurance.",
+          "The [CIS Controls](/frameworks/cis/) are a prioritized, prescriptive list of technical safeguards. Where the others tell you what outcomes to achieve, CIS tells you what to configure and enforce."
+        ]
+      },
+      {
+        "type": "p",
+        "text": "Read those descriptions again and the pattern jumps out. Access control, asset inventory, logging and monitoring, vulnerability management, incident response, vendor risk, change management, encryption: these are not framework-specific ideas. They are the load-bearing walls of any security program, and each framework simply names and organizes them a little differently."
+      },
+      {
+        "type": "quote",
+        "text": "You do not have a NIST problem and an ISO problem and a SOC 2 problem. You have one security program that four different frameworks want to see described in their own vocabulary."
+      },
+      {
+        "type": "h2",
+        "text": "What a Control Crosswalk Actually Is"
+      },
+      {
+        "type": "p",
+        "text": "A control crosswalk is a mapping table. Down the left side you list your own controls, the ones you actually operate. Across the top you list the frameworks you need to satisfy. In each cell you record which requirement in that framework your control answers to."
+      },
+      {
+        "type": "p",
+        "text": "Take a single control such as \"All privileged access requires multi-factor authentication and is reviewed quarterly.\" One control, and it maps to NIST CSF Protect (access control), ISO 27001 Annex A access control requirements, the SOC 2 logical access criteria, and CIS Control 5 and 6. You implemented one thing, you collect one set of evidence, and you satisfy four frameworks at once. Do that across your whole environment and the crosswalk becomes the backbone of your entire compliance operation."
+      },
+      {
+        "type": "p",
+        "text": "The crosswalk also becomes your single source of truth for evidence. When an ISO auditor and a SOC 2 auditor both ask about access reviews, you point both of them at the same quarterly review artifact. You are not manufacturing four different proofs of the same fact. Our [Control Crosswalk Mapper](/tools/crosswalk/) exists to build exactly this table without a spreadsheet you will eventually stop maintaining."
+      },
+      {
+        "type": "h2",
+        "text": "Coverage And Gap Analysis"
+      },
+      {
+        "type": "p",
+        "text": "Once you have a crosswalk, two questions become answerable at a glance. Coverage asks: for a given framework, which of its requirements do my current controls already satisfy? Gaps ask the inverse: which requirements have no control mapped to them at all?"
+      },
+      {
+        "type": "p",
+        "text": "This is where the crosswalk earns its keep. Instead of discovering a missing control three weeks before an audit, you see the empty cells months ahead. A gap analysis turns a vague sense of \"are we ready?\" into a finite punch list: here are the eleven requirements with no control behind them, here is who owns each one, and here is the target date. That is a plan a security leader can manage and a board can understand."
+      },
+      {
+        "type": "p",
+        "text": "Mapping everything also reveals the opposite problem, redundancy: three controls doing the job of one, or evidence collected in two places that disagree. Consolidating those is pure efficiency, with less to operate, audit, and break."
+      },
+      {
+        "type": "h2",
+        "text": "How To Build One Control Set From Here"
+      },
+      {
+        "type": "p",
+        "text": "The practical sequence is straightforward, and you do not need to boil the ocean to start."
+      },
+      {
+        "type": "list",
+        "items": [
+          "Pick a primary framework as your organizing spine. Most teams use NIST CSF because its six functions are easy to explain to non-technical stakeholders and it maps cleanly to everything else.",
+          "Inventory the controls you already operate, in plain language, tied to the systems and evidence that prove them.",
+          "Build the crosswalk: map each control to the requirements it satisfies across NIST CSF, ISO 27001, SOC 2, and CIS.",
+          "Run coverage and gap analysis per framework, then close the gaps once with new controls rather than four times with four projects.",
+          "Maintain the crosswalk as a living document so that adding a control or a framework is an update, not a fresh start."
+        ]
+      },
+      {
+        "type": "p",
+        "text": "The payoff compounds. The second framework you add is far cheaper than the first, because most of its requirements are already covered by controls you built for the first."
+      },
+      {
+        "type": "p",
+        "text": "If you want to stop running four compliance programs and start running one, begin with the mapping. Use the [Control Crosswalk Mapper](/tools/crosswalk/) to lay your controls against every framework at once, then work through the plain-English guides to [NIST CSF](/frameworks/nist-csf/) and the [CIS Controls](/frameworks/cis/) to sharpen the controls themselves. When you are ready to see where your program stands overall, the [2026 Security Leadership Scorecard](/tools/) will show you the bigger picture."
+      }
+    ],
+    "related": [
+      {
+        "label": "Control Crosswalk Mapper",
+        "href": "/tools/crosswalk/"
+      },
+      {
+        "label": "NIST CSF in Plain English",
+        "href": "/frameworks/nist-csf/"
+      },
+      {
+        "label": "CIS Controls in Plain English",
+        "href": "/frameworks/cis/"
+      },
+      {
+        "label": "2026 Security Leadership Scorecard",
+        "href": "/tools/"
+      }
+    ]
+  },
+  {
+    "slug": "tier-ai-use-cases-before-they-tier-you",
+    "title": "Tier Your AI Use Cases Before They Tier You",
+    "description": "Every AI feature needs a lightweight risk-tiering step before launch. Learn the four questions that set the tier and route each use case to the right review.",
+    "category": "Explainer",
+    "author": "Parker Brissette",
+    "date": "2026-07-24",
+    "readingMinutes": 8,
+    "tags": [
+      "ai-security",
+      "nist-ai-rmf",
+      "owasp",
+      "risk-management",
+      "governance"
+    ],
+    "body": [
+      {
+        "type": "p",
+        "text": "Your organization is shipping AI features whether or not you have a process for it. Someone in marketing is drafting copy with a model. Someone in support has wired a chatbot to your knowledge base. Someone in engineering just gave an agent write access to a production system because it made a demo look great. The question is not whether AI is entering your environment. It is whether each use case gets scrutiny before it goes live, or after something goes wrong."
+      },
+      {
+        "type": "p",
+        "text": "The answer is not a heavyweight review board that teams route around. It is a lightweight risk-tiering step: a few minutes of structured questions at the start that sort each AI use case into a tier, and that tier decides how much review the use case gets and which controls apply. Low-risk uses sail through. High-risk uses get the scrutiny they deserve. Nobody wastes time, and nothing dangerous ships unexamined."
+      },
+      {
+        "type": "h2",
+        "text": "Why Tiering, And Why Now"
+      },
+      {
+        "type": "p",
+        "text": "AI risk is not evenly distributed. A model that suggests email subject lines and a model that autonomously approves refunds are not the same risk, and treating them alike is the mistake in both directions. Review everything heavily and teams stop telling you about their AI projects. Review nothing and you learn about the autonomous refund agent from your finance team's variance report."
+      },
+      {
+        "type": "p",
+        "text": "This is exactly the problem the [NIST AI Risk Management Framework](/frameworks/ai/) (AI RMF) is built to address. Its core functions (Govern, Map, Measure, and Manage) are about matching your effort to the actual risk of a system. Tiering is how you operationalize the Map function: you cannot manage what you have not first characterized. On the technical side, the OWASP Top 10 for LLM Applications names the concrete failure modes to watch for, including prompt injection, insecure output handling, sensitive information disclosure, and excessive agency. Tiering is how you decide which of those matter for a given use case."
+      },
+      {
+        "type": "quote",
+        "text": "Tiering is not bureaucracy. It is the step that lets you skip bureaucracy for the ninety percent of AI uses that do not need it, so you can concentrate on the ten percent that do."
+      },
+      {
+        "type": "h2",
+        "text": "The Four Questions That Set The Tier"
+      },
+      {
+        "type": "p",
+        "text": "You can determine an AI use case's tier with four questions. They are deliberately simple, because a tiering step nobody can answer in five minutes is one nobody uses."
+      },
+      {
+        "type": "list",
+        "items": [
+          "**Data sensitivity.** What data does the model see or produce? Public marketing copy is one thing; customer records, source code, health or financial data, or anything covered by a regulation is another. The more sensitive the data, the higher the tier, and the more the OWASP concern of sensitive information disclosure applies.",
+          "**Autonomy.** Does the model only suggest, with a human acting on the output, or does it take action on its own? A model that drafts a reply is low autonomy. An agent that sends the reply, calls an API, moves money, or changes a system is high autonomy, and directly triggers the OWASP excessive agency risk.",
+          "**Audience.** Who is exposed to the output? An internal tool used by ten trained employees is lower risk than a feature facing your entire customer base or the public, where prompt injection and insecure output handling become live threats that adversaries will probe.",
+          "**Human oversight.** Is there a human in the loop who can catch and correct a bad output before it causes harm, or does the output flow straight through to real-world effect? Strong oversight lowers the tier; no oversight raises it."
+        ]
+      },
+      {
+        "type": "p",
+        "text": "Notice how these four combine. High sensitivity plus high autonomy plus a public audience plus no oversight is your top tier, because that is exactly the combination that turns a model error into an incident. Low sensitivity, suggestion-only, internal, with a human reviewing every output is your bottom tier, and it should move fast."
+      },
+      {
+        "type": "h2",
+        "text": "How The Tier Routes The Use Case"
+      },
+      {
+        "type": "p",
+        "text": "The point of a tier is that it decides what happens next automatically. The team does not negotiate for a review path; the tier assigns it."
+      },
+      {
+        "type": "list",
+        "items": [
+          "Low tier: self-service. The team documents the use case, confirms a short baseline of controls (no sensitive data, logging on, a clear owner), and ships. No meeting required.",
+          "Medium tier: a lightweight review. A security reviewer checks input and output handling, confirms the data flows, and validates the relevant subset of the OWASP Top 10 for LLMs against the design.",
+          "High tier: full review with named controls. Threat modeling, prompt-injection testing, output validation, least-privilege scoping of any tools the model can use, human-in-the-loop checkpoints, and monitoring, all mapped to NIST AI RMF Measure and Manage before launch."
+        ]
+      },
+      {
+        "type": "p",
+        "text": "This routing is the whole payoff. It gives fast-moving teams a clear path to ship low-risk AI without friction, and it guarantees that the genuinely risky use cases cannot quietly skip the review they need. The tier does the sorting, not a person, so it scales as your AI footprint grows from three use cases to three hundred."
+      },
+      {
+        "type": "h2",
+        "text": "Make It Part Of The Intake, Not An Afterthought"
+      },
+      {
+        "type": "p",
+        "text": "Tiering only works if it happens before the build. The moment to tier an AI use case is when it is proposed, as part of whatever intake your teams already use for new projects. Bolt it onto the existing request, keep it to the four questions, and make the output a tier plus a routing decision the requester sees immediately."
+      },
+      {
+        "type": "p",
+        "text": "Done this way, tiering is not a gate that teams resent. It is a quick sorting step that most use cases pass in minutes, and that quietly catches the dangerous ones before they reach production. Over time it also becomes your inventory: a running record of every AI use case, what data each touches, how autonomous each is, and what controls each carries. That inventory is something the NIST AI RMF Govern function asks for and most organizations lack."
+      },
+      {
+        "type": "p",
+        "text": "If you want to stand this up without designing it from scratch, start with the [AI Use Case Risk Tiering tool](/tools/ai-risk/), which walks a use case through these questions and returns a tier and a recommended review path. Pair it with the plain-English guide to [AI security](/frameworks/ai/) so your team understands the [NIST AI RMF](/?q=NIST%20AI%20RMF) and the OWASP failure modes behind the tiers. Tier your AI use cases now, before an incident does the tiering for you."
+      }
+    ],
+    "related": [
+      {
+        "label": "AI Use Case Risk Tiering",
+        "href": "/tools/ai-risk/"
+      },
+      {
+        "label": "AI Security in Plain English",
+        "href": "/frameworks/ai/"
+      },
+      {
+        "label": "2026 Security Leadership Scorecard",
+        "href": "/tools/"
+      }
+    ]
+  },
+  {
+    "slug": "what-cybersecurity-employers-want-2026",
+    "title": "What Cybersecurity Employers Actually Want in 2026",
+    "description": "A plain-English map of the ten themes that keep showing up in real cybersecurity job descriptions in 2026, and how to prove each one to a hiring manager.",
+    "category": "Career",
+    "author": "Parker Brissette",
+    "date": "2026-07-24",
+    "readingMinutes": 8,
+    "tags": [
+      "careers",
+      "hiring",
+      "skills",
+      "job search",
+      "leadership"
+    ],
+    "body": [
+      {
+        "type": "p",
+        "text": "Job descriptions are noisy. Every posting seems to want ten years of experience, five certifications, and someone who can charm the board on Monday and reverse-engineer malware on Tuesday. It is easy to read a few and decide the whole field is not for you. That reaction is understandable, and it is also wrong."
+      },
+      {
+        "type": "p",
+        "text": "Read enough postings side by side and the noise fades. The same ten themes keep coming back, phrased a hundred different ways. Treat this as a **map of demand**, not a checklist to fear. You do not need all ten. You need to recognize which ones a given role is really asking for, and to show honest evidence for the ones you have. These themes come from the [2026 Security Leadership Scorecard](/tools/), which gathers the recurring asks across current job descriptions."
+      },
+      {
+        "type": "h2",
+        "text": "Frameworks You Can Prove, Not Just Name"
+      },
+      {
+        "type": "p",
+        "text": "Everyone lists frameworks on a resume. Employers have learned to ignore the list and ask what you did with one. Naming [NIST](/?q=NIST) CSF or ISO 27001 means little; walking a room through a gap assessment you ran means a lot. The real ask is framework fluency proven through audit work: you mapped controls, found the holes, and tracked the fixes to done."
+      },
+      {
+        "type": "p",
+        "text": "How to show it: describe one control you assessed, the evidence you collected, and how you closed the gap. One concrete audit story beats a wall of acronyms."
+      },
+      {
+        "type": "h2",
+        "text": "Cloud Security as the Default, Not a Bonus"
+      },
+      {
+        "type": "p",
+        "text": "The old on-premise mindset assumed a hard perimeter with a soft inside. Cloud broke that for good. Employers now expect you to think in terms of identity, misconfiguration, and shared responsibility rather than firewalls alone. A public storage bucket or an over-permissioned role is the modern unlocked door."
+      },
+      {
+        "type": "p",
+        "text": "How to show it: point to a misconfiguration you found and fixed, or explain the shared responsibility model in your own words. Hands-on beats theory."
+      },
+      {
+        "type": "h2",
+        "text": "Incident Response That Has Been Tested for Real"
+      },
+      {
+        "type": "p",
+        "text": "An incident response plan that has never been exercised is a document, not a capability. Employers want people who have felt the pressure of a real event, or at least a serious tabletop, and who know the plan always meets reality on the first alert. They are hiring for calm and clear thinking when the [SIEM](/?q=SIEM) lights up."
+      },
+      {
+        "type": "p",
+        "text": "How to show it: describe an incident or a tabletop you took part in, your specific role, and one thing you would do differently next time. Reflection signals maturity."
+      },
+      {
+        "type": "h2",
+        "text": "AI Governance Enters the Job Description"
+      },
+      {
+        "type": "p",
+        "text": "This one is genuinely new. Organizations are adopting AI tools faster than they can govern them, and security teams are being asked to own the guardrails: data handling rules, model risk questions, and clear answers about what employees may feed into a chatbot. You do not need to be a data scientist. You need to ask good risk questions."
+      },
+      {
+        "type": "p",
+        "text": "How to show it: draft a short acceptable-use position for an AI tool, or list the top three risks you would flag before a team adopts one. Practical judgment is the skill here."
+      },
+      {
+        "type": "h2",
+        "text": "Communication That Reaches the Board"
+      },
+      {
+        "type": "p",
+        "text": "The higher a security role sits, the more it depends on translation. Leaders need someone who can turn a technical finding into a business decision without hiding the risk. Board-fluent communication means talking about likelihood, impact, and cost in language an executive can act on."
+      },
+      {
+        "type": "quote",
+        "text": "The person who can explain risk in one clear sentence is often more valuable than the person who found it."
+      },
+      {
+        "type": "p",
+        "text": "How to show it: practice a one-paragraph summary of a technical issue aimed at a non-technical reader. If a busy executive would get it on the first read, you are close."
+      },
+      {
+        "type": "h2",
+        "text": "Regulatory Ownership, Not Regulatory Awareness"
+      },
+      {
+        "type": "p",
+        "text": "Awareness of a regulation is table stakes. Ownership is different. Employers increasingly want someone who will hold a requirement end to end: interpret it for the business, build the control, gather the evidence, and answer the auditor. Whether it is a privacy law, a payment standard, or a sector rule, the ask is accountability, not familiarity."
+      },
+      {
+        "type": "p",
+        "text": "How to show it: name one requirement you were responsible for, and describe the evidence you produced to prove compliance. Ownership shows up in the details you kept."
+      },
+      {
+        "type": "h2",
+        "text": "Third-Party and Customer Trust"
+      },
+      {
+        "type": "p",
+        "text": "Modern breaches often arrive through a vendor, and modern deals often stall on a security questionnaire. Two sides of one coin show up in postings: managing the risk of the third parties you rely on, and earning the trust of the customers who rely on you. Both are relationship work as much as technical work."
+      },
+      {
+        "type": "p",
+        "text": "How to show it: describe a vendor review you ran, or a customer security questionnaire you helped answer. The theme is trust made verifiable."
+      },
+      {
+        "type": "h2",
+        "text": "Automation and DevSecOps"
+      },
+      {
+        "type": "p",
+        "text": "Manual security does not scale, and employers know it. They want people who reach for automation before hiring more hands, and who meet developers where they work rather than bolting security on at the end. DevSecOps is less a tool and more a habit: security checks that run in the pipeline, quietly, every time."
+      },
+      {
+        "type": "p",
+        "text": "How to show it: point to a repetitive task you automated, even a small script, or a security check you added to a build. The instinct to automate is what they are screening for."
+      },
+      {
+        "type": "h2",
+        "text": "Player-Coach Leadership"
+      },
+      {
+        "type": "p",
+        "text": "Very few security roles above the entry level are purely individual. Employers want people who can still do the work and also lift those around them: mentor a junior analyst, run a small project, set a standard the team follows. This is the player-coach model, and it applies well before you hold a manager title."
+      },
+      {
+        "type": "p",
+        "text": "How to show it: describe a time you taught a teammate something or set a practice others adopted. Influence without authority is the quiet signal here."
+      },
+      {
+        "type": "h2",
+        "text": "How to Use This Map"
+      },
+      {
+        "type": "p",
+        "text": "You will rarely find a role that leans on all ten themes at once. A cloud engineer role weights cloud, automation, and DevSecOps. A [GRC](/?q=GRC) role weights frameworks, regulatory ownership, and communication. A team lead role weights player-coach leadership and board-fluent communication. Read each posting, ask which two or three themes carry the real weight, then aim your evidence there."
+      },
+      {
+        "type": "p",
+        "text": "If you are building a team rather than a resume, the same ten themes work as a growth plan. The [Team Skills Matrix and Growth Planner](/tools/skills-matrix/) lets you score where your people sit today and where to invest next. And if you are still choosing a direction, the [cybersecurity career paths](/careers/) guide shows how these themes cluster into real roles."
+      },
+      {
+        "type": "p",
+        "text": "None of this requires you to be perfect at everything. It asks you to be honest about where you are, deliberate about where you are heading, and able to prove the few things you claim. That is a target you can hit."
+      }
+    ],
+    "related": [
+      {
+        "label": "2026 Security Leadership Scorecard",
+        "href": "/tools/"
+      },
+      {
+        "label": "Team Skills Matrix and Growth Planner",
+        "href": "/tools/skills-matrix/"
+      },
+      {
+        "label": "Cybersecurity Career Paths",
+        "href": "/careers/"
+      }
+    ]
+  },
+  {
+    "slug": "break-into-cybersecurity-study-plan",
+    "title": "A Realistic Study Plan to Break Into Cybersecurity",
+    "description": "A time-respecting study plan for breaking into cybersecurity: fundamentals, a certification path, hands-on practice, and learning the vocabulary.",
+    "category": "Career",
+    "author": "Parker Brissette",
+    "date": "2026-07-24",
+    "readingMinutes": 7,
+    "tags": [
+      "careers",
+      "study plan",
+      "certifications",
+      "beginners",
+      "learning"
+    ],
+    "body": [
+      {
+        "type": "p",
+        "text": "Most cybersecurity study plans are written by people who forgot they have jobs, families, and a limited number of good hours in a week. They tell you to study four hours a night and finish three certifications by spring. Then real life shows up, you miss a few days, you feel behind, and you quit. The problem was never you. The problem was the plan."
+      },
+      {
+        "type": "p",
+        "text": "This is a plan built for a real schedule. The core idea is simple and a little boring: **consistent small effort beats occasional cramming**. Thirty focused minutes a day, five days a week, will carry you further in six months than a heroic weekend you never repeat. Cybersecurity rewards people who keep showing up. Let us build a plan you can actually keep."
+      },
+      {
+        "type": "h2",
+        "text": "Start With Fundamentals, Not Tools"
+      },
+      {
+        "type": "p",
+        "text": "It is tempting to jump straight to the exciting stuff: hacking labs, packet captures, the tool everyone is posting about. Resist that for a few weeks. Security sits on a few plain foundations, and skipping them makes every later concept feel like memorization instead of understanding."
+      },
+      {
+        "type": "p",
+        "text": "Spend your first few weeks on four things: how networks move data, how operating systems manage users and files, how the web works, and the core ideas of confidentiality, integrity, and availability. You do not need mastery. You need enough that terms like a port, a process, or an [HTTP](/?q=HTTP) request stop being mysterious."
+      },
+      {
+        "type": "list",
+        "items": [
+          "Networking: what an IP address, a port, and DNS actually do",
+          "Operating systems: users, permissions, and processes on both Linux and Windows",
+          "The web: requests, responses, and where data travels",
+          "Security basics: the confidentiality, integrity, and availability triad"
+        ]
+      },
+      {
+        "type": "h2",
+        "text": "Pick One Certification Path and Commit"
+      },
+      {
+        "type": "p",
+        "text": "Certifications will not get you hired on their own, but they do two useful things: they give your study a finish line, and they signal to a hiring manager that you can commit to a goal. The mistake is collecting exam names instead of finishing one. Pick a single path that matches where you are, and ignore the rest."
+      },
+      {
+        "type": "p",
+        "text": "If you are new to the field, a broad foundational certification that covers a bit of everything is the right first target. If you already work in tech and want to move toward security, choose a cert that matches your intended direction, whether that leans toward defense, cloud, or governance. The [cybersecurity career paths](/careers/) guide can help you match a certification to a real role rather than chasing whatever is trending."
+      },
+      {
+        "type": "p",
+        "text": "Once you choose, build your study around the exam objectives themselves. They are a free, official outline of exactly what you need to know. Our [certification study decks](/quiz/) turn those objectives into short daily review sessions, which fits the small-and-steady approach far better than a giant book read cover to cover."
+      },
+      {
+        "type": "h2",
+        "text": "Practice With Your Hands, Early and Often"
+      },
+      {
+        "type": "p",
+        "text": "Reading about security is like reading about swimming: useful for context, useless as preparation for water. You need to touch the tools, break things safely, and build the muscle memory reading cannot give you. The good news is that a home lab now costs nothing but time."
+      },
+      {
+        "type": "p",
+        "text": "Set up a small practice environment on your own machine, or use one of the many free browser-based labs and capture-the-flag sites aimed at beginners. Do a little every week. When you learn a concept in your certification study, find a lab that lets you see it in action. Pairing theory with practice is where real understanding forms."
+      },
+      {
+        "type": "list",
+        "items": [
+          "Build a simple virtual lab with one Linux and one Windows machine",
+          "Work through beginner-friendly guided challenges rather than jumping to hard ones",
+          "Keep short notes on what you did, so you can repeat it later",
+          "Tie each lab to something you just studied, so theory and practice reinforce each other"
+        ]
+      },
+      {
+        "type": "h2",
+        "text": "Learn the Vocabulary on Purpose"
+      },
+      {
+        "type": "p",
+        "text": "Cybersecurity has its own dense language, and the acronyms come fast. Nothing makes a beginner feel more like an outsider than a meeting where every third word is a three-letter term they have never heard. The fix is not to memorize a dictionary. It is to look up each term the moment it appears and keep a running list of your own."
+      },
+      {
+        "type": "p",
+        "text": "When you hit a term you do not know, look it up right away rather than nodding along. Our [acronym dictionary](/) is built for exactly this: quick, plain-English definitions you can search in seconds. Over a few months, the terms you looked up become the terms you use, and the language stops being a wall."
+      },
+      {
+        "type": "quote",
+        "text": "You do not learn the vocabulary by studying it once. You learn it by looking up the same word three times until it sticks."
+      },
+      {
+        "type": "h2",
+        "text": "Put It on a Weekly Rhythm"
+      },
+      {
+        "type": "p",
+        "text": "A plan you cannot picture is a plan you will not follow, so here is a concrete weekly rhythm. Adjust the minutes to your life, but keep the shape: a little study, a little practice, a little review, repeated."
+      },
+      {
+        "type": "list",
+        "items": [
+          "Three short sessions on certification objectives, roughly thirty minutes each",
+          "One hands-on lab session tied to what you studied that week",
+          "One short review session, revisiting notes and looking up any terms that slipped",
+          "One rest day with zero guilt, because rest is part of a plan you can sustain"
+        ]
+      },
+      {
+        "type": "p",
+        "text": "That is about three hours a week. It is not dramatic, and that is the point. Dramatic plans collapse; sustainable plans compound. To see how these habits connect to a longer arc of building real security capability, the [security program roadmap](/roadmap/) shows how skills stack over time."
+      },
+      {
+        "type": "h2",
+        "text": "The Long Game"
+      },
+      {
+        "type": "p",
+        "text": "Breaking into cybersecurity is not a sprint you win in a heroic month. It is a series of small, repeatable weeks that add up to someone who knows their way around. The people who make it are rarely the ones with the most raw talent. They are the ones who kept showing up after the excitement faded."
+      },
+      {
+        "type": "p",
+        "text": "Start smaller than feels impressive. Thirty minutes today, a lab this weekend, one acronym looked up instead of glossed over. Do that consistently and, six months from now, you will be surprised how far a boring little plan has carried you."
+      }
+    ],
+    "related": [
+      {
+        "label": "Certification Study Decks",
+        "href": "/quiz/"
+      },
+      {
+        "label": "Cybersecurity Career Paths",
+        "href": "/careers/"
+      },
+      {
+        "label": "Security Program Roadmap",
+        "href": "/roadmap/"
+      },
+      {
+        "label": "Acronym Dictionary",
+        "href": "/"
+      }
+    ]
+  },
+  {
+    "slug": "siem-soar-xdr-explained",
+    "title": "SIEM vs SOAR vs XDR: What Each One Actually Does",
+    "description": "A plain-English breakdown of SIEM, SOAR, and XDR, plus where EDR and MDR fit, so you can stop treating them as interchangeable buzzwords.",
+    "category": "Spotlight",
+    "author": "Parker Brissette",
+    "date": "2026-07-24",
+    "readingMinutes": 8,
+    "tags": [
+      "siem",
+      "soar",
+      "xdr",
+      "security operations",
+      "detection"
+    ],
+    "body": [
+      {
+        "type": "p",
+        "text": "If you have sat through a vendor pitch lately, you have probably heard [SIEM](/?q=SIEM), [SOAR](/?q=SOAR), and [XDR](/?q=XDR) used almost interchangeably, as if buying any one of them solves detection and response forever. They do not do the same job, they do not replace each other, and no single box covers the whole security operations lifecycle. This post walks through what each acronym actually does, where [EDR](/?q=EDR) and [MDR](/?q=MDR) fit, how they overlap, and how a real stack uses them together."
+      },
+      {
+        "type": "h2",
+        "text": "SIEM: the memory and the search bar"
+      },
+      {
+        "type": "p",
+        "text": "A [SIEM](/?q=SIEM) (Security Information and Event Management) is your central log warehouse and correlation engine. It collects events from firewalls, servers, cloud platforms, identity providers, endpoints, and applications, normalizes them into a common shape, and lets you search, correlate, and alert across all of it. The value is context: a single failed login is noise, but a failed login followed by a successful one from a new country, followed by a mailbox rule change, is a story the SIEM can stitch together."
+      },
+      {
+        "type": "p",
+        "text": "What a SIEM does well is retention, correlation, and investigation. What it does not do on its own is take action. A classic SIEM tells you something looks wrong; a human still has to open the alert, decide it matters, and go fix it. That gap is exactly why the other tools exist."
+      },
+      {
+        "type": "h2",
+        "text": "EDR: deep visibility on the endpoint"
+      },
+      {
+        "type": "p",
+        "text": "[EDR](/?q=EDR) (Endpoint Detection and Response) lives on laptops, servers, and workstations. Where a SIEM sees the log line an endpoint chose to send, EDR sees the endpoint itself: process trees, command-line arguments, registry changes, memory injection, and lateral movement attempts. It can also act locally, killing a process or isolating a host from the network."
+      },
+      {
+        "type": "p",
+        "text": "EDR is narrow but deep. It is the best signal you have for what actually happened on a machine, which is why its telemetry is one of the most valuable feeds you can send into both a SIEM and an XDR platform. Think of EDR as the specialist and SIEM as the generalist that reads every specialist's report."
+      },
+      {
+        "type": "h2",
+        "text": "SOAR: the hands that do the work"
+      },
+      {
+        "type": "p",
+        "text": "[SOAR](/?q=SOAR) (Security Orchestration, Automation, and Response) is the automation layer. It takes an alert (often from the SIEM) and runs a playbook: enrich the indicator against threat intelligence, look up the user in [IAM](/?q=IAM), check whether the endpoint is already isolated, open a ticket, and, where policy allows, take action such as disabling an account or blocking a domain. SOAR is where repetitive analyst clicks turn into repeatable code."
+      },
+      {
+        "type": "p",
+        "text": "The point of SOAR is not to replace analysts; it is to give them back time. If your team is drowning in alert triage, automating the first ten steps of every investigation is often the highest-leverage move you can make. Before you buy, it helps to know which alerts are actually worth automating, and our [Automation ROI Ranker](/tools/automation-roi/) is built to help you rank exactly that."
+      },
+      {
+        "type": "quote",
+        "text": "SIEM finds it, SOAR handles it, EDR and XDR see it. None of them is the whole program."
+      },
+      {
+        "type": "h2",
+        "text": "XDR: correlation across domains, out of the box"
+      },
+      {
+        "type": "p",
+        "text": "[XDR](/?q=XDR) (Extended Detection and Response) is the newest and most contested term. The honest definition: XDR is a platform that natively correlates detection and response across multiple domains, usually endpoint, identity, email, and cloud, with the integration work done for you by the vendor. It overlaps heavily with SIEM (correlation) and with SOAR (automated response), which is why the categories blur."
+      },
+      {
+        "type": "p",
+        "text": "The practical difference is scope and effort. A SIEM ingests anything but you build the content; XDR ingests a curated set of sources but arrives with correlation and response pre-wired. Most XDR platforms are strongest inside their own vendor ecosystem and weaker with third-party data, which is the opposite tradeoff from a vendor-neutral SIEM. Neither is automatically better; it depends on whether you value breadth of coverage or speed to value."
+      },
+      {
+        "type": "h2",
+        "text": "MDR: the people, not a product"
+      },
+      {
+        "type": "p",
+        "text": "[MDR](/?q=MDR) (Managed Detection and Response) is the odd one out because it is a service, not a piece of software. An MDR provider brings analysts, processes, and usually their own tooling (often EDR or XDR under the hood) to monitor your environment around the clock. If you cannot staff a 24/7 security operations center, MDR is how you rent one. You are buying outcomes and human coverage, not a dashboard."
+      },
+      {
+        "type": "h2",
+        "text": "How they fit together in a real stack"
+      },
+      {
+        "type": "p",
+        "text": "In practice these tools stack rather than compete. A common shape looks like this:"
+      },
+      {
+        "type": "list",
+        "items": [
+          "[EDR](/?q=EDR) generates high-fidelity endpoint detections and feeds its telemetry upward.",
+          "[SIEM](/?q=SIEM) aggregates EDR data alongside cloud, identity, and network logs, and correlates across all of them for the alerts EDR alone would miss.",
+          "[SOAR](/?q=SOAR) receives those alerts and runs enrichment and response playbooks so analysts start halfway through the investigation instead of at zero.",
+          "[XDR](/?q=XDR) may replace or sit beside the SIEM/SOAR pair for organizations that prefer one vendor's pre-integrated correlation and response.",
+          "[MDR](/?q=MDR) wraps human analysts around whichever stack you run, covering the nights and weekends your own team cannot."
+        ]
+      },
+      {
+        "type": "p",
+        "text": "There is real overlap, and that is fine. Some teams run XDR and skip a standalone SOAR because the response automation is built in. Others keep a vendor-neutral SIEM precisely because they refuse to be locked into one ecosystem. The wrong move is assuming any single acronym is a complete program."
+      },
+      {
+        "type": "h2",
+        "text": "The myth to retire"
+      },
+      {
+        "type": "p",
+        "text": "The one tool to rule them all does not exist. SIEM without response is a very expensive search bar. SOAR without good detections automates nothing useful. XDR without third-party data has blind spots. MDR without clear scope is just alerts forwarded to someone else's inbox. Buy for the gap you actually have: visibility, correlation, automation, coverage, or staffing, and make the pieces talk to each other."
+      },
+      {
+        "type": "p",
+        "text": "Once the tools are in place, the work shifts to process. How your team responds when a real detection fires matters more than any logo on the dashboard. Spin up a scenario with our [Runbook and Tabletop Generator](/tools/runbook/) and pressure-test the stack before an attacker does it for you."
+      }
+    ],
+    "related": [
+      {
+        "label": "SIEM in the glossary",
+        "href": "/?q=SIEM"
+      },
+      {
+        "label": "XDR in the glossary",
+        "href": "/?q=XDR"
+      },
+      {
+        "label": "EDR in the glossary",
+        "href": "/?q=EDR"
+      },
+      {
+        "label": "Automation ROI Ranker",
+        "href": "/tools/automation-roi/"
+      },
+      {
+        "label": "Runbook and Tabletop Generator",
+        "href": "/tools/runbook/"
+      }
+    ]
+  },
+  {
+    "slug": "zero-trust-strategy-not-product",
+    "title": "Zero Trust Is a Strategy, Not a Product You Buy",
+    "description": "Zero Trust is an architecture built on never trust, always verify, assume breach, and least privilege. Here is what that means and how ZTNA beats a VPN.",
+    "category": "Spotlight",
+    "author": "Parker Brissette",
+    "date": "2026-07-24",
+    "readingMinutes": 8,
+    "tags": [
+      "zero trust",
+      "ztna",
+      "identity",
+      "architecture",
+      "least privilege"
+    ],
+    "body": [
+      {
+        "type": "p",
+        "text": "Somewhere along the way, Zero Trust turned into a checkbox on a purchase order. Vendors will happily sell you a Zero Trust product, but there is no such thing. Zero Trust is an architecture and a strategy, a set of principles you apply across identity, devices, networks, and data. You can buy tools that help you implement it, but you cannot buy the outcome off a shelf. This post covers the three principles that define it, why identity is now the perimeter, how microsegmentation and continuous verification work in practice, and where [ZTNA](/?q=ZTNA) fits versus a traditional [VPN](/?q=VPN)."
+      },
+      {
+        "type": "h2",
+        "text": "The three principles that actually define it"
+      },
+      {
+        "type": "p",
+        "text": "Strip away the marketing and Zero Trust rests on three ideas. Every real implementation traces back to these:"
+      },
+      {
+        "type": "list",
+        "items": [
+          "Never trust, always verify. Location on the network is not proof of anything. A request from inside the office is treated with the same suspicion as one from a coffee shop.",
+          "Assume breach. Design as if an attacker is already inside. That mindset pushes you toward containment, logging, and limiting how far any single compromise can spread.",
+          "Least privilege. Every user, device, and service gets the minimum access needed to do its job, and nothing more, for no longer than necessary."
+        ]
+      },
+      {
+        "type": "p",
+        "text": "Notice that none of these is a product. They are design decisions that shape how you configure the tools you already own and the ones you add."
+      },
+      {
+        "type": "h2",
+        "text": "Identity is the new perimeter"
+      },
+      {
+        "type": "p",
+        "text": "For decades security meant a hard outer wall: get past the firewall and you were trusted. Cloud, remote work, and mobile devices dissolved that wall. There is no single edge to defend anymore, so the question shifts from where is the request coming from to who and what is making it."
+      },
+      {
+        "type": "p",
+        "text": "That makes identity the control plane. Strong [IAM](/?q=IAM) and phishing-resistant [MFA](/?q=MFA) stop being nice-to-haves and become the foundation everything else stands on. If an attacker can trivially become a valid user, no amount of network segmentation saves you. This is why most serious Zero Trust journeys start with identity: cleaning up accounts, enforcing MFA everywhere, and tying access decisions to verified identity rather than IP address."
+      },
+      {
+        "type": "quote",
+        "text": "You cannot buy Zero Trust. You can only buy tools that help you practice it."
+      },
+      {
+        "type": "h2",
+        "text": "Microsegmentation: shrinking the blast radius"
+      },
+      {
+        "type": "p",
+        "text": "Assume breach has a direct architectural consequence: stop building flat networks. In a flat network, one compromised laptop can reach the domain controller, the finance database, and the backup server because everything can talk to everything. Microsegmentation carves the environment into small zones with explicit rules about what may communicate with what."
+      },
+      {
+        "type": "p",
+        "text": "The goal is not to make an attacker's first foothold impossible; the goal is to make the second step hard. If a compromised workstation can only reach the three services it legitimately needs, the intruder is boxed in instead of free to roam. Microsegmentation is least privilege applied to network paths rather than user accounts, and in the cloud it often starts with getting your baseline configuration right. Our [Cloud Security Baseline Generator](/tools/cloud-baseline/) is a practical place to begin tightening those defaults."
+      },
+      {
+        "type": "h2",
+        "text": "Continuous verification: trust is a moment, not a state"
+      },
+      {
+        "type": "p",
+        "text": "Traditional access is a one-time gate: authenticate once in the morning and you are trusted until you log off. Zero Trust treats trust as perishable. Continuous verification re-evaluates each request against current signals: is the device still healthy and patched, is the user behaving normally, is this resource unusually sensitive, has anything about the session changed?"
+      },
+      {
+        "type": "p",
+        "text": "In practice this means access decisions are adaptive. A routine request from a known device might pass silently, while the same user reaching for a sensitive system from a new device triggers a step-up challenge or a denial. The session is never permanently trusted; it is continuously re-earned. That is what verify actually means when you take it seriously."
+      },
+      {
+        "type": "h2",
+        "text": "ZTNA versus the VPN"
+      },
+      {
+        "type": "p",
+        "text": "This is where the strategy meets a concrete technology choice. A traditional [VPN](/?q=VPN) drops a remote user onto the corporate network. Once connected, they are inside, and inside historically meant trusted, which is the exact assumption Zero Trust rejects. A VPN authenticates you to a network; it rarely limits where you can go once you are on it."
+      },
+      {
+        "type": "p",
+        "text": "[ZTNA](/?q=ZTNA) (Zero Trust Network Access) flips the model. Instead of granting network access, it brokers access to specific applications, one at a time, based on verified identity and device posture, and it re-checks continuously. The user connects to the app, not the network, and never gets broad lateral reach. The applications themselves stay invisible to anyone who is not explicitly authorized, which shrinks the attack surface dramatically."
+      },
+      {
+        "type": "list",
+        "items": [
+          "VPN: authenticate once, land on the network, reach much of it. Trust is coarse and mostly permanent.",
+          "[ZTNA](/?q=ZTNA): authenticate per application, prove device health, get exactly that app. Trust is fine-grained and continuously re-checked.",
+          "ZTNA is one tool that expresses Zero Trust principles; it is not the whole strategy by itself."
+        ]
+      },
+      {
+        "type": "h2",
+        "text": "Where to start"
+      },
+      {
+        "type": "p",
+        "text": "Because Zero Trust is a strategy, you implement it in stages rather than flipping a switch. A sensible order is identity first (MFA everywhere, clean up privileged accounts), then device posture, then segmentation of your most sensitive systems, then replacing broad VPN access with application-level ZTNA. Each step reduces risk on its own, and you never have to boil the ocean."
+      },
+      {
+        "type": "p",
+        "text": "If you want a structured way to plan and measure the journey, map your efforts to a recognized model. Our walkthrough of the [NIST CSF in plain English](/frameworks/nist-csf/) gives you a vocabulary for identify, protect, detect, respond, and recover that fits neatly around Zero Trust principles. Buy tools if you need them, but remember what you are actually building: a way of working that assumes breach and verifies everything, every time."
+      }
+    ],
+    "related": [
+      {
+        "label": "ZTNA in the glossary",
+        "href": "/?q=ZTNA"
+      },
+      {
+        "label": "VPN in the glossary",
+        "href": "/?q=VPN"
+      },
+      {
+        "label": "MFA in the glossary",
+        "href": "/?q=MFA"
+      },
+      {
+        "label": "Cloud Security Baseline Generator",
+        "href": "/tools/cloud-baseline/"
+      },
+      {
+        "label": "NIST CSF in plain English",
+        "href": "/frameworks/nist-csf/"
+      }
+    ]
+  }
+]
