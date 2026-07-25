@@ -339,6 +339,45 @@ function validateSkillsMatrix(data: SkillsMatrix, cardIds: Set<string>): string[
   return out;
 }
 
+interface BlogPost {
+  slug: string;
+  title: string;
+  description: string;
+  category: string;
+  author: string;
+  date: string;
+  readingMinutes: number;
+  tags: string[];
+  body: { type: string; text?: string; items?: string[] }[];
+  related: { label: string; href: string }[];
+}
+
+/** Structural checks for blog posts. */
+function validateBlog(posts: BlogPost[]): string[] {
+  const out: string[] = [];
+  const cats = new Set(['Explainer', 'Career', 'Spotlight']);
+  const types = new Set(['p', 'h2', 'list', 'quote']);
+  const seen = new Set<string>();
+  for (const p of posts) {
+    const w = p.slug || '?';
+    if (seen.has(p.slug)) out.push(`duplicate slug ${w}`);
+    seen.add(p.slug);
+    if (!/^[a-z0-9-]+$/.test(p.slug)) out.push(`${w}: bad slug`);
+    if (!p.title?.trim() || p.title.length > 70) out.push(`${w}: title length`);
+    if (!p.description || p.description.length < 100 || p.description.length > 170) out.push(`${w}: description length`);
+    if (!cats.has(p.category)) out.push(`${w}: bad category ${p.category}`);
+    if (!p.author?.trim()) out.push(`${w}: missing author`);
+    if (!/^\d{4}-\d{2}-\d{2}$/.test(p.date)) out.push(`${w}: bad date`);
+    if (!Number.isInteger(p.readingMinutes) || p.readingMinutes < 1) out.push(`${w}: bad readingMinutes`);
+    if (!Array.isArray(p.tags) || p.tags.length < 2) out.push(`${w}: too few tags`);
+    if (!Array.isArray(p.body) || p.body.length < 4) out.push(`${w}: body too short`);
+    for (const b of p.body ?? []) if (!types.has(b.type)) out.push(`${w}: bad block type ${b.type}`);
+    if (!Array.isArray(p.related) || !p.related.length) out.push(`${w}: no related links`);
+    if (JSON.stringify(p).includes('—')) out.push(`${w}: em dash`);
+  }
+  return out;
+}
+
 const acronyms = load<AcronymData>('../src/data/acronyms.json');
 const csf = load<CsfData>('../src/data/nist-csf.json');
 const cis = load<CisData>('../src/data/cis.json');
@@ -359,6 +398,7 @@ const trustLibrary = load<{ categories: { id: string }[]; entries: TrustEntry[] 
 const regulations = load<RegData>('../src/data/regulations.json');
 const scorecard = load<{ cards: { id: string }[] }>('../src/data/scorecard.json');
 const skillsMatrix = load<SkillsMatrix>('../src/data/skills-matrix.json');
+const blogPosts = load<BlogPost[]>('../src/data/blog-posts.json');
 
 const mapProblems: string[] = [];
 for (const csfId of Object.keys(csf)) {
@@ -392,6 +432,7 @@ const problems = [
   ...validateTrustLibrary(trustLibrary).map((e) => `trust-library: ${e}`),
   ...validateRegulations(regulations).map((e) => `regulations: ${e}`),
   ...validateSkillsMatrix(skillsMatrix, new Set(scorecard.cards.map((c) => c.id))).map((e) => `skills-matrix: ${e}`),
+  ...validateBlog(blogPosts).map((e) => `blog: ${e}`),
 ];
 
 if (problems.length > 0) {
@@ -401,5 +442,5 @@ if (problems.length > 0) {
 }
 console.log(
   `Data OK: ${Object.keys(acronyms).length} acronyms, ${Object.keys(csf).length} CSF subcategories, ${Object.keys(cis).length} CIS safeguards, ${ai.length} AI framework entries, ` +
-    `${cmmc.questions.length} 800-171/CMMC, ${cyberEssentials.questions.length} Cyber Essentials, ${ztmm.questions.length} ZTMM, ${ssdf.questions.length} SSDF, ${pci.questions.length} PCI DSS, ${crosswalk.controls.length} crosswalk domains, ${boardMetrics.metrics.length} board metrics, ${runbooks.scenarios.length} runbook scenarios, ${cloudBaseline.controls.length} cloud baseline controls, ${ssdlc.practices.length} SDLC practices, ${automationRoi.categories.length} automation categories, ${trustLibrary.entries.length} trust answers, ${regulations.regulations.length} regulations, ${skillsMatrix.competencies.length} team competencies.`,
+    `${cmmc.questions.length} 800-171/CMMC, ${cyberEssentials.questions.length} Cyber Essentials, ${ztmm.questions.length} ZTMM, ${ssdf.questions.length} SSDF, ${pci.questions.length} PCI DSS, ${crosswalk.controls.length} crosswalk domains, ${boardMetrics.metrics.length} board metrics, ${runbooks.scenarios.length} runbook scenarios, ${cloudBaseline.controls.length} cloud baseline controls, ${ssdlc.practices.length} SDLC practices, ${automationRoi.categories.length} automation categories, ${trustLibrary.entries.length} trust answers, ${regulations.regulations.length} regulations, ${skillsMatrix.competencies.length} team competencies, ${blogPosts.length} blog posts.`,
 );

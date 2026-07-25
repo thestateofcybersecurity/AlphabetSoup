@@ -15,6 +15,25 @@ const csf = JSON.parse(readFileSync(`${root}src/data/nist-csf.json`, 'utf8')) as
 const cis = JSON.parse(readFileSync(`${root}src/data/cis.json`, 'utf8')) as CisData;
 const ai = JSON.parse(readFileSync(`${root}src/data/ai-frameworks.json`, 'utf8')) as AiData;
 const cisIgs = JSON.parse(readFileSync(`${root}src/data/cis-igs.json`, 'utf8')) as Record<string, number>;
+
+interface BlogBlock {
+  type: 'p' | 'h2' | 'list' | 'quote';
+  text?: string;
+  items?: string[];
+}
+interface BlogPost {
+  slug: string;
+  title: string;
+  description: string;
+  category: string;
+  author: string;
+  date: string;
+  readingMinutes: number;
+  tags: string[];
+  body: BlogBlock[];
+  related: { label: string; href: string }[];
+}
+const blogPosts = JSON.parse(readFileSync(`${root}src/data/blog-posts.json`, 'utf8')) as BlogPost[];
 const legacy = JSON.parse(readFileSync(`${root}src/data/legacy-slugs.json`, 'utf8')) as {
   definitions: string[];
   root: string[];
@@ -67,6 +86,7 @@ mkdirSync(`${dist}/definitions`, { recursive: true });
 mkdirSync(`${dist}/frameworks/nist-csf`, { recursive: true });
 mkdirSync(`${dist}/frameworks/cis`, { recursive: true });
 mkdirSync(`${dist}/frameworks/ai`, { recursive: true });
+mkdirSync(`${dist}/blog`, { recursive: true });
 
 const esc = (value: string): string =>
   value.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
@@ -134,6 +154,7 @@ function navHtml(prefix: string): string {
     [`${prefix}quiz/`, 'Quiz'],
     [`${prefix}assess/`, 'Assess'],
     [`${prefix}roadmap/`, 'Roadmap'],
+    [`${prefix}blog/`, 'Blog'],
   ];
   return `<nav class="gnav">${links
     .map(([href, label]) => `<a href="${href}">${label}</a>`)
@@ -396,6 +417,173 @@ ${FW_EXTRA_CSS}</style>
 `;
 }
 
+// ------------------------------- blog ---------------------------------
+
+const BLOG_CSS = `
+.wrap.blog{max-width:720px}
+.blog-intro{color:var(--ink-soft);font-size:1.05rem;margin:6px 0 24px}
+.blog-list{list-style:none;padding:0;margin:0}
+.blog-card{border-bottom:1.5px solid var(--line);padding:20px 0}
+.blog-card:last-child{border-bottom:none}
+.blog-card .cat{font-family:'IBM Plex Mono',monospace;font-size:.66rem;letter-spacing:.1em;text-transform:uppercase;color:var(--tomato)}
+.blog-card h3{font-family:'Fraunces',Georgia,serif;font-weight:900;font-size:1.5rem;margin:4px 0 6px;line-height:1.1}
+.blog-card h3 a{color:var(--ink);text-decoration:none}
+.blog-card h3 a:hover{color:var(--tomato)}
+.blog-card p{margin:0 0 8px;color:var(--ink-soft)}
+.blog-card .when{font-family:'IBM Plex Mono',monospace;font-size:.72rem;color:var(--ink-soft)}
+.post-kicker{font-family:'IBM Plex Mono',monospace;font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;color:var(--tomato);margin:0}
+.post-meta{font-family:'IBM Plex Mono',monospace;font-size:.75rem;letter-spacing:.04em;color:var(--ink-soft);margin:6px 0 22px}
+.post-body p{margin:0 0 16px;font-size:1.06rem}
+.post-body .post-h2{font-family:'Fraunces',Georgia,serif;font-weight:700;text-transform:none;letter-spacing:0;font-size:1.5rem;color:var(--ink);margin:30px 0 10px}
+.post-body .post-ul{padding-left:20px;margin:0 0 16px}
+.post-body .post-ul li{margin:6px 0}
+.post-body blockquote.post-quote{border-left:3px solid var(--tomato);margin:22px 0;padding:2px 0 2px 18px;font-family:'Fraunces',Georgia,serif;font-style:italic;font-size:1.2rem;color:var(--ink-soft)}
+.post-body a{color:var(--tomato)}
+.post-tags{display:flex;flex-wrap:wrap;gap:6px;margin:22px 0 0}
+.post-tags .t{font-family:'IBM Plex Mono',monospace;font-size:.66rem;letter-spacing:.06em;text-transform:uppercase;border:1.5px solid var(--line);border-radius:999px;padding:3px 10px;color:var(--ink-soft)}
+`.trim();
+
+const MONTHS = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+function formatDate(iso: string): string {
+  const [y, m, d] = iso.split('-').map(Number);
+  return `${MONTHS[(m ?? 1) - 1]} ${d}, ${y}`;
+}
+
+/** A small, safe inline syntax: [label](href) links and **bold**; all literal text is escaped. */
+function renderInline(raw: string): string {
+  let out = '';
+  let last = 0;
+  const re = /\[([^\]]+)\]\(([^)]+)\)|\*\*([^*]+)\*\*/g;
+  let m: RegExpExecArray | null;
+  while ((m = re.exec(raw)) !== null) {
+    out += esc(raw.slice(last, m.index));
+    if (m[1] !== undefined) {
+      const href = m[2].trim();
+      const safe = /^(https?:\/\/|\/|\.\.?\/|#)/.test(href) ? href : '#';
+      const external = /^https?:\/\//.test(safe);
+      out += `<a href="${esc(safe)}"${external ? ' rel="noopener" target="_blank"' : ''}>${esc(m[1])}</a>`;
+    } else {
+      out += `<strong>${esc(m[3])}</strong>`;
+    }
+    last = re.lastIndex;
+  }
+  return out + esc(raw.slice(last));
+}
+
+function blockHtml(block: BlogBlock): string {
+  if (block.type === 'h2') return `<h2 class="post-h2">${renderInline(block.text ?? '')}</h2>`;
+  if (block.type === 'quote') return `<blockquote class="post-quote">${renderInline(block.text ?? '')}</blockquote>`;
+  if (block.type === 'list') return `<ul class="post-ul">${(block.items ?? []).map((i) => `<li>${renderInline(i)}</li>`).join('')}</ul>`;
+  return `<p>${renderInline(block.text ?? '')}</p>`;
+}
+
+const relatedChip = (r: { label: string; href: string }): string => {
+  const external = /^https?:\/\//.test(r.href);
+  return `<a href="${esc(r.href)}"${external ? ' rel="noopener" target="_blank"' : ''}>${esc(r.label)} &rarr;</a>`;
+};
+
+function blogHead(title: string, description: string, url: string, jsonLd?: string): string {
+  return `<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="color-scheme" content="light dark">
+  <title>${esc(title)}</title>
+  <meta name="description" content="${metaDescription(description)}">
+  <link rel="canonical" href="${url}">
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="${esc(title)}">
+  <meta property="og:description" content="${metaDescription(description)}">
+  <meta property="og:url" content="${url}">
+  <meta property="og:image" content="${SITE}/og-image.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="icon" href="../icon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,700;0,9..144,900;1,9..144,500&family=IBM+Plex+Mono:wght@500;600&family=IBM+Plex+Sans:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+  <style>${PAGE_CSS}${BLOG_CSS}</style>${jsonLd ? `\n  <script type="application/ld+json">${jsonLd}</script>` : ''}
+</head>`;
+}
+
+function blogIndexPage(posts: BlogPost[]): string {
+  const url = `${SITE}/blog/`;
+  const cards = posts
+    .map(
+      (p) => `<li class="blog-card">
+        <span class="cat">${esc(p.category)}</span>
+        <h3><a href="${esc(p.slug)}.html">${esc(p.title)}</a></h3>
+        <p>${esc(p.description)}</p>
+        <span class="when">${esc(formatDate(p.date))} &middot; ${p.readingMinutes} min read</span>
+      </li>`,
+    )
+    .join('\n      ');
+  return `<!DOCTYPE html>
+<html lang="en">
+${blogHead('Blog | Cybersecurity Alphabet Soup', 'Plain-English writing on cybersecurity frameworks, the tools that put them to work, careers, and the acronyms worth knowing.', url)}
+<body>
+  <div class="wrap blog">
+    ${navHtml('../')}
+    <a class="home" href="../">&larr; Cybersecurity Alphabet Soup</a>
+    <h1>Blog</h1>
+    <p class="blog-intro">Plain-English writing on cybersecurity frameworks, the tools that put them to work, breaking into the field, and the acronyms worth knowing.</p>
+    <ul class="blog-list">
+      ${cards}
+    </ul>
+    <footer>
+      <p class="play">Learn the language while you are here. <a href="${CYBERDLE}" rel="noopener" target="_blank">Play Cyberdle, the daily acronym game &rarr;</a></p>
+      <p>Part of <a href="../">Cybersecurity Alphabet Soup</a>, a plain-English dictionary of ${Object.keys(data).length} cybersecurity acronyms.</p>
+      <p><a href="../privacy/">Privacy</a> &middot; <a href="../disclosure/">Affiliate disclosure</a></p>
+    </footer>
+  </div>
+</body>
+</html>
+`;
+}
+
+function blogPostPage(post: BlogPost): string {
+  const url = `${SITE}/blog/${post.slug}.html`;
+  const jsonLd = jsonLdScript({
+    '@context': 'https://schema.org',
+    '@type': 'BlogPosting',
+    headline: post.title,
+    description: post.description,
+    datePublished: post.date,
+    author: { '@type': 'Person', name: post.author },
+    publisher: { '@type': 'Organization', name: 'Cybersecurity Alphabet Soup', url: SITE },
+    mainEntityOfPage: url,
+    image: `${SITE}/og-image.png`,
+    keywords: post.tags.join(', '),
+  });
+  const body = post.body.map(blockHtml).join('\n      ');
+  const tags = post.tags.map((t) => `<span class="t">${esc(t)}</span>`).join('');
+  const related = post.related.map(relatedChip).join('');
+  return `<!DOCTYPE html>
+<html lang="en">
+${blogHead(`${esc(post.title)} | Cybersecurity Alphabet Soup`, post.description, url, jsonLd)}
+<body>
+  <div class="wrap blog">
+    ${navHtml('../')}
+    <a class="home" href="./">&larr; Blog</a>
+    <p class="post-kicker">${esc(post.category)}</p>
+    <h1>${esc(post.title)}</h1>
+    <p class="post-meta">By ${esc(post.author)} &middot; ${esc(formatDate(post.date))} &middot; ${post.readingMinutes} min read</p>
+    <div class="post-body">
+      ${body}
+    </div>
+    <div class="post-tags">${tags}</div>
+    ${related ? `<h2>Go deeper</h2>\n    <div class="related">${related}</div>` : ''}
+    <footer>
+      <p class="play">Think you could have guessed it? <a href="${CYBERDLE}" rel="noopener" target="_blank">Play Cyberdle, the daily acronym game &rarr;</a></p>
+      <p>Part of <a href="../">Cybersecurity Alphabet Soup</a>. More writing on the <a href="./">blog</a>.</p>
+      <p><a href="../privacy/">Privacy</a> &middot; <a href="../disclosure/">Affiliate disclosure</a></p>
+    </footer>
+  </div>
+</body>
+</html>
+`;
+}
+
 const csfIds = Object.keys(csf).sort();
 csfIds.forEach((id, i) => {
   const entry = csf[id];
@@ -484,6 +672,11 @@ ai.forEach((entry, i) => {
   );
 });
 
+// 4c. Blog: index page plus one page per post, newest first.
+const sortedPosts = [...blogPosts].sort((a, b) => (a.date < b.date ? 1 : a.date > b.date ? -1 : a.title.localeCompare(b.title)));
+writeFileSync(`${dist}/blog/index.html`, blogIndexPage(sortedPosts));
+for (const post of blogPosts) writeFileSync(`${dist}/blog/${post.slug}.html`, blogPostPage(post));
+
 // 5. Sitemap and robots.
 const urls = [
   `${SITE}/`,
@@ -500,6 +693,8 @@ const urls = [
   `${SITE}/assess/cmmc/`,
   `${SITE}/privacy/`,
   `${SITE}/disclosure/`,
+  `${SITE}/blog/`,
+  ...blogPosts.map((post) => `${SITE}/blog/${post.slug}.html`),
   ...keys.map((key) => `${SITE}/definitions/${slugForKey(key)}.html`),
   ...csfIds.map((id) => `${SITE}/frameworks/nist-csf/${frameworkSlug(id)}.html`),
   ...cisIds.map((id) => `${SITE}/frameworks/cis/${frameworkSlug(id)}.html`),
@@ -514,5 +709,5 @@ writeFileSync(`${dist}/sitemap.xml`, sitemap);
 writeFileSync(`${dist}/robots.txt`, `User-agent: *\nAllow: /\n\nSitemap: ${SITE}/sitemap.xml\n`);
 
 console.log(
-  `Generated ${keys.length} definition pages, ${csfIds.length} CSF pages, ${cisIds.length} CIS pages, ${ai.length} AI pages, ${aliases} legacy aliases, ${fallbacks} search fallbacks, ${rootRedirects} root redirects, sitemap with ${urls.length} URLs.`,
+  `Generated ${keys.length} definition pages, ${csfIds.length} CSF pages, ${cisIds.length} CIS pages, ${ai.length} AI pages, ${blogPosts.length} blog posts, ${aliases} legacy aliases, ${fallbacks} search fallbacks, ${rootRedirects} root redirects, sitemap with ${urls.length} URLs.`,
 );
