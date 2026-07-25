@@ -2,7 +2,7 @@ import { allData, sortedKeys } from './data';
 import { searchEntries, suggest } from './lib/search';
 import { relatedFor } from './lib/related';
 import type { SearchFilter } from './lib/search';
-import { dailyIndex, dayNumber, localDateString } from './lib/daily';
+import { dayNumber, localDateString, soupIndex } from './lib/daily';
 import { detectFrameworkQuery } from './lib/framework-search';
 import { slugForKey } from './lib/slug';
 import { CATEGORIES } from './lib/types';
@@ -154,7 +154,7 @@ function renderAzStrip(): void {
 
 function renderSoupOfTheDay(): void {
   const keys = sortedKeys();
-  const key = keys[dailyIndex(dayNumber(localDateString(new Date())), keys.length)];
+  const key = keys[soupIndex(dayNumber(localDateString(new Date())), keys.length)];
   const entry = data[key];
   const box = byId('sotd');
   box.innerHTML = '';
