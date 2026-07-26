@@ -68,25 +68,25 @@
     .bm-tally-chip { font-size: 0.78rem; font-weight: 700; border-radius: 999px; padding: 3px 11px; color: #fff; }
     .bm-bar { display: flex; height: 12px; border-radius: 8px; overflow: hidden; border: 1px solid var(--line); margin: 4px 0 20px; }
     .bm-bar span { display: block; height: 100%; }
-    .st-good { background: #3e7d4f; }
-    .st-watch { background: #b07d2e; }
-    .st-act { background: #b0402e; }
+    .st-good { background: var(--status-good); }
+    .st-watch { background: var(--status-warn); }
+    .st-act { background: var(--status-bad); }
 
     .bm-cards { display: grid; gap: 12px; }
     .bm-card { border: 1.5px solid var(--line); border-radius: 12px; padding: 14px 16px; background: var(--paper); border-left-width: 5px; }
-    .bm-card.st-b-good { border-left-color: #3e7d4f; }
-    .bm-card.st-b-watch { border-left-color: #b07d2e; }
-    .bm-card.st-b-act { border-left-color: #b0402e; }
+    .bm-card.st-b-good { border-left-color: var(--status-good); }
+    .bm-card.st-b-watch { border-left-color: var(--status-warn); }
+    .bm-card.st-b-act { border-left-color: var(--status-bad); }
     .bm-card-top { display: flex; flex-wrap: wrap; align-items: baseline; gap: 10px; }
     .bm-card-name { font-weight: 700; font-size: 1.02rem; flex: 1 1 auto; }
     .bm-card-val { font-family: var(--font-mono); font-weight: 600; font-size: 1.15rem; }
     .bm-status { font-size: 0.68rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; color: #fff; border-radius: 6px; padding: 2px 8px; }
-    .bm-status.st-b-good { background: #3e7d4f; }
-    .bm-status.st-b-watch { background: #b07d2e; }
-    .bm-status.st-b-act { background: #b0402e; }
+    .bm-status.st-b-good { background: var(--status-good); }
+    .bm-status.st-b-watch { background: var(--status-warn); }
+    .bm-status.st-b-act { background: var(--status-bad); }
     .bm-trend { display: inline-flex; align-items: center; gap: 5px; font-size: 0.8rem; font-family: var(--font-mono); margin-top: 6px; }
-    .bm-trend.tr-improving { color: #3e7d4f; }
-    .bm-trend.tr-worsening { color: #b0402e; }
+    .bm-trend.tr-improving { color: var(--status-good); }
+    .bm-trend.tr-worsening { color: var(--status-bad); }
     .bm-trend.tr-flat { color: var(--ink-soft); }
     .bm-spark { vertical-align: middle; }
     .bm-talk { font-size: 0.92rem; line-height: 1.55; margin: 8px 0 0; color: var(--ink); }

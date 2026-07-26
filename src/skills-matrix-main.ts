@@ -1,6 +1,7 @@
 import dataRaw from './data/skills-matrix.json';
 import type { Member, SkillsData } from './lib/skills-matrix';
 import { escAttr, safeId } from './lib/escape';
+import { announce, preserveFocus } from './lib/announce';
 import {
   busFactorWarnings,
   coverage,
@@ -171,10 +172,15 @@ function renderMatrix(): void {
     const btn = (event.target as HTMLElement).closest('[data-action="delete"]');
     if (!btn) return;
     const id = (btn.closest('tr') as HTMLElement).dataset.id;
+    const gone = members.find((m) => m.id === id);
     members = members.filter((m) => m.id !== id);
     persist();
-    renderMatrix();
+    // renderMatrix() replaces the table's innerHTML, which destroys the button
+    // that was just clicked and drops focus to <body>. Keep the caret in the
+    // same cell position so the row can be deleted from the keyboard repeatedly.
+    preserveFocus(table, renderMatrix);
     renderOutput();
+    announce(`Removed ${gone?.name?.trim() || 'team member'}. ${members.length} remaining.`);
   });
 }
 

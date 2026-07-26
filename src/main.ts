@@ -5,6 +5,7 @@ import type { SearchFilter } from './lib/search';
 import { dayNumber, localDateString, soupIndex } from './lib/daily';
 import { detectFrameworkQuery } from './lib/framework-search';
 import { slugForKey } from './lib/slug';
+import { announce } from './lib/announce';
 import { CATEGORIES } from './lib/types';
 import type { Category, Difficulty } from './lib/types';
 
@@ -267,6 +268,9 @@ function render(): void {
     ? `${keys.length} match${keys.length === 1 ? '' : 'es'}`
     : `browsing all ${total}`;
   meta.textContent = keys.length > visible ? `${label} · showing ${visible}` : label;
+  // Typing in the search box rewrites the whole result list with no page load,
+  // so without this the match count only ever changed visually.
+  if (filtering) announce(meta.textContent);
 
   results.innerHTML = '';
   if (keys.length === 0) {

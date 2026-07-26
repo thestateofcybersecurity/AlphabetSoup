@@ -1,4 +1,5 @@
 import deckIndexRaw from './data/quiz/index.json';
+import { announce } from './lib/announce';
 import { shareOrCopy } from './lib/share';
 import {
   answerCurrent,
@@ -352,18 +353,33 @@ function renderChoice(player: HTMLElement, question: ChoiceQuestion): void {
       const correct = index === correctIndex;
       btn.setAttribute('aria-checked', 'true');
       btn.classList.add(correct ? 'right' : 'wrong');
-      (list.children[correctIndex] as HTMLElement).classList.add('right');
+      const answerEl = list.children[correctIndex] as HTMLElement;
+      answerEl.classList.add('right');
+      // The right/wrong states are conveyed by colour plus a ::after glyph, and
+      // generated content is not reliably announced. Mark them in real text too,
+      // so someone who answered wrong can still tell which choice was correct
+      // rather than having to distinguish two near-identical tints.
+      answerEl.appendChild(el('span', 'sr-only', ' (correct answer)'));
+      if (!correct) btn.appendChild(el('span', 'sr-only', ' (your answer, incorrect)'));
       list.querySelectorAll('.choice-btn').forEach((b) => b.classList.add('locked'));
       session = answerCurrent(session!, correct);
       trackAnswer(questionIndex, correct);
       persistSession();
       if (question.why) {
         const why = el('div', 'why-box');
-        why.setAttribute('role', 'status');
         why.appendChild(el('span', 'why-label', correct ? 'Correct' : 'Not quite'));
         why.appendChild(el('p', undefined, question.why));
         player.appendChild(why);
       }
+      // A role="status" on a freshly inserted node is generally not announced;
+      // the live region has to be in the DOM before its text changes. Route the
+      // verdict through the shared region instead, including the right answer
+      // when the pick was wrong.
+      announce(
+        correct
+          ? `Correct. ${question.why ?? ''}`
+          : `Not quite. The correct answer is ${choices[correctIndex]}. ${question.why ?? ''}`,
+      );
       const next = el('button', 'primary-btn quiz-next', isDone(session) ? 'See results' : 'Next question');
       next.addEventListener('click', renderQuestion);
       player.appendChild(next);
