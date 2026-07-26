@@ -1,7 +1,31 @@
 /// <reference types="vitest/config" />
-import { defineConfig } from 'vite';
+import { defineConfig, type Plugin } from 'vite';
+import { renderSiteNav } from './src/lib/site-nav';
+
+/**
+ * Replaces the `<!--site-nav-->` marker in every hand-written page with the nav
+ * rendered from src/lib/site-nav.ts, so the link list lives in exactly one
+ * place. Runs in dev and build, so the two can never diverge.
+ */
+function siteNavPlugin(): Plugin {
+  return {
+    name: 'site-nav',
+    transformIndexHtml: {
+      order: 'pre',
+      handler(html, ctx) {
+        if (!html.includes('<!--site-nav-->')) return html;
+        // ctx.path is like '/index.html' or '/tools/crosswalk/index.html'.
+        const rel = ctx.path.replace(/^\//, '').replace(/index\.html$/, '');
+        const depth = rel ? rel.split('/').filter(Boolean).length : 0;
+        const prefix = '../'.repeat(depth);
+        return html.replace('<!--site-nav-->', renderSiteNav(prefix, rel));
+      },
+    },
+  };
+}
 
 export default defineConfig({
+  plugins: [siteNavPlugin()],
   // Relative base so the build works on the custom domain or any Pages path.
   base: './',
   // Large datasets parse ~6x faster via JSON.parse than as JS object literals.

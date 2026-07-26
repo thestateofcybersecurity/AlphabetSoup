@@ -686,6 +686,9 @@ function main(): void {
   importInput.addEventListener('change', () => {
     if (importInput.files && importInput.files[0]) importJson(importInput.files[0]);
   });
+  // The visible control is a real button; the input stays hidden and is opened
+  // programmatically, so the flow works by keyboard as well as by mouse.
+  byId('plan-import-btn').addEventListener('click', () => importInput.click());
   byId('plan-print').addEventListener('click', () => window.print());
   byId('plan-reset').addEventListener('click', () => {
     if (!confirm('Reset this plan? Statuses, owners, dates, and notes for this plan will be cleared.')) return;

@@ -21,19 +21,7 @@
   <a class="skip-link" href="#main">Skip to content</a>
   <div class="steam" aria-hidden="true"></div>
 
-  <nav class="site-nav" aria-label="Site">
-    <a href="../">Acronyms</a>
-    <a href="../frameworks/nist-csf/">NIST CSF</a>
-    <a href="../frameworks/cis/">CIS Controls</a>
-    <a href="../frameworks/ai/">AI Security</a>
-    <a href="../quiz/">Quiz</a>
-    <a href="../assess/">Assess</a>
-    <a href="./" aria-current="page">Roadmap</a>
-    <a href="../blog/">Blog</a>
-    <a href="../about/">About</a>
-    <a href="https://mitre.cybersecurityalphabetsoup.com/" rel="noopener" target="_blank">MITRE ATT&amp;CK</a>
-    <a href="https://bia.cybersecurityalphabetsoup.com/" rel="noopener" target="_blank" title="Business Impact Assessment">BIA</a><a class="nav-play" href="https://thestateofcybersecurity.github.io/cyberdle/" rel="noopener" target="_blank">Play Cyberdle</a>
-  </nav>
+    <!--site-nav-->
 
   <header class="hero hero-compact">
     <p class="kicker">planning mode &middot; saved in your browser</p>
@@ -93,7 +81,8 @@
         <button class="ghost-btn" id="plan-copy">copy summary</button>
         <button class="ghost-btn" id="plan-export">export csv</button>
         <button class="ghost-btn" id="plan-export-json">export json</button>
-        <label class="ghost-btn" for="plan-import">import<input type="file" id="plan-import" accept="application/json,.json" hidden /></label>
+        <button type="button" class="ghost-btn" id="plan-import-btn">import</button>
+        <input type="file" id="plan-import" accept="application/json,.json" hidden />
         <button class="ghost-btn" id="plan-print">print</button>
         <button class="ghost-btn ghost-btn-danger" id="plan-reset">reset plan</button>
       </div>

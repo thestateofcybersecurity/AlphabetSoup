@@ -31,7 +31,10 @@ test('generated AI framework page renders metaphor, translation, source, and pag
 
 test('AI Security sits in the site nav between CIS Controls and Quiz', async ({ page }) => {
   await page.goto('/frameworks/nist-csf/');
-  await expect(page.locator('.site-nav a', { hasText: 'AI Security' })).toHaveAttribute('href', '../ai/');
+  // Assert where the link resolves, not its literal relative form: the nav is
+  // now rendered from one source for every page depth, so the prefix varies.
+  const aiHref = await page.locator('.site-nav a', { hasText: 'AI Security' }).getAttribute('href');
+  expect(new URL(aiHref!, page.url()).pathname).toBe('/frameworks/ai/');
   // Generated pages carry it too.
   await page.goto('/definitions/siem.html');
   await expect(page.locator('.gnav a', { hasText: 'AI Security' })).toBeVisible();
