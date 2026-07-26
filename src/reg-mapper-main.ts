@@ -1,6 +1,7 @@
 import dataRaw from './data/regulations.json';
 import type { ApplicableRegulation, RegData } from './lib/reg-mapper';
 import { applicable, combinedPlan, planCsv, profileSize } from './lib/reg-mapper';
+import { escAttr } from './lib/escape';
 
 const data = dataRaw as RegData;
 
@@ -82,7 +83,7 @@ function regCard(item: ApplicableRegulation): string {
   const obligations = r.obligations.map((o) => `<li>${esc(o)}</li>`).join('');
   const first90 = r.first90.map((a) => `<li>${esc(a)}</li>`).join('');
   const sources = r.sources
-    .map((s) => `<a href="${esc(s.url)}" rel="noopener" target="_blank">${esc(s.name)}</a>`)
+    .map((s) => `<a href="${escAttr(s.url)}" rel="noopener" target="_blank">${esc(s.name)}</a>`)
     .join(' &middot; ');
   return `
     <article class="rm-reg">

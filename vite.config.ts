@@ -4,6 +4,8 @@ import { defineConfig } from 'vite';
 export default defineConfig({
   // Relative base so the build works on the custom domain or any Pages path.
   base: './',
+  // Large datasets parse ~6x faster via JSON.parse than as JS object literals.
+  json: { stringify: true },
   build: {
     target: 'es2022',
     rollupOptions: {

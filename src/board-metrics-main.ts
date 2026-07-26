@@ -1,6 +1,7 @@
 import dataRaw from './data/board-metrics.json';
 import type { BoardMetricsData, Metric, MetricReading, Status } from './lib/board-metrics';
 import { formatValue, prioritize, read, STATUS_LABEL, talkTrack, tally } from './lib/board-metrics';
+import { escAttr } from './lib/escape';
 
 const data = dataRaw as BoardMetricsData;
 
@@ -36,6 +37,11 @@ let values: Record<string, ValuePair> = {};
 let meta: ReportMeta = { org: '', period: '', highlight: '', ask: '' };
 
 const $ = <T extends HTMLElement = HTMLElement>(sel: string) => document.querySelector(sel) as T;
+
+/** Numbers only in the value attribute; localStorage is user-editable. */
+function numAttr(v: unknown): string {
+  return typeof v === 'number' && Number.isFinite(v) ? String(v) : '';
+}
 
 function esc(text: string): string {
   const div = document.createElement('div');
@@ -99,7 +105,7 @@ function renderPicker(): void {
         .filter((m) => m.category === cat)
         .map(
           (m) => `
-          <label class="bm-pick${selected.has(m.id) ? ' selected' : ''}" title="${esc(m.definition)}">
+          <label class="bm-pick${selected.has(m.id) ? ' selected' : ''}" title="${escAttr(m.definition)}">
             <input type="checkbox" value="${m.id}" ${selected.has(m.id) ? 'checked' : ''} />
             ${esc(m.short)}
           </label>`,
@@ -141,8 +147,8 @@ function renderInputs(): void {
       return `
       <li class="bm-input-row" data-id="${m.id}">
         <div class="bm-input-name">${esc(m.name)}<small>${esc(m.question)}</small></div>
-        <div class="bm-num"><span>This period (${esc(unit)})</span><input type="number" step="any" data-field="current" value="${v.current ?? ''}" aria-label="${esc(m.name)} this period" /></div>
-        <div class="bm-num"><span>Last period</span><input type="number" step="any" data-field="prior" value="${v.prior ?? ''}" aria-label="${esc(m.name)} last period" /></div>
+        <div class="bm-num"><span>This period (${esc(unit)})</span><input type="number" step="any" data-field="current" value="${numAttr(v.current)}" aria-label="${escAttr(m.name)} this period" /></div>
+        <div class="bm-num"><span>Last period</span><input type="number" step="any" data-field="prior" value="${numAttr(v.prior)}" aria-label="${escAttr(m.name)} last period" /></div>
       </li>`;
     })
     .join('');

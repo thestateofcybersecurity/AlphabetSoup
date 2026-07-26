@@ -1,6 +1,7 @@
 import dataRaw from './data/runbooks.json';
 import type { OrgProfile, ProfileKey, RunbookData, Scenario } from './lib/runbook';
 import { emptyProfile, fillScenario, PROFILE_FIELDS, toMarkdown, usedFields } from './lib/runbook';
+import { escAttr } from './lib/escape';
 
 const data = dataRaw as RunbookData;
 
@@ -79,7 +80,7 @@ function renderProfile(): void {
     (f) => `
     <div class="rb-field">
       <label for="rb-${f.key}">${esc(f.label)}${used.has(f.key) ? '<span class="rb-used">used here</span>' : ''}</label>
-      <input id="rb-${f.key}" type="text" data-key="${f.key}" value="${esc(profile[f.key])}" placeholder="${esc(f.placeholder)}" />
+      <input id="rb-${f.key}" type="text" data-key="${f.key}" value="${escAttr(profile[f.key])}" placeholder="${escAttr(f.placeholder)}" />
     </div>`,
   ).join('');
   host.addEventListener('input', (event) => {
