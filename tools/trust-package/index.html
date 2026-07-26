@@ -39,16 +39,16 @@
     .tp-ans-top { display: flex; flex-wrap: wrap; align-items: baseline; gap: 8px; margin-bottom: 4px; }
     .tp-ans-cat { font-family: var(--font-mono); font-size: 0.62rem; letter-spacing: 0.04em; text-transform: uppercase; color: var(--ink-soft); }
     .tp-conf { font-family: var(--font-mono); font-size: 0.6rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; border-radius: 5px; padding: 1px 7px; color: #fff; }
-    .tp-conf.high { background: #3e7d4f; }
-    .tp-conf.medium { background: #b07d2e; }
-    .tp-conf.low { background: #8a8a8a; }
+    .tp-conf.high { background: var(--status-good); }
+    .tp-conf.medium { background: var(--status-warn); }
+    .tp-conf.low { background: var(--status-neutral); }
     .tp-copy { margin-left: auto; }
     .tp-copy button { font: inherit; font-size: 0.72rem; font-weight: 600; cursor: pointer; border: 1.5px solid var(--line); color: var(--tomato-deep); background: transparent; border-radius: 8px; padding: 3px 9px; }
     .tp-copy button:hover { border-color: var(--tomato); }
     .tp-ans-text { font-size: 0.9rem; line-height: 1.55; margin: 0; white-space: pre-wrap; }
     .tp-nomatch { font-size: 0.9rem; color: var(--ink-soft); font-style: italic; }
-    .tp-gaps { border: 1.5px solid #b0402e; border-radius: 12px; padding: 12px 15px; margin-top: 6px; background: color-mix(in srgb, #b0402e 5%, var(--paper)); }
-    .tp-gaps h3 { font-family: var(--font-mono); font-size: 0.72rem; letter-spacing: 0.08em; text-transform: uppercase; color: #b0402e; margin: 0 0 6px; }
+    .tp-gaps { border: 1.5px solid var(--status-bad); border-radius: 12px; padding: 12px 15px; margin-top: 6px; background: color-mix(in srgb, var(--status-bad) 5%, var(--paper)); }
+    .tp-gaps h3 { font-family: var(--font-mono); font-size: 0.72rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--status-bad); margin: 0 0 6px; }
     .tp-gaps ul { margin: 0; padding-left: 20px; font-size: 0.9rem; line-height: 1.5; }
 
     /* library */

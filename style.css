@@ -19,16 +19,28 @@
   --tile: #fdf8ee;
   --tile-shadow: rgba(90, 62, 30, 0.18);
 
+  /* Category chips draw --paper as their text colour on these backgrounds, so
+     each value has to clear 4.5:1 against cream here and against near-black in
+     the dark block below. Hue and saturation are preserved from the original
+     palette; only lightness moves. tests/contrast.test.ts enforces the ratios. */
   --cat-certifications: #7a4fbf;
-  --cat-protocols: #2a7fb8;
-  --cat-attacks: #c8401f;
-  --cat-crypto: #b8860b;
-  --cat-governance: #4a7c59;
-  --cat-cloud: #3f8fa3;
-  --cat-operations: #b05070;
-  --cat-identity: #6b705c;
-  --cat-appsec: #d0713c;
-  --cat-network: #52796f;
+  --cat-protocols: #2671a4;
+  --cat-attacks: #c13e1e;
+  --cat-crypto: #8b6508;
+  --cat-governance: #477655;
+  --cat-cloud: #337485;
+  --cat-operations: #aa4d6c;
+  --cat-identity: #696e5b;
+  --cat-appsec: #a65528;
+  --cat-network: #4e736a;
+
+  /* Status colours. These were literal hex values repeated across eight tool
+     pages, which meant they never changed with the theme: dark-red "bad" text
+     sat on a near-black background in dark mode. */
+  --status-bad: #b0402e;
+  --status-good: #397248;
+  --status-warn: #865f23;
+  --status-neutral: #666666;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -43,6 +55,23 @@
     --line: #3a3227;
     --tile: #2a231b;
     --tile-shadow: rgba(0, 0, 0, 0.5);
+
+    /* Chip text is near-black here, so the same hues have to move lighter. */
+    --cat-certifications: #916eca;
+    --cat-protocols: #2c86c1;
+    --cat-attacks: #de502d;
+    --cat-crypto: #b8860b;
+    --cat-governance: #538c64;
+    --cat-cloud: #3f8fa3;
+    --cat-operations: #ba6682;
+    --cat-identity: #7d836b;
+    --cat-appsec: #d0713c;
+    --cat-network: #5d897d;
+
+    --status-bad: #d56f5e;
+    --status-good: #4d9c62;
+    --status-warn: #b78230;
+    --status-neutral: #8c8c8c;
   }
 }
 
@@ -2274,14 +2303,47 @@ a.std-chip:hover {
   cursor: default;
 }
 
+/* Right and wrong were distinguished by border hue and a 14% tint alone. Those
+   two fills differ by 1.02:1 to a normal eye and 1.10:1 under deuteranopia, so
+   a red-green colourblind reader who answered wrong had no way to see which
+   answer was the correct one. Each state now also carries a text marker. */
+.choice-btn.right,
+.choice-btn.wrong {
+  position: relative;
+  padding-right: 46px;
+  border-width: 2.5px;
+}
+
+.choice-btn.right::after,
+.choice-btn.wrong::after {
+  position: absolute;
+  right: 14px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-family: var(--font-mono);
+  font-size: 1rem;
+  font-weight: 600;
+}
+
 .choice-btn.right {
-  border-color: #3e7d4f;
-  background: color-mix(in srgb, #3e7d4f 14%, var(--paper-raised));
+  border-color: var(--status-good);
+  background: color-mix(in srgb, var(--status-good) 14%, var(--paper-raised));
+}
+
+.choice-btn.right::after {
+  content: '\2713'; /* check */
+  color: var(--status-good);
 }
 
 .choice-btn.wrong {
-  border-color: #c8401f;
-  background: color-mix(in srgb, #c8401f 14%, var(--paper-raised));
+  border-color: var(--status-bad);
+  background: color-mix(in srgb, var(--status-bad) 14%, var(--paper-raised));
+  border-style: dashed;
+}
+
+.choice-btn.wrong::after {
+  content: '\00d7'; /* cross */
+  color: var(--status-bad);
 }
 
 .flip-answer {
@@ -2555,6 +2617,20 @@ a.std-chip:hover {
 }
 
 /* Skip-to-content link, revealed on focus. */
+/* Available to screen readers, invisible on screen. Used where a state is
+   otherwise conveyed only by colour or position. */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
 .skip-link {
   position: absolute;
   left: 8px;

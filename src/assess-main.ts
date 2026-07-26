@@ -1,3 +1,4 @@
+import { announce } from './lib/announce';
 import rawData from './data/assessment.json';
 import cpgRaw from './data/assessment-cpg.json';
 import cisRaw from './data/cis.json';
@@ -782,6 +783,12 @@ function renderResults(): void {
   const result = scoreAssessment(current.data, answers, current.config);
   const band = readinessBand(result.overallPercent);
   const multiTier = tiersPresent().size > 1;
+  // Submitting swaps the form panel for the results panel without a page load.
+  announce(
+    result.insufficient
+      ? 'Results ready. Not enough questions answered to score.'
+      : `Results ready. ${result.overallPercent} percent, ${band.label}.`,
+  );
 
   const top = el('div', 'quiz-top');
   const back = el('button', 'ghost-btn', 'edit answers');
