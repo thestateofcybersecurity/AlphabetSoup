@@ -102,7 +102,15 @@ test('every page requests the variable-weight font URL', async ({ page }) => {
     const hrefs = await page.evaluate(() =>
       [...document.querySelectorAll('link[rel="stylesheet"]')]
         .map((l) => l.getAttribute('href') ?? '')
-        .filter((h) => h.includes('fonts.googleapis.com')),
+        // Compare the parsed host rather than substring-matching the URL, which
+        // would also accept something like evil.com/fonts.googleapis.com.
+        .filter((h) => {
+          try {
+            return new URL(h, document.baseURI).host === 'fonts.googleapis.com';
+          } catch {
+            return false;
+          }
+        }),
     );
     expect(hrefs, `on ${path}`).toHaveLength(1);
     // Ranges, not discrete weights: `500;700;900` makes Google serve three
