@@ -4,6 +4,7 @@ import { resolveLegacySlug, slugForKey } from '../src/lib/slug';
 import { frameworkSlug } from '../src/lib/frameworks';
 import { relatedFor } from '../src/lib/related';
 import { renderGeneratedNav } from '../src/lib/site-nav';
+import { ANALYTICS_SNIPPET } from '../src/lib/analytics';
 import type { AcronymData, AcronymEntry } from '../src/lib/types';
 import type { AiData, CisData, CsfData } from '../src/lib/frameworks';
 
@@ -199,6 +200,7 @@ function definitionPage(key: string, entry: AcronymEntry): string {
   <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,900;1,9..144,500&family=IBM+Plex+Mono:wght@500;600&family=IBM+Plex+Sans:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
   <style>${PAGE_CSS}</style>
   <script type="application/ld+json">${jsonLd}</script>
+${ANALYTICS_SNIPPET}
 </head>
 <body>
   <a class="skip-link" href="#main">Skip to content</a>
@@ -377,6 +379,7 @@ function frameworkPage(input: FrameworkPageInput): string {
 @media(prefers-color-scheme:dark){:root{--tomato:${input.accentDark}}}
 ${FW_EXTRA_CSS}</style>
   <script type="application/ld+json">${jsonLd}</script>
+${ANALYTICS_SNIPPET}
 </head>
 <body>
   <a class="skip-link" href="#main">Skip to content</a>
@@ -498,6 +501,7 @@ function blogHead(title: string, description: string, url: string, jsonLd?: stri
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,700;0,9..144,900;1,9..144,500&family=IBM+Plex+Mono:wght@500;600&family=IBM+Plex+Sans:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
   <style>${PAGE_CSS}${BLOG_CSS}</style>${jsonLd ? `\n  <script type="application/ld+json">${jsonLd}</script>` : ''}
+${ANALYTICS_SNIPPET}
 </head>`;
 }
 

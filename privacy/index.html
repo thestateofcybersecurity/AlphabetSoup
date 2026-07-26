@@ -4,10 +4,10 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="color-scheme" content="light dark" />
-  <meta name="description" content="The privacy policy for Cybersecurity Alphabet Soup: no accounts, no analytics scripts, no tracking cookies. Everything you type stays in your browser." />
+  <meta name="description" content="The privacy policy for Cybersecurity Alphabet Soup: no accounts, no tracking cookies, cookie-free analytics that cannot identify you. Everything you type stays in your browser." />
   <meta property="og:type" content="website" />
   <meta property="og:title" content="Privacy policy | Cybersecurity Alphabet Soup" />
-  <meta property="og:description" content="No accounts, no analytics scripts, no tracking cookies. Everything you type stays in your browser." />
+  <meta property="og:description" content="No accounts, no tracking cookies, cookie-free analytics that cannot identify you. Everything you type stays in your browser." />
   <meta property="og:url" content="https://www.cybersecurityalphabetsoup.com/privacy/" />
   <meta property="og:image" content="https://www.cybersecurityalphabetsoup.com/og-image.png" />
   <meta property="og:image:width" content="1200" />
@@ -39,16 +39,21 @@
   <header class="hero hero-compact">
     <p class="kicker">the fine print</p>
     <h1 class="title">Privacy<br /><em>policy</em></h1>
-    <p class="tagline">The short version: no accounts, no analytics scripts, no tracking cookies, and nothing you type here ever leaves your browser.</p>
+    <p class="tagline">The short version: no accounts, no tracking cookies, privacy-friendly analytics that cannot identify you, and nothing you type here ever leaves your browser.</p>
   </header>
 
   <main id="main" class="ladle">
     <section class="legal-prose" aria-label="Privacy policy">
-      <p class="legal-updated">Effective July 24, 2026</p>
+      <p class="legal-updated">Effective July 26, 2026</p>
 
       <h2 class="legal-h2">What this site collects</h2>
-      <p>Nothing, by design. Cybersecurity Alphabet Soup has no user accounts, no sign-up forms, no advertising trackers, and no analytics scripts. The site sets no tracking cookies.</p>
-      <p>Interactive features (quiz scores and streaks, self-assessment answers, roadmap plans, tool inputs) are stored in your browser's localStorage on your own device. That data is never transmitted to this site or anyone else, and clearing your browser storage removes it completely.</p>
+      <p>Almost nothing, by design. Cybersecurity Alphabet Soup has no user accounts, no sign-up forms, and no advertising trackers. The site sets no cookies at all. The one thing it does measure is aggregate page traffic, described under Analytics below.</p>
+      <p>Interactive features (quiz progress, self-assessment answers and notes, roadmap plans, and everything you type into the tools, including company details and team names) are stored in your browser's localStorage on your own device. That data is never transmitted to this site, to the analytics provider, or to anyone else, and clearing your browser storage removes it completely.</p>
+
+      <h2 class="legal-h2">Analytics</h2>
+      <p>This site uses <a href="https://plausible.io/privacy-focused-web-analytics" rel="noopener" target="_blank">Plausible Analytics</a> to count page views. Plausible is a privacy-focused, cookie-free analytics service: it sets no cookies, collects no personal data, does not track you across sites or sessions, and does not build a profile of you. It tells me which pages are read and roughly where readers come from, nothing that identifies an individual.</p>
+      <p>Nothing you enter into the quiz, the assessments, the roadmap, or any tool is ever sent to Plausible. Only the fact that a page was viewed is recorded.</p>
+      <p>If you would rather not be counted at all, you can opt out by opening your browser's developer console on this site and running <code>localStorage.plausible_ignore = 'true'</code>. Standard browser or extension blocking works too, and nothing on the site depends on analytics loading.</p>
 
       <h2 class="legal-h2">Infrastructure logs</h2>
       <p>The site is served as static files by GitHub Pages behind the Cloudflare content delivery network. Like virtually every host on the internet, these providers process standard web request metadata (such as your IP address, browser user agent, and the URL requested) to deliver pages and protect against abuse. That processing happens under their policies, not mine:</p>

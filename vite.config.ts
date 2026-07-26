@@ -1,6 +1,7 @@
 /// <reference types="vitest/config" />
 import { defineConfig, type Plugin } from 'vite';
 import { renderSiteNav } from './src/lib/site-nav';
+import { withAnalytics } from './src/lib/analytics';
 
 /**
  * Replaces the `<!--site-nav-->` marker in every hand-written page with the nav
@@ -24,8 +25,23 @@ function siteNavPlugin(): Plugin {
   };
 }
 
+/**
+ * Injects the Plausible snippet into the hand-written pages at build time.
+ * Build-only (`apply: 'build'`) so `npm run dev` never sends events.
+ */
+function analyticsPlugin(): Plugin {
+  return {
+    name: 'analytics',
+    apply: 'build',
+    transformIndexHtml: {
+      order: 'post',
+      handler: (html) => withAnalytics(html),
+    },
+  };
+}
+
 export default defineConfig({
-  plugins: [siteNavPlugin()],
+  plugins: [siteNavPlugin(), analyticsPlugin()],
   // Relative base so the build works on the custom domain or any Pages path.
   base: './',
   // Large datasets parse ~6x faster via JSON.parse than as JS object literals.
