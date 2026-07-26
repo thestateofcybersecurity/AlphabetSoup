@@ -3,6 +3,7 @@ import { fileURLToPath } from 'node:url';
 import { resolveLegacySlug, slugForKey } from '../src/lib/slug';
 import { frameworkSlug } from '../src/lib/frameworks';
 import { relatedFor } from '../src/lib/related';
+import { renderGeneratedNav } from '../src/lib/site-nav';
 import type { AcronymData, AcronymEntry } from '../src/lib/types';
 import type { AiData, CisData, CsfData } from '../src/lib/frameworks';
 
@@ -142,30 +143,16 @@ footer .play{font-family:'Fraunces',Georgia,serif;font-style:italic;font-weight:
 .gnav a{font-family:'IBM Plex Mono',monospace;font-size:.68rem;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-soft);text-decoration:none;padding:5px 10px;border-radius:999px;white-space:nowrap}
 .gnav a:hover{color:var(--tomato)}
 .gnav a.play-link{color:var(--tomato)}
+.skip-link{position:absolute;left:8px;top:-48px;z-index:1000;background:var(--ink);color:var(--paper);font-family:'IBM Plex Mono',monospace;font-size:.8rem;padding:8px 14px;border-radius:8px;text-decoration:none}
+.skip-link:focus{top:8px}
+main:focus{outline:none}
 a:focus-visible,button:focus-visible{outline:2px solid var(--tomato);outline-offset:2px;border-radius:4px}
 @media(prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.001ms!important;transition-duration:.001ms!important}}
 `.trim();
 
-const CYBERDLE_NAV = 'https://thestateofcybersecurity.github.io/cyberdle/';
-const MITRE_NAV = 'https://mitre.cybersecurityalphabetsoup.com/';
 const BIA_NAV = 'https://bia.cybersecurityalphabetsoup.com/';
 
 /** Compact site nav for generated pages; prefix is the relative path to site root. */
-function navHtml(prefix: string): string {
-  const links: Array<[string, string]> = [
-    [`${prefix}`, 'Acronyms'],
-    [`${prefix}frameworks/nist-csf/`, 'NIST CSF'],
-    [`${prefix}frameworks/cis/`, 'CIS Controls'],
-    [`${prefix}frameworks/ai/`, 'AI Security'],
-    [`${prefix}quiz/`, 'Quiz'],
-    [`${prefix}assess/`, 'Assess'],
-    [`${prefix}roadmap/`, 'Roadmap'],
-    [`${prefix}blog/`, 'Blog'],
-  ];
-  return `<nav class="gnav">${links
-    .map(([href, label]) => `<a href="${href}">${label}</a>`)
-    .join('')}<a href="${MITRE_NAV}" rel="noopener" target="_blank">MITRE ATT&amp;CK</a><a href="${BIA_NAV}" rel="noopener" target="_blank" title="Business Impact Assessment">BIA</a><a class="play-link" href="${CYBERDLE_NAV}" rel="noopener" target="_blank">Cyberdle</a></nav>`;
-}
 
 const relatedKeys = (key: string): string[] => relatedFor(key, data);
 
@@ -214,8 +201,9 @@ function definitionPage(key: string, entry: AcronymEntry): string {
   <script type="application/ld+json">${jsonLd}</script>
 </head>
 <body>
-  <div class="wrap">
-    ${navHtml('../')}
+  <a class="skip-link" href="#main">Skip to content</a>
+  <main id="main" class="wrap" tabindex="-1">
+    ${renderGeneratedNav('../')}
     <a class="home" href="../">&larr; Cybersecurity Alphabet Soup</a>
     <h1>${esc(entry.display)}</h1>
     <p class="expansion">${esc(entry.expansion)}</p>
@@ -249,7 +237,7 @@ function definitionPage(key: string, entry: AcronymEntry): string {
       <p>Part of <a href="../">Cybersecurity Alphabet Soup</a>, a plain-English dictionary of ${Object.keys(data).length} cybersecurity acronyms.</p>
       <p><a href="../privacy/">Privacy</a> &middot; <a href="../disclosure/">Affiliate disclosure</a></p>
     </footer>
-  </div>
+  </main>
 </body>
 </html>
 `;
@@ -391,8 +379,9 @@ ${FW_EXTRA_CSS}</style>
   <script type="application/ld+json">${jsonLd}</script>
 </head>
 <body>
-  <div class="wrap">
-    ${navHtml('../../')}
+  <a class="skip-link" href="#main">Skip to content</a>
+  <main id="main" class="wrap" tabindex="-1">
+    ${renderGeneratedNav('../../')}
     <a class="home" href="./">&larr; ${esc(input.sectionLabel)}</a>
     <h1>${esc(input.id)}${input.badge ? ` <span class="ig-badge">${esc(input.badge)}</span>` : ''}</h1>
     <p class="expansion">${esc(input.kickerTop)}</p>
@@ -417,7 +406,7 @@ ${FW_EXTRA_CSS}</style>
       <p>Unofficial plain-English companion. Official source: <a href="${esc(input.officialUrl)}" rel="noopener">${esc(input.officialName)}</a>.</p>
       <p><a href="../../privacy/">Privacy</a> &middot; <a href="../../disclosure/">Affiliate disclosure</a></p>
     </footer>
-  </div>
+  </main>
 </body>
 </html>
 `;
@@ -528,8 +517,9 @@ function blogIndexPage(posts: BlogPost[]): string {
 <html lang="en">
 ${blogHead('Blog | Cybersecurity Alphabet Soup', 'Plain-English writing on cybersecurity frameworks, the tools that put them to work, careers, and the acronyms worth knowing.', url)}
 <body>
-  <div class="wrap blog">
-    ${navHtml('../')}
+  <a class="skip-link" href="#main">Skip to content</a>
+  <main id="main" class="wrap blog" tabindex="-1">
+    ${renderGeneratedNav('../')}
     <a class="home" href="../">&larr; Cybersecurity Alphabet Soup</a>
     <h1>Blog</h1>
     <p class="blog-intro">Plain-English writing on cybersecurity frameworks, the tools that put them to work, breaking into the field, and the acronyms worth knowing.</p>
@@ -541,7 +531,7 @@ ${blogHead('Blog | Cybersecurity Alphabet Soup', 'Plain-English writing on cyber
       <p>Part of <a href="../">Cybersecurity Alphabet Soup</a>, a plain-English dictionary of ${Object.keys(data).length} cybersecurity acronyms.</p>
       <p><a href="../privacy/">Privacy</a> &middot; <a href="../disclosure/">Affiliate disclosure</a></p>
     </footer>
-  </div>
+  </main>
 </body>
 </html>
 `;
@@ -568,8 +558,9 @@ function blogPostPage(post: BlogPost): string {
 <html lang="en">
 ${blogHead(`${esc(post.title)} | Cybersecurity Alphabet Soup`, post.description, url, jsonLd)}
 <body>
-  <div class="wrap blog">
-    ${navHtml('../')}
+  <a class="skip-link" href="#main">Skip to content</a>
+  <main id="main" class="wrap blog" tabindex="-1">
+    ${renderGeneratedNav('../')}
     <a class="home" href="./">&larr; Blog</a>
     <p class="post-kicker">${esc(post.category)}</p>
     <h1>${esc(post.title)}</h1>
@@ -584,7 +575,7 @@ ${blogHead(`${esc(post.title)} | Cybersecurity Alphabet Soup`, post.description,
       <p>Part of <a href="../">Cybersecurity Alphabet Soup</a>. More writing on the <a href="./">blog</a>.</p>
       <p><a href="../privacy/">Privacy</a> &middot; <a href="../disclosure/">Affiliate disclosure</a></p>
     </footer>
-  </div>
+  </main>
 </body>
 </html>
 `;

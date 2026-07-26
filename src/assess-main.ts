@@ -811,7 +811,10 @@ function renderResults(): void {
   const exportBtn = el('button', 'ghost-btn', 'export JSON');
   exportBtn.addEventListener('click', downloadExport);
   top.appendChild(exportBtn);
-  const importLabel = el('label', 'ghost-btn', 'import');
+  // A real button, not a <label>: a label is not focusable and the input is
+  // hidden (display:none), so the previous markup was unreachable by keyboard.
+  const importBtn = el('button', 'ghost-btn', 'import') as HTMLButtonElement;
+  importBtn.type = 'button';
   const importInput = el('input') as HTMLInputElement;
   importInput.type = 'file';
   importInput.accept = 'application/json,.json';
@@ -819,8 +822,9 @@ function renderResults(): void {
   importInput.addEventListener('change', () => {
     if (importInput.files && importInput.files[0]) importFromFile(importInput.files[0]);
   });
-  importLabel.appendChild(importInput);
-  top.appendChild(importLabel);
+  importBtn.addEventListener('click', () => importInput.click());
+  top.appendChild(importBtn);
+  top.appendChild(importInput);
   const print = el('button', 'ghost-btn', 'print report');
   print.addEventListener('click', () => window.print());
   top.appendChild(print);
