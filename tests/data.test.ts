@@ -1,5 +1,8 @@
 import { describe, expect, it } from 'vitest';
-import { allData } from '../src/data';
+import rawData from '../src/data/acronyms.json';
+import type { AcronymData } from '../src/lib/types';
+
+const allData = (): AcronymData => rawData as AcronymData;
 import { validateData } from '../src/data/validate';
 
 describe('acronym dataset', () => {

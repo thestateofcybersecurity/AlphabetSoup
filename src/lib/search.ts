@@ -1,4 +1,4 @@
-import type { AcronymData, Category, Difficulty } from './types';
+import type { AcronymData, AcronymIndex, Category, Difficulty } from './types';
 
 export interface SearchFilter {
   category?: Category | '';
@@ -11,8 +11,17 @@ export interface SearchFilter {
  * exact key/display match > key prefix > expansion word-start >
  * display/expansion contains > explanation contains.
  * With an empty query, returns the filtered set alphabetically.
+ *
+ * Accepts either the lightweight index or the full records. The only rank that
+ * needs prose is the last one, so searching the index gives identical results
+ * for every query that matches a key or an expansion, and the homepage upgrades
+ * to full-text once the prose chunk arrives.
  */
-export function searchEntries(data: AcronymData, query: string, filter: SearchFilter = {}): string[] {
+export function searchEntries(
+  data: AcronymData | AcronymIndex,
+  query: string,
+  filter: SearchFilter = {},
+): string[] {
   const term = query.trim().toLowerCase();
   const normalizedTerm = term.replace(/[^a-z0-9]/g, '');
   const scored: Array<[string, number]> = [];
@@ -43,7 +52,7 @@ export function searchEntries(data: AcronymData, query: string, filter: SearchFi
       rank = 3;
     } else if (expansion.includes(term)) {
       rank = 3;
-    } else if (entry.explanation.toLowerCase().includes(term)) {
+    } else if ('explanation' in entry && entry.explanation.toLowerCase().includes(term)) {
       rank = 4;
     }
     if (rank !== null) {
@@ -82,7 +91,7 @@ function editDistance(a: string, b: string): number {
  * The single closest acronym key to a mistyped query, or null if nothing is
  * close enough. Powers the "did you mean" hint on an empty result set.
  */
-export function suggest(data: AcronymData, query: string): string | null {
+export function suggest(data: AcronymData | AcronymIndex, query: string): string | null {
   const q = query.trim().toLowerCase().replace(/[^a-z0-9]/g, '');
   if (q.length < 2) return null;
   let best: { key: string; dist: number } | null = null;

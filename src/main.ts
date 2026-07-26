@@ -1,4 +1,4 @@
-import { allData, sortedKeys } from './data';
+import { acronymIndex, loadFullData, loadedData, sortedKeys } from './data';
 import { searchEntries, suggest } from './lib/search';
 import { relatedFor } from './lib/related';
 import type { SearchFilter } from './lib/search';
@@ -7,9 +7,18 @@ import { detectFrameworkQuery } from './lib/framework-search';
 import { slugForKey } from './lib/slug';
 import { announce } from './lib/announce';
 import { CATEGORIES } from './lib/types';
-import type { Category, Difficulty } from './lib/types';
+import type { AcronymData, AcronymIndex, Category, Difficulty } from './lib/types';
 
-const data = allData();
+const index = acronymIndex();
+
+/**
+ * Search source: the full records once they arrive, the index until then.
+ * Only the lowest-priority rank (a term appearing in an entry's prose) needs the
+ * full set, so results for key and expansion queries are identical either way.
+ */
+function searchSource(): AcronymIndex | AcronymData {
+  return loadedData() ?? index;
+}
 const byId = (id: string) => document.getElementById(id) as HTMLElement;
 
 const state: { query: string; category: Category | ''; letter: string; difficulty: Difficulty | '' } = {
@@ -156,7 +165,7 @@ function renderAzStrip(): void {
 function renderSoupOfTheDay(): void {
   const keys = sortedKeys();
   const key = keys[soupIndex(dayNumber(localDateString(new Date())), keys.length)];
-  const entry = data[key];
+  const entry = index[key];
   const box = byId('sotd');
   box.innerHTML = '';
   box.appendChild(el('p', 'sotd-label', 'Soup of the day'));
@@ -166,7 +175,14 @@ function renderSoupOfTheDay(): void {
   row.appendChild(link);
   row.appendChild(el('span', 'sotd-expansion', entry.expansion));
   box.appendChild(row);
-  box.appendChild(el('p', 'sotd-blurb', entry.explanation));
+  // The acronym and its expansion paint immediately from the index; the blurb
+  // is prose, so it fills in when the deferred chunk lands rather than holding
+  // up the whole card.
+  const blurb = el('p', 'sotd-blurb');
+  box.appendChild(blurb);
+  void loadFullData().then((full) => {
+    blurb.textContent = full[key].explanation;
+  });
 }
 
 function letterFilter(): SearchFilter {
@@ -250,9 +266,47 @@ function renderFrameworkHint(): void {
   });
 }
 
+/**
+ * Populate an opened entry with its prose, sources, and see-also chips, waiting
+ * for the deferred chunk if it has not landed yet. Idempotent, so re-opening a
+ * row does not duplicate the content.
+ */
+async function fillEntryBody(body: HTMLElement, key: string): Promise<void> {
+  if (body.dataset.filled === 'true') return;
+  body.dataset.filled = 'true';
+  const full = await loadFullData();
+  const entry = full[key];
+  body.appendChild(el('p', undefined, entry.explanation));
+  const links = el('div', 'entry-links');
+  for (const source of entry.sources) {
+    const a = el('a', undefined, source.name + ' ↗');
+    a.href = source.url;
+    a.target = '_blank';
+    a.rel = 'noopener noreferrer';
+    links.appendChild(a);
+  }
+  const permalink = el('a', 'permalink', 'permalink');
+  permalink.href = `definitions/${slugForKey(key)}.html`;
+  links.appendChild(permalink);
+  body.appendChild(links);
+
+  const related = relatedFor(key, full);
+  if (related.length > 0) {
+    const relatedRow = el('div', 'entry-related');
+    relatedRow.appendChild(el('span', 'entry-related-label', 'See also'));
+    for (const relKey of related) {
+      const chip = el('a', 'related-chip', full[relKey].display);
+      chip.href = `definitions/${slugForKey(relKey)}.html`;
+      chip.title = full[relKey].expansion;
+      relatedRow.appendChild(chip);
+    }
+    body.appendChild(relatedRow);
+  }
+}
+
 function render(): void {
   renderFrameworkHint();
-  let keys = searchEntries(data, state.query, letterFilter());
+  let keys = searchEntries(searchSource(), state.query, letterFilter());
   if (state.letter === '0') {
     keys = keys.filter((key) => /[0-9]/.test(key[0]));
   }
@@ -260,7 +314,7 @@ function render(): void {
   const results = byId('results');
   const visible = Math.min(shownCount, keys.length);
   const shown = keys.slice(0, visible);
-  const total = Object.keys(data).length;
+  const total = Object.keys(index).length;
   const filtering = Boolean(state.query || state.category || state.letter || state.difficulty);
 
   byId('sotd').hidden = filtering;
@@ -277,11 +331,11 @@ function render(): void {
     const empty = el('div', 'empty-bowl');
     empty.appendChild(el('div', 'big', 'Empty bowl.'));
     empty.appendChild(el('div', undefined, 'No acronym matches that. Try fewer letters, or a word from its expansion.'));
-    const near = state.query ? suggest(data, state.query) : null;
+    const near = state.query ? suggest(index, state.query) : null;
     if (near) {
       const hint = el('div', 'did-you-mean');
       hint.appendChild(document.createTextNode('Did you mean '));
-      const link = el('button', 'link-btn', data[near].display);
+      const link = el('button', 'link-btn', index[near].display);
       link.addEventListener('click', () => {
         const input = byId('search') as HTMLInputElement;
         input.value = near;
@@ -300,7 +354,7 @@ function render(): void {
 
   const fragment = document.createDocumentFragment();
   for (const key of shown) {
-    const entry = data[key];
+    const entry = index[key];
     const details = el('details', 'entry');
     const summary = el('summary');
     summary.appendChild(el('span', 'entry-key', entry.display));
@@ -310,34 +364,14 @@ function render(): void {
     summary.appendChild(chip);
     details.appendChild(summary);
 
+    // The body needs prose and sources, which live in the deferred chunk. It is
+    // also invisible until the row is opened, so building 60 of them up front
+    // was wasted work even when the data was already in hand.
     const body = el('div', 'entry-body');
-    body.appendChild(el('p', undefined, entry.explanation));
-    const links = el('div', 'entry-links');
-    for (const source of entry.sources) {
-      const a = el('a', undefined, source.name + ' ↗');
-      a.href = source.url;
-      a.target = '_blank';
-      a.rel = 'noopener noreferrer';
-      links.appendChild(a);
-    }
-    const permalink = el('a', 'permalink', 'permalink');
-    permalink.href = `definitions/${slugForKey(key)}.html`;
-    links.appendChild(permalink);
-    body.appendChild(links);
-
-    const related = relatedFor(key, data);
-    if (related.length > 0) {
-      const relatedRow = el('div', 'entry-related');
-      relatedRow.appendChild(el('span', 'entry-related-label', 'See also'));
-      for (const relKey of related) {
-        const chip = el('a', 'related-chip', data[relKey].display);
-        chip.href = `definitions/${slugForKey(relKey)}.html`;
-        chip.title = data[relKey].expansion;
-        relatedRow.appendChild(chip);
-      }
-      body.appendChild(relatedRow);
-    }
     details.appendChild(body);
+    details.addEventListener('toggle', () => {
+      if (details.open) void fillEntryBody(body, key);
+    });
     fragment.appendChild(details);
   }
   results.appendChild(fragment);
@@ -392,7 +426,7 @@ function initSearch(): void {
 }
 
 function main(): void {
-  const total = Object.keys(data).length;
+  const total = Object.keys(index).length;
   byId('hero-count').textContent = String(total);
   byId('footer-count').textContent = String(total);
   renderCroutons();
@@ -402,6 +436,13 @@ function main(): void {
   renderSoupOfTheDay();
   initSearch();
   render();
+
+  // The page is now interactive on the index alone. Pull the prose in behind
+  // that first paint; when it lands, re-run the current query so results that
+  // only match an entry's explanation start appearing.
+  void loadFullData().then(() => {
+    if (state.query) render();
+  });
 }
 
 main();

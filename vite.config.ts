@@ -1,7 +1,10 @@
 /// <reference types="vitest/config" />
+import { readFileSync } from 'node:fs';
+import { fileURLToPath } from 'node:url';
 import { defineConfig, type Plugin } from 'vite';
 import { renderSiteNav } from './src/lib/site-nav';
 import { withAnalytics } from './src/lib/analytics';
+import { withCanonicalFonts } from './src/lib/fonts';
 
 /**
  * Replaces the `<!--site-nav-->` marker in every hand-written page with the nav
@@ -40,8 +43,57 @@ function analyticsPlugin(): Plugin {
   };
 }
 
+/**
+ * Serves `virtual:acronym-index`: the listing and search fields of every
+ * acronym, derived from acronyms.json at build time.
+ *
+ * Deriving it rather than checking in a second file means the two can never
+ * disagree about what exists. Adding an acronym stays a one-file edit.
+ */
+function acronymIndexPlugin(): Plugin {
+  const VIRTUAL = 'virtual:acronym-index';
+  const RESOLVED = `\0${VIRTUAL}`;
+  const source = fileURLToPath(new URL('./src/data/acronyms.json', import.meta.url));
+  return {
+    name: 'acronym-index',
+    resolveId: (id) => (id === VIRTUAL ? RESOLVED : undefined),
+    load(id) {
+      if (id !== RESOLVED) return undefined;
+      this.addWatchFile(source);
+      const raw = JSON.parse(readFileSync(source, 'utf8')) as Record<
+        string,
+        { display: string; expansion: string; category: string; difficulty: string }
+      >;
+      const index: Record<string, unknown> = {};
+      for (const [key, entry] of Object.entries(raw)) {
+        index[key] = {
+          display: entry.display,
+          expansion: entry.expansion,
+          category: entry.category,
+          difficulty: entry.difficulty,
+        };
+      }
+      return `export default ${JSON.stringify(index)};`;
+    },
+  };
+}
+
+/**
+ * Normalises the webfont request across every hand-written page. Runs in dev as
+ * well as build so the fonts you develop against are the fonts you ship.
+ */
+function fontsPlugin(): Plugin {
+  return {
+    name: 'canonical-fonts',
+    transformIndexHtml: {
+      order: 'pre',
+      handler: (html) => withCanonicalFonts(html),
+    },
+  };
+}
+
 export default defineConfig({
-  plugins: [siteNavPlugin(), analyticsPlugin()],
+  plugins: [acronymIndexPlugin(), siteNavPlugin(), fontsPlugin(), analyticsPlugin()],
   // Relative base so the build works on the custom domain or any Pages path.
   base: './',
   // Large datasets parse ~6x faster via JSON.parse than as JS object literals.
