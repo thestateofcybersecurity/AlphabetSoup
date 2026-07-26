@@ -1,6 +1,7 @@
 import dataRaw from './data/automation-roi.json';
 import type { AutomationData, ScoredTask, Task } from './lib/automation-roi';
 import { backlogCsv, capacityModel, rankBacklog } from './lib/automation-roi';
+import { escAttr, safeId } from './lib/escape';
 
 const data = dataRaw as AutomationData;
 
@@ -41,7 +42,7 @@ function loadState(): void {
       tasks = raw
         .filter((t): t is Task => !!t && typeof t === 'object')
         .map((t) => ({
-          id: typeof t.id === 'string' ? t.id : newId(),
+          id: safeId(t.id, newId),
           name: typeof t.name === 'string' ? t.name : '',
           category: categoryIds.has(t.category) ? t.category : data.categories[0].id,
           volume: Number.isFinite(t.volume) ? t.volume : 0,
@@ -65,7 +66,7 @@ const options = (items: { id: string; name: string }[], selected: string): strin
 function rowHtml(task: Task): string {
   return `
     <div class="ar-row" data-id="${task.id}">
-      <div class="ar-cell-name"><span class="ar-row-labels">Task</span><input type="text" data-field="name" value="${esc(task.name)}" placeholder="e.g. Alert triage" aria-label="Task name" /></div>
+      <div class="ar-cell-name"><span class="ar-row-labels">Task</span><input type="text" data-field="name" value="${escAttr(task.name)}" placeholder="e.g. Alert triage" aria-label="Task name" /></div>
       <div><span class="ar-row-labels">Category</span><select data-field="category" aria-label="Category">${options(data.categories, task.category)}</select></div>
       <div><span class="ar-row-labels">Volume/mo</span><input type="number" min="0" step="1" data-field="volume" value="${task.volume}" aria-label="Monthly volume" /></div>
       <div><span class="ar-row-labels">Min each</span><input type="number" min="0" step="1" data-field="minutes" value="${task.minutes}" aria-label="Minutes each" /></div>

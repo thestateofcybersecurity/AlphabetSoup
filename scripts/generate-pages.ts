@@ -1,4 +1,4 @@
-import { mkdirSync, readFileSync, writeFileSync } from 'node:fs';
+import { existsSync, mkdirSync, readdirSync, readFileSync, writeFileSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
 import { resolveLegacySlug, slugForKey } from '../src/lib/slug';
 import { frameworkSlug } from '../src/lib/frameworks';
@@ -6,7 +6,7 @@ import { relatedFor } from '../src/lib/related';
 import type { AcronymData, AcronymEntry } from '../src/lib/types';
 import type { AiData, CisData, CsfData } from '../src/lib/frameworks';
 
-const SITE = 'https://cybersecurityalphabetsoup.com';
+const SITE = 'https://www.cybersecurityalphabetsoup.com';
 const CYBERDLE = 'https://thestateofcybersecurity.github.io/cyberdle/';
 
 const root = fileURLToPath(new URL('..', import.meta.url));
@@ -80,6 +80,12 @@ const QUIZ_LINKS: Record<string, string> = {
 
 /** Terms where the BIA (Business Impact Assessment) tool is a natural next step. */
 const BIA_LINKS = new Set(['BIA', 'BCP', 'BCDR', 'DRP', 'RTO', 'RPO', 'ERM']);
+
+/** Every tools/<slug>/index.html in the repo, so the sitemap self-maintains. */
+const toolSlugs = readdirSync(`${root}tools`, { withFileTypes: true })
+  .filter((d) => d.isDirectory() && existsSync(`${root}tools/${d.name}/index.html`))
+  .map((d) => d.name)
+  .sort();
 
 const dist = `${root}dist`;
 mkdirSync(`${dist}/definitions`, { recursive: true });
@@ -687,7 +693,8 @@ const urls = [
   `${SITE}/assess/`,
   `${SITE}/roadmap/`,
   `${SITE}/tools/`,
-  `${SITE}/tools/ai-risk/`,
+  // Derived from the filesystem so a new tool can never be missed (was hardcoded).
+  ...toolSlugs.map((slug) => `${SITE}/tools/${slug}/`),
   `${SITE}/careers/`,
   `${SITE}/about/`,
   `${SITE}/assess/cmmc/`,

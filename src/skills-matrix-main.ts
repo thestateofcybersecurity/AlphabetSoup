@@ -1,5 +1,6 @@
 import dataRaw from './data/skills-matrix.json';
 import type { Member, SkillsData } from './lib/skills-matrix';
+import { escAttr, safeId } from './lib/escape';
 import {
   busFactorWarnings,
   coverage,
@@ -58,7 +59,7 @@ function loadState(): void {
           .map((m) => {
             const ratings: Record<string, number> = {};
             for (const [cid, v] of Object.entries(m.ratings ?? {})) if (competencyIds.has(cid) && typeof v === 'number') ratings[cid] = v;
-            return { id: typeof m.id === 'string' ? m.id : newId(), name: typeof m.name === 'string' ? m.name : '', ratings };
+            return { id: safeId(m.id, newId), name: typeof m.name === 'string' ? m.name : '', ratings };
           });
       }
       if (Array.isArray(raw.priorities)) priorities = new Set(raw.priorities.filter((x): x is string => competencyIds.has(x)));
@@ -82,7 +83,7 @@ function renderPriorities(): void {
   host.innerHTML = data.competencies
     .map(
       (c) => `
-      <label class="sm-pri${priorities.has(c.id) ? ' selected' : ''}" title="${esc(c.blurb)}">
+      <label class="sm-pri${priorities.has(c.id) ? ' selected' : ''}" title="${escAttr(c.blurb)}">
         <input type="checkbox" value="${c.id}" ${priorities.has(c.id) ? 'checked' : ''} /> ${esc(c.name)}
       </label>`,
     )
@@ -106,7 +107,7 @@ function ratingSelect(member: Member, competencyId: string): string {
   const opts = data.levels
     .map((l) => `<option value="${l.value}" ${l.value === cur ? 'selected' : ''}>${l.value}</option>`)
     .join('');
-  return `<td class="sm-cell sm-lvl-${cur}" data-cid="${competencyId}"><select aria-label="${esc(member.name || 'member')} ${esc(shortName(competencyId))}">${opts}</select></td>`;
+  return `<td class="sm-cell sm-lvl-${cur}" data-cid="${competencyId}"><select aria-label="${escAttr(member.name || 'member')} ${escAttr(shortName(competencyId))}">${opts}</select></td>`;
 }
 
 function renderMatrix(): void {
@@ -116,13 +117,13 @@ function renderMatrix(): void {
     return;
   }
   const headers = data.competencies
-    .map((c) => `<th class="${priorities.has(c.id) ? 'pri' : ''}" title="${esc(c.name)}">${priorities.has(c.id) ? '<span class="sm-col-star">&#9733;</span> ' : ''}${esc(shortName(c.id))}</th>`)
+    .map((c) => `<th class="${priorities.has(c.id) ? 'pri' : ''}" title="${escAttr(c.name)}">${priorities.has(c.id) ? '<span class="sm-col-star">&#9733;</span> ' : ''}${esc(shortName(c.id))}</th>`)
     .join('');
   const rows = members
     .map(
       (m) => `
       <tr data-id="${m.id}">
-        <td class="sm-member-c"><input type="text" value="${esc(m.name)}" placeholder="Name" aria-label="Member name" /></td>
+        <td class="sm-member-c"><input type="text" value="${escAttr(m.name)}" placeholder="Name" aria-label="Member name" /></td>
         ${data.competencies.map((c) => ratingSelect(m, c.id)).join('')}
         <td><button type="button" class="sm-del" data-action="delete" aria-label="Remove member">&times;</button></td>
       </tr>`,
@@ -224,7 +225,7 @@ function renderOutput(): void {
           <div class="sm-gap">
             <span class="sm-gap-name">${g.priority ? '&#9733; ' : ''}${esc(g.competency.name)}</span>
             <span class="sm-gap-meta"> level ${g.current} to ${g.target}</span>
-            <div class="sm-gap-res">${g.competency.resources.map((r) => `<a href="${esc(r.href)}"${r.href.startsWith('http') ? ' rel="noopener" target="_blank"' : ''}>${esc(r.label)}</a>`).join('')}</div>
+            <div class="sm-gap-res">${g.competency.resources.map((r) => `<a href="${escAttr(r.href)}"${r.href.startsWith('http') ? ' rel="noopener" target="_blank"' : ''}>${esc(r.label)}</a>`).join('')}</div>
           </div>`,
         )
         .join('');

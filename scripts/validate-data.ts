@@ -396,7 +396,9 @@ const ssdlc = load<{ phases: { id: string }[]; practices: SsdlcPractice[] }>('..
 const automationRoi = load<AutomationRoi>('../src/data/automation-roi.json');
 const trustLibrary = load<{ categories: { id: string }[]; entries: TrustEntry[] }>('../src/data/trust-library.json');
 const regulations = load<RegData>('../src/data/regulations.json');
-const scorecard = load<{ cards: { id: string }[] }>('../src/data/scorecard.json');
+const scorecard = load<{ cards: { id: string; onTheJobTool: { status: string } }[] }>(
+  '../src/data/scorecard.json',
+);
 const skillsMatrix = load<SkillsMatrix>('../src/data/skills-matrix.json');
 const blogPosts = load<BlogPost[]>('../src/data/blog-posts.json');
 
@@ -433,6 +435,15 @@ const problems = [
   ...validateRegulations(regulations).map((e) => `regulations: ${e}`),
   ...validateSkillsMatrix(skillsMatrix, new Set(scorecard.cards.map((c) => c.id))).map((e) => `skills-matrix: ${e}`),
   ...validateBlog(blogPosts).map((e) => `blog: ${e}`),
+  ...(() => {
+    // The /tools/ hub ships a static "N of M tools live" fallback that crawlers and
+    // social previews see before JS runs. Assert it matches the data.
+    const live = scorecard.cards.filter((c) => c.onTheJobTool.status === 'live').length;
+    const html = readFileSync(fileURLToPath(new URL('../tools/index.html', import.meta.url)), 'utf8');
+    const shown = /<span id="live-count">([^<]*)<\/span>/.exec(html)?.[1] ?? '(missing)';
+    const want = `${live} of ${scorecard.cards.length}`;
+    return shown === want ? [] : [`tools/index.html live-count is "${shown}", data says "${want}"`];
+  })(),
 ];
 
 if (problems.length > 0) {

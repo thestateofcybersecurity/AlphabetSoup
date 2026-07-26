@@ -1,6 +1,7 @@
 import rubricRaw from './data/ai-risk-tiering.json';
 import type { Answers, Rubric, TierId } from './lib/ai-risk';
 import { controlsForTier, isComplete, scoreUseCase, tierRank } from './lib/ai-risk';
+import { escAttr } from './lib/escape';
 
 const rubric = rubricRaw as Rubric;
 
@@ -58,7 +59,7 @@ function renderIntake(): void {
       <fieldset class="rt-question" data-question="${q.id}">
         <legend><span class="rt-qnum">${index + 1}</span> ${esc(q.prompt)}</legend>
         <p class="rt-help">${esc(q.help)}</p>
-        <div class="rt-options" role="radiogroup" aria-label="${esc(q.prompt)}">
+        <div class="rt-options" role="radiogroup" aria-label="${escAttr(q.prompt)}">
           ${q.options
             .map(
               (o) => `
