@@ -6,6 +6,9 @@ import { relatedFor } from '../src/lib/related';
 import { renderGeneratedNav } from '../src/lib/site-nav';
 import { ANALYTICS_SNIPPET } from '../src/lib/analytics';
 import { renderFontLinks } from '../src/lib/fonts';
+import { categorySlug, categoryTitle, decksTesting, postsMentioning } from '../src/lib/deep-links';
+import type { DeckLike, PostLike } from '../src/lib/deep-links';
+import { CATEGORIES } from '../src/lib/types';
 import type { AcronymData, AcronymEntry } from '../src/lib/types';
 import type { AiData, CisData, CsfData } from '../src/lib/frameworks';
 
@@ -18,6 +21,19 @@ const csf = JSON.parse(readFileSync(`${root}src/data/nist-csf.json`, 'utf8')) as
 const cis = JSON.parse(readFileSync(`${root}src/data/cis.json`, 'utf8')) as CisData;
 const ai = JSON.parse(readFileSync(`${root}src/data/ai-frameworks.json`, 'utf8')) as AiData;
 const cisIgs = JSON.parse(readFileSync(`${root}src/data/cis-igs.json`, 'utf8')) as Record<string, number>;
+
+/** Quiz deck metadata and full decks, for deriving which decks test a term. */
+const deckIndex = JSON.parse(
+  readFileSync(`${root}src/data/quiz/index.json`, 'utf8'),
+) as { slug: string; name: string }[];
+const quizDecks: DeckLike[] = deckIndex.map((meta) => ({
+  slug: meta.slug,
+  questions: (
+    JSON.parse(readFileSync(`${root}src/data/quiz/${meta.slug}.json`, 'utf8')) as {
+      questions?: { q?: string; why?: string }[];
+    }
+  ).questions,
+}));
 
 interface BlogBlock {
   type: 'p' | 'h2' | 'list' | 'quote';
@@ -158,6 +174,48 @@ const BIA_NAV = 'https://bia.cybersecurityalphabetsoup.com/';
 
 const relatedKeys = (key: string): string[] => relatedFor(key, data);
 
+/**
+ * Onward links for a definition page.
+ *
+ * The curated maps above stay: they are hand-picked and better than anything
+ * derived, so they lead. Everything after them is found in the content, which
+ * took this block from 25 of 646 pages to most of them without adding a list
+ * for anyone to maintain.
+ */
+function goDeeper(key: string, entry: AcronymEntry): string {
+  const links: string[] = [];
+
+  if (FRAMEWORK_LINKS[key]) {
+    links.push(
+      `<a href="../frameworks/${FRAMEWORK_LINKS[key].path}/">${esc(FRAMEWORK_LINKS[key].label)} &rarr;</a>`,
+    );
+  }
+  if (QUIZ_LINKS[key]) {
+    links.push(`<a href="../quiz/?deck=${QUIZ_LINKS[key]}">Practice ${esc(entry.display)} questions &rarr;</a>`);
+  }
+  if (BIA_LINKS.has(key)) {
+    links.push(`<a href="${BIA_NAV}" rel="noopener" target="_blank">Assess business impact with the BIA tool &rarr;</a>`);
+  }
+
+  // Decks that actually ask about this term, minus any the curated map already
+  // covers, so a certification page does not link its own deck twice.
+  for (const slug of decksTesting(key, quizDecks)) {
+    if (QUIZ_LINKS[key] === slug) continue;
+    const meta = deckIndex.find((d) => d.slug === slug);
+    if (!meta) continue;
+    links.push(`<a href="../quiz/?deck=${slug}">Tested on the ${esc(meta.name)} quiz &rarr;</a>`);
+  }
+
+  for (const slug of postsMentioning(key, blogPosts as unknown as PostLike[])) {
+    const post = blogPosts.find((p) => p.slug === slug);
+    if (!post) continue;
+    links.push(`<a href="../blog/${slug}.html">Read: ${esc(post.title)} &rarr;</a>`);
+  }
+
+  if (links.length === 0) return '';
+  return `<h2>Go deeper</h2>\n    <div class="related">${links.join('')}</div>`;
+}
+
 function definitionPage(key: string, entry: AcronymEntry): string {
   const slug = slugForKey(key);
   const url = `${SITE}/definitions/${slug}.html`;
@@ -196,6 +254,7 @@ function definitionPage(key: string, entry: AcronymEntry): string {
   <meta property="og:image:height" content="630">
   <meta name="twitter:card" content="summary_large_image">
   <link rel="icon" href="../icon.svg" type="image/svg+xml">
+  <link rel="alternate" type="application/rss+xml" title="Cybersecurity Alphabet Soup blog" href="${SITE}/feed.xml">
   ${renderFontLinks()}
   <style>${PAGE_CSS}</style>
   <script type="application/ld+json">${jsonLd}</script>
@@ -215,24 +274,8 @@ ${ANALYTICS_SNIPPET}
           ${sources}
     </ul>
     <h2>More in ${entry.category}</h2>
-    <div class="related">${related}</div>
-    ${
-      FRAMEWORK_LINKS[key] || QUIZ_LINKS[key] || BIA_LINKS.has(key)
-        ? `<h2>Go deeper</h2>\n    <div class="related">${
-            FRAMEWORK_LINKS[key]
-              ? `<a href="../frameworks/${FRAMEWORK_LINKS[key].path}/">${esc(FRAMEWORK_LINKS[key].label)} &rarr;</a>`
-              : ''
-          }${
-            QUIZ_LINKS[key]
-              ? `<a href="../quiz/?deck=${QUIZ_LINKS[key]}">Practice ${esc(entry.display)} questions &rarr;</a>`
-              : ''
-          }${
-            BIA_LINKS.has(key)
-              ? `<a href="${BIA_NAV}" rel="noopener" target="_blank">Assess business impact with the BIA tool &rarr;</a>`
-              : ''
-          }</div>`
-        : ''
-    }
+    <div class="related">${related}<a class="cat-all" href="../categories/${categorySlug(entry.category)}.html">All ${esc(entry.category)} acronyms &rarr;</a></div>
+    ${goDeeper(key, entry)}
     <footer>
       <p class="play">Think you could have guessed it? <a href="${CYBERDLE}" rel="noopener" target="_blank">Play Cyberdle, the daily acronym game &rarr;</a></p>
       <p>Part of <a href="../">Cybersecurity Alphabet Soup</a>, a plain-English dictionary of ${Object.keys(data).length} cybersecurity acronyms.</p>
@@ -494,6 +537,7 @@ function blogHead(title: string, description: string, url: string, jsonLd?: stri
   <meta property="og:image:height" content="630">
   <meta name="twitter:card" content="summary_large_image">
   <link rel="icon" href="../icon.svg" type="image/svg+xml">
+  <link rel="alternate" type="application/rss+xml" title="Cybersecurity Alphabet Soup blog" href="${SITE}/feed.xml">
   ${renderFontLinks()}
   <style>${PAGE_CSS}${BLOG_CSS}</style>${jsonLd ? `\n  <script type="application/ld+json">${jsonLd}</script>` : ''}
 ${ANALYTICS_SNIPPET}
@@ -522,6 +566,7 @@ ${blogHead('Blog | Cybersecurity Alphabet Soup', 'Plain-English writing on cyber
     <a class="home" href="../">&larr; Cybersecurity Alphabet Soup</a>
     <h1>Blog</h1>
     <p class="blog-intro">Plain-English writing on cybersecurity frameworks, the tools that put them to work, breaking into the field, and the acronyms worth knowing.</p>
+    <p class="blog-sub"><a href="../feed.xml">Subscribe by RSS &rarr;</a></p>
     <ul class="blog-list">
       ${cards}
     </ul>
@@ -673,8 +718,130 @@ const sortedPosts = [...blogPosts].sort((a, b) => (a.date < b.date ? 1 : a.date 
 writeFileSync(`${dist}/blog/index.html`, blogIndexPage(sortedPosts));
 for (const post of blogPosts) writeFileSync(`${dist}/blog/${post.slug}.html`, blogPostPage(post));
 
+// 4d. Category hub pages: one landing page per category.
+//
+// Every definition page already said "More in <category>" and showed a few
+// sibling chips, but there was nowhere to see the whole category. These give all
+// 545 pages a real onward destination and add ten indexable landing pages for
+// the category terms people actually search.
+function categoryPage(category: string, entryKeys: string[]): string {
+  const title = categoryTitle(category);
+  const url = `${SITE}/categories/${categorySlug(category)}.html`;
+  const description = `Every ${category} cybersecurity acronym in plain English: ${entryKeys.length} terms, each with a definition and sources.`;
+  const items = entryKeys
+    .map((key) => {
+      const entry = data[key];
+      return `      <li><a href="../definitions/${slugForKey(key)}.html"><strong>${esc(entry.display)}</strong> ${esc(entry.expansion)}</a></li>`;
+    })
+    .join('\n');
+  const jsonLd = JSON.stringify({
+    '@context': 'https://schema.org',
+    '@type': 'CollectionPage',
+    name: `${title} acronyms`,
+    description,
+    url,
+    isPartOf: { '@type': 'WebSite', name: 'Cybersecurity Alphabet Soup', url: `${SITE}/` },
+  });
+  return `<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="color-scheme" content="light dark">
+  <title>${esc(title)} acronyms | Cybersecurity Alphabet Soup</title>
+  <meta name="description" content="${esc(description)}">
+  <link rel="canonical" href="${url}">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="${esc(title)} cybersecurity acronyms">
+  <meta property="og:description" content="${esc(description)}">
+  <meta property="og:url" content="${url}">
+  <meta property="og:image" content="${SITE}/og-image.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="icon" href="../icon.svg" type="image/svg+xml">
+  <link rel="alternate" type="application/rss+xml" title="Cybersecurity Alphabet Soup blog" href="${SITE}/feed.xml">
+  ${renderFontLinks()}
+  <style>${PAGE_CSS}
+    .cat-list{list-style:none;padding:0;margin:0;display:grid;gap:2px}
+    .cat-list li a{display:block;padding:9px 12px;border-radius:8px;text-decoration:none;color:var(--ink);border:1.5px solid transparent}
+    .cat-list li a:hover{border-color:var(--line);background:var(--paper-raised)}
+    .cat-list strong{font-family:'IBM Plex Mono',monospace;margin-right:10px}
+  </style>
+  <script type="application/ld+json">${jsonLd}</script>
+${ANALYTICS_SNIPPET}
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <main id="main" class="wrap" tabindex="-1">
+    ${renderGeneratedNav('../')}
+    <a class="home" href="../">&larr; Cybersecurity Alphabet Soup</a>
+    <h1>${esc(title)}</h1>
+    <p class="expansion">${entryKeys.length} acronyms in this category, in plain English.</p>
+    <ul class="cat-list">
+${items}
+    </ul>
+    <h2>Other categories</h2>
+    <div class="related">${CATEGORIES.filter((c) => c !== category)
+      .map((c) => `<a href="./${categorySlug(c)}.html">${esc(categoryTitle(c))}</a>`)
+      .join('')}</div>
+    <footer>
+      <p>Part of <a href="../">Cybersecurity Alphabet Soup</a>, a plain-English dictionary of ${Object.keys(data).length} cybersecurity acronyms.</p>
+      <p><a href="../privacy/">Privacy</a> &middot; <a href="../disclosure/">Affiliate disclosure</a></p>
+    </footer>
+  </main>
+</body>
+</html>
+`;
+}
+
+mkdirSync(`${dist}/categories`, { recursive: true });
+const byCategory = new Map<string, string[]>();
+for (const key of keys) {
+  const list = byCategory.get(data[key].category) ?? [];
+  list.push(key);
+  byCategory.set(data[key].category, list);
+}
+for (const category of CATEGORIES) {
+  const entryKeys = (byCategory.get(category) ?? []).sort();
+  writeFileSync(`${dist}/categories/${categorySlug(category)}.html`, categoryPage(category, entryKeys));
+}
+
+// 4e. RSS feed for the blog.
+//
+// Posts publish twice a week on a schedule, which is exactly the case a feed is
+// for, and there was no way to subscribe.
+const feedItems = sortedPosts
+  .map((post) => {
+    const link = `${SITE}/blog/${post.slug}.html`;
+    return `    <item>
+      <title>${esc(post.title)}</title>
+      <link>${link}</link>
+      <guid isPermaLink="true">${link}</guid>
+      <pubDate>${new Date(`${post.date}T09:00:00Z`).toUTCString()}</pubDate>
+      <category>${esc(post.category)}</category>
+      <description>${esc(post.description)}</description>
+    </item>`;
+  })
+  .join('\n');
+writeFileSync(
+  `${dist}/feed.xml`,
+  `<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Cybersecurity Alphabet Soup</title>
+    <link>${SITE}/blog/</link>
+    <atom:link href="${SITE}/feed.xml" rel="self" type="application/rss+xml"/>
+    <description>Plain-English writing on security frameworks, tooling, and building a security career.</description>
+    <language>en-us</language>
+    <lastBuildDate>${new Date(`${sortedPosts[0].date}T09:00:00Z`).toUTCString()}</lastBuildDate>
+${feedItems}
+  </channel>
+</rss>
+`,
+);
+
 // 5. Sitemap and robots.
 const urls = [
+  ...CATEGORIES.map((c) => `${SITE}/categories/${categorySlug(c)}.html`),
   `${SITE}/`,
   `${SITE}/frameworks/nist-csf/`,
   `${SITE}/frameworks/cis/`,
