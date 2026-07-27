@@ -18,3 +18,12 @@ declare module 'virtual:assessment-counts' {
   const counts: Record<string, number>;
   export default counts;
 }
+
+/**
+ * Directory name of every built tool, read from the filesystem at build time.
+ * Also produced in vite.config.ts.
+ */
+declare module 'virtual:tool-slugs' {
+  const slugs: string[];
+  export default slugs;
+}
