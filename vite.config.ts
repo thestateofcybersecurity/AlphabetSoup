@@ -5,6 +5,7 @@ import { defineConfig, type Plugin } from 'vite';
 import { renderSiteNav } from './src/lib/site-nav';
 import { withAnalytics } from './src/lib/analytics';
 import { withCanonicalFonts } from './src/lib/fonts';
+import { cisControlsAssessment, cisIg1Assessment, csfAssessment } from './src/lib/assessment';
 
 /**
  * Replaces the `<!--site-nav-->` marker in every hand-written page with the nav
@@ -79,6 +80,53 @@ function acronymIndexPlugin(): Plugin {
 }
 
 /**
+ * Serves `virtual:assessment-counts`: how many questions each assessment has.
+ *
+ * The picker prints these counts before any assessment is chosen. Deferring the
+ * datasets means they are no longer in memory at that point, and hardcoding the
+ * numbers would drift, so they are computed here from the same sources and by
+ * the same functions the app uses. Three of the assessments are generated from
+ * cis.json and nist-csf.json rather than read from a file, which is why this
+ * imports the real builders instead of just counting array lengths.
+ */
+function assessmentCountsPlugin(): Plugin {
+  const VIRTUAL = 'virtual:assessment-counts';
+  const RESOLVED = `\0${VIRTUAL}`;
+  const dataDir = fileURLToPath(new URL('./src/data/', import.meta.url));
+  const read = (name: string): unknown => JSON.parse(readFileSync(`${dataDir}${name}`, 'utf8'));
+  const FILE_BACKED: Record<string, string> = {
+    ransomware: 'assessment.json',
+    cpg: 'assessment-cpg.json',
+    'nist-800171': 'assessment-800171.json',
+    'cyber-essentials': 'assessment-cyber-essentials.json',
+    'zero-trust': 'assessment-ztmm.json',
+    ssdf: 'assessment-ssdf.json',
+    'pci-dss': 'assessment-pci-dss.json',
+  };
+  return {
+    name: 'assessment-counts',
+    resolveId: (id) => (id === VIRTUAL ? RESOLVED : undefined),
+    load(id) {
+      if (id !== RESOLVED) return undefined;
+      for (const name of [...Object.values(FILE_BACKED), 'cis.json', 'cis-igs.json', 'nist-csf.json']) {
+        this.addWatchFile(`${dataDir}${name}`);
+      }
+      const counts: Record<string, number> = {};
+      for (const [id_, file] of Object.entries(FILE_BACKED)) {
+        counts[id_] = (read(file) as { questions: unknown[] }).questions.length;
+      }
+      const cis = read('cis.json') as Parameters<typeof cisIg1Assessment>[0];
+      const igs = read('cis-igs.json') as Record<string, number>;
+      const csf = read('nist-csf.json') as Parameters<typeof csfAssessment>[0];
+      counts['cis-ig1'] = cisIg1Assessment(cis, igs).questions.length;
+      counts['cis-v8'] = cisControlsAssessment(cis, igs).questions.length;
+      counts['nist-csf'] = csfAssessment(csf).questions.length;
+      return `export default ${JSON.stringify(counts)};`;
+    },
+  };
+}
+
+/**
  * Normalises the webfont request across every hand-written page. Runs in dev as
  * well as build so the fonts you develop against are the fonts you ship.
  */
@@ -93,7 +141,7 @@ function fontsPlugin(): Plugin {
 }
 
 export default defineConfig({
-  plugins: [acronymIndexPlugin(), siteNavPlugin(), fontsPlugin(), analyticsPlugin()],
+  plugins: [acronymIndexPlugin(), assessmentCountsPlugin(), siteNavPlugin(), fontsPlugin(), analyticsPlugin()],
   // Relative base so the build works on the custom domain or any Pages path.
   base: './',
   // Large datasets parse ~6x faster via JSON.parse than as JS object literals.

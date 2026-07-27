@@ -1,14 +1,5 @@
 import { announce } from './lib/announce';
-import rawData from './data/assessment.json';
-import cpgRaw from './data/assessment-cpg.json';
-import cisRaw from './data/cis.json';
-import igsRaw from './data/cis-igs.json';
-import csfRaw from './data/nist-csf.json';
-import cmmcRaw from './data/assessment-800171.json';
-import ceRaw from './data/assessment-cyber-essentials.json';
-import ztmmRaw from './data/assessment-ztmm.json';
-import ssdfRaw from './data/assessment-ssdf.json';
-import pciRaw from './data/assessment-pci-dss.json';
+import questionCounts from 'virtual:assessment-counts';
 import {
   cisControlFromReference,
   cisControlsAssessment,
@@ -45,9 +36,33 @@ interface AssessmentDef {
   id: string;
   name: string;
   blurb: string;
-  data: AssessmentData;
   planGaps: boolean;
   config: AnswerConfig;
+  /** Questions in this assessment, known without loading it. */
+  count: number;
+  /** Fetches the dataset. Each one is its own chunk. */
+  load: () => Promise<AssessmentData>;
+}
+
+/** Datasets that have already been fetched, by assessment id. */
+const loadedSets = new Map<string, AssessmentData>();
+
+/** Load an assessment's dataset, caching it for the rest of the session. */
+async function loadSet(def: AssessmentDef): Promise<AssessmentData> {
+  const cached = loadedSets.get(def.id);
+  if (cached) return cached;
+  const data = await def.load();
+  loadedSets.set(def.id, data);
+  return data;
+}
+
+/**
+ * The dataset if it is already in memory, otherwise undefined. The picker uses
+ * this to render cards for assessments the visitor has never opened without
+ * pulling in their data.
+ */
+function loadedSet(def: AssessmentDef): AssessmentData | undefined {
+  return loadedSets.get(def.id);
 }
 
 const ASSESSMENTS: AssessmentDef[] = [
@@ -56,7 +71,8 @@ const ASSESSMENTS: AssessmentDef[] = [
     name: 'Ransomware readiness',
     blurb:
       'Forty-eight practices across ten goals and three maturity tiers, from backups and patching to incident response. Modeled on the CISA Ransomware Readiness Assessment; every practice links the guidance behind it.',
-    data: rawData as AssessmentData,
+    count: questionCounts.ransomware,
+    load: async () => (await import('./data/assessment.json')).default as AssessmentData,
     planGaps: true,
     config: defaultAnswerConfig,
   },
@@ -65,7 +81,8 @@ const ASSESSMENTS: AssessmentDef[] = [
     name: 'CISA Performance Goals (CPG)',
     blurb:
       'The 34 CISA Cross-Sector Cybersecurity Performance Goals (v2.0), a prioritized baseline of the highest-impact practices for organizations of any size. Grouped by the six NIST CSF 2.0 functions; every goal cites its CPG id and CSF outcome.',
-    data: cpgRaw as AssessmentData,
+    count: questionCounts.cpg,
+    load: async () => (await import('./data/assessment-cpg.json')).default as AssessmentData,
     planGaps: true,
     config: defaultAnswerConfig,
   },
@@ -74,7 +91,11 @@ const ASSESSMENTS: AssessmentDef[] = [
     name: 'CIS IG1 essentials',
     blurb:
       'All 56 Implementation Group 1 safeguards from CIS Controls v8 as checks. IG1 is essential cyber hygiene, the floor every organization should reach. Gaps link to plain-English safeguard pages.',
-    data: cisIg1Assessment(cisRaw as CisData, igsRaw as Record<string, number>),
+    count: questionCounts['cis-ig1'],
+    load: async () => {
+      const [cis, igs] = await Promise.all([import('./data/cis.json'), import('./data/cis-igs.json')]);
+      return cisIg1Assessment(cis.default as CisData, igs.default as Record<string, number>);
+    },
     planGaps: false,
     config: defaultAnswerConfig,
   },
@@ -83,7 +104,11 @@ const ASSESSMENTS: AssessmentDef[] = [
     name: 'CIS Controls v8 (all safeguards)',
     blurb:
       'The full CIS Controls v8: all 153 safeguards across 18 controls. Each safeguard sits in a maturity tier by its Implementation Group, so tier attainment reads as IG progress (basic = IG1, intermediate = IG2, advanced = IG3). Gaps link to plain-English safeguard pages.',
-    data: cisControlsAssessment(cisRaw as CisData, igsRaw as Record<string, number>),
+    count: questionCounts['cis-v8'],
+    load: async () => {
+      const [cis, igs] = await Promise.all([import('./data/cis.json'), import('./data/cis-igs.json')]);
+      return cisControlsAssessment(cis.default as CisData, igs.default as Record<string, number>);
+    },
     planGaps: false,
     config: defaultAnswerConfig,
   },
@@ -92,7 +117,8 @@ const ASSESSMENTS: AssessmentDef[] = [
     name: 'NIST CSF 2.0',
     blurb:
       'A self-assessment across all 106 subcategory outcomes of NIST CSF 2.0, grouped by the six functions (Govern, Identify, Protect, Detect, Respond, Recover). Each outcome uses verbatim NIST wording and links to its plain-English framework page.',
-    data: csfAssessment(csfRaw as CsfData),
+    count: questionCounts['nist-csf'],
+    load: async () => csfAssessment((await import('./data/nist-csf.json')).default as CsfData),
     planGaps: true,
     config: defaultAnswerConfig,
   },
@@ -101,7 +127,8 @@ const ASSESSMENTS: AssessmentDef[] = [
     name: 'NIST 800-171 / CMMC',
     blurb:
       'The full CMMC 2.0 ladder for defense contractors handling CUI: all 110 NIST SP 800-171 Rev 2 requirements plus the 24 NIST SP 800-172 enhancements CMMC selected for Level 3. Tiered by CMMC level (basic = the 17 Level 1 practices, intermediate = Level 2, advanced = Level 3), so tier attainment reads as CMMC progress.',
-    data: cmmcRaw as AssessmentData,
+    count: questionCounts['nist-800171'],
+    load: async () => (await import('./data/assessment-800171.json')).default as AssessmentData,
     planGaps: true,
     config: defaultAnswerConfig,
   },
@@ -110,7 +137,8 @@ const ASSESSMENTS: AssessmentDef[] = [
     name: 'CISA Cyber Essentials',
     blurb:
       'A starting-point self-assessment built on the six CISA Cyber Essentials elements (leadership, staff, systems, surroundings, data, and crisis response). Plain-language actions for small organizations taking their first structured steps.',
-    data: ceRaw as AssessmentData,
+    count: questionCounts['cyber-essentials'],
+    load: async () => (await import('./data/assessment-cyber-essentials.json')).default as AssessmentData,
     planGaps: true,
     config: defaultAnswerConfig,
   },
@@ -119,7 +147,8 @@ const ASSESSMENTS: AssessmentDef[] = [
     name: 'CISA Zero Trust Maturity Model',
     blurb:
       'A maturity self-assessment across the five ZTMM v2.0 pillars (identity, devices, networks, applications, data) and three cross-cutting capabilities. Each tier is a maturity stage (basic = Initial, intermediate = Advanced, advanced = Optimal), so tier attainment charts your progress off the traditional perimeter model.',
-    data: ztmmRaw as AssessmentData,
+    count: questionCounts['zero-trust'],
+    load: async () => (await import('./data/assessment-ztmm.json')).default as AssessmentData,
     planGaps: true,
     config: defaultAnswerConfig,
   },
@@ -128,7 +157,8 @@ const ASSESSMENTS: AssessmentDef[] = [
     name: 'NIST SSDF (secure development)',
     blurb:
       'All 42 tasks of the NIST Secure Software Development Framework (SP 800-218) across its four groups: prepare the organization, protect the software, produce well-secured software, and respond to vulnerabilities. For teams that build or ship software.',
-    data: ssdfRaw as AssessmentData,
+    count: questionCounts.ssdf,
+    load: async () => (await import('./data/assessment-ssdf.json')).default as AssessmentData,
     planGaps: true,
     config: defaultAnswerConfig,
   },
@@ -137,13 +167,16 @@ const ASSESSMENTS: AssessmentDef[] = [
     name: 'PCI DSS v4.0',
     blurb:
       'A plain-English self-assessment across the 12 PCI DSS v4.0 requirements for any organization that stores, processes, or transmits payment card data. Questions are original wording that captures each requirement; the official standard remains the authority for compliance.',
-    data: pciRaw as AssessmentData,
+    count: questionCounts['pci-dss'],
+    load: async () => (await import('./data/assessment-pci-dss.json')).default as AssessmentData,
     planGaps: true,
     config: defaultAnswerConfig,
   },
 ];
 
 let current: AssessmentDef = ASSESSMENTS[0];
+/** The questions for `current`. Set by selectAssessment before any render. */
+let currentData: AssessmentData = { categories: [], questions: [] };
 let answers: Answers = {};
 let annotations: Annotations = {};
 
@@ -242,7 +275,7 @@ const ANSWER_TITLES: Record<AnswerState, string> = {
 };
 
 function tiersPresent(): Set<Tier> {
-  return new Set(current.data.questions.map((q) => q.tier));
+  return new Set(currentData.questions.map((q) => q.tier));
 }
 
 function show(view: 'intro' | 'form' | 'results'): void {
@@ -287,17 +320,43 @@ const REVIEW_AFTER_DAYS = 90;
 
 interface Posture {
   started: boolean;
-  result: ReturnType<typeof scoreAssessment>;
+  result: ReturnType<typeof scoreAssessment> | null;
   history: Snapshot[];
 }
 
+/**
+ * Scoring needs the questions, but an assessment with no stored answers has
+ * nothing to score and its card only ever renders "not started". Returning a
+ * null result in that case is what lets the picker show all ten assessments
+ * while holding only the datasets the visitor has actually worked on.
+ */
 function postureFor(def: AssessmentDef): Posture {
   const a = answersFor(def.id);
+  const started = Object.keys(a).length > 0;
+  const data = loadedSet(def);
   return {
-    started: Object.keys(a).length > 0,
-    result: scoreAssessment(def.data, a, def.config),
+    started,
+    result: started && data ? scoreAssessment(data, a, def.config) : null,
     history: historyFor(def.id),
   };
+}
+
+/** Ids the visitor has answers stored for, without touching any dataset. */
+function startedIds(): Set<string> {
+  const ids = new Set<string>();
+  for (const def of ASSESSMENTS) {
+    if (Object.keys(answersFor(def.id)).length > 0) ids.add(def.id);
+  }
+  return ids;
+}
+
+/**
+ * Fetch datasets only for assessments already in progress, so a first-time
+ * visitor downloads none of them and a returning one downloads only theirs.
+ */
+async function loadStartedSets(): Promise<void> {
+  const started = startedIds();
+  await Promise.all(ASSESSMENTS.filter((d) => started.has(d.id)).map((d) => loadSet(d)));
 }
 
 /** A compact posture strip for an assessment card: score, band, coverage, trend, cadence. */
@@ -306,6 +365,13 @@ function postureStrip(def: AssessmentDef): HTMLElement {
   const strip = el('div', 'posture-strip');
   if (!started) {
     strip.appendChild(el('span', 'posture-score muted', 'not started'));
+    return strip;
+  }
+  if (!result) {
+    // Started, but this assessment's questions have not arrived yet. renderIntro
+    // awaits them first, so this is only reachable if a fetch failed; showing
+    // the card without a score beats dropping it from the list.
+    strip.appendChild(el('span', 'posture-score muted', 'in progress'));
     return strip;
   }
   strip.appendChild(
@@ -332,7 +398,13 @@ function postureStrip(def: AssessmentDef): HTMLElement {
 
 function renderPostureSummary(): HTMLElement | null {
   const postures = ASSESSMENTS.map((def) => ({ def, ...postureFor(def) }));
-  const done = postures.filter((p) => p.started && !p.result.insufficient);
+  // `result` is null for anything unstarted, and for a started assessment whose
+  // questions have not loaded. Narrowing here keeps the rest of this function
+  // working with a definite result.
+  const done = postures
+    .map((p) => ({ ...p, result: p.result }))
+    .filter((p): p is typeof p & { result: NonNullable<typeof p.result> } =>
+      p.started && p.result !== null && !p.result.insufficient);
   const summary = el('div', 'posture-summary');
   if (done.length === 0) {
     summary.appendChild(el('span', undefined, 'Pick an assessment below to see where you stand. Nothing leaves your browser.'));
@@ -362,7 +434,7 @@ function renderIntro(): void {
     card.appendChild(el('h2', 'assess-h', def.name));
     card.appendChild(postureStrip(def));
     card.appendChild(el('p', undefined, def.blurb));
-    card.appendChild(el('p', 'deck-sub', `${def.data.questions.length} questions. Answers stay in this browser.`));
+    card.appendChild(el('p', 'deck-sub', `${def.count} questions. Answers stay in this browser.`));
     const actions = el('div', 'deck-actions');
     let started = false;
     try {
@@ -375,20 +447,22 @@ function renderIntro(): void {
     }
     const start = el('button', 'primary-btn', started ? 'Resume' : 'Start');
     start.addEventListener('click', () => {
-      selectAssessment(def);
-      renderForm();
-      show('form');
+      void selectAssessment(def).then(() => {
+        renderForm();
+        show('form');
+      });
     });
     actions.appendChild(start);
     if (started) {
       const reset = el('button', 'ghost-btn', 'Start over');
       reset.addEventListener('click', () => {
-        selectAssessment(def);
-        answers = {};
-        annotations = {};
-        saveAnswers();
-        saveAnnotations();
-        renderIntro();
+        void selectAssessment(def).then(() => {
+          answers = {};
+          annotations = {};
+          saveAnswers();
+          saveAnnotations();
+          renderIntro();
+        });
       });
       actions.appendChild(reset);
     }
@@ -397,8 +471,15 @@ function renderIntro(): void {
   }
 }
 
-function selectAssessment(def: AssessmentDef): void {
+/**
+ * Switch to an assessment, fetching its dataset if this is the first time it
+ * has been opened. Every caller renders the form or the results straight
+ * afterwards, both of which need the questions, so the await belongs here
+ * rather than being pushed into each render path.
+ */
+async function selectAssessment(def: AssessmentDef): Promise<void> {
   current = def;
+  currentData = await loadSet(def);
   loadAnswers();
   const url = new URL(location.href);
   url.searchParams.set('a', def.id);
@@ -408,8 +489,8 @@ function selectAssessment(def: AssessmentDef): void {
 /* -------------------------------- form -------------------------------- */
 
 function updateFormProgress(): void {
-  const total = current.data.questions.length;
-  const answered = current.data.questions.filter((q) => answers[q.id] !== undefined).length;
+  const total = currentData.questions.length;
+  const answered = currentData.questions.filter((q) => answers[q.id] !== undefined).length;
   byId('assess-progress').textContent = `${answered}/${total} answered`;
   const done = byId('assess-done') as HTMLButtonElement;
   done.disabled = answered === 0;
@@ -527,11 +608,11 @@ function renderForm(): void {
 
   const multiTier = tiersPresent().size > 1;
 
-  for (const category of current.data.categories) {
+  for (const category of currentData.categories) {
     const section = el('section', 'assess-group');
     section.appendChild(el('h2', 'assess-h', category.name));
     if (category.blurb) section.appendChild(el('p', 'deck-sub', category.blurb));
-    for (const question of current.data.questions.filter((q) => q.group === category.id)) {
+    for (const question of currentData.questions.filter((q) => q.group === category.id)) {
       const row = el('div', 'assess-row');
       const text = el('div', 'assess-q');
       text.appendChild(el('span', undefined, question.text));
@@ -780,7 +861,7 @@ function importFromFile(file: File): void {
 function renderResults(): void {
   const results = byId('assess-results');
   results.innerHTML = '';
-  const result = scoreAssessment(current.data, answers, current.config);
+  const result = scoreAssessment(currentData, answers, current.config);
   const band = readinessBand(result.overallPercent);
   const multiTier = tiersPresent().size > 1;
   // Submitting swaps the form panel for the results panel without a page load.
@@ -799,7 +880,7 @@ function renderResults(): void {
   top.appendChild(back);
   const copyBtn = el('button', 'ghost-btn', 'copy summary');
   copyBtn.addEventListener('click', () => {
-    const gaps = concerns(current.data, answers, current.config);
+    const gaps = concerns(currentData, answers, current.config);
     const headline = result.insufficient
       ? 'Not enough answered to score'
       : `${result.overallPercent}% (${band.label})`;
@@ -894,7 +975,7 @@ function renderResults(): void {
   );
   headline.appendChild(distributionBar(result));
 
-  const gapCount = concerns(current.data, answers, current.config).questions.length;
+  const gapCount = concerns(currentData, answers, current.config).questions.length;
   if (current.planGaps && gapCount > 0) {
     const actions = el('div', 'deck-actions');
     const plan = el('a', 'primary-btn', `Plan these ${gapCount} gaps →`);
@@ -937,7 +1018,7 @@ function renderResults(): void {
   results.appendChild(groups);
 
   // Areas of concern: ranked goals + deficient practices with guidance.
-  const { goals, questions: gaps } = concerns(current.data, answers, current.config);
+  const { goals, questions: gaps } = concerns(currentData, answers, current.config);
   if (gaps.length > 0) {
     const todo = el('div', 'assess-card');
     todo.appendChild(el('h2', 'assess-h', `Suggested areas for improvement`));
@@ -975,7 +1056,7 @@ function renderResults(): void {
   }
 
   // Flagged for review.
-  const flagged = current.data.questions.filter((q) => annotations[q.id]?.flagged);
+  const flagged = currentData.questions.filter((q) => annotations[q.id]?.flagged);
   if (flagged.length > 0) {
     const box = el('div', 'assess-card');
     box.appendChild(el('h2', 'assess-h', `Flagged for review (${flagged.length})`));
@@ -992,12 +1073,15 @@ function renderResults(): void {
 
 /* -------------------------------- boot -------------------------------- */
 
-function main(): void {
+async function main(): Promise<void> {
   const requested = new URLSearchParams(location.search).get('a');
   const def = ASSESSMENTS.find((a) => a.id === requested);
+  // Scores on the picker need the questions, but only for assessments that
+  // already have stored answers. A first-time visitor fetches none of the ten.
+  await loadStartedSets();
   renderIntro();
   if (def) {
-    selectAssessment(def);
+    await selectAssessment(def);
     renderForm();
     show('form');
   } else {
@@ -1006,4 +1090,4 @@ function main(): void {
   }
 }
 
-main();
+void main();
