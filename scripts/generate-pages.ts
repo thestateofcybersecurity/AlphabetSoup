@@ -5,6 +5,7 @@ import { frameworkSlug } from '../src/lib/frameworks';
 import { relatedFor } from '../src/lib/related';
 import { renderGeneratedNav } from '../src/lib/site-nav';
 import { ANALYTICS_SNIPPET } from '../src/lib/analytics';
+import { renderFontLinks } from '../src/lib/fonts';
 import type { AcronymData, AcronymEntry } from '../src/lib/types';
 import type { AiData, CisData, CsfData } from '../src/lib/frameworks';
 
@@ -195,9 +196,7 @@ function definitionPage(key: string, entry: AcronymEntry): string {
   <meta property="og:image:height" content="630">
   <meta name="twitter:card" content="summary_large_image">
   <link rel="icon" href="../icon.svg" type="image/svg+xml">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,900;1,9..144,500&family=IBM+Plex+Mono:wght@500;600&family=IBM+Plex+Sans:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+  ${renderFontLinks()}
   <style>${PAGE_CSS}</style>
   <script type="application/ld+json">${jsonLd}</script>
 ${ANALYTICS_SNIPPET}
@@ -371,9 +370,7 @@ function frameworkPage(input: FrameworkPageInput): string {
   <meta property="og:image" content="${SITE}/og-image.png">
   <meta name="twitter:card" content="summary">
   <link rel="icon" href="../../icon.svg" type="image/svg+xml">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,900;1,9..144,500&family=IBM+Plex+Mono:wght@500;600&family=IBM+Plex+Sans:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+  ${renderFontLinks()}
   <style>${PAGE_CSS}
 :root{--tomato:${input.accent}}
 @media(prefers-color-scheme:dark){:root{--tomato:${input.accentDark}}}
@@ -497,9 +494,7 @@ function blogHead(title: string, description: string, url: string, jsonLd?: stri
   <meta property="og:image:height" content="630">
   <meta name="twitter:card" content="summary_large_image">
   <link rel="icon" href="../icon.svg" type="image/svg+xml">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,700;0,9..144,900;1,9..144,500&family=IBM+Plex+Mono:wght@500;600&family=IBM+Plex+Sans:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+  ${renderFontLinks()}
   <style>${PAGE_CSS}${BLOG_CSS}</style>${jsonLd ? `\n  <script type="application/ld+json">${jsonLd}</script>` : ''}
 ${ANALYTICS_SNIPPET}
 </head>`;

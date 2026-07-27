@@ -1,6 +1,9 @@
 import { describe, expect, it } from 'vitest';
 import { keyFromLegacySlug, resolveLegacySlug, slugForKey } from '../src/lib/slug';
-import { allData } from '../src/data';
+import rawData from '../src/data/acronyms.json';
+import type { AcronymData } from '../src/lib/types';
+
+const allData = (): AcronymData => rawData as AcronymData;
 import legacy from '../src/data/legacy-slugs.json';
 
 describe('slugForKey', () => {

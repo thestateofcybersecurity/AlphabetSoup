@@ -1,6 +1,9 @@
 import { describe, expect, it } from 'vitest';
 import { searchEntries } from '../src/lib/search';
-import { allData } from '../src/data';
+import rawData from '../src/data/acronyms.json';
+import type { AcronymData } from '../src/lib/types';
+
+const allData = (): AcronymData => rawData as AcronymData;
 
 const data = allData();
 
