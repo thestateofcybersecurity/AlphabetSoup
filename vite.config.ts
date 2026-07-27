@@ -1,5 +1,5 @@
 /// <reference types="vitest/config" />
-import { readFileSync } from 'node:fs';
+import { existsSync, readFileSync, readdirSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
 import { defineConfig, type Plugin } from 'vite';
 import { renderSiteNav } from './src/lib/site-nav';
@@ -127,6 +127,32 @@ function assessmentCountsPlugin(): Plugin {
 }
 
 /**
+ * Serves `virtual:tool-slugs`: the directory name of every built tool.
+ *
+ * The dashboard uses it to recognise a storage key like
+ * `alphabetsoup:skills-matrix:state` as belonging to a tool, and to link back
+ * to it. Read from the filesystem for the same reason the sitemap is: adding a
+ * tool should not require updating a second list.
+ */
+function toolSlugsPlugin(): Plugin {
+  const VIRTUAL = 'virtual:tool-slugs';
+  const RESOLVED = `\0${VIRTUAL}`;
+  const toolsDir = fileURLToPath(new URL('./tools', import.meta.url));
+  return {
+    name: 'tool-slugs',
+    resolveId: (id) => (id === VIRTUAL ? RESOLVED : undefined),
+    load(id) {
+      if (id !== RESOLVED) return undefined;
+      const slugs = readdirSync(toolsDir, { withFileTypes: true })
+        .filter((d) => d.isDirectory() && existsSync(`${toolsDir}/${d.name}/index.html`))
+        .map((d) => d.name)
+        .sort();
+      return `export default ${JSON.stringify(slugs)};`;
+    },
+  };
+}
+
+/**
  * Normalises the webfont request across every hand-written page. Runs in dev as
  * well as build so the fonts you develop against are the fonts you ship.
  */
@@ -141,7 +167,14 @@ function fontsPlugin(): Plugin {
 }
 
 export default defineConfig({
-  plugins: [acronymIndexPlugin(), assessmentCountsPlugin(), siteNavPlugin(), fontsPlugin(), analyticsPlugin()],
+  plugins: [
+    acronymIndexPlugin(),
+    assessmentCountsPlugin(),
+    toolSlugsPlugin(),
+    siteNavPlugin(),
+    fontsPlugin(),
+    analyticsPlugin(),
+  ],
   // Relative base so the build works on the custom domain or any Pages path.
   base: './',
   // Large datasets parse ~6x faster via JSON.parse than as JS object literals.
@@ -173,6 +206,7 @@ export default defineConfig({
         about: 'about/index.html',
         privacy: 'privacy/index.html',
         disclosure: 'disclosure/index.html',
+        my: 'my/index.html',
       },
     },
   },

@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="color-scheme" content="light dark" />
+  <meta name="description" content="Everything Cybersecurity Alphabet Soup has saved in this browser, in one place: quiz progress, assessment scores, plans, and tool data. Export it, restore it, or erase all of it." />
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Your saved progress | Cybersecurity Alphabet Soup" />
+  <meta property="og:description" content="Everything this site has saved in your browser, in one place. Export it, restore it, or erase all of it." />
+  <meta property="og:url" content="https://www.cybersecurityalphabetsoup.com/my/" />
+  <meta property="og:image" content="https://www.cybersecurityalphabetsoup.com/og-image.png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <!-- Nothing here is useful to a search engine: it only renders this visitor's own local data. -->
+  <meta name="robots" content="noindex, follow" />
+  <title>Your saved progress | Cybersecurity Alphabet Soup</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,500..900;1,9..144,500&family=IBM+Plex+Mono:wght@500;600&family=IBM+Plex+Sans:ital,wght@0,400..600;1,400&display=swap" rel="stylesheet" />
+  <link rel="icon" href="/icon.svg" type="image/svg+xml" />
+  <link rel="stylesheet" href="/style.css" />
+  <link rel="alternate" type="application/rss+xml" title="Cybersecurity Alphabet Soup blog" href="https://www.cybersecurityalphabetsoup.com/feed.xml" />
+  <style>
+    .my-empty { max-width: 640px; margin: 0 auto 30px; text-align: center; }
+    .my-empty .big { font-family: var(--font-display); font-weight: 900; font-size: 1.6rem; margin-bottom: 8px; }
+    .my-stats { display: flex; flex-wrap: wrap; gap: 10px; justify-content: center; margin: 0 auto 26px; max-width: 720px; }
+    .my-stat { border: 1.5px solid var(--line); border-radius: 12px; padding: 10px 18px; background: var(--paper-raised); text-align: center; min-width: 110px; }
+    .my-stat b { display: block; font-family: var(--font-display); font-weight: 900; font-size: 1.5rem; line-height: 1.1; }
+    .my-stat span { font-family: var(--font-mono); font-size: 0.64rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--ink-soft); }
+    .my-section { max-width: 720px; margin: 0 auto 22px; }
+    .my-h2 { font-family: var(--font-mono); font-size: 0.72rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--tomato-deep); margin: 26px 0 10px; }
+    .my-rows { list-style: none; padding: 0; margin: 0; display: grid; gap: 2px; }
+    .my-row { display: flex; align-items: center; gap: 12px; padding: 10px 12px; border: 1.5px solid transparent; border-radius: 8px; }
+    .my-row:hover { border-color: var(--line); background: var(--paper-raised); }
+    .my-row .what { flex: 1; min-width: 0; }
+    .my-row .size { font-family: var(--font-mono); font-size: 0.7rem; color: var(--ink-soft); white-space: nowrap; }
+    .my-row a { font-family: var(--font-mono); font-size: 0.74rem; text-decoration: none; border: 1.5px solid var(--line); border-radius: 999px; padding: 5px 12px; color: var(--ink); white-space: nowrap; }
+    .my-row a:hover { border-color: var(--tomato); color: var(--tomato); }
+    .score-row { display: flex; align-items: baseline; gap: 10px; }
+    .score-row .pct { font-family: var(--font-display); font-weight: 900; font-size: 1.2rem; }
+    .trend-up { color: var(--status-good); font-family: var(--font-mono); font-size: 0.74rem; }
+    .trend-down { color: var(--status-bad); font-family: var(--font-mono); font-size: 0.74rem; }
+    .my-actions { display: flex; flex-wrap: wrap; gap: 10px; justify-content: center; margin: 28px auto 0; max-width: 720px; }
+    .my-note { max-width: 640px; margin: 18px auto 0; font-size: 0.9rem; color: var(--ink-soft); text-align: center; }
+    .danger-btn { border: 1.5px solid var(--status-bad); color: var(--status-bad); background: transparent; border-radius: 999px; padding: 9px 18px; font-family: var(--font-mono); font-size: 0.76rem; letter-spacing: 0.08em; text-transform: uppercase; cursor: pointer; }
+    .danger-btn:hover { background: color-mix(in srgb, var(--status-bad) 10%, var(--paper)); }
+    .my-msg { max-width: 640px; margin: 16px auto 0; padding: 10px 14px; border-radius: 8px; border-left: 3px solid var(--broth); background: color-mix(in srgb, var(--broth) 12%, transparent); font-size: 0.92rem; }
+    .my-msg.bad { border-left-color: var(--status-bad); background: color-mix(in srgb, var(--status-bad) 10%, transparent); }
+  </style>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <div class="steam" aria-hidden="true"></div>
+
+    <!--site-nav-->
+
+  <header class="hero hero-compact">
+    <p class="kicker">stays in this browser</p>
+    <h1 class="title">Your<br /><em>progress</em></h1>
+    <p class="tagline">Everything this site has saved on this device, in one place. No account, no server copy. Take it with you or wipe it.</p>
+  </header>
+
+  <main id="main" class="ladle" tabindex="-1">
+    <div id="my-summary"></div>
+    <div id="my-sections"></div>
+    <div class="my-actions" id="my-actions" hidden>
+      <button class="primary-btn" id="export-btn" type="button">Download a backup</button>
+      <button class="ghost-btn" id="import-btn" type="button">Restore from a backup</button>
+      <button class="danger-btn" id="erase-btn" type="button">Erase everything</button>
+      <input type="file" id="import-file" accept="application/json,.json" hidden />
+    </div>
+    <p class="my-note" id="my-note" hidden>
+      A backup is a plain JSON file saved to your device. Restoring merges it into what is already here.
+      Erasing cannot be undone, so download a backup first if you want to keep anything.
+    </p>
+    <div id="my-message" role="status" aria-live="polite"></div>
+  </main>
+
+  <footer class="colophon">
+    <p>
+      Ready to add to it?
+      <a class="cyberdle-link" href="../quiz/">Take a quiz &rarr;</a>
+    </p>
+    <p class="fine-print">
+      Nothing on this page has ever left your browser. <a href="../privacy/">Read the privacy policy &rarr;</a>
+    </p>
+  </footer>
+  <script type="module" src="/src/my-main.ts"></script>
+</body>
+</html>
