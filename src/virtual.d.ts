@@ -8,3 +8,13 @@ declare module 'virtual:acronym-index' {
   const index: AcronymIndex;
   export default index;
 }
+
+/**
+ * Question counts per assessment id, computed from the same sources and by the
+ * same builders the app uses, so the picker can print them without loading any
+ * dataset. Also produced in vite.config.ts.
+ */
+declare module 'virtual:assessment-counts' {
+  const counts: Record<string, number>;
+  export default counts;
+}
