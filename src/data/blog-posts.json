@@ -946,5 +946,121 @@
         "href": "/assess/"
       }
     ]
+  },
+  {
+    "slug": "security-analyst-to-engineer",
+    "title": "From Security Analyst to Security Engineer: Making the Jump",
+    "description": "A practical path from SOC analyst to security engineer: the skills that matter, how to get real reps before you have the title, and how to prove it.",
+    "category": "Career",
+    "author": "Parker Brissette",
+    "date": "2026-07-27",
+    "readingMinutes": 5,
+    "tags": [
+      "career",
+      "security engineer",
+      "soc analyst",
+      "automation",
+      "job search"
+    ],
+    "body": [
+      {
+        "type": "p",
+        "text": "Plenty of analysts hit the same wall somewhere around year two. You are good at triage, you know your [SIEM](/?q=SIEM) better than anyone else on the team, and you can separate a real alert from noise in about fifteen seconds. But the work has stopped teaching you much, and the people who seem to be building things instead of watching them all have \"engineer\" in their title. The move from security analyst to security engineer is one of the most common transitions in this field, and it is very doable. It is also not automatic. Nobody promotes you for closing tickets faster. They promote you for showing you can build the thing that closes the tickets."
+      },
+      {
+        "type": "h2",
+        "text": "What actually separates the two jobs"
+      },
+      {
+        "type": "p",
+        "text": "The cleanest framing is this: an analyst operates the security stack, an engineer builds it. As an analyst you are measured on how well you work a queue. Did you triage the alert, scope the incident, escalate correctly, write it up. As an engineer you are measured on whether the systems everyone else depends on actually work. Did the log source stay onboarded, did the detection fire, did the pipeline deploy, did the fix hold up under real load."
+      },
+      {
+        "type": "p",
+        "text": "That shift changes the shape of your day. Engineers spend more time in code, configuration, and design reviews than in a console. They own things on a horizon measured in quarters rather than shifts. They also inherit a different kind of pressure. When an analyst makes a mistake, one alert gets handled badly. When an engineer makes a mistake, ten thousand alerts fire, or none of them do."
+      },
+      {
+        "type": "h2",
+        "text": "The skills that actually move you over"
+      },
+      {
+        "type": "p",
+        "text": "Job descriptions for security engineering roles vary wildly, but the real requirements cluster into a short list. If you are studying on your own time, this is where the hours should go."
+      },
+      {
+        "type": "list",
+        "items": [
+          "**Automation and scripting.** Python and Bash first, PowerShell if you live in a Windows shop. The bar is not elegance. The bar is taking something repetitive you do by hand and turning it into a script that runs without you.",
+          "**Cloud fundamentals.** Pick one provider and go deep instead of skimming three. Identity, networking, logging, and storage permissions in a single cloud will carry you much further than a surface tour of all of them.",
+          "**Code and version control.** Git, pull requests, review etiquette, and enough software habits to work inside a repository you did not write without breaking it. This is the single most common gap for analysts.",
+          "**Infrastructure as code and pipelines.** [IaC](/?q=IAC) and [CI/CD](/?q=CICD) are how modern environments actually change. If you cannot read a Terraform plan or a pipeline definition, you cannot meaningfully secure one.",
+          "**Detection engineering.** Writing, testing, and tuning detections as versioned code rather than clicking rules into a console. Analysts have an unfair advantage here, because you already know which alerts are garbage and why."
+        ]
+      },
+      {
+        "type": "h2",
+        "text": "How to get reps before you have the title"
+      },
+      {
+        "type": "p",
+        "text": "The catch with engineering roles is the familiar one. They want experience you cannot get without the job. The way through is to do engineering work inside the role you already have, deliberately and visibly."
+      },
+      {
+        "type": "list",
+        "items": [
+          "Automate your own queue. Find the three things you do by hand every week and script them. An analyst who hands the team a tool that saves everyone four hours a week has done engineering work, whatever the title says.",
+          "Volunteer for the unglamorous integrations. Log source onboarding, parser fixes, [API](/?q=API) connections between tools. Nobody fights you for this work, and it is exactly what hiring managers ask about.",
+          "Own a detection backlog. Take the rules generating the most false positives and rebuild them properly, with test cases and documentation you can point to later.",
+          "Build a lab that mirrors real problems. A cloud account with a small budget, infrastructure as code defining it, logging wired into a free-tier [SIEM](/?q=SIEM), and a few deliberately broken configurations to catch.",
+          "Sit in on architecture and design reviews, even as an observer. Learning how engineers argue about tradeoffs is most of the job."
+        ]
+      },
+      {
+        "type": "quote",
+        "text": "The fastest path out of the SOC is not working more tickets. It is removing the reason the tickets exist."
+      },
+      {
+        "type": "h2",
+        "text": "Make the case in business terms"
+      },
+      {
+        "type": "p",
+        "text": "Engineering work gets funded when somebody can explain what it saves. Before you pitch the automation project you want to build, put numbers behind it: how many hours a week the manual process burns, how many people touch it, what those hours cost. Our [automation ROI calculator](/tools/automation-roi/) does that math for you, and the output doubles as the justification you hand your manager. Framing technical work as time and money recovered is a genuine engineering skill, and it separates the people who get budget from the people who get told to revisit it next quarter."
+      },
+      {
+        "type": "h2",
+        "text": "How to show the work"
+      },
+      {
+        "type": "p",
+        "text": "Once you have the reps, the hiring process rewards specifics. Rewrite your resume so it describes systems you built and outcomes you changed, not duties you performed. \"Monitored security alerts\" tells a hiring manager nothing. \"Rebuilt phishing triage as an automated workflow, cutting median handling time from 20 minutes to 4\" tells them everything they need to know about how you think."
+      },
+      {
+        "type": "p",
+        "text": "Keep a small portfolio alongside it: a public repository with your scripts or detection rules, sanitized of anything belonging to your employer, plus a one-page writeup of a problem you solved end to end. In interviews, expect to design something out loud rather than recite definitions. Practice explaining how you would log, detect, and respond to a specific attack path in a specific environment. If you want a read on where your knowledge stands right now, work through our [security quiz](/quiz/) and treat the misses as a study list, then check the [careers hub](/careers/) for how engineering roles sit against the rest of the field."
+      },
+      {
+        "type": "p",
+        "text": "The jump is usually eighteen months of deliberate work rather than a certification you can buy over a weekend. The analysts who make it tend to do the same handful of things. They pick one cloud and learn it properly. They get good enough with code to be trusted in a shared repository. They keep converting their own manual work into systems other people can rely on. The title follows the evidence, so start producing the evidence, and the interviews, the offers, and the pay bump become a much shorter conversation."
+      }
+    ],
+    "related": [
+      {
+        "label": "Cybersecurity careers hub",
+        "href": "/careers/"
+      },
+      {
+        "label": "Test your security knowledge",
+        "href": "/quiz/"
+      },
+      {
+        "label": "Automation ROI calculator",
+        "href": "/tools/automation-roi/"
+      },
+      {
+        "label": "Security skills matrix",
+        "href": "/tools/skills-matrix/"
+      }
+    ]
   }
 ]
