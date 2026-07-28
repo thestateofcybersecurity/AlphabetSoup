@@ -202,6 +202,7 @@ export default defineConfig({
         trustPackage: 'tools/trust-package/index.html',
         regMapper: 'tools/reg-mapper/index.html',
         skillsMatrix: 'tools/skills-matrix/index.html',
+        policyGenerator: 'tools/policy-generator/index.html',
         roadmap: 'roadmap/index.html',
         about: 'about/index.html',
         privacy: 'privacy/index.html',

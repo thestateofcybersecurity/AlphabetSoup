@@ -1,0 +1,339 @@
+{
+ "meta": {
+  "name": "HIPAA Security Rule",
+  "citation": "45 CFR Part 164 Subpart C",
+  "source": "https://www.ecfr.gov/current/title-45/subtitle-A/subchapter-C/part-164/subpart-C",
+  "retrieved": "2026-07-24",
+  "note": "Standard and implementation specification names are quoted from the regulation, a US federal work in the public domain."
+ },
+ "standards": [
+  {
+   "section": "164.308",
+   "group": "Administrative safeguards",
+   "slug": "security-management-process",
+   "standard": "Security management process",
+   "specifications": [
+    {
+     "name": "Risk analysis",
+     "kind": "required"
+    },
+    {
+     "name": "Risk management",
+     "kind": "required"
+    },
+    {
+     "name": "Sanction policy",
+     "kind": "required"
+    },
+    {
+     "name": "Information system activity review",
+     "kind": "required"
+    }
+   ]
+  },
+  {
+   "section": "164.308",
+   "group": "Administrative safeguards",
+   "slug": "assigned-security-responsibility",
+   "standard": "Assigned security responsibility",
+   "specifications": []
+  },
+  {
+   "section": "164.308",
+   "group": "Administrative safeguards",
+   "slug": "workforce-security",
+   "standard": "Workforce security",
+   "specifications": [
+    {
+     "name": "Authorization and/or supervision",
+     "kind": "addressable"
+    },
+    {
+     "name": "Workforce clearance procedure",
+     "kind": "addressable"
+    },
+    {
+     "name": "Termination procedures",
+     "kind": "addressable"
+    }
+   ]
+  },
+  {
+   "section": "164.308",
+   "group": "Administrative safeguards",
+   "slug": "information-access-management",
+   "standard": "Information access management",
+   "specifications": [
+    {
+     "name": "Isolating health care clearinghouse functions",
+     "kind": "required"
+    },
+    {
+     "name": "Access authorization",
+     "kind": "addressable"
+    },
+    {
+     "name": "Access establishment and modification",
+     "kind": "addressable"
+    }
+   ]
+  },
+  {
+   "section": "164.308",
+   "group": "Administrative safeguards",
+   "slug": "security-awareness-and-training",
+   "standard": "Security awareness and training",
+   "specifications": [
+    {
+     "name": "Security reminders",
+     "kind": "addressable"
+    },
+    {
+     "name": "Protection from malicious software",
+     "kind": "addressable"
+    },
+    {
+     "name": "Log-in monitoring",
+     "kind": "addressable"
+    },
+    {
+     "name": "Password management",
+     "kind": "addressable"
+    }
+   ]
+  },
+  {
+   "section": "164.308",
+   "group": "Administrative safeguards",
+   "slug": "security-incident-procedures",
+   "standard": "Security incident procedures",
+   "specifications": [
+    {
+     "name": "Response and reporting",
+     "kind": "required"
+    }
+   ]
+  },
+  {
+   "section": "164.308",
+   "group": "Administrative safeguards",
+   "slug": "contingency-plan",
+   "standard": "Contingency plan",
+   "specifications": [
+    {
+     "name": "Data backup plan",
+     "kind": "required"
+    },
+    {
+     "name": "Disaster recovery plan",
+     "kind": "required"
+    },
+    {
+     "name": "Emergency mode operation plan",
+     "kind": "required"
+    },
+    {
+     "name": "Testing and revision procedures",
+     "kind": "addressable"
+    },
+    {
+     "name": "Applications and data criticality analysis",
+     "kind": "addressable"
+    }
+   ]
+  },
+  {
+   "section": "164.308",
+   "group": "Administrative safeguards",
+   "slug": "evaluation",
+   "standard": "Evaluation",
+   "specifications": []
+  },
+  {
+   "section": "164.308",
+   "group": "Administrative safeguards",
+   "slug": "business-associate-contracts-and-other-arrangements",
+   "standard": "Business associate contracts and other arrangements",
+   "specifications": [
+    {
+     "name": "Written contract or other arrangement",
+     "kind": "required"
+    }
+   ]
+  },
+  {
+   "section": "164.310",
+   "group": "Physical safeguards",
+   "slug": "facility-access-controls",
+   "standard": "Facility access controls",
+   "specifications": [
+    {
+     "name": "Contingency operations",
+     "kind": "addressable"
+    },
+    {
+     "name": "Facility security plan",
+     "kind": "addressable"
+    },
+    {
+     "name": "Access control and validation procedures",
+     "kind": "addressable"
+    },
+    {
+     "name": "Maintenance records",
+     "kind": "addressable"
+    }
+   ]
+  },
+  {
+   "section": "164.310",
+   "group": "Physical safeguards",
+   "slug": "workstation-use",
+   "standard": "Workstation use",
+   "specifications": []
+  },
+  {
+   "section": "164.310",
+   "group": "Physical safeguards",
+   "slug": "workstation-security",
+   "standard": "Workstation security",
+   "specifications": []
+  },
+  {
+   "section": "164.310",
+   "group": "Physical safeguards",
+   "slug": "device-and-media-controls",
+   "standard": "Device and media controls",
+   "specifications": [
+    {
+     "name": "Disposal",
+     "kind": "required"
+    },
+    {
+     "name": "Media re-use",
+     "kind": "required"
+    },
+    {
+     "name": "Accountability",
+     "kind": "addressable"
+    },
+    {
+     "name": "Data backup and storage",
+     "kind": "addressable"
+    }
+   ]
+  },
+  {
+   "section": "164.312",
+   "group": "Technical safeguards",
+   "slug": "access-control",
+   "standard": "Access control",
+   "specifications": [
+    {
+     "name": "Unique user identification",
+     "kind": "required"
+    },
+    {
+     "name": "Emergency access procedure",
+     "kind": "required"
+    },
+    {
+     "name": "Automatic logoff",
+     "kind": "addressable"
+    },
+    {
+     "name": "Encryption and decryption",
+     "kind": "addressable"
+    }
+   ]
+  },
+  {
+   "section": "164.312",
+   "group": "Technical safeguards",
+   "slug": "audit-controls",
+   "standard": "Audit controls",
+   "specifications": []
+  },
+  {
+   "section": "164.312",
+   "group": "Technical safeguards",
+   "slug": "integrity",
+   "standard": "Integrity",
+   "specifications": []
+  },
+  {
+   "section": "164.312",
+   "group": "Technical safeguards",
+   "slug": "person-or-entity-authentication",
+   "standard": "Person or entity authentication",
+   "specifications": []
+  },
+  {
+   "section": "164.312",
+   "group": "Technical safeguards",
+   "slug": "transmission-security",
+   "standard": "Transmission security",
+   "specifications": [
+    {
+     "name": "Integrity controls",
+     "kind": "addressable"
+    },
+    {
+     "name": "Encryption",
+     "kind": "addressable"
+    }
+   ]
+  },
+  {
+   "section": "164.314",
+   "group": "Organizational requirements",
+   "slug": "business-associate-contracts-or-other-arrangements",
+   "standard": "Business associate contracts or other arrangements",
+   "specifications": [
+    {
+     "name": "Implementation specifications",
+     "kind": "required"
+    }
+   ]
+  },
+  {
+   "section": "164.314",
+   "group": "Organizational requirements",
+   "slug": "requirements-for-group-health-plans",
+   "standard": "Requirements for group health plans",
+   "specifications": [
+    {
+     "name": "Implementation specifications",
+     "kind": "required"
+    }
+   ]
+  },
+  {
+   "section": "164.316",
+   "group": "Policies, procedures, and documentation",
+   "slug": "policies-and-procedures",
+   "standard": "Policies and procedures",
+   "specifications": []
+  },
+  {
+   "section": "164.316",
+   "group": "Policies, procedures, and documentation",
+   "slug": "documentation",
+   "standard": "Documentation",
+   "specifications": [
+    {
+     "name": "Time limit",
+     "kind": "required"
+    },
+    {
+     "name": "Availability",
+     "kind": "required"
+    },
+    {
+     "name": "Updates",
+     "kind": "required"
+    }
+   ]
+  }
+ ]
+}
