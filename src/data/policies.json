@@ -3,14 +3,38 @@
   "name": "Policy catalog",
   "note": "Original policy text written for this site. Tiers follow CIS Implementation Groups and are additive: an IG2 policy includes every IG1 statement, and IG3 includes both. Placeholders in {{braces}} are substituted from the organization profile.",
   "tiers": [
-   { "id": "ig1", "name": "IG1", "blurb": "Essential cyber hygiene. The floor every organization should reach, achievable without a dedicated security team." },
-   { "id": "ig2", "name": "IG2", "blurb": "Adds the practices an organization needs once it has staff dedicated to security and regulated or sensitive data." },
-   { "id": "ig3", "name": "IG3", "blurb": "Adds the practices expected where a breach would be material: formal assurance, independent testing, and measured effectiveness." }
+   {
+    "id": "ig1",
+    "name": "IG1",
+    "blurb": "Essential cyber hygiene. The floor every organization should reach, achievable without a dedicated security team."
+   },
+   {
+    "id": "ig2",
+    "name": "IG2",
+    "blurb": "Adds the practices an organization needs once it has staff dedicated to security and regulated or sensitive data."
+   },
+   {
+    "id": "ig3",
+    "name": "IG3",
+    "blurb": "Adds the practices expected where a breach would be material: formal assurance, independent testing, and measured effectiveness."
+   }
   ],
   "placeholders": [
-   { "token": "{{org}}", "from": "profile.orgName", "fallback": "the organization" },
-   { "token": "{{owner}}", "from": "profile.policyOwner", "fallback": "the security lead" },
-   { "token": "{{review}}", "from": "profile.reviewCadence", "fallback": "annually" }
+   {
+    "token": "{{org}}",
+    "from": "profile.orgName",
+    "fallback": "the organization"
+   },
+   {
+    "token": "{{owner}}",
+    "from": "profile.policyOwner",
+    "fallback": "the security lead"
+   },
+   {
+    "token": "{{review}}",
+    "from": "profile.reviewCadence",
+    "fallback": "annually"
+   }
   ]
  },
  "policies": [
@@ -22,10 +46,22 @@
    "purpose": "This policy establishes {{org}}'s commitment to protecting the confidentiality, integrity, and availability of the information and systems it depends on. It sets the authority under which every other security policy is issued.",
    "scope": "All workers, contractors, and third parties acting on behalf of {{org}}, and all information and systems {{org}} owns or operates, regardless of location or ownership of the device.",
    "roles": [
-    { "role": "Executive leadership", "responsibility": "Approves this policy, accepts residual risk on behalf of {{org}}, and provides the funding and authority the program needs to function." },
-    { "role": "{{owner}}", "responsibility": "Owns the security program, maintains this and subordinate policies, and reports posture and material risks to leadership." },
-    { "role": "System and data owners", "responsibility": "Classify the information they are accountable for and ensure the controls required by this policy are implemented in their systems." },
-    { "role": "All workers", "responsibility": "Follow these policies, complete required training, and report suspected security issues promptly." }
+    {
+     "role": "Executive leadership",
+     "responsibility": "Approves this policy, accepts residual risk on behalf of {{org}}, and provides the funding and authority the program needs to function."
+    },
+    {
+     "role": "{{owner}}",
+     "responsibility": "Owns the security program, maintains this and subordinate policies, and reports posture and material risks to leadership."
+    },
+    {
+     "role": "System and data owners",
+     "responsibility": "Classify the information they are accountable for and ensure the controls required by this policy are implemented in their systems."
+    },
+    {
+     "role": "All workers",
+     "responsibility": "Follow these policies, complete required training, and report suspected security issues promptly."
+    }
    ],
    "tiers": {
     "ig1": [
@@ -69,10 +105,22 @@
    "purpose": "This policy governs how access to {{org}}'s systems and information is requested, approved, provisioned, reviewed, and revoked, so that people hold only the access their role requires.",
    "scope": "All accounts on all systems {{org}} owns or subscribes to, including cloud services, and all workers, contractors, and service accounts that hold them.",
    "roles": [
-    { "role": "System owners", "responsibility": "Define the access roles available on their system and approve or deny access requests." },
-    { "role": "{{owner}}", "responsibility": "Maintains this policy, runs access reviews, and investigates access that cannot be justified." },
-    { "role": "People operations", "responsibility": "Notifies system owners of joiners, movers, and leavers in time for access to be granted or removed." },
-    { "role": "Account holders", "responsibility": "Use only the access granted to them, and never share credentials." }
+    {
+     "role": "System owners",
+     "responsibility": "Define the access roles available on their system and approve or deny access requests."
+    },
+    {
+     "role": "{{owner}}",
+     "responsibility": "Maintains this policy, runs access reviews, and investigates access that cannot be justified."
+    },
+    {
+     "role": "People operations",
+     "responsibility": "Notifies system owners of joiners, movers, and leavers in time for access to be granted or removed."
+    },
+    {
+     "role": "Account holders",
+     "responsibility": "Use only the access granted to them, and never share credentials."
+    }
    ],
    "tiers": {
     "ig1": [
@@ -115,10 +163,22 @@
    "purpose": "This policy establishes how {{org}} prepares for and responds to security incidents, so that response is decided in advance rather than improvised under pressure.",
    "scope": "Any event that compromises, or credibly threatens to compromise, the confidentiality, integrity, or availability of {{org}}'s information or systems, including events at a supplier that affect {{org}}.",
    "roles": [
-    { "role": "Incident commander", "responsibility": "Runs the response, makes containment decisions, and is the single point of coordination for the duration of an incident." },
-    { "role": "{{owner}}", "responsibility": "Maintains this policy and the response plan, and appoints the incident commander for each incident." },
-    { "role": "Executive leadership", "responsibility": "Decides on external notification, regulatory reporting, and any payment or legal action." },
-    { "role": "All workers", "responsibility": "Report suspected incidents immediately and preserve evidence rather than attempting to remediate alone." }
+    {
+     "role": "Incident commander",
+     "responsibility": "Runs the response, makes containment decisions, and is the single point of coordination for the duration of an incident."
+    },
+    {
+     "role": "{{owner}}",
+     "responsibility": "Maintains this policy and the response plan, and appoints the incident commander for each incident."
+    },
+    {
+     "role": "Executive leadership",
+     "responsibility": "Decides on external notification, regulatory reporting, and any payment or legal action."
+    },
+    {
+     "role": "All workers",
+     "responsibility": "Report suspected incidents immediately and preserve evidence rather than attempting to remediate alone."
+    }
    ],
    "tiers": {
     "ig1": [
@@ -161,9 +221,18 @@
    "purpose": "This policy defines how {{org}} classifies information by sensitivity and what protection each class requires at rest, in transit, in use, and at disposal.",
    "scope": "All information {{org}} creates, receives, stores, or transmits, in any form, including information held on {{org}}'s behalf by a supplier.",
    "roles": [
-    { "role": "Data owners", "responsibility": "Assign a classification to the information they are accountable for and approve who may access it." },
-    { "role": "{{owner}}", "responsibility": "Maintains the classification scheme and the handling requirements for each class." },
-    { "role": "All workers", "responsibility": "Handle information according to its classification and do not move it to unapproved services or devices." }
+    {
+     "role": "Data owners",
+     "responsibility": "Assign a classification to the information they are accountable for and approve who may access it."
+    },
+    {
+     "role": "{{owner}}",
+     "responsibility": "Maintains the classification scheme and the handling requirements for each class."
+    },
+    {
+     "role": "All workers",
+     "responsibility": "Handle information according to its classification and do not move it to unapproved services or devices."
+    }
    ],
    "tiers": {
     "ig1": [
@@ -206,9 +275,18 @@
    "purpose": "This policy governs how {{org}} assesses and manages the security risk introduced by suppliers, service providers, and any third party that accesses its information or systems.",
    "scope": "All third parties that store, process, or transmit {{org}}'s information, or that hold access to its systems, including subprocessors engaged by those parties.",
    "roles": [
-    { "role": "Relationship owners", "responsibility": "Own the commercial relationship, initiate assessment before onboarding, and act on findings." },
-    { "role": "{{owner}}", "responsibility": "Defines the assessment standard, reviews results, and advises on whether risk is acceptable." },
-    { "role": "Procurement or legal", "responsibility": "Ensures required security terms are in the contract before it is signed." }
+    {
+     "role": "Relationship owners",
+     "responsibility": "Own the commercial relationship, initiate assessment before onboarding, and act on findings."
+    },
+    {
+     "role": "{{owner}}",
+     "responsibility": "Defines the assessment standard, reviews results, and advises on whether risk is acceptable."
+    },
+    {
+     "role": "Procurement or legal",
+     "responsibility": "Ensures required security terms are in the contract before it is signed."
+    }
    ],
    "tiers": {
     "ig1": [
@@ -240,6 +318,1015 @@
     "Completed assessments for high-tier third parties",
     "Contract clauses covering security, breach notification, and subprocessors",
     "Evidence that access was removed at the end of an engagement"
+   ]
+  },
+  {
+   "id": "asset-management-policy",
+   "domain": "asset-mgmt",
+   "title": "Asset Management Policy",
+   "summary": "Knowing what {{org}} owns, who is responsible for it, and what happens to it at the end of its life.",
+   "purpose": "This policy establishes how {{org}} identifies, records, and maintains accountability for the hardware, software, and services it depends on, so that controls can be applied to a known population rather than an assumed one.",
+   "scope": "All hardware, software, cloud services, and data stores {{org}} owns, leases, or subscribes to, including personally owned devices used for work.",
+   "roles": [
+    {
+     "role": "{{owner}}",
+     "responsibility": "Maintains this policy and the standard for what an asset record must contain to be useful for security decisions."
+    },
+    {
+     "role": "IT operations",
+     "responsibility": "Keeps the asset inventory current through acquisition, change, and disposal, and reconciles it against what is actually connected."
+    },
+    {
+     "role": "Asset owners",
+     "responsibility": "Accept accountability for the assets assigned to them, including their configuration and eventual secure disposal."
+    }
+   ],
+   "tiers": {
+    "ig1": [
+     "{{org}} maintains an inventory of hardware assets that includes at minimum the asset, its owner, and its location or environment.",
+     "{{org}} maintains an inventory of software and cloud services in use, including who authorized each one.",
+     "Assets that {{org}} cannot identify or account for are investigated and either recorded or removed from the environment.",
+     "Every asset holding confidential information has a named owner accountable for it.",
+     "Assets are removed from the inventory only when they have been securely disposed of or returned, and the disposal is recorded.",
+     "Storage media are sanitized or destroyed before disposal, resale, or return to a lessor.",
+     "Unauthorized software is removed when found, or formally approved and recorded."
+    ],
+    "ig2": [
+     "The inventory is reconciled against an automated discovery source at least quarterly, and differences are resolved rather than noted.",
+     "Asset records include the classification of the information the asset holds, so protection follows the data.",
+     "End-of-life and end-of-support dates are tracked for assets, so replacement is planned rather than forced by an incident.",
+     "Cloud services are inventoried with the data they hold and the owner who approved them, including services adopted by individual teams.",
+     "Assets connecting to {{org}}'s network are identified, and unrecognized devices are investigated."
+    ],
+    "ig3": [
+     "The inventory is maintained close to real time for assets in scope of regulatory obligations.",
+     "Asset accuracy is measured, reported, and treated as a control that can fail rather than a housekeeping task.",
+     "Disposal of assets holding confidential information is evidenced by certificate or verifiable log.",
+     "Software inventory supports answering, within a defined time, which assets run a given component when a vulnerability is announced."
+    ]
+   },
+   "exceptions": "An asset may be operated outside this policy only with written approval from {{owner}}, a documented compensating control, and an expiry date no longer than one review cycle.",
+   "review": "This policy is reviewed {{review}}, and whenever {{org}} adopts a materially different class of asset or hosting model.",
+   "evidence": [
+    "The current hardware and software inventories",
+    "The most recent reconciliation against discovery data",
+    "Disposal and sanitization records",
+    "Records showing an owner assigned to each asset holding confidential data"
+   ]
+  },
+  {
+   "id": "authentication-policy",
+   "domain": "authentication",
+   "title": "Authentication and Credential Policy",
+   "summary": "How people and services prove who they are, and how those credentials are protected.",
+   "purpose": "This policy sets the requirements for authenticating users and services to {{org}}'s systems, and for the protection of the credentials that make authentication possible.",
+   "scope": "All authentication to systems {{org}} owns or subscribes to, by workers, contractors, customers, and services, including administrative and emergency access.",
+   "roles": [
+    {
+     "role": "{{owner}}",
+     "responsibility": "Sets authentication requirements, approves exceptions, and reviews their continued justification."
+    },
+    {
+     "role": "System owners",
+     "responsibility": "Configure their systems to meet these requirements, or document why the system cannot and what compensates."
+    },
+    {
+     "role": "All account holders",
+     "responsibility": "Protect their own credentials, use the approved multi-factor method, and report suspected compromise immediately."
+    }
+   ],
+   "tiers": {
+    "ig1": [
+     "Multi-factor authentication is required for all remote access, all administrative access, and all externally reachable services.",
+     "Credentials are never shared between individuals, and each person authenticates as themselves.",
+     "Default passwords are changed before a system is placed into service.",
+     "Passwords meet a documented minimum length, and {{org}} does not require periodic rotation in the absence of evidence of compromise.",
+     "Credentials are stored only in an approved password manager, never in documents, spreadsheets, code, or messages.",
+     "Accounts are locked or rate limited after a defined number of failed authentication attempts.",
+     "Suspected credential compromise triggers immediate reset and review of what that account accessed."
+    ],
+    "ig2": [
+     "Multi-factor authentication is required for all access to systems holding confidential information, not only remote access.",
+     "Phishing-resistant factors are used for administrative accounts where the platform supports them.",
+     "Service and machine credentials are stored in a managed secret store, are rotated on a defined schedule, and are never embedded in source code.",
+     "Authentication to {{org}}'s systems is centralized through a single identity provider wherever the system supports it.",
+     "Password reset and account recovery processes verify identity in a way that cannot be satisfied with public information."
+    ],
+    "ig3": [
+     "Phishing-resistant multi-factor authentication is required for all workers, not only administrators.",
+     "Credentials appearing in public breach corpora are detected and forced to reset.",
+     "Authentication anomalies, such as impossible travel or unusual factor changes, are alerted on and investigated.",
+     "Emergency access accounts are held under documented dual control and their use triggers an automatic review."
+    ]
+   },
+   "exceptions": "A system that cannot meet these requirements may be used only with written approval from {{owner}}, a documented compensating control, and a plan with a date to remediate or retire it.",
+   "review": "This policy is reviewed {{review}}, and whenever an authentication method in use is shown to be materially weakened.",
+   "evidence": [
+    "Multi-factor enrollment coverage for workers and administrators",
+    "Authentication configuration for systems holding confidential data",
+    "Secret store inventory showing rotation dates for service credentials",
+    "Records of approved exceptions with their expiry dates"
+   ]
+  },
+  {
+   "id": "privileged-access-policy",
+   "domain": "pam",
+   "title": "Privileged Access Management Policy",
+   "summary": "Tighter rules for the accounts that can change or destroy things, because those are the accounts attackers want.",
+   "purpose": "This policy governs how privileged access to {{org}}'s systems is granted, used, monitored, and withdrawn, recognizing that these accounts carry disproportionate risk.",
+   "scope": "All accounts that can alter system configuration, access confidential data in bulk, change access rights, or bypass logging, on any system {{org}} owns or subscribes to.",
+   "roles": [
+    {
+     "role": "{{owner}}",
+     "responsibility": "Defines what counts as privileged in {{org}}'s environment and reviews the population of privileged accounts."
+    },
+    {
+     "role": "System owners",
+     "responsibility": "Approve privileged access to their systems and confirm during review that each grant is still required."
+    },
+    {
+     "role": "Privileged users",
+     "responsibility": "Use privileged access only for the task that required it, and never for routine work such as email or browsing."
+    }
+   ],
+   "tiers": {
+    "ig1": [
+     "{{org}} maintains a current list of every account with privileged access, and who owns it.",
+     "Privileged access is granted only where the role requires it, and is approved by the system owner before provisioning.",
+     "Privileged accounts are separate from the day-to-day accounts of the same individual.",
+     "Multi-factor authentication is required for every privileged account without exception.",
+     "Privileged access is revoked the same business day a worker leaves or changes to a role that no longer requires it.",
+     "Actions taken with privileged accounts are logged, and the logs cannot be altered by the account that generated them."
+    ],
+    "ig2": [
+     "Privileged access is reviewed at least quarterly, more often than standard access, and unjustified grants are removed.",
+     "Administrative tasks are performed from a hardened workstation or session dedicated to that purpose.",
+     "Vendor and support accounts with privileged access are enabled only for the duration of the work and disabled afterwards.",
+     "Shared privileged credentials, where unavoidable, are held in a managed vault that attributes each use to an individual.",
+     "Privileged sessions to systems holding confidential data are recorded or monitored."
+    ],
+    "ig3": [
+     "Privileged access is granted just in time against an approved request and expires automatically.",
+     "No standing privileged access exists for production systems holding confidential information.",
+     "Privileged activity is reviewed against expected change records, and unmatched activity is investigated.",
+     "Break-glass accounts are sealed, monitored, and tested on a schedule so that their use is always exceptional and always noticed."
+    ]
+   },
+   "exceptions": "Standing privileged access beyond what this policy permits requires written approval from {{owner}} and the system owner, a compensating monitoring control, and review at least quarterly.",
+   "review": "This policy is reviewed {{review}}, and after any incident involving misuse or compromise of a privileged account.",
+   "evidence": [
+    "The current privileged account inventory",
+    "Quarterly privileged access review records",
+    "Multi-factor enrollment evidence for privileged accounts",
+    "Logs or recordings of privileged sessions for systems holding confidential data"
+   ]
+  },
+  {
+   "id": "network-security-policy",
+   "domain": "network-security",
+   "title": "Network Security and Segmentation Policy",
+   "summary": "How {{org}} controls what can reach what, so that one compromised host is not the whole estate.",
+   "purpose": "This policy governs how {{org}} designs, protects, and segments its networks so that access between systems is deliberate rather than incidental.",
+   "scope": "All networks {{org}} operates or configures, including cloud virtual networks, remote access, wireless, and any network segment holding confidential information.",
+   "roles": [
+    {
+     "role": "{{owner}}",
+     "responsibility": "Approves the segmentation model and reviews whether the rules in force still match it."
+    },
+    {
+     "role": "Network and cloud engineers",
+     "responsibility": "Implement and document network controls, and ensure every rule has a recorded business justification."
+    },
+    {
+     "role": "System owners",
+     "responsibility": "Declare what network access their systems genuinely require, rather than requesting broad access for convenience."
+    }
+   ],
+   "tiers": {
+    "ig1": [
+     "Traffic entering and leaving {{org}}'s networks is filtered, and the default posture is to deny what is not explicitly permitted.",
+     "Administrative interfaces are not reachable from the public internet without authenticated remote access.",
+     "Wireless networks require authentication, and guest wireless is separated from networks carrying {{org}}'s information.",
+     "Remote access to internal systems requires an encrypted channel and multi-factor authentication.",
+     "Network device configurations are backed up, and changes are recorded.",
+     "Every firewall or security group rule has a recorded owner and business justification."
+    ],
+    "ig2": [
+     "Systems holding confidential information sit in segments separated from general user networks.",
+     "Network rules are reviewed at least {{review}}, and rules that no longer have a justification are removed.",
+     "Traffic between segments is restricted to the specific ports and services required, rather than permitted broadly.",
+     "Systems that cannot be patched or hardened are isolated so that their exposure does not extend to the wider network.",
+     "Outbound traffic is restricted so that a compromised host cannot freely reach arbitrary destinations."
+    ],
+    "ig3": [
+     "Access between systems is authenticated and authorized per connection rather than granted by network location.",
+     "Segmentation effectiveness is tested at least {{review}}, not assumed from the configuration.",
+     "Network traffic within segments is monitored for lateral movement, not only at the perimeter.",
+     "Changes to network rules are reconciled against approved change records, and unmatched changes are investigated."
+    ]
+   },
+   "exceptions": "A network rule that departs from this policy requires written approval from {{owner}}, a documented reason, a compensating control, and an expiry date.",
+   "review": "This policy is reviewed {{review}}, and whenever {{org}} materially changes its hosting model or network architecture.",
+   "evidence": [
+    "The documented segmentation model",
+    "Current firewall and security group rules with justifications",
+    "The most recent network rule review",
+    "Results of any segmentation testing"
+   ]
+  },
+  {
+   "id": "endpoint-security-policy",
+   "domain": "endpoint",
+   "title": "Endpoint and Malware Defense Policy",
+   "summary": "Protecting the laptops, servers, and mobile devices where most compromises actually begin.",
+   "purpose": "This policy sets the protections required on devices that access {{org}}'s information, so that a single device compromise is detected and contained rather than becoming an entry point.",
+   "scope": "All laptops, desktops, servers, mobile devices, and virtual instances that access or hold {{org}}'s information, whether owned by {{org}} or by the individual.",
+   "roles": [
+    {
+     "role": "{{owner}}",
+     "responsibility": "Sets the endpoint protection standard and reviews coverage against the asset inventory."
+    },
+    {
+     "role": "IT operations",
+     "responsibility": "Deploys and maintains endpoint protection, and investigates devices that fall out of compliance."
+    },
+    {
+     "role": "Device users",
+     "responsibility": "Keep their devices updated, do not disable required protections, and report loss or suspected compromise immediately."
+    }
+   ],
+   "tiers": {
+    "ig1": [
+     "Anti-malware protection is deployed on all endpoints that support it, and is configured to update automatically.",
+     "Endpoint protection is enabled and cannot be disabled by a standard user.",
+     "Devices holding confidential information have full disk encryption enabled.",
+     "Devices lock automatically after a period of inactivity and require authentication to unlock.",
+     "Lost or stolen devices are reported immediately and can be remotely wiped where the platform supports it.",
+     "Endpoint protection coverage is checked against the asset inventory so that unprotected devices are found."
+    ],
+    "ig2": [
+     "Endpoint detection and response capability is deployed on endpoints holding or accessing confidential information.",
+     "Alerts from endpoint protection are routed to a person or team who is accountable for triaging them within a defined time.",
+     "Removable media use is restricted or controlled on devices holding confidential information.",
+     "Personally owned devices accessing {{org}}'s information meet a documented minimum standard before access is granted.",
+     "Devices that fall out of compliance lose access to confidential systems until they are remediated."
+    ],
+    "ig3": [
+     "Application control restricts endpoints to approved software rather than blocking known-bad software only.",
+     "Endpoint telemetry is retained centrally for a defined period sufficient to support investigation.",
+     "Detection coverage is validated against known techniques rather than assumed from vendor claims.",
+     "Time from endpoint alert to triage is measured and reported."
+    ]
+   },
+   "exceptions": "A device may operate without a required protection only with written approval from {{owner}}, a documented compensating control, and an expiry date.",
+   "review": "This policy is reviewed {{review}}, and whenever {{org}} adopts a materially different device platform.",
+   "evidence": [
+    "Endpoint protection coverage reconciled against the asset inventory",
+    "Encryption status for devices holding confidential data",
+    "Alert triage records showing time to response",
+    "Records of devices removed from access for non-compliance"
+   ]
+  },
+  {
+   "id": "secure-configuration-policy",
+   "domain": "secure-config",
+   "title": "Secure Configuration Policy",
+   "summary": "Systems start hardened and stay that way, rather than shipping with whatever the vendor left on.",
+   "purpose": "This policy requires that systems are configured securely before use and remain so, so that {{org}} is not exposed by defaults chosen for convenience rather than safety.",
+   "scope": "All operating systems, applications, network devices, cloud services, and container images {{org}} deploys or subscribes to.",
+   "roles": [
+    {
+     "role": "{{owner}}",
+     "responsibility": "Approves the configuration baselines and reviews evidence that systems conform to them."
+    },
+    {
+     "role": "System and platform owners",
+     "responsibility": "Apply the baseline to their systems and justify any documented deviation."
+    },
+    {
+     "role": "IT operations",
+     "responsibility": "Maintains the baselines against vendor and benchmark updates and reports drift."
+    }
+   ],
+   "tiers": {
+    "ig1": [
+     "{{org}} maintains documented secure configuration baselines for the platforms it operates.",
+     "Baselines are applied before a system is placed into service, not retrofitted afterwards.",
+     "Default accounts, sample content, and unnecessary services are removed or disabled during build.",
+     "Administrative interfaces and management ports are not exposed beyond what the system requires.",
+     "Configuration changes are recorded so that the current state of a system can be explained.",
+     "Baselines are based on a recognized benchmark where one exists for the platform."
+    ],
+    "ig2": [
+     "Conformance to baseline is checked automatically at least {{review}}, and drift is remediated or documented as an accepted deviation.",
+     "Baselines are reviewed against updated vendor guidance and benchmark releases at least {{review}}.",
+     "Cloud service configurations are covered by baselines to the same standard as operating systems.",
+     "Container and machine images are built from a controlled source and rebuilt rather than patched in place.",
+     "Deviations from baseline are recorded with an owner, a reason, and a review date."
+    ],
+    "ig3": [
+     "Configuration state is enforced automatically, so that drift is corrected rather than only reported.",
+     "Infrastructure is defined as code and changes flow through review, so that configuration has a reviewable history.",
+     "Baseline conformance is measured and reported as a percentage of the estate, not as a binary.",
+     "New platform types cannot enter production until a baseline exists for them."
+    ]
+   },
+   "exceptions": "A deviation from baseline requires written approval from {{owner}}, a documented reason and compensating control, and a review date no longer than one cycle away.",
+   "review": "This policy is reviewed {{review}}, and whenever {{org}} adopts a platform for which no baseline exists.",
+   "evidence": [
+    "The current configuration baselines and their source benchmarks",
+    "Conformance scan results for the review period",
+    "The register of approved deviations",
+    "Build records showing baseline applied before service"
+   ]
+  },
+  {
+   "id": "vulnerability-management-policy",
+   "domain": "vuln-mgmt",
+   "title": "Vulnerability and Patch Management Policy",
+   "summary": "Finding weaknesses on a schedule and fixing them within a deadline that matches their severity.",
+   "purpose": "This policy establishes how {{org}} identifies, prioritizes, and remediates technical vulnerabilities, so that exposure is closed on a timeline rather than when convenient.",
+   "scope": "All systems, applications, containers, and network devices {{org}} operates, and the third-party components within them.",
+   "roles": [
+    {
+     "role": "{{owner}}",
+     "responsibility": "Sets remediation deadlines by severity, reports on overdue items, and escalates unremediated critical exposure."
+    },
+    {
+     "role": "System owners",
+     "responsibility": "Remediate vulnerabilities in their systems within the required timeframe or obtain a documented exception."
+    },
+    {
+     "role": "IT operations",
+     "responsibility": "Runs scanning, maintains its coverage against the asset inventory, and distributes results to owners."
+    }
+   ],
+   "tiers": {
+    "ig1": [
+     "Security updates are applied to operating systems and applications on a defined schedule.",
+     "Critical vulnerabilities on internet-facing systems are remediated within a documented deadline.",
+     "{{org}} runs authenticated vulnerability scanning at least monthly against its systems.",
+     "Scanning coverage is reconciled against the asset inventory so that unscanned systems are visible.",
+     "Vulnerabilities are assigned to a named owner for remediation rather than reported to nobody in particular.",
+     "Systems that can no longer receive security updates are identified and either replaced or isolated."
+    ],
+    "ig2": [
+     "Remediation deadlines are defined per severity and per exposure, and performance against them is reported.",
+     "Third-party and open-source components are inventoried, and vulnerabilities in them are tracked to the same deadlines.",
+     "Vulnerabilities that cannot be remediated within the deadline require a documented exception with a compensating control.",
+     "Scanning includes authenticated checks of cloud service configuration, not only network-reachable services.",
+     "Remediation is verified by rescan rather than closed on assertion."
+    ],
+    "ig3": [
+     "Prioritization accounts for exploitability and business exposure, not severity score alone.",
+     "{{org}} can determine which systems run a given component within a defined time of a vulnerability being announced.",
+     "Penetration testing is performed at least {{review}} by a party independent of those who built the system.",
+     "Mean time to remediate is measured by severity and reported to leadership as a trend."
+    ]
+   },
+   "exceptions": "A vulnerability that cannot be remediated within its deadline requires written approval from {{owner}}, a compensating control, and a documented remediation date.",
+   "review": "This policy is reviewed {{review}}, and after any incident that exploited a known unremediated vulnerability.",
+   "evidence": [
+    "Scan results and coverage against the asset inventory",
+    "Remediation performance against deadlines by severity",
+    "The register of approved vulnerability exceptions",
+    "The most recent penetration test report and its remediation status"
+   ]
+  },
+  {
+   "id": "encryption-policy",
+   "domain": "crypto",
+   "title": "Encryption and Key Management Policy",
+   "summary": "Where encryption is required, which algorithms are acceptable, and how keys are looked after.",
+   "purpose": "This policy defines where {{org}} requires encryption, which cryptographic methods are approved, and how keys are generated, stored, rotated, and retired.",
+   "scope": "All {{org}} information in transit and at rest, and all cryptographic keys and certificates used to protect it.",
+   "roles": [
+    {
+     "role": "{{owner}}",
+     "responsibility": "Approves the list of acceptable algorithms and key lengths, and reviews it against current guidance."
+    },
+    {
+     "role": "System owners",
+     "responsibility": "Implement approved cryptography in their systems and record where keys are held."
+    },
+    {
+     "role": "IT operations",
+     "responsibility": "Manages the key and certificate lifecycle, including expiry monitoring and rotation."
+    }
+   ],
+   "tiers": {
+    "ig1": [
+     "Confidential information is encrypted in transit over any network {{org}} does not control.",
+     "Confidential information is encrypted at rest on portable devices and removable media.",
+     "{{org}} maintains a documented list of approved algorithms and minimum key lengths, and does not use deprecated algorithms.",
+     "Certificates and keys are inventoried with their expiry dates, and expiry is monitored so that services do not fail unexpectedly.",
+     "Private keys are never transmitted or stored in plaintext, including in source code or configuration files.",
+     "Encryption is enabled using platform-native capability rather than custom cryptographic implementations."
+    ],
+    "ig2": [
+     "Confidential information is encrypted at rest on servers and in cloud storage wherever the platform supports it.",
+     "Keys are stored in a managed key store separated from the data they protect, with access restricted and logged.",
+     "Keys have a defined lifetime and are rotated on schedule, and rotation is tested rather than assumed to work.",
+     "Internal traffic carrying confidential information is encrypted, not only traffic crossing the perimeter.",
+     "Compromise of a key triggers a documented response including re-encryption where required."
+    ],
+    "ig3": [
+     "Key management operations require dual control for keys protecting the most sensitive information.",
+     "{{org}} maintains an inventory of where cryptography is used sufficient to plan an algorithm migration.",
+     "Cryptographic configuration is validated by independent testing rather than by configuration review alone.",
+     "Key access is monitored, and use outside expected patterns is investigated."
+    ]
+   },
+   "exceptions": "Use of a non-approved algorithm or an unencrypted path for confidential information requires written approval from {{owner}}, a compensating control, and a documented remediation date.",
+   "review": "This policy is reviewed {{review}}, and whenever an algorithm in use is deprecated by recognized guidance.",
+   "evidence": [
+    "The approved algorithm and key length standard",
+    "The certificate and key inventory with expiry dates",
+    "Key rotation records",
+    "Encryption configuration for systems holding confidential data"
+   ]
+  },
+  {
+   "id": "logging-monitoring-policy",
+   "domain": "logging-detection",
+   "title": "Logging, Monitoring, and Detection Policy",
+   "summary": "Collecting the evidence needed to notice an incident and to reconstruct it afterwards.",
+   "purpose": "This policy establishes what {{org}} logs, how long it keeps logs, and how those logs are monitored, so that security events can be detected and investigated.",
+   "scope": "All systems, applications, and services {{org}} operates or subscribes to that process confidential information or control access to it.",
+   "roles": [
+    {
+     "role": "{{owner}}",
+     "responsibility": "Defines what must be logged, sets retention, and reviews whether detection coverage matches {{org}}'s risks."
+    },
+    {
+     "role": "System owners",
+     "responsibility": "Ensure their systems produce the required logs and forward them to the central store."
+    },
+    {
+     "role": "IT operations",
+     "responsibility": "Maintains log collection, monitors for gaps in ingestion, and preserves logs against alteration."
+    }
+   ],
+   "tiers": {
+    "ig1": [
+     "Authentication successes and failures, and administrative actions, are logged on systems holding confidential information.",
+     "Logs are retained for a documented minimum period sufficient to investigate an incident discovered late.",
+     "System clocks are synchronized to a common time source so that events across systems can be correlated.",
+     "Logs are stored so that the account generating an event cannot alter or delete the record of it.",
+     "A named individual is responsible for reviewing security-relevant events on a defined cadence.",
+     "Loss of logging from a system in scope is itself treated as an event to investigate."
+    ],
+    "ig2": [
+     "Logs from systems holding confidential information are forwarded to a central store separate from the systems that produce them.",
+     "Detection rules exist for the events {{org}} has decided matter, and each rule has a documented response.",
+     "Alerts are routed to a person or team accountable for triaging them within a defined time.",
+     "Log coverage is reconciled against the asset inventory so that systems silently not logging are found.",
+     "Retention meets the longest applicable regulatory or contractual obligation, not merely operational convenience."
+    ],
+    "ig3": [
+     "Detection coverage is mapped against a recognized adversary technique catalogue, and gaps are tracked.",
+     "Detection rules are tested by simulating the activity they are meant to catch.",
+     "Time from event to alert and from alert to triage is measured and reported.",
+     "Log integrity is verifiable, so that evidence would withstand challenge."
+    ]
+   },
+   "exceptions": "A system in scope that cannot produce required logs may operate only with written approval from {{owner}}, a compensating detective control, and a documented remediation date.",
+   "review": "This policy is reviewed {{review}}, and after any incident where insufficient logging hindered investigation.",
+   "evidence": [
+    "The logging standard stating what must be logged and for how long",
+    "Log coverage reconciled against the asset inventory",
+    "Detection rules and their documented responses",
+    "Alert triage records showing time to response"
+   ]
+  },
+  {
+   "id": "email-web-policy",
+   "domain": "email-web",
+   "title": "Email and Web Protection Policy",
+   "summary": "Hardening the two channels most attacks arrive through.",
+   "purpose": "This policy sets the protections required on {{org}}'s email and web access, which are the most common initial access paths for attackers.",
+   "scope": "All email sent or received using {{org}}'s domains, and all web access from {{org}}'s managed devices and networks.",
+   "roles": [
+    {
+     "role": "{{owner}}",
+     "responsibility": "Sets the required email and web protections and reviews their effectiveness against reported phishing."
+    },
+    {
+     "role": "IT operations",
+     "responsibility": "Configures and maintains mail authentication, filtering, and web protections."
+    },
+    {
+     "role": "All workers",
+     "responsibility": "Report suspected phishing through the provided mechanism rather than deleting it silently."
+    }
+   ],
+   "tiers": {
+    "ig1": [
+     "{{org}} publishes SPF, DKIM, and DMARC records for every domain it sends mail from.",
+     "Inbound mail is filtered for malicious content and known malicious senders.",
+     "Workers have a simple, always-available way to report a suspected phishing message.",
+     "Externally originated mail is visibly marked so recipients can tell it did not come from inside {{org}}.",
+     "Web access from managed devices is filtered against known malicious destinations.",
+     "Domains {{org}} owns but does not send mail from are configured so they cannot be used to send mail."
+    ],
+    "ig2": [
+     "DMARC is set to a policy that instructs receivers to reject or quarantine failures, not merely to report them.",
+     "Reported phishing is triaged within a defined time, and confirmed messages are removed from other recipients' mailboxes.",
+     "Attachments and links are analyzed before delivery or on click, rather than trusted on sender reputation alone.",
+     "Mail forwarding rules to external addresses are restricted or alerted on, since they are a common exfiltration path.",
+     "Web filtering categories are reviewed so that the block list reflects {{org}}'s actual risk rather than defaults."
+    ],
+    "ig3": [
+     "Phishing simulations are run at least {{review}}, and results drive targeted training rather than blame.",
+     "DMARC aggregate reports are monitored, so that abuse of {{org}}'s domains is detected.",
+     "Time from phishing report to removal from other mailboxes is measured and reported.",
+     "Detection exists for successful phishing, not only for attempted delivery."
+    ]
+   },
+   "exceptions": "A relaxation of these protections requires written approval from {{owner}}, a documented reason, and an expiry date no longer than one review cycle.",
+   "review": "This policy is reviewed {{review}}, and after any incident where email or web was the initial access path.",
+   "evidence": [
+    "SPF, DKIM, and DMARC records for all owned domains",
+    "The DMARC enforcement policy in effect",
+    "Phishing report triage times for the review period",
+    "Phishing simulation results and the training that followed"
+   ]
+  },
+  {
+   "id": "secure-development-policy",
+   "domain": "appsec",
+   "title": "Secure Development Policy",
+   "summary": "Building security into software {{org}} writes, rather than testing for it at the end.",
+   "purpose": "This policy establishes the security requirements for software {{org}} develops or substantially customizes, so that defects are prevented and found early rather than discovered in production.",
+   "scope": "All software {{org}} writes, commissions, or materially customizes, including internal tools, infrastructure code, and scripts that handle confidential information.",
+   "roles": [
+    {
+     "role": "{{owner}}",
+     "responsibility": "Sets secure development requirements, reviews findings from testing, and advises on risk acceptance for unremediated defects."
+    },
+    {
+     "role": "Engineering leads",
+     "responsibility": "Ensure their teams follow these requirements and that security findings are prioritized alongside functional work."
+    },
+    {
+     "role": "Developers",
+     "responsibility": "Write code to the standard, address findings in their own work, and never commit credentials to source control."
+    }
+   ],
+   "tiers": {
+    "ig1": [
+     "Source code is held in version control, and production changes are traceable to a commit and an author.",
+     "Credentials, keys, and tokens are never committed to source control, and repositories are scanned to enforce this.",
+     "Code changes are reviewed by someone other than the author before reaching production.",
+     "Third-party components are inventoried, and components with known vulnerabilities are updated.",
+     "Development and test environments do not use unmasked production data holding confidential information.",
+     "Developers receive secure development training relevant to the languages and platforms they use."
+    ],
+    "ig2": [
+     "Automated security testing runs in the build pipeline, covering both first-party code and dependencies.",
+     "Findings above a defined severity block release, rather than being logged for later.",
+     "Applications handling confidential information are threat modeled before significant architectural change.",
+     "A software bill of materials is produced for applications {{org}} ships or operates in production.",
+     "Security requirements are defined at the start of a project rather than assessed at the end."
+    ],
+    "ig3": [
+     "Applications handling confidential information are tested by an independent party at least {{review}}.",
+     "Build pipelines and artifact repositories are protected as production systems, since they can inject code into production.",
+     "Build provenance is recorded so that a deployed artifact can be traced to the source and process that produced it.",
+     "Defect escape rate and time to remediate are measured and reported."
+    ]
+   },
+   "exceptions": "Releasing with an unremediated finding above the blocking threshold requires written approval from {{owner}}, a documented compensating control, and a remediation date.",
+   "review": "This policy is reviewed {{review}}, and whenever {{org}} adopts a materially different development platform or delivery model.",
+   "evidence": [
+    "Branch protection and code review settings",
+    "Security testing results from the build pipeline",
+    "Dependency inventory and its vulnerability status",
+    "Independent application test reports and remediation status"
+   ]
+  },
+  {
+   "id": "backup-recovery-policy",
+   "domain": "backup",
+   "title": "Backup and Recovery Policy",
+   "summary": "Copies that survive the event that destroyed the original, and that are proven to restore.",
+   "purpose": "This policy establishes how {{org}} backs up its information and validates that it can be restored, so that recovery is a tested capability rather than an assumption.",
+   "scope": "All systems and information required to operate {{org}}, including data held in cloud services where the provider does not guarantee recovery to {{org}}'s requirements.",
+   "roles": [
+    {
+     "role": "{{owner}}",
+     "responsibility": "Sets backup and retention requirements based on recovery objectives and reviews restore test results."
+    },
+    {
+     "role": "System owners",
+     "responsibility": "Define the recovery point and recovery time objectives their system requires and confirm backups meet them."
+    },
+    {
+     "role": "IT operations",
+     "responsibility": "Runs backups, monitors for failures, and performs restore testing on schedule."
+    }
+   ],
+   "tiers": {
+    "ig1": [
+     "Systems and information required to operate {{org}} are backed up on a defined schedule.",
+     "At least one backup copy is held offline, off-site, or in an account separate from the systems it protects.",
+     "Backups of confidential information are encrypted.",
+     "Backup failures generate an alert to a named owner rather than failing silently.",
+     "A restore is tested at least {{review}}, and the test is recorded with its outcome.",
+     "Access to backups and to backup configuration is restricted to a small, documented set of accounts."
+    ],
+    "ig2": [
+     "Recovery point and recovery time objectives are documented per system and backup schedules are set to meet them.",
+     "Backup copies are protected against deletion or encryption by an attacker who has compromised production credentials.",
+     "Restore testing covers full system recovery, not only individual file restoration.",
+     "Data held in cloud services is backed up where the provider's native retention does not meet {{org}}'s objectives.",
+     "Backup retention meets the longest applicable regulatory or contractual obligation."
+    ],
+    "ig3": [
+     "Restore testing is performed against the documented recovery time objective, and shortfalls are treated as findings.",
+     "At least one backup copy is immutable for a defined period.",
+     "Recovery is exercised as part of incident response testing, using the backups that would actually be used.",
+     "Backup integrity is verified rather than inferred from job success."
+    ]
+   },
+   "exceptions": "A system operating without backups meeting this policy requires written approval from {{owner}}, an accepted recovery risk recorded in the risk register, and a review date.",
+   "review": "This policy is reviewed {{review}}, and whenever recovery objectives change or a restore test fails to meet them.",
+   "evidence": [
+    "Backup schedules and their coverage against critical systems",
+    "Restore test records with dates and outcomes",
+    "Evidence that a copy is isolated from production credentials",
+    "Documented recovery objectives per system"
+   ]
+  },
+  {
+   "id": "business-continuity-policy",
+   "domain": "continuity",
+   "title": "Business Continuity Policy",
+   "summary": "Keeping {{org}} running through disruption, and knowing in advance what has to come back first.",
+   "purpose": "This policy establishes how {{org}} prepares to continue operating through significant disruption, and how it decides what to restore first.",
+   "scope": "All business processes {{org}} depends on and the systems, people, facilities, and suppliers that support them.",
+   "roles": [
+    {
+     "role": "Executive leadership",
+     "responsibility": "Approves recovery priorities and the level of disruption {{org}} is prepared to accept."
+    },
+    {
+     "role": "{{owner}}",
+     "responsibility": "Maintains this policy and coordinates continuity planning and exercises across the business."
+    },
+    {
+     "role": "Process owners",
+     "responsibility": "Identify what their process requires to operate and document how it would run in degraded conditions."
+    }
+   ],
+   "tiers": {
+    "ig1": [
+     "{{org}} has identified the business processes it cannot operate without and the systems each one depends on.",
+     "Recovery priorities are documented and approved by leadership before an event, not decided during one.",
+     "Continuity and recovery plans record who does what, and are reachable when normal systems are unavailable.",
+     "Contact details for staff, key suppliers, and customers are maintained and accessible outside primary systems.",
+     "Plans state how the business would operate manually or in degraded mode where that is possible.",
+     "Plans are reviewed at least {{review}} and after any material change to the business."
+    ],
+    "ig2": [
+     "A business impact analysis is performed at least {{review}}, quantifying the impact of losing each critical process over time.",
+     "Recovery time and recovery point objectives are set per process from that analysis, and systems are provisioned to meet them.",
+     "Continuity plans are exercised at least {{review}}, and findings are tracked to closure.",
+     "Dependencies on single suppliers or single locations for critical processes are documented and escalated to leadership.",
+     "Plans cover loss of key personnel, not only loss of systems or facilities."
+    ],
+    "ig3": [
+     "Exercises include scenarios where the primary recovery option is unavailable.",
+     "Achieved recovery times from exercises are compared to objectives, and shortfalls are treated as findings.",
+     "Continuity arrangements with critical suppliers are validated rather than accepted on assertion.",
+     "Continuity requirements are considered before adopting a new critical system or supplier."
+    ]
+   },
+   "exceptions": "Operating a critical process without a documented continuity plan requires written approval from leadership, an accepted risk recorded in the risk register, and a date by which a plan will exist.",
+   "review": "This policy is reviewed {{review}}, after any significant disruption, and after any exercise that identifies a material gap.",
+   "evidence": [
+    "The list of critical processes and their dependencies",
+    "The most recent business impact analysis",
+    "Exercise records and the findings they produced",
+    "Documented recovery objectives approved by leadership"
+   ]
+  },
+  {
+   "id": "security-awareness-policy",
+   "domain": "awareness",
+   "title": "Security Awareness and Training Policy",
+   "summary": "Making sure people know what is expected of them, in terms relevant to their actual job.",
+   "purpose": "This policy establishes the security training {{org}} provides, so that workers understand the risks relevant to their role and what they are expected to do about them.",
+   "scope": "All workers and contractors with access to {{org}}'s information or systems, including those in roles with elevated privileges or specialized responsibilities.",
+   "roles": [
+    {
+     "role": "{{owner}}",
+     "responsibility": "Defines the training programme, keeps content current with the threats {{org}} actually faces, and reports completion."
+    },
+    {
+     "role": "People operations",
+     "responsibility": "Enrolls new joiners before or on their start date and tracks completion as a condition of continued access."
+    },
+    {
+     "role": "Managers",
+     "responsibility": "Ensure their teams complete required training and reinforce expectations in day-to-day work."
+    }
+   ],
+   "tiers": {
+    "ig1": [
+     "Every worker completes security awareness training on joining and at least {{review}} thereafter.",
+     "Training covers how to recognize and report phishing, how to handle confidential information, and how to report an incident.",
+     "Completion is tracked, and non-completion is escalated rather than ignored.",
+     "Workers are told which behaviours are prohibited and what the consequences of violation are.",
+     "Training content is reviewed at least {{review}} so that it reflects current threats rather than last decade's.",
+     "New joiners acknowledge {{org}}'s security policies as part of onboarding."
+    ],
+    "ig2": [
+     "Roles with elevated risk receive additional training specific to their responsibilities, such as developers and administrators.",
+     "Phishing simulation results inform who receives targeted follow-up training.",
+     "Training includes {{org}}'s own incident reporting route and named contacts, not generic advice.",
+     "Workers handling regulated information receive training on the specific obligations that attach to it.",
+     "Awareness activity happens between annual training, rather than only once a year."
+    ],
+    "ig3": [
+     "Training effectiveness is measured through behaviour, such as reporting rates and simulation outcomes, not completion alone.",
+     "Leadership and those with authority to approve payments or access receive training on the attacks that target them specifically.",
+     "Security expectations are included in role descriptions and performance conversations for roles with security responsibilities.",
+     "The programme is adjusted based on the incidents and near misses {{org}} actually experiences."
+    ]
+   },
+   "exceptions": "A worker may retain access without current training only with written approval from {{owner}}, for a stated period, and with a completion date.",
+   "review": "This policy is reviewed {{review}}, and after any incident where a lack of awareness was a contributing factor.",
+   "evidence": [
+    "Training completion records for the review period",
+    "The current training content and its last review date",
+    "Phishing simulation results and follow-up training records",
+    "Onboarding records showing policy acknowledgement"
+   ]
+  },
+  {
+   "id": "physical-security-policy",
+   "domain": "physical",
+   "title": "Physical and Environmental Security Policy",
+   "summary": "Controlling who can physically reach systems and information, and protecting them from their environment.",
+   "purpose": "This policy establishes how {{org}} restricts physical access to its facilities, systems, and information, and protects them from environmental hazards.",
+   "scope": "All facilities {{org}} occupies, any equipment holding {{org}}'s information wherever it is located, and the working environments of remote workers to the extent {{org}} can set requirements.",
+   "roles": [
+    {
+     "role": "{{owner}}",
+     "responsibility": "Sets physical security requirements for areas holding confidential information and reviews access records."
+    },
+    {
+     "role": "Facilities or office management",
+     "responsibility": "Administers physical access, maintains visitor records, and reports anomalies."
+    },
+    {
+     "role": "All workers",
+     "responsibility": "Do not admit unbadged individuals, secure their workspace, and protect equipment when working outside {{org}}'s facilities."
+    }
+   ],
+   "tiers": {
+    "ig1": [
+     "Physical access to areas holding systems or confidential information is restricted to authorized individuals.",
+     "Visitors to areas holding confidential information are recorded and accompanied.",
+     "Physical access is revoked on the same schedule as system access when a worker leaves.",
+     "Confidential information on paper is secured when unattended and disposed of by shredding or a secure disposal service.",
+     "Devices are not left unattended in public places, and screens are locked when the user steps away.",
+     "Equipment holding confidential information is protected from obvious environmental risks such as water and heat."
+    ],
+    "ig2": [
+     "Physical access rights are reviewed at least {{review}}, and access that is no longer required is removed.",
+     "Physical access to areas holding confidential information is logged, and logs are retained for a defined period.",
+     "Deliveries and loading areas are separated from areas holding systems and confidential information.",
+     "Requirements for remote and home working are documented, covering how equipment and information are protected outside {{org}}'s facilities.",
+     "Server and network equipment areas have environmental protection appropriate to the value of what they hold."
+    ],
+    "ig3": [
+     "Physical access logs are reviewed against expected activity, and anomalies are investigated.",
+     "Physical access controls to critical areas are tested rather than assumed effective.",
+     "Environmental monitoring alerts on conditions that threaten equipment before failure occurs.",
+     "Facilities holding the most sensitive information require more than one factor for physical entry."
+    ]
+   },
+   "exceptions": "Physical access arrangements departing from this policy require written approval from {{owner}}, a documented compensating control, and a review date.",
+   "review": "This policy is reviewed {{review}}, and whenever {{org}} changes premises or materially changes its remote working model.",
+   "evidence": [
+    "Physical access authorization lists for restricted areas",
+    "Visitor records for the review period",
+    "The most recent physical access review",
+    "Secure disposal records for paper holding confidential information"
+   ]
+  },
+  {
+   "id": "threat-intelligence-policy",
+   "domain": "threat-intel",
+   "title": "Threat Intelligence and Vulnerability Disclosure Policy",
+   "summary": "Staying informed about what is being exploited, and giving outsiders a way to tell {{org}} about a flaw.",
+   "purpose": "This policy establishes how {{org}} keeps informed about threats relevant to it, and how it receives and handles vulnerability reports from outside the organization.",
+   "scope": "Threat information relevant to {{org}}'s technologies, sector, and geography, and all security reports received from external parties including researchers and customers.",
+   "roles": [
+    {
+     "role": "{{owner}}",
+     "responsibility": "Monitors relevant threat sources, decides what warrants action, and owns the disclosure process."
+    },
+    {
+     "role": "IT and engineering",
+     "responsibility": "Act on advisories affecting technologies {{org}} operates within the timeframe the risk warrants."
+    },
+    {
+     "role": "Communications or legal",
+     "responsibility": "Advise on external response where a report becomes public or involves customer information."
+    }
+   ],
+   "tiers": {
+    "ig1": [
+     "{{org}} subscribes to vendor and authoritative advisories for the technologies it operates.",
+     "A named individual reviews advisories on a defined cadence and decides whether action is required.",
+     "{{org}} publishes a way for outsiders to report a suspected vulnerability, and that route is monitored.",
+     "Reports received from outside are acknowledged within a stated timeframe.",
+     "Advisories that require action are tracked to completion rather than read and forgotten.",
+     "{{org}} monitors for public reporting of compromise affecting its suppliers."
+    ],
+    "ig2": [
+     "Threat information is filtered to what is relevant to {{org}}'s actual technologies and sector, rather than consumed indiscriminately.",
+     "A published disclosure policy states what {{org}} commits to, including response timeframes and its position on good-faith research.",
+     "Externally reported vulnerabilities enter the same remediation process and deadlines as internally found ones.",
+     "Threat information informs detection rules and control priorities rather than being read in isolation.",
+     "{{org}} monitors for exposure of its own credentials and data in public breach corpora."
+    ],
+    "ig3": [
+     "Threat intelligence is mapped to {{org}}'s detection coverage, so that relevant gaps become work.",
+     "{{org}} participates in a sector or peer information sharing arrangement.",
+     "Response to externally reported vulnerabilities is measured against published commitments.",
+     "Intelligence about attacks on similar organizations drives exercise scenarios."
+    ]
+   },
+   "exceptions": "Deviation from published disclosure commitments requires written approval from {{owner}} and, where the report involves customer information, from legal counsel.",
+   "review": "This policy is reviewed {{review}}, and after any externally reported vulnerability that was not handled within the published timeframe.",
+   "evidence": [
+    "The published vulnerability disclosure route and policy",
+    "Records of advisories reviewed and actions taken",
+    "External vulnerability reports with acknowledgement and resolution times",
+    "Evidence that threat information influenced detection or control priorities"
+   ]
+  },
+  {
+   "id": "change-management-policy",
+   "domain": "change-mgmt",
+   "title": "Change Management Policy",
+   "summary": "Changes are reviewed, recorded, and reversible, so that outages and weaknesses are not self-inflicted.",
+   "purpose": "This policy establishes how changes to {{org}}'s systems are proposed, reviewed, approved, and recorded, so that change does not silently introduce risk or unavailability.",
+   "scope": "All changes to production systems, network and security configuration, access rights, and the pipelines that deploy them.",
+   "roles": [
+    {
+     "role": "{{owner}}",
+     "responsibility": "Ensures security implications are considered in change review and that emergency changes are reviewed afterwards."
+    },
+    {
+     "role": "Change approvers",
+     "responsibility": "Assess proposed changes for risk and impact, and approve or reject them before implementation."
+    },
+    {
+     "role": "Change implementers",
+     "responsibility": "Implement only approved changes, record what was done, and execute the rollback if the change fails."
+    }
+   ],
+   "tiers": {
+    "ig1": [
+     "Changes to production systems are recorded, including what changed, when, by whom, and why.",
+     "Changes are approved by someone other than the person implementing them before they reach production.",
+     "Changes carry a rollback plan, or a documented reason why rollback is not possible.",
+     "Emergency changes may bypass advance approval but are recorded and reviewed afterwards.",
+     "Changes to security controls, including firewall rules and access rights, follow this process.",
+     "Failed changes are recorded with their impact so that repeated failure modes become visible."
+    ],
+    "ig2": [
+     "Change records are retained and can be reconciled against what actually changed in the environment.",
+     "Security review is required for changes affecting systems holding confidential information or controls that protect them.",
+     "Changes are tested in a non-production environment before production where the change type allows it.",
+     "Standard, low-risk changes are pre-approved through a documented definition rather than reviewed individually.",
+     "Emergency change volume is monitored, since a high rate usually indicates a process problem rather than genuine emergencies."
+    ],
+    "ig3": [
+     "Detected configuration changes are reconciled against approved change records, and unmatched changes are investigated.",
+     "Change success and failure rates are measured and reported.",
+     "Automated controls prevent unapproved changes to critical production configuration.",
+     "Post-implementation review is required for changes above a defined risk threshold."
+    ]
+   },
+   "exceptions": "A change implemented outside this process requires retrospective approval from {{owner}} within a defined period, with the reason recorded.",
+   "review": "This policy is reviewed {{review}}, and after any incident caused by an unmanaged or unreviewed change.",
+   "evidence": [
+    "Change records for the review period, with approvals",
+    "Emergency change records and their retrospective reviews",
+    "Evidence of reconciliation between detected and approved changes",
+    "The definition of pre-approved standard changes"
+   ]
+  },
+  {
+   "id": "personnel-security-policy",
+   "domain": "personnel",
+   "title": "Personnel Security Policy",
+   "summary": "Security obligations across the employment lifecycle, from screening to the day someone leaves.",
+   "purpose": "This policy establishes the security requirements that apply to workers before, during, and after their engagement with {{org}}.",
+   "scope": "All employees, contractors, and temporary workers, and any third-party personnel granted access to {{org}}'s information or systems.",
+   "roles": [
+    {
+     "role": "People operations",
+     "responsibility": "Runs screening, ensures agreements are signed, and notifies system owners of joiners, movers, and leavers in time to act."
+    },
+    {
+     "role": "{{owner}}",
+     "responsibility": "Defines screening requirements proportionate to role risk and confirms access removal on departure."
+    },
+    {
+     "role": "Managers",
+     "responsibility": "Confirm what access their reports require, and initiate the leaver process promptly including for involuntary departures."
+    }
+   ],
+   "tiers": {
+    "ig1": [
+     "Workers accept written confidentiality obligations before being granted access to confidential information.",
+     "Workers acknowledge {{org}}'s security policies on joining.",
+     "A documented leaver process removes system access, recovers equipment, and revokes physical access.",
+     "Managers notify people operations and IT of departures with enough notice for access to be removed on the final day.",
+     "Involuntary departures trigger immediate access removal, coordinated with the departure itself.",
+     "Confidentiality obligations continue after the engagement ends, and workers are reminded of this on departure."
+    ],
+    "ig2": [
+     "Background screening proportionate to role risk is completed before access to confidential information is granted.",
+     "Role changes trigger an access review, so that permissions accumulated in a previous role are removed.",
+     "Contractors and third-party personnel are subject to equivalent requirements, evidenced through their employer where {{org}} does not screen directly.",
+     "Security responsibilities are stated in role descriptions for roles that carry them.",
+     "Departure checklists are completed and retained, rather than assumed done."
+    ],
+    "ig3": [
+     "Screening for roles with the highest access is repeated on a defined cycle rather than only at hire.",
+     "Access removal on departure is verified against the account inventory rather than assumed from the checklist.",
+     "Departures of workers with privileged access trigger a review of their recent activity.",
+     "Time from departure to complete access removal is measured and reported."
+    ]
+   },
+   "exceptions": "Granting access before screening or agreements are complete requires written approval from {{owner}}, a documented reason, and a completion date.",
+   "review": "This policy is reviewed {{review}}, and whenever {{org}} materially changes how it engages workers.",
+   "evidence": [
+    "Signed confidentiality agreements and policy acknowledgements",
+    "Screening records appropriate to role risk",
+    "Completed leaver checklists with access removal timing",
+    "Evidence of access review following role changes"
+   ]
+  },
+  {
+   "id": "compliance-audit-policy",
+   "domain": "compliance-audit",
+   "title": "Compliance and Audit Policy",
+   "summary": "Knowing which obligations apply, and checking that {{org}} actually meets them.",
+   "purpose": "This policy establishes how {{org}} identifies the legal, regulatory, and contractual obligations that apply to it, and how it verifies that its controls satisfy them.",
+   "scope": "All legal, regulatory, contractual, and certification obligations relating to information security and privacy that apply to {{org}}.",
+   "roles": [
+    {
+     "role": "Executive leadership",
+     "responsibility": "Accepts accountability for compliance and provides the resource needed to meet identified obligations."
+    },
+    {
+     "role": "{{owner}}",
+     "responsibility": "Maintains the register of obligations, coordinates assessment against them, and reports findings and status."
+    },
+    {
+     "role": "Legal or contract owners",
+     "responsibility": "Identify obligations arising from law and from customer contracts and communicate them to {{owner}}."
+    }
+   ],
+   "tiers": {
+    "ig1": [
+     "{{org}} maintains a register of the security and privacy obligations that apply to it, with a named owner for each.",
+     "The register records which framework or regulation each obligation comes from, so that requirements can be traced to a source.",
+     "Obligations arising from customer contracts are captured, not only those arising from law.",
+     "{{org}} performs a documented self-assessment against its primary framework at least {{review}}.",
+     "Findings from assessments are assigned an owner and a remediation date.",
+     "The register is reviewed at least {{review}} so that new obligations are caught."
+    ],
+    "ig2": [
+     "Assessment covers control effectiveness and not only control existence.",
+     "Findings are tracked to closure, and closure is evidenced rather than asserted.",
+     "Overdue findings are escalated to leadership on a defined cadence.",
+     "{{org}} retains the evidence an assessor would request, organized so it can be produced without a fire drill.",
+     "Changes in regulation affecting {{org}} are monitored, and their impact assessed within a defined period."
+    ],
+    "ig3": [
+     "An independent party assesses {{org}}'s controls at least {{review}}, and reports without filtering through the assessed function.",
+     "Control effectiveness is measured continuously where possible, rather than only at assessment time.",
+     "Compliance status is reported to leadership with trends, not only point-in-time results.",
+     "Evidence collection is automated where the control produces machine-readable output."
+    ]
+   },
+   "exceptions": "Accepting a known gap against an identified obligation requires written approval from executive leadership, recording in the risk register, and a review date.",
+   "review": "This policy is reviewed {{review}}, and whenever {{org}} becomes subject to a new regulation, certification, or material customer obligation.",
+   "evidence": [
+    "The register of applicable obligations with owners",
+    "The most recent self-assessment against the primary framework",
+    "The findings register with owners, dates, and closure evidence",
+    "Independent assessment reports where applicable"
    ]
   }
  ]

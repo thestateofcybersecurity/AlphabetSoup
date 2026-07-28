@@ -1,6 +1,9 @@
 import { describe, expect, it } from 'vitest';
 import catalog from '../src/data/policies.json';
 import crosswalk from '../src/data/crosswalk.json';
+import hipaa from '../src/data/hipaa-security.json';
+import csf from '../src/data/nist-csf.json';
+import cis from '../src/data/cis.json';
 
 /**
  * The policy catalog is the text the generator emits, so its integrity matters
@@ -138,10 +141,29 @@ describe('framework coverage claims', () => {
     }
   });
 
-  it('covers the domains a first tranche should cover', () => {
-    // Deliberate scope of this PR, so a later change that drops one is visible.
-    expect(policies.map((p) => p.domain).sort()).toEqual(
-      ['data-protection', 'governance', 'iam', 'incident-response', 'third-party'].sort(),
-    );
+  it('covers every control domain exactly once', () => {
+    // The catalog is complete: each of the crosswalk's 24 domains has one
+    // policy, so coverage can be computed without gaps or double counting.
+    const all = (crosswalk.controls as { id: string }[]).map((c) => c.id).sort();
+    expect(policies.map((p) => p.domain).sort()).toEqual(all);
+  });
+
+  it('does not let full domain coverage be read as full framework coverage', () => {
+    // The catalog reaches every control the crosswalk maps, but the crosswalk
+    // does not map every control in every framework: CSF maps 99 of its 106
+    // subcategories and CIS 141 of 153. A tool that rendered this as "100% NIST
+    // CSF" would be telling a user something untrue about their audit posture,
+    // so the denominators are pinned here.
+    const frameworkSizes: Record<string, number> = {
+      csf: Object.keys(csf as Record<string, unknown>).length,
+      cis: Object.keys(cis as Record<string, unknown>).length,
+      hipaa: (hipaa.standards as unknown[]).length,
+    };
+    for (const [id, size] of Object.entries(frameworkSizes)) {
+      const fw = (crosswalk.frameworks as { id: string; total: number }[]).find((f) => f.id === id)!;
+      expect(fw.total, `${id}: crosswalk should not claim to map the whole framework`).toBeLessThan(
+        size,
+      );
+    }
   });
 });
