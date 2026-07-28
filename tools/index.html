@@ -55,6 +55,9 @@
       text-transform: uppercase; color: var(--ink-soft); border: 1.5px solid var(--line);
       border-radius: 999px; padding: 5px 12px;
     }
+    .sc-more { max-width: 720px; margin: 34px auto 0; border-top: 2px solid var(--ink); padding-top: 20px; }
+    .sc-more h2 { font-family: var(--font-mono); font-size: 0.72rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--tomato-deep); margin: 0 0 6px; }
+    .sc-more > p { font-size: 0.92rem; color: var(--ink-soft); margin: 0 0 10px; line-height: 1.6; }
     .sc-method { max-width: 720px; margin: 0 auto 28px; font-size: 0.85rem; color: var(--ink-soft); line-height: 1.6; text-align: center; }
   </style>
 </head>
@@ -74,6 +77,18 @@
     <p class="sc-intro">Every card below is a pattern from live postings for manager through SVP and CISO seats: what the demand is in plain English, how job descriptions phrase it, why organizations pay for it, and the tool a leader would actually use in the first ninety days. Tools marked live run right here, free, with nothing uploaded.</p>
     <div class="sc-list" id="cards"></div>
     <p class="sc-method" id="methodology-text"></p>
+
+    <section class="sc-more" aria-labelledby="more-tools-h">
+      <h2 id="more-tools-h">Also here</h2>
+      <p>Tools that support the work above without mapping to a single demand.</p>
+      <div class="sc-tool live">
+        <p class="sc-tool-kicker">the on-the-job tool</p>
+        <p class="sc-tool-name">Security Policy Generator</p>
+        <p class="sc-tool-pitch">A complete policy set tailored to your organization and tiered by CIS Implementation Group, with each policy mapped to NIST CSF, ISO 27001, SOC 2, CIS Controls, PCI DSS, 800-171, and HIPAA.</p>
+        <p class="sc-tool-day1">Day one: generate the set, adopt what fits, and hand an assessor a scope statement that explains what you excluded and why.</p>
+        <a class="sc-tool-cta" href="policy-generator/">Open the tool &rarr;</a>
+      </div>
+    </section>
   </main>
 
   <footer class="colophon">
