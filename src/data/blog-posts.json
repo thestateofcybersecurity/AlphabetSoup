@@ -1062,5 +1062,131 @@
         "href": "/tools/skills-matrix/"
       }
     ]
+  },
+  {
+    "slug": "iam-vs-pam-vs-ciem",
+    "title": "IAM vs PAM vs CIEM: Sorting Out the Identity Acronyms",
+    "description": "IAM, PAM, and CIEM all govern who can do what, but they solve different problems. Here is what each one covers and which gap to close first.",
+    "category": "Spotlight",
+    "author": "Parker Brissette",
+    "date": "2026-07-28",
+    "readingMinutes": 5,
+    "tags": [
+      "iam",
+      "pam",
+      "ciem",
+      "identity",
+      "least privilege"
+    ],
+    "body": [
+      {
+        "type": "p",
+        "text": "Three acronyms show up in nearly every identity conversation, and they get swapped for one another far more often than they should. [IAM](/?q=IAM), [PAM](/?q=PAM), and [CIEM](/?q=CIEM) all deal with who can do what, but they solve different problems, they were built in different eras, and they fail in different ways. Buying the wrong one first is a common and expensive mistake. Here is what each actually governs, where the boundaries blur, and how to work out which gap you are really trying to close."
+      },
+      {
+        "type": "h2",
+        "text": "IAM is the front door for everyone"
+      },
+      {
+        "type": "p",
+        "text": "Identity and access management is the broadest of the three. It answers two questions for your entire user population: who is this, and what are they allowed to reach. In practice it covers the identity lifecycle from the day somebody is hired to the day their access is revoked, plus authentication and the authorization decisions layered on top of it."
+      },
+      {
+        "type": "p",
+        "text": "A working IAM program usually includes a directory that acts as the source of truth, [SSO](/?q=SSO) so people authenticate once instead of to forty applications, [MFA](/?q=MFA) enforced as broadly as the environment allows, automated provisioning and deprovisioning (often through [SCIM](/?q=SCIM)), and a permission model such as [RBAC](/?q=RBAC) or [ABAC](/?q=ABAC). Governance functions, sometimes split out under the label [IGA](/?q=IGA), add access reviews and certification on top of all that."
+      },
+      {
+        "type": "p",
+        "text": "The characteristic IAM failure is drift. Access accumulates as people change teams, nobody removes what they no longer need, and the permission set slowly stops describing what anyone actually does."
+      },
+      {
+        "type": "h2",
+        "text": "PAM is the vault for accounts that can hurt you"
+      },
+      {
+        "type": "p",
+        "text": "Privileged access management narrows the focus to a small population with outsized power: domain admins, root accounts, service accounts, database owners, break-glass credentials. These are the accounts an attacker actually wants, and ordinary IAM controls are not enough for them."
+      },
+      {
+        "type": "p",
+        "text": "PAM tooling typically provides credential vaulting so no individual knows the real password, session brokering and recording so privileged activity is observable after the fact, [JIT](/?q=JIT) elevation that replaces standing admin rights with time-bound grants, and approval workflows in front of the most sensitive operations. Microsoft [PIM](/?q=PIM) is the version most teams meet first, because it comes with the platform they already run."
+      },
+      {
+        "type": "quote",
+        "text": "IAM decides whether you get into the building. PAM decides whether you get the keys to the server room, and for how long."
+      },
+      {
+        "type": "h2",
+        "text": "CIEM exists because cloud permissions outgrew people"
+      },
+      {
+        "type": "p",
+        "text": "Cloud infrastructure entitlement management is the newest of the three, and it exists because cloud permission models broke the assumptions the other two were built on. In a traditional network, permissions attached to employees and a manageable number of servers. In a cloud account, they attach to people, roles, functions, containers, pipelines, and machine identities that get created and destroyed constantly. A single provider exposes thousands of distinct actions, and permissions chain: a role that can modify another role can effectively grant itself anything."
+      },
+      {
+        "type": "p",
+        "text": "CIEM tools inventory every identity across your cloud environments, human and non-human, compare the permissions granted against the permissions actually used, and surface the gap between them. The output is a right-sizing exercise, trimming entitlements toward [least privilege](/?q=POLP) based on observed behavior rather than guesswork. Effective permissions analysis, meaning what an identity can truly reach once every policy layer resolves, is the part no spreadsheet has ever handled well."
+      },
+      {
+        "type": "p",
+        "text": "Machine identities are usually the real story. Most cloud environments contain far more non-human identities than employees, and nobody offboards a service account when the project it supported quietly gets shut down."
+      },
+      {
+        "type": "h2",
+        "text": "Where they overlap and where teams get it wrong"
+      },
+      {
+        "type": "p",
+        "text": "The three categories are not cleanly separated, and vendors happily blur the lines further. A few patterns come up repeatedly:"
+      },
+      {
+        "type": "list",
+        "items": [
+          "**Cloud admins belong to all three.** Your cloud console administrators are employees (IAM), hold a privileged role (PAM), and their entitlements live in the cloud (CIEM). Every tool you buy will claim them. Decide which system is authoritative before you add the second one.",
+          "**Buying CIEM to fix an IAM problem.** If joiners and leavers are still handled over email and nobody has ever run an access review, a CIEM dashboard will hand you a very long list and no process capable of acting on it.",
+          "**Treating PAM as a vault and stopping.** Vaulting credentials without removing standing privilege leaves most of the risk in place. The elevation model is where the value actually sits.",
+          "**Ignoring non-human identities.** Service accounts, pipeline tokens, and workload identities rarely have an owner, an expiry date, or a review cycle, which is why they turn up so often in cloud incident writeups.",
+          "**Assuming native tooling covers it.** Cloud provider features are a reasonable starting point inside one provider and noticeably weaker once you operate across several."
+        ]
+      },
+      {
+        "type": "h2",
+        "text": "A sane order of operations"
+      },
+      {
+        "type": "p",
+        "text": "If you are building from close to nothing, the sequence matters more than the tooling. Get the identity fundamentals working first: one authoritative directory, single sign-on, multi-factor authentication everywhere it can be enforced, and a joiner-mover-leaver process somebody actually owns. That is IAM, and every other control assumes it is in place."
+      },
+      {
+        "type": "p",
+        "text": "Next, deal with standing privilege. Find every account carrying administrative rights, cut the count down, and put time-bound elevation in front of whatever survives. You can make real progress here using features already included with your identity platform, well before a dedicated PAM purchase."
+      },
+      {
+        "type": "p",
+        "text": "Then take on cloud entitlements, assuming your cloud footprint justifies it. Start by defining what good looks like in your environments rather than by shopping. Our [cloud security baseline generator](/tools/cloud-baseline/) produces a starting control set you can measure against, and the identity controls in it line up directly with the work a CIEM tool would put in front of you."
+      },
+      {
+        "type": "p",
+        "text": "The acronyms matter less than the question sitting underneath all three: which identities in your environment can do more than they need to, and how would you find out. IAM answers that for your workforce, PAM for your administrators, and CIEM for the sprawling machine population in your cloud accounts. Most organizations need all three eventually. Very few need to buy them at once, and knowing which gap is actually bleeding is worth more than any vendor comparison chart."
+      }
+    ],
+    "related": [
+      {
+        "label": "IAM in the glossary",
+        "href": "/?q=IAM"
+      },
+      {
+        "label": "PAM in the glossary",
+        "href": "/?q=PAM"
+      },
+      {
+        "label": "CIEM in the glossary",
+        "href": "/?q=CIEM"
+      },
+      {
+        "label": "Cloud Security Baseline Generator",
+        "href": "/tools/cloud-baseline/"
+      }
+    ]
   }
 ]
