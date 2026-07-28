@@ -1,0 +1,246 @@
+{
+ "meta": {
+  "name": "Policy catalog",
+  "note": "Original policy text written for this site. Tiers follow CIS Implementation Groups and are additive: an IG2 policy includes every IG1 statement, and IG3 includes both. Placeholders in {{braces}} are substituted from the organization profile.",
+  "tiers": [
+   { "id": "ig1", "name": "IG1", "blurb": "Essential cyber hygiene. The floor every organization should reach, achievable without a dedicated security team." },
+   { "id": "ig2", "name": "IG2", "blurb": "Adds the practices an organization needs once it has staff dedicated to security and regulated or sensitive data." },
+   { "id": "ig3", "name": "IG3", "blurb": "Adds the practices expected where a breach would be material: formal assurance, independent testing, and measured effectiveness." }
+  ],
+  "placeholders": [
+   { "token": "{{org}}", "from": "profile.orgName", "fallback": "the organization" },
+   { "token": "{{owner}}", "from": "profile.policyOwner", "fallback": "the security lead" },
+   { "token": "{{review}}", "from": "profile.reviewCadence", "fallback": "annually" }
+  ]
+ },
+ "policies": [
+  {
+   "id": "information-security-policy",
+   "domain": "governance",
+   "title": "Information Security Policy",
+   "summary": "The parent policy. States that {{org}} runs a security program, who owns it, and what everyone is accountable for.",
+   "purpose": "This policy establishes {{org}}'s commitment to protecting the confidentiality, integrity, and availability of the information and systems it depends on. It sets the authority under which every other security policy is issued.",
+   "scope": "All workers, contractors, and third parties acting on behalf of {{org}}, and all information and systems {{org}} owns or operates, regardless of location or ownership of the device.",
+   "roles": [
+    { "role": "Executive leadership", "responsibility": "Approves this policy, accepts residual risk on behalf of {{org}}, and provides the funding and authority the program needs to function." },
+    { "role": "{{owner}}", "responsibility": "Owns the security program, maintains this and subordinate policies, and reports posture and material risks to leadership." },
+    { "role": "System and data owners", "responsibility": "Classify the information they are accountable for and ensure the controls required by this policy are implemented in their systems." },
+    { "role": "All workers", "responsibility": "Follow these policies, complete required training, and report suspected security issues promptly." }
+   ],
+   "tiers": {
+    "ig1": [
+     "{{org}} maintains a documented information security program, approved by executive leadership and reviewed at least {{review}}.",
+     "A named individual, {{owner}}, is formally accountable for the security program. The role is documented and the appointment is current.",
+     "This policy and its subordinate policies are published where all workers can reach them, and workers are told when a material change is made.",
+     "Every worker acknowledges these policies on hire and again {{review}}.",
+     "{{org}} maintains an inventory of the systems and information it depends on, sufficient to know what the program is protecting.",
+     "Security risks that leadership chooses not to remediate are recorded, with the reason, the accepting executive, and a review date.",
+     "Suspected security issues can be reported by any worker through a documented channel, without fear of reprisal.",
+     "Violations of this policy are handled through {{org}}'s normal disciplinary process."
+    ],
+    "ig2": [
+     "{{org}} maintains a risk register covering its material information security risks, each with an owner, a treatment decision, and a review date.",
+     "Risk assessments are performed at least {{review}} and on significant change to systems, suppliers, or the regulatory environment.",
+     "Security objectives are documented and progress against them is reported to leadership at least quarterly.",
+     "Subordinate policies name a single accountable owner and carry a review date.",
+     "Roles with security responsibilities are defined in writing, including segregation between those who request access and those who grant it."
+    ],
+    "ig3": [
+     "The security program is assessed against a named external framework at least {{review}}, and findings are tracked to closure.",
+     "An independent party reviews the program's effectiveness at least {{review}}, and the results go to leadership without filtering.",
+     "Leadership reviews measured control effectiveness, not only control existence, when accepting risk.",
+     "Exceptions to policy are time-bound, individually approved, and expire automatically unless renewed."
+    ]
+   },
+   "exceptions": "Any exception to this policy must be requested in writing, justified by business need, approved by {{owner}}, recorded with a compensating control and an expiry date, and reviewed before renewal.",
+   "review": "This policy is reviewed {{review}}, and on any material change to {{org}}'s business, systems, or regulatory obligations.",
+   "evidence": [
+    "The approved policy document, with approval date and approver",
+    "The current policy acknowledgement record",
+    "The risk register and the most recent risk assessment",
+    "Minutes or a report showing leadership review of security posture"
+   ]
+  },
+  {
+   "id": "access-control-policy",
+   "domain": "iam",
+   "title": "Access Control Policy",
+   "summary": "Who may reach which systems and data, how that access is granted, reviewed, and removed.",
+   "purpose": "This policy governs how access to {{org}}'s systems and information is requested, approved, provisioned, reviewed, and revoked, so that people hold only the access their role requires.",
+   "scope": "All accounts on all systems {{org}} owns or subscribes to, including cloud services, and all workers, contractors, and service accounts that hold them.",
+   "roles": [
+    { "role": "System owners", "responsibility": "Define the access roles available on their system and approve or deny access requests." },
+    { "role": "{{owner}}", "responsibility": "Maintains this policy, runs access reviews, and investigates access that cannot be justified." },
+    { "role": "People operations", "responsibility": "Notifies system owners of joiners, movers, and leavers in time for access to be granted or removed." },
+    { "role": "Account holders", "responsibility": "Use only the access granted to them, and never share credentials." }
+   ],
+   "tiers": {
+    "ig1": [
+     "Access is granted on the principle of least privilege: a worker receives only the access their role requires, and no more.",
+     "Every access grant is approved by the owner of the system or data before it is provisioned.",
+     "Access is granted to named individual accounts. Shared accounts are used only where a system cannot support individual accounts, and each is documented with a named owner.",
+     "Access is revoked on the same business day a worker leaves {{org}}, and adjusted when they change role.",
+     "{{org}} maintains a current list of accounts with administrative access to each system.",
+     "Default and vendor-supplied accounts are disabled, removed, or have their credentials changed before a system is used.",
+     "Service accounts are documented with a named human owner and the purpose they serve."
+    ],
+    "ig2": [
+     "Access rights are reviewed at least {{review}} by the relevant system owner, and access that cannot be justified is removed.",
+     "Access is granted through defined roles rather than assembled per person, so that a role change is a single action.",
+     "Dormant accounts are disabled after a defined period of inactivity.",
+     "Elevated access is granted separately from day-to-day access, so administrators do not browse the web or read mail from a privileged account.",
+     "Access to systems holding regulated or confidential data requires documented approval from the data owner in addition to the system owner."
+    ],
+    "ig3": [
+     "Elevated access is granted just in time and expires automatically, rather than standing permanently.",
+     "Access reviews are evidenced with the reviewer, date, and the disposition of each account, and are retained for audit.",
+     "Access grants and revocations are logged and reconciled against the joiner, mover, and leaver record at least quarterly.",
+     "Segregation of duties conflicts are defined in writing and enforced or explicitly compensated."
+    ]
+   },
+   "exceptions": "Access that departs from this policy requires written approval from {{owner}} and the relevant data owner, a documented compensating control, and an expiry date no longer than one review cycle.",
+   "review": "This policy is reviewed {{review}}, and whenever {{org}} adopts a system that materially changes how access is managed.",
+   "evidence": [
+    "Access request and approval records",
+    "The most recent access review, with reviewer and disposition per account",
+    "A current list of privileged accounts",
+    "Leaver records showing revocation timing"
+   ]
+  },
+  {
+   "id": "incident-response-policy",
+   "domain": "incident-response",
+   "title": "Incident Response Policy",
+   "summary": "How {{org}} detects, declares, contains, and learns from security incidents, and who decides what.",
+   "purpose": "This policy establishes how {{org}} prepares for and responds to security incidents, so that response is decided in advance rather than improvised under pressure.",
+   "scope": "Any event that compromises, or credibly threatens to compromise, the confidentiality, integrity, or availability of {{org}}'s information or systems, including events at a supplier that affect {{org}}.",
+   "roles": [
+    { "role": "Incident commander", "responsibility": "Runs the response, makes containment decisions, and is the single point of coordination for the duration of an incident." },
+    { "role": "{{owner}}", "responsibility": "Maintains this policy and the response plan, and appoints the incident commander for each incident." },
+    { "role": "Executive leadership", "responsibility": "Decides on external notification, regulatory reporting, and any payment or legal action." },
+    { "role": "All workers", "responsibility": "Report suspected incidents immediately and preserve evidence rather than attempting to remediate alone." }
+   ],
+   "tiers": {
+    "ig1": [
+     "{{org}} maintains a written incident response plan that names who to contact, in what order, at any hour.",
+     "Every worker knows how to report a suspected incident, and reporting is possible without going through the worker's own manager.",
+     "Incidents are recorded with what happened, when it was detected, what was done, and who decided.",
+     "A named individual has authority to declare an incident and to take systems offline to contain it.",
+     "{{org}} knows which regulators, customers, or insurers it may be obliged to notify, and within what deadline, before an incident occurs.",
+     "Contact details for law enforcement, legal counsel, and any cyber insurer are recorded and reachable outside normal business hours.",
+     "After a significant incident, {{org}} performs a review and records what will change as a result."
+    ],
+    "ig2": [
+     "The incident response plan is tested at least {{review}} through a tabletop or live exercise, and the plan is updated with what the exercise found.",
+     "Incidents are classified by severity using documented criteria, and severity drives escalation and notification timing.",
+     "{{org}} maintains the ability to preserve logs and forensic evidence before remediating, where doing so does not prolong material harm.",
+     "Response roles have named alternates, so a single person's absence does not stall the response.",
+     "Third-party incidents affecting {{org}} are handled under this policy, and supplier contracts require prompt notification."
+    ],
+    "ig3": [
+     "{{org}} measures and reports mean time to detect and mean time to contain, and treats adverse trends as findings.",
+     "Post-incident actions are tracked to closure with named owners and dates, and closure is verified rather than asserted.",
+     "Exercises include at least one scenario per year that assumes a control failed rather than held.",
+     "An external party is retained in advance for forensic support, so engagement does not begin during an incident."
+    ]
+   },
+   "exceptions": "Deviation from the response plan during an active incident is permitted where the incident commander judges it necessary, and must be recorded in the incident log and reviewed afterwards.",
+   "review": "This policy is reviewed {{review}}, after any significant incident, and after any exercise that identifies a gap.",
+   "evidence": [
+    "The current incident response plan, with version and approval date",
+    "Incident records for the review period",
+    "Exercise records, including what changed as a result",
+    "Post-incident review findings and their closure status"
+   ]
+  },
+  {
+   "id": "data-protection-policy",
+   "domain": "data-protection",
+   "title": "Data Classification and Protection Policy",
+   "summary": "How {{org}} classifies information and what handling each class requires, through its whole life.",
+   "purpose": "This policy defines how {{org}} classifies information by sensitivity and what protection each class requires at rest, in transit, in use, and at disposal.",
+   "scope": "All information {{org}} creates, receives, stores, or transmits, in any form, including information held on {{org}}'s behalf by a supplier.",
+   "roles": [
+    { "role": "Data owners", "responsibility": "Assign a classification to the information they are accountable for and approve who may access it." },
+    { "role": "{{owner}}", "responsibility": "Maintains the classification scheme and the handling requirements for each class." },
+    { "role": "All workers", "responsibility": "Handle information according to its classification and do not move it to unapproved services or devices." }
+   ],
+   "tiers": {
+    "ig1": [
+     "{{org}} uses a documented classification scheme with a small number of clearly distinguished levels.",
+     "Information holding personal, financial, or otherwise regulated data is identified and classified at the highest level {{org}} operates.",
+     "Handling requirements are documented for each classification level, covering storage, sharing, transmission, and disposal.",
+     "Confidential information is encrypted in transit over any network {{org}} does not control.",
+     "Portable devices and removable media that hold confidential information are encrypted at rest.",
+     "Information is disposed of so that it cannot be reconstructed, and disposal of confidential information is recorded.",
+     "{{org}} knows, for each class of regulated information it holds, which systems hold it."
+    ],
+    "ig2": [
+     "Confidential information is encrypted at rest wherever the storage platform supports it.",
+     "Retention periods are defined per classification and enforced, so information is not kept indefinitely by default.",
+     "Approved locations are defined for each classification, and workers are told which services are not approved.",
+     "Data flows carrying regulated information to third parties are documented, including the legal basis or contract that permits the transfer.",
+     "Production data is not used in development or test environments unless it has been masked or de-identified."
+    ],
+    "ig3": [
+     "Automated controls detect and alert on confidential information leaving approved locations.",
+     "Encryption keys are managed under a documented lifecycle, with defined rotation and separation from the data they protect.",
+     "The classification of high-value information is validated at least {{review}} rather than assumed to be still correct.",
+     "Disposal of confidential information is evidenced by certificate or verifiable log."
+    ]
+   },
+   "exceptions": "Handling information outside the requirements for its classification requires written approval from the data owner and {{owner}}, a compensating control, and an expiry date.",
+   "review": "This policy is reviewed {{review}}, and whenever {{org}} begins processing a new category of regulated information.",
+   "evidence": [
+    "The classification scheme and its handling matrix",
+    "An inventory of systems holding regulated information",
+    "Encryption configuration for systems holding confidential data",
+    "Retention and disposal records"
+   ]
+  },
+  {
+   "id": "third-party-risk-policy",
+   "domain": "third-party",
+   "title": "Third-Party and Supplier Security Policy",
+   "summary": "How {{org}} evaluates suppliers before trusting them, and what it requires of them afterwards.",
+   "purpose": "This policy governs how {{org}} assesses and manages the security risk introduced by suppliers, service providers, and any third party that accesses its information or systems.",
+   "scope": "All third parties that store, process, or transmit {{org}}'s information, or that hold access to its systems, including subprocessors engaged by those parties.",
+   "roles": [
+    { "role": "Relationship owners", "responsibility": "Own the commercial relationship, initiate assessment before onboarding, and act on findings." },
+    { "role": "{{owner}}", "responsibility": "Defines the assessment standard, reviews results, and advises on whether risk is acceptable." },
+    { "role": "Procurement or legal", "responsibility": "Ensures required security terms are in the contract before it is signed." }
+   ],
+   "tiers": {
+    "ig1": [
+     "{{org}} maintains a current inventory of third parties that hold its information or access its systems.",
+     "Each third party has a named internal owner accountable for the relationship.",
+     "Security is assessed before a third party is given access to confidential information, proportionate to what they will hold.",
+     "Contracts with third parties handling confidential information require them to protect it and to notify {{org}} of a breach.",
+     "Third-party access is removed when the engagement ends, and removal is verified rather than assumed.",
+     "{{org}} knows which third parties would materially disrupt operations if they became unavailable."
+    ],
+    "ig2": [
+     "Third parties are tiered by the sensitivity of what they hold and the impact of their failure, and assessment depth follows that tier.",
+     "High-tier third parties are reassessed at least {{review}}, not only at onboarding.",
+     "Contracts with high-tier third parties specify a breach notification deadline, a right to audit or to receive assurance evidence, and requirements for subprocessors.",
+     "Independent assurance is obtained where available, such as a current SOC 2 report or ISO 27001 certificate, and the scope is checked rather than the logo.",
+     "Findings from third-party assessments are tracked to closure or explicitly accepted."
+    ],
+    "ig3": [
+     "{{org}} maintains an exit plan for each high-tier third party, covering data return and destruction.",
+     "Concentration risk is assessed, so that reliance on a single provider across several critical functions is visible to leadership.",
+     "Assurance evidence is validated against {{org}}'s own control requirements rather than accepted at face value.",
+     "Third-party incidents are exercised as part of {{org}}'s incident response testing."
+    ]
+   },
+   "exceptions": "Engaging a third party without completing assessment requires written approval from {{owner}}, a documented reason, and completion of the assessment within a stated period.",
+   "review": "This policy is reviewed {{review}}, and after any incident involving a third party.",
+   "evidence": [
+    "The third-party inventory, with tier and named owner",
+    "Completed assessments for high-tier third parties",
+    "Contract clauses covering security, breach notification, and subprocessors",
+    "Evidence that access was removed at the end of an engagement"
+   ]
+  }
+ ]
+}
