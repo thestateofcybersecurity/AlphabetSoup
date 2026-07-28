@@ -27,11 +27,22 @@ const frameworks = crosswalkRaw.frameworks as unknown as Framework[];
  * Coverage is measured against these, not against how much the crosswalk maps.
  * The catalog reaches every mapped control, so measuring against the crosswalk
  * would render 100% for every framework and tell the user something untrue.
- * ISO and SOC 2 are absent on purpose: their control text is not
- * redistributable, so only identifiers are held and coverage is flagged
- * approximate rather than quietly presented as equivalent.
+ * ISO is measurable now that src/data/iso-27001.json enumerates all 93 Annex A
+ * controls by identifier. Holding the identifiers is what makes a denominator
+ * possible; no ISO text is reproduced anywhere.
+ *
+ * SOC 2 is still absent on purpose. Its criteria are not enumerated on this
+ * site yet, so no honest denominator exists and coverage stays unmeasured
+ * rather than being divided by the mapped subset.
  */
-const FRAMEWORK_SIZES: Record<string, number> = { csf: 106, cis: 153, hipaa: 22, pci: 12, cmmc: 14 };
+const FRAMEWORK_SIZES: Record<string, number> = {
+  csf: 106,
+  cis: 153,
+  hipaa: 22,
+  pci: 12,
+  cmmc: 14,
+  iso: 93,
+};
 
 const STORAGE_KEY = 'alphabetsoup:policy-generator:profile';
 const byId = <T extends HTMLElement>(id: string): T => document.getElementById(id) as T;
