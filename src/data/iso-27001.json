@@ -37,559 +37,745 @@
    "id": "A.5.1",
    "theme": "5",
    "themeName": "Organizational",
-   "subject": "Written security policies, approved and kept current"
+   "subject": "Written security policies, approved and kept current",
+   "metaphor": "Writing the house rules down and pinning them to the fridge, so nobody has to guess.",
+   "translation": "The family agrees its house rules in writing, the adults sign off on them, and they revisit them when circumstances change rather than letting them go stale."
   },
   {
    "id": "A.5.2",
    "theme": "5",
    "themeName": "Organizational",
-   "subject": "Named security roles and the authority that comes with them"
+   "subject": "Named security roles and the authority that comes with them",
+   "metaphor": "Deciding who is responsible for locking up at night, and telling them so.",
+   "translation": "The family names who is responsible for each part of keeping the house safe, and gives them the standing to actually make those calls."
   },
   {
    "id": "A.5.3",
    "theme": "5",
    "themeName": "Organizational",
-   "subject": "Separating duties so no one person can act unchecked"
+   "subject": "Separating duties so no one person can act unchecked",
+   "metaphor": "One person writes the cheque, another signs it.",
+   "translation": "The family splits sensitive jobs between people, so that no single member can both make a decision and approve it without anyone noticing."
   },
   {
    "id": "A.5.4",
    "theme": "5",
    "themeName": "Organizational",
-   "subject": "Management actively backing the security program"
+   "subject": "Management actively backing the security program",
+   "metaphor": "Parents who follow the house rules themselves, not just enforce them.",
+   "translation": "The adults visibly back the rules and follow them too, because rules nobody at the top honours are rules nobody else will honour either."
   },
   {
    "id": "A.5.5",
    "theme": "5",
    "themeName": "Organizational",
-   "subject": "Working relationships with regulators and law enforcement"
+   "subject": "Working relationships with regulators and law enforcement",
+   "metaphor": "Knowing which neighbour to call, and having the non-emergency police number on the fridge.",
+   "translation": "The family keeps working relationships with the people they would need in a crisis, so the first call is not the first conversation."
   },
   {
    "id": "A.5.6",
    "theme": "5",
    "themeName": "Organizational",
-   "subject": "Membership of industry and peer security groups"
+   "subject": "Membership of industry and peer security groups",
+   "metaphor": "Joining the neighbourhood watch group, so you hear about break-ins nearby.",
+   "translation": "The family stays connected to groups who share what is happening locally, so they learn about problems from someone else's experience rather than their own."
   },
   {
    "id": "A.5.7",
    "theme": "5",
    "themeName": "Organizational",
-   "subject": "Gathering and acting on threat intelligence"
+   "subject": "Gathering and acting on threat intelligence",
+   "metaphor": "Reading the local notices about a spate of car break-ins, and moving the car into the garage.",
+   "translation": "The family pays attention to warnings about what is happening nearby and actually changes what it does in response, rather than just noting the news."
   },
   {
    "id": "A.5.8",
    "theme": "5",
    "themeName": "Organizational",
-   "subject": "Security built into projects from the start"
+   "subject": "Security built into projects from the start",
+   "metaphor": "Deciding where the locks go while the extension is still on paper, not after it is built.",
+   "translation": "The family thinks about safety while a project is being planned, because it is far cheaper to design a door properly than to retrofit one later."
   },
   {
    "id": "A.5.9",
    "theme": "5",
    "themeName": "Organizational",
-   "subject": "Knowing what information and assets exist and who owns them"
+   "subject": "Knowing what information and assets exist and who owns them",
+   "metaphor": "Knowing what is in the house, and who is responsible for each thing.",
+   "translation": "The family keeps track of what it owns and what information it holds, and each item has someone accountable for looking after it."
   },
   {
    "id": "A.5.10",
    "theme": "5",
    "themeName": "Organizational",
-   "subject": "Rules for handling assets acceptably"
+   "subject": "Rules for handling assets acceptably",
+   "metaphor": "Agreeing that the good camera can be borrowed, but not taken to the beach.",
+   "translation": "The family sets out what may and may not be done with its things and its information, so acceptable use is stated rather than assumed."
   },
   {
    "id": "A.5.11",
    "theme": "5",
    "themeName": "Organizational",
-   "subject": "Returning assets when an engagement ends"
+   "subject": "Returning assets when an engagement ends",
+   "metaphor": "Getting the spare key back when the lodger moves out.",
+   "translation": "The family collects its property and revokes its access when someone leaves, rather than trusting that unreturned keys will never be used."
   },
   {
    "id": "A.5.12",
    "theme": "5",
    "themeName": "Organizational",
-   "subject": "Classifying information by how sensitive it is"
+   "subject": "Classifying information by how sensitive it is",
+   "metaphor": "Keeping birth certificates in the safe and takeaway menus in the drawer.",
+   "translation": "The family sorts its information by how much damage its loss would cause, so that the protection each item gets matches what it is actually worth."
   },
   {
    "id": "A.5.13",
    "theme": "5",
    "themeName": "Organizational",
-   "subject": "Labelling information so its classification is visible"
+   "subject": "Labelling information so its classification is visible",
+   "metaphor": "Writing PRIVATE on the folder, so nobody has to open it to find out.",
+   "translation": "The family marks information clearly enough that anyone handling it can tell how careful to be without having to read it first."
   },
   {
    "id": "A.5.14",
    "theme": "5",
    "themeName": "Organizational",
-   "subject": "Controlling how information is transferred"
+   "subject": "Controlling how information is transferred",
+   "metaphor": "Posting the passport by tracked delivery rather than dropping it through a letterbox.",
+   "translation": "The family decides how information may be sent and received, so that something sensitive is not handed over in a way that leaves no trace."
   },
   {
    "id": "A.5.15",
    "theme": "5",
    "themeName": "Organizational",
-   "subject": "Deciding who may access what, on what basis"
+   "subject": "Deciding who may access what, on what basis",
+   "metaphor": "The teenagers have a front door key; the babysitter does not.",
+   "translation": "The family decides who may reach what, based on what each person actually needs, rather than giving everyone the same access for convenience."
   },
   {
    "id": "A.5.16",
    "theme": "5",
    "themeName": "Organizational",
-   "subject": "Managing identities through their whole life"
+   "subject": "Managing identities through their whole life",
+   "metaphor": "Cutting one key per person, with a name on the hook it hangs from.",
+   "translation": "The family gives each person their own identity rather than a shared one, and manages it from the day it is created to the day it is retired."
   },
   {
    "id": "A.5.17",
    "theme": "5",
    "themeName": "Organizational",
-   "subject": "Issuing and protecting authentication credentials"
+   "subject": "Issuing and protecting authentication credentials",
+   "metaphor": "Not writing the alarm code on a sticky note by the panel.",
+   "translation": "The family issues the things that prove who someone is carefully, and protects them, because a shared or exposed code protects nobody."
   },
   {
    "id": "A.5.18",
    "theme": "5",
    "themeName": "Organizational",
-   "subject": "Granting, reviewing, and withdrawing access rights"
+   "subject": "Granting, reviewing, and withdrawing access rights",
+   "metaphor": "Taking the shed key back once the decking is finished.",
+   "translation": "The family grants access when it is needed, checks periodically that it is still needed, and takes it back when it is not."
   },
   {
    "id": "A.5.19",
    "theme": "5",
    "themeName": "Organizational",
-   "subject": "Security in the relationship with each supplier"
+   "subject": "Security in the relationship with each supplier",
+   "metaphor": "Choosing a builder on more than the quote, because they will have a key.",
+   "translation": "The family thinks about safety when it brings someone in to do work, because a supplier's access is the family's exposure."
   },
   {
    "id": "A.5.20",
    "theme": "5",
    "themeName": "Organizational",
-   "subject": "Security terms written into supplier agreements"
+   "subject": "Security terms written into supplier agreements",
+   "metaphor": "Putting it in the contract rather than the conversation.",
+   "translation": "The family writes what it expects of a supplier into the agreement, so the obligation survives a change of staff on either side."
   },
   {
    "id": "A.5.21",
    "theme": "5",
    "themeName": "Organizational",
-   "subject": "Managing risk across the technology supply chain"
+   "subject": "Managing risk across the technology supply chain",
+   "metaphor": "Asking the builder who else will be on site, and who they answer to.",
+   "translation": "The family looks past its direct supplier to the people that supplier depends on, because a weakness anywhere in that chain still reaches the house."
   },
   {
    "id": "A.5.22",
    "theme": "5",
    "themeName": "Organizational",
-   "subject": "Monitoring supplier service delivery and change"
+   "subject": "Monitoring supplier service delivery and change",
+   "metaphor": "Checking the work as it goes, not only at the final invoice.",
+   "translation": "The family keeps an eye on how a supplier is actually performing and reassesses when the arrangement changes, rather than trusting the original agreement forever."
   },
   {
    "id": "A.5.23",
    "theme": "5",
    "themeName": "Organizational",
-   "subject": "Security expectations for cloud services"
+   "subject": "Security expectations for cloud services",
+   "metaphor": "Reading what the storage company is actually responsible for before putting the heirlooms in.",
+   "translation": "The family sets expectations for the services it rents rather than owns, because handing something to a provider does not hand over the responsibility for it."
   },
   {
    "id": "A.5.24",
    "theme": "5",
    "themeName": "Organizational",
-   "subject": "Planning and preparing for incident response"
+   "subject": "Planning and preparing for incident response",
+   "metaphor": "Agreeing who calls the fire brigade before there is a fire.",
+   "translation": "The family decides in advance who does what when something goes wrong, so the response is a plan being followed rather than an argument being had."
   },
   {
    "id": "A.5.25",
    "theme": "5",
    "themeName": "Organizational",
-   "subject": "Assessing events and deciding what is an incident"
+   "subject": "Assessing events and deciding what is an incident",
+   "metaphor": "Working out whether the smoke is burnt toast or something worse.",
+   "translation": "The family assesses what it notices and decides whether it is a real problem, so that small things are not ignored and normal things are not treated as emergencies."
   },
   {
    "id": "A.5.26",
    "theme": "5",
    "themeName": "Organizational",
-   "subject": "Responding to incidents once declared"
+   "subject": "Responding to incidents once declared",
+   "metaphor": "Getting everyone out first, and worrying about the kitchen afterwards.",
+   "translation": "Once the family agrees something is genuinely wrong, they act on the plan they made, in the order they agreed mattered most."
   },
   {
    "id": "A.5.27",
    "theme": "5",
    "themeName": "Organizational",
-   "subject": "Learning from incidents so they do not repeat"
+   "subject": "Learning from incidents so they do not repeat",
+   "metaphor": "Moving the pan handles inward after the second burn, not the tenth.",
+   "translation": "The family works out afterwards what actually went wrong and changes something as a result, so the same incident does not keep happening."
   },
   {
    "id": "A.5.28",
    "theme": "5",
    "themeName": "Organizational",
-   "subject": "Collecting and preserving evidence"
+   "subject": "Collecting and preserving evidence",
+   "metaphor": "Photographing the damage before starting to clear it up.",
+   "translation": "The family preserves what happened before tidying it away, because the evidence is usually destroyed by the clean-up rather than by the incident."
   },
   {
    "id": "A.5.29",
    "theme": "5",
    "themeName": "Organizational",
-   "subject": "Keeping security working through disruption"
+   "subject": "Keeping security working through disruption",
+   "metaphor": "Keeping the kettle going on the camping stove when the power is out.",
+   "translation": "The family works out how it would keep going through a disruption, so that losing one thing does not stop everything."
   },
   {
    "id": "A.5.30",
    "theme": "5",
    "themeName": "Organizational",
-   "subject": "Recovery expectations built into continuity planning"
+   "subject": "Recovery expectations built into continuity planning",
+   "metaphor": "Knowing which room you would make habitable first after a flood.",
+   "translation": "The family decides in advance what has to come back first and how quickly, so recovery follows a priority rather than whoever shouts loudest."
   },
   {
    "id": "A.5.31",
    "theme": "5",
    "themeName": "Organizational",
-   "subject": "Identifying legal, regulatory, and contractual obligations"
+   "subject": "Identifying legal, regulatory, and contractual obligations",
+   "metaphor": "Knowing which permits the extension actually needs before building it.",
+   "translation": "The family works out what the law, the contracts, and the regulators require of it, because an obligation nobody has identified is one nobody is meeting."
   },
   {
    "id": "A.5.32",
    "theme": "5",
    "themeName": "Organizational",
-   "subject": "Protecting intellectual property rights"
+   "subject": "Protecting intellectual property rights",
+   "metaphor": "Buying the software rather than borrowing a copy.",
+   "translation": "The family respects what belongs to other people, and can show that what it uses it is entitled to use."
   },
   {
    "id": "A.5.33",
    "theme": "5",
    "themeName": "Organizational",
-   "subject": "Protecting records against loss and falsification"
+   "subject": "Protecting records against loss and falsification",
+   "metaphor": "Keeping the deeds somewhere they will not be lost, damp, or quietly altered.",
+   "translation": "The family keeps its important records safe from loss and from tampering, and keeps them for as long as they are actually needed."
   },
   {
    "id": "A.5.34",
    "theme": "5",
    "themeName": "Organizational",
-   "subject": "Protecting personal data and privacy"
+   "subject": "Protecting personal data and privacy",
+   "metaphor": "Not reading someone else's post just because it arrived at your address.",
+   "translation": "The family treats information about people with the care that person is owed, and meets the specific obligations that attach to it."
   },
   {
    "id": "A.5.35",
    "theme": "5",
    "themeName": "Organizational",
-   "subject": "Independent review of the security program"
+   "subject": "Independent review of the security program",
+   "metaphor": "Asking a friend to walk round the house and say what they would target.",
+   "translation": "Someone outside the day-to-day running of things reviews whether the arrangements actually work, because the people who built them are the worst placed to judge."
   },
   {
    "id": "A.5.36",
    "theme": "5",
    "themeName": "Organizational",
-   "subject": "Checking compliance with policies and standards"
+   "subject": "Checking compliance with policies and standards",
+   "metaphor": "Actually checking the back door is locked, rather than assuming it is.",
+   "translation": "The family checks that its own rules are being followed in practice, since a rule nobody verifies is a rule nobody has to keep."
   },
   {
    "id": "A.5.37",
    "theme": "5",
    "themeName": "Organizational",
-   "subject": "Documented operating procedures for security tasks"
+   "subject": "Documented operating procedures for security tasks",
+   "metaphor": "Writing down how the boiler is bled, so it does not live only in one person's head.",
+   "translation": "The family writes down how its routine tasks are actually done, so the work does not depend on one person remembering or being available."
   },
   {
    "id": "A.6.1",
    "theme": "6",
    "themeName": "People",
-   "subject": "Screening candidates before they are trusted with access"
+   "subject": "Screening candidates before they are trusted with access",
+   "metaphor": "Asking for references before handing over a key to the house.",
+   "translation": "The family checks who someone is before trusting them with access, in proportion to how much that access could hurt if it were misused."
   },
   {
    "id": "A.6.2",
    "theme": "6",
    "themeName": "People",
-   "subject": "Security responsibilities set out in employment terms"
+   "subject": "Security responsibilities set out in employment terms",
+   "metaphor": "Saying what is expected of the lodger in the tenancy agreement, not on move-in day.",
+   "translation": "The family writes security expectations into the terms someone agrees to, so the obligation is part of the arrangement rather than a favour."
   },
   {
    "id": "A.6.3",
    "theme": "6",
    "themeName": "People",
-   "subject": "Security awareness, education, and training"
+   "subject": "Security awareness, education, and training",
+   "metaphor": "Teaching everyone where the stopcock is before the pipe bursts.",
+   "translation": "The family makes sure everyone knows what is expected of them and how to handle the situations they will actually face, and keeps teaching it."
   },
   {
    "id": "A.6.4",
    "theme": "6",
    "themeName": "People",
-   "subject": "A disciplinary process for security violations"
+   "subject": "A disciplinary process for security violations",
+   "metaphor": "Agreeing in advance what happens if someone keeps leaving the door unlocked.",
+   "translation": "The family is clear about the consequences of breaking the rules, because a rule with no consequence is advice."
   },
   {
    "id": "A.6.5",
    "theme": "6",
    "themeName": "People",
-   "subject": "Responsibilities that survive the end of employment"
+   "subject": "Responsibilities that survive the end of employment",
+   "metaphor": "Reminding the lodger on their last day that the alarm code stays private.",
+   "translation": "The family makes clear which obligations continue after someone leaves, because knowing the code does not stop mattering when the tenancy ends."
   },
   {
    "id": "A.6.6",
    "theme": "6",
    "themeName": "People",
-   "subject": "Confidentiality and non-disclosure agreements"
+   "subject": "Confidentiality and non-disclosure agreements",
+   "metaphor": "Asking the cleaner not to discuss what they see in the house.",
+   "translation": "The family agrees in writing what must stay private, with anyone who will see things they should not repeat."
   },
   {
    "id": "A.6.7",
    "theme": "6",
    "themeName": "People",
-   "subject": "Security expectations for remote working"
+   "subject": "Security expectations for remote working",
+   "metaphor": "Agreeing how the work laptop is looked after when it goes home with someone.",
+   "translation": "The family sets expectations for working away from the house, because the same information needs looking after wherever it happens to be."
   },
   {
    "id": "A.6.8",
    "theme": "6",
    "themeName": "People",
-   "subject": "A route for reporting security events"
+   "subject": "A route for reporting security events",
+   "metaphor": "Making it easy to say the back gate was open, without anyone getting shouted at.",
+   "translation": "The family gives everyone a straightforward way to report something that looks wrong, and makes reporting safe enough that people actually use it."
   },
   {
    "id": "A.7.1",
    "theme": "7",
    "themeName": "Physical",
-   "subject": "Defining the physical boundary to be protected"
+   "subject": "Defining the physical boundary to be protected",
+   "metaphor": "Deciding where the boundary of the property actually is.",
+   "translation": "The family works out what it is protecting physically, because you cannot secure a boundary you have never drawn."
   },
   {
    "id": "A.7.2",
    "theme": "7",
    "themeName": "Physical",
-   "subject": "Controlling entry at that boundary"
+   "subject": "Controlling entry at that boundary",
+   "metaphor": "A front door that is locked, not just closed.",
+   "translation": "The family controls who can physically get in, so that being inside is something granted rather than something assumed."
   },
   {
    "id": "A.7.3",
    "theme": "7",
    "themeName": "Physical",
-   "subject": "Securing offices, rooms, and facilities"
+   "subject": "Securing offices, rooms, and facilities",
+   "metaphor": "The study door has a lock; the hallway does not need one.",
+   "translation": "The family gives more protection to the rooms that hold what matters, rather than treating every space the same."
   },
   {
    "id": "A.7.4",
    "theme": "7",
    "themeName": "Physical",
-   "subject": "Monitoring physical premises"
+   "subject": "Monitoring physical premises",
+   "metaphor": "A light that comes on when someone walks up the drive.",
+   "translation": "The family keeps an eye on the premises, so that someone being where they should not be is noticed rather than discovered later."
   },
   {
    "id": "A.7.5",
    "theme": "7",
    "themeName": "Physical",
-   "subject": "Protecting against physical and environmental threats"
+   "subject": "Protecting against physical and environmental threats",
+   "metaphor": "Moving the boxes off the cellar floor before the wet season.",
+   "translation": "The family protects what it owns from flood, fire, heat, and the other things the environment does regardless of anyone's intent."
   },
   {
    "id": "A.7.6",
    "theme": "7",
    "themeName": "Physical",
-   "subject": "Working securely in secure areas"
+   "subject": "Working securely in secure areas",
+   "metaphor": "Not leaving the safe open while you go and answer the door.",
+   "translation": "The family behaves differently in the rooms that hold sensitive things, because the protection is only as good as the habits inside it."
   },
   {
    "id": "A.7.7",
    "theme": "7",
    "themeName": "Physical",
-   "subject": "Clear desk and clear screen expectations"
+   "subject": "Clear desk and clear screen expectations",
+   "metaphor": "Clearing the paperwork off the kitchen table before the party.",
+   "translation": "The family puts sensitive things away when they walk off, and locks the screen, so what is left out is not what matters."
   },
   {
    "id": "A.7.8",
    "theme": "7",
    "themeName": "Physical",
-   "subject": "Siting and protecting equipment"
+   "subject": "Siting and protecting equipment",
+   "metaphor": "Not putting the router on the windowsill by the front path.",
+   "translation": "The family thinks about where equipment sits, so that important things are not the easiest ones to reach or damage."
   },
   {
    "id": "A.7.9",
    "theme": "7",
    "themeName": "Physical",
-   "subject": "Protecting assets taken off the premises"
+   "subject": "Protecting assets taken off the premises",
+   "metaphor": "The laptop is more at risk in the café than in the study.",
+   "translation": "The family gives extra care to things taken away from the house, because the protections at home do not travel with them."
   },
   {
    "id": "A.7.10",
    "theme": "7",
    "themeName": "Physical",
-   "subject": "Managing storage media through their life"
+   "subject": "Managing storage media through their life",
+   "metaphor": "Knowing where the old photo albums and the backup drive actually are.",
+   "translation": "The family looks after the things that hold its information, from the day they arrive to the day they are destroyed."
   },
   {
    "id": "A.7.11",
    "theme": "7",
    "themeName": "Physical",
-   "subject": "Protecting supporting utilities such as power"
+   "subject": "Protecting supporting utilities such as power",
+   "metaphor": "Keeping a torch and candles for when the power goes.",
+   "translation": "The family protects the services everything else depends on, because losing power or water stops things no lock can keep running."
   },
   {
    "id": "A.7.12",
    "theme": "7",
    "themeName": "Physical",
-   "subject": "Protecting cabling from interception and damage"
+   "subject": "Protecting cabling from interception and damage",
+   "metaphor": "Running the cable under the floor rather than across the hallway.",
+   "translation": "The family protects the wiring that carries its power and data, since a cable anyone can reach is a cable anyone can cut or tap."
   },
   {
    "id": "A.7.13",
    "theme": "7",
    "themeName": "Physical",
-   "subject": "Maintaining equipment so it stays reliable"
+   "subject": "Maintaining equipment so it stays reliable",
+   "metaphor": "Servicing the boiler before winter rather than after it fails.",
+   "translation": "The family maintains its equipment so that it keeps working, because most outages start as maintenance nobody got around to."
   },
   {
    "id": "A.7.14",
    "theme": "7",
    "themeName": "Physical",
-   "subject": "Secure disposal or reuse of equipment"
+   "subject": "Secure disposal or reuse of equipment",
+   "metaphor": "Wiping the old phone before giving it to a cousin.",
+   "translation": "The family makes sure nothing readable is left on equipment before it is passed on, sold, or thrown away."
   },
   {
    "id": "A.8.1",
    "theme": "8",
    "themeName": "Technological",
-   "subject": "Protecting the endpoints people work from"
+   "subject": "Protecting the endpoints people work from",
+   "metaphor": "Locking the laptop the same way you lock the front door.",
+   "translation": "The family protects the devices people actually work from, because that is where most trouble starts rather than at the perimeter."
   },
   {
    "id": "A.8.2",
    "theme": "8",
    "themeName": "Technological",
-   "subject": "Restricting and managing privileged access"
+   "subject": "Restricting and managing privileged access",
+   "metaphor": "Only one person has the key to the medicine cabinet, and they do not carry it everywhere.",
+   "translation": "The family keeps the powerful access separate and limited, and does not use it for everyday tasks where it is not needed."
   },
   {
    "id": "A.8.3",
    "theme": "8",
    "themeName": "Technological",
-   "subject": "Restricting access to information itself"
+   "subject": "Restricting access to information itself",
+   "metaphor": "The diary is in the drawer, and not everyone opens that drawer.",
+   "translation": "The family restricts who can reach the information itself, not only who can get through the front door."
   },
   {
    "id": "A.8.4",
    "theme": "8",
    "themeName": "Technological",
-   "subject": "Controlling access to source code"
+   "subject": "Controlling access to source code",
+   "metaphor": "The recipe book the business depends on is not left on the counter.",
+   "translation": "The family controls who can see and change the instructions its work is built from, since those are worth more than any single dish."
   },
   {
    "id": "A.8.5",
    "theme": "8",
    "themeName": "Technological",
-   "subject": "Authenticating securely before access is granted"
+   "subject": "Authenticating securely before access is granted",
+   "metaphor": "Recognising the voice through the door before opening it.",
+   "translation": "The family checks who someone actually is before letting them in, in a way that is hard to fake."
   },
   {
    "id": "A.8.6",
    "theme": "8",
    "themeName": "Technological",
-   "subject": "Managing capacity so systems stay available"
+   "subject": "Managing capacity so systems stay available",
+   "metaphor": "Noticing the freezer is nearly full before the weekly shop.",
+   "translation": "The family watches whether it is running out of room or capacity, so that things fail on a plan rather than by surprise."
   },
   {
    "id": "A.8.7",
    "theme": "8",
    "themeName": "Technological",
-   "subject": "Defending against malware"
+   "subject": "Defending against malware",
+   "metaphor": "Wiping your feet, and keeping the mousetraps set.",
+   "translation": "The family defends against the things that get in and spread, and keeps those defences current rather than installed once."
   },
   {
    "id": "A.8.8",
    "theme": "8",
    "themeName": "Technological",
-   "subject": "Managing technical vulnerabilities"
+   "subject": "Managing technical vulnerabilities",
+   "metaphor": "Fixing the loose window latch once you know about it.",
+   "translation": "The family finds out where the weaknesses are and fixes them on a timescale that matches how bad they would be."
   },
   {
    "id": "A.8.9",
    "theme": "8",
    "themeName": "Technological",
-   "subject": "Managing configuration and preventing drift"
+   "subject": "Managing configuration and preventing drift",
+   "metaphor": "Every door in the house is fitted the same way, and stays that way.",
+   "translation": "The family sets things up to a known standard and notices when something drifts away from it, rather than discovering the difference during a break-in."
   },
   {
    "id": "A.8.10",
    "theme": "8",
    "themeName": "Technological",
-   "subject": "Deleting information when it is no longer needed"
+   "subject": "Deleting information when it is no longer needed",
+   "metaphor": "Shredding the old bank statements instead of keeping every one forever.",
+   "translation": "The family gets rid of information once it is genuinely no longer needed, because what is not held cannot be lost."
   },
   {
    "id": "A.8.11",
    "theme": "8",
    "themeName": "Technological",
-   "subject": "Masking data so exposure is limited"
+   "subject": "Masking data so exposure is limited",
+   "metaphor": "Reading out only the last four digits of the card number.",
+   "translation": "The family shows only as much of something sensitive as the task actually requires, and hides the rest."
   },
   {
    "id": "A.8.12",
    "theme": "8",
    "themeName": "Technological",
-   "subject": "Preventing data from leaking out"
+   "subject": "Preventing data from leaking out",
+   "metaphor": "Noticing that the box of documents is being carried out to the car.",
+   "translation": "The family watches for its information leaving by routes it did not intend, rather than only guarding the way in."
   },
   {
    "id": "A.8.13",
    "theme": "8",
    "themeName": "Technological",
-   "subject": "Backing up information and proving it restores"
+   "subject": "Backing up information and proving it restores",
+   "metaphor": "Keeping copies of the photos somewhere the same fire cannot reach.",
+   "translation": "The family keeps copies of what matters, somewhere separate, and checks that the copies actually work before it needs them."
   },
   {
    "id": "A.8.14",
    "theme": "8",
    "themeName": "Technological",
-   "subject": "Building redundancy into information processing"
+   "subject": "Building redundancy into information processing",
+   "metaphor": "A second kettle, so a broken one does not end tea.",
+   "translation": "The family builds in enough spare capacity that the failure of one thing does not stop what depends on it."
   },
   {
    "id": "A.8.15",
    "theme": "8",
    "themeName": "Technological",
-   "subject": "Logging what happens on systems"
+   "subject": "Logging what happens on systems",
+   "metaphor": "A visitors' book by the door that people actually sign.",
+   "translation": "The family keeps a record of what happened and when, because you cannot investigate what nobody wrote down."
   },
   {
    "id": "A.8.16",
    "theme": "8",
    "themeName": "Technological",
-   "subject": "Monitoring for activity that should not be there"
+   "subject": "Monitoring for activity that should not be there",
+   "metaphor": "Noticing the pantry light is on at three in the morning.",
+   "translation": "The family watches for activity that does not fit the normal pattern, since the record is only useful if somebody reads it."
   },
   {
    "id": "A.8.17",
    "theme": "8",
    "themeName": "Technological",
-   "subject": "Synchronizing clocks so events can be correlated"
+   "subject": "Synchronizing clocks so events can be correlated",
+   "metaphor": "Setting every clock in the house to the same time.",
+   "translation": "The family keeps its clocks in step, so that piecing together the order of events afterwards is possible at all."
   },
   {
    "id": "A.8.18",
    "theme": "8",
    "themeName": "Technological",
-   "subject": "Restricting use of privileged utility programs"
+   "subject": "Restricting use of privileged utility programs",
+   "metaphor": "The crowbar lives in the locked shed, not by the back door.",
+   "translation": "The family restricts the tools that can bypass its own protections, because a tool that overrides a lock is as good as a key."
   },
   {
    "id": "A.8.19",
    "theme": "8",
    "themeName": "Technological",
-   "subject": "Controlling software installed on operational systems"
+   "subject": "Controlling software installed on operational systems",
+   "metaphor": "Deciding what gets installed in the house, rather than whatever anyone brings home.",
+   "translation": "The family controls what software runs on the systems it depends on, so the working parts of the house are ones it chose."
   },
   {
    "id": "A.8.20",
    "theme": "8",
    "themeName": "Technological",
-   "subject": "Securing networks and the services on them"
+   "subject": "Securing networks and the services on them",
+   "metaphor": "The wiring in the walls is as much part of the house as the doors.",
+   "translation": "The family protects the networks everything runs over, since anything that reaches the wiring reaches everything on it."
   },
   {
    "id": "A.8.21",
    "theme": "8",
    "themeName": "Technological",
-   "subject": "Securing individual network services"
+   "subject": "Securing individual network services",
+   "metaphor": "The outside tap is turned off at the stopcock in winter.",
+   "translation": "The family secures each service it offers or uses individually, rather than assuming the network around it is enough."
   },
   {
    "id": "A.8.22",
    "theme": "8",
    "themeName": "Technological",
-   "subject": "Segregating networks from one another"
+   "subject": "Segregating networks from one another",
+   "metaphor": "A door between the garage and the house, so a fire in one is not a fire in both.",
+   "translation": "The family separates parts of its network, so trouble that gets into one area does not automatically reach the rest."
   },
   {
    "id": "A.8.23",
    "theme": "8",
    "themeName": "Technological",
-   "subject": "Filtering access to external web content"
+   "subject": "Filtering access to external web content",
+   "metaphor": "Not clicking every link that arrives, and teaching the children the same.",
+   "translation": "The family filters what it reaches out to on the web, because a lot of trouble arrives by invitation rather than by force."
   },
   {
    "id": "A.8.24",
    "theme": "8",
    "themeName": "Technological",
-   "subject": "Using cryptography and managing keys"
+   "subject": "Using cryptography and managing keys",
+   "metaphor": "A diary with a lock, and keeping the little key somewhere sensible.",
+   "translation": "The family scrambles what is sensitive so it cannot simply be read, and looks after the keys as carefully as the contents."
   },
   {
    "id": "A.8.25",
    "theme": "8",
    "themeName": "Technological",
-   "subject": "Security built into the development lifecycle"
+   "subject": "Security built into the development lifecycle",
+   "metaphor": "Designing the extension for safety, rather than adding bolts once it is up.",
+   "translation": "The family builds safety into how it makes things from the beginning, because it is far cheaper than adding it afterwards."
   },
   {
    "id": "A.8.26",
    "theme": "8",
    "themeName": "Technological",
-   "subject": "Security requirements defined for applications"
+   "subject": "Security requirements defined for applications",
+   "metaphor": "Agreeing the extension needs a fire door before drawing the plans.",
+   "translation": "The family decides what protections something must have before it is built, rather than discovering the requirement at inspection."
   },
   {
    "id": "A.8.27",
    "theme": "8",
    "themeName": "Technological",
-   "subject": "Secure architecture and engineering principles"
+   "subject": "Secure architecture and engineering principles",
+   "metaphor": "Building on foundations that are known to work, not improvised each time.",
+   "translation": "The family follows established principles when it designs something, so the safety does not depend on whoever happened to build it."
   },
   {
    "id": "A.8.28",
    "theme": "8",
    "themeName": "Technological",
-   "subject": "Writing code securely"
+   "subject": "Writing code securely",
+   "metaphor": "Measuring twice, because the cut is what everyone else builds on.",
+   "translation": "The family writes carefully, because a mistake made early is inherited by everything built on top of it."
   },
   {
    "id": "A.8.29",
    "theme": "8",
    "themeName": "Technological",
-   "subject": "Security testing during development and acceptance"
+   "subject": "Security testing during development and acceptance",
+   "metaphor": "Checking the shelf holds weight before putting the good china on it.",
+   "translation": "The family tests things before relying on them, and tests for the ways they might fail rather than only that they work."
   },
   {
    "id": "A.8.30",
    "theme": "8",
    "themeName": "Technological",
-   "subject": "Managing security when development is outsourced"
+   "subject": "Managing security when development is outsourced",
+   "metaphor": "Checking the work of the contractor who built the extension.",
+   "translation": "The family holds work done by others to the same standard as its own, because who built it does not change who lives with it."
   },
   {
    "id": "A.8.31",
    "theme": "8",
    "themeName": "Technological",
-   "subject": "Separating development, test, and production"
+   "subject": "Separating development, test, and production",
+   "metaphor": "Not testing the new recipe on the dinner guests.",
+   "translation": "The family keeps where it experiments separate from where it lives, so a mistake in one does not land in the other."
   },
   {
    "id": "A.8.32",
    "theme": "8",
    "themeName": "Technological",
-   "subject": "Managing change to systems and software"
+   "subject": "Managing change to systems and software",
+   "metaphor": "Telling the household before moving the fuse box.",
+   "translation": "The family manages changes deliberately, so that things break because of decisions rather than surprises."
   },
   {
    "id": "A.8.33",
    "theme": "8",
    "themeName": "Technological",
-   "subject": "Protecting information used for testing"
+   "subject": "Protecting information used for testing",
+   "metaphor": "Practising with an old photo rather than the wedding album.",
+   "translation": "The family uses stand-in information when testing, so a rehearsal cannot expose the real thing."
   },
   {
    "id": "A.8.34",
    "theme": "8",
    "themeName": "Technological",
-   "subject": "Protecting systems during audit activity"
+   "subject": "Protecting systems during audit activity",
+   "metaphor": "Having the surveyor visit at a time that does not flood the kitchen.",
+   "translation": "The family plans checks on its systems so the checking itself does not cause the disruption it was meant to prevent."
   }
  ]
 }
