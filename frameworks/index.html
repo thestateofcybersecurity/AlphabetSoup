@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="color-scheme" content="light dark" />
+  <meta name="description" content="Four security frameworks translated into plain English: NIST CSF 2.0, CIS Controls v8, ISO 27001 Annex A, and AI security guidance. Every control explained with a household metaphor." />
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Security frameworks in plain English | Cybersecurity Alphabet Soup" />
+  <meta property="og:description" content="NIST CSF, CIS Controls, ISO 27001, and AI security guidance, every control explained with a household metaphor." />
+  <meta property="og:url" content="https://www.cybersecurityalphabetsoup.com/frameworks/" />
+  <meta property="og:image" content="https://www.cybersecurityalphabetsoup.com/og-frameworks.png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <title>Security frameworks in plain English | Cybersecurity Alphabet Soup</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,500..900;1,9..144,500&family=IBM+Plex+Mono:wght@500;600&family=IBM+Plex+Sans:ital,wght@0,400..600;1,400&display=swap" rel="stylesheet" />
+  <link rel="icon" href="/icon.svg" type="image/svg+xml" />
+  <link rel="stylesheet" href="/style.css" />
+  <link rel="alternate" type="application/rss+xml" title="Cybersecurity Alphabet Soup blog" href="https://www.cybersecurityalphabetsoup.com/feed.xml" />
+  <style>
+    .fw-grid { max-width: 860px; margin: 0 auto 30px; display: grid; grid-template-columns: repeat(auto-fit, minmax(330px, 1fr)); gap: 16px; }
+    .fw-card { border: 1.5px solid var(--line); border-radius: 14px; padding: 18px 20px; background: var(--paper-raised); display: flex; flex-direction: column; gap: 8px; }
+    .fw-card h2 { font-family: var(--font-display); font-weight: 900; font-size: 1.3rem; margin: 0; line-height: 1.2; }
+    .fw-card .count { font-family: var(--font-mono); font-size: 0.66rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--ink-soft); }
+    .fw-card p { margin: 0; font-size: 0.94rem; line-height: 1.6; }
+    .fw-card a.go { align-self: flex-start; margin-top: 4px; font-family: var(--font-mono); font-size: 0.78rem; text-decoration: none; border: 1.5px solid var(--tomato); color: var(--tomato); border-radius: 999px; padding: 7px 15px; }
+    .fw-card a.go:hover { background: var(--tomato); color: var(--paper); }
+    .fw-note { max-width: 720px; margin: 0 auto 26px; font-size: 0.9rem; color: var(--ink-soft); line-height: 1.6; text-align: center; }
+  </style>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <div class="steam" aria-hidden="true"></div>
+
+    <!--site-nav-->
+
+  <header class="hero hero-compact">
+    <p class="kicker">four frameworks &middot; one voice</p>
+    <h1 class="title">Frameworks<br /><em>in plain English</em></h1>
+    <p class="tagline">The control sets that auditors and job descriptions keep naming, each one translated into a household metaphor rather than restated in its own jargon.</p>
+  </header>
+
+  <main id="main" class="ladle" tabindex="-1">
+    <div class="fw-grid">
+      <article class="fw-card">
+        <span class="count">106 subcategories</span>
+        <h2>NIST CSF 2.0</h2>
+        <p>The framework most organizations anchor to, across six functions from Govern to Recover. Verbatim NIST wording alongside a plain-English translation.</p>
+        <a class="go" href="nist-csf/">Open NIST CSF &rarr;</a>
+      </article>
+      <article class="fw-card">
+        <span class="count">153 safeguards</span>
+        <h2>CIS Controls v8</h2>
+        <p>The prioritized, prescriptive list, tiered by Implementation Group so a small team can tell which safeguards are the floor and which come later.</p>
+        <a class="go" href="cis/">Open CIS Controls &rarr;</a>
+      </article>
+      <article class="fw-card">
+        <span class="count">93 controls</span>
+        <h2>ISO 27001 Annex A</h2>
+        <p>The certification standard, across organizational, people, physical, and technological themes. Original explanations only, since the standard itself is copyrighted.</p>
+        <a class="go" href="iso/">Open ISO 27001 &rarr;</a>
+      </article>
+      <article class="fw-card">
+        <span class="count">54 entries</span>
+        <h2>AI security</h2>
+        <p>The guidance that has appeared as AI moved into production, including the NIST AI Risk Management Framework and the OWASP work on large language models.</p>
+        <a class="go" href="ai/">Open AI security &rarr;</a>
+      </article>
+    </div>
+
+    <p class="fw-note">
+      Trying to satisfy more than one of these at once?
+      <a href="../tools/crosswalk/">The Control Crosswalk</a> maps them against each other, and
+      <a href="../tools/policy-generator/">the policy generator</a> writes a policy set covering all of them.
+    </p>
+  </main>
+
+  <footer class="colophon">
+    <p>
+      Lost in the acronyms themselves?
+      <a class="cyberdle-link" href="../">Browse the glossary &rarr;</a>
+    </p>
+    <p class="fine-print">
+      <a href="../privacy/">Privacy</a> &middot; <a href="../disclosure/">Affiliate disclosure</a>
+    </p>
+  </footer>
+</body>
+</html>

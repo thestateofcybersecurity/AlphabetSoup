@@ -187,6 +187,8 @@ export default defineConfig({
         nistcsf: 'frameworks/nist-csf/index.html',
         cis: 'frameworks/cis/index.html',
         ai: 'frameworks/ai/index.html',
+        iso: 'frameworks/iso/index.html',
+        frameworks: 'frameworks/index.html',
         quiz: 'quiz/index.html',
         careers: 'careers/index.html',
         assess: 'assess/index.html',

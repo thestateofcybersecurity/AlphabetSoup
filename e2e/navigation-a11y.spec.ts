@@ -25,12 +25,17 @@ for (const path of SAMPLE_PAGES) {
     await page.goto(path);
     const nav = page.locator('.site-nav');
     await expect(nav.locator('a')).toHaveCount(NAV_LINK_COUNT);
-    // The links that had drifted out of individual pages.
-    for (const label of ['Tools', 'Careers', 'About', 'AI Security']) {
+    // The links that had drifted out of individual pages. The four framework
+    // links were consolidated into a single Frameworks entry when ISO was
+    // added, because five separate links no longer fitted on one row.
+    for (const label of ['Tools', 'Careers', 'About', 'Frameworks']) {
       await expect(nav.locator('a', { hasText: label })).toHaveCount(1);
     }
-    // At most one current-page marker, and never on the wrong link.
-    await expect(nav.locator('[aria-current="page"]')).toHaveCount(path === '/tools/crosswalk/' || path === '/assess/cmmc/' ? 0 : 1);
+    // Exactly one current-page marker, on every page. Section links now mark
+    // current for anything inside them, so /tools/crosswalk/ highlights Tools
+    // and /frameworks/iso/ highlights Frameworks. Previously those deeper pages
+    // marked nothing at all, leaving the reader without a sense of place.
+    await expect(nav.locator('[aria-current="page"]')).toHaveCount(1);
   });
 }
 

@@ -18,12 +18,18 @@ export interface NavLink {
   label: string;
 }
 
-/** Internal sections, in nav order. */
+/**
+ * Internal sections, in nav order.
+ *
+ * The four framework sections sit behind a single Frameworks entry rather than
+ * one link each. Four separate links took 448px of a nav with 1237px to spend,
+ * and adding ISO as a fifteenth link pushed it onto a second row. Consolidating
+ * frees far more than that and leaves room for the next framework, which the
+ * per-framework approach did not.
+ */
 export const NAV_LINKS: NavLink[] = [
   { path: '', label: 'Acronyms' },
-  { path: 'frameworks/nist-csf/', label: 'NIST CSF' },
-  { path: 'frameworks/cis/', label: 'CIS Controls' },
-  { path: 'frameworks/ai/', label: 'AI Security' },
+  { path: 'frameworks/', label: 'Frameworks' },
   { path: 'quiz/', label: 'Quiz' },
   { path: 'assess/', label: 'Assess' },
   { path: 'roadmap/', label: 'Roadmap' },
@@ -85,9 +91,17 @@ function externalAnchor(link: ExternalNavLink, playClass: string): string {
  */
 export function renderSiteNav(prefix: string, currentPath: string): string {
   const internal = NAV_LINKS.map((link) => {
-    const isCurrent = link.path === currentPath;
-    // The active link points at itself, matching the previous hand-written markup.
-    const href = isCurrent ? './' : `${prefix}${link.path}`;
+    // Exactly this page, versus somewhere inside this section. Both get the
+    // current marker, so /frameworks/iso/ highlights Frameworks rather than
+    // leaving the reader with no sense of place. The home link has an empty
+    // path and would prefix-match everything, so it is matched exactly.
+    const isExact = link.path === currentPath;
+    const isWithin = link.path !== '' && !isExact && currentPath.startsWith(link.path);
+    const isCurrent = isExact || isWithin;
+    // Only the exact page self-links. A section link on a sub-page has to keep
+    // its real destination, or Frameworks on /frameworks/iso/ would point back
+    // at /frameworks/iso/ instead of the hub.
+    const href = isExact ? './' : `${prefix}${link.path}`;
     return `<a href="${href}"${isCurrent ? ' aria-current="page"' : ''}>${link.label}</a>`;
   });
   const external = EXTERNAL_LINKS.map((l) => externalAnchor(l, 'nav-play'));
