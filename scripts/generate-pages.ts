@@ -21,6 +21,15 @@ const csf = JSON.parse(readFileSync(`${root}src/data/nist-csf.json`, 'utf8')) as
 const cis = JSON.parse(readFileSync(`${root}src/data/cis.json`, 'utf8')) as CisData;
 const ai = JSON.parse(readFileSync(`${root}src/data/ai-frameworks.json`, 'utf8')) as AiData;
 const cisIgs = JSON.parse(readFileSync(`${root}src/data/cis-igs.json`, 'utf8')) as Record<string, number>;
+const crosswalkControls = (
+  JSON.parse(readFileSync(`${root}src/data/crosswalk.json`, 'utf8')) as {
+    controls: { id: string; mappings: Record<string, string[]> }[];
+  }
+).controls;
+const isoData = JSON.parse(readFileSync(`${root}src/data/iso-27001.json`, 'utf8')) as {
+  meta: { themes: { code: string; name: string }[] };
+  controls: { id: string; theme: string; themeName: string; subject: string; metaphor: string; translation: string }[];
+};
 
 /** Quiz deck metadata and full decks, for deriving which decks test a term. */
 const deckIndex = JSON.parse(
@@ -111,6 +120,7 @@ mkdirSync(`${dist}/definitions`, { recursive: true });
 mkdirSync(`${dist}/frameworks/nist-csf`, { recursive: true });
 mkdirSync(`${dist}/frameworks/cis`, { recursive: true });
 mkdirSync(`${dist}/frameworks/ai`, { recursive: true });
+mkdirSync(`${dist}/frameworks/iso`, { recursive: true });
 mkdirSync(`${dist}/blog`, { recursive: true });
 
 const esc = (value: string): string =>
@@ -361,7 +371,7 @@ interface FrameworkPageInput {
   heading: string;
   metaphor: string;
   translation: string;
-  sectionPath: 'nist-csf' | 'cis' | 'ai';
+  sectionPath: 'nist-csf' | 'cis' | 'ai' | 'iso';
   sectionLabel: string;
   officialName: string;
   officialUrl: string;
@@ -713,6 +723,56 @@ ai.forEach((entry, i) => {
   );
 });
 
+// 4b-iso. ISO/IEC 27001:2022 Annex A, one page per control.
+//
+// Only the identifier is borrowed from the standard. Heading, metaphor, and
+// translation are original, and the footer says so on every page.
+const isoSorted = [...isoData.controls].sort((a, b) => {
+  const [, at, an] = a.id.split('.');
+  const [, bt, bn] = b.id.split('.');
+  return Number(at) - Number(bt) || Number(an) - Number(bn);
+});
+const isoRelated = new Map<string, { label: string; href: string }[]>();
+for (const control of isoSorted) {
+  const csf = new Set<string>();
+  const cis = new Set<string>();
+  for (const domain of crosswalkControls) {
+    if (!(domain.mappings.iso ?? []).includes(control.id)) continue;
+    for (const id of domain.mappings.csf ?? []) csf.add(id);
+    for (const id of domain.mappings.cis ?? []) cis.add(id);
+  }
+  isoRelated.set(control.id, [
+    ...[...csf].sort().slice(0, 6).map((id) => ({ label: id, href: `../nist-csf/${frameworkSlug(id)}.html` })),
+    ...[...cis].sort().slice(0, 6).map((id) => ({ label: id, href: `../cis/${frameworkSlug(id)}.html` })),
+  ]);
+}
+isoSorted.forEach((control, i) => {
+  const prevEntry = isoSorted[i - 1];
+  const nextEntry = isoSorted[i + 1];
+  writeFileSync(
+    `${dist}/frameworks/iso/${frameworkSlug(control.id)}.html`,
+    frameworkPage({
+      id: control.id,
+      kickerTop: `${control.themeName} / ${control.id}`,
+      heading: control.subject,
+      metaphor: control.metaphor,
+      translation: control.translation,
+      sectionPath: 'iso',
+      sectionLabel: 'ISO 27001 Annex A in plain English',
+      officialName: 'ISO/IEC 27001:2022',
+      officialUrl: 'https://www.iso.org/standard/27001',
+      // Keep prev/next inside the same theme, so A.5 does not run into A.6.
+      prev: prevEntry?.theme === control.theme ? prevEntry.id : undefined,
+      next: nextEntry?.theme === control.theme ? nextEntry.id : undefined,
+      accent: '#3a6b6b',
+      accentDark: '#6fb0b0',
+      badge: `A.${control.theme}`,
+      mappedLabel: 'Related CSF and CIS controls (unofficial mapping)',
+      mapped: isoRelated.get(control.id),
+    }),
+  );
+});
+
 // 4c. Blog: index page plus one page per post, newest first.
 const sortedPosts = [...blogPosts].sort((a, b) => (a.date < b.date ? 1 : a.date > b.date ? -1 : a.title.localeCompare(b.title)));
 writeFileSync(`${dist}/blog/index.html`, blogIndexPage(sortedPosts));
@@ -843,6 +903,7 @@ ${feedItems}
 const urls = [
   ...CATEGORIES.map((c) => `${SITE}/categories/${categorySlug(c)}.html`),
   `${SITE}/`,
+  `${SITE}/frameworks/`,
   `${SITE}/frameworks/nist-csf/`,
   `${SITE}/frameworks/cis/`,
   `${SITE}/frameworks/ai/`,
@@ -863,6 +924,8 @@ const urls = [
   ...csfIds.map((id) => `${SITE}/frameworks/nist-csf/${frameworkSlug(id)}.html`),
   ...cisIds.map((id) => `${SITE}/frameworks/cis/${frameworkSlug(id)}.html`),
   ...ai.map((entry) => `${SITE}/frameworks/ai/${frameworkSlug(entry.code)}.html`),
+  `${SITE}/frameworks/iso/`,
+  ...isoSorted.map((c) => `${SITE}/frameworks/iso/${frameworkSlug(c.id)}.html`),
 ];
 const sitemap = `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
@@ -873,5 +936,5 @@ writeFileSync(`${dist}/sitemap.xml`, sitemap);
 writeFileSync(`${dist}/robots.txt`, `User-agent: *\nAllow: /\n\nSitemap: ${SITE}/sitemap.xml\n`);
 
 console.log(
-  `Generated ${keys.length} definition pages, ${csfIds.length} CSF pages, ${cisIds.length} CIS pages, ${ai.length} AI pages, ${blogPosts.length} blog posts, ${aliases} legacy aliases, ${fallbacks} search fallbacks, ${rootRedirects} root redirects, sitemap with ${urls.length} URLs.`,
+  `Generated ${keys.length} definition pages, ${csfIds.length} CSF pages, ${cisIds.length} CIS pages, ${ai.length} AI pages, ${isoSorted.length} ISO pages, ${blogPosts.length} blog posts, ${aliases} legacy aliases, ${fallbacks} search fallbacks, ${rootRedirects} root redirects, sitemap with ${urls.length} URLs.`,
 );

@@ -29,13 +29,23 @@ test('generated AI framework page renders metaphor, translation, source, and pag
   await expect(page.locator('footer a[href*="owasp.org"]').first()).toBeVisible();
 });
 
-test('AI Security sits in the site nav between CIS Controls and Quiz', async ({ page }) => {
+test('AI Security is reachable from the nav by way of the frameworks hub', async ({ page }) => {
+  // It used to hold its own nav slot. When ISO made a fifth framework link, the
+  // four were consolidated behind one Frameworks entry, so the route is now one
+  // hop longer. What matters is that it is still reachable from any page depth.
   await page.goto('/frameworks/nist-csf/');
-  // Assert where the link resolves, not its literal relative form: the nav is
-  // now rendered from one source for every page depth, so the prefix varies.
-  const aiHref = await page.locator('.site-nav a', { hasText: 'AI Security' }).getAttribute('href');
+  const hubHref = await page.locator('.site-nav a', { hasText: 'Frameworks' }).getAttribute('href');
+  expect(new URL(hubHref!, page.url()).pathname).toBe('/frameworks/');
+
+  await page.goto('/frameworks/');
+  const aiHref = await page
+    .locator('.fw-card')
+    .filter({ hasText: 'AI security' })
+    .locator('a.go')
+    .getAttribute('href');
   expect(new URL(aiHref!, page.url()).pathname).toBe('/frameworks/ai/');
-  // Generated pages carry it too.
+
+  // Generated pages carry the same nav, so the route works from there too.
   await page.goto('/definitions/siem.html');
-  await expect(page.locator('.gnav a', { hasText: 'AI Security' })).toBeVisible();
+  await expect(page.locator('.gnav a', { hasText: 'Frameworks' })).toBeVisible();
 });
