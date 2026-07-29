@@ -188,6 +188,7 @@ export default defineConfig({
         cis: 'frameworks/cis/index.html',
         ai: 'frameworks/ai/index.html',
         iso: 'frameworks/iso/index.html',
+        soc2: 'frameworks/soc2/index.html',
         frameworks: 'frameworks/index.html',
         quiz: 'quiz/index.html',
         careers: 'careers/index.html',

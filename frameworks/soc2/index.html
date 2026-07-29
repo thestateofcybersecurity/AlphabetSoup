@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="color-scheme" content="light dark" />
+  <meta name="description" content="SOC 2 Trust Services Criteria in plain English: the common criteria plus Availability and Confidentiality, each explained with a household metaphor, with no jargon and no AICPA text." />
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="SOC 2 Trust Services Criteria in plain English | Cybersecurity Alphabet Soup" />
+  <meta property="og:description" content="Every SOC 2 criterion in scope explained through a household metaphor anyone can understand." />
+  <meta property="og:url" content="https://www.cybersecurityalphabetsoup.com/frameworks/soc2/" />
+  <meta property="og:image" content="https://www.cybersecurityalphabetsoup.com/og-frameworks.png" />
+  <title>SOC 2 Trust Services Criteria in plain English | Cybersecurity Alphabet Soup</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,500..900;1,9..144,500&family=IBM+Plex+Mono:wght@500;600&family=IBM+Plex+Sans:ital,wght@0,400..600;1,400&display=swap" rel="stylesheet" />
+  <link rel="icon" href="/icon.svg" type="image/svg+xml" />
+  <link rel="stylesheet" href="/style.css" />
+  <link rel="alternate" type="application/rss+xml" title="Cybersecurity Alphabet Soup blog" href="https://www.cybersecurityalphabetsoup.com/feed.xml" />
+</head>
+<body class="theme-soc2">
+  <a class="skip-link" href="#main">Skip to content</a>
+  <div class="steam" aria-hidden="true"></div>
+
+    <!--site-nav-->
+
+  <header class="hero hero-compact">
+    <p class="kicker">framework translation &middot; <span id="hero-count">38</span> criteria</p>
+    <h1 class="title">SOC 2 Trust Services Criteria<br /><em>in plain English</em></h1>
+    <p class="tagline">The criteria your auditor works through, explained through a household metaphor rather than restated in audit language.</p>
+
+    <form class="bowl" id="search-form" role="search">
+      <svg class="bowl-icon" viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="11" cy="11" r="7"/><line x1="16.5" y1="16.5" x2="21" y2="21"/></svg>
+      <input id="search" type="search" placeholder="Try CC6.1, access, vendors..." autocomplete="off" aria-label="Search criteria" />
+      <button type="button" class="clear-btn" id="clear-search" aria-label="Clear search" hidden>&times;</button>
+    </form>
+  </header>
+
+  <nav class="filters" aria-label="Browse filters">
+    <div class="pill-row" id="group-pills"></div>
+    <div class="pill-row" id="secondary-pills"></div>
+  </nav>
+
+  <main id="main" class="ladle">
+    <section class="soup-of-the-day" id="sotd" aria-label="Soup of the day"></section>
+    <div class="result-meta" id="result-meta" role="status"></div>
+    <div class="fw-coverage" id="fw-coverage" hidden>
+      <div class="fw-coverage-track"><div class="fw-coverage-fill"></div></div>
+      <span class="fw-coverage-text deck-sub"></span>
+    </div>
+    <section class="results" id="results" aria-label="Search results"></section>
+  </main>
+
+  <footer class="colophon">
+    <p>
+      Want a policy set mapped to these criteria?
+      <a class="cyberdle-link" href="../../tools/policy-generator/">Open the policy generator &rarr;</a>
+    </p>
+    <p class="fine-print">
+      This covers the Security common criteria plus Availability and Confidentiality. Processing Integrity and Privacy are summarised but not listed criterion by criterion, because the published sources disagree on how they are numbered and guessing would be worse than saying so.
+    </p>
+    <p class="fine-print">
+      These are original plain-English explanations, not the criteria. The Trust Services Criteria are copyrighted by the AICPA and none of their text is reproduced here.
+      <a href="https://www.aicpa-cima.com/resources/download/2017-trust-services-criteria-with-revised-points-of-focus-2022" rel="noopener">The criteria themselves are at aicpa-cima.com</a>.
+    </p>
+    <p class="fine-print">
+      <a href="../../privacy/">Privacy</a> &middot; <a href="../../disclosure/">Affiliate disclosure</a>
+    </p>
+  </footer>
+
+  <script type="module" src="/src/soc2-main.ts"></script>
+</body>
+</html>
