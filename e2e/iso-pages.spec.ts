@@ -11,11 +11,12 @@ import { expect, test } from '@playwright/test';
 test('the frameworks hub lists every framework and links to each', async ({ page }) => {
   await page.goto('/frameworks/');
   const cards = page.locator('.fw-card');
-  await expect(cards).toHaveCount(4);
+  await expect(cards).toHaveCount(5);
   for (const [name, href] of [
     ['NIST CSF 2.0', 'nist-csf/'],
     ['CIS Controls v8', 'cis/'],
     ['ISO 27001 Annex A', 'iso/'],
+    ['SOC 2', 'soc2/'],
     ['AI security', 'ai/'],
   ] as const) {
     const card = cards.filter({ hasText: name });

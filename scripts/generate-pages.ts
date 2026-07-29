@@ -11,6 +11,8 @@ import type { DeckLike, PostLike } from '../src/lib/deep-links';
 import { CATEGORIES } from '../src/lib/types';
 import type { AcronymData, AcronymEntry } from '../src/lib/types';
 import type { AiData, CisData, CsfData } from '../src/lib/frameworks';
+import { byFamily, relatedByCriterion } from '../src/lib/soc2';
+import type { CrosswalkDomain, Soc2Data } from '../src/lib/soc2';
 
 const SITE = 'https://www.cybersecurityalphabetsoup.com';
 const CYBERDLE = 'https://thestateofcybersecurity.github.io/cyberdle/';
@@ -30,6 +32,7 @@ const isoData = JSON.parse(readFileSync(`${root}src/data/iso-27001.json`, 'utf8'
   meta: { themes: { code: string; name: string }[] };
   controls: { id: string; theme: string; themeName: string; subject: string; metaphor: string; translation: string }[];
 };
+const soc2Data = JSON.parse(readFileSync(`${root}src/data/soc2.json`, 'utf8')) as Soc2Data;
 
 /** Quiz deck metadata and full decks, for deriving which decks test a term. */
 const deckIndex = JSON.parse(
@@ -121,6 +124,7 @@ mkdirSync(`${dist}/frameworks/nist-csf`, { recursive: true });
 mkdirSync(`${dist}/frameworks/cis`, { recursive: true });
 mkdirSync(`${dist}/frameworks/ai`, { recursive: true });
 mkdirSync(`${dist}/frameworks/iso`, { recursive: true });
+mkdirSync(`${dist}/frameworks/soc2`, { recursive: true });
 mkdirSync(`${dist}/blog`, { recursive: true });
 
 const esc = (value: string): string =>
@@ -371,7 +375,7 @@ interface FrameworkPageInput {
   heading: string;
   metaphor: string;
   translation: string;
-  sectionPath: 'nist-csf' | 'cis' | 'ai' | 'iso';
+  sectionPath: 'nist-csf' | 'cis' | 'ai' | 'iso' | 'soc2';
   sectionLabel: string;
   officialName: string;
   officialUrl: string;
@@ -773,6 +777,50 @@ isoSorted.forEach((control, i) => {
   );
 });
 
+// 4b-soc2. SOC 2 Trust Services Criteria, one page per criterion.
+//
+// Only the identifier is borrowed from the AICPA. Heading, metaphor, and
+// translation are original, and the footer says so on every page.
+//
+// The related-control derivation is imported rather than repeated because it
+// carries a rule: criteria this site does not enumerate produce no entry, so
+// the Processing Integrity identifiers the crosswalk cites cannot generate
+// links to pages that were never written.
+const soc2Sorted = byFamily(soc2Data).flatMap((f) => f.criteria);
+const soc2Related = relatedByCriterion(soc2Data, crosswalkControls as CrosswalkDomain[]);
+soc2Sorted.forEach((criterion, i) => {
+  const prevEntry = soc2Sorted[i - 1];
+  const nextEntry = soc2Sorted[i + 1];
+  const rel = soc2Related.get(criterion.id);
+  const mapped = [
+    ...(rel?.csf ?? []).slice(0, 6).map((id) => ({ label: id, href: `../nist-csf/${frameworkSlug(id)}.html` })),
+    ...(rel?.cis ?? []).slice(0, 6).map((id) => ({ label: id, href: `../cis/${frameworkSlug(id)}.html` })),
+    ...(rel?.iso ?? []).slice(0, 6).map((id) => ({ label: id, href: `../iso/${frameworkSlug(id)}.html` })),
+  ];
+  writeFileSync(
+    `${dist}/frameworks/soc2/${frameworkSlug(criterion.id)}.html`,
+    frameworkPage({
+      id: criterion.id,
+      kickerTop: `${criterion.familyName} / ${criterion.id}`,
+      heading: criterion.subject,
+      metaphor: criterion.metaphor,
+      translation: criterion.translation,
+      sectionPath: 'soc2',
+      sectionLabel: 'SOC 2 Trust Services Criteria in plain English',
+      officialName: 'AICPA Trust Services Criteria',
+      officialUrl: soc2Data.meta.officialUrl,
+      // Keep prev/next inside the same family, so CC6 does not run into CC7.
+      prev: prevEntry?.family === criterion.family ? prevEntry.id : undefined,
+      next: nextEntry?.family === criterion.family ? nextEntry.id : undefined,
+      accent: '#6a4a7c',
+      accentDark: '#b79ecb',
+      badge: criterion.family,
+      mappedLabel: 'Related CSF, CIS and ISO controls (unofficial mapping)',
+      mapped,
+    }),
+  );
+});
+
 // 4c. Blog: index page plus one page per post, newest first.
 const sortedPosts = [...blogPosts].sort((a, b) => (a.date < b.date ? 1 : a.date > b.date ? -1 : a.title.localeCompare(b.title)));
 writeFileSync(`${dist}/blog/index.html`, blogIndexPage(sortedPosts));
@@ -926,6 +974,8 @@ const urls = [
   ...ai.map((entry) => `${SITE}/frameworks/ai/${frameworkSlug(entry.code)}.html`),
   `${SITE}/frameworks/iso/`,
   ...isoSorted.map((c) => `${SITE}/frameworks/iso/${frameworkSlug(c.id)}.html`),
+  `${SITE}/frameworks/soc2/`,
+  ...soc2Sorted.map((c) => `${SITE}/frameworks/soc2/${frameworkSlug(c.id)}.html`),
 ];
 const sitemap = `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
@@ -936,5 +986,5 @@ writeFileSync(`${dist}/sitemap.xml`, sitemap);
 writeFileSync(`${dist}/robots.txt`, `User-agent: *\nAllow: /\n\nSitemap: ${SITE}/sitemap.xml\n`);
 
 console.log(
-  `Generated ${keys.length} definition pages, ${csfIds.length} CSF pages, ${cisIds.length} CIS pages, ${ai.length} AI pages, ${isoSorted.length} ISO pages, ${blogPosts.length} blog posts, ${aliases} legacy aliases, ${fallbacks} search fallbacks, ${rootRedirects} root redirects, sitemap with ${urls.length} URLs.`,
+  `Generated ${keys.length} definition pages, ${csfIds.length} CSF pages, ${cisIds.length} CIS pages, ${ai.length} AI pages, ${isoSorted.length} ISO pages, ${soc2Sorted.length} SOC 2 pages, ${blogPosts.length} blog posts, ${aliases} legacy aliases, ${fallbacks} search fallbacks, ${rootRedirects} root redirects, sitemap with ${urls.length} URLs.`,
 );

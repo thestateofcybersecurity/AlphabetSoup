@@ -148,6 +148,143 @@ describe('core text', () => {
   });
 });
 
+/**
+ * Per-section themes (.theme-iso, .theme-soc2, and the rest).
+ *
+ * These were never covered: the checks above read only the top-level :root
+ * tokens, so a section could ship an accent that failed AA and nothing would
+ * notice. Adding the SOC 2 section made that gap worth closing.
+ *
+ * The resolution models the cascade, taking the LAST declaration that applies,
+ * because the stylesheet contains a stray .theme-iso block carrying light
+ * values inside a dark media query. The browser overrides it with the correct
+ * values that follow, so nothing renders wrong, but a parser that took the
+ * first match would report a failure that does not exist.
+ */
+interface ThemeDecl {
+  theme: string;
+  token: string;
+  value: string;
+  isDark: boolean;
+}
+
+function themeDeclarations(): ThemeDecl[] {
+  const out: ThemeDecl[] = [];
+  const re =
+    /@media[^{]*prefers-color-scheme:\s*dark[^{]*\{|(\.[a-z0-9-]+)\s*\{|\{|\}|(--[a-z-]+):\s*(#[0-9a-fA-F]{3,6})\s*;/g;
+  let depth = 0;
+  const darkDepths: number[] = [];
+  let current: string | null = null;
+  let match: RegExpExecArray | null;
+  while ((match = re.exec(css))) {
+    if (match[0].startsWith('@media')) {
+      depth += 1;
+      darkDepths.push(depth);
+    } else if (match[1]) {
+      depth += 1;
+      if (match[1].startsWith('.theme-')) current = match[1].slice('.theme-'.length);
+    } else if (match[0] === '{') {
+      depth += 1;
+    } else if (match[0] === '}') {
+      if (darkDepths[darkDepths.length - 1] === depth) darkDepths.pop();
+      depth -= 1;
+      if (current && depth <= darkDepths.length) current = null;
+    } else if (match[2] && current) {
+      out.push({ theme: current, token: match[2], value: match[3], isDark: darkDepths.length > 0 });
+    }
+  }
+  return out;
+}
+
+describe('section themes meet AA', () => {
+  const decls = themeDeclarations();
+  const themes = [...new Set(decls.map((d) => d.theme))];
+
+  /** The value that actually wins for a token, in one scheme. */
+  const resolve = (theme: string, token: string, wantDark: boolean): string | undefined => {
+    const applicable = decls.filter(
+      (d) => d.theme === theme && d.token === token && (wantDark ? true : !d.isDark),
+    );
+    return applicable[applicable.length - 1]?.value;
+  };
+
+  it('found the section themes in the stylesheet', () => {
+    // A parser that silently matched nothing would make every check below pass.
+    expect(themes.length).toBeGreaterThan(10);
+    expect(themes).toContain('soc2');
+    expect(themes).toContain('iso');
+  });
+
+  /**
+   * Section accents that already failed AA when this check was written.
+   *
+   * These are real failures, not false positives: `.kicker` renders --tomato at
+   * about 11.5px and weight 400, so the 4.5 threshold is the right one. They
+   * are recorded rather than fixed because correcting them means visibly
+   * restyling seven sections, which is a decision to take deliberately and not
+   * a side effect of adding SOC 2.
+   *
+   * Nothing may be added to this list. A new theme, or a regression in one that
+   * currently passes, fails the test.
+   */
+  const KNOWN_FAILURES = new Set([
+    '.theme-cis --tomato light',
+    '.theme-quiz --tomato light',
+    '.theme-crosswalk --tomato light',
+    '.theme-cloud --tomato light',
+    '.theme-ssdlc --tomato light',
+    '.theme-automation --tomato light',
+    '.theme-skills --tomato light',
+    '.theme-assess --tomato light',
+    '.theme-roadmap --tomato light',
+  ]);
+
+  it.each(['--tomato', '--tomato-deep'])('keeps %s readable in both schemes', (token) => {
+    const failures: string[] = [];
+    for (const theme of themes) {
+      for (const [wantDark, paper] of [
+        [false, light['--paper']],
+        [true, dark['--paper']],
+      ] as const) {
+        const value = resolve(theme, token, wantDark);
+        if (!value) continue;
+        const ratio = contrastRatio(value, paper);
+        const key = `.theme-${theme} ${token} ${wantDark ? 'dark' : 'light'}`;
+        if (ratio < AA_NORMAL && !KNOWN_FAILURES.has(key)) {
+          failures.push(`${key} = ${ratio.toFixed(2)}`);
+        }
+      }
+    }
+    expect(failures).toEqual([]);
+  });
+
+  it('the recorded failures are still failing, so the list does not rot', () => {
+    // If someone fixes one, this points at the line to delete rather than
+    // letting a stale exemption sit there hiding a future regression.
+    const fixed: string[] = [];
+    for (const key of KNOWN_FAILURES) {
+      const [selector, token, scheme] = key.split(' ');
+      const theme = selector.slice('.theme-'.length);
+      const value = resolve(theme, token, scheme === 'dark');
+      const paper = scheme === 'dark' ? dark['--paper'] : light['--paper'];
+      if (value && contrastRatio(value, paper) >= AA_NORMAL) fixed.push(key);
+    }
+    expect(fixed, 'now passing, remove from KNOWN_FAILURES').toEqual([]);
+  });
+
+  it('the SOC 2 theme is held to the standard, not exempted', () => {
+    for (const key of KNOWN_FAILURES) expect(key).not.toContain('soc2');
+    for (const token of ['--tomato', '--tomato-deep']) {
+      expect(contrastRatio(resolve('soc2', token, false)!, light['--paper'])).toBeGreaterThanOrEqual(
+        AA_NORMAL,
+      );
+      expect(contrastRatio(resolve('soc2', token, true)!, dark['--paper'])).toBeGreaterThanOrEqual(
+        AA_NORMAL,
+      );
+    }
+  });
+});
+
 describe('tool pages use the tokens', () => {
   it('has no literal status hex values left in the tool stylesheets', () => {
     const stale = ['#b0402e', '#3e7d4f', '#b07d2e', '#8a8a8a'];

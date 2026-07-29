@@ -351,6 +351,20 @@ body {
   }
 }
 
+.theme-soc2 {
+  --tomato: #6a4a7c;
+  --tomato-deep: #513a5f;
+  --broth: #b9a3c9;
+}
+
+@media (prefers-color-scheme: dark) {
+  .theme-soc2 {
+    --tomato: #b79ecb;
+    --tomato-deep: #cdb9dc;
+    --broth: #4d3a5b;
+  }
+}
+
 .theme-skills {
   --tomato: #b85a3e;
   --tomato-deep: #93432c;
