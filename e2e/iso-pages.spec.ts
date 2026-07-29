@@ -104,7 +104,9 @@ test('control pages cross-link to the frameworks they map to', async ({ page }) 
   // And every cross-link resolves.
   const hrefs = await cross.evaluateAll((els) => els.map((e) => e.getAttribute('href') ?? ''));
   for (const href of hrefs.slice(0, 4)) {
-    const res = await page.request.get(`/frameworks/${href.replace('../', '')}`);
+    // Resolve against the page rather than stripping '../' by hand, which only
+    // strips the first segment and misbehaves on deeper relative paths.
+    const res = await page.request.get(new URL(href, page.url()).pathname);
     expect(res.status(), href).toBe(200);
   }
 });
