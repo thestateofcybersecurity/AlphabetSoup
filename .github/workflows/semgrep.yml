@@ -11,6 +11,8 @@ jobs:
   semgrep:
     name: Scan
     runs-on: ubuntu-latest
+    # Consistently around 45 seconds.
+    timeout-minutes: 10
     permissions:
       contents: read
       security-events: write
