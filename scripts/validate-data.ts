@@ -6,6 +6,7 @@ import { TIER_ORDER } from '../src/lib/assessment';
 import type { AcronymData } from '../src/lib/types';
 import type { AiData, CisData, CsfData } from '../src/lib/frameworks';
 import type { AssessmentData } from '../src/lib/assessment';
+import type { Soc2Data } from '../src/lib/soc2';
 
 const load = <T>(rel: string): T =>
   JSON.parse(readFileSync(fileURLToPath(new URL(rel, import.meta.url)), 'utf8')) as T;
@@ -37,11 +38,68 @@ interface CrosswalkData {
   controls: { id: string; domain: string; summary: string; mappings: Record<string, string[]> }[];
 }
 
+/**
+ * Structural checks for the SOC 2 dataset.
+ *
+ * The criteria are paywalled and the freely published summaries disagree with
+ * each other, so the family sizes here were derived: CC1 through CC5 are built
+ * on the seventeen COSO principles, and the crosswalk corroborates the maxima
+ * of the rest. The COSO total is asserted because it is the only support CC5
+ * has, no crosswalk identifier reaching it.
+ */
+function validateSoc2(data: Soc2Data): string[] {
+  const out: string[] = [];
+  if (data.criteria.length !== data.meta.criterionCount) {
+    out.push(`criterionCount ${data.meta.criterionCount} != ${data.criteria.length} criteria`);
+  }
+  const seen = new Set<string>();
+  for (const c of data.criteria) {
+    if (seen.has(c.id)) out.push(`duplicate criterion id ${c.id}`);
+    seen.add(c.id);
+    if (c.family !== c.id.split('.')[0]) out.push(`${c.id}: family ${c.family} does not match id`);
+    for (const field of ['subject', 'metaphor', 'translation'] as const) {
+      if (!c[field]?.trim()) out.push(`${c.id}: empty ${field}`);
+      if (c[field]?.includes('—')) out.push(`${c.id}: em dash in ${field}`);
+    }
+  }
+  for (const family of data.meta.families) {
+    const members = data.criteria.filter((c) => c.family === family.code);
+    if (members.length !== family.count) {
+      out.push(`${family.code}: count ${family.count} != ${members.length} criteria`);
+    }
+    const numbers = members.map((c) => Number(c.id.split('.')[1])).sort((a, b) => a - b);
+    const expected = Array.from({ length: family.count }, (_, i) => i + 1);
+    if (numbers.join(',') !== expected.join(',')) {
+      out.push(`${family.code}: numbering ${numbers.join(',')} is not 1..${family.count}`);
+    }
+  }
+  const coso = data.meta.families.filter((f) => f.coso).reduce((s, f) => s + f.count, 0);
+  if (coso !== 17) out.push(`COSO derived families total ${coso}, expected 17`);
+  const declared = data.meta.categories.reduce((s, c) => s + c.count, 0);
+  if (declared !== data.criteria.length) {
+    out.push(`category counts total ${declared} != ${data.criteria.length} criteria`);
+  }
+  return out;
+}
+
 /** Structural + reference checks for the control crosswalk. */
-function validateCrosswalk(data: CrosswalkData, csf: CsfData, cis: CisData): string[] {
+function validateCrosswalk(
+  data: CrosswalkData,
+  csf: CsfData,
+  cis: CisData,
+  soc2: Soc2Data,
+): string[] {
   const out: string[] = [];
   const isoRe = /^A\.(5\.(3[0-7]|[12]?[0-9])|6\.[1-8]|7\.(1[0-4]|[1-9])|8\.(3[0-4]|[12]?[0-9]))$/;
-  const soc2Re = /^(CC[1-9]\.[1-9]|A1\.[1-3]|C1\.[1-2]|PI1\.[1-5]|P[1-8]\.[1-9])$/;
+  /**
+   * SOC 2 identifiers are checked against the dataset rather than a pattern.
+   * The previous regex accepted CC8.4 and CC9.3, which do not exist and which
+   * public sources had invented, so the dataset is the authority instead.
+   *
+   * PI1.2 and PI1.3 are the documented exception: the crosswalk cites them, but
+   * Processing Integrity is deliberately not enumerated. See src/lib/soc2.ts.
+   */
+  const soc2Ids = new Set([...soc2.criteria.map((c) => c.id), 'PI1.2', 'PI1.3']);
   const seen = new Set<string>();
   for (const c of data.controls) {
     if (seen.has(c.id)) out.push(`duplicate domain id ${c.id}`);
@@ -54,7 +112,7 @@ function validateCrosswalk(data: CrosswalkData, csf: CsfData, cis: CisData): str
     for (const id of c.mappings.csf) if (!(id in csf)) out.push(`${c.id}: unknown CSF id ${id}`);
     for (const id of c.mappings.cis) if (!(id in cis)) out.push(`${c.id}: unknown CIS id ${id}`);
     for (const id of c.mappings.iso) if (!isoRe.test(id)) out.push(`${c.id}: invalid ISO id ${id}`);
-    for (const id of c.mappings.soc2) if (!soc2Re.test(id)) out.push(`${c.id}: invalid SOC2 id ${id}`);
+    for (const id of c.mappings.soc2) if (!soc2Ids.has(id)) out.push(`${c.id}: unknown SOC2 id ${id}`);
   }
   for (const f of data.frameworks) {
     const distinct = new Set(data.controls.flatMap((c) => c.mappings[f.id]));
@@ -389,6 +447,7 @@ const ztmm = load<AssessmentData>('../src/data/assessment-ztmm.json');
 const ssdf = load<AssessmentData>('../src/data/assessment-ssdf.json');
 const pci = load<AssessmentData>('../src/data/assessment-pci-dss.json');
 const crosswalk = load<CrosswalkData>('../src/data/crosswalk.json');
+const soc2 = load<Soc2Data>('../src/data/soc2.json');
 const boardMetrics = load<{ metrics: BoardMetric[] }>('../src/data/board-metrics.json');
 const runbooks = load<{ scenarios: RunbookScenario[] }>('../src/data/runbooks.json');
 const cloudBaseline = load<{ controls: CloudControl[] }>('../src/data/cloud-baseline.json');
@@ -425,7 +484,8 @@ const problems = [
   ...validateAssessment(ztmm).map((e) => `ztmm: ${e}`),
   ...validateAssessment(ssdf).map((e) => `ssdf: ${e}`),
   ...validateAssessment(pci).map((e) => `pci-dss: ${e}`),
-  ...validateCrosswalk(crosswalk, csf, cis).map((e) => `crosswalk: ${e}`),
+  ...validateCrosswalk(crosswalk, csf, cis, soc2).map((e) => `crosswalk: ${e}`),
+  ...validateSoc2(soc2).map((e) => `soc2: ${e}`),
   ...validateBoardMetrics(boardMetrics.metrics).map((e) => `board-metrics: ${e}`),
   ...validateRunbooks(runbooks.scenarios).map((e) => `runbooks: ${e}`),
   ...validateCloudBaseline(cloudBaseline.controls).map((e) => `cloud-baseline: ${e}`),
@@ -453,5 +513,5 @@ if (problems.length > 0) {
 }
 console.log(
   `Data OK: ${Object.keys(acronyms).length} acronyms, ${Object.keys(csf).length} CSF subcategories, ${Object.keys(cis).length} CIS safeguards, ${ai.length} AI framework entries, ` +
-    `${cmmc.questions.length} 800-171/CMMC, ${cyberEssentials.questions.length} Cyber Essentials, ${ztmm.questions.length} ZTMM, ${ssdf.questions.length} SSDF, ${pci.questions.length} PCI DSS, ${crosswalk.controls.length} crosswalk domains, ${boardMetrics.metrics.length} board metrics, ${runbooks.scenarios.length} runbook scenarios, ${cloudBaseline.controls.length} cloud baseline controls, ${ssdlc.practices.length} SDLC practices, ${automationRoi.categories.length} automation categories, ${trustLibrary.entries.length} trust answers, ${regulations.regulations.length} regulations, ${skillsMatrix.competencies.length} team competencies, ${blogPosts.length} blog posts.`,
+    `${cmmc.questions.length} 800-171/CMMC, ${cyberEssentials.questions.length} Cyber Essentials, ${ztmm.questions.length} ZTMM, ${ssdf.questions.length} SSDF, ${pci.questions.length} PCI DSS, ${crosswalk.controls.length} crosswalk domains, ${soc2.criteria.length} SOC 2 criteria, ${boardMetrics.metrics.length} board metrics, ${runbooks.scenarios.length} runbook scenarios, ${cloudBaseline.controls.length} cloud baseline controls, ${ssdlc.practices.length} SDLC practices, ${automationRoi.categories.length} automation categories, ${trustLibrary.entries.length} trust answers, ${regulations.regulations.length} regulations, ${skillsMatrix.competencies.length} team competencies, ${blogPosts.length} blog posts.`,
 );
