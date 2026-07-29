@@ -1,0 +1,364 @@
+{
+ "meta": {
+  "name": "AICPA Trust Services Criteria (SOC 2)",
+  "short": "SOC 2",
+  "officialUrl": "https://www.aicpa-cima.com/resources/download/2017-trust-services-criteria-with-revised-points-of-focus-2022",
+  "criterionCount": 38,
+  "note": "The Trust Services Criteria are copyrighted by the AICPA. No criterion text or point of focus is reproduced here. Each entry holds the criterion identifier, which is a factual reference, and an original subject line written for this site. Consult the criteria themselves for authoritative wording.",
+  "scopeNote": "This covers the Security category, which every SOC 2 report includes, plus Availability and Confidentiality. Processing Integrity and Privacy are described at the category level only, because the published sources consulted disagreed on how their criteria are numbered and this site does not assert structure it cannot corroborate.",
+  "structureNote": "The common criteria CC1 through CC5 are organized around the seventeen principles of the COSO Internal Control Integrated Framework (2013), which is why they number 5, 3, 4, 2 and 3 respectively. Note that the ordering differs from COSO's own: CC2 is Communication and Information, and CC3 is Risk Assessment.",
+  "categories": [
+   {
+    "code": "CC",
+    "name": "Security (Common Criteria)",
+    "blurb": "The baseline every SOC 2 report is built on. Nine families covering governance, risk, access, operations, change and third parties. If a report only covers one category, this is it.",
+    "count": 33
+   },
+   {
+    "code": "A",
+    "name": "Availability",
+    "blurb": "Whether the system is there when it is supposed to be. Capacity, resilient infrastructure, and recovery plans that have actually been tested.",
+    "count": 3
+   },
+   {
+    "code": "C",
+    "name": "Confidentiality",
+    "blurb": "Protecting information the organization promised to keep private, from the moment it is identified to the moment it is destroyed.",
+    "count": 2
+   }
+  ],
+  "families": [
+   { "code": "CC1", "name": "Control Environment", "coso": "Principles 1 to 5", "count": 5 },
+   { "code": "CC2", "name": "Communication and Information", "coso": "Principles 13 to 15", "count": 3 },
+   { "code": "CC3", "name": "Risk Assessment", "coso": "Principles 6 to 9", "count": 4 },
+   { "code": "CC4", "name": "Monitoring Activities", "coso": "Principles 16 to 17", "count": 2 },
+   { "code": "CC5", "name": "Control Activities", "coso": "Principles 10 to 12", "count": 3 },
+   { "code": "CC6", "name": "Logical and Physical Access Controls", "coso": null, "count": 8 },
+   { "code": "CC7", "name": "System Operations", "coso": null, "count": 5 },
+   { "code": "CC8", "name": "Change Management", "coso": null, "count": 1 },
+   { "code": "CC9", "name": "Risk Mitigation", "coso": null, "count": 2 },
+   { "code": "A1", "name": "Availability", "coso": null, "count": 3 },
+   { "code": "C1", "name": "Confidentiality", "coso": null, "count": 2 }
+  ],
+  "unscopedCategories": [
+   {
+    "code": "PI",
+    "name": "Processing Integrity",
+    "blurb": "Whether the system processes data completely, accurately and on time, and only when it is supposed to. Relevant when customers rely on the output being right, not merely on the system being up.",
+    "reason": "Included at category level only. The sources consulted did not agree on how many criteria the PI1 family contains, and the site does not publish counts it cannot corroborate."
+   },
+   {
+    "code": "P",
+    "name": "Privacy",
+    "blurb": "How personal information is collected, used, retained, disclosed and disposed of, and what individuals are told and allowed to choose. Eight families, P1 through P8.",
+    "reason": "Included at category level only. Published summaries contradicted each other on the numbering within P2, P6 and P8, so the individual criteria are not enumerated here."
+   }
+  ]
+ },
+ "criteria": [
+  {
+   "id": "CC1.1",
+   "family": "CC1",
+   "familyName": "Control Environment",
+   "subject": "A demonstrated commitment to integrity and ethical values",
+   "metaphor": "The house rule that the adults follow it too, not just the children.",
+   "translation": "Standards of behaviour are set out, leadership visibly lives by them, and someone actually deals with it when a person falls short. A code of conduct nobody enforces counts for nothing."
+  },
+  {
+   "id": "CC1.2",
+   "family": "CC1",
+   "familyName": "Control Environment",
+   "subject": "Board oversight that is independent of the people it oversees",
+   "metaphor": "Having someone at the table who does not report to the cook reviewing whether the kitchen is clean.",
+   "translation": "There is a governing body with enough independence and expertise to challenge management, and it genuinely exercises oversight of internal control rather than nodding through whatever it is shown."
+  },
+  {
+   "id": "CC1.3",
+   "family": "CC1",
+   "familyName": "Control Environment",
+   "subject": "Structures, reporting lines and authority set deliberately",
+   "metaphor": "Deciding who is in charge of what before the emergency, not during it.",
+   "translation": "Management establishes who reports to whom and who is allowed to decide what, so responsibility for security has an owner rather than being everyone's job and therefore nobody's."
+  },
+  {
+   "id": "CC1.4",
+   "family": "CC1",
+   "familyName": "Control Environment",
+   "subject": "Attracting, developing and keeping competent people",
+   "metaphor": "Hiring someone who can actually cook, then keeping their skills current.",
+   "translation": "The organization defines the competence it needs, recruits and trains against it, and plans for what happens when a key person leaves."
+  },
+  {
+   "id": "CC1.5",
+   "family": "CC1",
+   "familyName": "Control Environment",
+   "subject": "Holding individuals accountable for their control responsibilities",
+   "metaphor": "The chore chart with names on it, and consequences attached.",
+   "translation": "People are held to their internal control duties through performance measures, incentives and, where needed, corrective action. Accountability is tied to the individual, not left floating."
+  },
+  {
+   "id": "CC2.1",
+   "family": "CC2",
+   "familyName": "Communication and Information",
+   "subject": "Obtaining information good enough to run the controls on",
+   "metaphor": "Reading the actual thermometer rather than guessing whether the room feels warm.",
+   "translation": "The organization gathers or generates information that is relevant and of sufficient quality to support internal control. Controls fed by stale or wrong data fail quietly."
+  },
+  {
+   "id": "CC2.2",
+   "family": "CC2",
+   "familyName": "Communication and Information",
+   "subject": "Telling your own people what is expected of them",
+   "metaphor": "Saying out loud who takes the bins out, rather than assuming everyone knows.",
+   "translation": "Internal control objectives and individual responsibilities are communicated inside the organization, and there is a route for staff to report problems upward, including one that bypasses their own manager."
+  },
+  {
+   "id": "CC2.3",
+   "family": "CC2",
+   "familyName": "Communication and Information",
+   "subject": "Communicating with the outside parties who need to know",
+   "metaphor": "Telling the neighbours the alarm will be tested on Tuesday.",
+   "translation": "The organization communicates relevant matters to customers, vendors, regulators and other external parties, and gives them a way to communicate back, including reporting a security concern."
+  },
+  {
+   "id": "CC3.1",
+   "family": "CC3",
+   "familyName": "Risk Assessment",
+   "subject": "Stating objectives clearly enough that risk can be judged against them",
+   "metaphor": "You cannot say the trip went wrong until you have said where you were going.",
+   "translation": "Objectives are specified with enough clarity that the organization can identify what would threaten them. Vague goals make risk assessment meaningless."
+  },
+  {
+   "id": "CC3.2",
+   "family": "CC3",
+   "familyName": "Risk Assessment",
+   "subject": "Identifying and analyzing risk to those objectives",
+   "metaphor": "Walking the house looking for what could actually go wrong, then deciding which worries earn action.",
+   "translation": "Risks are identified across the organization, analyzed for likelihood and impact, and used to decide how they will be managed. This is where the threats become a ranked list rather than a vague unease."
+  },
+  {
+   "id": "CC3.3",
+   "family": "CC3",
+   "familyName": "Risk Assessment",
+   "subject": "Considering that someone inside might be the problem",
+   "metaphor": "Accepting that the missing money might not have been misplaced.",
+   "translation": "The assessment explicitly considers the potential for fraud, including the incentives, pressures and opportunities that could lead someone to override controls."
+  },
+  {
+   "id": "CC3.4",
+   "family": "CC3",
+   "familyName": "Risk Assessment",
+   "subject": "Reassessing when something significant changes",
+   "metaphor": "Rechecking the locks after you move house, not just after you first moved in.",
+   "translation": "Changes that could meaningfully affect internal control get identified and assessed. New systems, new markets, acquisitions and reorganizations all move the risk picture."
+  },
+  {
+   "id": "CC4.1",
+   "family": "CC4",
+   "familyName": "Monitoring Activities",
+   "subject": "Evaluating whether the controls are actually working",
+   "metaphor": "Pressing the test button on the smoke alarm instead of trusting the little green light.",
+   "translation": "The organization selects and performs ongoing checks, separate evaluations, or both, to confirm that controls are present and functioning rather than merely documented."
+  },
+  {
+   "id": "CC4.2",
+   "family": "CC4",
+   "familyName": "Monitoring Activities",
+   "subject": "Reporting the deficiencies to someone who can fix them",
+   "metaphor": "Telling whoever owns the ladder that the alarm failed its test.",
+   "translation": "Control weaknesses are evaluated and communicated to the parties responsible for corrective action, including senior management and the board where the matter warrants it, and remediation is followed up."
+  },
+  {
+   "id": "CC5.1",
+   "family": "CC5",
+   "familyName": "Control Activities",
+   "subject": "Choosing controls that actually address the assessed risk",
+   "metaphor": "Buying the lock that fits the door you were worried about.",
+   "translation": "Control activities are selected and developed to bring identified risks down to an acceptable level. The link runs from the risk assessment to the control, not the other way around."
+  },
+  {
+   "id": "CC5.2",
+   "family": "CC5",
+   "familyName": "Control Activities",
+   "subject": "General controls over the technology the other controls depend on",
+   "metaphor": "Looking after the fuse box, because everything else in the house runs through it.",
+   "translation": "Technology general controls are selected and developed to support the achievement of objectives. If the underlying infrastructure and its access controls are weak, controls built on top of it inherit that weakness."
+  },
+  {
+   "id": "CC5.3",
+   "family": "CC5",
+   "familyName": "Control Activities",
+   "subject": "Deploying controls through policies people can follow",
+   "metaphor": "The rule written on the wall, plus the person whose job it is to carry it out.",
+   "translation": "Controls are put into effect through policies that establish what is expected and procedures that turn those policies into action, performed by competent people at a sensible frequency."
+  },
+  {
+   "id": "CC6.1",
+   "family": "CC6",
+   "familyName": "Logical and Physical Access Controls",
+   "subject": "Logical access infrastructure that enforces who may reach what",
+   "metaphor": "Locks on the internal doors, not just the front one.",
+   "translation": "The organization implements the software and infrastructure that restricts logical access to systems and data, covering identification, authentication, authorization and the protection of credentials and keys."
+  },
+  {
+   "id": "CC6.2",
+   "family": "CC6",
+   "familyName": "Logical and Physical Access Controls",
+   "subject": "Granting access only after it is authorized",
+   "metaphor": "Nobody gets a key until someone with authority agrees they should have one.",
+   "translation": "New user access is registered and approved before credentials are issued, and access is granted on the basis of a documented authorization rather than a verbal request."
+  },
+  {
+   "id": "CC6.3",
+   "family": "CC6",
+   "familyName": "Logical and Physical Access Controls",
+   "subject": "Changing and removing access when roles change",
+   "metaphor": "Getting the key back when the lodger moves out.",
+   "translation": "Access is modified or revoked as people join, move and leave, and it is reviewed periodically so that permissions do not quietly accumulate over a long career."
+  },
+  {
+   "id": "CC6.4",
+   "family": "CC6",
+   "familyName": "Logical and Physical Access Controls",
+   "subject": "Restricting physical access to facilities and equipment",
+   "metaphor": "The server cupboard has a lock, and not everyone has the code.",
+   "translation": "Physical access to data centres, offices and other sensitive areas is restricted to authorized people, with entry recorded and reviewed."
+  },
+  {
+   "id": "CC6.5",
+   "family": "CC6",
+   "familyName": "Logical and Physical Access Controls",
+   "subject": "Rendering data unrecoverable before hardware leaves",
+   "metaphor": "Shredding the letters rather than putting them out whole with the recycling.",
+   "translation": "Physical media is wiped or destroyed before disposal or reuse, so that decommissioned equipment does not carry readable data out of the building."
+  },
+  {
+   "id": "CC6.6",
+   "family": "CC6",
+   "familyName": "Logical and Physical Access Controls",
+   "subject": "Defending the boundary against threats from outside",
+   "metaphor": "The fence and the gate, for everything approaching from the street.",
+   "translation": "Controls are implemented to protect against threats originating outside the system boundary, covering perimeter defences, remote access protection and the hardening of anything internet facing."
+  },
+  {
+   "id": "CC6.7",
+   "family": "CC6",
+   "familyName": "Logical and Physical Access Controls",
+   "subject": "Protecting information while it is moving or being carried",
+   "metaphor": "Sealing the envelope before it goes in the post.",
+   "translation": "Data is protected in transmission, movement and removal, through encryption and restrictions on the use of removable media and other channels that take information off the system."
+  },
+  {
+   "id": "CC6.8",
+   "family": "CC6",
+   "familyName": "Logical and Physical Access Controls",
+   "subject": "Preventing and detecting unauthorized software",
+   "metaphor": "Not letting strangers install things in your house, and noticing if they did.",
+   "translation": "Controls prevent or detect the introduction of unauthorized or malicious software, through allowlisting, endpoint protection and integrity checks on what is running."
+  },
+  {
+   "id": "CC7.1",
+   "family": "CC7",
+   "familyName": "System Operations",
+   "subject": "Detecting configuration drift and new vulnerabilities",
+   "metaphor": "Noticing that a window has been left open, and that the frame has rotted.",
+   "translation": "The organization monitors for changes to configuration that introduce risk, and scans for newly disclosed vulnerabilities, against a defined baseline of how systems are supposed to be set up."
+  },
+  {
+   "id": "CC7.2",
+   "family": "CC7",
+   "familyName": "System Operations",
+   "subject": "Monitoring for anomalies that indicate something is wrong",
+   "metaphor": "Recognising that the dog barking at three in the morning is not normal.",
+   "translation": "Systems and their components are monitored for anomalies and indicators of compromise, with logging in place and someone actually reviewing what it produces."
+  },
+  {
+   "id": "CC7.3",
+   "family": "CC7",
+   "familyName": "System Operations",
+   "subject": "Working out whether an event is actually an incident",
+   "metaphor": "Deciding whether the smell of burning is toast or a fire.",
+   "translation": "Detected security events are evaluated to determine whether they constitute an incident, and triaged so that response effort matches the severity."
+  },
+  {
+   "id": "CC7.4",
+   "family": "CC7",
+   "familyName": "System Operations",
+   "subject": "Responding to confirmed incidents in a planned way",
+   "metaphor": "Following the fire drill you practised, rather than improvising in the smoke.",
+   "translation": "Confirmed incidents are contained, eradicated and communicated according to a defined response programme, with roles assigned in advance and lessons captured afterwards."
+  },
+  {
+   "id": "CC7.5",
+   "family": "CC7",
+   "familyName": "System Operations",
+   "subject": "Recovering from incidents and restoring normal operation",
+   "metaphor": "Getting the house habitable again, and fixing whatever let the fire start.",
+   "translation": "The organization restores affected systems and data, addresses the root cause so the same incident does not simply recur, and tests that its recovery procedures work."
+  },
+  {
+   "id": "CC8.1",
+   "family": "CC8",
+   "familyName": "Change Management",
+   "subject": "Authorizing, testing and approving changes before they ship",
+   "metaphor": "Getting the rewiring inspected before you plaster over it.",
+   "translation": "Changes to infrastructure, data, software and procedures are authorized, designed, tested, approved and implemented under a controlled process, with emergency changes still reviewed after the fact."
+  },
+  {
+   "id": "CC9.1",
+   "family": "CC9",
+   "familyName": "Risk Mitigation",
+   "subject": "Mitigating the risk of business disruption",
+   "metaphor": "Keeping a torch and some candles, and knowing where they are.",
+   "translation": "The organization identifies and manages the risk of significant disruption, through business continuity planning and, where appropriate, insurance or other risk transfer."
+  },
+  {
+   "id": "CC9.2",
+   "family": "CC9",
+   "familyName": "Risk Mitigation",
+   "subject": "Managing the risk that comes with vendors and partners",
+   "metaphor": "Checking the references of the people you hand a key to.",
+   "translation": "Vendors and business partners are assessed before engagement and monitored during it, with security commitments written into agreements and their performance against those commitments reviewed."
+  },
+  {
+   "id": "A1.1",
+   "family": "A1",
+   "familyName": "Availability",
+   "subject": "Managing capacity so demand does not outrun supply",
+   "metaphor": "Noticing the cupboard is nearly empty before the guests arrive.",
+   "translation": "Current capacity is measured and future demand forecast, so that additional capacity is provisioned before shortage turns into an outage."
+  },
+  {
+   "id": "A1.2",
+   "family": "A1",
+   "familyName": "Availability",
+   "subject": "Environmental protections, backups and recovery infrastructure",
+   "metaphor": "The spare key at your neighbour's house, and a roof that keeps the rain off.",
+   "translation": "The organization protects against environmental threats, backs up data, and maintains the recovery infrastructure it would need to restore service after a failure."
+  },
+  {
+   "id": "A1.3",
+   "family": "A1",
+   "familyName": "Availability",
+   "subject": "Testing the recovery plan rather than trusting it",
+   "metaphor": "Actually trying the spare key, to find out it was cut wrong.",
+   "translation": "Recovery procedures are tested on a defined schedule, and what the test reveals is fed back into the plan. An untested backup is a hope rather than a control."
+  },
+  {
+   "id": "C1.1",
+   "family": "C1",
+   "familyName": "Confidentiality",
+   "subject": "Identifying and protecting information promised to be confidential",
+   "metaphor": "Knowing which drawer holds the private letters before you can guard it.",
+   "translation": "Information covered by confidentiality commitments is identified and maintained as such throughout its life, which means knowing where it is and who may see it."
+  },
+  {
+   "id": "C1.2",
+   "family": "C1",
+   "familyName": "Confidentiality",
+   "subject": "Disposing of confidential information when the commitment ends",
+   "metaphor": "Burning the letters once you promised you would.",
+   "translation": "Confidential information is disposed of when it is no longer needed to meet the organization's objectives or when the commitment period ends, and the disposal is carried out in a way that prevents recovery."
+  }
+ ]
+}
