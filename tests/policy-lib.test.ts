@@ -4,6 +4,7 @@ import crosswalk from '../src/data/crosswalk.json';
 import csf from '../src/data/nist-csf.json';
 import cis from '../src/data/cis.json';
 import hipaa from '../src/data/hipaa-security.json';
+import iso from '../src/data/iso-27001.json';
 import {
   EMPTY_PROFILE,
   coverage,
@@ -33,6 +34,7 @@ const SIZES: Record<string, number> = {
   hipaa: (hipaa.standards as unknown[]).length,
   pci: 12,
   cmmc: 14,
+  iso: (iso.controls as unknown[]).length,
 };
 
 const profile = (over: Partial<Profile> = {}): Profile => ({ ...EMPTY_PROFILE, ...over });
@@ -177,14 +179,23 @@ describe('coverage reporting', () => {
   });
 
   it('reports no percentage where the true denominator is unknown', () => {
-    const iso = coverage(all, frameworks, domains, SIZES).find((x) => x.id === 'iso')!;
-    // ISO control text is not redistributable, so only identifiers are stored.
-    // Dividing by the mapped subset would render 100% for a framework this
-    // catalog only partly reaches, which is worse than reporting nothing.
-    expect(iso.approximate).toBe(true);
-    expect(iso.frameworkTotal).toBeNull();
-    expect(iso.percent).toBeNull();
-    expect(iso.addressed).toBeGreaterThan(0);
+    const soc2 = coverage(all, frameworks, domains, SIZES).find((x) => x.id === 'soc2')!;
+    // SOC 2 criteria are not enumerated on this site, so dividing by the mapped
+    // subset would render 100% for a framework only partly reached. Reporting
+    // nothing is better than reporting something untrue.
+    expect(soc2.approximate).toBe(true);
+    expect(soc2.frameworkTotal).toBeNull();
+    expect(soc2.percent).toBeNull();
+    expect(soc2.addressed).toBeGreaterThan(0);
+  });
+
+  it('now measures ISO against its real control count', () => {
+    const c = coverage(all, frameworks, domains, SIZES).find((x) => x.id === 'iso')!;
+    // 78 of Annex A's 93 controls are mapped, so this must not read as 100%.
+    expect(c.frameworkTotal).toBe(93);
+    expect(c.addressed).toBe(78);
+    expect(c.percent).toBe(84);
+    expect(c.approximate).toBe(false);
   });
 
   it('drops coverage when a policy is excluded', () => {

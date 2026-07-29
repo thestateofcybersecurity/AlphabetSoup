@@ -91,10 +91,20 @@ test('never claims full coverage of a framework it only partly maps', async ({ p
 
 test('shows no percentage where the true denominator is unknown', async ({ page }) => {
   await page.goto(URL);
+  // SOC 2 criteria are not enumerated on this site, so no honest denominator
+  // exists. Rendering 100% off the mapped subset is the overclaim to avoid.
+  const soc2 = page.locator('.pg-cov tbody tr').filter({ hasText: 'SOC 2' });
+  await expect(soc2).toContainText('not measured');
+  await expect(soc2).not.toContainText('%');
+});
+
+test('measures ISO against all 93 Annex A controls', async ({ page }) => {
+  await page.goto(URL);
+  await setProfile(page, { buildsSoftware: true, hasOffices: true });
   const iso = page.locator('.pg-cov tbody tr').filter({ hasText: 'ISO' });
-  // Rendering 100% off a subset denominator is the overclaim this must avoid.
-  await expect(iso).toContainText('not measured');
-  await expect(iso).not.toContainText('%');
+  // 78 of 93 mapped, so this must read 84% rather than 100%.
+  await expect(iso).toContainText('78 of 93');
+  await expect(iso).toContainText('84%');
 });
 
 test('states why a policy was excluded rather than dropping it silently', async ({ page }) => {

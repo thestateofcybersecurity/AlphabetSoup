@@ -1,0 +1,595 @@
+{
+ "meta": {
+  "name": "ISO/IEC 27001:2022 Annex A",
+  "short": "ISO 27001",
+  "officialUrl": "https://www.iso.org/standard/27001",
+  "controlCount": 93,
+  "note": "ISO/IEC 27001 is a copyrighted standard. No control text or Annex A title from it is reproduced here. Each entry holds the control identifier, which is a factual reference, and an original subject line written for this site. Consult the standard itself for authoritative wording.",
+  "themes": [
+   {
+    "code": "5",
+    "name": "Organizational",
+    "blurb": "The controls that decide how security is governed: who owns it, what the rules are, and how the organization holds itself and its suppliers to them.",
+    "count": 37
+   },
+   {
+    "code": "6",
+    "name": "People",
+    "blurb": "The controls that address the human side: who is hired, what they agree to, what they are taught, and what happens when they leave.",
+    "count": 8
+   },
+   {
+    "code": "7",
+    "name": "Physical",
+    "blurb": "The controls that keep people away from equipment and information they should not reach, and protect that equipment from its surroundings.",
+    "count": 14
+   },
+   {
+    "code": "8",
+    "name": "Technological",
+    "blurb": "The controls implemented in and around the technology itself: endpoints, access, networks, software, and the data moving between them.",
+    "count": 34
+   }
+  ]
+ },
+ "controls": [
+  {
+   "id": "A.5.1",
+   "theme": "5",
+   "themeName": "Organizational",
+   "subject": "Written security policies, approved and kept current"
+  },
+  {
+   "id": "A.5.2",
+   "theme": "5",
+   "themeName": "Organizational",
+   "subject": "Named security roles and the authority that comes with them"
+  },
+  {
+   "id": "A.5.3",
+   "theme": "5",
+   "themeName": "Organizational",
+   "subject": "Separating duties so no one person can act unchecked"
+  },
+  {
+   "id": "A.5.4",
+   "theme": "5",
+   "themeName": "Organizational",
+   "subject": "Management actively backing the security program"
+  },
+  {
+   "id": "A.5.5",
+   "theme": "5",
+   "themeName": "Organizational",
+   "subject": "Working relationships with regulators and law enforcement"
+  },
+  {
+   "id": "A.5.6",
+   "theme": "5",
+   "themeName": "Organizational",
+   "subject": "Membership of industry and peer security groups"
+  },
+  {
+   "id": "A.5.7",
+   "theme": "5",
+   "themeName": "Organizational",
+   "subject": "Gathering and acting on threat intelligence"
+  },
+  {
+   "id": "A.5.8",
+   "theme": "5",
+   "themeName": "Organizational",
+   "subject": "Security built into projects from the start"
+  },
+  {
+   "id": "A.5.9",
+   "theme": "5",
+   "themeName": "Organizational",
+   "subject": "Knowing what information and assets exist and who owns them"
+  },
+  {
+   "id": "A.5.10",
+   "theme": "5",
+   "themeName": "Organizational",
+   "subject": "Rules for handling assets acceptably"
+  },
+  {
+   "id": "A.5.11",
+   "theme": "5",
+   "themeName": "Organizational",
+   "subject": "Returning assets when an engagement ends"
+  },
+  {
+   "id": "A.5.12",
+   "theme": "5",
+   "themeName": "Organizational",
+   "subject": "Classifying information by how sensitive it is"
+  },
+  {
+   "id": "A.5.13",
+   "theme": "5",
+   "themeName": "Organizational",
+   "subject": "Labelling information so its classification is visible"
+  },
+  {
+   "id": "A.5.14",
+   "theme": "5",
+   "themeName": "Organizational",
+   "subject": "Controlling how information is transferred"
+  },
+  {
+   "id": "A.5.15",
+   "theme": "5",
+   "themeName": "Organizational",
+   "subject": "Deciding who may access what, on what basis"
+  },
+  {
+   "id": "A.5.16",
+   "theme": "5",
+   "themeName": "Organizational",
+   "subject": "Managing identities through their whole life"
+  },
+  {
+   "id": "A.5.17",
+   "theme": "5",
+   "themeName": "Organizational",
+   "subject": "Issuing and protecting authentication credentials"
+  },
+  {
+   "id": "A.5.18",
+   "theme": "5",
+   "themeName": "Organizational",
+   "subject": "Granting, reviewing, and withdrawing access rights"
+  },
+  {
+   "id": "A.5.19",
+   "theme": "5",
+   "themeName": "Organizational",
+   "subject": "Security in the relationship with each supplier"
+  },
+  {
+   "id": "A.5.20",
+   "theme": "5",
+   "themeName": "Organizational",
+   "subject": "Security terms written into supplier agreements"
+  },
+  {
+   "id": "A.5.21",
+   "theme": "5",
+   "themeName": "Organizational",
+   "subject": "Managing risk across the technology supply chain"
+  },
+  {
+   "id": "A.5.22",
+   "theme": "5",
+   "themeName": "Organizational",
+   "subject": "Monitoring supplier service delivery and change"
+  },
+  {
+   "id": "A.5.23",
+   "theme": "5",
+   "themeName": "Organizational",
+   "subject": "Security expectations for cloud services"
+  },
+  {
+   "id": "A.5.24",
+   "theme": "5",
+   "themeName": "Organizational",
+   "subject": "Planning and preparing for incident response"
+  },
+  {
+   "id": "A.5.25",
+   "theme": "5",
+   "themeName": "Organizational",
+   "subject": "Assessing events and deciding what is an incident"
+  },
+  {
+   "id": "A.5.26",
+   "theme": "5",
+   "themeName": "Organizational",
+   "subject": "Responding to incidents once declared"
+  },
+  {
+   "id": "A.5.27",
+   "theme": "5",
+   "themeName": "Organizational",
+   "subject": "Learning from incidents so they do not repeat"
+  },
+  {
+   "id": "A.5.28",
+   "theme": "5",
+   "themeName": "Organizational",
+   "subject": "Collecting and preserving evidence"
+  },
+  {
+   "id": "A.5.29",
+   "theme": "5",
+   "themeName": "Organizational",
+   "subject": "Keeping security working through disruption"
+  },
+  {
+   "id": "A.5.30",
+   "theme": "5",
+   "themeName": "Organizational",
+   "subject": "Recovery expectations built into continuity planning"
+  },
+  {
+   "id": "A.5.31",
+   "theme": "5",
+   "themeName": "Organizational",
+   "subject": "Identifying legal, regulatory, and contractual obligations"
+  },
+  {
+   "id": "A.5.32",
+   "theme": "5",
+   "themeName": "Organizational",
+   "subject": "Protecting intellectual property rights"
+  },
+  {
+   "id": "A.5.33",
+   "theme": "5",
+   "themeName": "Organizational",
+   "subject": "Protecting records against loss and falsification"
+  },
+  {
+   "id": "A.5.34",
+   "theme": "5",
+   "themeName": "Organizational",
+   "subject": "Protecting personal data and privacy"
+  },
+  {
+   "id": "A.5.35",
+   "theme": "5",
+   "themeName": "Organizational",
+   "subject": "Independent review of the security program"
+  },
+  {
+   "id": "A.5.36",
+   "theme": "5",
+   "themeName": "Organizational",
+   "subject": "Checking compliance with policies and standards"
+  },
+  {
+   "id": "A.5.37",
+   "theme": "5",
+   "themeName": "Organizational",
+   "subject": "Documented operating procedures for security tasks"
+  },
+  {
+   "id": "A.6.1",
+   "theme": "6",
+   "themeName": "People",
+   "subject": "Screening candidates before they are trusted with access"
+  },
+  {
+   "id": "A.6.2",
+   "theme": "6",
+   "themeName": "People",
+   "subject": "Security responsibilities set out in employment terms"
+  },
+  {
+   "id": "A.6.3",
+   "theme": "6",
+   "themeName": "People",
+   "subject": "Security awareness, education, and training"
+  },
+  {
+   "id": "A.6.4",
+   "theme": "6",
+   "themeName": "People",
+   "subject": "A disciplinary process for security violations"
+  },
+  {
+   "id": "A.6.5",
+   "theme": "6",
+   "themeName": "People",
+   "subject": "Responsibilities that survive the end of employment"
+  },
+  {
+   "id": "A.6.6",
+   "theme": "6",
+   "themeName": "People",
+   "subject": "Confidentiality and non-disclosure agreements"
+  },
+  {
+   "id": "A.6.7",
+   "theme": "6",
+   "themeName": "People",
+   "subject": "Security expectations for remote working"
+  },
+  {
+   "id": "A.6.8",
+   "theme": "6",
+   "themeName": "People",
+   "subject": "A route for reporting security events"
+  },
+  {
+   "id": "A.7.1",
+   "theme": "7",
+   "themeName": "Physical",
+   "subject": "Defining the physical boundary to be protected"
+  },
+  {
+   "id": "A.7.2",
+   "theme": "7",
+   "themeName": "Physical",
+   "subject": "Controlling entry at that boundary"
+  },
+  {
+   "id": "A.7.3",
+   "theme": "7",
+   "themeName": "Physical",
+   "subject": "Securing offices, rooms, and facilities"
+  },
+  {
+   "id": "A.7.4",
+   "theme": "7",
+   "themeName": "Physical",
+   "subject": "Monitoring physical premises"
+  },
+  {
+   "id": "A.7.5",
+   "theme": "7",
+   "themeName": "Physical",
+   "subject": "Protecting against physical and environmental threats"
+  },
+  {
+   "id": "A.7.6",
+   "theme": "7",
+   "themeName": "Physical",
+   "subject": "Working securely in secure areas"
+  },
+  {
+   "id": "A.7.7",
+   "theme": "7",
+   "themeName": "Physical",
+   "subject": "Clear desk and clear screen expectations"
+  },
+  {
+   "id": "A.7.8",
+   "theme": "7",
+   "themeName": "Physical",
+   "subject": "Siting and protecting equipment"
+  },
+  {
+   "id": "A.7.9",
+   "theme": "7",
+   "themeName": "Physical",
+   "subject": "Protecting assets taken off the premises"
+  },
+  {
+   "id": "A.7.10",
+   "theme": "7",
+   "themeName": "Physical",
+   "subject": "Managing storage media through their life"
+  },
+  {
+   "id": "A.7.11",
+   "theme": "7",
+   "themeName": "Physical",
+   "subject": "Protecting supporting utilities such as power"
+  },
+  {
+   "id": "A.7.12",
+   "theme": "7",
+   "themeName": "Physical",
+   "subject": "Protecting cabling from interception and damage"
+  },
+  {
+   "id": "A.7.13",
+   "theme": "7",
+   "themeName": "Physical",
+   "subject": "Maintaining equipment so it stays reliable"
+  },
+  {
+   "id": "A.7.14",
+   "theme": "7",
+   "themeName": "Physical",
+   "subject": "Secure disposal or reuse of equipment"
+  },
+  {
+   "id": "A.8.1",
+   "theme": "8",
+   "themeName": "Technological",
+   "subject": "Protecting the endpoints people work from"
+  },
+  {
+   "id": "A.8.2",
+   "theme": "8",
+   "themeName": "Technological",
+   "subject": "Restricting and managing privileged access"
+  },
+  {
+   "id": "A.8.3",
+   "theme": "8",
+   "themeName": "Technological",
+   "subject": "Restricting access to information itself"
+  },
+  {
+   "id": "A.8.4",
+   "theme": "8",
+   "themeName": "Technological",
+   "subject": "Controlling access to source code"
+  },
+  {
+   "id": "A.8.5",
+   "theme": "8",
+   "themeName": "Technological",
+   "subject": "Authenticating securely before access is granted"
+  },
+  {
+   "id": "A.8.6",
+   "theme": "8",
+   "themeName": "Technological",
+   "subject": "Managing capacity so systems stay available"
+  },
+  {
+   "id": "A.8.7",
+   "theme": "8",
+   "themeName": "Technological",
+   "subject": "Defending against malware"
+  },
+  {
+   "id": "A.8.8",
+   "theme": "8",
+   "themeName": "Technological",
+   "subject": "Managing technical vulnerabilities"
+  },
+  {
+   "id": "A.8.9",
+   "theme": "8",
+   "themeName": "Technological",
+   "subject": "Managing configuration and preventing drift"
+  },
+  {
+   "id": "A.8.10",
+   "theme": "8",
+   "themeName": "Technological",
+   "subject": "Deleting information when it is no longer needed"
+  },
+  {
+   "id": "A.8.11",
+   "theme": "8",
+   "themeName": "Technological",
+   "subject": "Masking data so exposure is limited"
+  },
+  {
+   "id": "A.8.12",
+   "theme": "8",
+   "themeName": "Technological",
+   "subject": "Preventing data from leaking out"
+  },
+  {
+   "id": "A.8.13",
+   "theme": "8",
+   "themeName": "Technological",
+   "subject": "Backing up information and proving it restores"
+  },
+  {
+   "id": "A.8.14",
+   "theme": "8",
+   "themeName": "Technological",
+   "subject": "Building redundancy into information processing"
+  },
+  {
+   "id": "A.8.15",
+   "theme": "8",
+   "themeName": "Technological",
+   "subject": "Logging what happens on systems"
+  },
+  {
+   "id": "A.8.16",
+   "theme": "8",
+   "themeName": "Technological",
+   "subject": "Monitoring for activity that should not be there"
+  },
+  {
+   "id": "A.8.17",
+   "theme": "8",
+   "themeName": "Technological",
+   "subject": "Synchronizing clocks so events can be correlated"
+  },
+  {
+   "id": "A.8.18",
+   "theme": "8",
+   "themeName": "Technological",
+   "subject": "Restricting use of privileged utility programs"
+  },
+  {
+   "id": "A.8.19",
+   "theme": "8",
+   "themeName": "Technological",
+   "subject": "Controlling software installed on operational systems"
+  },
+  {
+   "id": "A.8.20",
+   "theme": "8",
+   "themeName": "Technological",
+   "subject": "Securing networks and the services on them"
+  },
+  {
+   "id": "A.8.21",
+   "theme": "8",
+   "themeName": "Technological",
+   "subject": "Securing individual network services"
+  },
+  {
+   "id": "A.8.22",
+   "theme": "8",
+   "themeName": "Technological",
+   "subject": "Segregating networks from one another"
+  },
+  {
+   "id": "A.8.23",
+   "theme": "8",
+   "themeName": "Technological",
+   "subject": "Filtering access to external web content"
+  },
+  {
+   "id": "A.8.24",
+   "theme": "8",
+   "themeName": "Technological",
+   "subject": "Using cryptography and managing keys"
+  },
+  {
+   "id": "A.8.25",
+   "theme": "8",
+   "themeName": "Technological",
+   "subject": "Security built into the development lifecycle"
+  },
+  {
+   "id": "A.8.26",
+   "theme": "8",
+   "themeName": "Technological",
+   "subject": "Security requirements defined for applications"
+  },
+  {
+   "id": "A.8.27",
+   "theme": "8",
+   "themeName": "Technological",
+   "subject": "Secure architecture and engineering principles"
+  },
+  {
+   "id": "A.8.28",
+   "theme": "8",
+   "themeName": "Technological",
+   "subject": "Writing code securely"
+  },
+  {
+   "id": "A.8.29",
+   "theme": "8",
+   "themeName": "Technological",
+   "subject": "Security testing during development and acceptance"
+  },
+  {
+   "id": "A.8.30",
+   "theme": "8",
+   "themeName": "Technological",
+   "subject": "Managing security when development is outsourced"
+  },
+  {
+   "id": "A.8.31",
+   "theme": "8",
+   "themeName": "Technological",
+   "subject": "Separating development, test, and production"
+  },
+  {
+   "id": "A.8.32",
+   "theme": "8",
+   "themeName": "Technological",
+   "subject": "Managing change to systems and software"
+  },
+  {
+   "id": "A.8.33",
+   "theme": "8",
+   "themeName": "Technological",
+   "subject": "Protecting information used for testing"
+  },
+  {
+   "id": "A.8.34",
+   "theme": "8",
+   "themeName": "Technological",
+   "subject": "Protecting systems during audit activity"
+  }
+ ]
+}
