@@ -18,6 +18,8 @@ interface Control {
   theme: string;
   themeName: string;
   subject: string;
+  metaphor: string;
+  translation: string;
 }
 
 const controls = iso.controls as Control[];
@@ -77,6 +79,50 @@ describe('original content only', () => {
 
   it('avoids em dashes, per the house style', () => {
     expect(JSON.stringify(iso)).not.toContain('—');
+  });
+});
+
+describe('plain-English content', () => {
+  it('gives every control a metaphor and a translation', () => {
+    for (const c of controls) {
+      expect(c.metaphor, `${c.id} metaphor`).toBeTruthy();
+      expect(c.translation, `${c.id} translation`).toBeTruthy();
+    }
+  });
+
+  it('writes them as complete sentences', () => {
+    for (const c of controls) {
+      for (const [field, text] of [['metaphor', c.metaphor], ['translation', c.translation]] as const) {
+        expect(text.endsWith('.'), `${c.id} ${field}: ${text}`).toBe(true);
+        expect(text[0], `${c.id} ${field}`).toBe(text[0].toUpperCase());
+      }
+    }
+  });
+
+  it('keeps them in the length range the CIS and CSF pages established', () => {
+    // Matching the existing voice matters: these pages sit alongside those.
+    for (const c of controls) {
+      expect(c.metaphor.length, `${c.id} metaphor`).toBeGreaterThan(35);
+      expect(c.metaphor.length, `${c.id} metaphor`).toBeLessThan(150);
+      expect(c.translation.length, `${c.id} translation`).toBeGreaterThan(75);
+      expect(c.translation.length, `${c.id} translation`).toBeLessThan(230);
+    }
+  });
+
+  it('never repeats a metaphor or a translation', () => {
+    // Repetition is the tell that a control was filled in by pattern rather
+    // than by working out what it actually covers.
+    expect(new Set(controls.map((c) => c.metaphor)).size).toBe(controls.length);
+    expect(new Set(controls.map((c) => c.translation)).size).toBe(controls.length);
+  });
+
+  it('holds the household framing the rest of the site uses', () => {
+    // Not every line needs the word, but the voice should be recognisably the
+    // same one readers meet on the CIS and CSF pages.
+    const household = controls.filter((c) =>
+      /famil|house|home|kitchen|door|room/i.test(`${c.metaphor} ${c.translation}`),
+    );
+    expect(household.length / controls.length).toBeGreaterThan(0.6);
   });
 });
 

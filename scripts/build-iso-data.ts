@@ -16,7 +16,7 @@
  *
  * Run: npx tsx scripts/build-iso-data.ts
  */
-import { writeFileSync } from 'node:fs';
+import { readFileSync, writeFileSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
 
 interface Theme {
@@ -157,19 +157,48 @@ const THEMES: Theme[] = [
 
 const EXPECTED: Record<string, number> = { '5': 37, '6': 8, '7': 14, '8': 34 };
 
+const path = fileURLToPath(new URL('../src/data/iso-27001.json', import.meta.url));
+
+/**
+ * Metaphor and translation are hand-written per control and live only in the
+ * JSON. Re-running this script must carry them across rather than blank them,
+ * so the structural check stays runnable without costing the content.
+ */
+const existing = (() => {
+  try {
+    const prev = JSON.parse(readFileSync(path, 'utf8')) as {
+      controls: { id: string; metaphor?: string; translation?: string }[];
+    };
+    return new Map(prev.controls.map((c) => [c.id, c]));
+  } catch {
+    return new Map<string, { metaphor?: string; translation?: string }>();
+  }
+})();
+
 const controls = THEMES.flatMap((theme) => {
   if (theme.subjects.length !== EXPECTED[theme.code]) {
     throw new Error(
       `A.${theme.code} has ${theme.subjects.length} subjects, expected ${EXPECTED[theme.code]}`,
     );
   }
-  return theme.subjects.map((subject, i) => ({
-    id: `A.${theme.code}.${i + 1}`,
-    theme: theme.code,
-    themeName: theme.name,
-    subject,
-  }));
+  return theme.subjects.map((subject, i) => {
+    const id = `A.${theme.code}.${i + 1}`;
+    const prev = existing.get(id);
+    return {
+      id,
+      theme: theme.code,
+      themeName: theme.name,
+      subject,
+      metaphor: prev?.metaphor ?? '',
+      translation: prev?.translation ?? '',
+    };
+  });
 });
+
+const blank = controls.filter((c) => !c.metaphor || !c.translation).map((c) => c.id);
+if (blank.length > 0) {
+  console.warn(`Warning: ${blank.length} controls have no metaphor or translation: ${blank.join(', ')}`);
+}
 
 const total = Object.values(EXPECTED).reduce((a, b) => a + b, 0);
 if (controls.length !== total) throw new Error(`built ${controls.length}, expected ${total}`);
@@ -192,6 +221,5 @@ const out = {
   controls,
 };
 
-const path = fileURLToPath(new URL('../src/data/iso-27001.json', import.meta.url));
 writeFileSync(path, `${JSON.stringify(out, null, 1)}\n`);
 console.log(`Wrote ${controls.length} ISO controls across ${THEMES.length} themes.`);
