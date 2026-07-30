@@ -1188,5 +1188,143 @@
         "href": "/tools/cloud-baseline/"
       }
     ]
+  },
+  {
+    "slug": "soc2-readiness-in-plain-english",
+    "title": "SOC 2 Readiness in Plain English",
+    "description": "SOC 2 readiness without the jargon: what the Trust Services Criteria cover, how Type I differs from Type II, and how to collect evidence once.",
+    "category": "Explainer",
+    "author": "Parker Brissette",
+    "date": "2026-07-30",
+    "readingMinutes": 6,
+    "tags": [
+      "soc 2",
+      "compliance",
+      "audit",
+      "evidence",
+      "trust services criteria"
+    ],
+    "body": [
+      {
+        "type": "p",
+        "text": "[SOC 2](/?q=SOC%202) has become the default answer to the question every prospect eventually asks, which is some version of prove you take security seriously. That makes it one of the most requested reports in the industry and one of the most misunderstood. People talk about being SOC 2 certified, about passing the audit, about buying a tool that makes them compliant. None of those framings are right, and the wrong mental model is how a readiness project turns into a nine month slog. Here is what the process actually involves."
+      },
+      {
+        "type": "h2",
+        "text": "It is an attestation, not a certificate"
+      },
+      {
+        "type": "p",
+        "text": "There is no SOC 2 certification body handing out passing grades. A licensed CPA firm examines the controls you say you operate, tests whether they work, and issues a report describing what it found. The report is the deliverable. It carries an opinion, usually unqualified, sometimes qualified when the auditor found exceptions that mattered, and it includes a description of your system that you wrote."
+      },
+      {
+        "type": "p",
+        "text": "That distinction has real consequences. You define the scope. You write the control descriptions. You decide which systems and which categories are in play, and the auditor tests what you asserted rather than a universal checklist. Two companies in the same market can hold reports covering wildly different ground, which is why a serious buyer reads the report instead of checking a box."
+      },
+      {
+        "type": "h2",
+        "text": "The Trust Services Criteria, decoded"
+      },
+      {
+        "type": "p",
+        "text": "SOC 2 is built on the AICPA Trust Services Criteria, grouped into five categories. Security is mandatory and appears in every report. The other four are optional, and you pick them based on what you promise customers."
+      },
+      {
+        "type": "list",
+        "items": [
+          "**Security** is the backbone, delivered as the common criteria CC1 through CC9. It is organized around the COSO internal control framework and covers governance, risk assessment, communication, monitoring, control activities, logical and physical access, system operations, change management, and risk mitigation.",
+          "**Availability** applies when you make uptime or resilience commitments. Capacity planning, backups, and a tested recovery plan behind your [BCP](/?q=BCP).",
+          "**Confidentiality** applies when customers entrust you with information they expect you to protect and eventually dispose of. Classification, encryption, and retention live here.",
+          "**Processing Integrity** applies when the correctness of your processing is the product, common in payments, payroll, and data pipelines.",
+          "**Privacy** applies when you handle personal information. It overlaps with privacy law but is not a substitute for it."
+        ]
+      },
+      {
+        "type": "p",
+        "text": "Most first reports include Security alone, or Security plus Availability. Every category you add expands the testing, the evidence burden, and the fee, so add them because a customer commitment requires it, not because more looks better. The criterion by criterion breakdown lives on the [SOC 2 framework page](/frameworks/soc2/)."
+      },
+      {
+        "type": "h2",
+        "text": "Type I and Type II are not tiers"
+      },
+      {
+        "type": "p",
+        "text": "A Type I report evaluates whether your controls are suitably designed as of a single date. It is a snapshot. A Type II report evaluates whether those same controls operated effectively across a period, usually three to twelve months, and that is what buyers actually want because it demonstrates the controls survived contact with a real quarter."
+      },
+      {
+        "type": "p",
+        "text": "Type I is not a junior certification you graduate from. It is a design opinion, and its value is tactical: it can unblock a deal while you accumulate the operating history a Type II requires. If you have runway, skip straight to a Type II with a short observation window, because you will end up there anyway."
+      },
+      {
+        "type": "quote",
+        "text": "The audit does not test whether you are secure. It tests whether you do the things you said you do, consistently, and can prove it."
+      },
+      {
+        "type": "h2",
+        "text": "Evidence collection is the actual work"
+      },
+      {
+        "type": "p",
+        "text": "Teams spend their planning energy on policies and their panic energy on evidence, and it should be the other way around. Writing a policy takes an afternoon. Producing a year of artifacts proving you followed it cannot be done retroactively. Here is what an auditor will ask for, and the form it needs to take."
+      },
+      {
+        "type": "list",
+        "items": [
+          "Access reviews with dates and named approvers, not a screenshot of a permissions page taken last week.",
+          "Onboarding and offboarding tickets showing access granted and revoked inside the window your own policy promises.",
+          "Change management records that tie a production deploy to a review and an approval, ideally straight out of your version control and CI systems.",
+          "Vulnerability scan output paired with remediation records showing you met the [SLA](/?q=SLA) you wrote down, plus a tracked [POA&M](/?q=POAM) for anything still open.",
+          "Security awareness training completion for everyone in scope, including contractors and executives.",
+          "Vendor assessments for the subservice organizations you depend on, which is [TPRM](/?q=TPRM) work you already owe your customers.",
+          "Logging and alerting evidence, typically from a [SIEM](/?q=SIEM), showing that monitoring produced action and not just storage."
+        ]
+      },
+      {
+        "type": "p",
+        "text": "The most common failure pattern is a policy promising quarterly access reviews when the organization has managed two all year. Auditors find that immediately, and it becomes an exception every prospect will read. Write policies you will actually execute, then automate collection so artifacts pile up without anyone remembering to save them. Pulling identity evidence from your [SSO](/?q=SSO) provider and provisioning evidence from [SCIM](/?q=SCIM) beats a spreadsheet maintained by one heroic person."
+      },
+      {
+        "type": "h2",
+        "text": "Do the work once, use it everywhere"
+      },
+      {
+        "type": "p",
+        "text": "SOC 2 shares an enormous amount of ground with the other frameworks you are likely to face. The access control, change management, and monitoring work you do for the common criteria maps cleanly onto [ISO 27001](/frameworks/iso/) Annex A, onto the [NIST Cybersecurity Framework](/frameworks/nist-csf/), and onto large chunks of most customer security questionnaires. If you scope each program separately you will pay for the same evidence three times."
+      },
+      {
+        "type": "p",
+        "text": "Map the overlap before you start, not after. The [Framework Crosswalk](/tools/crosswalk/) shows where a single control satisfies requirements in more than one framework, which lets you build one evidence pipeline instead of three. The [Trust Package Builder](/tools/trust-package/) assembles the customer facing side, turning a security review from a fire drill into a link you send. If you are still drafting the underlying documents, the [Policy Generator](/tools/policy-generator/) gives you a starting set to edit rather than a blank page."
+      },
+      {
+        "type": "p",
+        "text": "The same logic applies to [GRC](/?q=GRC) tooling. Buy it to reduce evidence toil, not to manufacture a program you do not have."
+      },
+      {
+        "type": "p",
+        "text": "Start by picking a scope you can defend, choosing only the categories your contracts require, and getting evidence collection running early. Fix the gaps you find while the observation window is still ahead of you, because everything you fix before it opens is free and everything you fix after it opens is an exception. Done that way, the report stops being a tax on the security team and starts answering the buyer's question before they have to ask it."
+      }
+    ],
+    "related": [
+      {
+        "label": "Framework Crosswalk",
+        "href": "/tools/crosswalk/"
+      },
+      {
+        "label": "Trust Package Builder",
+        "href": "/tools/trust-package/"
+      },
+      {
+        "label": "SOC 2 in the glossary",
+        "href": "/?q=SOC%202"
+      },
+      {
+        "label": "SOC 2 framework reference",
+        "href": "/frameworks/soc2/"
+      },
+      {
+        "label": "Policy Generator",
+        "href": "/tools/policy-generator/"
+      }
+    ]
   }
 ]
