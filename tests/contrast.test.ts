@@ -123,6 +123,29 @@ describe('status colours', () => {
     }
   });
 
+  it.each(STATUSES)('--status-%s carries --on-accent when used as a background', (name) => {
+    // The answer-state, KPI and attainment chips paint these as backgrounds.
+    // They were literal hex, so white sat on them at 3.96:1 (good) and 2.94:1
+    // (warn) in both schemes at once.
+    for (const theme of [light, dark]) {
+      expect(contrastRatio(theme['--on-accent'], theme[`--status-${name}`])).toBeGreaterThanOrEqual(
+        AA_NORMAL,
+      );
+    }
+  });
+
+  it('has no literal semantic hex left in style.css', () => {
+    // The greens, ambers and reds that these tokens replaced. --tomato is the
+    // brand accent, not a status colour, so its declaration is the one pass.
+    const stale = ['#3f8f5f', '#c98a1a', '#b23b2e'];
+    const offenders: string[] = [];
+    for (const hex of stale) if (css.includes(hex)) offenders.push(hex);
+    // #c8401f is legitimate only as the --tomato token itself.
+    const tomatoUses = css.match(/#c8401f/g) ?? [];
+    if (tomatoUses.length > 1) offenders.push(`#c8401f x${tomatoUses.length}`);
+    expect(offenders).toEqual([]);
+  });
+
   it('keeps body text readable on the tinted skills-matrix cells', () => {
     for (const theme of [light, dark]) {
       for (const pct of [6, 10, 12, 14, 26]) {
@@ -248,26 +271,93 @@ describe('section themes meet AA', () => {
     expect(failures).toEqual([]);
   });
 
-  it('keeps white legible on an accent used as a background, in light mode', () => {
-    // Active pills and buttons set `background: var(--tomato); color: #fff`.
-    // In light mode several accents were too pale for that before the fix, so
-    // the same darkening that repaired the kicker repaired these too.
-    //
-    // Deliberately light mode only. The dark scheme fails this pair in every
-    // theme, around 2.0 to 2.8, because the dark accents are light by design
-    // and white sits on top of them: confirmed rendered on .primary-btn at
-    // 12.8px. Fixing it means changing the foreground on accent backgrounds
-    // rather than nudging a token, which is a design decision and is tracked
-    // separately. Asserting it here would just fail the suite without fixing
-    // anything, so this test states its scope instead of pretending to cover it.
+  /**
+   * The other direction: the accent used as a *background*, with --on-accent
+   * painted on top (.primary-btn, .seg-btn.active, .az.active, .path-num, and
+   * the button rules inlined into the tool pages).
+   *
+   * Every one of these was a literal `color: #fff`. The light accents were
+   * darkened until white cleared AA on them, but that fix could not reach the
+   * dark scheme: its accents are light by design, so white landed between 2.00
+   * and 2.76:1 on all eighteen themes, confirmed rendered on .primary-btn at
+   * 12.8px. Darkening them instead would break them against the dark paper,
+   * which is the pair they exist to satisfy, so the foreground flips instead.
+   * Both schemes are asserted here; there is no longer a scope to state.
+   */
+  it.each(['--tomato', '--tomato-deep'])('keeps --on-accent legible on %s', (token) => {
     const failures: string[] = [];
     for (const theme of themes) {
-      const value = resolve(theme, '--tomato', false);
-      if (!value) continue;
-      const ratio = contrastRatio('#ffffff', value);
-      if (ratio < AA_NORMAL) failures.push(`.theme-${theme} white on accent = ${ratio.toFixed(2)}`);
+      for (const [wantDark, palette] of [
+        [false, light],
+        [true, dark],
+      ] as const) {
+        const bg = resolve(theme, token, wantDark);
+        if (!bg) continue;
+        const ratio = contrastRatio(palette['--on-accent'], bg);
+        if (ratio < AA_NORMAL) {
+          failures.push(
+            `.theme-${theme} ${token} ${wantDark ? 'dark' : 'light'} = ${ratio.toFixed(2)}`,
+          );
+        }
+      }
+    }
+    // The root accent is what an unthemed page renders.
+    for (const [name, palette] of [
+      ['light', light],
+      ['dark', dark],
+    ] as const) {
+      const ratio = contrastRatio(palette['--on-accent'], palette[token]);
+      if (ratio < AA_NORMAL) failures.push(`:root ${token} ${name} = ${ratio.toFixed(2)}`);
     }
     expect(failures).toEqual([]);
+  });
+
+  it('flips --on-accent to the dark paper colour rather than reusing white', () => {
+    expect(light['--on-accent']).toBe('#ffffff');
+    expect(dark['--on-accent']).toBe(dark['--paper']);
+  });
+
+  it('keeps the hover step visible after the accents were darkened', () => {
+    // .primary-btn:hover swaps --tomato for --tomato-deep. Darkening only
+    // --tomato collapsed that gap to almost nothing on automation, so the
+    // hover state rendered as the base colour.
+    const tooClose: string[] = [];
+    for (const theme of themes) {
+      for (const wantDark of [false, true]) {
+        const base = resolve(theme, '--tomato', wantDark);
+        const deep = resolve(theme, '--tomato-deep', wantDark);
+        if (!base || !deep) continue;
+        const step = contrastRatio(base, deep);
+        if (step < 1.2) {
+          tooClose.push(`.theme-${theme} ${wantDark ? 'dark' : 'light'} = ${step.toFixed(3)}`);
+        }
+      }
+    }
+    expect(tooClose).toEqual([]);
+  });
+
+  it('has no literal #fff left on an accent background', () => {
+    // The rules this replaced were spread over style.css and twelve inlined
+    // <style> blocks; a new one would silently reintroduce the dark-mode bug.
+    const files = {
+      '../style.css': css,
+      ...(import.meta.glob('../{tools,assess,about,quiz,roadmap,my,frameworks}/**/index.html', {
+        query: '?raw',
+        import: 'default',
+        eager: true,
+      }) as Record<string, string>),
+    };
+    const offenders: string[] = [];
+    for (const [path, text] of Object.entries(files)) {
+      // Declaration blocks, so a `#fff` next to an unrelated rule is not a hit.
+      for (const block of text.matchAll(/\{[^{}]*\}/g)) {
+        const body = block[0];
+        if (/background:\s*var\(--tomato(-deep)?\)/.test(body) && /#fff\b/.test(body)) {
+          offenders.push(`${path} -> ${body.replace(/\s+/g, ' ').trim().slice(0, 80)}`);
+        }
+      }
+    }
+    expect(offenders).toEqual([]);
   });
 });
 

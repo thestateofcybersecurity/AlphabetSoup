@@ -14,6 +14,13 @@
   --ink-soft: #5c6a72;
   --tomato: #c8401f;
   --tomato-deep: #a23318;
+  /* Foreground for anything painted on --tomato or --tomato-deep. This was a
+     literal #fff in every such rule, which meant dark mode put white on the
+     light dark-mode accent: 2.0-2.8:1 across the section themes. The accent
+     cannot simply be darkened — it has to stay legible against the dark paper,
+     which is the pair it exists for — so the foreground flips instead.
+     tests/contrast.test.ts enforces it against every section accent. */
+  --on-accent: #ffffff;
   --broth: #e9b44c;
   --line: #ded1bb;
   --tile: #fdf8ee;
@@ -36,7 +43,15 @@
 
   /* Status colours. These were literal hex values repeated across eight tool
      pages, which meant they never changed with the theme: dark-red "bad" text
-     sat on a near-black background in dark mode. */
+     sat on a near-black background in dark mode.
+
+     The same literals survived in this file for the answer-state, KPI and
+     attainment chips, which are semantic and so deliberately ignore the section
+     accent. As backgrounds they carried white text at 3.96:1 (the green) and
+     2.94:1 (the amber) in BOTH schemes. They now use these tokens with
+     --on-accent on top, which clears 4.5 either way. That is why the light
+     value below is a dark ochre rather than the old bright amber: no amber
+     light enough to still read as amber can carry white text. */
   --status-bad: #b0402e;
   --status-good: #397248;
   --status-warn: #865f23;
@@ -51,6 +66,8 @@
     --ink-soft: #a89d8a;
     --tomato: #e86a45;
     --tomato-deep: #f08a68;
+    /* Kept in step with --paper above; the test asserts they match. */
+    --on-accent: #191410;
     --broth: #d9a441;
     --line: #3a3227;
     --tile: #2a231b;
@@ -213,7 +230,7 @@ body {
 
 .theme-crosswalk {
   --tomato: #995f34;
-  --tomato-deep: #935827;
+  --tomato-deep: #75461f;
   --broth: #dcae90;
 }
 
@@ -255,7 +272,7 @@ body {
 
 .theme-cloud {
   --tomato: #167785;
-  --tomato-deep: #126674;
+  --tomato-deep: #0f535e;
   --broth: #7fc4ce;
 }
 
@@ -269,7 +286,7 @@ body {
 
 .theme-ssdlc {
   --tomato: #35795b;
-  --tomato-deep: #2d6d51;
+  --tomato-deep: #245640;
   --broth: #8fc7ac;
 }
 
@@ -283,7 +300,7 @@ body {
 
 .theme-automation {
   --tomato: #846922;
-  --tomato-deep: #856a1f;
+  --tomato-deep: #614d16;
   --broth: #d8bd7a;
 }
 
@@ -592,7 +609,7 @@ body {
 
 .az.active {
   background: var(--tomato);
-  color: #fff;
+  color: var(--on-accent);
 }
 
 .az:disabled {
@@ -816,12 +833,12 @@ body {
   color: var(--ink-soft);
 }
 .fw-badge.ig-ig1 {
-  border-color: #3f8f5f;
-  color: #3f8f5f;
+  border-color: var(--status-good);
+  color: var(--status-good);
 }
 .fw-badge.ig-ig2 {
-  border-color: #c98a1a;
-  color: #c98a1a;
+  border-color: var(--status-warn);
+  color: var(--status-warn);
 }
 .fw-badge.ig-ig3 {
   border-color: var(--ink-soft);
@@ -842,9 +859,9 @@ body {
   cursor: pointer;
 }
 .fw-review.on {
-  background: #3f8f5f;
-  border-color: #3f8f5f;
-  color: #fff;
+  background: var(--status-good);
+  border-color: var(--status-good);
+  color: var(--on-accent);
 }
 .fw-card.is-reviewed {
   opacity: 0.72;
@@ -865,7 +882,7 @@ body {
 }
 .fw-coverage-fill {
   height: 100%;
-  background: #3f8f5f;
+  background: var(--status-good);
   border-radius: 999px;
 }
 
@@ -1207,14 +1224,14 @@ select.panel-select {
 }
 
 .plan-actions .ghost-btn-danger {
-  color: color-mix(in srgb, #b23b2e 78%, var(--ink));
-  border-color: color-mix(in srgb, #b23b2e 32%, var(--line));
+  color: color-mix(in srgb, var(--status-bad) 78%, var(--ink));
+  border-color: color-mix(in srgb, var(--status-bad) 32%, var(--line));
 }
 
 .plan-actions .ghost-btn-danger:hover {
-  color: #fff;
-  background: #b23b2e;
-  border-color: #b23b2e;
+  color: var(--on-accent);
+  background: var(--status-bad);
+  border-color: var(--status-bad);
 }
 
 .plan-summary {
@@ -1289,7 +1306,7 @@ select.panel-select {
 .is-done .status-chip {
   background: var(--tomato);
   border-color: var(--tomato);
-  color: #fff;
+  color: var(--on-accent);
 }
 
 .task-label {
@@ -1380,7 +1397,7 @@ select.panel-select {
 }
 .plan-progress-fill {
   height: 100%;
-  background: #3f8f5f;
+  background: var(--status-good);
   border-radius: 999px;
   transition: width 0.25s ease;
 }
@@ -1444,7 +1461,7 @@ select.panel-select {
   background: var(--tomato);
 }
 .plan-stat-done .plan-stat-dot {
-  background: #3f8f5f;
+  background: var(--status-good);
 }
 
 .plan-capacity-card {
@@ -1653,16 +1670,16 @@ select.panel-select {
   cursor: pointer;
 }
 .kpi-btn.kpi-unmet.active {
-  background: #c8401f;
-  color: #fff;
+  background: var(--status-bad);
+  color: var(--on-accent);
 }
 .kpi-btn.kpi-partial.active {
-  background: #c98a1a;
-  color: #fff;
+  background: var(--status-warn);
+  color: var(--on-accent);
 }
 .kpi-btn.kpi-met.active {
-  background: #3f8f5f;
-  color: #fff;
+  background: var(--status-good);
+  color: var(--on-accent);
 }
 .plan-kpi-counts {
   margin-top: 4px;
@@ -1780,13 +1797,13 @@ a.std-chip:hover {
   font-size: 0.7rem;
   letter-spacing: 0.04em;
   text-transform: uppercase;
-  color: #c8401f;
+  color: var(--status-bad);
 }
 .trend-up {
-  color: #3f8f5f;
+  color: var(--status-good);
 }
 .trend-down {
-  color: #c8401f;
+  color: var(--status-bad);
 }
 
 .assess-card {
@@ -1857,7 +1874,7 @@ a.std-chip:hover {
 
 .yesno-btn.active {
   background: var(--tomato);
-  color: #fff;
+  color: var(--on-accent);
 }
 
 .sticky-progress {
@@ -1925,20 +1942,20 @@ a.std-chip:hover {
 /* ---- answer states (semantic, independent of the section accent) ---- */
 
 .state-yes.active {
-  background: #3f8f5f;
-  color: #fff;
+  background: var(--status-good);
+  color: var(--on-accent);
 }
 .state-alt.active {
-  background: #c98a1a;
-  color: #fff;
+  background: var(--status-warn);
+  color: var(--on-accent);
 }
 .state-na.active {
   background: var(--ink-soft);
   color: var(--paper);
 }
 .state-no.active {
-  background: #c8401f;
-  color: #fff;
+  background: var(--status-bad);
+  color: var(--on-accent);
 }
 
 /* ---- per-question guidance disclosure ---- */
@@ -2013,7 +2030,7 @@ a.std-chip:hover {
 .q-tool.on {
   background: var(--tomato);
   border-color: var(--tomato);
-  color: #fff;
+  color: var(--on-accent);
 }
 .q-note {
   display: block;
@@ -2044,17 +2061,17 @@ a.std-chip:hover {
   border: 1.5px solid var(--line);
 }
 .attain-basic {
-  border-color: #3f8f5f;
-  color: #3f8f5f;
+  border-color: var(--status-good);
+  color: var(--status-good);
 }
 .attain-intermediate {
-  border-color: #c98a1a;
-  color: #c98a1a;
+  border-color: var(--status-warn);
+  color: var(--status-warn);
 }
 .attain-advanced {
-  background: #3f8f5f;
-  border-color: #3f8f5f;
-  color: #fff;
+  background: var(--status-good);
+  border-color: var(--status-good);
+  color: var(--on-accent);
 }
 .attain-none {
   color: var(--ink-soft);
@@ -2074,13 +2091,13 @@ a.std-chip:hover {
   height: 100%;
 }
 .dist-yes {
-  background: #3f8f5f;
+  background: var(--status-good);
 }
 .dist-alt {
-  background: #c98a1a;
+  background: var(--status-warn);
 }
 .dist-no {
-  background: #c8401f;
+  background: var(--status-bad);
 }
 .dist-na {
   background: var(--ink-soft);
@@ -2232,7 +2249,7 @@ a.std-chip:hover {
   letter-spacing: 0.08em;
   text-transform: uppercase;
   background: var(--tomato);
-  color: #fff;
+  color: var(--on-accent);
   border: none;
   border-radius: 999px;
   padding: 10px 20px;
@@ -2449,7 +2466,7 @@ a.std-chip:hover {
 }
 .seg-btn.active {
   background: var(--tomato);
-  color: #fff;
+  color: var(--on-accent);
 }
 .setup-check {
   display: flex;
@@ -2466,10 +2483,10 @@ a.std-chip:hover {
   margin-top: 2px;
 }
 .exam-verdict.pass {
-  color: #3f8f5f;
+  color: var(--status-good);
 }
 .exam-verdict.fail {
-  color: #c8401f;
+  color: var(--status-bad);
 }
 
 .quiz-score-big {
@@ -2576,7 +2593,7 @@ a.std-chip:hover {
   height: 30px;
   border-radius: 50%;
   background: var(--tomato);
-  color: #fff;
+  color: var(--on-accent);
   font-family: var(--font-mono);
   font-weight: 600;
   display: flex;
