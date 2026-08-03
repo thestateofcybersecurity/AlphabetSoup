@@ -216,29 +216,18 @@ describe('section themes meet AA', () => {
   });
 
   /**
-   * Section accents that already failed AA when this check was written.
+   * Every section accent, in both schemes, with no exemptions.
    *
-   * These are real failures, not false positives: `.kicker` renders --tomato at
-   * about 11.5px and weight 400, so the 4.5 threshold is the right one. They
-   * are recorded rather than fixed because correcting them means visibly
-   * restyling seven sections, which is a decision to take deliberately and not
-   * a side effect of adding SOC 2.
+   * When this check was introduced it found nine accents below AA and carried
+   * them as a recorded exemption list, because fixing them meant restyling nine
+   * sections. They have since been corrected by reducing HSL lightness only, so
+   * hue and saturation are unchanged and each section keeps its identity. The
+   * list is gone: there is nothing left to exempt.
    *
-   * Nothing may be added to this list. A new theme, or a regression in one that
-   * currently passes, fails the test.
+   * These are real pairs, not theoretical ones. `.kicker` renders --tomato at
+   * about 11.5px and weight 400, which is why 4.5 rather than the large-text
+   * 3.0 is the right threshold.
    */
-  const KNOWN_FAILURES = new Set([
-    '.theme-cis --tomato light',
-    '.theme-quiz --tomato light',
-    '.theme-crosswalk --tomato light',
-    '.theme-cloud --tomato light',
-    '.theme-ssdlc --tomato light',
-    '.theme-automation --tomato light',
-    '.theme-skills --tomato light',
-    '.theme-assess --tomato light',
-    '.theme-roadmap --tomato light',
-  ]);
-
   it.each(['--tomato', '--tomato-deep'])('keeps %s readable in both schemes', (token) => {
     const failures: string[] = [];
     for (const theme of themes) {
@@ -249,39 +238,36 @@ describe('section themes meet AA', () => {
         const value = resolve(theme, token, wantDark);
         if (!value) continue;
         const ratio = contrastRatio(value, paper);
-        const key = `.theme-${theme} ${token} ${wantDark ? 'dark' : 'light'}`;
-        if (ratio < AA_NORMAL && !KNOWN_FAILURES.has(key)) {
-          failures.push(`${key} = ${ratio.toFixed(2)}`);
+        if (ratio < AA_NORMAL) {
+          failures.push(
+            `.theme-${theme} ${token} ${wantDark ? 'dark' : 'light'} = ${ratio.toFixed(2)}`,
+          );
         }
       }
     }
     expect(failures).toEqual([]);
   });
 
-  it('the recorded failures are still failing, so the list does not rot', () => {
-    // If someone fixes one, this points at the line to delete rather than
-    // letting a stale exemption sit there hiding a future regression.
-    const fixed: string[] = [];
-    for (const key of KNOWN_FAILURES) {
-      const [selector, token, scheme] = key.split(' ');
-      const theme = selector.slice('.theme-'.length);
-      const value = resolve(theme, token, scheme === 'dark');
-      const paper = scheme === 'dark' ? dark['--paper'] : light['--paper'];
-      if (value && contrastRatio(value, paper) >= AA_NORMAL) fixed.push(key);
+  it('keeps white legible on an accent used as a background, in light mode', () => {
+    // Active pills and buttons set `background: var(--tomato); color: #fff`.
+    // In light mode several accents were too pale for that before the fix, so
+    // the same darkening that repaired the kicker repaired these too.
+    //
+    // Deliberately light mode only. The dark scheme fails this pair in every
+    // theme, around 2.0 to 2.8, because the dark accents are light by design
+    // and white sits on top of them: confirmed rendered on .primary-btn at
+    // 12.8px. Fixing it means changing the foreground on accent backgrounds
+    // rather than nudging a token, which is a design decision and is tracked
+    // separately. Asserting it here would just fail the suite without fixing
+    // anything, so this test states its scope instead of pretending to cover it.
+    const failures: string[] = [];
+    for (const theme of themes) {
+      const value = resolve(theme, '--tomato', false);
+      if (!value) continue;
+      const ratio = contrastRatio('#ffffff', value);
+      if (ratio < AA_NORMAL) failures.push(`.theme-${theme} white on accent = ${ratio.toFixed(2)}`);
     }
-    expect(fixed, 'now passing, remove from KNOWN_FAILURES').toEqual([]);
-  });
-
-  it('the SOC 2 theme is held to the standard, not exempted', () => {
-    for (const key of KNOWN_FAILURES) expect(key).not.toContain('soc2');
-    for (const token of ['--tomato', '--tomato-deep']) {
-      expect(contrastRatio(resolve('soc2', token, false)!, light['--paper'])).toBeGreaterThanOrEqual(
-        AA_NORMAL,
-      );
-      expect(contrastRatio(resolve('soc2', token, true)!, dark['--paper'])).toBeGreaterThanOrEqual(
-        AA_NORMAL,
-      );
-    }
+    expect(failures).toEqual([]);
   });
 });
 
