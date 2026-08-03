@@ -2,7 +2,8 @@
 import { existsSync, readFileSync, readdirSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
 import { defineConfig, type Plugin } from 'vite';
-import { renderSiteNav } from './src/lib/site-nav';
+import { EXTERNAL_LINKS, renderSiteNav } from './src/lib/site-nav';
+import { withAboutSections, type AboutPost } from './src/lib/about';
 import { withAnalytics } from './src/lib/analytics';
 import { withCanonicalFonts } from './src/lib/fonts';
 import { cisControlsAssessment, cisIg1Assessment, csfAssessment } from './src/lib/assessment';
@@ -24,6 +25,37 @@ function siteNavPlugin(): Plugin {
         const depth = rel ? rel.split('/').filter(Boolean).length : 0;
         const prefix = '../'.repeat(depth);
         return html.replace('<!--site-nav-->', renderSiteNav(prefix, rel));
+      },
+    },
+  };
+}
+
+/**
+ * Fills the About page's `<!--about-stats-->` and `<!--about-latest-writing-->`
+ * markers from the same data files the rest of the site reads: acronyms.json,
+ * nist-csf.json + cis.json, the quiz decks, the nav's companion-app list, and
+ * blog-posts.json. Derived here rather than hardcoded in the HTML so the proof
+ * strip and the latest-posts list can never silently drift stale. Runs in dev
+ * and build, like the nav.
+ */
+function aboutSectionsPlugin(): Plugin {
+  const dataDir = fileURLToPath(new URL('./src/data/', import.meta.url));
+  const read = (name: string): unknown => JSON.parse(readFileSync(`${dataDir}${name}`, 'utf8'));
+  return {
+    name: 'about-sections',
+    transformIndexHtml: {
+      order: 'pre',
+      handler(html) {
+        if (!html.includes('<!--about-')) return html;
+        const acronyms = Object.keys(read('acronyms.json') as Record<string, unknown>).length;
+        const controls =
+          Object.keys(read('nist-csf.json') as Record<string, unknown>).length +
+          Object.keys(read('cis.json') as Record<string, unknown>).length;
+        const questions = readdirSync(`${dataDir}quiz`)
+          .filter((name) => name.endsWith('.json') && name !== 'index.json')
+          .reduce((sum, name) => sum + (read(`quiz/${name}`) as { questions: unknown[] }).questions.length, 0);
+        const posts = read('blog-posts.json') as AboutPost[];
+        return withAboutSections(html, { acronyms, controls, questions, apps: EXTERNAL_LINKS.length }, posts);
       },
     },
   };
@@ -172,6 +204,7 @@ export default defineConfig({
     assessmentCountsPlugin(),
     toolSlugsPlugin(),
     siteNavPlugin(),
+    aboutSectionsPlugin(),
     fontsPlugin(),
     analyticsPlugin(),
   ],

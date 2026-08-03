@@ -4,6 +4,7 @@ import { resolveLegacySlug, slugForKey } from '../src/lib/slug';
 import { frameworkSlug } from '../src/lib/frameworks';
 import { relatedFor } from '../src/lib/related';
 import { renderGeneratedNav } from '../src/lib/site-nav';
+import { byDateDesc } from '../src/lib/about';
 import { ANALYTICS_SNIPPET } from '../src/lib/analytics';
 import { renderFontLinks } from '../src/lib/fonts';
 import { categorySlug, categoryTitle, decksTesting, postsMentioning } from '../src/lib/deep-links';
@@ -822,7 +823,8 @@ soc2Sorted.forEach((criterion, i) => {
 });
 
 // 4c. Blog: index page plus one page per post, newest first.
-const sortedPosts = [...blogPosts].sort((a, b) => (a.date < b.date ? 1 : a.date > b.date ? -1 : a.title.localeCompare(b.title)));
+// Shared with the About page's "Latest writing", so the two always agree.
+const sortedPosts = [...blogPosts].sort(byDateDesc);
 writeFileSync(`${dist}/blog/index.html`, blogIndexPage(sortedPosts));
 for (const post of blogPosts) writeFileSync(`${dist}/blog/${post.slug}.html`, blogPostPage(post));
 
