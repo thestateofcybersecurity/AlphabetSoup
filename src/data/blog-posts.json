@@ -1326,5 +1326,140 @@
         "href": "/tools/policy-generator/"
       }
     ]
+  },
+  {
+    "slug": "first-90-days-security-leader",
+    "title": "Your First 90 Days as a Security Leader",
+    "description": "A grounded first 90 days plan for a new security leader: assess the program, find the single points of failure, pick three priorities, and prove movement.",
+    "category": "Career",
+    "author": "Parker Brissette",
+    "date": "2026-08-03",
+    "readingMinutes": 7,
+    "tags": [
+      "career",
+      "leadership",
+      "ciso",
+      "security program",
+      "first 90 days"
+    ],
+    "body": [
+      {
+        "type": "p",
+        "text": "The offer letter says security leader. The org chart says you own risk. What nobody hands you is a plan for the first ninety days, which is exactly the window where you build the credibility that funds everything after it. Move too fast and you break things you did not understand. Move too slow and you look like an expensive observer. The path through is narrower than it sounds: spend the first month learning, the second month choosing, and the third month proving."
+      },
+      {
+        "type": "h2",
+        "text": "Weeks 1 through 4: learn the business before you judge the program"
+      },
+      {
+        "type": "p",
+        "text": "Your first instinct will be to open a scanner and start counting findings. Resist it. A list of vulnerabilities tells you almost nothing about why the program is in the shape it is in. What you need first is the shape of the business: what it sells, who the customers are, which systems make the money, and what a bad day actually costs. A security program that protects the wrong things efficiently is still a failing program."
+      },
+      {
+        "type": "p",
+        "text": "Book thirty minute conversations with everyone who touches your work. Engineering leadership, IT, legal, sales, finance, support. Ask the same three questions every time: what do you need from security that you are not getting, what does security do that slows you down for no reason you can see, and what keeps you up at night. By the tenth conversation you will hear the same handful of complaints repeating, and those repeats are your real backlog."
+      },
+      {
+        "type": "p",
+        "text": "Inside your own team the assessment is different. You are looking for who actually does the work versus who holds the title, where critical knowledge lives in one person's head, and which duties nobody owns at all. A [skills matrix](/tools/skills-matrix/) makes that visible fast, and the gaps it exposes are usually more urgent than any tool purchase."
+      },
+      {
+        "type": "h2",
+        "text": "Map the single points of failure"
+      },
+      {
+        "type": "p",
+        "text": "Every program has them, and they are rarely where the org chart suggests. Four kinds are worth hunting deliberately:"
+      },
+      {
+        "type": "list",
+        "items": [
+          "**People.** One engineer who is the only person who can restore the identity provider, rotate production certificates, or explain the firewall rules.",
+          "**Process.** Work that only happens because somebody remembers to do it. Access reviews driven by a calendar reminder, offboarding that depends on a manager sending an email, backups nobody has restored from.",
+          "**Tooling.** A control that lives in one console with one admin and no documented recovery path. Ask who holds the break glass account and when it was last tested.",
+          "**Evidence.** Controls that work fine but produce nothing an auditor or a customer can read. If you cannot show it, you will end up arguing about it later."
+        ]
+      },
+      {
+        "type": "p",
+        "text": "Keep these as observations rather than a formal risk register. The pattern matters more than the format this early. If you want structure without ceremony, a [program assessment](/assess/) gives you a baseline you can rerun in six months to show movement."
+      },
+      {
+        "type": "h2",
+        "text": "Weeks 5 through 8: pick three things and say no to the rest"
+      },
+      {
+        "type": "p",
+        "text": "The temptation at day thirty is to publish a strategy covering everything you found. Do not. A twenty item roadmap reads as a wish list and gets funded like one. Pick three initiatives against one test: does this reduce a risk the business already believes is real, and can we show progress inside a quarter."
+      },
+      {
+        "type": "p",
+        "text": "In practice the winning three usually look like one identity fix, one visibility fix, and one process fix. Identity because most incidents start with an account. Visibility because you cannot respond to what you cannot see. Process because any fix that depends on your personal attention is not a fix. If [MFA](/?q=MFA) coverage has gaps in the systems that matter, that is your identity project, and it beats anything more interesting."
+      },
+      {
+        "type": "quote",
+        "text": "Three commitments you deliver are worth more than twenty you sequence beautifully."
+      },
+      {
+        "type": "p",
+        "text": "The three you choose need named owners, dates, and a definition of done written before work starts. Everything else goes on a parked list that you genuinely keep, because the fastest way to lose the room is to have someone raise a concern in month six and discover you never wrote it down. A [security roadmap](/roadmap/) earns its keep here mostly as a way to sequence what comes after the three, so people can see their issue has a place."
+      },
+      {
+        "type": "h2",
+        "text": "Weeks 9 through 12: produce evidence, not activity"
+      },
+      {
+        "type": "p",
+        "text": "Leadership does not evaluate security by effort. They evaluate it by whether risk moved and whether the story holds up under questions. That means your ninety day report needs numbers that existed on day one so you can show a delta, which is why you baseline early even when the baseline is embarrassing."
+      },
+      {
+        "type": "p",
+        "text": "Keep the report short. What I found, what I chose, what changed, what I need. Three to five [metrics a board can actually read](/tools/board-metrics/) beat a dashboard screenshot every time, and each one should tie to money, uptime, or a deal that got unblocked. Coverage percentages work well because they trend cleanly: what fraction of privileged accounts have strong authentication, what fraction of critical systems ship logs to your [SIEM](/?q=SIEM), how many days it takes to remove access after someone leaves."
+      },
+      {
+        "type": "p",
+        "text": "Make one operational thing demonstrably better while you are at it. Writing a real [incident response runbook](/tools/runbook/) and running a tabletop against it does more for your standing than a policy refresh ever will, because everyone in the room experiences the improvement directly."
+      },
+      {
+        "type": "h2",
+        "text": "The mistakes that cost people the job"
+      },
+      {
+        "type": "list",
+        "items": [
+          "Rewriting every policy first. It feels productive, it is highly visible, and it changes nothing about how anyone works.",
+          "Buying a tool in month two. You do not understand the requirement yet, and the purchase becomes the thing you defend instead of the outcome.",
+          "Publicly grading your predecessor. Half the room hired that person, and the story travels faster than your results.",
+          "Saying yes to everything. Every unqualified yes borrows credibility from the three things you already committed to.",
+          "Treating compliance as the strategy. Frameworks are useful scaffolding and terrible destinations. Do the work once and let the [tools](/tools/) translate it into whatever standard a customer asks about."
+        ]
+      },
+      {
+        "type": "p",
+        "text": "Ninety days is not enough time to fix a security program, and nobody serious expects you to. It is enough time to understand what you inherited, to commit publicly to a short list, and to show one real thing moving in the right direction. Do that and you buy yourself the eighteen months where the actual work happens. Skip it, spend the quarter polishing a strategy deck, and you will spend year one explaining why nothing changed. The plan is boring on purpose. Listen, choose, prove, repeat."
+      }
+    ],
+    "related": [
+      {
+        "label": "Security Tools",
+        "href": "/tools/"
+      },
+      {
+        "label": "Skills Matrix",
+        "href": "/tools/skills-matrix/"
+      },
+      {
+        "label": "Security Roadmap",
+        "href": "/roadmap/"
+      },
+      {
+        "label": "Board Metrics Builder",
+        "href": "/tools/board-metrics/"
+      },
+      {
+        "label": "Program Assessment",
+        "href": "/assess/"
+      }
+    ]
   }
 ]
