@@ -174,7 +174,7 @@ body {
 }
 
 .theme-cis {
-  --tomato: #3e7d4f;
+  --tomato: #3c794c;
   --tomato-deep: #2c6039;
   --broth: #8fbf7f;
 }
@@ -206,13 +206,13 @@ body {
 }
 
 .theme-quiz {
-  --tomato: #9a5bb5;
+  --tomato: #9450b0;
   --tomato-deep: #7c4494;
   --broth: #c9a0dc;
 }
 
 .theme-crosswalk {
-  --tomato: #b5713e;
+  --tomato: #995f34;
   --tomato-deep: #935827;
   --broth: #dcae90;
 }
@@ -254,7 +254,7 @@ body {
 }
 
 .theme-cloud {
-  --tomato: #1a8a9a;
+  --tomato: #167785;
   --tomato-deep: #126674;
   --broth: #7fc4ce;
 }
@@ -268,7 +268,7 @@ body {
 }
 
 .theme-ssdlc {
-  --tomato: #3f8f6b;
+  --tomato: #35795b;
   --tomato-deep: #2d6d51;
   --broth: #8fc7ac;
 }
@@ -282,7 +282,7 @@ body {
 }
 
 .theme-automation {
-  --tomato: #a8862b;
+  --tomato: #846922;
   --tomato-deep: #856a1f;
   --broth: #d8bd7a;
 }
@@ -352,7 +352,7 @@ body {
 }
 
 .theme-skills {
-  --tomato: #b85a3e;
+  --tomato: #aa5339;
   --tomato-deep: #93432c;
   --broth: #e0a98f;
 }
@@ -1098,7 +1098,7 @@ body {
 }
 
 .theme-assess {
-  --tomato: #0e7c86;
+  --tomato: #0e7881;
   --tomato-deep: #0a5d65;
   --broth: #6cc3cc;
 }
@@ -1112,7 +1112,7 @@ body {
 }
 
 .theme-roadmap {
-  --tomato: #a3622b;
+  --tomato: #9b5d29;
   --tomato-deep: #82491c;
   --broth: #d8a35a;
 }
