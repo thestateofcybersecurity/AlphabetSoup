@@ -104,6 +104,20 @@ describe('about page build-time sections', () => {
     expect(withAboutSections(untouched, dataCounts(), posts)).toBe(untouched);
   });
 
+  it('every credential pill has a CRED_LINKS entry, and wired URLs are Credly badge pages', () => {
+    const pills = [...aboutHtml.matchAll(/data-cred="([^"]+)"/g)].map((m) => m[1]);
+    expect(pills.length).toBeGreaterThan(0);
+    const mapping: Record<string, string> = {};
+    for (const m of aboutHtml.matchAll(/'([A-Z-]+)':\s*'([^']*)'/g)) mapping[m[1]] = m[2];
+    for (const pill of pills) {
+      expect(mapping, `pill ${pill} missing from CRED_LINKS`).toHaveProperty(pill);
+      const url = mapping[pill];
+      if (url !== '') {
+        expect(url).toMatch(/^https:\/\/www\.credly\.com\/badges\/[0-9a-f-]+$/);
+      }
+    }
+  });
+
   it('renders with no em dashes, per the house style', () => {
     const out = withAboutSections(aboutHtml, dataCounts(), posts);
     expect(out).not.toContain('\u2014');
