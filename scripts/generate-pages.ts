@@ -35,6 +35,12 @@ const isoData = JSON.parse(readFileSync(`${root}src/data/iso-27001.json`, 'utf8'
 };
 const soc2Data = JSON.parse(readFileSync(`${root}src/data/soc2.json`, 'utf8')) as Soc2Data;
 
+interface AffiliateData {
+  partners: Record<string, { name: string; url: string; network: string; blurb: string }>;
+  placements: Record<string, string[]>;
+}
+const affiliates = JSON.parse(readFileSync(`${root}src/data/affiliates.json`, 'utf8')) as AffiliateData;
+
 /** Quiz deck metadata and full decks, for deriving which decks test a term. */
 const deckIndex = JSON.parse(
   readFileSync(`${root}src/data/quiz/index.json`, 'utf8'),
@@ -176,6 +182,9 @@ footer .play{font-family:'Fraunces',Georgia,serif;font-style:italic;font-weight:
 .gnav a{font-family:'IBM Plex Mono',monospace;font-size:.68rem;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-soft);text-decoration:none;padding:5px 10px;border-radius:999px;white-space:nowrap}
 .gnav a:hover{color:var(--tomato)}
 .gnav a.play-link{color:var(--tomato)}
+.sponsor-list{list-style:none;padding:0;margin:12px 0}
+.sponsor-list li{margin:0 0 10px}
+.sponsor-note{font-size:.8rem;color:var(--ink-soft);margin:10px 0 12px}
 .skip-link{position:absolute;left:8px;top:-48px;z-index:1000;background:var(--ink);color:var(--paper);font-family:'IBM Plex Mono',monospace;font-size:.8rem;padding:8px 14px;border-radius:8px;text-decoration:none}
 .skip-link:focus{top:8px}
 main:focus{outline:none}
@@ -229,6 +238,34 @@ function goDeeper(key: string, entry: AcronymEntry): string {
 
   if (links.length === 0) return '';
   return `<h2>Go deeper</h2>\n    <div class="related">${links.join('')}</div>`;
+}
+
+/**
+ * Affiliate recommendations for a definition page, driven by
+ * src/data/affiliates.json so link IDs and placements live in one file.
+ *
+ * Links point at /go/<id>/ rather than the network URL directly: the tracking
+ * URL can change without regenerating anchor text across pages, and each
+ * click shows up in analytics as a /go/ pageview per partner. rel="sponsored"
+ * is on the anchor because the destination is paid, even though the hop is
+ * internal.
+ */
+function affiliateBlock(key: string): string {
+  const ids = affiliates.placements[key];
+  if (!ids?.length) return '';
+  const items = ids
+    .map((id) => {
+      const partner = affiliates.partners[id];
+      return `<li><a href="../go/${id}/" rel="sponsored noopener">${esc(partner.name)} &rarr;</a> ${esc(partner.blurb)}</li>`;
+    })
+    .join('\n        ');
+  return `<h2>Tools worth considering</h2>
+    <div class="card">
+      <ul class="sponsor-list">
+        ${items}
+      </ul>
+      <p class="sponsor-note">Affiliate links: the site may earn a commission at no extra cost to you (<a href="../disclosure/">how this works</a>). No single tool is a silver bullet; treat each as one layer of coverage.</p>
+    </div>`;
 }
 
 function definitionPage(key: string, entry: AcronymEntry): string {
@@ -291,6 +328,7 @@ ${ANALYTICS_SNIPPET}
     <h2>More in ${entry.category}</h2>
     <div class="related">${related}<a class="cat-all" href="../categories/${categorySlug(entry.category)}.html">All ${esc(entry.category)} acronyms &rarr;</a></div>
     ${goDeeper(key, entry)}
+    ${affiliateBlock(key)}
     <footer>
       <p class="play">Think you could have guessed it? <a href="${CYBERDLE}" rel="noopener" target="_blank">Play Cyberdle, the daily acronym game &rarr;</a></p>
       <p>Part of <a href="../">Cybersecurity Alphabet Soup</a>, a plain-English dictionary of ${Object.keys(data).length} cybersecurity acronyms.</p>
@@ -915,6 +953,45 @@ for (const category of CATEGORIES) {
   writeFileSync(`${dist}/categories/${categorySlug(category)}.html`, categoryPage(category, entryKeys));
 }
 
+// 4f. Affiliate /go/ redirect pages, one per partner in affiliates.json.
+//
+// Every affiliate anchor on the site points here instead of at the network
+// URL, so a changed tracking link is a one-file edit and analytics counts a
+// /go/<id>/ pageview per outbound click. Meta refresh rather than an inline
+// script: the analytics snippet must remain the only executable inline script
+// (see src/lib/analytics.ts and e2e/csp.spec.ts). The one-second delay gives
+// the async analytics script a moment to record the pageview before leaving.
+// noindex + robots Disallow because a redirect stub has nothing to rank.
+function goPage(partner: AffiliateData['partners'][string]): string {
+  return `<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="color-scheme" content="light dark">
+  <meta name="robots" content="noindex">
+  <meta http-equiv="refresh" content="1; url=${esc(partner.url)}">
+  <title>Sending you to ${esc(partner.name)}</title>
+  ${renderFontLinks()}
+  <style>${PAGE_CSS}</style>
+${ANALYTICS_SNIPPET}
+</head>
+<body>
+  <main class="wrap">
+    <a class="home" href="../../">&larr; Cybersecurity Alphabet Soup</a>
+    <h1>One moment</h1>
+    <p class="expansion">Sending you to ${esc(partner.name)}.</p>
+    <div class="card"><p>This is an affiliate link: the site may earn a commission at no extra cost to you. If nothing happens, <a href="${esc(partner.url)}" rel="sponsored noopener">continue to ${esc(partner.name)}</a>. See <a href="../../disclosure/">how affiliate links work here</a>.</p></div>
+  </main>
+</body>
+</html>
+`;
+}
+for (const [id, partner] of Object.entries(affiliates.partners)) {
+  mkdirSync(`${dist}/go/${id}`, { recursive: true });
+  writeFileSync(`${dist}/go/${id}/index.html`, goPage(partner));
+}
+
 // 4e. RSS feed for the blog.
 //
 // Posts publish twice a week on a schedule, which is exactly the case a feed is
@@ -985,8 +1062,11 @@ ${urls.map((url) => `  <url><loc>${esc(url)}</loc></url>`).join('\n')}
 </urlset>
 `;
 writeFileSync(`${dist}/sitemap.xml`, sitemap);
-writeFileSync(`${dist}/robots.txt`, `User-agent: *\nAllow: /\n\nSitemap: ${SITE}/sitemap.xml\n`);
+writeFileSync(
+  `${dist}/robots.txt`,
+  `User-agent: *\nAllow: /\nDisallow: /go/\n\nSitemap: ${SITE}/sitemap.xml\n`,
+);
 
 console.log(
-  `Generated ${keys.length} definition pages, ${csfIds.length} CSF pages, ${cisIds.length} CIS pages, ${ai.length} AI pages, ${isoSorted.length} ISO pages, ${soc2Sorted.length} SOC 2 pages, ${blogPosts.length} blog posts, ${aliases} legacy aliases, ${fallbacks} search fallbacks, ${rootRedirects} root redirects, sitemap with ${urls.length} URLs.`,
+  `Generated ${keys.length} definition pages, ${csfIds.length} CSF pages, ${cisIds.length} CIS pages, ${ai.length} AI pages, ${isoSorted.length} ISO pages, ${soc2Sorted.length} SOC 2 pages, ${blogPosts.length} blog posts, ${aliases} legacy aliases, ${fallbacks} search fallbacks, ${rootRedirects} root redirects, ${Object.keys(affiliates.partners).length} affiliate redirects, sitemap with ${urls.length} URLs.`,
 );

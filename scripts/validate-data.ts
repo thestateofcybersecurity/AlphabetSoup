@@ -460,6 +460,10 @@ const scorecard = load<{ cards: { id: string; onTheJobTool: { status: string } }
 );
 const skillsMatrix = load<SkillsMatrix>('../src/data/skills-matrix.json');
 const blogPosts = load<BlogPost[]>('../src/data/blog-posts.json');
+const affiliates = load<{
+  partners: Record<string, { name: string; url: string; network: string; blurb: string }>;
+  placements: Record<string, string[]>;
+}>('../src/data/affiliates.json');
 
 const mapProblems: string[] = [];
 for (const csfId of Object.keys(csf)) {
@@ -495,6 +499,26 @@ const problems = [
   ...validateRegulations(regulations).map((e) => `regulations: ${e}`),
   ...validateSkillsMatrix(skillsMatrix, new Set(scorecard.cards.map((c) => c.id))).map((e) => `skills-matrix: ${e}`),
   ...validateBlog(blogPosts).map((e) => `blog: ${e}`),
+  ...(() => {
+    // Affiliate placements point definition pages at partner /go/ redirects, so
+    // a typo here would render a dead recommendation on a live page.
+    const out: string[] = [];
+    for (const [id, p] of Object.entries(affiliates.partners)) {
+      if (!/^https:\/\//.test(p.url)) out.push(`affiliates: partner ${id} url is not https`);
+      if (!p.name?.trim() || !p.blurb?.trim() || !p.network?.trim())
+        out.push(`affiliates: partner ${id} missing name, network, or blurb`);
+      if (p.blurb?.includes('—')) out.push(`affiliates: partner ${id} em dash in blurb`);
+    }
+    for (const [key, ids] of Object.entries(affiliates.placements)) {
+      if (!(key in acronyms)) out.push(`affiliates: placement key ${key} is not an acronym`);
+      if (ids.length === 0) out.push(`affiliates: placement ${key} is empty`);
+      if (new Set(ids).size !== ids.length) out.push(`affiliates: duplicate partner under ${key}`);
+      for (const id of ids) {
+        if (!(id in affiliates.partners)) out.push(`affiliates: placement ${key} references unknown partner ${id}`);
+      }
+    }
+    return out;
+  })(),
   ...(() => {
     // The /tools/ hub ships a static "N of M tools live" fallback that crawlers and
     // social previews see before JS runs. Assert it matches the data.
