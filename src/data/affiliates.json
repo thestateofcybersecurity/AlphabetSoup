@@ -23,6 +23,34 @@
       "url": "https://www.anrdoezrs.net/click-8024903-15438560",
       "network": "CJ",
       "blurb": "Budget VPN with unlimited devices on one subscription. Same honest caveat as any VPN: it protects traffic in transit, not against malware or phishing."
+    },
+    "amazon-yubikey": {
+      "name": "YubiKey 5C NFC",
+      "url": "https://www.amazon.com/dp/B08DHL1YDL?tag=thestateofc04-20",
+      "network": "Amazon",
+      "direct": true,
+      "blurb": "Hardware security key supporting FIDO2, U2F, TOTP, and passkeys. Phishing-resistant in a way app codes are not, but buy two; losing your only key locks you out."
+    },
+    "amazon-cissp-guide": {
+      "name": "ISC2 CISSP Official Study Guide",
+      "url": "https://www.amazon.com/dp/1394254695?tag=thestateofc04-20",
+      "network": "Amazon",
+      "direct": true,
+      "blurb": "The Sybex official text most candidates structure their prep around. No book substitutes for the five years of experience ISC2 requires, but this is the standard one."
+    },
+    "amazon-ceh-guide": {
+      "name": "CEH v13 Study Guide",
+      "url": "https://www.amazon.com/dp/1394394284?tag=thestateofc04-20",
+      "network": "Amazon",
+      "direct": true,
+      "blurb": "Sybex guide matched to the current CEH exam version. Pair it with hands-on lab time; reading alone will not build the skills the exam or the job expects."
+    },
+    "amazon-cism-guide": {
+      "name": "CISM All-in-One Exam Guide",
+      "url": "https://www.amazon.com/dp/1264268319?tag=thestateofc04-20",
+      "network": "Amazon",
+      "direct": true,
+      "blurb": "The standard text for ISACA's management-track cert. Best for engineers moving toward security leadership; it teaches governance, not hands-on defense."
     }
   },
   "placements": {
@@ -31,10 +59,12 @@
       "surfshark"
     ],
     "MFA": [
-      "nordpass"
+      "nordpass",
+      "amazon-yubikey"
     ],
     "2FA": [
-      "nordpass"
+      "nordpass",
+      "amazon-yubikey"
     ],
     "WAF": [
       "sucuri"
@@ -50,6 +80,21 @@
     ],
     "SQLI": [
       "sucuri"
+    ],
+    "FIDO2": [
+      "amazon-yubikey"
+    ],
+    "U2F": [
+      "amazon-yubikey"
+    ],
+    "CISSP": [
+      "amazon-cissp-guide"
+    ],
+    "CEH": [
+      "amazon-ceh-guide"
+    ],
+    "CISM": [
+      "amazon-cism-guide"
     ]
   }
 }

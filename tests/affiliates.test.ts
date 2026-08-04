@@ -4,7 +4,7 @@ import affiliates from '../src/data/affiliates.json';
 
 const partners = affiliates.partners as Record<
   string,
-  { name: string; url: string; network: string; blurb: string }
+  { name: string; url: string; network: string; blurb: string; direct?: boolean }
 >;
 const placements = affiliates.placements as Record<string, string[]>;
 
@@ -22,6 +22,14 @@ describe('affiliate dataset', () => {
       for (const id of ids) {
         expect(partners[id], `placement ${key} partner ${id}`).toBeDefined();
       }
+    }
+  });
+
+  it('Amazon partners link direct and carry the Associates tag', () => {
+    for (const [id, partner] of Object.entries(partners)) {
+      if (partner.network !== 'Amazon') continue;
+      expect(partner.direct, `${id} must be direct`).toBe(true);
+      expect(partner.url, `${id} missing tag`).toContain('tag=thestateofc04-20');
     }
   });
 
