@@ -17,16 +17,39 @@
       "url": "https://www.anrdoezrs.net/click-8024903-13942196",
       "network": "CJ",
       "blurb": "Cloud WAF, malware scanning, and hacked-site cleanup for CMS-run websites. A filter in front of your site, not a substitute for patching."
+    },
+    "surfshark": {
+      "name": "Surfshark",
+      "url": "https://www.anrdoezrs.net/click-8024903-15438560",
+      "network": "CJ",
+      "blurb": "Budget VPN with unlimited devices on one subscription. Same honest caveat as any VPN: it protects traffic in transit, not against malware or phishing."
     }
   },
   "placements": {
-    "VPN": ["nordvpn"],
-    "MFA": ["nordpass"],
-    "2FA": ["nordpass"],
-    "WAF": ["sucuri"],
-    "DDOS": ["sucuri"],
-    "CDN": ["sucuri"],
-    "XSS": ["sucuri"],
-    "SQLI": ["sucuri"]
+    "VPN": [
+      "nordvpn",
+      "surfshark"
+    ],
+    "MFA": [
+      "nordpass"
+    ],
+    "2FA": [
+      "nordpass"
+    ],
+    "WAF": [
+      "sucuri"
+    ],
+    "DDOS": [
+      "sucuri"
+    ],
+    "CDN": [
+      "sucuri"
+    ],
+    "XSS": [
+      "sucuri"
+    ],
+    "SQLI": [
+      "sucuri"
+    ]
   }
 }
