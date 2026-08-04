@@ -36,7 +36,12 @@ const isoData = JSON.parse(readFileSync(`${root}src/data/iso-27001.json`, 'utf8'
 const soc2Data = JSON.parse(readFileSync(`${root}src/data/soc2.json`, 'utf8')) as Soc2Data;
 
 interface AffiliateData {
-  partners: Record<string, { name: string; url: string; network: string; blurb: string }>;
+  /**
+   * `direct: true` links the partner's URL straight from the page instead of
+   * via a /go/ stub. Amazon requires it: their operating agreement forbids
+   * obscuring link destinations, and the tag parameter must survive the click.
+   */
+  partners: Record<string, { name: string; url: string; network: string; blurb: string; direct?: boolean }>;
   placements: Record<string, string[]>;
 }
 const affiliates = JSON.parse(readFileSync(`${root}src/data/affiliates.json`, 'utf8')) as AffiliateData;
@@ -256,15 +261,20 @@ function affiliateBlock(key: string): string {
   const items = ids
     .map((id) => {
       const partner = affiliates.partners[id];
-      return `<li><a href="../go/${id}/" rel="sponsored noopener">${esc(partner.name)} &rarr;</a> ${esc(partner.blurb)}</li>`;
+      const href = partner.direct ? esc(partner.url) : `../go/${id}/`;
+      const target = partner.direct ? ' target="_blank"' : '';
+      return `<li><a href="${href}" rel="sponsored noopener"${target}>${esc(partner.name)} &rarr;</a> ${esc(partner.blurb)}</li>`;
     })
     .join('\n        ');
+  const amazonNote = ids.some((id) => affiliates.partners[id].network === 'Amazon')
+    ? ' As an Amazon Associate, this site earns from qualifying purchases.'
+    : '';
   return `<h2>Tools worth considering</h2>
     <div class="card">
       <ul class="sponsor-list">
         ${items}
       </ul>
-      <p class="sponsor-note">Affiliate links: the site may earn a commission at no extra cost to you (<a href="../disclosure/">how this works</a>). No single tool is a silver bullet; treat each as one layer of coverage.</p>
+      <p class="sponsor-note">Affiliate links: the site may earn a commission at no extra cost to you (<a href="../disclosure/">how this works</a>).${amazonNote} No single tool is a silver bullet; treat each as one layer of coverage.</p>
     </div>`;
 }
 
@@ -988,6 +998,7 @@ ${ANALYTICS_SNIPPET}
 `;
 }
 for (const [id, partner] of Object.entries(affiliates.partners)) {
+  if (partner.direct) continue; // linked in place; a stub would violate Amazon's no-cloaking rule
   mkdirSync(`${dist}/go/${id}`, { recursive: true });
   writeFileSync(`${dist}/go/${id}/index.html`, goPage(partner));
 }
@@ -1068,5 +1079,5 @@ writeFileSync(
 );
 
 console.log(
-  `Generated ${keys.length} definition pages, ${csfIds.length} CSF pages, ${cisIds.length} CIS pages, ${ai.length} AI pages, ${isoSorted.length} ISO pages, ${soc2Sorted.length} SOC 2 pages, ${blogPosts.length} blog posts, ${aliases} legacy aliases, ${fallbacks} search fallbacks, ${rootRedirects} root redirects, ${Object.keys(affiliates.partners).length} affiliate redirects, sitemap with ${urls.length} URLs.`,
+  `Generated ${keys.length} definition pages, ${csfIds.length} CSF pages, ${cisIds.length} CIS pages, ${ai.length} AI pages, ${isoSorted.length} ISO pages, ${soc2Sorted.length} SOC 2 pages, ${blogPosts.length} blog posts, ${aliases} legacy aliases, ${fallbacks} search fallbacks, ${rootRedirects} root redirects, ${Object.values(affiliates.partners).filter((p) => !p.direct).length} affiliate redirects, sitemap with ${urls.length} URLs.`,
 );

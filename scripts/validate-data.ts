@@ -461,7 +461,7 @@ const scorecard = load<{ cards: { id: string; onTheJobTool: { status: string } }
 const skillsMatrix = load<SkillsMatrix>('../src/data/skills-matrix.json');
 const blogPosts = load<BlogPost[]>('../src/data/blog-posts.json');
 const affiliates = load<{
-  partners: Record<string, { name: string; url: string; network: string; blurb: string }>;
+  partners: Record<string, { name: string; url: string; network: string; blurb: string; direct?: boolean }>;
   placements: Record<string, string[]>;
 }>('../src/data/affiliates.json');
 
@@ -508,6 +508,12 @@ const problems = [
       if (!p.name?.trim() || !p.blurb?.trim() || !p.network?.trim())
         out.push(`affiliates: partner ${id} missing name, network, or blurb`);
       if (p.blurb?.includes('—')) out.push(`affiliates: partner ${id} em dash in blurb`);
+      // Amazon terms: links go direct (no /go/ stub) and must carry the tag.
+      if (p.network === 'Amazon') {
+        if (!p.direct) out.push(`affiliates: Amazon partner ${id} must set direct: true`);
+        if (!p.url.includes('tag=thestateofc04-20'))
+          out.push(`affiliates: Amazon partner ${id} url is missing the Associates tag`);
+      }
     }
     for (const [key, ids] of Object.entries(affiliates.placements)) {
       if (!(key in acronyms)) out.push(`affiliates: placement key ${key} is not an acronym`);
