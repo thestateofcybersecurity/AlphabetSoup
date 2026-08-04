@@ -1,0 +1,32 @@
+{
+  "partners": {
+    "nordvpn": {
+      "name": "NordVPN",
+      "url": "https://www.anrdoezrs.net/click-8024903-13756265",
+      "network": "CJ",
+      "blurb": "Audited no-logs VPN for public Wi-Fi and untrusted networks. It encrypts traffic in transit; it does not stop phishing or malware."
+    },
+    "nordpass": {
+      "name": "NordPass",
+      "url": "https://www.anrdoezrs.net/click-8024903-15112066",
+      "network": "CJ",
+      "blurb": "Zero-knowledge password manager with breach monitoring and passkey support. Pair it with MFA; it is step one, not the whole plan."
+    },
+    "sucuri": {
+      "name": "Sucuri",
+      "url": "https://www.anrdoezrs.net/click-8024903-13942196",
+      "network": "CJ",
+      "blurb": "Cloud WAF, malware scanning, and hacked-site cleanup for CMS-run websites. A filter in front of your site, not a substitute for patching."
+    }
+  },
+  "placements": {
+    "VPN": ["nordvpn"],
+    "MFA": ["nordpass"],
+    "2FA": ["nordpass"],
+    "WAF": ["sucuri"],
+    "DDOS": ["sucuri"],
+    "CDN": ["sucuri"],
+    "XSS": ["sucuri"],
+    "SQLI": ["sucuri"]
+  }
+}
