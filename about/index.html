@@ -83,6 +83,28 @@
       border: 1.5px solid var(--tomato); border-radius: 999px; padding: 5px 12px; color: var(--tomato-deep);
       background: var(--paper-raised);
     }
+    a.cred-pill { text-decoration: none; }
+    a.cred-pill[href]:hover { background: var(--tomato); color: var(--on-accent); }
+    .proof-strip {
+      list-style: none; display: flex; flex-wrap: wrap; justify-content: center;
+      gap: 8px; padding: 0; margin: 0 0 10px;
+    }
+    .proof-strip li {
+      font-family: var(--font-mono); font-size: 0.74rem; letter-spacing: 0.06em;
+      border: 1.5px solid var(--tomato); border-radius: 999px; padding: 5px 12px;
+      color: var(--tomato-deep); background: var(--paper-raised);
+    }
+    .latest-writing { list-style: none; padding: 0; margin: 0 0 10px; }
+    .latest-writing li {
+      border: 1.5px solid var(--tomato); border-radius: 12px; background: var(--paper-raised);
+      padding: 14px 18px; margin-bottom: 12px;
+    }
+    .latest-writing h3 { margin: 0 0 2px; font-size: 1.05rem; }
+    .latest-writing h3 a { color: var(--tomato-deep); text-decoration: none; }
+    .latest-writing h3 a:hover { text-decoration: underline; }
+    .latest-writing .when { font-family: var(--font-mono); font-size: 0.72rem; color: var(--ink-soft); }
+    .latest-writing p { margin: 6px 0 0; font-size: 0.92rem; line-height: 1.55; color: var(--ink); }
+    .all-posts a { color: var(--tomato-deep); font-weight: 600; }
     .connect-row { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 6px; }
     .connect-row a {
       display: inline-block; border: 1.5px solid var(--tomato); border-radius: 10px;
@@ -110,6 +132,25 @@
         <img src="/parker-brissette.jpg" width="150" height="175" alt="Parker Brissette" />
       </figure>
       <p><strong>Hi, I'm Parker Brissette.</strong> I'm a cybersecurity leader based in Colorado, and everything on this site is my own independent work: researched, written, coded, tested, and fact-checked by me, on my own time. I built it because the security industry has a language problem. The acronyms multiply faster than anyone can learn them, and the people who most need this knowledge are often the ones the jargon locks out. Translating hard security ideas into plain English is the skill I have practiced my whole career, and this site is that skill turned into a public utility.</p>
+      <p>The conviction came from watching it matter. As CISO of Colorado's statewide court system, I briefed judges and administrators whose decisions depended on understanding risks that no one had ever explained to them without jargon. When security is explained plainly, people make better decisions; when it isn't, the jargon becomes its own vulnerability. I have carried that lesson through every boardroom since, and this site is where I practice it in public.</p>
+
+      <!--about-stats-->
+
+      <h2 class="about-h2">Try these first</h2>
+      <div class="skill-grid">
+        <div class="skill-card">
+          <h3><a href="../tools/ai-risk/">AI Use Case Risk Tiering &rarr;</a></h3>
+          <p>Govern a proposed AI use case in five minutes: answer eight questions, get a risk tier and the controls to match.</p>
+        </div>
+        <div class="skill-card">
+          <h3><a href="https://mitre.cybersecurityalphabetsoup.com/" rel="noopener" target="_blank">MITRE ATT&amp;CK Adventure &rarr;</a></h3>
+          <p>Play the attacker, the defender, or the developer, powered entirely by MITRE's official data.</p>
+        </div>
+        <div class="skill-card">
+          <h3><a href="../roadmap/">Security Roadmap Planner &rarr;</a></h3>
+          <p>Turn NIST CSF and CIS priorities into a tracked, sequenced plan.</p>
+        </div>
+      </div>
 
       <h2 class="about-h2">What I bring to security</h2>
       <div class="skill-grid">
@@ -156,22 +197,25 @@
         </div>
       </div>
 
+      <!--about-latest-writing-->
+
       <h2 class="about-h2">Credentials</h2>
       <div class="cred-row">
         <span class="cred-pill">M.S. Cybersecurity</span>
-        <span class="cred-pill">CISSP</span>
-        <span class="cred-pill">CISSP-ISSMP</span>
-        <span class="cred-pill">CISM</span>
-        <span class="cred-pill">CCSK</span>
-        <span class="cred-pill">CCZT</span>
-        <span class="cred-pill">CEH</span>
-        <span class="cred-pill">CHFI</span>
+        <a class="cred-pill" data-cred="CISSP" rel="noopener">CISSP</a>
+        <a class="cred-pill" data-cred="CISSP-ISSMP" rel="noopener">CISSP-ISSMP</a>
+        <a class="cred-pill" data-cred="CISM" rel="noopener">CISM</a>
+        <a class="cred-pill" data-cred="CCSK" rel="noopener">CCSK</a>
+        <a class="cred-pill" data-cred="CCZT" rel="noopener">CCZT</a>
+        <a class="cred-pill" data-cred="CEH" rel="noopener">CEH</a>
+        <a class="cred-pill" data-cred="CHFI" rel="noopener">CHFI</a>
       </div>
 
       <h2 class="about-h2">Why it's free</h2>
       <p>Because the barrier to entry in security should be curiosity, not cost. There are no accounts here, no tracking, and nothing you type ever leaves your browser. The source is public on GitHub. If this site helps you pass a cert, brief your board, or finally understand what your vendor is selling you, it did its job.</p>
 
       <h2 class="about-h2">Say hello</h2>
+      <p>I'm always glad to join podcasts, panels, and webinars about plain-English security, AI governance, and building in public.</p>
       <div class="connect-row">
         <a href="https://linkedin.com/in/parkerbrissette" rel="noopener" target="_blank">Connect on LinkedIn &rarr;</a>
         <a href="https://github.com/thestateofcybersecurity" rel="noopener" target="_blank">Follow on GitHub &rarr;</a>
@@ -193,5 +237,28 @@
       <a href="../privacy/">Privacy</a> &middot; <a href="../disclosure/">Affiliate disclosure</a>
     </p>
   </footer>
+  <script>
+    // Verification links for the credential pills above. Paste a Credly (or
+    // issuer) URL next to a credential and its pill becomes a link; leave it
+    // empty and the pill stays plain text. No other wiring needed.
+    (function () {
+      var CRED_LINKS = {
+        'CISSP': '',
+        'CISSP-ISSMP': '',
+        'CISM': '',
+        'CCSK': 'https://www.credly.com/badges/24988584-4c83-4885-8fe9-fe53fe22efb1',
+        'CCZT': 'https://www.credly.com/badges/ff4f4f9b-d775-4ca8-aa68-d4fee83d4a7f',
+        'CEH': '',
+        'CHFI': ''
+      };
+      document.querySelectorAll('.cred-pill[data-cred]').forEach(function (pill) {
+        var url = CRED_LINKS[pill.getAttribute('data-cred')];
+        if (url) {
+          pill.setAttribute('href', url);
+          pill.setAttribute('target', '_blank');
+        }
+      });
+    })();
+  </script>
 </body>
 </html>
