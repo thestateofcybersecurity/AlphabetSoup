@@ -58,6 +58,51 @@
       ]
     },
     {
+      "slug": "nordvpn-review-what-a-vpn-does",
+      "title": "NordVPN Review: What a VPN Actually Protects (and What It Never Will)",
+      "category": "Spotlight",
+      "brief": "An honest practitioner review of NordVPN. Open with a clear one-sentence affiliate disclosure near the top that links to /disclosure/ (the post contains affiliate links and the site may earn a commission at no extra cost to the reader). Be direct that a VPN is not a silver bullet: it encrypts traffic in transit and hides your IP from the local network and your ISP, but it does not stop phishing, malware, credential theft, or a breached service leaking your data, and HTTPS already protects most sessions. Then cover where NordVPN genuinely earns a place in a layered setup: public Wi-Fi and travel, untrusted networks, IP privacy, and testing region-dependent behavior. Discuss NordLynx (WireGuard) performance, the independently audited no-logs policy, and why the bundled Threat Protection feature is a nice extra but no replacement for real endpoint protection. Briefly contrast consumer VPNs with corporate remote-access VPNs and with zero trust approaches like ZTNA and SASE so readers understand the category. Close with who should buy it (frequent travelers, public Wi-Fi users, privacy-conscious readers) and who can skip it. Every NordVPN call-to-action link in the post must use the tracking URL https://www.anrdoezrs.net/click-8024903-13756265 with plain-language anchor text.",
+      "links": [
+        "/?q=VPN",
+        "/?q=ZTNA",
+        "/?q=SASE",
+        "/?q=TLS",
+        "/disclosure/",
+        "https://www.anrdoezrs.net/click-8024903-13756265"
+      ]
+    },
+    {
+      "slug": "nordpass-review-password-manager-step-one",
+      "title": "NordPass Review: A Password Manager Is Step One, Not the Whole Plan",
+      "category": "Spotlight",
+      "brief": "An honest practitioner review of the NordPass password manager. Open with a clear one-sentence affiliate disclosure near the top that links to /disclosure/ (the post contains affiliate links and the site may earn a commission at no extra cost to the reader). Frame the problem first: password reuse is what makes credential stuffing work, and a password manager is the single highest-leverage habit fix for most people. Review NordPass on its merits: XChaCha20 encryption, zero-knowledge architecture, breach monitoring, passkey support, email masking, and cross-device sync. Be honest about limits: a password manager does not stop phishing on its own (users can still be tricked into filling credentials on look-alike sites), the master password is a single point of failure that itself needs strong MFA, browser autofill has known edge cases, and unique passwords do nothing if a service is breached and MFA is absent. Position it inside a layered identity stack: pair it with MFA everywhere, prefer phishing-resistant methods like FIDO2 passkeys over SMS or TOTP where offered, and note that enterprise credential problems need SSO and PAM, not a consumer vault. Close with who benefits most (anyone reusing passwords today) and a realistic setup path. Every NordPass call-to-action link must use the tracking URL https://www.anrdoezrs.net/click-8024903-15112066 with plain-language anchor text.",
+      "links": [
+        "/?q=MFA",
+        "/?q=2FA",
+        "/?q=FIDO2",
+        "/?q=TOTP",
+        "/?q=SSO",
+        "/disclosure/",
+        "https://www.anrdoezrs.net/click-8024903-15112066"
+      ]
+    },
+    {
+      "slug": "sucuri-review-waf-not-a-substitute-for-patching",
+      "title": "Sucuri Review: A WAF for Your Website, Not a Substitute for Patching",
+      "category": "Spotlight",
+      "brief": "An honest practitioner review of the Sucuri website security platform for small-site owners (WordPress and other CMS-run sites). Open with a clear one-sentence affiliate disclosure near the top that links to /disclosure/ (the post contains affiliate links and the site may earn a commission at no extra cost to the reader). Explain what the product actually is: a cloud WAF and CDN that sits in front of the site filtering XSS, SQL injection, and bot traffic, plus DDoS mitigation, malware scanning, and a cleanup/incident-response service if a site is already hacked. Highlight real strengths: virtual patching buys time when a CVE drops for a plugin you cannot update immediately, the cleanup service has a strong reputation, and flat pricing is simple. Be honest about limits: a WAF is a filter, not a fix; it cannot patch the CMS or plugins for you, rules can be bypassed, and if the origin server IP leaks (DNS history, misconfiguration) attackers can go around the WAF entirely, so origin lockdown matters. Scanning is detection, not prevention, and remote scanners can miss server-side malware. The boring fundamentals still carry the weight: timely updates, least-privilege admin accounts, MFA on the CMS login, and tested backups. Close with who it fits (site owners without a security team, anyone mid-incident needing cleanup) and who should rely on fundamentals first. Every Sucuri call-to-action link must use the tracking URL https://www.anrdoezrs.net/click-8024903-13942196 with plain-language anchor text.",
+      "links": [
+        "/?q=WAF",
+        "/?q=XSS",
+        "/?q=SQLI",
+        "/?q=DDOS",
+        "/?q=CDN",
+        "/?q=CVE",
+        "/disclosure/",
+        "https://www.anrdoezrs.net/click-8024903-13942196"
+      ]
+    },
+    {
       "slug": "encryption-at-rest-vs-in-transit",
       "title": "Encryption at Rest vs In Transit, and Why Key Management Is the Hard Part",
       "category": "Spotlight",
