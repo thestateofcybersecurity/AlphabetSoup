@@ -161,6 +161,24 @@ const metaDescription = (text: string): string => {
  */
 const jsonLdScript = (obj: unknown): string => JSON.stringify(obj).replace(/</g, '\\u003c');
 
+/**
+ * BreadcrumbList JSON-LD for a generated page. The hierarchy is real on every
+ * generated page (home > category > term, home > framework > control, home >
+ * blog > post) but was previously undeclared, which left search and answer
+ * engines to guess the site structure.
+ */
+const breadcrumbLd = (trail: { name: string; item: string }[]): string =>
+  jsonLdScript({
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: trail.map((crumb, i) => ({
+      '@type': 'ListItem',
+      position: i + 1,
+      name: crumb.name,
+      item: crumb.item,
+    })),
+  });
+
 const PAGE_CSS = `
 :root{--paper:#f7efe2;--paper-raised:#fdf8ee;--ink:#23303a;--ink-soft:#5c6a72;--tomato:#c8401f;--line:#ded1bb}
 @media(prefers-color-scheme:dark){:root{--paper:#191410;--paper-raised:#221c16;--ink:#ede4d3;--ink-soft:#a89d8a;--tomato:#e86a45;--line:#3a3227}}
@@ -319,6 +337,11 @@ function definitionPage(key: string, entry: AcronymEntry): string {
   ${renderFontLinks()}
   <style>${PAGE_CSS}</style>
   <script type="application/ld+json">${jsonLd}</script>
+  <script type="application/ld+json">${breadcrumbLd([
+    { name: 'Cybersecurity Alphabet Soup', item: `${SITE}/` },
+    { name: `${categoryTitle(entry.category)} acronyms`, item: `${SITE}/categories/${categorySlug(entry.category)}.html` },
+    { name: entry.display, item: url },
+  ])}</script>
 </head>
 <body>
   <a class="skip-link" href="#main">Skip to content</a>
@@ -480,6 +503,11 @@ function frameworkPage(input: FrameworkPageInput): string {
 @media(prefers-color-scheme:dark){:root{--tomato:${input.accentDark}}}
 ${FW_EXTRA_CSS}</style>
   <script type="application/ld+json">${jsonLd}</script>
+  <script type="application/ld+json">${breadcrumbLd([
+    { name: 'Cybersecurity Alphabet Soup', item: `${SITE}/` },
+    { name: input.sectionLabel, item: `${SITE}/frameworks/${input.sectionPath}/` },
+    { name: input.id, item: url },
+  ])}</script>
 </head>
 <body>
   <a class="skip-link" href="#main">Skip to content</a>
@@ -580,7 +608,7 @@ const relatedChip = (r: { label: string; href: string }): string => {
   return `<a href="${esc(r.href)}"${external ? ' rel="noopener" target="_blank"' : ''}>${esc(r.label)} &rarr;</a>`;
 };
 
-function blogHead(title: string, description: string, url: string, jsonLd?: string): string {
+function blogHead(title: string, description: string, url: string, jsonLds: string[] = []): string {
   return `<head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -599,7 +627,7 @@ function blogHead(title: string, description: string, url: string, jsonLd?: stri
   <link rel="icon" href="../icon.svg" type="image/svg+xml">
   <link rel="alternate" type="application/rss+xml" title="Cybersecurity Alphabet Soup blog" href="${SITE}/feed.xml">
   ${renderFontLinks()}
-  <style>${PAGE_CSS}${BLOG_CSS}</style>${jsonLd ? `\n  <script type="application/ld+json">${jsonLd}</script>` : ''}
+  <style>${PAGE_CSS}${BLOG_CSS}</style>${jsonLds.map((ld) => `\n  <script type="application/ld+json">${ld}</script>`).join('')}
 </head>`;
 }
 
@@ -654,12 +682,17 @@ function blogPostPage(post: BlogPost): string {
     image: `${SITE}/og-image.png`,
     keywords: post.tags.join(', '),
   });
+  const crumbs = breadcrumbLd([
+    { name: 'Cybersecurity Alphabet Soup', item: `${SITE}/` },
+    { name: 'Blog', item: `${SITE}/blog/` },
+    { name: post.title, item: url },
+  ]);
   const body = post.body.map(blockHtml).join('\n      ');
   const tags = post.tags.map((t) => `<span class="t">${esc(t)}</span>`).join('');
   const related = post.related.map(relatedChip).join('');
   return `<!DOCTYPE html>
 <html lang="en">
-${blogHead(`${esc(post.title)} | Cybersecurity Alphabet Soup`, post.description, url, jsonLd)}
+${blogHead(`${esc(post.title)} | Cybersecurity Alphabet Soup`, post.description, url, [jsonLd, crumbs])}
 <body>
   <a class="skip-link" href="#main">Skip to content</a>
   <main id="main" class="wrap blog" tabindex="-1">
@@ -1061,9 +1094,18 @@ const urls = [
   `${SITE}/frameworks/soc2/`,
   ...soc2Sorted.map((c) => `${SITE}/frameworks/soc2/${frameworkSlug(c.id)}.html`),
 ];
+// lastmod only where a truthful date exists (blog posts carry real dates).
+// Stamping every URL with the build date would be fake freshness, which
+// crawlers learn to distrust; partial lastmod is valid sitemap XML.
+const lastmodByUrl = new Map(blogPosts.map((post) => [`${SITE}/blog/${post.slug}.html`, post.date]));
 const sitemap = `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-${urls.map((url) => `  <url><loc>${esc(url)}</loc></url>`).join('\n')}
+${urls
+  .map((url) => {
+    const lastmod = lastmodByUrl.get(url);
+    return `  <url><loc>${esc(url)}</loc>${lastmod ? `<lastmod>${lastmod}</lastmod>` : ''}</url>`;
+  })
+  .join('\n')}
 </urlset>
 `;
 writeFileSync(`${dist}/sitemap.xml`, sitemap);
@@ -1072,6 +1114,60 @@ writeFileSync(
   `User-agent: *\nAllow: /\nDisallow: /go/\n\nSitemap: ${SITE}/sitemap.xml\n`,
 );
 
+// 6. llms.txt and llms-full.txt: the site condensed for AI systems.
+//
+// llms.txt is the emerging convention (llmstxt.org) for handing language
+// models a curated map of a site. This site is the ideal case: the content is
+// already structured data, so both files derive from the same JSON as the
+// pages and can never drift from them. llms-full.txt inlines every definition
+// so a single fetch puts the whole glossary in an agent's context.
+const llmsIndex = `# Cybersecurity Alphabet Soup
+
+> A free, plain-English cybersecurity dictionary and learning site: ${keys.length} acronyms explained with authoritative sources, control-by-control framework translations (NIST CSF 2.0, CIS Controls v8, ISO 27001 Annex A, SOC 2, AI security frameworks), certification practice quizzes, self-assessments, and career guides. Written by Parker Brissette, a security practitioner with 15+ years in the field.
+
+Every definition page gives the acronym's expansion, a plain-English explanation of why it matters, and sources. Definition URLs follow ${SITE}/definitions/<term>.html.
+
+## Glossary
+- [Full glossary and search](${SITE}/): all ${keys.length} terms
+${CATEGORIES.map((c) => `- [${categoryTitle(c)} acronyms](${SITE}/categories/${categorySlug(c)}.html): ${(byCategory.get(c) ?? []).length} terms`).join('\n')}
+- [llms-full.txt](${SITE}/llms-full.txt): every definition in one plain-text file
+
+## Framework translations
+- [NIST CSF 2.0 in plain English](${SITE}/frameworks/nist-csf/): ${csfIds.length} subcategories
+- [CIS Controls v8 in plain English](${SITE}/frameworks/cis/): ${cisIds.length} safeguards
+- [ISO 27001 Annex A in plain English](${SITE}/frameworks/iso/): ${isoSorted.length} controls
+- [SOC 2 Trust Services Criteria in plain English](${SITE}/frameworks/soc2/): ${soc2Sorted.length} criteria
+- [AI security frameworks in plain English](${SITE}/frameworks/ai/): ${ai.length} entries
+
+## Learn and practice
+- [Certification practice quizzes](${SITE}/quiz/)
+- [Security self-assessments](${SITE}/assess/)
+- [Security career roadmap](${SITE}/roadmap/)
+- [Security careers guide](${SITE}/careers/)
+- [Blog](${SITE}/blog/): honest reviews and plain-English explainers, twice weekly
+- [About the site and author](${SITE}/about/)
+`;
+writeFileSync(`${dist}/llms.txt`, llmsIndex);
+
+const llmsFull = `${llmsIndex}
+# Full glossary
+
+${CATEGORIES.map(
+  (c) =>
+    `## ${categoryTitle(c)}\n\n${(byCategory.get(c) ?? [])
+      .map((key) => `${data[key].display} (${data[key].expansion}): ${data[key].explanation}`)
+      .join('\n\n')}`,
+).join('\n\n')}
+`;
+writeFileSync(`${dist}/llms-full.txt`, llmsFull);
+
+// 7. IndexNow key file. The key is public by design (the protocol verifies
+// ownership by fetching this file from the host); deploy.yml pings the API
+// with it after each deploy so Bing-family indexes hear about changes
+// immediately instead of at the next crawl.
+const INDEXNOW_KEY = 'cas2026indexnow8f41b2c7d5e9a638';
+writeFileSync(`${dist}/${INDEXNOW_KEY}.txt`, `${INDEXNOW_KEY}\n`);
+
 console.log(
-  `Generated ${keys.length} definition pages, ${csfIds.length} CSF pages, ${cisIds.length} CIS pages, ${ai.length} AI pages, ${isoSorted.length} ISO pages, ${soc2Sorted.length} SOC 2 pages, ${blogPosts.length} blog posts, ${aliases} legacy aliases, ${fallbacks} search fallbacks, ${rootRedirects} root redirects, ${Object.values(affiliates.partners).filter((p) => !p.direct).length} affiliate redirects, sitemap with ${urls.length} URLs.`,
+  `Generated ${keys.length} definition pages, ${csfIds.length} CSF pages, ${cisIds.length} CIS pages, ${ai.length} AI pages, ${isoSorted.length} ISO pages, ${soc2Sorted.length} SOC 2 pages, ${blogPosts.length} blog posts, ${aliases} legacy aliases, ${fallbacks} search fallbacks, ${rootRedirects} root redirects, ${Object.values(affiliates.partners).filter((p) => !p.direct).length} affiliate redirects, llms.txt + llms-full.txt, IndexNow key, sitemap with ${urls.length} URLs.`,
 );

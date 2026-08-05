@@ -56,3 +56,27 @@ jobs:
     steps:
       - id: deployment
         uses: actions/deploy-pages@v4
+
+  # Tell IndexNow-family search engines (Bing, and through it the indexes
+  # behind ChatGPT search and Copilot) what just changed, instead of waiting
+  # for the next crawl. Submits the pages most likely to be fresh: the
+  # homepage, the blog index, and the newest posts. The key is public by
+  # design; the generator publishes the matching key file at the site root.
+  # Non-fatal on failure: indexing hints should never block or fail a deploy.
+  indexnow:
+    if: github.event_name != 'pull_request'
+    needs: deploy
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - name: Ping IndexNow with fresh URLs
+        run: |
+          KEY="cas2026indexnow8f41b2c7d5e9a638"
+          HOST="www.cybersecurityalphabetsoup.com"
+          posts=$(jq -r 'sort_by(.date) | reverse | .[0:5][] | "https://www.cybersecurityalphabetsoup.com/blog/\(.slug).html"' src/data/blog-posts.json)
+          list=$(printf '%s\n' "https://$HOST/" "https://$HOST/blog/" "https://$HOST/llms.txt" $posts | jq -R . | jq -s -c .)
+          curl -sS --max-time 30 -X POST "https://api.indexnow.org/indexnow" \
+            -H "Content-Type: application/json; charset=utf-8" \
+            -d "{\"host\":\"$HOST\",\"key\":\"$KEY\",\"keyLocation\":\"https://$HOST/$KEY.txt\",\"urlList\":$list}" \
+            && echo "IndexNow pinged" || echo "IndexNow ping failed (non-fatal)"
