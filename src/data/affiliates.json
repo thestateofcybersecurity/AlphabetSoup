@@ -51,6 +51,18 @@
       "network": "Amazon",
       "direct": true,
       "blurb": "The standard text for ISACA's management-track cert. Best for engineers moving toward security leadership; it teaches governance, not hands-on defense."
+    },
+    "proton-mail": {
+      "name": "Proton Mail",
+      "url": "https://www.anrdoezrs.net/click-8024903-13774763",
+      "network": "CJ",
+      "blurb": "Encrypted email from Switzerland with PGP built in, no key wrangling required. End-to-end encryption only applies Proton-to-Proton or with PGP contacts; mail to ordinary inboxes travels like ordinary email."
+    },
+    "proton-pass": {
+      "name": "Proton Pass",
+      "url": "https://www.anrdoezrs.net/click-8024903-17061192",
+      "network": "CJ",
+      "blurb": "Open-source password manager from the Proton team with a built-in TOTP authenticator and email aliases. Storing codes beside passwords trades some separation of factors for convenience; know that tradeoff."
     }
   },
   "placements": {
@@ -95,6 +107,21 @@
     ],
     "CISM": [
       "amazon-cism-guide"
+    ],
+    "PGP": [
+      "proton-mail"
+    ],
+    "GPG": [
+      "proton-mail"
+    ],
+    "SMIME": [
+      "proton-mail"
+    ],
+    "TOTP": [
+      "proton-pass"
+    ],
+    "OTP": [
+      "proton-pass"
     ]
   }
 }
