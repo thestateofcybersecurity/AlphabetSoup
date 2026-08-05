@@ -1,0 +1,31 @@
+name: Verify analytics beacon
+
+# Cloudflare Web Analytics is configured on the zone, not in this repo, and its
+# beacon is injected at the edge. Nothing in the build or the normal test suite
+# can tell whether it is still enabled, so this checks the live site instead.
+#
+# Scheduled rather than tied to deploys on purpose: the repo no longer contains
+# anything that could break the beacon, so the realistic failure is the
+# dashboard setting being changed between deploys.
+on:
+  schedule:
+    - cron: '0 11 * * 1' # Mondays 11:00 UTC, an hour after the link check
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  verify-analytics:
+    runs-on: ubuntu-latest
+    # Three page loads against production; normally about 30 seconds.
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - run: npx playwright install --with-deps chromium
+      - run: npm run check:analytics

@@ -12,6 +12,7 @@
     "test:e2e": "playwright test",
     "validate:data": "tsx scripts/validate-data.ts",
     "check:links": "tsx scripts/check-links.ts",
+    "check:analytics": "playwright test --config=playwright.production.config.ts",
     "shots": "vite preview --port 4188 --strictPort & sleep 3 && OUT=./shots BASE=http://localhost:4188 node scripts/shots.mjs; kill %1",
     "og:images": "tsx scripts/og-images.ts"
   },
