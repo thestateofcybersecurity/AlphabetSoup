@@ -5,7 +5,6 @@ import { frameworkSlug } from '../src/lib/frameworks';
 import { relatedFor } from '../src/lib/related';
 import { renderGeneratedNav } from '../src/lib/site-nav';
 import { byDateDesc } from '../src/lib/about';
-import { ANALYTICS_SNIPPET } from '../src/lib/analytics';
 import { renderFontLinks } from '../src/lib/fonts';
 import { categorySlug, categoryTitle, decksTesting, postsMentioning } from '../src/lib/deep-links';
 import type { DeckLike, PostLike } from '../src/lib/deep-links';
@@ -320,7 +319,6 @@ function definitionPage(key: string, entry: AcronymEntry): string {
   ${renderFontLinks()}
   <style>${PAGE_CSS}</style>
   <script type="application/ld+json">${jsonLd}</script>
-${ANALYTICS_SNIPPET}
 </head>
 <body>
   <a class="skip-link" href="#main">Skip to content</a>
@@ -482,7 +480,6 @@ function frameworkPage(input: FrameworkPageInput): string {
 @media(prefers-color-scheme:dark){:root{--tomato:${input.accentDark}}}
 ${FW_EXTRA_CSS}</style>
   <script type="application/ld+json">${jsonLd}</script>
-${ANALYTICS_SNIPPET}
 </head>
 <body>
   <a class="skip-link" href="#main">Skip to content</a>
@@ -603,7 +600,6 @@ function blogHead(title: string, description: string, url: string, jsonLd?: stri
   <link rel="alternate" type="application/rss+xml" title="Cybersecurity Alphabet Soup blog" href="${SITE}/feed.xml">
   ${renderFontLinks()}
   <style>${PAGE_CSS}${BLOG_CSS}</style>${jsonLd ? `\n  <script type="application/ld+json">${jsonLd}</script>` : ''}
-${ANALYTICS_SNIPPET}
 </head>`;
 }
 
@@ -925,7 +921,6 @@ function categoryPage(category: string, entryKeys: string[]): string {
     .cat-list strong{font-family:'IBM Plex Mono',monospace;margin-right:10px}
   </style>
   <script type="application/ld+json">${jsonLd}</script>
-${ANALYTICS_SNIPPET}
 </head>
 <body>
   <a class="skip-link" href="#main">Skip to content</a>
@@ -968,9 +963,9 @@ for (const category of CATEGORIES) {
 // Every affiliate anchor on the site points here instead of at the network
 // URL, so a changed tracking link is a one-file edit and analytics counts a
 // /go/<id>/ pageview per outbound click. Meta refresh rather than an inline
-// script: the analytics snippet must remain the only executable inline script
-// (see src/lib/analytics.ts and e2e/csp.spec.ts). The one-second delay gives
-// the async analytics script a moment to record the pageview before leaving.
+// script: the site ships no executable inline scripts, which e2e/csp.spec.ts
+// asserts. The one-second delay gives Cloudflare's edge-injected Web Analytics
+// beacon a moment to record the pageview before leaving.
 // noindex + robots Disallow because a redirect stub has nothing to rank.
 function goPage(partner: AffiliateData['partners'][string]): string {
   return `<!DOCTYPE html>
@@ -984,7 +979,6 @@ function goPage(partner: AffiliateData['partners'][string]): string {
   <title>Sending you to ${esc(partner.name)}</title>
   ${renderFontLinks()}
   <style>${PAGE_CSS}</style>
-${ANALYTICS_SNIPPET}
 </head>
 <body>
   <main class="wrap">

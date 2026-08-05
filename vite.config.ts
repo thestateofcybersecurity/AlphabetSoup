@@ -4,7 +4,6 @@ import { fileURLToPath } from 'node:url';
 import { defineConfig, type Plugin } from 'vite';
 import { EXTERNAL_LINKS, renderSiteNav } from './src/lib/site-nav';
 import { withAboutSections, type AboutPost } from './src/lib/about';
-import { withAnalytics } from './src/lib/analytics';
 import { withCanonicalFonts } from './src/lib/fonts';
 import { cisControlsAssessment, cisIg1Assessment, csfAssessment } from './src/lib/assessment';
 
@@ -57,21 +56,6 @@ function aboutSectionsPlugin(): Plugin {
         const posts = read('blog-posts.json') as AboutPost[];
         return withAboutSections(html, { acronyms, controls, questions, apps: EXTERNAL_LINKS.length }, posts);
       },
-    },
-  };
-}
-
-/**
- * Injects the Plausible snippet into the hand-written pages at build time.
- * Build-only (`apply: 'build'`) so `npm run dev` never sends events.
- */
-function analyticsPlugin(): Plugin {
-  return {
-    name: 'analytics',
-    apply: 'build',
-    transformIndexHtml: {
-      order: 'post',
-      handler: (html) => withAnalytics(html),
     },
   };
 }
@@ -206,7 +190,6 @@ export default defineConfig({
     siteNavPlugin(),
     aboutSectionsPlugin(),
     fontsPlugin(),
-    analyticsPlugin(),
   ],
   // Relative base so the build works on the custom domain or any Pages path.
   base: './',

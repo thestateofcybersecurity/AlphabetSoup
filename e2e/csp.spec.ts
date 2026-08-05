@@ -1,20 +1,14 @@
-import { createHash } from 'node:crypto';
 import { expect, test } from '@playwright/test';
-import { INLINE_SCRIPT_SHA256 } from '../src/lib/analytics';
 
 /**
- * The recorded hash of the inline analytics script has to match what actually
- * ships, because a CSP built from it lives outside this repo and a mismatch
- * blocks analytics on every page rather than failing loudly.
+ * The site ships no executable inline scripts and no external scripts of its
+ * own. Analytics is Cloudflare Web Analytics, whose beacon is injected at the
+ * edge on proxied responses rather than built into these pages, so it is
+ * deliberately absent from the built HTML these tests inspect.
  *
- * It was wrong once already: hand-computed against the snippet as authored
- * rather than as built. This recomputes it from the served HTML.
+ * Keeping both counts at zero means a future policy needs neither a script
+ * hash nor an origin allowlist, so anything added here is a conscious choice.
  */
-
-/** SHA-256 of a string, in the base64 form CSP expects. */
-function cspHash(body: string): string {
-  return `sha256-${createHash('sha256').update(body, 'utf8').digest('base64')}`;
-}
 
 /** The bodies of every inline <script> that the browser would execute. */
 async function executableInlineScripts(page: import('@playwright/test').Page, path: string) {
@@ -39,17 +33,10 @@ const PAGES = [
   '/blog/',
 ];
 
-test('the recorded hash matches the inline script as built', async ({ page }) => {
-  const scripts = await executableInlineScripts(page, '/');
-  expect(scripts).toHaveLength(1);
-  expect(cspHash(scripts[0])).toBe(INLINE_SCRIPT_SHA256);
-});
-
-test('every page type ships exactly that one executable inline script', async ({ page }) => {
+test('every page type ships no executable inline script', async ({ page }) => {
   for (const path of PAGES) {
     const scripts = await executableInlineScripts(page, path);
-    expect(scripts, `${path} should have one inline script`).toHaveLength(1);
-    expect(cspHash(scripts[0]), path).toBe(INLINE_SCRIPT_SHA256);
+    expect(scripts, `${path} should have no inline script`).toHaveLength(0);
   }
 });
 
@@ -62,7 +49,7 @@ test('no page uses an inline event handler or a javascript: url', async ({ page 
   }
 });
 
-test('the only external script origin is plausible', async ({ page }) => {
+test('the built pages reference no external script origin', async ({ page }) => {
   const origins = new Set<string>();
   for (const path of PAGES) {
     const html = await (await page.request.get(path)).text();
@@ -71,7 +58,7 @@ test('the only external script origin is plausible', async ({ page }) => {
     }
   }
   // Anything new here has to be added to script-src before it is deployed.
-  expect([...origins].sort()).toEqual(['https://plausible.io']);
+  expect([...origins].sort()).toEqual([]);
 });
 
 test('external styles and fonts come only from Google Fonts', async ({ page }) => {

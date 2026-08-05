@@ -1,60 +1,41 @@
 import { expect, test } from '@playwright/test';
 
 /**
- * Analytics must be present on every real page type, including the ~900
- * generated pages that ship no other JavaScript. Those pages are the bulk of
- * organic search traffic, and a bundled tracker would never have run on them.
+ * Analytics is Cloudflare Web Analytics, enabled on the zone rather than built
+ * into these pages. Cloudflare injects the beacon into proxied HTML responses,
+ * which covers every page type including the ~900 generated pages that ship no
+ * other JavaScript, and it covers them without the repo carrying a snippet.
  *
- * Redirect stubs are deliberately excluded: they meta-refresh away instantly,
- * so counting them would double-count the destination.
+ * That injection cannot be observed from the dev server or the built output,
+ * so there is nothing here asserting the beacon's presence; the checks below
+ * cover what this repo still controls. Note that a plain curl will not see the
+ * beacon on production either: Cloudflare only injects for browser-like
+ * requests, which is why it is easy to conclude wrongly that it is missing.
  */
 
-const TRACKED = [
-  '/',
-  '/tools/',
-  '/tools/crosswalk/',
-  '/quiz/',
-  '/assess/',
-  '/definitions/siem.html',
-  '/frameworks/cis/1-1.html',
-  '/blog/',
-];
-
-for (const path of TRACKED) {
-  test(`analytics snippet is present on ${path}`, async ({ page }) => {
-    await page.goto(path);
-    const tag = page.locator('script[src="https://plausible.io/js/pa-UZmn_OAyYtbL_nYn1CTQv.js"]');
-    await expect(tag).toHaveCount(1);
-    await expect(tag).toHaveAttribute('async', '');
-    // The queue shim must be defined so events fire before the remote script lands.
-    expect(await page.evaluate(() => typeof (window as unknown as { plausible?: unknown }).plausible)).toBe('function');
-  });
-}
-
-test('the static definition pages carry analytics despite shipping no other JS', async ({ page }) => {
+test('the static definition pages ship no JavaScript of their own', async ({ page }) => {
   await page.goto('/definitions/siem.html');
-  const otherScripts = await page.evaluate(() =>
-    [...document.querySelectorAll('script[src]')]
-      .map((s) => s.getAttribute('src') ?? '')
-      .filter((s) => !s.includes('plausible')),
+  const scripts = await page.evaluate(() =>
+    [...document.querySelectorAll('script[src]')].map((s) => s.getAttribute('src') ?? ''),
   );
-  expect(otherScripts).toEqual([]);
-  await expect(page.locator('script[src*="plausible.io"]')).toHaveCount(1);
+  expect(scripts).toEqual([]);
 });
 
-test('redirect stubs are not tracked', async ({ page }) => {
-  // A legacy alias that meta-refreshes to its canonical page.
+test('redirect stubs meta-refresh rather than running a script', async ({ page }) => {
+  // A legacy alias that meta-refreshes to its canonical page. Counting these
+  // would double-count the destination.
   const res = await page.request.get('/definitions/acas.html');
   const html = await res.text();
   expect(html).toContain('http-equiv="refresh"');
-  expect(html).not.toContain('plausible');
+  expect(html).not.toContain('<script');
 });
 
-test('privacy policy discloses analytics and the opt-out', async ({ page }) => {
+test('privacy policy discloses the analytics provider', async ({ page }) => {
   await page.goto('/privacy/');
   const body = await page.locator('body').innerText();
-  expect(body).toContain('Plausible');
-  expect(body).toContain('plausible_ignore');
-  // The old claim must be gone; it is now false.
+  expect(body).toContain('Cloudflare Web Analytics');
+  // Plausible was removed; the policy must not still name it.
+  expect(body).not.toContain('Plausible');
+  // The older claim must stay gone; it is false.
   expect(body).not.toContain('no analytics scripts');
 });
