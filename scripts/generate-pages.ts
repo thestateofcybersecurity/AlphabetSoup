@@ -683,7 +683,7 @@ function blogPostPage(post: BlogPost): string {
     headline: post.title,
     description: post.description,
     datePublished: post.date,
-    author: { '@type': 'Person', name: post.author },
+    author: { '@type': 'Person', name: post.author, url: `${SITE}/about/` },
     publisher: { '@type': 'Organization', name: 'Cybersecurity Alphabet Soup', url: SITE },
     mainEntityOfPage: url,
     image: ogImage,
@@ -707,7 +707,7 @@ ${blogHead(`${esc(post.title)} | Cybersecurity Alphabet Soup`, post.description,
     <a class="home" href="./">&larr; Blog</a>
     <p class="post-kicker">${esc(post.category)}</p>
     <h1>${esc(post.title)}</h1>
-    <p class="post-meta">By ${esc(post.author)} &middot; ${esc(formatDate(post.date))} &middot; ${post.readingMinutes} min read</p>
+    <p class="post-meta">By <a href="../about/">${esc(post.author)}</a> &middot; ${esc(formatDate(post.date))} &middot; ${post.readingMinutes} min read</p>
     <div class="post-body">
       ${body}
     </div>
@@ -1119,6 +1119,58 @@ writeFileSync(`${dist}/sitemap.xml`, sitemap);
 writeFileSync(
   `${dist}/robots.txt`,
   `User-agent: *\nAllow: /\nDisallow: /go/\n\nSitemap: ${SITE}/sitemap.xml\n`,
+);
+
+// 5b. Custom 404. GitHub Pages serves 404.html for any missing path (with a
+// real 404 status, so it needs no noindex and stays out of the sitemap). For
+// a lookup site the useful dead end is a search box: the form is plain HTML
+// GET to the homepage, which already reads ?q=, so no script is involved.
+writeFileSync(
+  `${dist}/404.html`,
+  `<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="color-scheme" content="light dark">
+  <title>Not found | Cybersecurity Alphabet Soup</title>
+  <meta name="description" content="That page is not in the soup. Search the ${Object.keys(data).length}-term cybersecurity glossary instead.">
+  <link rel="icon" href="/icon.svg" type="image/svg+xml">
+  ${renderFontLinks()}
+  <style>${PAGE_CSS}
+.search-404{display:flex;gap:10px;margin:22px 0 8px}
+.search-404 input{flex:1;font:inherit;font-size:1.05rem;padding:12px 18px;border:2px solid var(--ink);border-radius:999px;background:var(--paper-raised);color:var(--ink)}
+.search-404 button{font-family:'IBM Plex Mono',monospace;font-size:.8rem;letter-spacing:.1em;text-transform:uppercase;padding:12px 22px;border:2px solid var(--tomato);border-radius:999px;background:var(--tomato);color:var(--paper);cursor:pointer}
+</style>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <main id="main" class="wrap" tabindex="-1">
+    ${renderGeneratedNav('/')}
+    <a class="home" href="/">&larr; Cybersecurity Alphabet Soup</a>
+    <h1>404</h1>
+    <p class="expansion">Not Found (the one acronym we never wanted you to see)</p>
+    <div class="card"><p>That page is not in the soup. If you were hunting an acronym, the search below covers all ${Object.keys(data).length} terms; if you typed a URL by hand, the glossary index is one click away.</p></div>
+    <form class="search-404" action="/" method="get" role="search">
+      <input type="search" name="q" placeholder="Try SIEM, ZTNA, PCI DSS..." aria-label="Search acronyms" autofocus>
+      <button type="submit">Search</button>
+    </form>
+    <h2>Or start somewhere useful</h2>
+    <div class="related">
+      <a href="/">All ${Object.keys(data).length} acronyms</a>
+      <a href="/frameworks/">Framework translations</a>
+      <a href="/quiz/">Practice quizzes</a>
+      <a href="/blog/">Blog</a>
+      <a href="/careers/">Careers</a>
+    </div>
+    <footer>
+      <p>Part of <a href="/">Cybersecurity Alphabet Soup</a>, a plain-English dictionary of ${Object.keys(data).length} cybersecurity acronyms.</p>
+      <p><a href="/privacy/">Privacy</a> &middot; <a href="/disclosure/">Affiliate disclosure</a></p>
+    </footer>
+  </main>
+</body>
+</html>
+`,
 );
 
 // 6. llms.txt and llms-full.txt: the site condensed for AI systems.
