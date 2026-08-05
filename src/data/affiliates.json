@@ -63,6 +63,18 @@
       "url": "https://www.anrdoezrs.net/click-8024903-17061192",
       "network": "CJ",
       "blurb": "Open-source password manager from the Proton team with a built-in TOTP authenticator and email aliases. Storing codes beside passwords trades some separation of factors for convenience; know that tradeoff."
+    },
+    "optery": {
+      "name": "Optery",
+      "url": "https://get.optery.com/rhg204bv4giz",
+      "network": "PartnerStack",
+      "blurb": "Data broker removal service that finds and deletes your personal information from 600+ people-search sites. It shrinks your phishing and doxxing surface; it cannot recall data already breached or sold."
+    },
+    "tenable": {
+      "name": "Tenable Nessus",
+      "url": "https://shop.tenable.com/p2lcuxqo5kw7",
+      "network": "PartnerStack",
+      "blurb": "The standard vulnerability scanner for finding and prioritizing what to patch. A scanner shows you the holes; fixing them is still your team's job."
     }
   },
   "placements": {
@@ -122,6 +134,18 @@
     ],
     "OTP": [
       "proton-pass"
+    ],
+    "PII": [
+      "optery"
+    ],
+    "CVE": [
+      "tenable"
+    ],
+    "CVSS": [
+      "tenable"
+    ],
+    "KEV": [
+      "tenable"
     ]
   }
 }
