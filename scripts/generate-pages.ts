@@ -608,7 +608,13 @@ const relatedChip = (r: { label: string; href: string }): string => {
   return `<a href="${esc(r.href)}"${external ? ' rel="noopener" target="_blank"' : ''}>${esc(r.label)} &rarr;</a>`;
 };
 
-function blogHead(title: string, description: string, url: string, jsonLds: string[] = []): string {
+function blogHead(
+  title: string,
+  description: string,
+  url: string,
+  jsonLds: string[] = [],
+  ogImage: string = `${SITE}/og-image.png`,
+): string {
   return `<head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -620,7 +626,7 @@ function blogHead(title: string, description: string, url: string, jsonLds: stri
   <meta property="og:title" content="${esc(title)}">
   <meta property="og:description" content="${metaDescription(description)}">
   <meta property="og:url" content="${url}">
-  <meta property="og:image" content="${SITE}/og-image.png">
+  <meta property="og:image" content="${ogImage}">
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="630">
   <meta name="twitter:card" content="summary_large_image">
@@ -670,6 +676,7 @@ ${blogHead('Blog | Cybersecurity Alphabet Soup', 'Plain-English writing on cyber
 
 function blogPostPage(post: BlogPost): string {
   const url = `${SITE}/blog/${post.slug}.html`;
+  const ogImage = `${SITE}/og/blog/${post.slug}.png`;
   const jsonLd = jsonLdScript({
     '@context': 'https://schema.org',
     '@type': 'BlogPosting',
@@ -679,7 +686,7 @@ function blogPostPage(post: BlogPost): string {
     author: { '@type': 'Person', name: post.author },
     publisher: { '@type': 'Organization', name: 'Cybersecurity Alphabet Soup', url: SITE },
     mainEntityOfPage: url,
-    image: `${SITE}/og-image.png`,
+    image: ogImage,
     keywords: post.tags.join(', '),
   });
   const crumbs = breadcrumbLd([
@@ -692,7 +699,7 @@ function blogPostPage(post: BlogPost): string {
   const related = post.related.map(relatedChip).join('');
   return `<!DOCTYPE html>
 <html lang="en">
-${blogHead(`${esc(post.title)} | Cybersecurity Alphabet Soup`, post.description, url, [jsonLd, crumbs])}
+${blogHead(`${esc(post.title)} | Cybersecurity Alphabet Soup`, post.description, url, [jsonLd, crumbs], ogImage)}
 <body>
   <a class="skip-link" href="#main">Skip to content</a>
   <main id="main" class="wrap blog" tabindex="-1">
