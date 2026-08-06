@@ -75,6 +75,12 @@
       "url": "https://shop.tenable.com/p2lcuxqo5kw7",
       "network": "PartnerStack",
       "blurb": "The standard vulnerability scanner for finding and prioritizing what to patch. A scanner shows you the holes; fixing them is still your team's job."
+    },
+    "optery-business": {
+      "name": "Optery for Business",
+      "url": "https://get.optery.com/rhg204bv4giz",
+      "network": "PartnerStack",
+      "blurb": "Removes employee personal data from data-broker and people-search sites, cutting the reconnaissance material that fuels spear phishing and BEC targeting. It complements email authentication and payment controls; it does not replace them."
     }
   },
   "placements": {
@@ -146,6 +152,18 @@
     ],
     "KEV": [
       "tenable"
+    ],
+    "OSINT": [
+      "optery"
+    ],
+    "CCPA": [
+      "optery"
+    ],
+    "CPRA": [
+      "optery"
+    ],
+    "BEC": [
+      "optery-business"
     ]
   }
 }
