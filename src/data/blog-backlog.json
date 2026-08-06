@@ -103,6 +103,20 @@
       ]
     },
     {
+      "slug": "remove-yourself-from-data-brokers",
+      "title": "How to Remove Yourself From Data Broker Sites (Free and Paid Ways)",
+      "category": "Explainer",
+      "brief": "A practical guide to getting your personal information off data broker and people-search sites. Open with a clear one-sentence affiliate disclosure near the top that links to /disclosure/ (the post contains an affiliate link and the site may earn a commission at no extra cost to the reader). Explain the problem first: brokers scrape public records and resold data into profiles (home address, phone, relatives, income) that fuel phishing, doxxing, stalking, and identity theft, and this data is prime OSINT for attackers. Cover the free DIY route honestly and thoroughly: CCPA and CPRA give California residents a legal right to opt out, most major brokers honor requests nationwide, and readers can work through the biggest offenders (Spokeo, Whitepages, BeenVerified, Radaris) by hand; be honest that DIY is a treadmill because profiles repopulate and there are 600+ brokers, so budget for repeating the exercise quarterly. Then cover paid automation: Optery is the option this site partners with (mention its free exposure report as a no-cost first step, and PCMag's repeated Editors' Choice awards); every Optery call-to-action link must use the tracking URL https://get.optery.com/rhg204bv4giz with plain-language anchor text. Name DeleteMe and Incogni as credible alternatives worth comparing (plain unmonetized mentions, which is consistent with this site's editorial independence). Close with the honest boundary: removal services shrink your public footprint but cannot recall breached or sold data, so pair this with unique passwords and MFA. Cross-link the PII, OSINT, CCPA, and BEC glossary pages inline.",
+      "links": [
+        "/?q=PII",
+        "/?q=OSINT",
+        "/?q=CCPA",
+        "/?q=BEC",
+        "/disclosure/",
+        "https://get.optery.com/rhg204bv4giz"
+      ]
+    },
+    {
       "slug": "encryption-at-rest-vs-in-transit",
       "title": "Encryption at Rest vs In Transit, and Why Key Management Is the Hard Part",
       "category": "Spotlight",
