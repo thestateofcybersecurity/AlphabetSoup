@@ -1461,5 +1461,127 @@
         "href": "/assess/"
       }
     ]
+  },
+  {
+    "slug": "nordvpn-review-what-a-vpn-does",
+    "title": "NordVPN Review: What a VPN Actually Protects (and What It Never Will)",
+    "description": "An honest look at what NordVPN protects, what no VPN can ever fix, and how to decide whether a consumer VPN belongs in your security setup.",
+    "category": "Spotlight",
+    "author": "Parker Brissette",
+    "date": "2026-08-06",
+    "readingMinutes": 6,
+    "tags": [
+      "vpn",
+      "privacy",
+      "zero trust",
+      "tools",
+      "consumer security"
+    ],
+    "body": [
+      {
+        "type": "p",
+        "text": "Ask ten people what a VPN does and you will get ten answers, most of them wrong in the same direction. A decade of advertising has trained people to treat it as a general purpose safety blanket: switch it on, and you are secure. That is not what the technology does. A [VPN](/?q=VPN) is a tunnel. It encrypts the leg between your device and a server the provider operates, and it moves the point where your traffic enters the public internet. Everything a VPN protects follows from that one fact, and so does everything it cannot touch. Once you hold that framing, NordVPN becomes easy to judge honestly."
+      },
+      {
+        "type": "p",
+        "text": "**Disclosure:** this post contains affiliate links, and the site may earn a commission if you buy through one, at no extra cost to you. The full policy, including which links are monetized and which are not, is on the [disclosure page](/disclosure/)."
+      },
+      {
+        "type": "h2",
+        "text": "What a VPN actually protects"
+      },
+      {
+        "type": "p",
+        "text": "Two parties lose visibility when you turn on a VPN: whoever runs the network you are sitting on, and your internet service provider. On a hotel or airport network, the operator can normally see every domain you connect to and every unencrypted byte you send. Inside a tunnel they see one encrypted stream to one server address and nothing else. The same goes for the ISP at home, which in most countries is legally free to build a profile from your browsing metadata and sell it."
+      },
+      {
+        "type": "p",
+        "text": "The third thing you get is IP address substitution. Sites see the exit server rather than your home connection, which breaks the simplest form of location tracking and lets you check how a service behaves from another region. If you administer a public web property, browsing it from three countries tells you quickly whether geo-based routing or a content delivery network is misbehaving."
+      },
+      {
+        "type": "p",
+        "text": "Notice what is missing from that list: the content of your sessions. [TLS](/?q=TLS) already encrypts nearly every site you touch, and it does so end to end, which is a stronger guarantee than a VPN provides. The tunnel protects the metadata and the first hop. It is a meaningful privacy gain and a modest security one, and the honest version of the pitch stops there."
+      },
+      {
+        "type": "h2",
+        "text": "What it will never do"
+      },
+      {
+        "type": "p",
+        "text": "Most of what actually hurts people happens either above the tunnel or entirely outside it. A VPN does not stop any of the following:"
+      },
+      {
+        "type": "list",
+        "items": [
+          "**Phishing.** A convincing login page served over the tunnel is just as convincing, and your credentials go to the attacker either way. Phishing resistant [MFA](/?q=MFA) is the control that helps here, not encryption in transit.",
+          "**Malware.** If you download and run something hostile, the tunnel faithfully delivered it. Endpoint protection is a separate layer with a separate job.",
+          "**Credential reuse.** A password you used on a site that got breached is still a password an attacker holds. That is a password manager and MFA problem.",
+          "**A breach at a service you use.** When a company you trusted leaks its customer database, your traffic encryption had nothing to do with it and cannot undo it.",
+          "**Tracking you are logged into.** Hiding your IP address does very little when you are signed into an account that identifies you by name on every page you load."
+        ]
+      },
+      {
+        "type": "quote",
+        "text": "A VPN changes who can watch your traffic. It does not change what happens when you hand your password to the wrong person."
+      },
+      {
+        "type": "h2",
+        "text": "Where NordVPN earns its place"
+      },
+      {
+        "type": "p",
+        "text": "Judged against the narrow job it actually performs, [NordVPN](https://www.anrdoezrs.net/click-8024903-13756265) is a strong pick, and the reasons are concrete rather than atmospheric."
+      },
+      {
+        "type": "list",
+        "items": [
+          "**NordLynx performance.** Nord built its default protocol on WireGuard, which is dramatically leaner than the OpenVPN and IPsec stacks that came before it. In practice you can leave the tunnel on all day without the speed penalty that made older VPNs something people switched off and forgot to re-enable. A control you keep enabled beats a better control you disable.",
+          "**Independently audited no-logs policy.** The security model of a consumer VPN is that you have moved your trust from the local network to the provider. That claim is worth as much as the evidence behind it, and Nord has submitted its no-logs policy to outside audit more than once. Verify the current report before you buy rather than taking any review, including this one, at its word.",
+          "**Coverage and client quality.** A large server footprint and clients on every platform you own are not glamorous features, but they are what makes the tunnel usable on the hotel laptop and the phone on airport wifi."
+        ]
+      },
+      {
+        "type": "p",
+        "text": "Threat Protection, the bundled feature that blocks known malicious domains and trackers, deserves a more measured word. Domain level blocking is a real layer, closely related to protective [DNS](/?q=DNS) filtering, and having it on by default will spare a typical household some grief. It is not endpoint protection. It has no visibility into what a process does after it launches, and treating it as a replacement for [EDR](/?q=EDR) is exactly the category error this post exists to prevent."
+      },
+      {
+        "type": "h2",
+        "text": "Consumer VPN, corporate VPN, and zero trust are three different things"
+      },
+      {
+        "type": "p",
+        "text": "The word VPN covers two unrelated products. The consumer version, the one reviewed here, exists to move your exit point and hide your traffic from the local network. The corporate version exists to place a remote employee inside a private network so they can reach internal systems. They share a protocol family and almost nothing else."
+      },
+      {
+        "type": "p",
+        "text": "The corporate flavor is the one enterprises have spent the last several years trying to retire, because dropping a remote device onto the internal network grants far more access than any single task requires. [ZTNA](/?q=ZTNA) replaces that model by brokering access to one application at a time, checking device and identity signals on every request, and [SASE](/?q=SASE) folds that brokering together with web filtering and network controls into one cloud delivered service. If your employer is moving in that direction, none of it changes what you personally should run on your own laptop at a coffee shop. Different problems, different tools."
+      },
+      {
+        "type": "p",
+        "text": "So: buy it if you travel, work from hotel and airport networks, use public wifi with any regularity, or simply do not want your ISP monetizing your browsing history. For those situations [NordVPN](https://www.anrdoezrs.net/click-8024903-13756265) is an easy recommendation and a small line item. Skip it if you are mostly at home on a network you control and hoping a VPN will fix a security problem, because the real fixes are a password manager, phishing resistant MFA, prompt patching, and endpoint protection. Buy the tunnel for what the tunnel does. Then go build the rest of the stack."
+      }
+    ],
+    "related": [
+      {
+        "label": "VPN in the glossary",
+        "href": "/?q=VPN"
+      },
+      {
+        "label": "ZTNA in the glossary",
+        "href": "/?q=ZTNA"
+      },
+      {
+        "label": "SASE in the glossary",
+        "href": "/?q=SASE"
+      },
+      {
+        "label": "Affiliate disclosure",
+        "href": "/disclosure/"
+      },
+      {
+        "label": "NordVPN",
+        "href": "https://www.anrdoezrs.net/click-8024903-13756265"
+      }
+    ]
   }
 ]
