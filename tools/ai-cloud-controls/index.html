@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="color-scheme" content="light dark" />
+  <meta name="description" content="Pick your cloud and your AI workload type, and get the control set that applies: infrastructure, identity and data, and application layers, each control named in your provider's own services on AWS, Azure or Google Cloud, or all three side by side. Mapped to NIST AI RMF, the OWASP LLM Top 10, MITRE ATLAS and ISO/IEC 42001. Everything stays in your browser." />
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="AI Workload Control Mapper | Cybersecurity Alphabet Soup" />
+  <meta property="og:description" content="Securing AI that answers, connects, or acts, translated into AWS, Azure and Google Cloud services, side by side, and mapped to NIST AI RMF, the OWASP LLM Top 10, MITRE ATLAS and ISO/IEC 42001." />
+  <meta property="og:url" content="https://www.cybersecurityalphabetsoup.com/tools/ai-cloud-controls/" />
+  <meta property="og:image" content="https://www.cybersecurityalphabetsoup.com/og-frameworks.png" />
+  <title>AI Workload Control Mapper | Cybersecurity Alphabet Soup</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,700;0,9..144,900;1,9..144,500&family=IBM+Plex+Mono:wght@500;600&family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet" />
+  <link rel="icon" href="/icon.svg" type="image/svg+xml" />
+  <link rel="stylesheet" href="/style.css" />
+  <style>
+    .ac-wrap { max-width: 880px; margin: 0 auto; }
+    .ac-privacy { font-size: 0.84rem; color: var(--ink-soft); margin: 0 0 22px; }
+    .ac-field { border: 1.5px solid var(--line); border-radius: 14px; background: var(--paper-raised); padding: 16px 20px 18px; margin: 0 0 18px; }
+    .ac-field legend { font-weight: 600; font-size: 1.05rem; padding: 0 6px; }
+    .ac-optional { font-family: var(--font-mono); font-size: 0.66rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink-soft); margin-left: 6px; }
+    .ac-help { margin: 4px 0 12px; font-size: 0.88rem; color: var(--ink-soft); }
+    .ac-chips { display: flex; flex-wrap: wrap; gap: 8px; }
+    .ac-chip { display: inline-flex; align-items: center; gap: 7px; border: 1.5px solid var(--line); border-radius: 999px; padding: 7px 14px; cursor: pointer; background: var(--paper); font-size: 0.9rem; font-weight: 600; }
+    .ac-chip:hover { border-color: var(--tomato); }
+    .ac-chip.selected { border-color: var(--tomato); background: color-mix(in srgb, var(--tomato) 8%, var(--paper)); }
+    .ac-chip input { accent-color: var(--tomato); }
+    .ac-options { display: grid; gap: 8px; }
+    .ac-option { display: grid; grid-template-columns: auto 1fr; grid-template-rows: auto auto; column-gap: 10px; align-items: start; border: 1.5px solid var(--line); border-radius: 10px; padding: 10px 12px; cursor: pointer; background: var(--paper); }
+    .ac-option:hover { border-color: var(--tomato); }
+    .ac-option.selected { border-color: var(--tomato); background: color-mix(in srgb, var(--tomato) 8%, var(--paper)); }
+    .ac-option input { grid-row: 1 / span 2; margin-top: 4px; accent-color: var(--tomato); }
+    .ac-option-label { font-weight: 600; font-size: 0.95rem; }
+    .ac-option-detail { grid-column: 2; font-size: 0.84rem; color: var(--ink-soft); line-height: 1.45; }
+    .ac-option-detail em { color: var(--ink-soft); }
+    .ac-summary { border: 2px solid var(--tomato); border-radius: 16px; background: var(--paper-raised); padding: 18px 22px; margin: 26px 0 20px; }
+    .ac-count { margin: 0 0 8px; font-size: 1.05rem; }
+    .ac-breakdown { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 6px 18px; font-size: 0.88rem; color: var(--ink-soft); }
+    .ac-inherited { font-family: var(--font-mono); font-size: 0.66rem; letter-spacing: 0.06em; text-transform: uppercase; border: 1px solid var(--line); border-radius: 6px; padding: 1px 5px; }
+    .ac-layer { margin: 0 0 26px; }
+    .ac-layer h3 { font-family: var(--font-mono); font-size: 0.78rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--tomato-deep); margin: 20px 0 4px; }
+    .ac-layer-count { background: var(--tomato); color: var(--on-accent); border-radius: 6px; padding: 1px 7px; margin-left: 6px; }
+    .ac-layer-hint { font-size: 0.86rem; color: var(--ink-soft); margin: 0 0 12px; }
+    .ac-list { list-style: none; padding: 0; margin: 0; }
+    .ac-control { border: 1.5px solid var(--line); border-radius: 12px; background: var(--paper-raised); padding: 14px 16px; margin-bottom: 10px; }
+    .ac-control.is-done { opacity: 0.62; }
+    .ac-control-head { display: grid; grid-template-columns: auto 1fr; gap: 10px; align-items: start; cursor: pointer; }
+    .ac-control-head input { margin-top: 5px; accent-color: var(--tomato); }
+    .ac-objective { font-weight: 600; font-size: 0.98rem; line-height: 1.45; }
+    .ac-control.is-done .ac-objective { text-decoration: line-through; }
+    .ac-rationale { font-size: 0.88rem; color: var(--ink-soft); line-height: 1.55; margin: 8px 0 10px 28px; }
+    .ac-service { font-size: 0.9rem; margin: 0 0 8px 28px; line-height: 1.5; }
+    .ac-service-tag { font-family: var(--font-mono); font-size: 0.66rem; letter-spacing: 0.06em; text-transform: uppercase; background: var(--tomato); color: var(--on-accent); border-radius: 6px; padding: 2px 7px; margin-right: 6px; }
+    .ac-meta { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; margin: 0 0 0 28px; font-size: 0.8rem; color: var(--ink-soft); }
+    .ac-phase { font-family: var(--font-mono); font-size: 0.66rem; letter-spacing: 0.06em; text-transform: uppercase; border-radius: 6px; padding: 2px 7px; color: #fff; }
+    .ac-phase-foundational { background: var(--status-bad); }
+    .ac-phase-enhanced { background: var(--status-warn); }
+    .ac-phase-advanced { background: var(--status-good); }
+    .ac-tier-note { font-style: italic; }
+    .ac-refs { display: inline-flex; flex-wrap: wrap; gap: 4px; }
+    .ac-ref { display: inline-block; font-family: var(--font-mono); font-size: 0.66rem; letter-spacing: 0.04em; border: 1px solid var(--tomato); color: var(--tomato-deep); border-radius: 6px; padding: 1px 6px; text-decoration: none; }
+    .ac-ref:hover { background: var(--tomato); color: var(--on-accent); }
+    .ac-result-head { font-family: var(--font-mono); font-size: 0.8rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--ink-soft); margin: 30px 0 0; }
+    .ac-chip-compare { border-style: dashed; }
+    .ac-chip-compare.selected { border-style: solid; }
+    .ac-compare-note { font-size: 0.88rem; color: var(--ink-soft); line-height: 1.55; margin: 0 0 18px; }
+    .ac-compare { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin: 8px 0 10px 28px; }
+    .ac-compare-cell { border: 1px solid var(--line); border-radius: 10px; background: var(--paper); padding: 9px 11px; }
+    .ac-compare dt { font-family: var(--font-mono); font-size: 0.66rem; letter-spacing: 0.06em; text-transform: uppercase; color: var(--tomato-deep); margin: 0 0 5px; }
+    .ac-compare dd { margin: 0; font-size: 0.85rem; line-height: 1.5; }
+    @media (max-width: 720px) {
+      .ac-compare { grid-template-columns: 1fr; }
+      .ac-rationale, .ac-service, .ac-meta, .ac-compare { margin-left: 0; }
+    }
+    .ac-frameworks { font-size: 0.84rem; color: var(--ink-soft); margin: 18px 0 0; }
+    .ac-frameworks-head { margin: 0 0 8px; }
+    .ac-frameworks-list { list-style: none; margin: 0; padding: 0; display: grid; gap: 7px; }
+    .ac-frameworks-list li { display: flex; flex-wrap: wrap; align-items: center; gap: 5px; }
+    .ac-ref-framework { min-width: 11rem; font-weight: 600; color: var(--ink); }
+    .ac-verified { margin: 14px 0 0; font-size: 0.8rem; }
+    .ac-empty { font-size: 0.95rem; color: var(--ink-soft); padding: 20px 0; }
+    .ac-btn { font: inherit; font-size: 0.88rem; font-weight: 600; cursor: pointer; border: 1.5px solid var(--tomato); color: var(--tomato-deep); background: transparent; border-radius: 10px; padding: 8px 16px; }
+    .ac-btn:hover { background: var(--tomato); color: var(--on-accent); }
+    .ac-btn-primary { background: var(--tomato); color: var(--on-accent); }
+    .ac-btn-primary:hover { background: var(--tomato-deep); border-color: var(--tomato-deep); }
+    .ac-btn-quiet { border-color: var(--line); color: var(--ink-soft); }
+    .ac-actions { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 22px; }
+    @media print {
+      .site-nav, .hero, #intake, .print-hide, .colophon, .steam, .ac-privacy { display: none !important; }
+      .ac-summary { border: none; padding: 0; }
+      .ac-control { break-inside: avoid; }
+      /* Three columns of service text collapse into an unreadable smear at print
+         widths, so the comparison prints as a stacked list instead. */
+      .ac-compare { grid-template-columns: 1fr; gap: 4px; }
+      .ac-compare-cell { border: none; padding: 0; }
+      .ac-compare dt { display: inline; margin-right: 6px; }
+      .ac-compare dd { display: inline; }
+    }
+  </style>
+</head>
+<body class="theme-ai">
+  <a class="skip-link" href="#main">Skip to content</a>
+  <div class="steam" aria-hidden="true"></div>
+
+    <!--site-nav-->
+
+  <header class="hero hero-compact">
+    <p class="kicker">ai security &middot; <span id="cloud-count">3</span> clouds, <span id="control-count">33</span> controls</p>
+    <h1 class="title">AI workload<br /><em>control mapper</em></h1>
+    <p class="tagline">Pick your cloud and the kind of AI you are building. Get the controls that apply, layer by layer, each one named in your provider's own services, or put all three clouds side by side and see where they actually differ.</p>
+  </header>
+
+  <main id="main" class="ladle ac-wrap">
+    <p class="ac-privacy">Controls are cumulative: AI that acts inherits everything from AI that connects and AI that answers. Selections and progress live only in your browser; nothing is uploaded.</p>
+
+    <form id="intake" aria-label="Workload intake"></form>
+
+    <section aria-labelledby="result-head">
+      <h2 id="result-head" class="ac-result-head">Controls that apply</h2>
+      <div id="result" aria-live="polite"></div>
+    </section>
+  </main>
+
+  <footer class="colophon">
+    <p>
+      Not sure how risky your use case is yet?
+      <a class="cyberdle-link" href="../ai-risk/">Tier it first with the AI use case risk tiering tool &rarr;</a>
+    </p>
+    <p>
+      Hardening the cloud underneath, not just the AI?
+      <a class="cyberdle-link" href="../cloud-baseline/">Generate a cloud security baseline &rarr;</a>
+    </p>
+    <p>
+      Want the frameworks behind the references?
+      <a class="cyberdle-link" href="../../frameworks/ai/">Read the NIST AI RMF, OWASP LLM Top 10, MITRE ATLAS and ISO 42001 in plain English &rarr;</a>
+    </p>
+    <p>
+      Why this tool exists:
+      <a class="cyberdle-link" href="../">see the 2026 security leadership scorecard it was built from &rarr;</a>
+    </p>
+    <p class="fine-print">
+      An unofficial plain-English tool, not legal or compliance advice. Cloud service names change often: treat the control objective as durable and verify the service before you ship it. Grounded in:
+      <a href="https://aws.amazon.com/blogs/security/the-aws-ai-security-framework-securing-ai-with-the-right-controls-at-the-right-layers-at-the-right-phases/" rel="noopener">AWS AI Security Framework</a>,
+      <a href="https://learn.microsoft.com/en-us/azure/foundry/" rel="noopener">Microsoft Foundry docs</a>,
+      <a href="https://docs.cloud.google.com/gemini-enterprise-agent-platform/" rel="noopener">Gemini Enterprise Agent Platform docs</a>,
+      <a href="https://www.nist.gov/itl/ai-risk-management-framework" rel="noopener">NIST AI RMF</a>,
+      <a href="https://genai.owasp.org/llm-top-10/" rel="noopener">OWASP Top 10 for LLMs</a>,
+      <a href="https://atlas.mitre.org/" rel="noopener">MITRE ATLAS</a>,
+      <a href="https://www.iso.org/standard/42001" rel="noopener">ISO/IEC 42001</a>.
+    </p>
+    <p class="fine-print">
+      <a href="../../privacy/">Privacy</a> &middot; <a href="../../disclosure/">Affiliate disclosure</a>
+    </p>
+  </footer>
+
+  <script type="module" src="/src/ai-cloud-controls-main.ts"></script>
+</body>
+</html>

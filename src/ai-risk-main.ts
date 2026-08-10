@@ -166,6 +166,7 @@ function renderResult(): void {
       <h3>Required controls</h3>
       ${controlsHtml}
       <p class="rt-refs-note">Codes link to the plain-English NIST AI RMF and OWASP LLM Top 10 translations on this site.</p>
+      <p class="rt-handoff print-hide">These are governance controls: what the use case owes, not what to switch on. To turn them into configuration, take the same use case to the <a class="cyberdle-link" href="../ai-cloud-controls/">AI Workload Control Mapper</a> and pick your cloud.</p>
     </div>
     <div class="rt-snippet">
       <h3>Policy snippet</h3>

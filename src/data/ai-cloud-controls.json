@@ -1,0 +1,731 @@
+{
+  "meta": {
+    "title": "AI Workload Control Mapper",
+    "version": "1.1.0",
+    "servicesVerified": "10 August 2026",
+    "note": "Provider-neutral control objectives for AI workloads, each mapped to the closest native service on AWS, Azure and Google Cloud. Guidance to adapt, not an audit, and not a substitute for provider documentation. Cloud services are renamed and reshuffled often, and two of the three clouds renamed their whole AI platform in the last year: Azure AI Foundry became Microsoft Foundry in January 2026, and Vertex AI became the Gemini Enterprise Agent Platform in April 2026. This tool uses the current names. Treat the objective as durable and verify the service name before you put it in a client deliverable.",
+    "sources": [
+      { "name": "AWS AI Security Framework", "url": "https://aws.amazon.com/blogs/security/the-aws-ai-security-framework-securing-ai-with-the-right-controls-at-the-right-layers-at-the-right-phases/" },
+      { "name": "Microsoft Foundry documentation", "url": "https://learn.microsoft.com/en-us/azure/foundry/" },
+      { "name": "Gemini Enterprise Agent Platform documentation", "url": "https://docs.cloud.google.com/gemini-enterprise-agent-platform/" },
+      { "name": "NIST AI Risk Management Framework", "url": "https://www.nist.gov/itl/ai-risk-management-framework" },
+      { "name": "OWASP Top 10 for LLM Applications", "url": "https://genai.owasp.org/llm-top-10/" },
+      { "name": "ISO/IEC 42001", "url": "https://www.iso.org/standard/42001" },
+      { "name": "MITRE ATLAS", "url": "https://atlas.mitre.org/" }
+    ]
+  },
+  "providers": [
+    { "id": "aws", "name": "AWS" },
+    { "id": "azure", "name": "Azure" },
+    { "id": "gcp", "name": "Google Cloud" }
+  ],
+  "tiers": [
+    {
+      "id": "answers",
+      "order": 0,
+      "name": "AI that answers",
+      "hint": "A model generates responses. No access to your data, no ability to act.",
+      "example": "A support assistant answering from the model's own training, a drafting or summarizing helper."
+    },
+    {
+      "id": "connects",
+      "order": 1,
+      "name": "AI that connects",
+      "hint": "The model reaches your enterprise data, through retrieval (RAG) or fine-tuning.",
+      "example": "A policy assistant grounded in your intranet, a search layer over contracts or tickets."
+    },
+    {
+      "id": "acts",
+      "order": 2,
+      "name": "AI that acts",
+      "hint": "An agent takes actions: calling tools, writing to systems, executing code, transacting.",
+      "example": "An agent that files tickets, updates records, moves money, or runs remediation."
+    }
+  ],
+  "layers": [
+    { "id": "infrastructure", "order": 0, "name": "Infrastructure", "hint": "Isolation, network paths, and the compute the model runs on." },
+    { "id": "identity-data", "order": 1, "name": "Identity and data", "hint": "Who and what may reach the model, and what happens to the data." },
+    { "id": "application", "order": 2, "name": "AI application", "hint": "Filtering, monitoring and behavior at the model and agent boundary." }
+  ],
+  "phases": [
+    { "id": "foundational", "order": 0, "name": "Foundational", "hint": "Zero to prototype. Extend the controls you already have and get identity right on day one." },
+    { "id": "enhanced", "order": 1, "name": "Enhanced", "hint": "Prototype to production. Add threat detection, classification and real monitoring." },
+    { "id": "advanced", "order": 2, "name": "Advanced", "hint": "Continuous improvement. Automate governance and evidence at scale." }
+  ],
+  "controls": [
+    {
+      "id": "net-private-path",
+      "tier": "answers",
+      "layer": "infrastructure",
+      "phase": "foundational",
+      "objective": "Keep model traffic on a private network path instead of the public internet",
+      "rationale": "A model endpoint reachable from the internet is a credential-guessing target and puts your prompts, which routinely contain business-sensitive text, on a path you do not control.",
+      "services": {
+        "aws": "VPC endpoints (AWS PrivateLink) to Amazon Bedrock",
+        "azure": "Private endpoints and Azure Private Link on the Microsoft Foundry resource",
+        "gcp": "VPC Service Controls perimeter around the Gemini Enterprise Agent Platform, plus Private Service Connect"
+      },
+      "refs": ["MANAGE 1", "LLM02", "AML.TA0000"]
+    },
+    {
+      "id": "net-isolated-compute",
+      "tier": "answers",
+      "layer": "infrastructure",
+      "phase": "advanced",
+      "objective": "Run inference on isolated compute where the workload is attested and memory is protected",
+      "rationale": "For regulated or high-sensitivity data, the question is not only who can call the model but who could read the data while it is being processed. Note that on all three clouds this applies to models you host yourself; the managed inference endpoints do not offer it.",
+      "services": {
+        "aws": "AWS Nitro System and Nitro Enclaves, for models you host yourself",
+        "azure": "Azure confidential computing (confidential VMs and containers), for models you host yourself",
+        "gcp": "Confidential VMs and Confidential Space, for models you host yourself"
+      },
+      "refs": ["MANAGE 1"]
+    },
+    {
+      "id": "ir-model-rollback",
+      "tier": "answers",
+      "layer": "infrastructure",
+      "phase": "enhanced",
+      "objective": "Be able to roll back to a known-good model and filter configuration",
+      "rationale": "Model behavior changes when the version changes, and filter changes are easy to get wrong under pressure. If you cannot name the pair you were running yesterday and put it back, your only recovery option is to turn the feature off.",
+      "services": {
+        "aws": "Pinned Bedrock model IDs and numbered Guardrails versions, so you can repoint to the previous pair",
+        "azure": "Pinned Foundry model deployment versions and a saved guardrail configuration, so you can repoint to the previous pair",
+        "gcp": "Pinned model versions and a saved Model Armor template configuration, so you can repoint to the previous pair"
+      },
+      "refs": ["MANAGE 4", "AML.TA0011", "Clause 10"]
+    },
+    {
+      "id": "iam-model-access",
+      "tier": "answers",
+      "layer": "identity-data",
+      "phase": "foundational",
+      "objective": "Explicitly authorize which principals may invoke a model",
+      "rationale": "Model access defaults are the new S3 bucket permissions. If any principal in the account can call the AI platform, you have no ability to say who used what, and no way to contain misuse.",
+      "services": {
+        "aws": "IAM identity-based policies on Bedrock InvokeModel, scoped to specific model ARNs",
+        "azure": "Microsoft Entra ID with Azure RBAC on the Foundry resource or project, and disableLocalAuth so API keys cannot bypass it",
+        "gcp": "Cloud IAM on the Gemini Enterprise Agent Platform, per principal and project; endpoint-level IAM is not supported"
+      },
+      "refs": ["GOVERN 1", "MANAGE 2", "LLM06", "AML.TA0000"]
+    },
+    {
+      "id": "sup-approved-models",
+      "tier": "answers",
+      "layer": "identity-data",
+      "phase": "foundational",
+      "objective": "Restrict the models that may be used at all to an approved list",
+      "rationale": "Authorizing principals answers who may call the platform; it does not answer which models they may reach. Those are different questions on all three clouds and they are enforced by different machinery, which is why teams think they have solved this when they have only solved half of it.",
+      "services": {
+        "aws": "Service control policies and IAM conditions limiting bedrock:InvokeModel to approved model ARNs",
+        "azure": "Azure Policy: Foundry model deployments should only use approved models",
+        "gcp": "The vertexai.allowedModels organization policy over Model Garden, set at org, folder or project"
+      },
+      "refs": ["GOVERN 1", "MAP 4", "AML.TA0000", "Clause 8"]
+    },
+    {
+      "id": "sup-model-provenance",
+      "tier": "answers",
+      "layer": "identity-data",
+      "phase": "enhanced",
+      "objective": "Pin the model version and know when it is about to change underneath you",
+      "rationale": "Pointing at a floating alias means the model can change without a deployment, which quietly invalidates every evaluation you ran and every prompt you tuned. Retirement dates arrive whether or not anyone is watching the release notes.",
+      "services": {
+        "aws": "Explicit versioned Bedrock model IDs rather than floating aliases, tracked against model lifecycle notices",
+        "azure": "Pinned Foundry model deployment versions with manual version upgrades, tracked against the model retirement schedule",
+        "gcp": "Pinned model versions rather than latest aliases, tracked against the model version lifecycle and deprecation dates"
+      },
+      "refs": ["LLM03", "MAP 4", "AML.TA0004"]
+    },
+    {
+      "id": "sup-vendor-terms",
+      "tier": "answers",
+      "layer": "identity-data",
+      "phase": "foundational",
+      "objective": "Settle data handling terms with the model provider before the first real prompt",
+      "rationale": "Retention windows, training rights, human review of flagged content, and where inference physically happens are all decided by terms and settings rather than by anything you can see in the console. They are also the first four questions a regulated customer will ask, and the answers are hard to change after launch.",
+      "services": {
+        "aws": "Bedrock data protection terms, plus the model provider's own terms for third-party and marketplace models",
+        "azure": "Foundry data privacy terms, including abuse monitoring and the Limited Access review needed to opt out of human review",
+        "gcp": "Google Cloud generative AI terms, including the abuse-monitoring logging window and the project-level opt-out"
+      },
+      "refs": ["GOVERN 6", "MANAGE 3", "MAP 4", "AML.TA0004", "Clause 6"]
+    },
+    {
+      "id": "data-cmk",
+      "tier": "answers",
+      "layer": "identity-data",
+      "phase": "foundational",
+      "objective": "Hold your own encryption keys for stored prompts, outputs and tuning data",
+      "rationale": "Customer-managed keys give you a revocation lever and an audit trail that provider-managed keys do not. For regulated data this is usually the difference between an approved and a blocked use case. On every cloud this covers data at rest, not the prompt in flight.",
+      "services": {
+        "aws": "AWS KMS customer managed keys",
+        "azure": "Customer-managed keys in Azure Key Vault or Managed HSM, covering stored files, threads and fine-tuned weights",
+        "gcp": "CMEK via Cloud KMS over stored data such as tuning data, datasets and tuned models; in-memory data is out of scope"
+      },
+      "refs": ["MANAGE 1", "LLM02"]
+    },
+    {
+      "id": "log-invocations",
+      "tier": "answers",
+      "layer": "identity-data",
+      "phase": "foundational",
+      "objective": "Log every model invocation so you can reconstruct what was asked and what was answered",
+      "rationale": "Without invocation logging you cannot investigate a data leak, prove a model did not say something, or answer a regulator. Control plane logs alone tell you who configured the model, not who used it. Only AWS turns this on at the model resource; the other two need extra plumbing, which is the single biggest hidden difference between the clouds on this list.",
+      "services": {
+        "aws": "Bedrock model invocation logging for prompt and completion bodies, AWS CloudTrail for the control plane",
+        "azure": "Azure Monitor diagnostic settings for metadata, plus Azure API Management AI gateway LLM logging to capture prompt and completion content",
+        "gcp": "Request-response logging to BigQuery with the sampling rate pinned at 1.0, plus Cloud Audit Logs for the control plane"
+      },
+      "refs": ["MEASURE 1", "GOVERN 4", "Clause 9"]
+    },
+    {
+      "id": "cost-ceiling",
+      "tier": "answers",
+      "layer": "identity-data",
+      "phase": "enhanced",
+      "objective": "Cap spend and request rate, and treat an anomalous spike as a security event",
+      "rationale": "Stolen model credentials are now resold as inference capacity. Unbounded consumption shows up on the bill before it shows up in the SIEM, so the budget alert is a detection control. Note that a budget alert only notifies; stopping the spend takes a separate quota or cap.",
+      "services": {
+        "aws": "Service quotas and AWS Budgets, with GuardDuty AI Protection for cost-harvesting detection",
+        "azure": "Tokens-per-minute quotas and Foundry AI gateway token limits to enforce, with Cost Management budget alerts to notify",
+        "gcp": "Platform quotas and Cloud Billing spend cap budgets to enforce, with budget alerts to notify"
+      },
+      "refs": ["LLM10", "MEASURE 2", "AML.TA0011"]
+    },
+    {
+      "id": "app-content-filter",
+      "tier": "answers",
+      "layer": "application",
+      "phase": "foundational",
+      "objective": "Filter model input and output for harmful content, denied topics and sensitive data",
+      "rationale": "The model will produce whatever the training data and the prompt lead it to. Filtering at the boundary is the only control that sits between the model and the user. Denied topics is the part that does not port: only AWS has a general custom-topic block, so on the other two clouds that requirement lands in your application.",
+      "services": {
+        "aws": "Amazon Bedrock Guardrails (content filters, denied topics, sensitive information filters)",
+        "azure": "Microsoft Foundry guardrails and controls, using Azure AI Content Safety classifiers; no general denied-topics equivalent",
+        "gcp": "Model Armor responsible AI, sensitive data protection, prompt injection and malicious URI filters; no denied-topics equivalent"
+      },
+      "refs": ["LLM02", "MANAGE 4", "AML.TA0010"]
+    },
+    {
+      "id": "app-prompt-injection",
+      "tier": "answers",
+      "layer": "application",
+      "phase": "foundational",
+      "objective": "Defend against prompt injection and jailbreak attempts at the boundary",
+      "rationale": "Prompt injection is the top item on the OWASP list for a reason: it is the one attack with no clean architectural fix, because instructions and data arrive on the same channel. Boundary defenses reduce it; nothing eliminates it.",
+      "services": {
+        "aws": "Amazon Bedrock Guardrails",
+        "azure": "Foundry guardrails for user prompt attacks and indirect attacks, built on Content Safety Prompt Shields",
+        "gcp": "Model Armor prompt injection and jailbreak detection filter"
+      },
+      "refs": ["LLM01", "MANAGE 2", "AML.TA0005"]
+    },
+    {
+      "id": "app-system-prompt-hygiene",
+      "tier": "answers",
+      "layer": "application",
+      "phase": "foundational",
+      "objective": "Assume the system prompt will leak, and keep secrets and access decisions out of it",
+      "rationale": "System prompts get extracted, and teams put things in them that were never meant to be read: API keys, connection strings, internal hostnames, and rules like which customers the assistant may discuss. A prompt is a suggestion to a model, not an access control, and treating it as one is how a text box becomes an authorization bypass.",
+      "services": {
+        "aws": "Secrets in AWS Secrets Manager resolved by the application, with authorization enforced in IAM rather than in prompt text",
+        "azure": "Secrets in Azure Key Vault resolved by the application, with authorization enforced in Entra ID and RBAC rather than in prompt text",
+        "gcp": "Secrets in Secret Manager resolved by the application, with authorization enforced in Cloud IAM rather than in prompt text"
+      },
+      "refs": ["LLM07", "LLM02", "MANAGE 2"]
+    },
+    {
+      "id": "app-output-handling",
+      "tier": "answers",
+      "layer": "application",
+      "phase": "foundational",
+      "objective": "Treat model output as untrusted input everywhere it lands",
+      "rationale": "The model writes markdown, HTML, SQL and shell that something downstream will render or run. An attacker who can influence the prompt can therefore reach your browser, your database and your terminal, and a rendered image tag pointing at an attacker's host is a working exfiltration channel. No cloud sells a product for this; it is encoding and validation in the code that consumes the output.",
+      "services": {
+        "aws": "Encoding and validation in the consuming application; AWS WAF only helps where the output crosses an HTTP boundary you own",
+        "azure": "Encoding and validation in the consuming application; Azure WAF only helps where the output crosses an HTTP boundary you own",
+        "gcp": "Encoding and validation in the consuming application; Cloud Armor only helps where the output crosses an HTTP boundary you own"
+      },
+      "refs": ["LLM05", "MANAGE 2", "AML.TA0010"]
+    },
+    {
+      "id": "app-groundedness",
+      "tier": "answers",
+      "layer": "application",
+      "phase": "enhanced",
+      "objective": "Check outputs for groundedness before a user sees them",
+      "rationale": "A confident wrong answer is a business risk, not a quality nit, once the output feeds a decision. Groundedness checking catches the class of failure that content filters miss entirely. Do not confuse it with grounding, which connects a model to a data source and says nothing about whether the answer followed that source.",
+      "services": {
+        "aws": "Bedrock Guardrails contextual grounding checks",
+        "azure": "Foundry groundedness detection (preview), which applies to models and not to agents",
+        "gcp": "The check grounding API in Agent Search, or the groundedness metric in the gen AI evaluation service"
+      },
+      "refs": ["LLM09", "MEASURE 2"]
+    },
+    {
+      "id": "eval-pre-release",
+      "tier": "answers",
+      "layer": "application",
+      "phase": "enhanced",
+      "objective": "Evaluate the system against written acceptance criteria before it goes live",
+      "rationale": "Demos pass. A test set does not, and the difference between them is the first honest signal anyone gets about whether the thing works. Without a recorded baseline you also have nothing to compare against later, so every subsequent argument about whether quality regressed is a matter of opinion.",
+      "services": {
+        "aws": "Amazon Bedrock evaluations, including automatic, human and LLM-as-a-judge evaluation",
+        "azure": "Microsoft Foundry evaluations, run in the portal or through the Azure AI Evaluation SDK",
+        "gcp": "The gen AI evaluation service on the Gemini Enterprise Agent Platform"
+      },
+      "refs": ["MEASURE 2", "LLM09", "Clause 9"]
+    },
+    {
+      "id": "eval-red-team",
+      "tier": "answers",
+      "layer": "application",
+      "phase": "advanced",
+      "objective": "Adversarially test the system, not just functionally test it",
+      "rationale": "Evaluation asks whether the system does the right thing for a cooperative user. Red teaming asks what a hostile one can make it do, which is a different question with a different test set. Only Azure sells a managed service for this; on the other two clouds it is your own suite, which is worth knowing before you promise a board it is covered.",
+      "services": {
+        "aws": "Your own adversarial test suite, replayed against Bedrock Guardrails and scored with Bedrock evaluations",
+        "azure": "The Microsoft Foundry AI Red Teaming Agent, built on PyRIT, run before deployment and on a schedule after",
+        "gcp": "Your own adversarial test suite, replayed against your Model Armor templates"
+      },
+      "refs": ["MEASURE 2", "MANAGE 4", "AML.TA0001", "Clause 9"]
+    },
+    {
+      "id": "eval-post-change-retest",
+      "tier": "answers",
+      "layer": "application",
+      "phase": "advanced",
+      "objective": "Re-run the evaluation whenever the model version changes",
+      "rationale": "A model upgrade is a code change you did not write, shipped by someone else, on their schedule. Behavior moves, refusals move, and formatting moves, and the failures show up in production because nobody treated the version bump as a release.",
+      "services": {
+        "aws": "Re-run Bedrock evaluations against the new model ID before repointing, with the previous ID still pinned",
+        "azure": "Re-run Foundry evaluations before accepting a model version upgrade, with the deployment set to manual updates",
+        "gcp": "Re-run gen AI evaluations against the new model version before repointing traffic"
+      },
+      "refs": ["MEASURE 3", "MANAGE 4", "Clause 10"]
+    },
+    {
+      "id": "app-ai-threat-detection",
+      "tier": "answers",
+      "layer": "application",
+      "phase": "enhanced",
+      "objective": "Detect AI-specific runtime threats, not just infrastructure threats",
+      "rationale": "Your existing detection stack does not know what an anomalous model invocation looks like. AI threat detection is a separate signal set: unusual invocation patterns, injection attempts, and abuse of inference capacity.",
+      "services": {
+        "aws": "Amazon GuardDuty AI Protection, with GuardDuty Extended Threat Detection",
+        "azure": "Microsoft Defender for Cloud threat protection for AI services, under the Defender for AI Services plan",
+        "gcp": "AI Protection in Security Command Center"
+      },
+      "refs": ["MEASURE 2", "MANAGE 4"]
+    },
+    {
+      "id": "ir-ai-playbook",
+      "tier": "answers",
+      "layer": "application",
+      "phase": "enhanced",
+      "objective": "Write the incident playbook for AI-specific failures before you need it",
+      "rationale": "The AI incidents are not the ones your runbooks cover. A model that started saying something it should not, a corpus that turned out to be readable by the wrong people, an injection that reached a real system: each has a different containment step, and the first question in all of them is which logs exist. Answer that on a quiet afternoon.",
+      "services": {
+        "aws": "Extend your existing IR runbooks; the AI evidence is Bedrock invocation logs, Guardrails traces and GuardDuty AI Protection findings",
+        "azure": "Extend your existing IR runbooks; the AI evidence is Foundry tracing, guardrail annotations and Defender for Cloud AI alerts",
+        "gcp": "Extend your existing IR runbooks; the AI evidence is request-response logs in BigQuery, Model Armor findings and Security Command Center AI Protection findings"
+      },
+      "refs": ["MANAGE 4", "GOVERN 4", "Clause 10"]
+    },
+    {
+      "id": "gov-ai-inventory",
+      "tier": "answers",
+      "layer": "application",
+      "phase": "enhanced",
+      "objective": "Keep a live inventory of every model, endpoint and agent in use",
+      "rationale": "You cannot govern what you cannot enumerate, and AI assets appear faster than change control catches them. The inventory is the precondition for every other control on this list.",
+      "services": {
+        "aws": "Security Hub AI inventory (Bedrock models, SageMaker endpoints, AgentCore agents)",
+        "azure": "Defender for Cloud AI security posture management, with Microsoft Purview DSPM",
+        "gcp": "AI Protection in Security Command Center, covering models, data sources, endpoints, agents and MCP servers"
+      },
+      "refs": ["MAP 1", "GOVERN 1"]
+    },
+    {
+      "id": "gov-shadow-ai",
+      "tier": "answers",
+      "layer": "application",
+      "phase": "advanced",
+      "objective": "Detect AI use that never came through your intake process",
+      "rationale": "The governed use cases are not the risk. The ungoverned ones are, and they are usually in a browser tab or an unmanaged SaaS integration rather than in your cloud account. That is why the answer here is a proxy or CASB question on all three clouds rather than an AI platform feature.",
+      "services": {
+        "aws": "Network and CASB telemetry outside the AI stack, plus Security Hub inventory drift",
+        "azure": "Microsoft Defender for Cloud Apps discovery, using its generative AI app category, with Microsoft Purview DSPM",
+        "gcp": "Proxy and CASB telemetry outside the AI stack, reconciled against the Security Command Center AI inventory"
+      },
+      "refs": ["MAP 1", "GOVERN 3", "Clause 5"]
+    },
+
+    {
+      "id": "rag-classify-first",
+      "tier": "connects",
+      "layer": "identity-data",
+      "phase": "foundational",
+      "objective": "Classify and label data before it reaches the index, not after",
+      "rationale": "Once sensitive content is embedded and indexed it is effectively unlabelled and hard to retract. Classification has to be a gate on ingestion, which is the single most common thing teams get backwards.",
+      "services": {
+        "aws": "Amazon Macie for discovery and classification, with Lake Formation on the source data",
+        "azure": "Microsoft Purview sensitivity labels, which Azure AI Search can carry into the index and enforce at query time (preview)",
+        "gcp": "Sensitive Data Protection discovery over the Cloud Storage and BigQuery sources that feed the data store"
+      },
+      "refs": ["MAP 2", "LLM02", "Clause 8"]
+    },
+    {
+      "id": "rag-entitlement-inheritance",
+      "tier": "connects",
+      "layer": "identity-data",
+      "phase": "foundational",
+      "objective": "Make retrieval inherit the asking user's entitlements, never the application's",
+      "rationale": "This is the failure that turns a helpful assistant into an exfiltration path. If the retrieval layer queries with broad service credentials, every user effectively reads everything the index can see, and it bypasses every access control the business believes it has.",
+      "services": {
+        "aws": "Per-user session policies and metadata filtering at query time in the knowledge base",
+        "azure": "Azure AI Search query-time ACL and RBAC enforcement (preview), or search.in() security filters built from the caller's groups",
+        "gcp": "Access-controlled data stores in Agent Search, federated to your identity provider, with per-document ACL metadata"
+      },
+      "refs": ["LLM02", "MANAGE 2", "GOVERN 1", "AML.TA0010"]
+    },
+    {
+      "id": "rag-tenant-isolation",
+      "tier": "connects",
+      "layer": "identity-data",
+      "phase": "enhanced",
+      "objective": "Isolate tenants and sensitive corpora in the vector store",
+      "rationale": "Embeddings from different tenants sharing one index is a data-boundary decision disguised as an architecture choice, and similarity search does not respect logical separation by itself.",
+      "services": {
+        "aws": "Separate knowledge bases or namespaces, with IAM and metadata filters per tenant",
+        "azure": "Separate indexes per tenant, or a shared index with enforced security filters, in Azure AI Search",
+        "gcp": "Separate Agent Search data stores per tenant, with queries scoped to a single data store"
+      },
+      "refs": ["LLM08", "MANAGE 1", "AML.TA0010"]
+    },
+    {
+      "id": "rag-source-governance",
+      "tier": "connects",
+      "layer": "identity-data",
+      "phase": "enhanced",
+      "objective": "Govern the source data plane the index is built from",
+      "rationale": "The index inherits every permissions mistake in the source. Fixing retrieval without fixing the lake underneath it just moves the problem one layer down.",
+      "services": {
+        "aws": "AWS Lake Formation permissions on the source data",
+        "azure": "Microsoft Purview Data Map and Unified Catalog over the source estate",
+        "gcp": "Knowledge Catalog governance, with BigQuery and Cloud Storage IAM on the sources"
+      },
+      "refs": ["GOVERN 1", "MAP 2"]
+    },
+    {
+      "id": "rag-provenance",
+      "tier": "connects",
+      "layer": "identity-data",
+      "phase": "enhanced",
+      "objective": "Track provenance and freshness of indexed content",
+      "rationale": "Two different failures share one fix. Poisoned content injects instructions the model will follow, and stale content produces answers that were true last quarter. Both are answered by knowing where each chunk came from and when.",
+      "services": {
+        "aws": "Ingestion pipeline metadata with S3 object versioning and re-index scheduling",
+        "azure": "Azure AI Search indexer schedules, with provenance fields you add to the index yourself",
+        "gcp": "Agent Search data connector sync scheduling, with source URI and document ID metadata"
+      },
+      "refs": ["LLM04", "LLM08", "MEASURE 2", "AML.TA0006"]
+    },
+    {
+      "id": "rag-retraction",
+      "tier": "connects",
+      "layer": "identity-data",
+      "phase": "advanced",
+      "objective": "Be able to remove a document from the index and from everything downstream of it",
+      "rationale": "Deletion requests, mistaken uploads and depublished documents all end with someone asking whether the assistant can still see it. Deleting the source file is the easy part; the index, the cached answers and any conversation history that quoted it are the part people forget, and they are the part that still answers the question.",
+      "services": {
+        "aws": "Delete at the source, re-sync the knowledge base, and clear cached responses and stored sessions",
+        "azure": "Delete at the source, run the indexer, and clear cached responses and stored threads",
+        "gcp": "Delete at the source, re-sync the Agent Search data store, and clear cached responses and stored sessions"
+      },
+      "refs": ["GOVERN 4", "LLM02", "Clause 8"]
+    },
+    {
+      "id": "ft-tuning-data-governance",
+      "tier": "connects",
+      "layer": "identity-data",
+      "phase": "enhanced",
+      "objective": "Govern the data you fine-tune on the way you govern production data",
+      "rationale": "Tuning corpora get assembled by whoever is closest to the model, often as a one-off export into a scratch bucket, and then they sit there. It is the same enterprise data as everything else, with none of the classification, access review or retention that the source system had.",
+      "services": {
+        "aws": "Tuning data in S3 under Lake Formation and Macie, read by Bedrock custom model jobs from a governed bucket",
+        "azure": "Tuning data in governed storage classified with Microsoft Purview, read by Foundry fine-tuning jobs",
+        "gcp": "Tuning data in Cloud Storage or BigQuery under Knowledge Catalog, with Sensitive Data Protection discovery over tuning jobs"
+      },
+      "refs": ["LLM04", "MAP 2", "AML.TA0003"]
+    },
+    {
+      "id": "ft-model-is-data",
+      "tier": "connects",
+      "layer": "identity-data",
+      "phase": "enhanced",
+      "objective": "Classify a fine-tuned model at the sensitivity of the data it was trained on",
+      "rationale": "A tuned model is a lossy copy of its training set, and it can be prompted into reproducing pieces of it. Teams treat the resulting artifact as a build output and share it accordingly, which quietly hands the training data to everyone who can call the model.",
+      "services": {
+        "aws": "Custom model artifacts encrypted with a KMS key and IAM-restricted to the same audience as the training data",
+        "azure": "Fine-tuned model weights encrypted with a customer-managed key and RBAC-restricted to the same audience as the training data",
+        "gcp": "Tuned model artifacts CMEK-encrypted and IAM-restricted to the same audience as the training data"
+      },
+      "refs": ["LLM02", "LLM04", "MAP 2", "AML.TA0010"]
+    },
+    {
+      "id": "rag-redaction",
+      "tier": "connects",
+      "layer": "application",
+      "phase": "enhanced",
+      "objective": "Redact sensitive values from prompts and responses in flight",
+      "rationale": "Classification stops the wrong document being indexed. Redaction stops the right document leaking the wrong field, which is the residual risk once retrieval is working correctly. Check what your cloud actually does here: detecting a value and masking it are different features, and only two of the three mask.",
+      "services": {
+        "aws": "Bedrock Guardrails sensitive information filters, which mask or block",
+        "azure": "Azure AI Language PII detection and redaction called from your application; the Foundry PII guardrail annotates or blocks but does not redact",
+        "gcp": "Model Armor in advanced sensitive data protection mode with a de-identify template, which does not apply to streaming responses"
+      },
+      "refs": ["LLM02", "MANAGE 4", "AML.TA0010"]
+    },
+    {
+      "id": "rag-instruction-data-separation",
+      "tier": "connects",
+      "layer": "application",
+      "phase": "enhanced",
+      "objective": "Mark retrieved content as data so the model does not read it as instructions",
+      "rationale": "Retrieval hands the model text written by whoever wrote the document, and a document can contain instructions. This is indirect prompt injection, and it is the specific reason a RAG assistant is more dangerous than the same model without it: the attacker never has to talk to your users.",
+      "services": {
+        "aws": "Prompt structure that fences retrieved chunks, with Bedrock Guardrails applied to the retrieved content as well as the user turn",
+        "azure": "Foundry spotlighting (preview), which marks untrusted retrieved content so the model treats it as data",
+        "gcp": "Prompt structure that fences retrieved chunks, with Model Armor screening documents before they reach the model"
+      },
+      "refs": ["LLM01", "MANAGE 2", "AML.TA0006"]
+    },
+    {
+      "id": "rag-log-retrieval",
+      "tier": "connects",
+      "layer": "application",
+      "phase": "enhanced",
+      "objective": "Log which documents were retrieved, not only the prompt and response",
+      "rationale": "When someone asks what the assistant exposed, the prompt log cannot answer it. The retrieval log is the evidence, and it is the artifact an incident responder and an auditor both want. Expect to build this: the managed search logs on Azure and Google record that a query happened, not which documents came back.",
+      "services": {
+        "aws": "Knowledge base retrieval logging alongside Bedrock invocation logs",
+        "azure": "Azure AI Search diagnostic logs record the query and a document count; document-level evidence needs application logging",
+        "gcp": "Audit logs record the search call and the caller; document-level evidence needs application logging"
+      },
+      "refs": ["MEASURE 1", "GOVERN 4"]
+    },
+    {
+      "id": "rag-perimeter",
+      "tier": "connects",
+      "layer": "infrastructure",
+      "phase": "foundational",
+      "objective": "Keep the vector store and its source data inside the same network perimeter as the model",
+      "rationale": "A private path to the model means little if the retrieval layer reaches across the public internet to fetch the data. The perimeter has to cover the whole call chain.",
+      "services": {
+        "aws": "VPC endpoints for the knowledge base, vector store and S3 sources",
+        "azure": "Private endpoints across Azure AI Search, Storage and the Foundry resource",
+        "gcp": "VPC Service Controls covering the Agent Platform, Agent Search, Cloud Storage and BigQuery"
+      },
+      "refs": ["MANAGE 1", "LLM02"]
+    },
+
+    {
+      "id": "agent-identity",
+      "tier": "acts",
+      "layer": "identity-data",
+      "phase": "foundational",
+      "objective": "Give every agent its own distinct identity",
+      "rationale": "If an agent acts using a shared service account, you cannot answer who did it, and non-repudiation collapses. Distinct agent identity is the precondition for every audit and incident story at this tier.",
+      "services": {
+        "aws": "Amazon Bedrock AgentCore Identity",
+        "azure": "Microsoft Entra Agent ID, whose security features require Microsoft Agent 365",
+        "gcp": "Agent Identity in Cloud IAM, issuing a SPIFFE identity per agent rather than a shared service account"
+      },
+      "refs": ["GOVERN 1", "MEASURE 1", "LLM06"]
+    },
+    {
+      "id": "agent-delegation-model",
+      "tier": "acts",
+      "layer": "identity-data",
+      "phase": "foundational",
+      "objective": "Decide explicitly whether the agent acts autonomously or on behalf of a user",
+      "rationale": "These are different risk models and the choice is usually made implicitly by a developer. An agent holding its own standing credentials while appearing to act for a user is a confused deputy, and it is privilege escalation by design rather than by bug.",
+      "services": {
+        "aws": "AgentCore Identity outbound authentication, autonomous or on-behalf-of, via OAuth or API keys",
+        "azure": "Entra Agent ID token exchange, carrying the agent identity plus the user's delegated permissions",
+        "gcp": "The Agent Identity auth manager, choosing the agent's own credential or delegated end-user OAuth per auth provider"
+      },
+      "refs": ["LLM06", "MANAGE 2", "GOVERN 1", "AML.TA0012", "Clause 6"]
+    },
+    {
+      "id": "agent-least-privilege",
+      "tier": "acts",
+      "layer": "identity-data",
+      "phase": "foundational",
+      "objective": "Scope each agent to the minimum tool set and data it needs",
+      "rationale": "Excessive agency is the OWASP failure mode here. Agents accumulate permissions because it is easier to grant broadly once than to scope per task, and the blast radius grows quietly.",
+      "services": {
+        "aws": "Least-privilege IAM roles per agent, reviewed with IAM Access Analyzer",
+        "azure": "Azure RBAC per agent identity, granted through entitlement management access packages with a named sponsor",
+        "gcp": "Per-agent IAM roles reviewed with Policy Intelligence, using Policy Analyzer and role recommendations"
+      },
+      "refs": ["LLM06", "MANAGE 2", "AML.TA0012"]
+    },
+    {
+      "id": "agent-memory-governance",
+      "tier": "acts",
+      "layer": "identity-data",
+      "phase": "enhanced",
+      "objective": "Classify and set retention on agent memory",
+      "rationale": "Agent memory is a data store that nobody classified. It accumulates enterprise content, persists across sessions, and is almost never covered by a retention schedule or a deletion request process. It is also a persistence foothold: content written into memory keeps steering the agent long after the conversation that planted it.",
+      "services": {
+        "aws": "AgentCore Memory, including the self-managed strategy for extraction and consolidation",
+        "azure": "Purview covers agent prompts and responses; thread state lives in your own Cosmos DB, where you set the retention",
+        "gcp": "Agent Platform Sessions and Memory Bank, with a configurable TTL and expiry on sessions"
+      },
+      "refs": ["MAP 2", "GOVERN 4", "LLM02", "AML.TA0006"]
+    },
+    {
+      "id": "agent-tool-gateway",
+      "tier": "acts",
+      "layer": "application",
+      "phase": "foundational",
+      "objective": "Route every tool call through one authorization choke point",
+      "rationale": "Tools are the agent's hands. If each integration authorizes itself, there is no place to enforce policy, no single log, and no way to revoke a capability across every agent at once. Worth checking how complete the choke point is on your cloud, because tool types that bypass it are the ones that will hurt.",
+      "services": {
+        "aws": "Amazon Bedrock AgentCore Gateway, with IAM authorization and MCP support",
+        "azure": "Foundry Toolbox fronted by Azure API Management as an MCP gateway, since several tool types bypass Toolbox",
+        "gcp": "Agent Gateway in egress mode, authorizing against the Agent Registry with Model Armor inspection"
+      },
+      "refs": ["LLM06", "MANAGE 2", "AML.TA0005"]
+    },
+    {
+      "id": "agent-tool-inventory",
+      "tier": "acts",
+      "layer": "application",
+      "phase": "enhanced",
+      "objective": "Maintain a tool inventory and treat it as attack surface",
+      "rationale": "Every tool an agent can reach is an action it can take, which makes the tool catalogue the agentic equivalent of an asset inventory. Tool descriptions are also an injection surface, since the agent reads them as instructions.",
+      "services": {
+        "aws": "AgentCore Gateway target inventory reviewed against Security Hub AI inventory",
+        "azure": "Defender XDR AI agent inventory, with Defender for Cloud posture findings",
+        "gcp": "Agent Registry as the catalogue of agents, MCP servers, tools and skills, surfaced in Security Command Center"
+      },
+      "refs": ["LLM03", "MAP 1", "LLM06", "AML.TA0006"]
+    },
+    {
+      "id": "agent-tool-supply-chain",
+      "tier": "acts",
+      "layer": "application",
+      "phase": "enhanced",
+      "objective": "Vet MCP servers and tools as third-party code, with a standing path for updates",
+      "rationale": "An MCP server is someone else's code holding your credentials and describing itself to your agent in natural language. It can also change after you approved it, which is the rug pull the supply chain item on the OWASP list is describing. Reviewing it once at onboarding is not a control.",
+      "services": {
+        "aws": "AgentCore Gateway targets restricted to reviewed MCP servers, with the gateway as the only path to them",
+        "azure": "Azure API Management as the MCP gateway, with reviewed servers behind it and changes re-reviewed",
+        "gcp": "Agent Registry as the approved catalogue of MCP servers and tools, enforced at the Agent Gateway"
+      },
+      "refs": ["LLM03", "MANAGE 3", "AML.TA0004", "AML.TA0006"]
+    },
+    {
+      "id": "agent-human-gate",
+      "tier": "acts",
+      "layer": "application",
+      "phase": "foundational",
+      "objective": "Require a human approval gate on high-consequence actions",
+      "rationale": "This is use case risk tiering applied to actions rather than applications. Low-consequence and reversible actions run autonomously; irreversible, financial or rights-affecting ones stop for a human. Deciding this per action is the whole governance model.",
+      "services": {
+        "aws": "An approval step in the agent workflow, enforced outside the model in the calling application",
+        "azure": "MCP require_approval in Foundry Agent Service, or an approval step in a Logic Apps orchestration",
+        "gcp": "Tool confirmation in the Agent Development Kit, backed by an approval step in the calling application"
+      },
+      "refs": ["GOVERN 2", "MANAGE 4", "LLM06", "Clause 5"]
+    },
+    {
+      "id": "agent-sandbox",
+      "tier": "acts",
+      "layer": "application",
+      "phase": "enhanced",
+      "objective": "Sandbox code execution and browsing away from production",
+      "rationale": "An agent that can run code or browse is executing untrusted, model-generated instructions. That belongs in an isolated runtime with no standing credentials to anything that matters.",
+      "services": {
+        "aws": "AgentCore Code Interpreter and AgentCore Browser",
+        "azure": "Foundry code interpreter on Azure Container Apps dynamic sessions, Hyper-V isolated, with the Browser Automation tool (preview) for browsing",
+        "gcp": "Agent Platform code execution sandboxes in the Agent Runtime, with no network access and a limited filesystem"
+      },
+      "refs": ["LLM05", "MANAGE 1", "AML.TA0005"]
+    },
+    {
+      "id": "agent-blast-radius",
+      "tier": "acts",
+      "layer": "application",
+      "phase": "enhanced",
+      "objective": "Bound the blast radius of any single agent run",
+      "rationale": "Autonomy plus a loop is how a small error becomes a large one. Rate limits, transaction caps and a defined reversal path turn an incident into an inconvenience. Platform quotas cap tokens, not consequences, so the per-action caps have to live in the tool layer.",
+      "services": {
+        "aws": "Rate and concurrency limits on the agent runtime, with per-action transaction caps in the tool layer",
+        "azure": "Model deployment TPM and RPM quotas plus fixed Agent Service limits, with per-action caps enforced in Azure API Management",
+        "gcp": "Agent Platform quotas, with per-action caps enforced in the tool implementation or at the Agent Gateway"
+      },
+      "refs": ["LLM10", "LLM06", "MANAGE 4", "AML.TA0011"]
+    },
+    {
+      "id": "agent-traces-as-evidence",
+      "tier": "acts",
+      "layer": "application",
+      "phase": "enhanced",
+      "objective": "Treat end-to-end agent traces as audit evidence, not just ops telemetry",
+      "rationale": "When a regulator or a customer asks what the agent did and why, the answer is a trace: the prompt, the tools called, the arguments, the results, the decision. If that is sampled or short-retention, you cannot answer.",
+      "services": {
+        "aws": "AgentCore Observability, CloudWatch-backed and OpenTelemetry compatible",
+        "azure": "Foundry tracing on the OpenTelemetry GenAI conventions, into Application Insights",
+        "gcp": "Agent Observability, emitting OpenTelemetry into Cloud Trace, Cloud Logging and Cloud Monitoring"
+      },
+      "refs": ["MEASURE 1", "GOVERN 4", "Clause 9"]
+    },
+    {
+      "id": "agent-threat-detection",
+      "tier": "acts",
+      "layer": "application",
+      "phase": "advanced",
+      "objective": "Detect agentic threats specifically, including tool poisoning and chained abuse",
+      "rationale": "Agentic attacks look legitimate at every individual step. The signal is in the sequence, which means detection has to understand agent behavior rather than only API calls.",
+      "services": {
+        "aws": "GuardDuty AI Protection with AI-powered investigations and MITRE ATT&CK mapping",
+        "azure": "Defender for Cloud AI workload alerts, which fire on the AI resource rather than on a distinct agent runtime",
+        "gcp": "Agent Platform Threat Detection in Security Command Center, alongside AI Protection"
+      },
+      "refs": ["MEASURE 2", "MANAGE 4", "LLM03", "AML.TA0005"]
+    },
+    {
+      "id": "agent-runtime-isolation",
+      "tier": "acts",
+      "layer": "infrastructure",
+      "phase": "enhanced",
+      "objective": "Isolate the agent runtime from systems it has no business reaching",
+      "rationale": "Network reachability is a permission you did not write down. An agent runtime sitting in a flat production network can reach far more than its IAM policy suggests.",
+      "services": {
+        "aws": "Dedicated VPC and security groups for the agent runtime, with egress controlled",
+        "azure": "Foundry Agent Service standard setup with private networking, injected into a delegated subnet",
+        "gcp": "A dedicated project with a VPC Service Controls perimeter around the Agent Runtime"
+      },
+      "refs": ["MANAGE 1", "LLM06", "AML.TA0015"]
+    },
+    {
+      "id": "agent-kill-switch",
+      "tier": "acts",
+      "layer": "infrastructure",
+      "phase": "advanced",
+      "objective": "Be able to stop every agent quickly, and know who can do it",
+      "rationale": "The question is not whether an agent will misbehave, it is how long it runs before someone stops it. A tested stop path with a named owner is the difference between minutes and a weekend.",
+      "services": {
+        "aws": "Disable the agent identity and revoke gateway targets, rehearsed as a runbook",
+        "azure": "Disable the Entra Agent ID, or the whole blueprint class, and stop the agent deployment, rehearsed as a runbook",
+        "gcp": "Delete the Agent Runtime deployment and revoke the agent's identity bindings, rehearsed as a runbook"
+      },
+      "refs": ["MANAGE 4", "GOVERN 2", "AML.TA0011"]
+    }
+  ]
+}
