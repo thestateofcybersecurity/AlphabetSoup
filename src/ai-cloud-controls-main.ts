@@ -1,11 +1,30 @@
 import dataRaw from './data/ai-cloud-controls.json';
-import type { AiCloudControlsData, Control, PhaseId, ProviderId, Selection, TierId } from './lib/ai-cloud-controls';
-import { controlsCsv, groupByLayer, refFramework, referenceGroups, selectedControls, serviceFor, tierBreakdown } from './lib/ai-cloud-controls';
+import type { AiCloudControlsData, ComparisonRow, Control, PhaseId, ProviderId, Selection, TierId } from './lib/ai-cloud-controls';
+import {
+  comparisonByLayer,
+  comparisonCsv,
+  comparisonRows,
+  controlsCsv,
+  groupByLayer,
+  referenceGroups,
+  refFramework,
+  selectedControls,
+  serviceFor,
+  tierBreakdown,
+} from './lib/ai-cloud-controls';
 
 const data = dataRaw as AiCloudControlsData;
 
 const STATE_KEY = 'alphabetsoup:ai-cloud-controls:state';
 const DONE_KEY = 'alphabetsoup:ai-cloud-controls:done';
+
+/**
+ * "Which cloud?" has a fourth answer: all of them. Compare is a value in the
+ * same radio group rather than a separate toggle, because it is answering the
+ * same question and it keeps the whole intake on one arrow-key loop.
+ */
+const COMPARE = 'compare';
+type ViewId = ProviderId | typeof COMPARE;
 
 const providerIds = new Set(data.providers.map((p) => p.id));
 const tierIds = new Set(data.tiers.map((t) => t.id));
@@ -14,7 +33,7 @@ const controlIds = new Set(data.controls.map((c) => c.id));
 const phaseName = new Map(data.phases.map((p) => [p.id, p.name]));
 const tierName = new Map(data.tiers.map((t) => [t.id, t.name]));
 
-let provider: ProviderId = 'aws';
+let view: ViewId = 'aws';
 let tier: TierId = 'connects';
 let phases = new Set<PhaseId>();
 let done = new Set<string>();
@@ -27,13 +46,21 @@ function esc(text: string): string {
   return div.innerHTML;
 }
 
+const comparing = (): boolean => view === COMPARE;
+
+/**
+ * Selection always carries a concrete provider so the pure selection logic
+ * never has to know about the comparison view. In compare mode the provider is
+ * ignored: the control set is provider-independent by design, which is the
+ * property both the unit tests and the e2e tests pin down.
+ */
 function selection(): Selection {
-  return { provider, tier, phases };
+  return { provider: comparing() ? 'aws' : (view as ProviderId), tier, phases };
 }
 
 function save(): void {
   try {
-    localStorage.setItem(STATE_KEY, JSON.stringify({ provider, tier, phases: [...phases] }));
+    localStorage.setItem(STATE_KEY, JSON.stringify({ view, tier, phases: [...phases] }));
     localStorage.setItem(DONE_KEY, JSON.stringify([...done]));
   } catch {
     /* storage unavailable, the tool still works for this session */
@@ -44,8 +71,10 @@ function restore(): void {
   try {
     const raw = localStorage.getItem(STATE_KEY);
     if (raw) {
-      const parsed = JSON.parse(raw) as { provider?: string; tier?: string; phases?: string[] };
-      if (parsed.provider && providerIds.has(parsed.provider as ProviderId)) provider = parsed.provider as ProviderId;
+      const parsed = JSON.parse(raw) as { view?: string; provider?: string; tier?: string; phases?: string[] };
+      // `provider` is the key this tool shipped with, before compare existed.
+      const stored = parsed.view ?? parsed.provider;
+      if (stored === COMPARE || (stored && providerIds.has(stored as ProviderId))) view = stored as ViewId;
       if (parsed.tier && tierIds.has(parsed.tier as TierId)) tier = parsed.tier as TierId;
       if (Array.isArray(parsed.phases)) {
         phases = new Set(parsed.phases.filter((p): p is PhaseId => phaseIds.has(p as PhaseId)));
@@ -62,11 +91,16 @@ function restore(): void {
 }
 
 function renderIntake(): void {
-  const providerHtml = data.providers
+  const choices: { id: ViewId; label: string }[] = [
+    ...data.providers.map((p) => ({ id: p.id as ViewId, label: p.name })),
+    { id: COMPARE, label: 'Compare all three' },
+  ];
+
+  const providerHtml = choices
     .map(
-      (p) => `<label class="ac-chip${p.id === provider ? ' selected' : ''}">
-        <input type="radio" name="provider" value="${p.id}"${p.id === provider ? ' checked' : ''} />
-        <span>${esc(p.name)}</span>
+      (choice) => `<label class="ac-chip${choice.id === view ? ' selected' : ''}${choice.id === COMPARE ? ' ac-chip-compare' : ''}">
+        <input type="radio" name="provider" value="${choice.id}"${choice.id === view ? ' checked' : ''} />
+        <span>${esc(choice.label)}</span>
       </label>`,
     )
     .join('');
@@ -95,6 +129,7 @@ function renderIntake(): void {
   $('#intake').innerHTML = `
     <fieldset class="ac-field">
       <legend>Which cloud?</legend>
+      <p class="ac-help">Pick one to get a build list, or compare all three to see where the clouds actually differ.</p>
       <div class="ac-chips">${providerHtml}</div>
     </fieldset>
     <fieldset class="ac-field">
@@ -114,8 +149,8 @@ function renderIntake(): void {
  * /frameworks/ai/, the same way the AI risk tiering tool does. The title names
  * the framework, because "Clause 6" and "AML.TA0010" mean nothing on their own.
  */
-function refChips(codes: string[]): string {
-  return codes
+function refChips(refs: string[]): string {
+  return refs
     .map((code) => {
       const framework = refFramework(code);
       const title = framework ? `${framework.name} ${code}, in plain English` : `See ${code} in plain English`;
@@ -124,67 +159,109 @@ function refChips(codes: string[]): string {
     .join('');
 }
 
-function controlHtml(control: Control): string {
-  const refs = refChips(control.refs);
+function controlMeta(control: Control): string {
+  return `<p class="ac-meta">
+      <span class="ac-phase ac-phase-${control.phase}">${esc(phaseName.get(control.phase) ?? control.phase)}</span>
+      <span class="ac-tier-note">introduced at ${esc(tierName.get(control.tier) ?? control.tier)}</span>
+      <span class="ac-refs">${refChips(control.refs)}</span>
+    </p>`;
+}
+
+function controlHead(control: Control): string {
   const checked = done.has(control.id);
-  return `<li class="ac-control${checked ? ' is-done' : ''}" data-control="${control.id}">
-    <label class="ac-control-head">
+  return `<label class="ac-control-head">
       <input type="checkbox" class="ac-done" data-control="${control.id}"${checked ? ' checked' : ''} />
       <span class="ac-objective">${esc(control.objective)}</span>
     </label>
-    <p class="ac-rationale">${esc(control.rationale)}</p>
+    <p class="ac-rationale">${esc(control.rationale)}</p>`;
+}
+
+function controlHtml(control: Control): string {
+  const provider = view as ProviderId;
+  return `<li class="ac-control${done.has(control.id) ? ' is-done' : ''}" data-control="${control.id}">
+    ${controlHead(control)}
     <p class="ac-service"><span class="ac-service-tag">service</span> ${esc(serviceFor(control, provider))}</p>
-    <p class="ac-meta">
-      <span class="ac-phase ac-phase-${control.phase}">${esc(phaseName.get(control.phase) ?? control.phase)}</span>
-      <span class="ac-tier-note">introduced at ${esc(tierName.get(control.tier) ?? control.tier)}</span>
-      <span class="ac-refs">${refs}</span>
-    </p>
+    ${controlMeta(control)}
   </li>`;
 }
 
-function providerLabel(): string {
-  return data.providers.find((p) => p.id === provider)?.name ?? provider;
+function comparisonHtml(row: ComparisonRow): string {
+  const cells = row.cells
+    .map(
+      (cell) => `<div class="ac-compare-cell">
+        <dt>${esc(cell.name)}</dt>
+        <dd>${esc(cell.service)}</dd>
+      </div>`,
+    )
+    .join('');
+  return `<li class="ac-control${done.has(row.control.id) ? ' is-done' : ''}" data-control="${row.control.id}">
+    ${controlHead(row.control)}
+    <dl class="ac-compare">${cells}</dl>
+    ${controlMeta(row.control)}
+  </li>`;
+}
+
+function viewLabel(): string {
+  if (comparing()) return `${data.providers.map((p) => p.name).join(', ')} side by side`;
+  return data.providers.find((p) => p.id === view)?.name ?? view;
 }
 
 function renderResult(): void {
   const sel = selection();
-  const groups = groupByLayer(data, sel);
   const all = selectedControls(data, sel);
-  const breakdown = tierBreakdown(data, sel);
-  const doneCount = all.filter((c) => done.has(c.id)).length;
 
   if (all.length === 0) {
     $('#result').innerHTML = `<p class="ac-empty">No controls match that combination. Clear the phase filter to see the full set.</p>`;
     return;
   }
 
+  const breakdown = tierBreakdown(data, sel);
+  const doneCount = all.filter((c) => done.has(c.id)).length;
+
   const summary = breakdown
     .map((b) => `<li>${esc(b.name)}: <strong>${b.count}</strong>${b.inherited ? ' <span class="ac-inherited">inherited</span>' : ''}</li>`)
     .join('');
 
-  const groupsHtml = groups
-    .map(
-      (g) => `<section class="ac-layer" aria-label="${esc(g.name)} controls">
+  const groupsHtml = comparing()
+    ? comparisonByLayer(data, sel)
+        .map(
+          (g) => `<section class="ac-layer" aria-label="${esc(g.name)} controls">
+        <h3>${esc(g.name)} <span class="ac-layer-count">${g.rows.length}</span></h3>
+        <p class="ac-layer-hint">${esc(g.hint)}</p>
+        <ul class="ac-list ac-list-compare">${g.rows.map(comparisonHtml).join('')}</ul>
+      </section>`,
+        )
+        .join('')
+    : groupByLayer(data, sel)
+        .map(
+          (g) => `<section class="ac-layer" aria-label="${esc(g.name)} controls">
         <h3>${esc(g.name)} <span class="ac-layer-count">${g.controls.length}</span></h3>
         <p class="ac-layer-hint">${esc(g.hint)}</p>
         <ul class="ac-list">${g.controls.map(controlHtml).join('')}</ul>
       </section>`,
+        )
+        .join('');
+
+  const refsHtml = referenceGroups(data, sel)
+    .map(
+      (group) => `<li><span class="ac-ref-framework">${esc(group.framework.name)}</span> ${refChips(group.codes)}</li>`,
     )
     .join('');
 
-  const groupedRefs = referenceGroups(data, sel);
+  const compareNote = comparing()
+    ? `<p class="ac-compare-note">Same ${all.length} objectives on every cloud. Only the service column changes, which is the point: the control set is a property of the workload, not of the provider.</p>`
+    : '';
 
   $('#result').innerHTML = `
     <div class="ac-summary">
-      <p class="ac-count"><strong>${all.length}</strong> controls for <strong>${esc(providerLabel())}</strong>, <strong>${doneCount}</strong> marked in place</p>
+      <p class="ac-count"><strong>${all.length}</strong> controls for <strong>${esc(viewLabel())}</strong>, <strong>${doneCount}</strong> marked in place</p>
       <ul class="ac-breakdown">${summary}</ul>
     </div>
+    ${compareNote}
     ${groupsHtml}
     <div class="ac-frameworks">
-      <p class="ac-frameworks-head">Mapped to ${groupedRefs.reduce((sum, g) => sum + g.codes.length, 0)} references across ${groupedRefs.length} frameworks:</p>
-      <ul class="ac-frameworks-list">${groupedRefs
-        .map((group) => `<li><span class="ac-ref-framework">${esc(group.framework.name)}</span> ${refChips(group.codes)}</li>`)
-        .join('')}</ul>
+      <p class="ac-frameworks-head">Mapped to ${referenceGroups(data, sel).reduce((sum, g) => sum + g.codes.length, 0)} references across four frameworks:</p>
+      <ul class="ac-frameworks-list">${refsHtml}</ul>
       <p class="ac-verified">Provider service names checked against vendor documentation on ${esc(data.meta.servicesVerified)}. Treat the objective as durable and re-check the service before you ship it.</p>
     </div>
     <div class="ac-actions print-hide">
@@ -209,11 +286,20 @@ function download(name: string, body: string, type: string): void {
   URL.revokeObjectURL(url);
 }
 
+function exportCsv(): void {
+  const sel = selection();
+  if (comparing()) {
+    download(`ai-controls-compare-${tier}.csv`, comparisonCsv(data, sel), 'text/csv');
+    return;
+  }
+  download(`ai-controls-${view}-${tier}.csv`, controlsCsv(data, sel), 'text/csv');
+}
+
 function bind(): void {
   document.addEventListener('change', (event) => {
     const target = event.target as HTMLInputElement;
-    if (target.name === 'provider' && providerIds.has(target.value as ProviderId)) {
-      provider = target.value as ProviderId;
+    if (target.name === 'provider' && (target.value === COMPARE || providerIds.has(target.value as ProviderId))) {
+      view = target.value as ViewId;
       save();
       render();
     } else if (target.name === 'tier' && tierIds.has(target.value as TierId)) {
@@ -240,7 +326,7 @@ function bind(): void {
   document.addEventListener('click', (event) => {
     const target = event.target as HTMLElement;
     if (target.id === 'export-csv') {
-      download(`ai-controls-${provider}-${tier}.csv`, controlsCsv(data, selection()), 'text/csv');
+      exportCsv();
     } else if (target.id === 'print') {
       window.print();
     } else if (target.id === 'reset-done') {
@@ -264,3 +350,7 @@ renderCounts();
 restore();
 render();
 bind();
+
+// Exposed for the comparison e2e spec, which needs to assert that the rows the
+// page paints are the rows the pure logic produced.
+export { comparisonRows };

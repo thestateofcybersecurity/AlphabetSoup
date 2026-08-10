@@ -4,10 +4,10 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="color-scheme" content="light dark" />
-  <meta name="description" content="Pick your cloud and your AI workload type, and get the control set that applies: infrastructure, identity and data, and application layers, each control named in your provider's own services on AWS, Azure or Google Cloud, and mapped to NIST AI RMF and the OWASP LLM Top 10. Everything stays in your browser." />
+  <meta name="description" content="Pick your cloud and your AI workload type, and get the control set that applies: infrastructure, identity and data, and application layers, each control named in your provider's own services on AWS, Azure or Google Cloud, or all three side by side. Mapped to NIST AI RMF, the OWASP LLM Top 10, MITRE ATLAS and ISO/IEC 42001. Everything stays in your browser." />
   <meta property="og:type" content="website" />
   <meta property="og:title" content="AI Workload Control Mapper | Cybersecurity Alphabet Soup" />
-  <meta property="og:description" content="Securing AI that answers, connects, or acts, translated into AWS, Azure and Google Cloud services and mapped to NIST AI RMF and the OWASP LLM Top 10." />
+  <meta property="og:description" content="Securing AI that answers, connects, or acts, translated into AWS, Azure and Google Cloud services, side by side, and mapped to NIST AI RMF, the OWASP LLM Top 10, MITRE ATLAS and ISO/IEC 42001." />
   <meta property="og:url" content="https://www.cybersecurityalphabetsoup.com/tools/ai-cloud-controls/" />
   <meta property="og:image" content="https://www.cybersecurityalphabetsoup.com/og-frameworks.png" />
   <title>AI Workload Control Mapper | Cybersecurity Alphabet Soup</title>
@@ -64,6 +64,17 @@
     .ac-ref { display: inline-block; font-family: var(--font-mono); font-size: 0.66rem; letter-spacing: 0.04em; border: 1px solid var(--tomato); color: var(--tomato-deep); border-radius: 6px; padding: 1px 6px; text-decoration: none; }
     .ac-ref:hover { background: var(--tomato); color: var(--on-accent); }
     .ac-result-head { font-family: var(--font-mono); font-size: 0.8rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--ink-soft); margin: 30px 0 0; }
+    .ac-chip-compare { border-style: dashed; }
+    .ac-chip-compare.selected { border-style: solid; }
+    .ac-compare-note { font-size: 0.88rem; color: var(--ink-soft); line-height: 1.55; margin: 0 0 18px; }
+    .ac-compare { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin: 8px 0 10px 28px; }
+    .ac-compare-cell { border: 1px solid var(--line); border-radius: 10px; background: var(--paper); padding: 9px 11px; }
+    .ac-compare dt { font-family: var(--font-mono); font-size: 0.66rem; letter-spacing: 0.06em; text-transform: uppercase; color: var(--tomato-deep); margin: 0 0 5px; }
+    .ac-compare dd { margin: 0; font-size: 0.85rem; line-height: 1.5; }
+    @media (max-width: 720px) {
+      .ac-compare { grid-template-columns: 1fr; }
+      .ac-rationale, .ac-service, .ac-meta, .ac-compare { margin-left: 0; }
+    }
     .ac-frameworks { font-size: 0.84rem; color: var(--ink-soft); margin: 18px 0 0; }
     .ac-frameworks-head { margin: 0 0 8px; }
     .ac-frameworks-list { list-style: none; margin: 0; padding: 0; display: grid; gap: 7px; }
@@ -81,6 +92,12 @@
       .site-nav, .hero, #intake, .print-hide, .colophon, .steam, .ac-privacy { display: none !important; }
       .ac-summary { border: none; padding: 0; }
       .ac-control { break-inside: avoid; }
+      /* Three columns of service text collapse into an unreadable smear at print
+         widths, so the comparison prints as a stacked list instead. */
+      .ac-compare { grid-template-columns: 1fr; gap: 4px; }
+      .ac-compare-cell { border: none; padding: 0; }
+      .ac-compare dt { display: inline; margin-right: 6px; }
+      .ac-compare dd { display: inline; }
     }
   </style>
 </head>
@@ -93,7 +110,7 @@
   <header class="hero hero-compact">
     <p class="kicker">ai security &middot; <span id="cloud-count">3</span> clouds, <span id="control-count">33</span> controls</p>
     <h1 class="title">AI workload<br /><em>control mapper</em></h1>
-    <p class="tagline">Pick your cloud and the kind of AI you are building. Get the controls that apply, layer by layer, each one named in your provider's own services and mapped to the NIST AI RMF and the OWASP LLM Top 10.</p>
+    <p class="tagline">Pick your cloud and the kind of AI you are building. Get the controls that apply, layer by layer, each one named in your provider's own services, or put all three clouds side by side and see where they actually differ.</p>
   </header>
 
   <main id="main" class="ladle ac-wrap">
@@ -117,16 +134,22 @@
       <a class="cyberdle-link" href="../cloud-baseline/">Generate a cloud security baseline &rarr;</a>
     </p>
     <p>
+      Want the frameworks behind the references?
+      <a class="cyberdle-link" href="../../frameworks/ai/">Read the NIST AI RMF, OWASP LLM Top 10, MITRE ATLAS and ISO 42001 in plain English &rarr;</a>
+    </p>
+    <p>
       Why this tool exists:
       <a class="cyberdle-link" href="../">see the 2026 security leadership scorecard it was built from &rarr;</a>
     </p>
     <p class="fine-print">
       An unofficial plain-English tool, not legal or compliance advice. Cloud service names change often: treat the control objective as durable and verify the service before you ship it. Grounded in:
       <a href="https://aws.amazon.com/blogs/security/the-aws-ai-security-framework-securing-ai-with-the-right-controls-at-the-right-layers-at-the-right-phases/" rel="noopener">AWS AI Security Framework</a>,
-      <a href="https://learn.microsoft.com/en-us/azure/security/fundamentals/ai-security-best-practices" rel="noopener">Azure AI security best practices</a>,
-      <a href="https://cloud.google.com/security/products/model-armor" rel="noopener">Google Cloud Model Armor</a>,
+      <a href="https://learn.microsoft.com/en-us/azure/foundry/" rel="noopener">Microsoft Foundry docs</a>,
+      <a href="https://docs.cloud.google.com/gemini-enterprise-agent-platform/" rel="noopener">Gemini Enterprise Agent Platform docs</a>,
       <a href="https://www.nist.gov/itl/ai-risk-management-framework" rel="noopener">NIST AI RMF</a>,
-      <a href="https://genai.owasp.org/llm-top-10/" rel="noopener">OWASP Top 10 for LLMs</a>.
+      <a href="https://genai.owasp.org/llm-top-10/" rel="noopener">OWASP Top 10 for LLMs</a>,
+      <a href="https://atlas.mitre.org/" rel="noopener">MITRE ATLAS</a>,
+      <a href="https://www.iso.org/standard/42001" rel="noopener">ISO/IEC 42001</a>.
     </p>
     <p class="fine-print">
       <a href="../../privacy/">Privacy</a> &middot; <a href="../../disclosure/">Affiliate disclosure</a>

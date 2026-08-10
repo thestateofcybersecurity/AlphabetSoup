@@ -7,8 +7,12 @@ import {
   LAYER_ORDER,
   PHASE_ORDER,
   TIER_ORDER,
+  comparisonByLayer,
+  comparisonCsv,
+  comparisonRows,
   controlsCsv,
   groupByLayer,
+  referenceGroups,
   referencedFrameworks,
   refFramework,
   selectedControls,
@@ -217,5 +221,104 @@ describe('grouping and output', () => {
       const unquotedCommaRuns = line.replace(/"[^"]*"/g, '');
       expect(unquotedCommaRuns.split(',').length).toBeLessThanOrEqual(7);
     }
+  });
+});
+
+describe('framework reference grouping', () => {
+  it('recognises all four vocabularies and rejects anything else', () => {
+    expect(refFramework('GOVERN 1')?.id).toBe('AIRMF');
+    expect(refFramework('LLM01')?.id).toBe('OWASP-LLM');
+    expect(refFramework('AML.TA0010')?.id).toBe('ATLAS');
+    expect(refFramework('Clause 6')?.id).toBe('ISO42001');
+    expect(refFramework('Annex A')?.id).toBe('ISO42001');
+    expect(refFramework('CIS 1.1')).toBeNull();
+    expect(refFramework('LLM1')).toBeNull();
+    expect(refFramework('GOVERN')).toBeNull();
+  });
+
+  it('groups the in-scope references by framework in a stable order', () => {
+    const groups = referenceGroups(data, sel('acts'));
+    expect(groups.map((g) => g.framework.id)).toEqual(['AIRMF', 'OWASP-LLM', 'ATLAS', 'ISO42001']);
+    const flattened = groups.flatMap((g) => g.codes);
+    expect(new Set(flattened).size).toBe(flattened.length);
+    expect([...flattened].sort()).toEqual([...referencedFrameworks(data, sel('acts'))].sort());
+  });
+
+  it('drops frameworks that the narrowed selection never reaches', () => {
+    const ids = referenceGroups(data, sel('answers', 'aws', ['foundational'])).map((g) => g.framework.id);
+    expect(ids.length).toBeGreaterThan(0);
+    expect(ids.length).toBeLessThanOrEqual(4);
+  });
+});
+
+describe('cloud comparison', () => {
+  it('returns one row per in-scope control with a cell per provider', () => {
+    const rows = comparisonRows(data, sel('acts'));
+    expect(rows).toHaveLength(data.controls.length);
+    for (const row of rows) {
+      expect(row.cells.map((cell) => cell.provider)).toEqual(providers);
+      for (const cell of row.cells) {
+        expect(cell.service, `${row.control.id} has no ${cell.provider} service`).toBeTruthy();
+        expect(cell.name).toBeTruthy();
+      }
+    }
+  });
+
+  it('resolves each cell to exactly what the single-cloud view would show', () => {
+    // The comparison must not be a second, drifting source of truth. Every cell
+    // is the same string serviceFor returns for that provider.
+    for (const row of comparisonRows(data, sel('acts'))) {
+      for (const cell of row.cells) {
+        expect(cell.service).toBe(serviceFor(row.control, cell.provider));
+      }
+    }
+  });
+
+  it('honours the tier and phase filters the same way the single-cloud view does', () => {
+    for (const tier of TIER_ORDER) {
+      for (const phase of PHASE_ORDER) {
+        const selection = sel(tier, 'aws', [phase]);
+        expect(comparisonRows(data, selection).map((r) => r.control.id)).toEqual(
+          selectedControls(data, selection).map((c) => c.id),
+        );
+      }
+    }
+  });
+
+  it('groups comparison rows by layer exactly as the single-cloud view groups controls', () => {
+    const compare = comparisonByLayer(data, sel('acts'));
+    const single = groupByLayer(data, sel('acts'));
+    expect(compare.map((g) => g.layer)).toEqual(single.map((g) => g.layer));
+    expect(compare.map((g) => g.rows.map((r) => r.control.id))).toEqual(single.map((g) => g.controls.map((c) => c.id)));
+  });
+
+  it('exports a CSV with a column per provider and the same row count', () => {
+    const selection = sel('connects', 'aws');
+    const lines = comparisonCsv(data, selection).split('\n');
+    expect(lines).toHaveLength(selectedControls(data, selection).length + 1);
+    for (const provider of data.providers) {
+      expect(lines[0]).toContain(`${provider.name} service`);
+    }
+  });
+
+  it('puts every provider service into the comparison CSV', () => {
+    const selection = sel('acts', 'aws');
+    const csv = comparisonCsv(data, selection);
+    for (const control of selectedControls(data, selection)) {
+      for (const provider of providers) {
+        // Commas inside a service string are quoted, so compare against the cell
+        // body rather than the raw string.
+        const service = serviceFor(control, provider);
+        expect(csv.includes(service) || csv.includes(service.replace(/"/g, '""'))).toBe(true);
+      }
+    }
+  });
+
+  it('says something different about each cloud on most controls', () => {
+    // If the three columns were mostly identical the comparison view would be
+    // decoration. This pins the premise that the clouds really do diverge.
+    const rows = comparisonRows(data, sel('acts'));
+    const distinct = rows.filter((row) => new Set(row.cells.map((c) => c.service)).size === 3);
+    expect(distinct.length).toBe(rows.length);
   });
 });

@@ -108,6 +108,39 @@ test('is reachable from the tools index', async ({ page }) => {
   await expect(page.locator('h1')).toContainText('control mapper');
 });
 
+test('comparing shows all three clouds on the same control set', async ({ page }) => {
+  await page.goto(URL);
+  await page.locator('input[name="tier"][value="acts"]').click();
+
+  await page.locator('input[name="provider"][value="aws"]').click();
+  const single = await page.locator('.ac-objective').allInnerTexts();
+  expect(await page.locator('.ac-compare').count()).toBe(0);
+
+  await page.locator('input[name="provider"][value="compare"]').click();
+  // Same objectives, same count, now with a three-column service block each.
+  expect(await page.locator('.ac-objective').allInnerTexts()).toEqual(single);
+  expect(await page.locator('.ac-compare').count()).toBe(single.length);
+  expect(await page.locator('.ac-compare-cell').count()).toBe(single.length * 3);
+  await expect(page.locator('.ac-count')).toContainText('side by side');
+
+  // Each row names all three clouds, in provider order, with a non-empty service.
+  // The labels are uppercased by CSS, so compare the underlying text.
+  const firstRow = page.locator('.ac-compare').first();
+  const labels = await firstRow.locator('dt').evaluateAll((nodes) => nodes.map((n) => n.textContent?.trim()));
+  expect(labels).toEqual(['AWS', 'Azure', 'Google Cloud']);
+  for (const service of await firstRow.locator('dd').allInnerTexts()) {
+    expect(service.trim().length).toBeGreaterThan(8);
+  }
+});
+
+test('the comparison choice survives a reload', async ({ page }) => {
+  await page.goto(URL);
+  await page.locator('input[name="provider"][value="compare"]').click();
+  await page.reload();
+  await expect(page.locator('input[name="provider"][value="compare"]')).toBeChecked();
+  expect(await page.locator('.ac-compare').count()).toBeGreaterThan(0);
+});
+
 test('every reference chip deep-links into the framework translation it names', async ({ page }) => {
   await page.goto(URL);
   await page.locator('input[name="tier"][value="acts"]').click();
@@ -153,4 +186,3 @@ test('the results section is a properly nested heading level', async ({ page }) 
     expect(levels[i] - levels[i - 1]).toBeLessThanOrEqual(1);
   }
 });
-

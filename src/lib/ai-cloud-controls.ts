@@ -199,6 +199,51 @@ export function referenceGroups(data: AiCloudControlsData, selection: Selection)
     }));
 }
 
+// ----------------------------- cloud comparison -----------------------------
+
+export interface ComparisonRow {
+  control: Control;
+  /** One cell per provider, in the dataset's provider order. */
+  cells: { provider: ProviderId; name: string; service: string }[];
+}
+
+/**
+ * The same control set resolved across every provider at once. This is the view
+ * the single-cloud mode cannot give you: whether the objective is a named
+ * product on one cloud and a build-it-yourself job on another.
+ */
+export function comparisonRows(data: AiCloudControlsData, selection: Selection): ComparisonRow[] {
+  return selectedControls(data, selection).map((control) => ({
+    control,
+    cells: data.providers.map((provider) => ({
+      provider: provider.id,
+      name: provider.name,
+      service: serviceFor(control, provider.id),
+    })),
+  }));
+}
+
+export interface ComparisonGroup {
+  layer: LayerId;
+  name: string;
+  hint: string;
+  rows: ComparisonRow[];
+}
+
+/** Comparison rows grouped by layer, matching the single-cloud grouping. */
+export function comparisonByLayer(data: AiCloudControlsData, selection: Selection): ComparisonGroup[] {
+  const rows = comparisonRows(data, selection);
+  return [...data.layers]
+    .sort((a, b) => a.order - b.order)
+    .map((layer) => ({
+      layer: layer.id,
+      name: layer.name,
+      hint: layer.hint,
+      rows: rows.filter((row) => row.control.layer === layer.id),
+    }))
+    .filter((group) => group.rows.length > 0);
+}
+
 /** Resolve a control to the native service for the selected provider. */
 export function serviceFor(control: Control, provider: ProviderId): string {
   return control.services[provider];
@@ -208,25 +253,53 @@ export function providerName(data: AiCloudControlsData, provider: ProviderId): s
   return data.providers.find((p) => p.id === provider)?.name ?? provider;
 }
 
-/** CSV of the resolved control set for export. */
-export function controlsCsv(data: AiCloudControlsData, selection: Selection): string {
+const csvCell = (value: string): string => (/[",\n]/.test(value) ? `"${value.replace(/"/g, '""')}"` : value);
+
+/** The columns every export shares, before the provider service columns. */
+function csvPrefix(data: AiCloudControlsData, control: Control): string[] {
   const layerName = new Map(data.layers.map((l) => [l.id, l.name]));
   const tierName = new Map(data.tiers.map((t) => [t.id, t.name]));
   const phaseName = new Map(data.phases.map((p) => [p.id, p.name]));
-  const header = ['Layer', 'Phase', 'Introduced at tier', 'Control objective', `${providerName(data, selection.provider)} service`, 'References'];
-  const cell = (v: string): string => (/[",\n]/.test(v) ? `"${v.replace(/"/g, '""')}"` : v);
+  return [
+    layerName.get(control.layer) ?? control.layer,
+    phaseName.get(control.phase) ?? control.phase,
+    tierName.get(control.tier) ?? control.tier,
+    control.objective,
+  ];
+}
+
+const CSV_PREFIX_HEADER = ['Layer', 'Phase', 'Introduced at tier', 'Control objective'];
+
+/** CSV of the resolved control set for export, one service column. */
+export function controlsCsv(data: AiCloudControlsData, selection: Selection): string {
+  const header = [...CSV_PREFIX_HEADER, `${providerName(data, selection.provider)} service`, 'References'];
   const lines = [header.join(',')];
-  for (const c of selectedControls(data, selection)) {
+  for (const control of selectedControls(data, selection)) {
     lines.push(
-      [
-        layerName.get(c.layer) ?? c.layer,
-        phaseName.get(c.phase) ?? c.phase,
-        tierName.get(c.tier) ?? c.tier,
-        c.objective,
-        serviceFor(c, selection.provider),
-        c.refs.join(' '),
-      ]
-        .map(cell)
+      [...csvPrefix(data, control), serviceFor(control, selection.provider), control.refs.join(' ')]
+        .map(csvCell)
+        .join(','),
+    );
+  }
+  return lines.join('\n');
+}
+
+/**
+ * CSV of the same control set with a column per provider. This is the export
+ * people actually want out of a comparison: one row per objective, three
+ * clouds side by side, ready to paste into an architecture decision record.
+ */
+export function comparisonCsv(data: AiCloudControlsData, selection: Selection): string {
+  const header = [
+    ...CSV_PREFIX_HEADER,
+    ...data.providers.map((provider) => `${provider.name} service`),
+    'References',
+  ];
+  const lines = [header.join(',')];
+  for (const row of comparisonRows(data, selection)) {
+    lines.push(
+      [...csvPrefix(data, row.control), ...row.cells.map((cell) => cell.service), row.control.refs.join(' ')]
+        .map(csvCell)
         .join(','),
     );
   }
