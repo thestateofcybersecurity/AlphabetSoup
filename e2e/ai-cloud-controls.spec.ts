@@ -186,3 +186,26 @@ test('the results section is a properly nested heading level', async ({ page }) 
     expect(levels[i] - levels[i - 1]).toBeLessThanOrEqual(1);
   }
 });
+
+test('the risk tiering tool hands off into the mapper and back', async ({ page }) => {
+  await page.goto('/tools/ai-risk/');
+  await expect(page.locator('a[href="../ai-cloud-controls/"]')).toHaveCount(1);
+
+  // Complete the tiering so the contextual handoff inside the result renders.
+  for (const question of await page.locator('fieldset[data-question]').all()) {
+    await question.locator('input[type="radio"]').first().check();
+  }
+  const handoff = page.locator('.rt-handoff a');
+  await expect(handoff).toBeVisible();
+  await handoff.click();
+  await expect(page.locator('h1')).toContainText('control mapper');
+  await expect(page.locator('a[href="../ai-risk/"]')).toHaveCount(1);
+});
+
+test('the AI frameworks page links into the mapper', async ({ page }) => {
+  await page.goto('/frameworks/ai/');
+  const link = page.locator('a[href="../../tools/ai-cloud-controls/"]');
+  await expect(link).toBeVisible();
+  await link.click();
+  await expect(page.locator('h1')).toContainText('control mapper');
+});
