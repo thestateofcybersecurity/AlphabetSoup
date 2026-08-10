@@ -80,3 +80,74 @@ jobs:
             -H "Content-Type: application/json; charset=utf-8" \
             -d "{\"host\":\"$HOST\",\"key\":\"$KEY\",\"keyLocation\":\"https://$HOST/$KEY.txt\",\"urlList\":$list}" \
             && echo "IndexNow pinged" || echo "IndexNow ping failed (non-fatal)"
+
+  # When build fails on main, deploy and indexnow are skipped rather than
+  # failed, so the run goes red in a place nobody looks and the live site
+  # quietly stays on the last good build. That happened for four days in
+  # August 2026: an npm audit advisory broke the gate, two posts merged
+  # green, and neither reached production until someone hit a 404 by hand.
+  # Open an issue so a stale production is impossible to miss. Repeated
+  # failures comment on the existing issue instead of filing duplicates.
+  # Deliberately not `failure()`: a job killed by timeout-minutes concludes
+  # `cancelled`, which failure() ignores. The August 2026 outage started as a
+  # timeout, so anything short of a clean success has to notify.
+  notify-failure:
+    if: >-
+      always() && github.event_name != 'pull_request' &&
+      (needs.build.result != 'success' ||
+       needs.deploy.result != 'success' ||
+       needs.indexnow.result != 'success')
+    needs: [build, deploy, indexnow]
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    permissions:
+      contents: read
+      issues: write
+    steps:
+      - name: Open or update the deploy failure issue
+        env:
+          GH_TOKEN: ${{ github.token }}
+          GH_REPO: ${{ github.repository }}
+          RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+          COMMIT_SHA: ${{ github.sha }}
+          BUILD_RESULT: ${{ needs.build.result }}
+          DEPLOY_RESULT: ${{ needs.deploy.result }}
+          INDEXNOW_RESULT: ${{ needs.indexnow.result }}
+        run: |
+          set -euo pipefail
+
+          # The label is the dedupe key, so make sure it exists before we filter on it.
+          gh label create deploy-failure \
+            --color B60205 \
+            --description "Production deploy is failing; the live site is stale" \
+            2>/dev/null || true
+
+          body=$(cat <<EOF
+          The deploy workflow failed on \`main\`, so **the live site was not updated**.
+
+          - Failed run: $RUN_URL
+          - Commit: \`$COMMIT_SHA\`
+          - Job results: build \`$BUILD_RESULT\`, deploy \`$DEPLOY_RESULT\`, indexnow \`$INDEXNOW_RESULT\`
+
+          When the \`build\` job does not succeed, \`deploy\` and \`indexnow\` are
+          skipped. Merges keep succeeding and the site keeps serving the last good
+          build, so this will not surface anywhere else. Production stays stale
+          until it is fixed.
+
+          A \`cancelled\` build usually means the 15 minute \`timeout-minutes\` cap
+          fired rather than someone stopping the run by hand.
+          EOF
+          )
+
+          existing=$(gh issue list --label deploy-failure --state open --limit 1 --json number --jq '.[0].number // empty' || true)
+
+          if [ -n "$existing" ]; then
+            gh issue comment "$existing" --body "$body"
+            echo "Commented on existing issue #$existing"
+          else
+            url=$(gh issue create \
+              --title "Production deploy is failing; the live site is stale" \
+              --label deploy-failure \
+              --body "$body")
+            echo "Opened $url"
+          fi
