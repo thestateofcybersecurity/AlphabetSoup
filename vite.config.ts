@@ -212,6 +212,7 @@ export default defineConfig({
         cmmc: 'assess/cmmc/index.html',
         tools: 'tools/index.html',
         aiRisk: 'tools/ai-risk/index.html',
+        aiCloudControls: 'tools/ai-cloud-controls/index.html',
         crosswalk: 'tools/crosswalk/index.html',
         boardMetrics: 'tools/board-metrics/index.html',
         runbook: 'tools/runbook/index.html',

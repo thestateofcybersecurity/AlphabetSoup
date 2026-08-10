@@ -1,0 +1,520 @@
+{
+  "meta": {
+    "title": "AI Workload Control Mapper",
+    "version": "1.0.0",
+    "note": "Provider-neutral control objectives for AI workloads, each mapped to the closest native service on AWS, Azure and Google Cloud. Guidance to adapt, not an audit, and not a substitute for provider documentation. Cloud services are renamed and reshuffled often: treat the objective as durable and verify the service name before you put it in a client deliverable.",
+    "sources": [
+      { "name": "AWS AI Security Framework", "url": "https://aws.amazon.com/blogs/security/the-aws-ai-security-framework-securing-ai-with-the-right-controls-at-the-right-layers-at-the-right-phases/" },
+      { "name": "Azure AI security best practices", "url": "https://learn.microsoft.com/en-us/azure/security/fundamentals/ai-security-best-practices" },
+      { "name": "Google Cloud Model Armor", "url": "https://cloud.google.com/security/products/model-armor" },
+      { "name": "NIST AI Risk Management Framework", "url": "https://www.nist.gov/itl/ai-risk-management-framework" },
+      { "name": "OWASP Top 10 for LLM Applications", "url": "https://genai.owasp.org/llm-top-10/" },
+      { "name": "ISO/IEC 42001", "url": "https://www.iso.org/standard/42001" },
+      { "name": "MITRE ATLAS", "url": "https://atlas.mitre.org/" }
+    ]
+  },
+  "providers": [
+    { "id": "aws", "name": "AWS" },
+    { "id": "azure", "name": "Azure" },
+    { "id": "gcp", "name": "Google Cloud" }
+  ],
+  "tiers": [
+    {
+      "id": "answers",
+      "order": 0,
+      "name": "AI that answers",
+      "hint": "A model generates responses. No access to your data, no ability to act.",
+      "example": "A support assistant answering from the model's own training, a drafting or summarizing helper."
+    },
+    {
+      "id": "connects",
+      "order": 1,
+      "name": "AI that connects",
+      "hint": "The model reaches your enterprise data, usually through retrieval (RAG).",
+      "example": "A policy assistant grounded in your intranet, a search layer over contracts or tickets."
+    },
+    {
+      "id": "acts",
+      "order": 2,
+      "name": "AI that acts",
+      "hint": "An agent takes actions: calling tools, writing to systems, executing code, transacting.",
+      "example": "An agent that files tickets, updates records, moves money, or runs remediation."
+    }
+  ],
+  "layers": [
+    { "id": "infrastructure", "order": 0, "name": "Infrastructure", "hint": "Isolation, network paths, and the compute the model runs on." },
+    { "id": "identity-data", "order": 1, "name": "Identity and data", "hint": "Who and what may reach the model, and what happens to the data." },
+    { "id": "application", "order": 2, "name": "AI application", "hint": "Filtering, monitoring and behavior at the model and agent boundary." }
+  ],
+  "phases": [
+    { "id": "foundational", "order": 0, "name": "Foundational", "hint": "Zero to prototype. Extend the controls you already have and get identity right on day one." },
+    { "id": "enhanced", "order": 1, "name": "Enhanced", "hint": "Prototype to production. Add threat detection, classification and real monitoring." },
+    { "id": "advanced", "order": 2, "name": "Advanced", "hint": "Continuous improvement. Automate governance and evidence at scale." }
+  ],
+  "controls": [
+    {
+      "id": "net-private-path",
+      "tier": "answers",
+      "layer": "infrastructure",
+      "phase": "foundational",
+      "objective": "Keep model traffic on a private network path instead of the public internet",
+      "rationale": "A model endpoint reachable from the internet is a credential-guessing target and puts your prompts, which routinely contain business-sensitive text, on a path you do not control.",
+      "services": {
+        "aws": "VPC endpoints (AWS PrivateLink) to Amazon Bedrock",
+        "azure": "Private endpoints and Azure Private Link for Microsoft Foundry and Azure OpenAI",
+        "gcp": "VPC Service Controls perimeter around Vertex AI, plus Private Service Connect"
+      },
+      "refs": ["MANAGE 1", "LLM02"]
+    },
+    {
+      "id": "net-isolated-compute",
+      "tier": "answers",
+      "layer": "infrastructure",
+      "phase": "advanced",
+      "objective": "Run inference on isolated compute where the workload is attested and memory is protected",
+      "rationale": "For regulated or high-sensitivity data, the question is not only who can call the model but who could read the data while it is being processed.",
+      "services": {
+        "aws": "AWS Nitro System, Nitro Enclaves for the most sensitive workloads",
+        "azure": "Azure confidential computing (confidential VMs and containers)",
+        "gcp": "Confidential Computing (Confidential VMs)"
+      },
+      "refs": ["MANAGE 1"]
+    },
+    {
+      "id": "iam-model-access",
+      "tier": "answers",
+      "layer": "identity-data",
+      "phase": "foundational",
+      "objective": "Explicitly authorize which principals may invoke which models",
+      "rationale": "Model access defaults are the new S3 bucket permissions. If any principal in the account can call any model, you have no ability to say who used what, and no way to contain misuse.",
+      "services": {
+        "aws": "IAM identity-based policies scoped per model on Bedrock InvokeModel",
+        "azure": "Microsoft Entra ID with Azure RBAC on the Foundry or Azure OpenAI resource",
+        "gcp": "Cloud IAM roles on Vertex AI, scoped per model and per service account"
+      },
+      "refs": ["GOVERN 1", "MANAGE 2", "LLM06"]
+    },
+    {
+      "id": "data-cmk",
+      "tier": "answers",
+      "layer": "identity-data",
+      "phase": "foundational",
+      "objective": "Hold your own encryption keys for prompts, outputs and tuning data",
+      "rationale": "Customer-managed keys give you a revocation lever and an audit trail that provider-managed keys do not. For regulated data this is usually the difference between an approved and a blocked use case.",
+      "services": {
+        "aws": "AWS KMS customer managed keys",
+        "azure": "Customer-managed keys backed by Azure Key Vault",
+        "gcp": "CMEK via Cloud KMS"
+      },
+      "refs": ["MANAGE 1", "LLM02"]
+    },
+    {
+      "id": "log-invocations",
+      "tier": "answers",
+      "layer": "identity-data",
+      "phase": "foundational",
+      "objective": "Log every model invocation so you can reconstruct what was asked and what was answered",
+      "rationale": "Without invocation logging you cannot investigate a data leak, prove a model did not say something, or answer a regulator. Control plane logs alone tell you who configured the model, not who used it.",
+      "services": {
+        "aws": "Bedrock model invocation logging for the data plane, AWS CloudTrail for the control plane",
+        "azure": "Azure Monitor diagnostic settings on the Foundry resource, plus Microsoft Purview Audit",
+        "gcp": "Cloud Logging for request and response logging, plus Cloud Audit Logs"
+      },
+      "refs": ["MEASURE 1", "GOVERN 4"]
+    },
+    {
+      "id": "cost-ceiling",
+      "tier": "answers",
+      "layer": "identity-data",
+      "phase": "enhanced",
+      "objective": "Cap spend and request rate, and treat an anomalous spike as a security event",
+      "rationale": "Stolen model credentials are now resold as inference capacity. Unbounded consumption shows up on the bill before it shows up in the SIEM, so the budget alert is a detection control.",
+      "services": {
+        "aws": "Service quotas and AWS Budgets, with GuardDuty AI Protection for cost-harvesting detection",
+        "azure": "Tokens-per-minute quotas on the deployment, plus Cost Management alerts",
+        "gcp": "Vertex AI quotas and Cloud Billing budget alerts"
+      },
+      "refs": ["LLM10", "MEASURE 2"]
+    },
+    {
+      "id": "app-content-filter",
+      "tier": "answers",
+      "layer": "application",
+      "phase": "foundational",
+      "objective": "Filter model input and output for harmful content, denied topics and sensitive data",
+      "rationale": "The model will produce whatever the training data and the prompt lead it to. Filtering at the boundary is the only control that sits between the model and the user.",
+      "services": {
+        "aws": "Amazon Bedrock Guardrails (content filters, denied topics, sensitive information filters)",
+        "azure": "Azure AI Content Safety content filters in Microsoft Foundry",
+        "gcp": "Model Armor Input Shield and Output Shield, with Sensitive Data Protection"
+      },
+      "refs": ["LLM02", "MANAGE 4"]
+    },
+    {
+      "id": "app-prompt-injection",
+      "tier": "answers",
+      "layer": "application",
+      "phase": "foundational",
+      "objective": "Defend against prompt injection and jailbreak attempts at the boundary",
+      "rationale": "Prompt injection is the top item on the OWASP list for a reason: it is the one attack with no clean architectural fix, because instructions and data arrive on the same channel. Boundary defenses reduce it; nothing eliminates it.",
+      "services": {
+        "aws": "Amazon Bedrock Guardrails",
+        "azure": "Azure AI Content Safety Prompt Shields",
+        "gcp": "Model Armor Input Shield (jailbreak and prompt injection detection)"
+      },
+      "refs": ["LLM01", "MANAGE 2"]
+    },
+    {
+      "id": "app-groundedness",
+      "tier": "answers",
+      "layer": "application",
+      "phase": "enhanced",
+      "objective": "Check outputs for groundedness before a user sees them",
+      "rationale": "A confident wrong answer is a business risk, not a quality nit, once the output feeds a decision. Groundedness checking catches the class of failure that content filters miss entirely.",
+      "services": {
+        "aws": "Bedrock Guardrails contextual grounding checks",
+        "azure": "Azure AI Content Safety groundedness detection",
+        "gcp": "Vertex AI grounding with Model Armor output inspection"
+      },
+      "refs": ["LLM09", "MEASURE 2"]
+    },
+    {
+      "id": "app-ai-threat-detection",
+      "tier": "answers",
+      "layer": "application",
+      "phase": "enhanced",
+      "objective": "Detect AI-specific runtime threats, not just infrastructure threats",
+      "rationale": "Your existing detection stack does not know what an anomalous model invocation looks like. AI threat detection is a separate signal set: unusual invocation patterns, injection attempts, and abuse of inference capacity.",
+      "services": {
+        "aws": "Amazon GuardDuty AI Protection, with GuardDuty Extended Threat Detection",
+        "azure": "Microsoft Defender for Cloud threat protection for AI services",
+        "gcp": "AI Protection in Security Command Center"
+      },
+      "refs": ["MEASURE 2", "MANAGE 4"]
+    },
+    {
+      "id": "gov-ai-inventory",
+      "tier": "answers",
+      "layer": "application",
+      "phase": "enhanced",
+      "objective": "Keep a live inventory of every model, endpoint and agent in use",
+      "rationale": "You cannot govern what you cannot enumerate, and AI assets appear faster than change control catches them. The inventory is the precondition for every other control on this list.",
+      "services": {
+        "aws": "Security Hub AI inventory (Bedrock models, SageMaker endpoints, AgentCore agents)",
+        "azure": "Microsoft Defender for Cloud AI security posture, with Purview DSPM for AI",
+        "gcp": "AI Protection in Security Command Center"
+      },
+      "refs": ["MAP 1", "GOVERN 1"]
+    },
+    {
+      "id": "gov-shadow-ai",
+      "tier": "answers",
+      "layer": "application",
+      "phase": "advanced",
+      "objective": "Detect AI use that never came through your intake process",
+      "rationale": "The governed use cases are not the risk. The ungoverned ones are, and they are usually in a browser tab or an unmanaged SaaS integration rather than in your cloud account.",
+      "services": {
+        "aws": "Network and CASB telemetry outside the AI stack, plus Security Hub inventory drift",
+        "azure": "Microsoft Defender for Cloud Apps discovery, with Purview DSPM for AI",
+        "gcp": "Security Command Center posture findings with Chrome Enterprise and proxy telemetry"
+      },
+      "refs": ["MAP 1", "GOVERN 3"]
+    },
+
+    {
+      "id": "rag-classify-first",
+      "tier": "connects",
+      "layer": "identity-data",
+      "phase": "foundational",
+      "objective": "Classify and label data before it reaches the index, not after",
+      "rationale": "Once sensitive content is embedded and indexed it is effectively unlabelled and hard to retract. Classification has to be a gate on ingestion, which is the single most common thing teams get backwards.",
+      "services": {
+        "aws": "Amazon Macie for discovery and classification, with Lake Formation on the source data",
+        "azure": "Microsoft Purview information protection and sensitivity labels",
+        "gcp": "Sensitive Data Protection, including automated discovery over Vertex AI datasets"
+      },
+      "refs": ["MAP 2", "LLM02"]
+    },
+    {
+      "id": "rag-entitlement-inheritance",
+      "tier": "connects",
+      "layer": "identity-data",
+      "phase": "foundational",
+      "objective": "Make retrieval inherit the asking user's entitlements, never the application's",
+      "rationale": "This is the failure that turns a helpful assistant into an exfiltration path. If the retrieval layer queries with broad service credentials, every user effectively reads everything the index can see, and it bypasses every access control the business believes it has.",
+      "services": {
+        "aws": "Per-user session policies and metadata filtering at query time in the knowledge base",
+        "azure": "Entra ID identity passthrough with security trimming, governed by Purview data security policies",
+        "gcp": "Per-user IAM with document-level ACL filtering in Vertex AI Search"
+      },
+      "refs": ["LLM02", "MANAGE 2", "GOVERN 1"]
+    },
+    {
+      "id": "rag-tenant-isolation",
+      "tier": "connects",
+      "layer": "identity-data",
+      "phase": "enhanced",
+      "objective": "Isolate tenants and sensitive corpora in the vector store",
+      "rationale": "Embeddings from different tenants sharing one index is a data-boundary decision disguised as an architecture choice, and similarity search does not respect logical separation by itself.",
+      "services": {
+        "aws": "Separate knowledge bases or namespaces, with IAM and metadata filters per tenant",
+        "azure": "Separate indexes or security filters in Azure AI Search",
+        "gcp": "Separate Vertex AI Search data stores or namespace partitioning"
+      },
+      "refs": ["LLM08", "MANAGE 1"]
+    },
+    {
+      "id": "rag-source-governance",
+      "tier": "connects",
+      "layer": "identity-data",
+      "phase": "enhanced",
+      "objective": "Govern the source data plane the index is built from",
+      "rationale": "The index inherits every permissions mistake in the source. Fixing retrieval without fixing the lake underneath it just moves the problem one layer down.",
+      "services": {
+        "aws": "AWS Lake Formation permissions on the source data",
+        "azure": "Microsoft Purview data governance over the source estate",
+        "gcp": "Dataplex governance with BigQuery and Cloud Storage IAM"
+      },
+      "refs": ["GOVERN 1", "MAP 2"]
+    },
+    {
+      "id": "rag-provenance",
+      "tier": "connects",
+      "layer": "identity-data",
+      "phase": "enhanced",
+      "objective": "Track provenance and freshness of indexed content",
+      "rationale": "Two different failures share one fix. Poisoned content injects instructions the model will follow, and stale content produces answers that were true last quarter. Both are answered by knowing where each chunk came from and when.",
+      "services": {
+        "aws": "Ingestion pipeline metadata with S3 object versioning and re-index scheduling",
+        "azure": "Indexer schedules and source metadata in Azure AI Search",
+        "gcp": "Data store refresh scheduling with source metadata in Vertex AI Search"
+      },
+      "refs": ["LLM04", "LLM08", "MEASURE 2"]
+    },
+    {
+      "id": "rag-redaction",
+      "tier": "connects",
+      "layer": "application",
+      "phase": "enhanced",
+      "objective": "Redact sensitive values from prompts and responses in flight",
+      "rationale": "Classification stops the wrong document being indexed. Redaction stops the right document leaking the wrong field, which is the residual risk once retrieval is working correctly.",
+      "services": {
+        "aws": "Bedrock Guardrails sensitive information filters",
+        "azure": "Azure AI Content Safety with Purview data loss prevention",
+        "gcp": "Model Armor with Sensitive Data Protection de-identification"
+      },
+      "refs": ["LLM02", "MANAGE 4"]
+    },
+    {
+      "id": "rag-log-retrieval",
+      "tier": "connects",
+      "layer": "application",
+      "phase": "enhanced",
+      "objective": "Log which documents were retrieved, not only the prompt and response",
+      "rationale": "When someone asks what the assistant exposed, the prompt log cannot answer it. The retrieval log is the evidence, and it is the artifact an incident responder and an auditor both want.",
+      "services": {
+        "aws": "Knowledge base retrieval logging alongside Bedrock invocation logs",
+        "azure": "Azure AI Search diagnostic logs correlated with Foundry telemetry",
+        "gcp": "Vertex AI Search query logging in Cloud Logging"
+      },
+      "refs": ["MEASURE 1", "GOVERN 4"]
+    },
+    {
+      "id": "rag-perimeter",
+      "tier": "connects",
+      "layer": "infrastructure",
+      "phase": "foundational",
+      "objective": "Keep the vector store and its source data inside the same network perimeter as the model",
+      "rationale": "A private path to the model means little if the retrieval layer reaches across the public internet to fetch the data. The perimeter has to cover the whole call chain.",
+      "services": {
+        "aws": "VPC endpoints for the knowledge base, vector store and S3 sources",
+        "azure": "Private endpoints across Azure AI Search, Storage and the Foundry resource",
+        "gcp": "VPC Service Controls perimeter covering Vertex AI, Cloud Storage and BigQuery"
+      },
+      "refs": ["MANAGE 1", "LLM02"]
+    },
+
+    {
+      "id": "agent-identity",
+      "tier": "acts",
+      "layer": "identity-data",
+      "phase": "foundational",
+      "objective": "Give every agent its own distinct identity",
+      "rationale": "If an agent acts using a shared service account, you cannot answer who did it, and non-repudiation collapses. Distinct agent identity is the precondition for every audit and incident story at this tier.",
+      "services": {
+        "aws": "Amazon Bedrock AgentCore Identity",
+        "azure": "Microsoft Entra Agent ID",
+        "gcp": "A dedicated service account per agent, managed through Cloud IAM"
+      },
+      "refs": ["GOVERN 1", "MEASURE 1", "LLM06"]
+    },
+    {
+      "id": "agent-delegation-model",
+      "tier": "acts",
+      "layer": "identity-data",
+      "phase": "foundational",
+      "objective": "Decide explicitly whether the agent acts autonomously or on behalf of a user",
+      "rationale": "These are different risk models and the choice is usually made implicitly by a developer. An agent holding its own standing credentials while appearing to act for a user is a confused deputy, and it is privilege escalation by design rather than by bug.",
+      "services": {
+        "aws": "AgentCore Identity outbound authentication, on-behalf-of or autonomous, via OAuth or API keys",
+        "azure": "Entra Agent ID with on-behalf-of flows for user-delegated actions",
+        "gcp": "Service account impersonation versus end-user credentials, decided per action"
+      },
+      "refs": ["LLM06", "MANAGE 2", "GOVERN 1"]
+    },
+    {
+      "id": "agent-least-privilege",
+      "tier": "acts",
+      "layer": "identity-data",
+      "phase": "foundational",
+      "objective": "Scope each agent to the minimum tool set and data it needs",
+      "rationale": "Excessive agency is the OWASP failure mode here. Agents accumulate permissions because it is easier to grant broadly once than to scope per task, and the blast radius grows quietly.",
+      "services": {
+        "aws": "Least-privilege IAM roles per agent, reviewed with IAM Access Analyzer",
+        "azure": "Azure RBAC per agent identity, reviewed with Entra access reviews",
+        "gcp": "Per-agent IAM roles reviewed with Policy Analyzer and Recommender"
+      },
+      "refs": ["LLM06", "MANAGE 2"]
+    },
+    {
+      "id": "agent-memory-governance",
+      "tier": "acts",
+      "layer": "identity-data",
+      "phase": "enhanced",
+      "objective": "Classify and set retention on agent memory",
+      "rationale": "Agent memory is a data store that nobody classified. It accumulates enterprise content, persists across sessions, and is almost never covered by a retention schedule or a deletion request process.",
+      "services": {
+        "aws": "AgentCore Memory, including the self-managed strategy for extraction and consolidation",
+        "azure": "Agent thread and state storage governed under Purview",
+        "gcp": "Agent session and state storage with defined retention in the backing store"
+      },
+      "refs": ["MAP 2", "GOVERN 4", "LLM02"]
+    },
+    {
+      "id": "agent-tool-gateway",
+      "tier": "acts",
+      "layer": "application",
+      "phase": "foundational",
+      "objective": "Route every tool call through one authorization choke point",
+      "rationale": "Tools are the agent's hands. If each integration authorizes itself, there is no place to enforce policy, no single log, and no way to revoke a capability across every agent at once.",
+      "services": {
+        "aws": "Amazon Bedrock AgentCore Gateway, with IAM authorization and MCP support",
+        "azure": "Microsoft Foundry Agent Service tool and connector governance",
+        "gcp": "Gemini Enterprise Agent Platform tool configuration with Model Armor inspection"
+      },
+      "refs": ["LLM06", "MANAGE 2"]
+    },
+    {
+      "id": "agent-tool-inventory",
+      "tier": "acts",
+      "layer": "application",
+      "phase": "enhanced",
+      "objective": "Maintain a tool inventory and treat it as attack surface",
+      "rationale": "Every tool an agent can reach is an action it can take, which makes the tool catalogue the agentic equivalent of an asset inventory. Tool descriptions are also an injection surface, since the agent reads them as instructions.",
+      "services": {
+        "aws": "AgentCore Gateway target inventory reviewed against Security Hub AI inventory",
+        "azure": "Foundry connector and tool inventory with Defender for Cloud posture findings",
+        "gcp": "Agent tool registry reviewed in Security Command Center AI Protection"
+      },
+      "refs": ["LLM03", "MAP 1", "LLM06"]
+    },
+    {
+      "id": "agent-human-gate",
+      "tier": "acts",
+      "layer": "application",
+      "phase": "foundational",
+      "objective": "Require a human approval gate on high-consequence actions",
+      "rationale": "This is use case risk tiering applied to actions rather than applications. Low-consequence and reversible actions run autonomously; irreversible, financial or rights-affecting ones stop for a human. Deciding this per action is the whole governance model.",
+      "services": {
+        "aws": "Approval step in the agent workflow, enforced outside the model in the calling application",
+        "azure": "Human-in-the-loop approval in the agent workflow or Logic Apps orchestration",
+        "gcp": "Approval step enforced in the orchestrating application, outside the agent"
+      },
+      "refs": ["GOVERN 2", "MANAGE 4", "LLM06"]
+    },
+    {
+      "id": "agent-sandbox",
+      "tier": "acts",
+      "layer": "application",
+      "phase": "enhanced",
+      "objective": "Sandbox code execution and browsing away from production",
+      "rationale": "An agent that can run code or browse is executing untrusted, model-generated instructions. That belongs in an isolated runtime with no standing credentials to anything that matters.",
+      "services": {
+        "aws": "AgentCore Code Interpreter and AgentCore Browser",
+        "azure": "Microsoft Foundry sandboxed code interpreter",
+        "gcp": "Sandboxed code execution in the agent runtime, isolated from production projects"
+      },
+      "refs": ["LLM05", "MANAGE 1"]
+    },
+    {
+      "id": "agent-blast-radius",
+      "tier": "acts",
+      "layer": "application",
+      "phase": "enhanced",
+      "objective": "Bound the blast radius of any single agent run",
+      "rationale": "Autonomy plus a loop is how a small error becomes a large one. Rate limits, transaction caps and a defined reversal path turn an incident into an inconvenience.",
+      "services": {
+        "aws": "Rate and concurrency limits on the agent runtime, with per-action transaction caps in the tool layer",
+        "azure": "Throughput limits on the agent deployment with caps enforced in the connector layer",
+        "gcp": "Quotas on the agent platform with caps enforced in the tool implementation"
+      },
+      "refs": ["LLM10", "LLM06", "MANAGE 4"]
+    },
+    {
+      "id": "agent-traces-as-evidence",
+      "tier": "acts",
+      "layer": "application",
+      "phase": "enhanced",
+      "objective": "Treat end-to-end agent traces as audit evidence, not just ops telemetry",
+      "rationale": "When a regulator or a customer asks what the agent did and why, the answer is a trace: the prompt, the tools called, the arguments, the results, the decision. If that is sampled or short-retention, you cannot answer.",
+      "services": {
+        "aws": "AgentCore Observability, CloudWatch-backed and OTEL compatible",
+        "azure": "Azure Monitor and Application Insights tracing on the agent service",
+        "gcp": "Cloud Trace and Cloud Logging across the agent execution path"
+      },
+      "refs": ["MEASURE 1", "GOVERN 4"]
+    },
+    {
+      "id": "agent-threat-detection",
+      "tier": "acts",
+      "layer": "application",
+      "phase": "advanced",
+      "objective": "Detect agentic threats specifically, including tool poisoning and chained abuse",
+      "rationale": "Agentic attacks look legitimate at every individual step. The signal is in the sequence, which means detection has to understand agent behavior rather than only API calls.",
+      "services": {
+        "aws": "GuardDuty AI Protection with AI-powered investigations and MITRE ATT&CK mapping",
+        "azure": "Microsoft Defender for Cloud AI threat protection with Foundry runtime alerts",
+        "gcp": "AI Protection in Security Command Center, agentic threat detection with Model Armor"
+      },
+      "refs": ["MEASURE 2", "MANAGE 4", "LLM03"]
+    },
+    {
+      "id": "agent-runtime-isolation",
+      "tier": "acts",
+      "layer": "infrastructure",
+      "phase": "enhanced",
+      "objective": "Isolate the agent runtime from systems it has no business reaching",
+      "rationale": "Network reachability is a permission you did not write down. An agent runtime sitting in a flat production network can reach far more than its IAM policy suggests.",
+      "services": {
+        "aws": "Dedicated VPC and security groups for the agent runtime, egress controlled",
+        "azure": "Network isolation for the agent service with private endpoints and egress control",
+        "gcp": "Dedicated project and VPC Service Controls perimeter for the agent runtime"
+      },
+      "refs": ["MANAGE 1", "LLM06"]
+    },
+    {
+      "id": "agent-kill-switch",
+      "tier": "acts",
+      "layer": "infrastructure",
+      "phase": "advanced",
+      "objective": "Be able to stop every agent quickly, and know who can do it",
+      "rationale": "The question is not whether an agent will misbehave, it is how long it runs before someone stops it. A tested stop path with a named owner is the difference between minutes and a weekend.",
+      "services": {
+        "aws": "Disable the agent identity and revoke gateway targets, rehearsed as a runbook",
+        "azure": "Disable the Entra Agent ID and the agent deployment, rehearsed as a runbook",
+        "gcp": "Disable the agent service account and platform deployment, rehearsed as a runbook"
+      },
+      "refs": ["MANAGE 4", "GOVERN 2"]
+    }
+  ]
+}
