@@ -1,7 +1,7 @@
 {
   "meta": {
     "title": "AI Workload Control Mapper",
-    "version": "1.0.1",
+    "version": "1.1.0",
     "servicesVerified": "10 August 2026",
     "note": "Provider-neutral control objectives for AI workloads, each mapped to the closest native service on AWS, Azure and Google Cloud. Guidance to adapt, not an audit, and not a substitute for provider documentation. Cloud services are renamed and reshuffled often, and two of the three clouds renamed their whole AI platform in the last year: Azure AI Foundry became Microsoft Foundry in January 2026, and Vertex AI became the Gemini Enterprise Agent Platform in April 2026. This tool uses the current names. Treat the objective as durable and verify the service name before you put it in a client deliverable.",
     "sources": [
@@ -31,7 +31,7 @@
       "id": "connects",
       "order": 1,
       "name": "AI that connects",
-      "hint": "The model reaches your enterprise data, usually through retrieval (RAG).",
+      "hint": "The model reaches your enterprise data, through retrieval (RAG) or fine-tuning.",
       "example": "A policy assistant grounded in your intranet, a search layer over contracts or tickets."
     },
     {
@@ -82,6 +82,20 @@
       "refs": ["MANAGE 1"]
     },
     {
+      "id": "ir-model-rollback",
+      "tier": "answers",
+      "layer": "infrastructure",
+      "phase": "enhanced",
+      "objective": "Be able to roll back to a known-good model and filter configuration",
+      "rationale": "Model behavior changes when the version changes, and filter changes are easy to get wrong under pressure. If you cannot name the pair you were running yesterday and put it back, your only recovery option is to turn the feature off.",
+      "services": {
+        "aws": "Pinned Bedrock model IDs and numbered Guardrails versions, so you can repoint to the previous pair",
+        "azure": "Pinned Foundry model deployment versions and a saved guardrail configuration, so you can repoint to the previous pair",
+        "gcp": "Pinned model versions and a saved Model Armor template configuration, so you can repoint to the previous pair"
+      },
+      "refs": ["MANAGE 4", "AML.TA0011", "Clause 10"]
+    },
+    {
       "id": "iam-model-access",
       "tier": "answers",
       "layer": "identity-data",
@@ -94,6 +108,48 @@
         "gcp": "Cloud IAM on the Gemini Enterprise Agent Platform, per principal and project; endpoint-level IAM is not supported"
       },
       "refs": ["GOVERN 1", "MANAGE 2", "LLM06", "AML.TA0000"]
+    },
+    {
+      "id": "sup-approved-models",
+      "tier": "answers",
+      "layer": "identity-data",
+      "phase": "foundational",
+      "objective": "Restrict the models that may be used at all to an approved list",
+      "rationale": "Authorizing principals answers who may call the platform; it does not answer which models they may reach. Those are different questions on all three clouds and they are enforced by different machinery, which is why teams think they have solved this when they have only solved half of it.",
+      "services": {
+        "aws": "Service control policies and IAM conditions limiting bedrock:InvokeModel to approved model ARNs",
+        "azure": "Azure Policy: Foundry model deployments should only use approved models",
+        "gcp": "The vertexai.allowedModels organization policy over Model Garden, set at org, folder or project"
+      },
+      "refs": ["GOVERN 1", "MAP 4", "AML.TA0000", "Clause 8"]
+    },
+    {
+      "id": "sup-model-provenance",
+      "tier": "answers",
+      "layer": "identity-data",
+      "phase": "enhanced",
+      "objective": "Pin the model version and know when it is about to change underneath you",
+      "rationale": "Pointing at a floating alias means the model can change without a deployment, which quietly invalidates every evaluation you ran and every prompt you tuned. Retirement dates arrive whether or not anyone is watching the release notes.",
+      "services": {
+        "aws": "Explicit versioned Bedrock model IDs rather than floating aliases, tracked against model lifecycle notices",
+        "azure": "Pinned Foundry model deployment versions with manual version upgrades, tracked against the model retirement schedule",
+        "gcp": "Pinned model versions rather than latest aliases, tracked against the model version lifecycle and deprecation dates"
+      },
+      "refs": ["LLM03", "MAP 4", "AML.TA0004"]
+    },
+    {
+      "id": "sup-vendor-terms",
+      "tier": "answers",
+      "layer": "identity-data",
+      "phase": "foundational",
+      "objective": "Settle data handling terms with the model provider before the first real prompt",
+      "rationale": "Retention windows, training rights, human review of flagged content, and where inference physically happens are all decided by terms and settings rather than by anything you can see in the console. They are also the first four questions a regulated customer will ask, and the answers are hard to change after launch.",
+      "services": {
+        "aws": "Bedrock data protection terms, plus the model provider's own terms for third-party and marketplace models",
+        "azure": "Foundry data privacy terms, including abuse monitoring and the Limited Access review needed to opt out of human review",
+        "gcp": "Google Cloud generative AI terms, including the abuse-monitoring logging window and the project-level opt-out"
+      },
+      "refs": ["GOVERN 6", "MANAGE 3", "MAP 4", "AML.TA0004", "Clause 6"]
     },
     {
       "id": "data-cmk",
@@ -166,6 +222,34 @@
       "refs": ["LLM01", "MANAGE 2", "AML.TA0005"]
     },
     {
+      "id": "app-system-prompt-hygiene",
+      "tier": "answers",
+      "layer": "application",
+      "phase": "foundational",
+      "objective": "Assume the system prompt will leak, and keep secrets and access decisions out of it",
+      "rationale": "System prompts get extracted, and teams put things in them that were never meant to be read: API keys, connection strings, internal hostnames, and rules like which customers the assistant may discuss. A prompt is a suggestion to a model, not an access control, and treating it as one is how a text box becomes an authorization bypass.",
+      "services": {
+        "aws": "Secrets in AWS Secrets Manager resolved by the application, with authorization enforced in IAM rather than in prompt text",
+        "azure": "Secrets in Azure Key Vault resolved by the application, with authorization enforced in Entra ID and RBAC rather than in prompt text",
+        "gcp": "Secrets in Secret Manager resolved by the application, with authorization enforced in Cloud IAM rather than in prompt text"
+      },
+      "refs": ["LLM07", "LLM02", "MANAGE 2"]
+    },
+    {
+      "id": "app-output-handling",
+      "tier": "answers",
+      "layer": "application",
+      "phase": "foundational",
+      "objective": "Treat model output as untrusted input everywhere it lands",
+      "rationale": "The model writes markdown, HTML, SQL and shell that something downstream will render or run. An attacker who can influence the prompt can therefore reach your browser, your database and your terminal, and a rendered image tag pointing at an attacker's host is a working exfiltration channel. No cloud sells a product for this; it is encoding and validation in the code that consumes the output.",
+      "services": {
+        "aws": "Encoding and validation in the consuming application; AWS WAF only helps where the output crosses an HTTP boundary you own",
+        "azure": "Encoding and validation in the consuming application; Azure WAF only helps where the output crosses an HTTP boundary you own",
+        "gcp": "Encoding and validation in the consuming application; Cloud Armor only helps where the output crosses an HTTP boundary you own"
+      },
+      "refs": ["LLM05", "MANAGE 2", "AML.TA0010"]
+    },
+    {
       "id": "app-groundedness",
       "tier": "answers",
       "layer": "application",
@@ -180,6 +264,48 @@
       "refs": ["LLM09", "MEASURE 2"]
     },
     {
+      "id": "eval-pre-release",
+      "tier": "answers",
+      "layer": "application",
+      "phase": "enhanced",
+      "objective": "Evaluate the system against written acceptance criteria before it goes live",
+      "rationale": "Demos pass. A test set does not, and the difference between them is the first honest signal anyone gets about whether the thing works. Without a recorded baseline you also have nothing to compare against later, so every subsequent argument about whether quality regressed is a matter of opinion.",
+      "services": {
+        "aws": "Amazon Bedrock evaluations, including automatic, human and LLM-as-a-judge evaluation",
+        "azure": "Microsoft Foundry evaluations, run in the portal or through the Azure AI Evaluation SDK",
+        "gcp": "The gen AI evaluation service on the Gemini Enterprise Agent Platform"
+      },
+      "refs": ["MEASURE 2", "LLM09", "Clause 9"]
+    },
+    {
+      "id": "eval-red-team",
+      "tier": "answers",
+      "layer": "application",
+      "phase": "advanced",
+      "objective": "Adversarially test the system, not just functionally test it",
+      "rationale": "Evaluation asks whether the system does the right thing for a cooperative user. Red teaming asks what a hostile one can make it do, which is a different question with a different test set. Only Azure sells a managed service for this; on the other two clouds it is your own suite, which is worth knowing before you promise a board it is covered.",
+      "services": {
+        "aws": "Your own adversarial test suite, replayed against Bedrock Guardrails and scored with Bedrock evaluations",
+        "azure": "The Microsoft Foundry AI Red Teaming Agent, built on PyRIT, run before deployment and on a schedule after",
+        "gcp": "Your own adversarial test suite, replayed against your Model Armor templates"
+      },
+      "refs": ["MEASURE 2", "MANAGE 4", "AML.TA0001", "Clause 9"]
+    },
+    {
+      "id": "eval-post-change-retest",
+      "tier": "answers",
+      "layer": "application",
+      "phase": "advanced",
+      "objective": "Re-run the evaluation whenever the model version changes",
+      "rationale": "A model upgrade is a code change you did not write, shipped by someone else, on their schedule. Behavior moves, refusals move, and formatting moves, and the failures show up in production because nobody treated the version bump as a release.",
+      "services": {
+        "aws": "Re-run Bedrock evaluations against the new model ID before repointing, with the previous ID still pinned",
+        "azure": "Re-run Foundry evaluations before accepting a model version upgrade, with the deployment set to manual updates",
+        "gcp": "Re-run gen AI evaluations against the new model version before repointing traffic"
+      },
+      "refs": ["MEASURE 3", "MANAGE 4", "Clause 10"]
+    },
+    {
       "id": "app-ai-threat-detection",
       "tier": "answers",
       "layer": "application",
@@ -192,6 +318,20 @@
         "gcp": "AI Protection in Security Command Center"
       },
       "refs": ["MEASURE 2", "MANAGE 4"]
+    },
+    {
+      "id": "ir-ai-playbook",
+      "tier": "answers",
+      "layer": "application",
+      "phase": "enhanced",
+      "objective": "Write the incident playbook for AI-specific failures before you need it",
+      "rationale": "The AI incidents are not the ones your runbooks cover. A model that started saying something it should not, a corpus that turned out to be readable by the wrong people, an injection that reached a real system: each has a different containment step, and the first question in all of them is which logs exist. Answer that on a quiet afternoon.",
+      "services": {
+        "aws": "Extend your existing IR runbooks; the AI evidence is Bedrock invocation logs, Guardrails traces and GuardDuty AI Protection findings",
+        "azure": "Extend your existing IR runbooks; the AI evidence is Foundry tracing, guardrail annotations and Defender for Cloud AI alerts",
+        "gcp": "Extend your existing IR runbooks; the AI evidence is request-response logs in BigQuery, Model Armor findings and Security Command Center AI Protection findings"
+      },
+      "refs": ["MANAGE 4", "GOVERN 4", "Clause 10"]
     },
     {
       "id": "gov-ai-inventory",
@@ -293,6 +433,48 @@
       "refs": ["LLM04", "LLM08", "MEASURE 2", "AML.TA0006"]
     },
     {
+      "id": "rag-retraction",
+      "tier": "connects",
+      "layer": "identity-data",
+      "phase": "advanced",
+      "objective": "Be able to remove a document from the index and from everything downstream of it",
+      "rationale": "Deletion requests, mistaken uploads and depublished documents all end with someone asking whether the assistant can still see it. Deleting the source file is the easy part; the index, the cached answers and any conversation history that quoted it are the part people forget, and they are the part that still answers the question.",
+      "services": {
+        "aws": "Delete at the source, re-sync the knowledge base, and clear cached responses and stored sessions",
+        "azure": "Delete at the source, run the indexer, and clear cached responses and stored threads",
+        "gcp": "Delete at the source, re-sync the Agent Search data store, and clear cached responses and stored sessions"
+      },
+      "refs": ["GOVERN 4", "LLM02", "Clause 8"]
+    },
+    {
+      "id": "ft-tuning-data-governance",
+      "tier": "connects",
+      "layer": "identity-data",
+      "phase": "enhanced",
+      "objective": "Govern the data you fine-tune on the way you govern production data",
+      "rationale": "Tuning corpora get assembled by whoever is closest to the model, often as a one-off export into a scratch bucket, and then they sit there. It is the same enterprise data as everything else, with none of the classification, access review or retention that the source system had.",
+      "services": {
+        "aws": "Tuning data in S3 under Lake Formation and Macie, read by Bedrock custom model jobs from a governed bucket",
+        "azure": "Tuning data in governed storage classified with Microsoft Purview, read by Foundry fine-tuning jobs",
+        "gcp": "Tuning data in Cloud Storage or BigQuery under Knowledge Catalog, with Sensitive Data Protection discovery over tuning jobs"
+      },
+      "refs": ["LLM04", "MAP 2", "AML.TA0003"]
+    },
+    {
+      "id": "ft-model-is-data",
+      "tier": "connects",
+      "layer": "identity-data",
+      "phase": "enhanced",
+      "objective": "Classify a fine-tuned model at the sensitivity of the data it was trained on",
+      "rationale": "A tuned model is a lossy copy of its training set, and it can be prompted into reproducing pieces of it. Teams treat the resulting artifact as a build output and share it accordingly, which quietly hands the training data to everyone who can call the model.",
+      "services": {
+        "aws": "Custom model artifacts encrypted with a KMS key and IAM-restricted to the same audience as the training data",
+        "azure": "Fine-tuned model weights encrypted with a customer-managed key and RBAC-restricted to the same audience as the training data",
+        "gcp": "Tuned model artifacts CMEK-encrypted and IAM-restricted to the same audience as the training data"
+      },
+      "refs": ["LLM02", "LLM04", "MAP 2", "AML.TA0010"]
+    },
+    {
       "id": "rag-redaction",
       "tier": "connects",
       "layer": "application",
@@ -305,6 +487,20 @@
         "gcp": "Model Armor in advanced sensitive data protection mode with a de-identify template, which does not apply to streaming responses"
       },
       "refs": ["LLM02", "MANAGE 4", "AML.TA0010"]
+    },
+    {
+      "id": "rag-instruction-data-separation",
+      "tier": "connects",
+      "layer": "application",
+      "phase": "enhanced",
+      "objective": "Mark retrieved content as data so the model does not read it as instructions",
+      "rationale": "Retrieval hands the model text written by whoever wrote the document, and a document can contain instructions. This is indirect prompt injection, and it is the specific reason a RAG assistant is more dangerous than the same model without it: the attacker never has to talk to your users.",
+      "services": {
+        "aws": "Prompt structure that fences retrieved chunks, with Bedrock Guardrails applied to the retrieved content as well as the user turn",
+        "azure": "Foundry spotlighting (preview), which marks untrusted retrieved content so the model treats it as data",
+        "gcp": "Prompt structure that fences retrieved chunks, with Model Armor screening documents before they reach the model"
+      },
+      "refs": ["LLM01", "MANAGE 2", "AML.TA0006"]
     },
     {
       "id": "rag-log-retrieval",
@@ -418,6 +614,20 @@
         "gcp": "Agent Registry as the catalogue of agents, MCP servers, tools and skills, surfaced in Security Command Center"
       },
       "refs": ["LLM03", "MAP 1", "LLM06", "AML.TA0006"]
+    },
+    {
+      "id": "agent-tool-supply-chain",
+      "tier": "acts",
+      "layer": "application",
+      "phase": "enhanced",
+      "objective": "Vet MCP servers and tools as third-party code, with a standing path for updates",
+      "rationale": "An MCP server is someone else's code holding your credentials and describing itself to your agent in natural language. It can also change after you approved it, which is the rug pull the supply chain item on the OWASP list is describing. Reviewing it once at onboarding is not a control.",
+      "services": {
+        "aws": "AgentCore Gateway targets restricted to reviewed MCP servers, with the gateway as the only path to them",
+        "azure": "Azure API Management as the MCP gateway, with reviewed servers behind it and changes re-reviewed",
+        "gcp": "Agent Registry as the approved catalogue of MCP servers and tools, enforced at the Agent Gateway"
+      },
+      "refs": ["LLM03", "MANAGE 3", "AML.TA0004", "AML.TA0006"]
     },
     {
       "id": "agent-human-gate",
