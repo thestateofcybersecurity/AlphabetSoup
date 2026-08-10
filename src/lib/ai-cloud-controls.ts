@@ -30,7 +30,14 @@ export interface Named<T extends string> {
 }
 
 export interface AiCloudControlsData {
-  meta: { title: string; version: string; note: string; sources: { name: string; url: string }[] };
+  meta: {
+    title: string;
+    version: string;
+    note: string;
+    /** ISO date the provider service names were last checked against vendor docs. */
+    servicesVerified: string;
+    sources: { name: string; url: string }[];
+  };
   providers: { id: ProviderId; name: string }[];
   tiers: (Named<TierId> & { example: string })[];
   layers: Named<LayerId>[];
@@ -132,6 +139,64 @@ export function referencedFrameworks(data: AiCloudControlsData, selection: Selec
     for (const ref of control.refs) seen.add(ref);
   }
   return [...seen].sort((a, b) => a.localeCompare(b, 'en', { numeric: true }));
+}
+
+// --------------------------- framework references ---------------------------
+
+/**
+ * Every ref code in the dataset is an identifier the site already publishes on
+ * /frameworks/ai/, so a ref chip can deep-link straight to its plain-English
+ * translation. The shapes below are the four vocabularies that page carries:
+ * NIST AI RMF functions, the OWASP LLM Top 10, MITRE ATLAS tactics, and the
+ * ISO/IEC 42001 clauses. tests/ai-cloud-controls.test.ts checks each ref
+ * against ai-frameworks.json so a typo or an invented identifier cannot ship.
+ */
+export type RefFrameworkId = 'AIRMF' | 'OWASP-LLM' | 'ATLAS' | 'ISO42001';
+
+export interface RefFramework {
+  id: RefFrameworkId;
+  /** Short label for a chip title, e.g. "NIST AI RMF". */
+  name: string;
+  order: number;
+}
+
+const REF_FRAMEWORKS: { framework: RefFramework; pattern: RegExp }[] = [
+  { framework: { id: 'AIRMF', name: 'NIST AI RMF', order: 0 }, pattern: /^(GOVERN|MAP|MEASURE|MANAGE) \d+$/ },
+  { framework: { id: 'OWASP-LLM', name: 'OWASP Top 10 for LLMs', order: 1 }, pattern: /^LLM\d{2}$/ },
+  { framework: { id: 'ATLAS', name: 'MITRE ATLAS', order: 2 }, pattern: /^AML\.TA\d{4}$/ },
+  { framework: { id: 'ISO42001', name: 'ISO/IEC 42001', order: 3 }, pattern: /^(Clause \d+|Annex A)$/ },
+];
+
+/** Which of the four AI frameworks a ref code belongs to, or null if it fits none. */
+export function refFramework(code: string): RefFramework | null {
+  return REF_FRAMEWORKS.find((entry) => entry.pattern.test(code))?.framework ?? null;
+}
+
+export interface RefGroup {
+  framework: RefFramework;
+  codes: string[];
+}
+
+/**
+ * The in-scope references grouped by framework, in framework order and then by
+ * code. Sorting the four vocabularies into one flat list reads as noise, since
+ * "AML.TA0010" and "Clause 6" and "LLM01" have nothing to sort against.
+ */
+export function referenceGroups(data: AiCloudControlsData, selection: Selection): RefGroup[] {
+  const byFramework = new Map<RefFrameworkId, RefGroup>();
+  for (const code of referencedFrameworks(data, selection)) {
+    const framework = refFramework(code);
+    if (!framework) continue;
+    const group = byFramework.get(framework.id) ?? { framework, codes: [] };
+    group.codes.push(code);
+    byFramework.set(framework.id, group);
+  }
+  return [...byFramework.values()]
+    .sort((a, b) => a.framework.order - b.framework.order)
+    .map((group) => ({
+      framework: group.framework,
+      codes: [...group.codes].sort((a, b) => a.localeCompare(b, 'en', { numeric: true })),
+    }));
 }
 
 /** Resolve a control to the native service for the selected provider. */

@@ -107,3 +107,50 @@ test('is reachable from the tools index', async ({ page }) => {
   await link.click();
   await expect(page.locator('h1')).toContainText('control mapper');
 });
+
+test('every reference chip deep-links into the framework translation it names', async ({ page }) => {
+  await page.goto(URL);
+  await page.locator('input[name="tier"][value="acts"]').click();
+
+  const chips = page.locator('.ac-list .ac-ref');
+  const count = await chips.count();
+  expect(count).toBeGreaterThan(50);
+
+  // Sample the four vocabularies rather than all of them: the unit test already
+  // proves every code is published, this proves the link shape is right.
+  const seen = new Set<string>();
+  for (let i = 0; i < count; i++) {
+    const chip = chips.nth(i);
+    const code = (await chip.innerText()).trim();
+    if (seen.has(code)) continue;
+    seen.add(code);
+    await expect(chip).toHaveAttribute('href', `../../frameworks/ai/?q=${encodeURIComponent(code)}`);
+  }
+  expect([...seen].some((code) => code.startsWith('AML.TA'))).toBe(true);
+  expect([...seen].some((code) => code.startsWith('Clause'))).toBe(true);
+});
+
+test('a reference chip lands on the matching entry in the framework page', async ({ page }) => {
+  await page.goto(URL);
+  await page.locator('input[name="tier"][value="acts"]').click();
+  const chip = page.locator('.ac-list .ac-ref', { hasText: 'AML.TA' }).first();
+  const code = (await chip.innerText()).trim();
+  await chip.click();
+  await expect(page).toHaveURL(new RegExp(`frameworks/ai/\\?q=${code.replace('.', '\\.')}`));
+  await expect(page.locator('#search')).toHaveValue(code);
+  await expect(page.locator('.results')).toContainText(code);
+});
+
+test('the results section is a properly nested heading level', async ({ page }) => {
+  await page.goto(URL);
+  // h1 in the hero, h2 naming the results, h3 per layer. No skipped level.
+  await expect(page.locator('main h2#result-head')).toBeVisible();
+  const levels = await page.evaluate(() =>
+    [...document.querySelectorAll('h1, h2, h3')].map((el) => Number(el.tagName[1])),
+  );
+  expect(levels[0]).toBe(1);
+  for (let i = 1; i < levels.length; i++) {
+    expect(levels[i] - levels[i - 1]).toBeLessThanOrEqual(1);
+  }
+});
+

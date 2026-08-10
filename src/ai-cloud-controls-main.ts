@@ -1,6 +1,6 @@
 import dataRaw from './data/ai-cloud-controls.json';
 import type { AiCloudControlsData, Control, PhaseId, ProviderId, Selection, TierId } from './lib/ai-cloud-controls';
-import { controlsCsv, groupByLayer, referencedFrameworks, selectedControls, serviceFor, tierBreakdown } from './lib/ai-cloud-controls';
+import { controlsCsv, groupByLayer, refFramework, referenceGroups, selectedControls, serviceFor, tierBreakdown } from './lib/ai-cloud-controls';
 
 const data = dataRaw as AiCloudControlsData;
 
@@ -109,10 +109,23 @@ function renderIntake(): void {
     </fieldset>`;
 }
 
-function controlHtml(control: Control): string {
-  const refs = control.refs
-    .map((r) => `<a class="ac-ref" href="../../frameworks/ai/" title="See ${esc(r)} in plain English">${esc(r)}</a>`)
+/**
+ * Ref chips deep-link into the plain-English translation of that identifier on
+ * /frameworks/ai/, the same way the AI risk tiering tool does. The title names
+ * the framework, because "Clause 6" and "AML.TA0010" mean nothing on their own.
+ */
+function refChips(codes: string[]): string {
+  return codes
+    .map((code) => {
+      const framework = refFramework(code);
+      const title = framework ? `${framework.name} ${code}, in plain English` : `See ${code} in plain English`;
+      return `<a class="ac-ref" href="../../frameworks/ai/?q=${encodeURIComponent(code)}" title="${esc(title)}">${esc(code)}</a>`;
+    })
     .join('');
+}
+
+function controlHtml(control: Control): string {
+  const refs = refChips(control.refs);
   const checked = done.has(control.id);
   return `<li class="ac-control${checked ? ' is-done' : ''}" data-control="${control.id}">
     <label class="ac-control-head">
@@ -159,7 +172,7 @@ function renderResult(): void {
     )
     .join('');
 
-  const frameworks = referencedFrameworks(data, sel);
+  const groupedRefs = referenceGroups(data, sel);
 
   $('#result').innerHTML = `
     <div class="ac-summary">
@@ -167,7 +180,13 @@ function renderResult(): void {
       <ul class="ac-breakdown">${summary}</ul>
     </div>
     ${groupsHtml}
-    <p class="ac-frameworks">Mapped to ${frameworks.length} framework references: ${frameworks.map((f) => esc(f)).join(', ')}.</p>
+    <div class="ac-frameworks">
+      <p class="ac-frameworks-head">Mapped to ${groupedRefs.reduce((sum, g) => sum + g.codes.length, 0)} references across ${groupedRefs.length} frameworks:</p>
+      <ul class="ac-frameworks-list">${groupedRefs
+        .map((group) => `<li><span class="ac-ref-framework">${esc(group.framework.name)}</span> ${refChips(group.codes)}</li>`)
+        .join('')}</ul>
+      <p class="ac-verified">Provider service names checked against vendor documentation on ${esc(data.meta.servicesVerified)}. Treat the objective as durable and re-check the service before you ship it.</p>
+    </div>
     <div class="ac-actions print-hide">
       <button type="button" class="ac-btn ac-btn-primary" id="export-csv">Export as CSV</button>
       <button type="button" class="ac-btn" id="print">Print</button>
@@ -232,6 +251,16 @@ function bind(): void {
   });
 }
 
+// The hero advertises the size of the catalogue, so it comes from the data
+// rather than from a number in the markup that goes stale on the next commit.
+function renderCounts(): void {
+  const controls = document.getElementById('control-count');
+  if (controls) controls.textContent = String(data.controls.length);
+  const clouds = document.getElementById('cloud-count');
+  if (clouds) clouds.textContent = String(data.providers.length);
+}
+
+renderCounts();
 restore();
 render();
 bind();

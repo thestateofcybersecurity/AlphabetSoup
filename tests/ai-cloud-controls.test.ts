@@ -1,6 +1,8 @@
 import { describe, expect, it } from 'vitest';
+import aiFrameworksRaw from '../src/data/ai-frameworks.json';
 import dataRaw from '../src/data/ai-cloud-controls.json';
-import type { AiCloudControlsData, PhaseId, ProviderId, Selection, TierId } from '../src/lib/ai-cloud-controls';
+import type { AiData } from '../src/lib/frameworks';
+import type { AiCloudControlsData, PhaseId, ProviderId, RefFrameworkId, Selection, TierId } from '../src/lib/ai-cloud-controls';
 import {
   LAYER_ORDER,
   PHASE_ORDER,
@@ -8,6 +10,7 @@ import {
   controlsCsv,
   groupByLayer,
   referencedFrameworks,
+  refFramework,
   selectedControls,
   serviceFor,
   tierApplies,
@@ -15,6 +18,7 @@ import {
 } from '../src/lib/ai-cloud-controls';
 
 const data = dataRaw as AiCloudControlsData;
+const aiFrameworks = aiFrameworksRaw as AiData;
 const providers: ProviderId[] = ['aws', 'azure', 'gcp'];
 
 function sel(tier: TierId, provider: ProviderId = 'aws', phases: PhaseId[] = []): Selection {
@@ -52,13 +56,64 @@ describe('dataset integrity', () => {
     }
   });
 
-  it('uses framework references in the site-wide format', () => {
-    const pattern = /^(LLM\d{2}|(GOVERN|MAP|MEASURE|MANAGE) \d+)$/;
+  it('uses only reference codes the site actually publishes', () => {
+    // Stronger than a format regex, which let "GOVERN 99" through and could not
+    // catch an invented ATLAS tactic or ISO clause. Every ref chip deep-links to
+    // /frameworks/ai/?q=<code>, so a code that is not in ai-frameworks.json is a
+    // link to an empty search result.
+    const published = new Set(aiFrameworks.map((entry) => entry.code));
     for (const control of data.controls) {
       for (const ref of control.refs) {
-        expect(ref, `${control.id} has an off-format ref: ${ref}`).toMatch(pattern);
+        expect(published.has(ref), `${control.id} cites ${ref}, which /frameworks/ai/ does not publish`).toBe(true);
       }
     }
+  });
+
+  it('classifies every ref to the same framework ai-frameworks.json assigns it', () => {
+    const byCode = new Map(aiFrameworks.map((entry) => [entry.code, entry.frameworkCode]));
+    for (const control of data.controls) {
+      for (const ref of control.refs) {
+        const classified = refFramework(ref);
+        expect(classified, `${control.id} cites ${ref}, which refFramework does not recognise`).not.toBeNull();
+        expect(classified?.id, `${ref} classified as ${classified?.id}`).toBe(byCode.get(ref));
+      }
+    }
+  });
+
+  it('cites no source it does not use', () => {
+    // The defect this test exists for: meta.sources listed MITRE ATLAS and
+    // ISO/IEC 42001 while no control referenced either, so the tool claimed a
+    // grounding it did not have.
+    const sourceFor: Record<RefFrameworkId, string> = {
+      AIRMF: 'NIST AI Risk Management Framework',
+      'OWASP-LLM': 'OWASP Top 10 for LLM Applications',
+      ATLAS: 'MITRE ATLAS',
+      ISO42001: 'ISO/IEC 42001',
+    };
+    const used = new Set(
+      data.controls.flatMap((control) => control.refs.map((ref) => refFramework(ref)?.id)).filter(Boolean),
+    );
+    for (const [framework, sourceName] of Object.entries(sourceFor)) {
+      const cited = data.meta.sources.some((source) => source.name === sourceName);
+      expect(cited, `${sourceName} is used by a control but missing from meta.sources`).toBe(used.has(framework as RefFrameworkId));
+      expect(used.has(framework as RefFrameworkId), `${sourceName} is cited as a source but no control references it`).toBe(cited);
+    }
+  });
+
+  it('records when the provider service names were last verified', () => {
+    expect(data.meta.servicesVerified).toMatch(/^\d{1,2} [A-Z][a-z]+ \d{4}$/);
+  });
+
+  it('uses no em dashes anywhere in the authored copy', () => {
+    const prose = [
+      data.meta.note,
+      ...data.controls.flatMap((c) => [c.objective, c.rationale, ...Object.values(c.services)]),
+      ...data.tiers.flatMap((t) => [t.name, t.hint, t.example]),
+      ...data.layers.flatMap((l) => [l.name, l.hint]),
+      ...data.phases.flatMap((p) => [p.name, p.hint]),
+    ].join(' ');
+    // Escaped rather than literal so this file stays free of the character too.
+    expect(prose).not.toMatch(/\u2014/);
   });
 
   it('covers every tier and every layer', () => {

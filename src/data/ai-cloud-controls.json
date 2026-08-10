@@ -65,7 +65,7 @@
         "azure": "Private endpoints and Azure Private Link on the Microsoft Foundry resource",
         "gcp": "VPC Service Controls perimeter around the Gemini Enterprise Agent Platform, plus Private Service Connect"
       },
-      "refs": ["MANAGE 1", "LLM02"]
+      "refs": ["MANAGE 1", "LLM02", "AML.TA0000"]
     },
     {
       "id": "net-isolated-compute",
@@ -93,7 +93,7 @@
         "azure": "Microsoft Entra ID with Azure RBAC on the Foundry resource or project, and disableLocalAuth so API keys cannot bypass it",
         "gcp": "Cloud IAM on the Gemini Enterprise Agent Platform, per principal and project; endpoint-level IAM is not supported"
       },
-      "refs": ["GOVERN 1", "MANAGE 2", "LLM06"]
+      "refs": ["GOVERN 1", "MANAGE 2", "LLM06", "AML.TA0000"]
     },
     {
       "id": "data-cmk",
@@ -121,7 +121,7 @@
         "azure": "Azure Monitor diagnostic settings for metadata, plus Azure API Management AI gateway LLM logging to capture prompt and completion content",
         "gcp": "Request-response logging to BigQuery with the sampling rate pinned at 1.0, plus Cloud Audit Logs for the control plane"
       },
-      "refs": ["MEASURE 1", "GOVERN 4"]
+      "refs": ["MEASURE 1", "GOVERN 4", "Clause 9"]
     },
     {
       "id": "cost-ceiling",
@@ -135,7 +135,7 @@
         "azure": "Tokens-per-minute quotas and Foundry AI gateway token limits to enforce, with Cost Management budget alerts to notify",
         "gcp": "Platform quotas and Cloud Billing spend cap budgets to enforce, with budget alerts to notify"
       },
-      "refs": ["LLM10", "MEASURE 2"]
+      "refs": ["LLM10", "MEASURE 2", "AML.TA0011"]
     },
     {
       "id": "app-content-filter",
@@ -149,7 +149,7 @@
         "azure": "Microsoft Foundry guardrails and controls, using Azure AI Content Safety classifiers; no general denied-topics equivalent",
         "gcp": "Model Armor responsible AI, sensitive data protection, prompt injection and malicious URI filters; no denied-topics equivalent"
       },
-      "refs": ["LLM02", "MANAGE 4"]
+      "refs": ["LLM02", "MANAGE 4", "AML.TA0010"]
     },
     {
       "id": "app-prompt-injection",
@@ -163,7 +163,7 @@
         "azure": "Foundry guardrails for user prompt attacks and indirect attacks, built on Content Safety Prompt Shields",
         "gcp": "Model Armor prompt injection and jailbreak detection filter"
       },
-      "refs": ["LLM01", "MANAGE 2"]
+      "refs": ["LLM01", "MANAGE 2", "AML.TA0005"]
     },
     {
       "id": "app-groundedness",
@@ -219,7 +219,7 @@
         "azure": "Microsoft Defender for Cloud Apps discovery, using its generative AI app category, with Microsoft Purview DSPM",
         "gcp": "Proxy and CASB telemetry outside the AI stack, reconciled against the Security Command Center AI inventory"
       },
-      "refs": ["MAP 1", "GOVERN 3"]
+      "refs": ["MAP 1", "GOVERN 3", "Clause 5"]
     },
 
     {
@@ -234,7 +234,7 @@
         "azure": "Microsoft Purview sensitivity labels, which Azure AI Search can carry into the index and enforce at query time (preview)",
         "gcp": "Sensitive Data Protection discovery over the Cloud Storage and BigQuery sources that feed the data store"
       },
-      "refs": ["MAP 2", "LLM02"]
+      "refs": ["MAP 2", "LLM02", "Clause 8"]
     },
     {
       "id": "rag-entitlement-inheritance",
@@ -248,7 +248,7 @@
         "azure": "Azure AI Search query-time ACL and RBAC enforcement (preview), or search.in() security filters built from the caller's groups",
         "gcp": "Access-controlled data stores in Agent Search, federated to your identity provider, with per-document ACL metadata"
       },
-      "refs": ["LLM02", "MANAGE 2", "GOVERN 1"]
+      "refs": ["LLM02", "MANAGE 2", "GOVERN 1", "AML.TA0010"]
     },
     {
       "id": "rag-tenant-isolation",
@@ -262,7 +262,7 @@
         "azure": "Separate indexes per tenant, or a shared index with enforced security filters, in Azure AI Search",
         "gcp": "Separate Agent Search data stores per tenant, with queries scoped to a single data store"
       },
-      "refs": ["LLM08", "MANAGE 1"]
+      "refs": ["LLM08", "MANAGE 1", "AML.TA0010"]
     },
     {
       "id": "rag-source-governance",
@@ -290,7 +290,7 @@
         "azure": "Azure AI Search indexer schedules, with provenance fields you add to the index yourself",
         "gcp": "Agent Search data connector sync scheduling, with source URI and document ID metadata"
       },
-      "refs": ["LLM04", "LLM08", "MEASURE 2"]
+      "refs": ["LLM04", "LLM08", "MEASURE 2", "AML.TA0006"]
     },
     {
       "id": "rag-redaction",
@@ -304,7 +304,7 @@
         "azure": "Azure AI Language PII detection and redaction called from your application; the Foundry PII guardrail annotates or blocks but does not redact",
         "gcp": "Model Armor in advanced sensitive data protection mode with a de-identify template, which does not apply to streaming responses"
       },
-      "refs": ["LLM02", "MANAGE 4"]
+      "refs": ["LLM02", "MANAGE 4", "AML.TA0010"]
     },
     {
       "id": "rag-log-retrieval",
@@ -361,7 +361,7 @@
         "azure": "Entra Agent ID token exchange, carrying the agent identity plus the user's delegated permissions",
         "gcp": "The Agent Identity auth manager, choosing the agent's own credential or delegated end-user OAuth per auth provider"
       },
-      "refs": ["LLM06", "MANAGE 2", "GOVERN 1"]
+      "refs": ["LLM06", "MANAGE 2", "GOVERN 1", "AML.TA0012", "Clause 6"]
     },
     {
       "id": "agent-least-privilege",
@@ -375,7 +375,7 @@
         "azure": "Azure RBAC per agent identity, granted through entitlement management access packages with a named sponsor",
         "gcp": "Per-agent IAM roles reviewed with Policy Intelligence, using Policy Analyzer and role recommendations"
       },
-      "refs": ["LLM06", "MANAGE 2"]
+      "refs": ["LLM06", "MANAGE 2", "AML.TA0012"]
     },
     {
       "id": "agent-memory-governance",
@@ -389,7 +389,7 @@
         "azure": "Purview covers agent prompts and responses; thread state lives in your own Cosmos DB, where you set the retention",
         "gcp": "Agent Platform Sessions and Memory Bank, with a configurable TTL and expiry on sessions"
       },
-      "refs": ["MAP 2", "GOVERN 4", "LLM02"]
+      "refs": ["MAP 2", "GOVERN 4", "LLM02", "AML.TA0006"]
     },
     {
       "id": "agent-tool-gateway",
@@ -403,7 +403,7 @@
         "azure": "Foundry Toolbox fronted by Azure API Management as an MCP gateway, since several tool types bypass Toolbox",
         "gcp": "Agent Gateway in egress mode, authorizing against the Agent Registry with Model Armor inspection"
       },
-      "refs": ["LLM06", "MANAGE 2"]
+      "refs": ["LLM06", "MANAGE 2", "AML.TA0005"]
     },
     {
       "id": "agent-tool-inventory",
@@ -417,7 +417,7 @@
         "azure": "Defender XDR AI agent inventory, with Defender for Cloud posture findings",
         "gcp": "Agent Registry as the catalogue of agents, MCP servers, tools and skills, surfaced in Security Command Center"
       },
-      "refs": ["LLM03", "MAP 1", "LLM06"]
+      "refs": ["LLM03", "MAP 1", "LLM06", "AML.TA0006"]
     },
     {
       "id": "agent-human-gate",
@@ -431,7 +431,7 @@
         "azure": "MCP require_approval in Foundry Agent Service, or an approval step in a Logic Apps orchestration",
         "gcp": "Tool confirmation in the Agent Development Kit, backed by an approval step in the calling application"
       },
-      "refs": ["GOVERN 2", "MANAGE 4", "LLM06"]
+      "refs": ["GOVERN 2", "MANAGE 4", "LLM06", "Clause 5"]
     },
     {
       "id": "agent-sandbox",
@@ -445,7 +445,7 @@
         "azure": "Foundry code interpreter on Azure Container Apps dynamic sessions, Hyper-V isolated, with the Browser Automation tool (preview) for browsing",
         "gcp": "Agent Platform code execution sandboxes in the Agent Runtime, with no network access and a limited filesystem"
       },
-      "refs": ["LLM05", "MANAGE 1"]
+      "refs": ["LLM05", "MANAGE 1", "AML.TA0005"]
     },
     {
       "id": "agent-blast-radius",
@@ -459,7 +459,7 @@
         "azure": "Model deployment TPM and RPM quotas plus fixed Agent Service limits, with per-action caps enforced in Azure API Management",
         "gcp": "Agent Platform quotas, with per-action caps enforced in the tool implementation or at the Agent Gateway"
       },
-      "refs": ["LLM10", "LLM06", "MANAGE 4"]
+      "refs": ["LLM10", "LLM06", "MANAGE 4", "AML.TA0011"]
     },
     {
       "id": "agent-traces-as-evidence",
@@ -473,7 +473,7 @@
         "azure": "Foundry tracing on the OpenTelemetry GenAI conventions, into Application Insights",
         "gcp": "Agent Observability, emitting OpenTelemetry into Cloud Trace, Cloud Logging and Cloud Monitoring"
       },
-      "refs": ["MEASURE 1", "GOVERN 4"]
+      "refs": ["MEASURE 1", "GOVERN 4", "Clause 9"]
     },
     {
       "id": "agent-threat-detection",
@@ -487,7 +487,7 @@
         "azure": "Defender for Cloud AI workload alerts, which fire on the AI resource rather than on a distinct agent runtime",
         "gcp": "Agent Platform Threat Detection in Security Command Center, alongside AI Protection"
       },
-      "refs": ["MEASURE 2", "MANAGE 4", "LLM03"]
+      "refs": ["MEASURE 2", "MANAGE 4", "LLM03", "AML.TA0005"]
     },
     {
       "id": "agent-runtime-isolation",
@@ -501,7 +501,7 @@
         "azure": "Foundry Agent Service standard setup with private networking, injected into a delegated subnet",
         "gcp": "A dedicated project with a VPC Service Controls perimeter around the Agent Runtime"
       },
-      "refs": ["MANAGE 1", "LLM06"]
+      "refs": ["MANAGE 1", "LLM06", "AML.TA0015"]
     },
     {
       "id": "agent-kill-switch",
@@ -515,7 +515,7 @@
         "azure": "Disable the Entra Agent ID, or the whole blueprint class, and stop the agent deployment, rehearsed as a runbook",
         "gcp": "Delete the Agent Runtime deployment and revoke the agent's identity bindings, rehearsed as a runbook"
       },
-      "refs": ["MANAGE 4", "GOVERN 2"]
+      "refs": ["MANAGE 4", "GOVERN 2", "AML.TA0011"]
     }
   ]
 }
