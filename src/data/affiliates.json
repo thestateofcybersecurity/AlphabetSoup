@@ -81,6 +81,12 @@
       "url": "https://get.optery.com/rhg204bv4giz",
       "network": "PartnerStack",
       "blurb": "Removes employee personal data from data-broker and people-search sites, cutting the reconnaissance material that fuels spear phishing and BEC targeting. It complements email authentication and payment controls; it does not replace them."
+    },
+    "eset": {
+      "name": "ESET Home Security",
+      "url": "https://www.anrdoezrs.net/click-8024903-10939606",
+      "network": "CJ",
+      "blurb": "Lightweight endpoint protection from a 30-year antivirus lineage, for Windows, Mac, and Android. Strong prevention layer; it does not make phishing-resistant habits or updates optional."
     }
   },
   "placements": {
@@ -164,6 +170,12 @@
     ],
     "BEC": [
       "optery-business"
+    ],
+    "EPP": [
+      "eset"
+    ],
+    "RAT": [
+      "eset"
     ]
   }
 }
