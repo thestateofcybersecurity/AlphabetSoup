@@ -4,6 +4,7 @@ import { resolveLegacySlug, slugForKey } from '../src/lib/slug';
 import { frameworkSlug } from '../src/lib/frameworks';
 import { relatedFor } from '../src/lib/related';
 import { renderGeneratedNav } from '../src/lib/site-nav';
+import { escHtml, renderInline } from '../src/lib/inline';
 import { byDateDesc } from '../src/lib/about';
 import { renderFontLinks } from '../src/lib/fonts';
 import { categorySlug, categoryTitle, decksTesting, postsMentioning } from '../src/lib/deep-links';
@@ -138,8 +139,7 @@ mkdirSync(`${dist}/frameworks/iso`, { recursive: true });
 mkdirSync(`${dist}/frameworks/soc2`, { recursive: true });
 mkdirSync(`${dist}/blog`, { recursive: true });
 
-const esc = (value: string): string =>
-  value.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+const esc = escHtml;
 
 /**
  * A clean meta description: the full text if short, otherwise trimmed to ~157
@@ -573,27 +573,6 @@ const MONTHS = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 
 function formatDate(iso: string): string {
   const [y, m, d] = iso.split('-').map(Number);
   return `${MONTHS[(m ?? 1) - 1]} ${d}, ${y}`;
-}
-
-/** A small, safe inline syntax: [label](href) links and **bold**; all literal text is escaped. */
-function renderInline(raw: string): string {
-  let out = '';
-  let last = 0;
-  const re = /\[([^\]]+)\]\(([^)]+)\)|\*\*([^*]+)\*\*/g;
-  let m: RegExpExecArray | null;
-  while ((m = re.exec(raw)) !== null) {
-    out += esc(raw.slice(last, m.index));
-    if (m[1] !== undefined) {
-      const href = m[2].trim();
-      const safe = /^(https?:\/\/|\/|\.\.?\/|#)/.test(href) ? href : '#';
-      const external = /^https?:\/\//.test(safe);
-      out += `<a href="${esc(safe)}"${external ? ' rel="noopener" target="_blank"' : ''}>${esc(m[1])}</a>`;
-    } else {
-      out += `<strong>${esc(m[3])}</strong>`;
-    }
-    last = re.lastIndex;
-  }
-  return out + esc(raw.slice(last));
 }
 
 function blockHtml(block: BlogBlock): string {
