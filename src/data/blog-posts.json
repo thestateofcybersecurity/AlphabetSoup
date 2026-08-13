@@ -1723,5 +1723,133 @@
         "href": "https://www.anrdoezrs.net/click-8024903-15112066"
       }
     ]
+  },
+  {
+    "slug": "sucuri-review-waf-not-a-substitute-for-patching",
+    "title": "Sucuri Review: A WAF for Your Website, Not a Substitute for Patching",
+    "description": "An honest look at what the Sucuri website firewall and cleanup service actually protects, where it falls short, and why patching still carries the weight.",
+    "category": "Spotlight",
+    "author": "Parker Brissette",
+    "date": "2026-08-13",
+    "readingMinutes": 7,
+    "tags": [
+      "waf",
+      "web security",
+      "wordpress",
+      "tools",
+      "patching"
+    ],
+    "body": [
+      {
+        "type": "p",
+        "text": "Every few months a plugin vulnerability tears through a chunk of the web, and the same advice follows within hours: put a website firewall in front of it. That instinct is half right, which is the most dangerous kind of right. A [WAF](/?q=WAF) really can stop the exploit traffic that follows a public disclosure, faster than most small teams can push an update. What it cannot do is make the vulnerable code stop being vulnerable. Sucuri is one of the better known products in this category, and the fairest way to judge it is on that boundary: strong at filtering and at cleaning up after an incident, powerless against a site nobody maintains."
+      },
+      {
+        "type": "p",
+        "text": "**Disclosure:** this post contains affiliate links, and the site may earn a commission if you buy through one, at no extra cost to you. The full policy, including which links are monetized and which are not, is on the [disclosure page](/disclosure/)."
+      },
+      {
+        "type": "h2",
+        "text": "What Sucuri actually is"
+      },
+      {
+        "type": "p",
+        "text": "[Sucuri's website security platform](https://www.anrdoezrs.net/click-8024903-13942196) is two products sold together, and separating them makes the value easier to judge. The first is a cloud firewall and [CDN](/?q=CDN) that you activate by pointing your domain's DNS at Sucuri instead of at your web host. Visitor traffic then hits their proxy before it reaches your server. That proxy inspects each request and drops the ones that look like [XSS](/?q=XSS) payloads, [SQL injection](/?q=SQLI) attempts, credential stuffing, or bot noise, and it absorbs [DDoS](/?q=DDOS) volume. Because the same proxy caches static content, most sites get a modest speed improvement as a side effect."
+      },
+      {
+        "type": "p",
+        "text": "The second product is monitoring and remediation: scheduled scans for injected spam, malicious redirects, and blocklist status, plus a hands-on cleanup service if the site is already compromised. Those two halves fail in different ways, so judge them separately even though they arrive on one invoice."
+      },
+      {
+        "type": "h2",
+        "text": "Where it earns its money"
+      },
+      {
+        "type": "p",
+        "text": "The strongest argument for a hosted WAF has little to do with catching novel attacks. It is about the gap between disclosure and deployment."
+      },
+      {
+        "type": "list",
+        "items": [
+          "**Virtual patching buys time.** When a [CVE](/?q=CVE) lands for a plugin you cannot update today, because it breaks a custom theme or because the vendor has not shipped a fix yet, a rule at the edge can block the exploit pattern while the underlying code stays untouched. Time is the scarce resource in the days after a disclosure, and this is the cleanest way to buy some.",
+          "**The cleanup service has a real reputation.** Sucuri built its name on incident work, and for a site owner with no security staff and a hacked storefront, a fixed price cleanup with a human doing the removal beats any dashboard. That part of the offering has almost no substitute at this price point.",
+          "**DDoS absorption comes along for free.** The proxy already terminates every connection, so it is the natural place to soak up volumetric traffic that would flatten a small hosting plan.",
+          "**Pricing is boring, which is a compliment.** Flat per-site pricing with no bandwidth metering will not surprise you during the week you are under attack."
+        ]
+      },
+      {
+        "type": "h2",
+        "text": "What a filter cannot do"
+      },
+      {
+        "type": "p",
+        "text": "A firewall inspects requests and makes a decision about each one. That is the whole mechanism, and every limitation follows from it. The vulnerable function in your plugin is still there, still reachable by any request that does not match a rule."
+      },
+      {
+        "type": "list",
+        "items": [
+          "**Rules get bypassed.** Encoding tricks, unusual parameter placement, and variants nobody has written a rule for all get through. That is true of every WAF on the market, not just this one.",
+          "**A leaked origin address routes around it entirely.** The proxy only helps for traffic that goes through the proxy. Historical DNS records, mail headers sent by the server, or a forgotten subdomain pointed straight at the host can all reveal your real server address, and an attacker who connects directly leaves the firewall out of the path. Locking the origin down to accept web traffic only from Sucuri's published address ranges is the step most people skip.",
+          "**Scanning is detection, not prevention.** A remote scanner sees roughly what a visitor sees. Server-side malware that only activates for a specific cookie, or a backdoor in a file that never renders, can pass a clean scan for months. A clean report means nothing was visible, not that nothing is there.",
+          "**It has no opinion about your accounts.** An attacker who phishes an administrator password walks in the front door, and every request looks like a legitimate authenticated session to the filter."
+        ]
+      },
+      {
+        "type": "quote",
+        "text": "A web application firewall buys you time. Patching is what you are supposed to do with the time."
+      },
+      {
+        "type": "h2",
+        "text": "The fundamentals still carry the weight"
+      },
+      {
+        "type": "p",
+        "text": "None of the controls below are exciting, and all of them outrank the firewall on actual risk reduction. Let these slide and you have spent money to move the failure a few weeks into the future."
+      },
+      {
+        "type": "list",
+        "items": [
+          "**Update on a schedule you actually keep.** Core, plugins, themes, server stack. Most compromised sites run something with a public exploit and a patch that shipped months ago.",
+          "**Cut the plugin count.** Every add-on is somebody else's code running with your site's privileges, and deleting the ones nobody uses is the fastest win available.",
+          "**Least privilege on admin accounts.** Editors do not need administrator rights, contractors do not need permanent logins, and the shared account should not exist.",
+          "**Phishing resistant sign-in.** The CMS login is the highest value target you have, so put [MFA](/?q=MFA) in front of it and prefer a passkey over SMS.",
+          "**Backups you have restored at least once.** An untested backup is a hypothesis. Restore one to staging, confirm the database and uploads both come back, and write down how long it took."
+        ]
+      },
+      {
+        "type": "h2",
+        "text": "Who it fits"
+      },
+      {
+        "type": "p",
+        "text": "This is a good purchase for the site owner with no security team and no realistic path to getting one: a small business, a nonprofit, a consultant running client sites. It is an easy call for anyone in the middle of an incident, where [Sucuri's malware cleanup service](https://www.anrdoezrs.net/click-8024903-13942196) is the fastest route back to a working, unblocklisted site. It is also reasonable as a layer on a well-run site, provided the origin is locked down so the proxy cannot be sidestepped."
+      },
+      {
+        "type": "p",
+        "text": "It is the wrong purchase if it becomes the reason you stop updating. The failure mode I have watched more than once is a team that buys a firewall, feels covered, lets patching drift for two quarters, and gets breached through a path no rule covered. Buy it for what it is: a filter that keeps opportunistic traffic off the site, and a number to call when something goes wrong. Then do the unglamorous work anyway."
+      }
+    ],
+    "related": [
+      {
+        "label": "WAF in the glossary",
+        "href": "/?q=WAF"
+      },
+      {
+        "label": "CVE in the glossary",
+        "href": "/?q=CVE"
+      },
+      {
+        "label": "DDoS in the glossary",
+        "href": "/?q=DDOS"
+      },
+      {
+        "label": "Affiliate disclosure",
+        "href": "/disclosure/"
+      },
+      {
+        "label": "Sucuri website security",
+        "href": "https://www.anrdoezrs.net/click-8024903-13942196"
+      }
+    ]
   }
 ]
