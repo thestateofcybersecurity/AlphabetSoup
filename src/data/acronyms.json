@@ -181,6 +181,43 @@
       "CBC"
     ]
   },
+  "AGI": {
+    "expansion": "Artificial General Intelligence",
+    "display": "AGI",
+    "category": "ai",
+    "difficulty": "easy",
+    "explanation": "AGI is the hypothetical point where an AI system can match or beat humans across most cognitive work, not just narrow tasks. It does not exist today; every deployed system, however impressive, is narrow. The term matters because it anchors both the hype and the safety debate, and because vendors sometimes borrow its gravity to sell ordinary automation. A grounded security program plans for the AI that exists, not the one in the headlines.",
+    "sources": [
+      {
+        "name": "IBM: What is artificial general intelligence?",
+        "url": "https://www.ibm.com/think/topics/artificial-general-intelligence"
+      }
+    ],
+    "related": [
+      "LLM"
+    ]
+  },
+  "AIRMF": {
+    "expansion": "Artificial Intelligence Risk Management Framework",
+    "display": "AI RMF",
+    "category": "ai",
+    "difficulty": "medium",
+    "explanation": "The AI RMF is NIST's voluntary framework for managing AI risk through four functions: Govern, Map, Measure, and Manage. It is the closest thing AI governance has to a common language, the way the CSF is for security programs, and it is the AI framework most often named in job descriptions and policies. Pair it with a use case intake process so its functions turn into concrete, assignable controls.",
+    "sources": [
+      {
+        "name": "NIST AI Risk Management Framework",
+        "url": "https://www.nist.gov/itl/ai-risk-management-framework"
+      }
+    ],
+    "related": [
+      "XAI",
+      "ATLAS",
+      "NIST"
+    ],
+    "confusedWith": [
+      "RMF"
+    ]
+  },
   "AITM": {
     "expansion": "Adversary-in-the-Middle",
     "display": "AiTM",
@@ -369,6 +406,23 @@
       "OWASP",
       "MASTG",
       "WSTG"
+    ]
+  },
+  "ATLAS": {
+    "expansion": "Adversarial Threat Landscape for Artificial-Intelligence Systems",
+    "display": "ATLAS",
+    "category": "ai",
+    "difficulty": "medium",
+    "explanation": "ATLAS is MITRE's knowledge base of attacks against AI systems, modeled on ATT&CK: real tactics and techniques like prompt injection, model theft, data poisoning, and evasion, drawn from observed incidents and research. It gives red teams and defenders a shared vocabulary for AI threats, and it is the fastest way to show a skeptic that attacks on models are documented reality rather than theory.",
+    "sources": [
+      {
+        "name": "MITRE ATLAS",
+        "url": "https://atlas.mitre.org/"
+      }
+    ],
+    "related": [
+      "AIRMF",
+      "TTP"
     ]
   },
   "ATO": {
@@ -2552,6 +2606,24 @@
       "RC4"
     ]
   },
+  "DEVOPS": {
+    "expansion": "Development and Operations",
+    "display": "DevOps",
+    "category": "operations",
+    "difficulty": "medium",
+    "explanation": "DevOps merges software development and IT operations into one culture and toolchain: version control everything, automate builds and deployment, ship small changes often, and watch production closely. It replaced the wall between build it and run it. Security's version of joining that culture is DevSecOps: putting controls inside the pipeline instead of at the end, where they would simply be routed around.",
+    "sources": [
+      {
+        "name": "AWS: What is DevOps?",
+        "url": "https://aws.amazon.com/devops/what-is-devops/"
+      }
+    ],
+    "related": [
+      "CICD",
+      "SRE",
+      "IAC"
+    ]
+  },
   "DFARS": {
     "expansion": "Defense Federal Acquisition Regulation Supplement",
     "display": "DFARS",
@@ -3439,6 +3511,22 @@
       "IKE"
     ]
   },
+  "ETL": {
+    "expansion": "Extract, Transform, Load",
+    "display": "ETL",
+    "category": "operations",
+    "difficulty": "medium",
+    "explanation": "ETL is the standard pattern for moving data between systems: pull it from sources, reshape it, and load it into a warehouse or lake. Every analytics stack and most SIEM pipelines are ETL at heart. Security cares because ETL jobs hold credentials to everything they touch and quietly copy sensitive data to new places, so a forgotten pipeline is both a breach vector and a compliance surprise waiting to be found.",
+    "sources": [
+      {
+        "name": "AWS: What is ETL?",
+        "url": "https://aws.amazon.com/what-is/etl/"
+      }
+    ],
+    "related": [
+      "SIEM"
+    ]
+  },
   "ETW": {
     "expansion": "Event Tracing for Windows",
     "display": "ETW",
@@ -3716,6 +3804,22 @@
       "TFTP"
     ]
   },
+  "GAN": {
+    "expansion": "Generative Adversarial Network",
+    "display": "GAN",
+    "category": "ai",
+    "difficulty": "medium",
+    "explanation": "A GAN trains two neural networks against each other: a generator that forges content and a discriminator that tries to spot the forgery, each making the other better. GANs made the first convincing deepfakes and synthetic faces. Diffusion models have taken over much of image generation, but the adversarial idea, and the deepfake problem it unleashed for fraud and identity verification, are here to stay.",
+    "sources": [
+      {
+        "name": "Generative Adversarial Networks paper",
+        "url": "https://arxiv.org/abs/1406.2661"
+      }
+    ],
+    "related": [
+      "GENAI"
+    ]
+  },
   "GCFA": {
     "expansion": "GIAC Certified Forensic Analyst",
     "display": "GCFA",
@@ -3868,6 +3972,23 @@
       "PDPA"
     ]
   },
+  "GENAI": {
+    "expansion": "Generative Artificial Intelligence",
+    "display": "GenAI",
+    "category": "ai",
+    "difficulty": "easy",
+    "explanation": "GenAI is the umbrella term for AI systems that create new content (text, images, code, audio, video) rather than just classifying or ranking what already exists. It covers large language models, image generators, and coding assistants. Most corporate AI policies, and most of the new risks like deepfakes, data leakage through prompts, and hallucinated facts stated confidently, live under this umbrella.",
+    "sources": [
+      {
+        "name": "NIST AI RMF Generative AI Profile",
+        "url": "https://www.nist.gov/itl/ai-risk-management-framework"
+      }
+    ],
+    "related": [
+      "LLM",
+      "GAN"
+    ]
+  },
   "GICSP": {
     "expansion": "Global Industrial Cyber Security Professional",
     "display": "GICSP",
@@ -3978,6 +4099,39 @@
       "LDAP"
     ]
   },
+  "GPT": {
+    "expansion": "Generative Pre-trained Transformer",
+    "display": "GPT",
+    "category": "ai",
+    "difficulty": "easy",
+    "explanation": "GPT is the family of large language models from OpenAI whose name describes the recipe: generative (it produces text), pre-trained (it learns from a huge corpus before any task-specific tuning), and transformer (the neural network architecture underneath). GPT models popularized modern AI chat, and the term is often used loosely for any chatbot. The distinction matters when policies and contracts name specific models and versions.",
+    "sources": [
+      {
+        "name": "OpenAI model documentation",
+        "url": "https://platform.openai.com/docs/models"
+      }
+    ],
+    "related": [
+      "LLM",
+      "GENAI"
+    ]
+  },
+  "GPU": {
+    "expansion": "Graphics Processing Unit",
+    "display": "GPU",
+    "category": "operations",
+    "difficulty": "easy",
+    "explanation": "A GPU is a chip designed to do thousands of simple calculations in parallel. Built for rendering game graphics, that same shape of math turned out to be exactly what neural networks and password crackers need, which is why GPUs now power both the AI boom and offline hash cracking. In cloud bills and threat models alike they are worth tracking: expensive, in demand, and a favorite target of cryptomining intruders.",
+    "sources": [
+      {
+        "name": "Intel: What is a GPU?",
+        "url": "https://www.intel.com/content/www/us/en/products/docs/processors/what-is-a-gpu.html"
+      }
+    ],
+    "related": [
+      "TPU"
+    ]
+  },
   "GRC": {
     "expansion": "Governance, Risk, and Compliance",
     "display": "GRC",
@@ -4029,6 +4183,23 @@
     "related": [
       "GCFA",
       "CHFI"
+    ]
+  },
+  "GRPC": {
+    "expansion": "gRPC Remote Procedure Calls",
+    "display": "gRPC",
+    "category": "protocols",
+    "difficulty": "medium",
+    "explanation": "gRPC is a high-performance framework for service-to-service calls, using HTTP/2 and compact binary messages (Protocol Buffers) instead of JSON text. Microservice backends favor it for speed and typed contracts. It is less visible to traditional web tooling than REST, which cuts both ways: harder for casual attackers to poke at, and harder for security teams to inspect unless their proxies and scanners speak it.",
+    "sources": [
+      {
+        "name": "gRPC introduction",
+        "url": "https://grpc.io/docs/what-is-grpc/introduction/"
+      }
+    ],
+    "related": [
+      "REST",
+      "API"
     ]
   },
   "GSEC": {
@@ -4189,6 +4360,22 @@
     "related": [
       "HIPAA",
       "PHI"
+    ]
+  },
+  "HITL": {
+    "expansion": "Human-In-The-Loop",
+    "display": "HITL",
+    "category": "ai",
+    "difficulty": "medium",
+    "explanation": "HITL describes any AI workflow where a person reviews or approves the system's output before it takes effect: a human gate between the model and the consequence. It is the single most load-bearing control in most AI policies, and the first one to quietly erode when review becomes a rubber stamp. If a process claims HITL, the real question is whether the human can actually catch and stop a bad output in time.",
+    "sources": [
+      {
+        "name": "IBM: What is human-in-the-loop?",
+        "url": "https://www.ibm.com/think/topics/human-in-the-loop"
+      }
+    ],
+    "related": [
+      "LLM"
     ]
   },
   "HKDF": {
@@ -5012,6 +5199,24 @@
       "PIM"
     ]
   },
+  "JSON": {
+    "expansion": "JavaScript Object Notation",
+    "display": "JSON",
+    "category": "protocols",
+    "difficulty": "easy",
+    "explanation": "JSON is the plain-text format most of the modern web uses to move structured data: curly braces, key-value pairs, and lists that both humans and machines can read. Nearly every API request, log event, and configuration exchange you will inspect during an investigation is JSON. Parsing it safely matters too: deserialization bugs and injection through unescaped values are classic application flaws.",
+    "sources": [
+      {
+        "name": "RFC 8259: The JSON Data Interchange Format",
+        "url": "https://datatracker.ietf.org/doc/html/rfc8259"
+      }
+    ],
+    "related": [
+      "API",
+      "YAML",
+      "REST"
+    ]
+  },
   "JWE": {
     "expansion": "JSON Web Encryption",
     "display": "JWE",
@@ -5086,6 +5291,24 @@
       "JWE",
       "JWK",
       "OIDC"
+    ]
+  },
+  "K8S": {
+    "expansion": "Kubernetes",
+    "display": "K8s",
+    "category": "cloud",
+    "difficulty": "medium",
+    "explanation": "K8s is shorthand for Kubernetes (K, eight letters, s), the open-source system that schedules and runs containerized applications across fleets of machines. It is the de facto operating system of the cloud. Its power comes with a notorious configuration surface: overly permissive service accounts, exposed dashboards, and privileged containers are the standard findings, which is why CIS publishes a dedicated Kubernetes benchmark.",
+    "sources": [
+      {
+        "name": "Kubernetes overview",
+        "url": "https://kubernetes.io/docs/concepts/overview/"
+      }
+    ],
+    "related": [
+      "IAC",
+      "YAML",
+      "CICD"
     ]
   },
   "KBA": {
@@ -5248,6 +5471,23 @@
       "VPN"
     ]
   },
+  "LAN": {
+    "expansion": "Local Area Network",
+    "display": "LAN",
+    "category": "network",
+    "difficulty": "easy",
+    "explanation": "A LAN is the network within one physical place (an office, a home, a data center floor) connecting nearby devices at high speed. It is the original trust boundary: being on the LAN once meant being trusted, which is exactly the assumption attackers exploit through lateral movement and which zero trust architecture exists to retire. Segmenting the LAN remains one of the highest-value defensive moves.",
+    "sources": [
+      {
+        "name": "Cloudflare Learning: What is a LAN?",
+        "url": "https://www.cloudflare.com/learning/network-layer/what-is-a-lan/"
+      }
+    ],
+    "related": [
+      "WAN",
+      "VLAN"
+    ]
+  },
   "LDAP": {
     "expansion": "Lightweight Directory Access Protocol",
     "display": "LDAP",
@@ -5321,6 +5561,24 @@
       "POPIA"
     ]
   },
+  "LLM": {
+    "expansion": "Large Language Model",
+    "display": "LLM",
+    "category": "ai",
+    "difficulty": "easy",
+    "explanation": "An LLM is an AI model trained on enormous amounts of text to predict the next word, which turns out to be enough to write, summarize, translate, and answer questions convincingly. Tools like ChatGPT and Claude are built on LLMs. For security teams they cut both ways: they power useful assistants and triage bots, but they also introduce risks like prompt injection and data leakage that traditional application security never had to consider.",
+    "sources": [
+      {
+        "name": "OWASP Top 10 for LLM Applications",
+        "url": "https://genai.owasp.org/llm-top-10/"
+      }
+    ],
+    "related": [
+      "GPT",
+      "RAG",
+      "MCP"
+    ]
+  },
   "LLMNR": {
     "expansion": "Link-Local Multicast Name Resolution",
     "display": "LLMNR",
@@ -5358,6 +5616,22 @@
     "related": [
       "LOTL",
       "BYOVD"
+    ]
+  },
+  "LORA": {
+    "expansion": "Low-Rank Adaptation",
+    "display": "LoRA",
+    "category": "ai",
+    "difficulty": "hard",
+    "explanation": "LoRA is a technique for fine-tuning large models cheaply: instead of updating billions of weights, it trains small add-on matrices that steer the frozen base model. The result is adapter files small enough to email, which is both the appeal and the risk. Anyone can specialize an open model on a laptop, and a malicious adapter can quietly change a model's behavior, so adapters deserve the same supply-chain scrutiny as any other dependency.",
+    "sources": [
+      {
+        "name": "LoRA paper",
+        "url": "https://arxiv.org/abs/2106.09685"
+      }
+    ],
+    "related": [
+      "SFT"
     ]
   },
   "LOTL": {
@@ -5471,6 +5745,23 @@
       "ASVS",
       "MASTG",
       "WSTG"
+    ]
+  },
+  "MCP": {
+    "expansion": "Model Context Protocol",
+    "display": "MCP",
+    "category": "ai",
+    "difficulty": "medium",
+    "explanation": "MCP is an open standard for connecting AI assistants to outside tools and data: file systems, databases, ticketing systems, anything wrapped in an MCP server. It is the plumbing that turns a chatbot into an agent that acts. That power is exactly its risk: every connected server extends what the model can read and do, so MCP deployments need the same least-privilege and audit discipline as any service account.",
+    "sources": [
+      {
+        "name": "Model Context Protocol documentation",
+        "url": "https://modelcontextprotocol.io/"
+      }
+    ],
+    "related": [
+      "LLM",
+      "API"
     ]
   },
   "MD5": {
@@ -5648,6 +5939,39 @@
       "MLDSA",
       "PQC",
       "SLHDSA"
+    ]
+  },
+  "MLOPS": {
+    "expansion": "Machine Learning Operations",
+    "display": "MLOps",
+    "category": "ai",
+    "difficulty": "medium",
+    "explanation": "MLOps applies DevOps discipline to machine learning: version the data and models, automate training and deployment pipelines, monitor for drift, and make rollbacks possible. Without it, models are artisanal artifacts nobody can reproduce. With it, security gets what it needs too: provenance for every model in production, and a pipeline where controls like scanning and approval gates can actually live.",
+    "sources": [
+      {
+        "name": "Google Cloud MLOps architecture guide",
+        "url": "https://cloud.google.com/architecture/mlops-continuous-delivery-and-automation-pipelines-in-machine-learning"
+      }
+    ],
+    "related": [
+      "DEVOPS",
+      "CICD"
+    ]
+  },
+  "MOE": {
+    "expansion": "Mixture of Experts",
+    "display": "MoE",
+    "category": "ai",
+    "difficulty": "hard",
+    "explanation": "MoE is a model architecture that splits a neural network into many specialist sub-networks and routes each input through only a few of them, so a model can have enormous total capacity while spending modest compute per query. Many frontier models use it. The term shows up in vendor claims and model cards, and knowing it helps you read AI marketing critically instead of treating parameter counts as a quality score.",
+    "sources": [
+      {
+        "name": "Sparsely-Gated Mixture-of-Experts paper",
+        "url": "https://arxiv.org/abs/1701.06538"
+      }
+    ],
+    "related": [
+      "LLM"
     ]
   },
   "MPC": {
@@ -6016,6 +6340,23 @@
       "CMMC"
     ]
   },
+  "NLP": {
+    "expansion": "Natural Language Processing",
+    "display": "NLP",
+    "category": "ai",
+    "difficulty": "easy",
+    "explanation": "NLP is the field of getting computers to understand and produce human language: parsing, translation, sentiment, summarization, and everything a chatbot does. Modern NLP is dominated by large language models, but the term still covers the wider toolbox. In security it powers phishing detection and log analysis, and on the attacker's side it makes scam messages fluent in any language.",
+    "sources": [
+      {
+        "name": "IBM: What is natural language processing?",
+        "url": "https://www.ibm.com/think/topics/natural-language-processing"
+      }
+    ],
+    "related": [
+      "LLM",
+      "OCR"
+    ]
+  },
   "NOC": {
     "expansion": "Network Operations Center",
     "display": "NOC",
@@ -6035,6 +6376,22 @@
     "related": [
       "SOC",
       "SIEM"
+    ]
+  },
+  "NOSQL": {
+    "expansion": "Not Only SQL",
+    "display": "NoSQL",
+    "category": "operations",
+    "difficulty": "medium",
+    "explanation": "NoSQL covers database families that drop the relational table model for something else: documents, key-value pairs, graphs, or wide columns, usually to scale horizontally or better match the data's shape. MongoDB, Redis, and DynamoDB are household names. They skip classic SQL injection but bring their own versions, and years of breach headlines trace back to NoSQL instances left exposed on the internet with no authentication at all.",
+    "sources": [
+      {
+        "name": "MongoDB: NoSQL explained",
+        "url": "https://www.mongodb.com/resources/basics/databases/nosql-explained"
+      }
+    ],
+    "related": [
+      "SQL"
     ]
   },
   "NSM": {
@@ -6147,6 +6504,22 @@
       "SAML",
       "SSO",
       "CIBA"
+    ]
+  },
+  "OCR": {
+    "expansion": "Optical Character Recognition",
+    "display": "OCR",
+    "category": "ai",
+    "difficulty": "easy",
+    "explanation": "OCR turns images of text (scans, photos, PDFs) into machine-readable characters. It is decades old but newly relevant: document AI pipelines start with OCR, and so do some attacks, since malicious instructions can hide in images that an AI system will happily read even when a human would not bother. If a workflow lets models read images, treat those images as untrusted input.",
+    "sources": [
+      {
+        "name": "Microsoft Azure OCR overview",
+        "url": "https://learn.microsoft.com/en-us/azure/ai-services/computer-vision/overview-ocr"
+      }
+    ],
+    "related": [
+      "NLP"
     ]
   },
   "OCSP": {
@@ -7278,6 +7651,22 @@
       "NAC"
     ]
   },
+  "RAG": {
+    "expansion": "Retrieval-Augmented Generation",
+    "display": "RAG",
+    "category": "ai",
+    "difficulty": "medium",
+    "explanation": "RAG bolts a search step onto a language model: before answering, the system retrieves relevant documents from your own data and hands them to the model as context. It grounds answers in real sources, reduces hallucination, and keeps proprietary data out of model training. The security catch is that the retrieval store becomes a new attack surface: whoever can write to it can influence answers, and the access controls on the documents must survive the trip into the prompt.",
+    "sources": [
+      {
+        "name": "Retrieval-Augmented Generation paper",
+        "url": "https://arxiv.org/abs/2005.11401"
+      }
+    ],
+    "related": [
+      "LLM"
+    ]
+  },
   "RASP": {
     "expansion": "Runtime Application Self-Protection",
     "display": "RASP",
@@ -7433,6 +7822,24 @@
       "DOS"
     ]
   },
+  "REST": {
+    "expansion": "Representational State Transfer",
+    "display": "REST",
+    "category": "protocols",
+    "difficulty": "medium",
+    "explanation": "REST is the architectural style behind most web APIs: resources addressed by URLs, standard HTTP verbs like GET and POST, and stateless requests. When someone says they have an API, they usually mean a REST API returning JSON. The API surface is the modern attack surface, and the OWASP API Security Top 10 exists precisely because broken authorization on REST endpoints became one of the most common ways data leaks.",
+    "sources": [
+      {
+        "name": "MDN Web Docs: REST",
+        "url": "https://developer.mozilla.org/en-US/docs/Glossary/REST"
+      }
+    ],
+    "related": [
+      "API",
+      "JSON",
+      "GRPC"
+    ]
+  },
   "RFI": {
     "expansion": "Remote File Inclusion",
     "display": "RFI",
@@ -7465,6 +7872,23 @@
     "related": [
       "NFC",
       "BLE"
+    ]
+  },
+  "RLHF": {
+    "expansion": "Reinforcement Learning from Human Feedback",
+    "display": "RLHF",
+    "category": "ai",
+    "difficulty": "medium",
+    "explanation": "RLHF is the training stage that turns a raw text predictor into a helpful assistant: humans rate candidate answers, a reward model learns those preferences, and the language model is tuned toward responses people prefer. It is the main reason chatbots follow instructions and refuse harmful requests, and its limits are why jailbreaks exist: the guardrails are learned preferences, not hard rules.",
+    "sources": [
+      {
+        "name": "InstructGPT paper",
+        "url": "https://arxiv.org/abs/2203.02155"
+      }
+    ],
+    "related": [
+      "LLM",
+      "SFT"
     ]
   },
   "RMF": {
@@ -7520,6 +7944,22 @@
     "related": [
       "ASLR",
       "UAF"
+    ]
+  },
+  "RPA": {
+    "expansion": "Robotic Process Automation",
+    "display": "RPA",
+    "category": "operations",
+    "difficulty": "medium",
+    "explanation": "RPA is software that mimics a human clicking through applications to automate repetitive back-office work: reading invoices, copying data between systems, filing forms. The robots are unattended accounts with real credentials and broad application access, which makes them ideal targets and terrible secret-keepers. Treat RPA bots as privileged identities: vault their credentials, scope their access, and log what they touch.",
+    "sources": [
+      {
+        "name": "IBM: What is robotic process automation?",
+        "url": "https://www.ibm.com/think/topics/rpa"
+      }
+    ],
+    "related": [
+      "IAM"
     ]
   },
   "RPO": {
@@ -7879,6 +8319,23 @@
       "PAKE"
     ]
   },
+  "SDK": {
+    "expansion": "Software Development Kit",
+    "display": "SDK",
+    "category": "appsec",
+    "difficulty": "easy",
+    "explanation": "An SDK is the bundle a platform hands developers to build against it: libraries, documentation, and sample code. Every SDK an app embeds becomes part of that app, inheriting its permissions and shipping in every install, which is why SDKs are a classic supply-chain risk: one compromised or over-curious SDK, embedded in thousands of apps, has repeatedly turned into an industry-wide incident.",
+    "sources": [
+      {
+        "name": "AWS: What is an SDK?",
+        "url": "https://aws.amazon.com/what-is/sdk/"
+      }
+    ],
+    "related": [
+      "API",
+      "SBOM"
+    ]
+  },
   "SDL": {
     "expansion": "Security Development Lifecycle",
     "display": "SDL",
@@ -7985,6 +8442,23 @@
       "FDE",
       "BIOS",
       "UEFI"
+    ]
+  },
+  "SFT": {
+    "expansion": "Supervised Fine-Tuning",
+    "display": "SFT",
+    "category": "ai",
+    "difficulty": "hard",
+    "explanation": "SFT takes a pre-trained language model and continues training it on curated example conversations so it learns a specific style, format, or domain, usually as the step before preference tuning like RLHF. For organizations, fine-tuning on internal data creates a new asset to protect: the resulting model can memorize and regurgitate fragments of its training data, so the tuned weights deserve the same sensitivity classification as the data that shaped them.",
+    "sources": [
+      {
+        "name": "Hugging Face TRL fine-tuning documentation",
+        "url": "https://huggingface.co/docs/trl/sft_trainer"
+      }
+    ],
+    "related": [
+      "RLHF",
+      "LORA"
     ]
   },
   "SFTP": {
@@ -8154,6 +8628,22 @@
       "MLDSA",
       "MLKEM",
       "PQC"
+    ]
+  },
+  "SLM": {
+    "expansion": "Small Language Model",
+    "display": "SLM",
+    "category": "ai",
+    "difficulty": "medium",
+    "explanation": "An SLM is a language model deliberately kept small enough to run cheaply, sometimes entirely on a laptop or phone. What it gives up in breadth it returns in cost, speed, and privacy, since prompts never need to leave the device. Expect to see them embedded in products and endpoints, which quietly moves AI risk from a few cloud contracts to every device in the fleet.",
+    "sources": [
+      {
+        "name": "IBM: What are small language models?",
+        "url": "https://www.ibm.com/think/topics/small-language-models"
+      }
+    ],
+    "related": [
+      "LLM"
     ]
   },
   "SLO": {
@@ -8463,6 +8953,23 @@
       "IAM"
     ]
   },
+  "SQL": {
+    "expansion": "Structured Query Language",
+    "display": "SQL",
+    "category": "appsec",
+    "difficulty": "easy",
+    "explanation": "SQL is the standard language for querying and updating relational databases, where most of the world's structured data lives. Security people meet it two ways: defensively, because SQL injection (tricking an application into running attacker-supplied SQL) has been a top vulnerability class for two decades, and practically, because investigating almost any incident eventually means querying a database or a SQL-like log store.",
+    "sources": [
+      {
+        "name": "PostgreSQL SQL language documentation",
+        "url": "https://www.postgresql.org/docs/current/sql.html"
+      }
+    ],
+    "related": [
+      "SQLI",
+      "NOSQL"
+    ]
+  },
   "SQLI": {
     "expansion": "SQL Injection",
     "display": "SQLi",
@@ -8481,6 +8988,23 @@
       "XSS",
       "XXE",
       "HPP"
+    ]
+  },
+  "SRE": {
+    "expansion": "Site Reliability Engineering",
+    "display": "SRE",
+    "category": "operations",
+    "difficulty": "medium",
+    "explanation": "SRE is Google's discipline for running production systems with engineering rather than heroics: reliability targets (SLOs), error budgets that decide when to ship versus stabilize, and automation that removes toil. Security teams should know it because SRE owns the telemetry, deployment paths, and incident muscle that security response depends on, and because error-budget thinking translates naturally to risk conversations.",
+    "sources": [
+      {
+        "name": "Google SRE Book: Introduction",
+        "url": "https://sre.google/sre-book/introduction/"
+      }
+    ],
+    "related": [
+      "SLO",
+      "DEVOPS"
     ]
   },
   "SRI": {
@@ -9132,6 +9656,22 @@
       "SOC2"
     ]
   },
+  "TPU": {
+    "expansion": "Tensor Processing Unit",
+    "display": "TPU",
+    "category": "ai",
+    "difficulty": "medium",
+    "explanation": "A TPU is Google's custom chip built specifically for the matrix math that neural networks run on, offered mainly through Google Cloud. TPUs and their GPU cousins are why modern AI exists at commercial scale: training frontier models takes warehouse-sized fleets of them. In budget conversations, accelerator is the word for this hardware class, and it is where AI projects' money actually goes.",
+    "sources": [
+      {
+        "name": "Google Cloud TPU documentation",
+        "url": "https://cloud.google.com/tpu/docs/intro-to-tpu"
+      }
+    ],
+    "related": [
+      "GPU"
+    ]
+  },
   "TTP": {
     "expansion": "Tactics, Techniques, and Procedures",
     "display": "TTP",
@@ -9659,6 +10199,23 @@
       "DMZ"
     ]
   },
+  "WAN": {
+    "expansion": "Wide Area Network",
+    "display": "WAN",
+    "category": "network",
+    "difficulty": "easy",
+    "explanation": "A WAN connects networks across distance: branch offices to headquarters, sites to data centers, everything to the internet. Corporate WANs used to mean private leased lines and MPLS; today they are increasingly software-defined and run over the public internet with encryption. The WAN is where traffic leaves the building, so it is where encryption, monitoring, and provider trust decisions bite.",
+    "sources": [
+      {
+        "name": "Cloudflare Learning: What is a WAN?",
+        "url": "https://www.cloudflare.com/learning/network-layer/what-is-a-wan/"
+      }
+    ],
+    "related": [
+      "LAN",
+      "SDWAN"
+    ]
+  },
   "WAP": {
     "expansion": "Wireless Access Point",
     "display": "WAP",
@@ -9911,6 +10468,22 @@
       "PBAC"
     ]
   },
+  "XAI": {
+    "expansion": "Explainable Artificial Intelligence",
+    "display": "XAI",
+    "category": "ai",
+    "difficulty": "medium",
+    "explanation": "XAI covers techniques for making AI decisions understandable to humans: which inputs mattered, why this output, what would change the answer. It matters most where decisions carry consequences (credit, hiring, medical, security alerts) and where regulators expect reasons. In practice explainability is a spectrum, and knowing a model's limits honestly is often more valuable than a tidy story constructed after the fact.",
+    "sources": [
+      {
+        "name": "NIST: Four Principles of Explainable AI",
+        "url": "https://www.nist.gov/publications/four-principles-explainable-artificial-intelligence"
+      }
+    ],
+    "related": [
+      "AIRMF"
+    ]
+  },
   "XCCDF": {
     "expansion": "Extensible Configuration Checklist Description Format",
     "display": "XCCDF",
@@ -10039,6 +10612,24 @@
       "SQLI",
       "SSRF",
       "XSS"
+    ]
+  },
+  "YAML": {
+    "expansion": "YAML Ain't Markup Language",
+    "display": "YAML",
+    "category": "operations",
+    "difficulty": "medium",
+    "explanation": "YAML is a human-friendly format for configuration files, using indentation instead of brackets. It is the native tongue of modern infrastructure: Kubernetes manifests, CI/CD pipelines, and infrastructure-as-code templates are mostly YAML. That makes YAML files security-critical artifacts: a single indented line can grant a container privileged access, and secrets have a way of ending up committed inside them.",
+    "sources": [
+      {
+        "name": "YAML 1.2.2 specification",
+        "url": "https://yaml.org/spec/1.2.2/"
+      }
+    ],
+    "related": [
+      "JSON",
+      "IAC",
+      "K8S"
     ]
   },
   "ZKP": {

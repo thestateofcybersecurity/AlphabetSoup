@@ -2,7 +2,7 @@
 
 A plain-English cybersecurity reference at [cybersecurityalphabetsoup.com](https://cybersecurityalphabetsoup.com):
 
-- **Acronym dictionary**: 545 acronyms, each with its expansion, a short explanation of what it is and why it matters, a category and difficulty, and authoritative sources. Entries cross-link to related and commonly-confused terms (SSL and TLS, 2FA and MFA, SIEM and SOAR), and a mistyped search offers a "did you mean" suggestion.
+- **Acronym dictionary**: 580 acronyms, each with its expansion, a short explanation of what it is and why it matters, a category and difficulty, and authoritative sources. Entries cross-link to related and commonly-confused terms (SSL and TLS, 2FA and MFA, SIEM and SOAR), and a mistyped search offers a "did you mean" suggestion.
 - **NIST CSF 2.0 in plain English** (`/frameworks/nist-csf/`): all 106 subcategories translated with household metaphors.
 - **CIS Controls v8 in plain English** (`/frameworks/cis/`): all 153 safeguards, same treatment, each tagged with its Implementation Group (IG1/IG2/IG3), filterable by IG, and searchable by control name. Both framework browsers let you mark items reviewed and show a coverage bar.
 - **Practice quizzes** (`/quiz/`): 1,230 questions across 18 decks (Security+, CISSP, CEH, CHFI, CySA+, GSEC, SSCP, LPT, CISM, CISA, CRISC, CCSP, CCSK, OSCP, PenTest+, CASP+/SecurityX, PNPT, plus a fundamentals flip deck), with per-answer rationales, persistent progress, keyboard answering, an optional timed exam mode (pick 10/20/all questions, 72% to pass), spaced-repetition review of missed questions (a Leitner schedule with due dates), and session resume after a reload.

@@ -1,7 +1,7 @@
 /**
  * Build-time fragments for the About page.
  *
- * The About page carries a proof strip ("545 acronyms explained ...") and a
+ * The About page carries a proof strip ("580 acronyms explained ...") and a
  * "Latest writing" list. Hardcoding either would drift the moment an acronym
  * or a blog post lands, so the page keeps `<!--about-stats-->` and
  * `<!--about-latest-writing-->` markers and a Vite plugin (vite.config.ts)
