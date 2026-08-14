@@ -96,29 +96,37 @@ test('the prose chunk is fetched without being a blocking asset', async ({ page 
   expect(assets.filter((a) => /acronyms-.*\.js$/.test(a))).toEqual([]);
 });
 
-test('every page requests the variable-weight font URL', async ({ page }) => {
+test('every page uses the self-hosted fonts with above-the-fold preloads', async ({ page }) => {
   for (const path of ['/', '/quiz/', '/definitions/siem.html', '/blog/']) {
     await page.goto(path);
-    const hrefs = await page.evaluate(() =>
+    // Exactly one same-origin font stylesheet, and no third-party font hosts.
+    const sheets = await page.evaluate(() =>
       [...document.querySelectorAll('link[rel="stylesheet"]')]
-        .map((l) => l.getAttribute('href') ?? '')
-        // Compare the parsed host rather than substring-matching the URL, which
-        // would also accept something like evil.com/fonts.googleapis.com.
-        .filter((h) => {
-          try {
-            return new URL(h, document.baseURI).host === 'fonts.googleapis.com';
-          } catch {
-            return false;
-          }
-        }),
+        .map((l) => new URL(l.getAttribute('href') ?? '', document.baseURI))
+        .filter((u) => u.pathname.endsWith('/fonts.css')),
     );
-    expect(hrefs, `on ${path}`).toHaveLength(1);
-    // Ranges, not discrete weights: `500;700;900` makes Google serve three
-    // separate static instances instead of one variable font.
-    expect(hrefs[0], `on ${path}`).toContain('500..900');
-    expect(hrefs[0], `on ${path}`).not.toContain('9..144,700');
-    // IBM Plex Mono has no variable version; a range there returns no latin
-    // face at all, so it must stay discrete.
-    expect(hrefs[0], `on ${path}`).toContain('IBM+Plex+Mono:wght@500;600');
+    expect(sheets, `on ${path}`).toHaveLength(1);
+    const external = await page.evaluate(() =>
+      [...document.querySelectorAll('link[href]')]
+        .map((l) => new URL(l.getAttribute('href') ?? '', document.baseURI).host)
+        // Exact host comparison, not substring: evil.com/fonts.googleapis.com
+        // must not satisfy (or, here, violate) the assertion.
+        .filter((h) => h === 'fonts.googleapis.com' || h === 'fonts.gstatic.com'),
+    );
+    expect(external, `on ${path}`).toEqual([]);
+    // The two above-the-fold faces are preloaded so they beat CSS parsing.
+    const preloads = await page.evaluate(() =>
+      [...document.querySelectorAll('link[rel="preload"][as="font"]')].map(
+        (l) => new URL(l.getAttribute('href') ?? '', document.baseURI).pathname,
+      ),
+    );
+    expect(preloads, `on ${path}`).toContain('/fonts/fraunces-latin-opsz-normal.woff2');
+    expect(preloads, `on ${path}`).toContain('/fonts/ibm-plex-sans-latin-wght-normal.woff2');
+    // And the variable Fraunces file actually loads.
+    const loaded = await page.evaluate(async () => {
+      await document.fonts.load('700 40px Fraunces');
+      return document.fonts.check('700 40px Fraunces');
+    });
+    expect(loaded, `on ${path}`).toBe(true);
   }
 });
