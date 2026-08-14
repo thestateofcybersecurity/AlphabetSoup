@@ -144,6 +144,10 @@ body {
     padding-left: 14px;
     padding-right: 14px;
     -webkit-overflow-scrolling: touch;
+    /* The scrollbar is hidden, so fade the trailing edge to read as "more,
+       scroll right" rather than a cut-off; same affordance as .pill-row. */
+    -webkit-mask-image: linear-gradient(to right, #000 calc(100% - 28px), transparent);
+    mask-image: linear-gradient(to right, #000 calc(100% - 28px), transparent);
   }
 
   .site-nav::-webkit-scrollbar {
@@ -601,6 +605,14 @@ body {
   height: 28px;
   border-radius: 5px;
   cursor: pointer;
+}
+
+/* Touch screens get comfortably larger A-Z targets; the strip already wraps. */
+@media (pointer: coarse) {
+  .az {
+    width: 34px;
+    height: 34px;
+  }
 }
 
 .az:hover {

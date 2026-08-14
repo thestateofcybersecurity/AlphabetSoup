@@ -1,13 +1,12 @@
 import csfRaw from './data/nist-csf.json';
-import cisRaw from './data/cis.json';
+import cisTitles from 'virtual:cis-titles';
 import mapRaw from './data/csf-cis-map.json';
-import type { CisData, CsfData } from './lib/frameworks';
+import type { CsfData } from './lib/frameworks';
 import { CSF_FUNCTIONS, frameworkSlug } from './lib/frameworks';
 import type { FrameworkRecord } from './lib/framework-search';
 import { initFrameworkPage } from './ui/framework-page';
 
 const csf = csfRaw as CsfData;
-const cis = cisRaw as CisData;
 const csfToCis = mapRaw as Record<string, string[]>;
 
 const records: FrameworkRecord[] = Object.keys(csf)
@@ -32,6 +31,6 @@ initFrameworkPage({
     (csfToCis[record.id] ?? []).map((cisId) => ({
       label: `CIS ${cisId}`,
       href: `../cis/${frameworkSlug(cisId)}.html`,
-      title: cis[cisId]?.title,
+      title: cisTitles[cisId],
     })),
 });

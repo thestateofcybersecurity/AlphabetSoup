@@ -2,13 +2,6 @@ import csfRaw from './data/nist-csf.json';
 import cisRaw from './data/cis.json';
 import igsRaw from './data/cis-igs.json';
 import vcisoRaw from './data/vciso-tasks.json';
-import assessRaw from './data/assessment.json';
-import cpgRaw from './data/assessment-cpg.json';
-import cmmcRaw from './data/assessment-800171.json';
-import ceRaw from './data/assessment-cyber-essentials.json';
-import ztmmRaw from './data/assessment-ztmm.json';
-import ssdfRaw from './data/assessment-ssdf.json';
-import pciRaw from './data/assessment-pci-dss.json';
 import programRaw from './data/security-program.json';
 import roadmapKpisRaw from './data/roadmap-kpis.json';
 import type { CisData, CsfData } from './lib/frameworks';
@@ -50,19 +43,48 @@ type Source = 'program' | 'csf' | 'cis' | 'vciso' | 'gaps';
 
 const program = programRaw as { goals: ProgramGoal[] };
 
-/** Assessments that can seed a gap plan, and their data. */
-const GAP_ASSESSMENTS: { id: string; name: string; data: AssessmentData }[] = [
-  { id: 'ransomware', name: 'Ransomware readiness', data: assessRaw as AssessmentData },
-  { id: 'cpg', name: 'CISA Performance Goals', data: cpgRaw as AssessmentData },
-  { id: 'cis-ig1', name: 'CIS IG1 essentials', data: cisIg1Assessment(cis, igs) },
-  { id: 'cis-v8', name: 'CIS Controls v8 (all safeguards)', data: cisControlsAssessment(cis, igs) },
-  { id: 'nist-csf', name: 'NIST CSF 2.0', data: csfAssessment(csf) },
-  { id: 'nist-800171', name: 'NIST 800-171 / CMMC', data: cmmcRaw as AssessmentData },
-  { id: 'cyber-essentials', name: 'CISA Cyber Essentials', data: ceRaw as AssessmentData },
-  { id: 'zero-trust', name: 'CISA Zero Trust Maturity Model', data: ztmmRaw as AssessmentData },
-  { id: 'ssdf', name: 'NIST SSDF (secure development)', data: ssdfRaw as AssessmentData },
-  { id: 'pci-dss', name: 'PCI DSS v4.0', data: pciRaw as AssessmentData },
+/**
+ * Assessments that can seed a gap plan.
+ *
+ * The seven file-backed datasets used to be static imports, which shipped
+ * ~59 KB gzipped of assessment JSON on every roadmap visit for a flow most
+ * visits never open (the assess page already lazy-loads the same files). They
+ * now load on demand the first time a gap plan needs them, cached after that.
+ * The three derived from cis.json and nist-csf.json stay synchronous: both
+ * datasets are already here for the CIS and CSF plan sources.
+ */
+const GAP_ASSESSMENTS: { id: string; name: string; load: () => Promise<AssessmentData> }[] = [
+  { id: 'ransomware', name: 'Ransomware readiness', load: async () => (await import('./data/assessment.json')).default as AssessmentData },
+  { id: 'cpg', name: 'CISA Performance Goals', load: async () => (await import('./data/assessment-cpg.json')).default as AssessmentData },
+  { id: 'cis-ig1', name: 'CIS IG1 essentials', load: async () => cisIg1Assessment(cis, igs) },
+  { id: 'cis-v8', name: 'CIS Controls v8 (all safeguards)', load: async () => cisControlsAssessment(cis, igs) },
+  { id: 'nist-csf', name: 'NIST CSF 2.0', load: async () => csfAssessment(csf) },
+  { id: 'nist-800171', name: 'NIST 800-171 / CMMC', load: async () => (await import('./data/assessment-800171.json')).default as AssessmentData },
+  { id: 'cyber-essentials', name: 'CISA Cyber Essentials', load: async () => (await import('./data/assessment-cyber-essentials.json')).default as AssessmentData },
+  { id: 'zero-trust', name: 'CISA Zero Trust Maturity Model', load: async () => (await import('./data/assessment-ztmm.json')).default as AssessmentData },
+  { id: 'ssdf', name: 'NIST SSDF (secure development)', load: async () => (await import('./data/assessment-ssdf.json')).default as AssessmentData },
+  { id: 'pci-dss', name: 'PCI DSS v4.0', load: async () => (await import('./data/assessment-pci-dss.json')).default as AssessmentData },
 ];
+
+/** Loaded gap datasets by id; `null` marks a load in flight. */
+const gapData = new Map<string, AssessmentData | null>();
+
+/**
+ * The dataset for a gap assessment, or null while it loads. The first call
+ * kicks off the load and re-renders when it lands; render() treats the null
+ * as a loading state rather than an empty plan.
+ */
+function gapAssessmentData(id: string): AssessmentData | null {
+  if (gapData.has(id)) return gapData.get(id) ?? null;
+  const spec = GAP_ASSESSMENTS.find((a) => a.id === id);
+  if (!spec) return null;
+  gapData.set(id, null);
+  void spec.load().then((data) => {
+    gapData.set(id, data);
+    render();
+  });
+  return null;
+}
 
 function gapsAssessmentId(): string {
   // Return an id from the known list (never the raw DOM value), so downstream
@@ -135,10 +157,11 @@ function currentTasks(): RoadmapTask[] {
   if (s === 'cis') return cisPlan(cis, igs, Number(sel('plan-ig').value) as 1 | 2 | 3, kpiDepth.cis);
   if (s === 'vciso') return vcisoPlan(vciso, sel('plan-pkg').value as 'Small' | 'Medium' | 'Large');
   if (s === 'gaps') {
-    const assessment = GAP_ASSESSMENTS.find((a) => a.id === gapsAssessmentId());
-    if (!assessment) return [];
-    const answers = assessmentAnswers(assessment.id);
-    return Object.keys(answers).length === 0 ? [] : gapsPlan(assessment.data, answers);
+    const id = gapsAssessmentId();
+    const data = gapAssessmentData(id);
+    if (!data) return [];
+    const answers = assessmentAnswers(id);
+    return Object.keys(answers).length === 0 ? [] : gapsPlan(data, answers);
   }
   return csfPlan(csf, kpiDepth.csf);
 }
@@ -527,6 +550,9 @@ function render(): void {
 
   if (s === 'gaps' && tasks.length === 0) {
     byId('plan-summary').innerHTML = '';
+    // Dataset still loading: render() runs again when it lands, so show
+    // nothing rather than flashing the wrong empty-state message.
+    if (gapData.get(gapsAssessmentId()) === null) return;
     const started = Object.keys(assessmentAnswers(gapsAssessmentId())).length > 0;
     const wrap = el('div', 'plan-summary-line');
     wrap.append(started ? 'No gaps: nothing left to plan. ' : 'No answers found for this assessment yet. ');

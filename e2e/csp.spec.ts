@@ -61,7 +61,7 @@ test('the built pages reference no external script origin', async ({ page }) => 
   expect([...origins].sort()).toEqual([]);
 });
 
-test('external styles and fonts come only from Google Fonts', async ({ page }) => {
+test('styles and fonts are fully self-hosted: no external origins', async ({ page }) => {
   const styleOrigins = new Set<string>();
   for (const path of PAGES) {
     const html = await (await page.request.get(path)).text();
@@ -71,6 +71,9 @@ test('external styles and fonts come only from Google Fonts', async ({ page }) =
     for (const m of html.matchAll(/<link[^>]+rel="stylesheet"[^>]*href="(https?:\/\/[^"]+)"/g)) {
       styleOrigins.add(new URL(m[1]).origin);
     }
+    // The old third-party font setup also needed preconnects; none should survive.
+    expect(html, `on ${path}`).not.toContain('fonts.googleapis.com');
+    expect(html, `on ${path}`).not.toContain('fonts.gstatic.com');
   }
-  expect([...styleOrigins].sort()).toEqual(['https://fonts.googleapis.com']);
+  expect([...styleOrigins].sort()).toEqual([]);
 });

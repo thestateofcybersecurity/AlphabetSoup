@@ -1,48 +1,59 @@
 /**
- * The webfont request, in one place.
+ * The webfont links, in one place.
  *
- * This URL was pasted into 23 hand-written pages plus two templates in the page
- * generator, and had already drifted into three different variants: some pages
- * loaded Fraunces 700 and IBM Plex Sans 500, others did not, so headings were
- * rendered by the browser's synthetic bolding on those pages instead.
+ * The site used to load fonts from fonts.googleapis.com with a render-blocking
+ * stylesheet on every page: a DNS + TLS + CSS round trip to a third-party
+ * origin before first styled paint, followed by font files from a second
+ * origin. The fonts are now self-hosted latin-subset woff2 files (variable
+ * where the family has one) under /fonts/, declared in /fonts.css, served from
+ * the same origin and cached across the whole site.
  *
- * The weights are requested as ranges rather than as discrete values. Asking for
- * `wght@500;700;900` makes Google Fonts serve three separate static instances of
- * Fraunces at ~66 KB each; asking for `wght@500..900` serves the variable font
- * once. Measured over the latin subset: 426 KB across 10 files becomes 205 KB
- * across 6, on every page of the site.
+ * The two faces that render above the fold everywhere (Fraunces for the
+ * headline, Plex Sans for body text) are preloaded so they start downloading
+ * before the CSS is parsed. Font preloads require `crossorigin` even on the
+ * same origin, because font fetches are CORS-mode requests.
  *
- * IBM Plex Mono deliberately keeps discrete weights. Google does not publish a
- * variable version of it, and a range request returns no latin @font-face at
- * all, which would silently drop the monospace face sitewide.
+ * This module is the single source: hand-written pages get these links via the
+ * fonts Vite plugin (which also rewrites any stale Google Fonts markup), and
+ * generated pages get them from renderFontLinks in scripts/generate-pages.ts.
  */
-export const FONT_CSS_URL =
-  'https://fonts.googleapis.com/css2' +
-  '?family=Fraunces:ital,opsz,wght@0,9..144,500..900;1,9..144,500' +
-  '&family=IBM+Plex+Mono:wght@500;600' +
-  '&family=IBM+Plex+Sans:ital,wght@0,400..600;1,400' +
-  '&display=swap';
+export const FONT_CSS_URL = '/fonts.css';
 
-/** The preconnect + stylesheet links, for templates that build their own head. */
+const PRELOADS = [
+  '/fonts/fraunces-latin-opsz-normal.woff2',
+  '/fonts/ibm-plex-sans-latin-wght-normal.woff2',
+];
+
+/** The preload + stylesheet links, for templates that build their own head. */
 export function renderFontLinks(selfClosing = false): string {
   const end = selfClosing ? ' />' : '>';
   return (
-    `<link rel="preconnect" href="https://fonts.googleapis.com"${end}\n` +
-    `  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin${end}\n` +
-    `  <link href="${FONT_CSS_URL}" rel="stylesheet"${end}`
+    PRELOADS.map(
+      (href) => `<link rel="preload" href="${href}" as="font" type="font/woff2" crossorigin${end}\n  `,
+    ).join('') + `<link href="${FONT_CSS_URL}" rel="stylesheet"${end}`
   );
 }
 
 /**
- * Rewrite any Google Fonts stylesheet link in a page to the canonical one.
+ * Rewrite any webfont markup in a page to the canonical self-hosted links.
  *
- * Normalising rather than requiring a marker means a page that is copied from an
- * older template, or hand-edited back to discrete weights, is corrected at build
- * time instead of quietly regressing the font payload.
+ * Normalising rather than requiring a marker means a page that is copied from
+ * an older template, still pointing at Google Fonts (stylesheet or
+ * preconnects), is corrected at build time instead of quietly shipping a
+ * third-party request.
  */
 export function withCanonicalFonts(html: string): string {
-  return html.replace(
-    /<link[^>]*href="https:\/\/fonts\.googleapis\.com\/css2\?[^"]*"[^>]*>/g,
-    `<link href="${FONT_CSS_URL}" rel="stylesheet" />`,
+  return (
+    html
+      // Old third-party preconnects serve no purpose once fonts are same-origin.
+      .replace(/[ \t]*<link[^>]*rel="preconnect"[^>]*href="https:\/\/fonts\.(googleapis|gstatic)\.com[^"]*"[^>]*>\n?/g, '')
+      .replace(/[ \t]*<link[^>]*href="https:\/\/fonts\.(googleapis|gstatic)\.com[^"]*"[^>]*rel="preconnect"[^>]*>\n?/g, '')
+      // A Google Fonts stylesheet link becomes the canonical self-hosted links.
+      .replace(
+        /<link[^>]*href="https:\/\/fonts\.googleapis\.com\/css2\?[^"]*"[^>]*>/g,
+        renderFontLinks(true),
+      )
+      // Already-canonical pages: leave the stylesheet link alone.
+      .replace(/(<link[^>]*href=")\/fonts\.css("[^>]*>)/g, `$1${FONT_CSS_URL}$2`)
   );
 }

@@ -105,7 +105,10 @@ export function renderSiteNav(prefix: string, currentPath: string): string {
     return `<a href="${href}"${isCurrent ? ' aria-current="page"' : ''}>${link.label}</a>`;
   });
   const external = EXTERNAL_LINKS.map((l) => externalAnchor(l, 'nav-play'));
-  return `<nav class="site-nav" aria-label="Site">\n      ${[...internal, ...external].join('\n      ')}\n    </nav>`;
+  // /nav.js centers the current link when the nav is a scrollable row on
+  // narrow screens. External rather than inline: the site ships no inline
+  // scripts (see e2e/csp.spec.ts), and deferred so the nav exists when it runs.
+  return `<nav class="site-nav" aria-label="Site">\n      ${[...internal, ...external].join('\n      ')}\n    </nav><script src="/nav.js" defer></script>`;
 }
 
 /** Nav for generator-produced pages (class `.gnav`). */

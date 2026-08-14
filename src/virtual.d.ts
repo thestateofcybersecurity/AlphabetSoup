@@ -27,3 +27,13 @@ declare module 'virtual:tool-slugs' {
   const slugs: string[];
   export default slugs;
 }
+
+/**
+ * CIS safeguard id to title, for the CSF browser's cross-mapping chip
+ * tooltips, so that page does not import all of cis.json for titles alone.
+ * Also produced in vite.config.ts.
+ */
+declare module 'virtual:cis-titles' {
+  const titles: Record<string, string>;
+  export default titles;
+}

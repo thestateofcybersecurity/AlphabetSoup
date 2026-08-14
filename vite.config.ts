@@ -169,6 +169,65 @@ function toolSlugsPlugin(): Plugin {
 }
 
 /**
+ * Fills head-metadata gaps on every hand-written page: canonical URL (derived
+ * from the page path), twitter:card, web manifest, and apple-touch-icon. The
+ * generated pages already emit all four; the hand-written ones had drifted
+ * (canonical existed only on the homepage, twitter:card on three pages).
+ * Existing tags always win: the plugin only adds what a page is missing.
+ */
+function headMetaPlugin(): Plugin {
+  const SITE = 'https://www.cybersecurityalphabetsoup.com';
+  return {
+    name: 'head-meta',
+    transformIndexHtml: {
+      order: 'pre',
+      handler(html, ctx) {
+        const rel = ctx.path.replace(/^\//, '').replace(/index\.html$/, '');
+        const inserts: string[] = [];
+        if (!html.includes('rel="canonical"')) {
+          inserts.push(`<link rel="canonical" href="${SITE}/${rel}" />`);
+        }
+        if (!html.includes('name="twitter:card"')) {
+          inserts.push('<meta name="twitter:card" content="summary_large_image" />');
+        }
+        if (!html.includes('rel="manifest"')) {
+          inserts.push('<link rel="manifest" href="/manifest.webmanifest" />');
+        }
+        if (!html.includes('rel="apple-touch-icon"')) {
+          inserts.push('<link rel="apple-touch-icon" href="/icon-192.png" />');
+        }
+        if (inserts.length === 0) return html;
+        return html.replace('</head>', `  ${inserts.join('\n  ')}\n</head>`);
+      },
+    },
+  };
+}
+
+/**
+ * Serves `virtual:cis-titles`: safeguard id to title, for the CSF browser's
+ * cross-mapping chip tooltips. The chips only need titles, and importing all of
+ * cis.json for them shipped 14.7 KB gzipped of unused prose on every CSF page
+ * view; this slice is ~2 KB. Derived from cis.json so the two cannot disagree.
+ */
+function cisTitlesPlugin(): Plugin {
+  const VIRTUAL = 'virtual:cis-titles';
+  const RESOLVED = `\0${VIRTUAL}`;
+  const source = fileURLToPath(new URL('./src/data/cis.json', import.meta.url));
+  return {
+    name: 'cis-titles',
+    resolveId: (id) => (id === VIRTUAL ? RESOLVED : undefined),
+    load(id) {
+      if (id !== RESOLVED) return undefined;
+      this.addWatchFile(source);
+      const raw = JSON.parse(readFileSync(source, 'utf8')) as Record<string, { title: string }>;
+      const titles: Record<string, string> = {};
+      for (const [key, entry] of Object.entries(raw)) titles[key] = entry.title;
+      return `export default ${JSON.stringify(titles)};`;
+    },
+  };
+}
+
+/**
  * Normalises the webfont request across every hand-written page. Runs in dev as
  * well as build so the fonts you develop against are the fonts you ship.
  */
@@ -187,9 +246,11 @@ export default defineConfig({
     acronymIndexPlugin(),
     assessmentCountsPlugin(),
     toolSlugsPlugin(),
+    cisTitlesPlugin(),
     siteNavPlugin(),
     aboutSectionsPlugin(),
     fontsPlugin(),
+    headMetaPlugin(),
   ],
   // Relative base so the build works on the custom domain or any Pages path.
   base: './',
