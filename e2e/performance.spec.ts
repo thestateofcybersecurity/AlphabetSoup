@@ -109,7 +109,9 @@ test('every page uses the self-hosted fonts with above-the-fold preloads', async
     const external = await page.evaluate(() =>
       [...document.querySelectorAll('link[href]')]
         .map((l) => new URL(l.getAttribute('href') ?? '', document.baseURI).host)
-        .filter((h) => h.includes('fonts.googleapis.com') || h.includes('fonts.gstatic.com')),
+        // Exact host comparison, not substring: evil.com/fonts.googleapis.com
+        // must not satisfy (or, here, violate) the assertion.
+        .filter((h) => h === 'fonts.googleapis.com' || h === 'fonts.gstatic.com'),
     );
     expect(external, `on ${path}`).toEqual([]);
     // The two above-the-fold faces are preloaded so they beat CSS parsing.
