@@ -1,4 +1,5 @@
 import { expect, test } from '@playwright/test';
+import { CATEGORIES } from '../src/lib/types';
 
 /**
  * The static pages carry most of the organic search traffic, and until now they
@@ -77,8 +78,8 @@ test('a category hub only lists acronyms from that category', async ({ page }) =
 test('category hubs cross-link to each other', async ({ page }) => {
   await page.goto('/categories/attacks.html');
   const others = page.locator('.related a');
-  // Nine siblings, and not a self-link.
-  await expect(others).toHaveCount(9);
+  // Every sibling category, and not a self-link.
+  await expect(others).toHaveCount(CATEGORIES.length - 1);
   const hrefs = await others.evaluateAll((els) => els.map((e) => e.getAttribute('href')));
   expect(hrefs).not.toContain('./attacks.html');
 });

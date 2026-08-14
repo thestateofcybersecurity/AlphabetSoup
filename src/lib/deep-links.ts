@@ -1,7 +1,7 @@
 /**
  * Derives the onward links on a definition page from the content itself.
  *
- * The 545 definition pages carry most of the organic search traffic, and only
+ * The 580 definition pages carry most of the organic search traffic, and only
  * 25 of them offered anywhere to go next: the "Go deeper" block was driven by
  * three hand-maintained maps covering 26 keys. Everything else ended at a list
  * of sources.

@@ -895,7 +895,7 @@ for (const post of blogPosts) writeFileSync(`${dist}/blog/${post.slug}.html`, bl
 //
 // Every definition page already said "More in <category>" and showed a few
 // sibling chips, but there was nowhere to see the whole category. These give all
-// 545 pages a real onward destination and add ten indexable landing pages for
+// 580 pages a real onward destination and add ten indexable landing pages for
 // the category terms people actually search.
 function categoryPage(category: string, entryKeys: string[]): string {
   const title = categoryTitle(category);

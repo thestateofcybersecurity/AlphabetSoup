@@ -1,6 +1,7 @@
 export type Difficulty = 'easy' | 'medium' | 'hard';
 
 export const CATEGORIES = [
+  'ai',
   'certifications',
   'protocols',
   'attacks',
@@ -22,7 +23,7 @@ export interface Source {
 
 /**
  * The fields needed to list, filter, and search an acronym without reading its
- * prose. This slice is 10 KB gzipped across all 545 entries; the full records
+ * prose. This slice is 10 KB gzipped across all 580 entries; the full records
  * are 103 KB, almost all of it `explanation`. The homepage ships only this and
  * fetches the rest alongside, so first paint no longer waits on the prose.
  */
