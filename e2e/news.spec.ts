@@ -1,15 +1,19 @@
 import { expect, test } from '@playwright/test';
 
 /**
- * The Ransomware Watch page renders a feed fetched from GitHub Pages at
- * runtime. E2E must not depend on that remote feed being up (or on its
- * contents), so both the success and failure paths are exercised by
- * intercepting the request.
+ * The news page renders three payloads fetched from GitHub Pages at runtime:
+ * aggregated headlines, the ransomware victim feed, and the feed directory.
+ * E2E must not depend on those remote feeds being up (or on their contents),
+ * so every request is intercepted; each section is exercised in both its
+ * success and failure state.
  */
 
-const FEED_URL = 'https://thestateofcybersecurity.github.io/ransomwareRSS/feed.json';
+const BASE = 'https://thestateofcybersecurity.github.io/ransomwareRSS/';
+const RANSOM_URL = `${BASE}feed.json`;
+const AGG_URL = `${BASE}cybersecurity-feed.json`;
+const DIR_URL = `${BASE}feeds.json`;
 
-const FIXTURE = {
+const RANSOM_FIXTURE = {
   updated: new Date().toISOString(),
   items: [
     {
@@ -31,11 +35,52 @@ const FIXTURE = {
   ],
 };
 
-test('renders claims from the feed, with hostile names inert', async ({ page }) => {
-  await page.route(FEED_URL, (route) =>
-    route.fulfill({ contentType: 'application/json', body: JSON.stringify(FIXTURE) }),
-  );
+const AGG_FIXTURE = {
+  updated: new Date().toISOString(),
+  items: [
+    {
+      source: 'Fixture News',
+      sourceUrl: 'https://news.example/',
+      title: 'Fixture story about a breach',
+      link: 'https://news.example/story',
+      date: new Date(Date.now() - 2 * 3_600_000).toISOString(),
+      excerpt: 'A short excerpt.',
+    },
+  ],
+};
+
+const DIR_FIXTURE = {
+  feeds: [
+    {
+      name: 'Fixture Feed',
+      category: 'News',
+      url: 'https://news.example/feed/',
+      homepage: 'https://news.example/',
+      blurb: 'A fixture feed.',
+    },
+  ],
+};
+
+async function stubAll(page: import('@playwright/test').Page): Promise<void> {
+  await Promise.all([
+    page.route(RANSOM_URL, (route) =>
+      route.fulfill({ contentType: 'application/json', body: JSON.stringify(RANSOM_FIXTURE) }),
+    ),
+    page.route(AGG_URL, (route) =>
+      route.fulfill({ contentType: 'application/json', body: JSON.stringify(AGG_FIXTURE) }),
+    ),
+    page.route(DIR_URL, (route) =>
+      route.fulfill({ contentType: 'application/json', body: JSON.stringify(DIR_FIXTURE) }),
+    ),
+  ]);
+}
+
+test('renders headlines, claims, and the directory from the feeds', async ({ page }) => {
+  await stubAll(page);
   await page.goto('/news/');
+
+  await expect(page.locator('.hl-item .hl-title')).toHaveText('Fixture story about a breach');
+  await expect(page.locator('#hl-status')).toContainText('1 of 1 stories');
 
   const items = page.locator('.news-item');
   await expect(items).toHaveCount(2);
@@ -47,27 +92,38 @@ test('renders claims from the feed, with hostile names inert', async ({ page }) 
   // The hostile victim name renders as text, not markup.
   await expect(items.nth(1)).toContainText('<script>alert(1)</script>');
   await expect(page.locator('#news-status')).toContainText('2 recent claims');
+
+  await expect(page.locator('.dir-item .dir-name')).toContainText('Fixture Feed');
+  await expect(page.locator('#dir-status')).toContainText('1 feeds');
 });
 
-test('falls back to the raw RSS link when the feed is down', async ({ page }) => {
-  await page.route(FEED_URL, (route) => route.fulfill({ status: 503, body: 'nope' }));
+test('each section falls back independently when its feed is down', async ({ page }) => {
+  for (const url of [RANSOM_URL, AGG_URL, DIR_URL]) {
+    await page.route(url, (route) => route.fulfill({ status: 503, body: 'nope' }));
+  }
   await page.goto('/news/');
 
-  const status = page.locator('#news-status');
-  await expect(status).toContainText('could not be loaded');
-  await expect(status.locator('a')).toHaveAttribute(
+  await expect(page.locator('#hl-status')).toContainText('could not be loaded');
+  await expect(page.locator('#hl-status a')).toHaveAttribute(
     'href',
-    'https://thestateofcybersecurity.github.io/ransomwareRSS/feed.xml',
+    `${BASE}cybersecurity-feed.xml`,
   );
+  await expect(page.locator('#news-status')).toContainText('could not be loaded');
+  await expect(page.locator('#news-status a')).toHaveAttribute('href', `${BASE}feed.xml`);
+  await expect(page.locator('#dir-status a')).toHaveAttribute('href', `${BASE}feeds.opml`);
 });
 
-test('advertises the RSS feed in the head and marks News current in the nav', async ({ page }) => {
-  await page.route(FEED_URL, (route) => route.fulfill({ status: 503, body: '' }));
+test('advertises both RSS feeds in the head and marks News current in the nav', async ({
+  page,
+}) => {
+  for (const url of [RANSOM_URL, AGG_URL, DIR_URL]) {
+    await page.route(url, (route) => route.fulfill({ status: 503, body: '' }));
+  }
   await page.goto('/news/');
 
-  await expect(page.locator('link[rel="alternate"][type="application/rss+xml"]')).toHaveAttribute(
-    'href',
-    'https://thestateofcybersecurity.github.io/ransomwareRSS/feed.xml',
-  );
+  const alternates = page.locator('link[rel="alternate"][type="application/rss+xml"]');
+  await expect(alternates).toHaveCount(2);
+  await expect(alternates.first()).toHaveAttribute('href', `${BASE}cybersecurity-feed.xml`);
+  await expect(alternates.nth(1)).toHaveAttribute('href', `${BASE}feed.xml`);
   await expect(page.locator('.site-nav [aria-current="page"]')).toHaveText('News');
 });
