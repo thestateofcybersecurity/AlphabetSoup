@@ -14,6 +14,85 @@ import {
 } from './lib/news';
 
 const HEADLINE_LIMIT = 40;
+const CLAMP = 10;
+
+/**
+ * Tabs keep all three sections in the DOM (crawlable, hash-addressable) but
+ * show one at a time; the lists themselves render clamped to 10 rows with a
+ * show-all button. Both exist purely to cut scroll: the page previously
+ * stacked ~90 rows in one column.
+ */
+const TAB_IDS = ['headlines', 'ransomware', 'feeds'] as const;
+type TabId = (typeof TAB_IDS)[number];
+
+function tabOf(id: TabId): HTMLButtonElement {
+  return document.getElementById(`tab-${id}`) as HTMLButtonElement;
+}
+
+function selectTab(id: TabId): void {
+  for (const other of TAB_IDS) {
+    const selected = other === id;
+    const tab = tabOf(other);
+    tab.setAttribute('aria-selected', String(selected));
+    tab.tabIndex = selected ? 0 : -1;
+    (document.getElementById(`panel-${other}`) as HTMLElement).hidden = !selected;
+  }
+}
+
+function wireTabs(): void {
+  const list = document.querySelector('.news-tabs') as HTMLElement;
+  for (const id of TAB_IDS) {
+    tabOf(id).addEventListener('click', () => {
+      selectTab(id);
+      history.replaceState(null, '', `#${id}`);
+    });
+  }
+  // Roving focus per the WAI-ARIA tabs pattern: arrows move and select.
+  list.addEventListener('keydown', (event) => {
+    const current = TAB_IDS.findIndex((id) => tabOf(id) === document.activeElement);
+    if (current === -1) return;
+    let next: number | null = null;
+    if (event.key === 'ArrowRight') next = (current + 1) % TAB_IDS.length;
+    else if (event.key === 'ArrowLeft') next = (current + TAB_IDS.length - 1) % TAB_IDS.length;
+    else if (event.key === 'Home') next = 0;
+    else if (event.key === 'End') next = TAB_IDS.length - 1;
+    if (next === null) return;
+    event.preventDefault();
+    selectTab(TAB_IDS[next]);
+    tabOf(TAB_IDS[next]).focus();
+  });
+
+  // Deep links (#ransomware) select their tab on load and on hash-only
+  // navigations, which also makes back/forward restore the tab.
+  const applyHash = (): void => {
+    const fromHash = location.hash.replace('#', '');
+    if ((TAB_IDS as readonly string[]).includes(fromHash)) selectTab(fromHash as TabId);
+  };
+  window.addEventListener('hashchange', applyHash);
+  applyHash();
+
+  // The action pill jumps to the alert form inside the ransomware tab.
+  document.getElementById('watch-org-pill')?.addEventListener('click', () => {
+    selectTab('ransomware');
+    history.replaceState(null, '', '#ransomware');
+    const email = document.getElementById('alert-email') as HTMLInputElement | null;
+    email?.scrollIntoView({ block: 'center' });
+    email?.focus({ preventScroll: true });
+  });
+}
+
+/** Reveal the show-all button when a clamped list has more rows than the clamp. */
+function wireClamp(listId: string, buttonId: string, noun: string, total: number): void {
+  const list = document.getElementById(listId) as HTMLOListElement;
+  const button = document.getElementById(buttonId) as HTMLButtonElement;
+  if (total <= CLAMP) return;
+  button.hidden = false;
+  button.textContent = `Show all ${total} ${noun}`;
+  button.addEventListener('click', () => {
+    list.classList.remove('clamped');
+    button.hidden = true;
+  });
+}
 
 /**
  * All three payloads live on GitHub Pages (which sends
@@ -45,7 +124,8 @@ async function loadHeadlines(): Promise<void> {
     const now = new Date();
     const shown = feed.items.slice(0, HEADLINE_LIMIT);
     list.innerHTML = renderHeadlines(shown, now);
-    status.textContent = `${shown.length} of ${feed.items.length} stories from the past week`;
+    status.textContent = `${feed.items.length} stories from the past week`;
+    wireClamp('hl-list', 'hl-more', 'headlines', shown.length);
   } catch {
     status.innerHTML = feedDownMessage(AGG_XML_URL);
   }
@@ -60,6 +140,7 @@ async function loadRansomwatch(): Promise<void> {
     const now = new Date();
     list.innerHTML = renderItems(feed.items, now);
     status.textContent = renderStatus(feed, now);
+    wireClamp('news-list', 'rw-more', 'claims', feed.items.length);
   } catch {
     status.innerHTML = feedDownMessage(FEED_XML_URL);
   }
@@ -122,6 +203,7 @@ function wireAlertForm(): void {
   });
 }
 
+wireTabs();
 void loadHeadlines();
 void loadRansomwatch();
 void loadDirectory();
