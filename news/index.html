@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="color-scheme" content="light dark" />
-  <meta name="description" content="One RSS feed for all your cybersecurity news: headlines merged hourly from 20+ trusted newsrooms, research teams, and blogs, plus a live ransomware victim tracker and a hand-picked feed directory with OPML download." />
+  <meta name="description" content="One RSS feed for all your cybersecurity news: headlines merged hourly from 20+ trusted newsrooms, research teams, and blogs, plus a live ransomware victim tracker with org-watch email alerts and a hand-picked feed directory." />
   <meta property="og:type" content="website" />
   <meta property="og:title" content="Security news, one feed | Cybersecurity Alphabet Soup" />
   <meta property="og:description" content="Cybersecurity headlines merged hourly from 20+ trusted sources into one RSS feed, plus a live ransomware victim tracker and a hand-picked feed directory." />
@@ -20,16 +20,42 @@
   <link rel="alternate" type="application/rss+xml" title="Security News (all sources)" href="https://thestateofcybersecurity.github.io/ransomwareRSS/cybersecurity-feed.xml" />
   <link rel="alternate" type="application/rss+xml" title="Ransomware Watch" href="https://thestateofcybersecurity.github.io/ransomwareRSS/feed.xml" />
   <style>
+    .hero-slim { padding: 26px 20px 6px; }
+    .hero-slim .title { font-size: clamp(2rem, 5vw, 2.6rem); }
+    .hero-slim .tagline { margin-top: 8px; font-size: 0.95rem; }
     .news-wrap { max-width: 860px; margin: 0 auto 30px; }
-    .news-section-title { font-family: var(--font-display); font-weight: 900; font-size: 1.5rem; margin: 34px 0 4px; }
-    .news-section-title:first-child { margin-top: 0; }
+
+    .action-row { display: flex; flex-wrap: wrap; gap: 8px; justify-content: center; margin: 0 0 22px; }
+    .action-pill { font-family: var(--font-mono); font-size: 0.75rem; text-decoration: none; border: 1.5px solid var(--tomato); color: var(--tomato); background: none; border-radius: 999px; padding: 7px 15px; cursor: pointer; }
+    .action-pill:hover { background: var(--tomato); color: var(--paper); }
+    .action-pill.primary { background: var(--tomato); color: var(--paper); }
+    .action-pill.primary:hover { background: var(--tomato-deep); border-color: var(--tomato-deep); }
+    .action-pill.quiet { border-color: var(--line); color: var(--ink-soft); }
+    .action-pill.quiet:hover { background: none; border-color: var(--tomato); color: var(--tomato); }
+
+    .news-tabs { display: flex; gap: 2px; border-bottom: 1.5px solid var(--line); margin: 0 0 16px; overflow-x: auto; }
+    .news-tab { font-family: var(--font-mono); font-size: 0.78rem; letter-spacing: 0.06em; background: none; border: none; border-bottom: 2.5px solid transparent; color: var(--ink-soft); padding: 9px 14px; cursor: pointer; white-space: nowrap; }
+    .news-tab:hover { color: var(--tomato); }
+    .news-tab[aria-selected="true"] { color: var(--tomato); border-bottom-color: var(--tomato); font-weight: 600; }
+
     .news-status { font-family: var(--font-mono); font-size: 0.72rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--ink-soft); margin: 0 0 14px; }
     .news-status a { color: var(--tomato); }
+    .show-more { display: block; margin: 4px auto 18px; font-family: var(--font-mono); font-size: 0.74rem; background: none; border: 1.5px solid var(--line); color: var(--ink-soft); border-radius: 999px; padding: 6px 16px; cursor: pointer; }
+    .show-more:hover { border-color: var(--tomato); color: var(--tomato); }
+
     .hl-list { list-style: none; margin: 0 0 10px; padding: 0; display: flex; flex-direction: column; }
+    .hl-list.clamped .hl-item:nth-child(n + 11) { display: none; }
     .hl-item { display: flex; flex-wrap: wrap; gap: 2px 12px; align-items: baseline; justify-content: space-between; padding: 9px 2px; border-bottom: 1px solid var(--line); }
     .hl-title { font-weight: 600; color: inherit; flex: 1 1 420px; }
     .hl-meta { font-family: var(--font-mono); font-size: 0.68rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink-soft); white-space: nowrap; }
+    .panel-note { font-size: 0.84rem; color: var(--ink-soft); margin: 0 0 8px; }
+    .panel-note code { font-family: var(--font-mono); font-size: 0.74rem; overflow-wrap: anywhere; }
+
+    .news-caution { margin: 0 0 12px; font-size: 0.84rem; color: var(--ink-soft); }
+    .news-caution summary { cursor: pointer; color: var(--tomato); font-weight: 600; }
+    .news-caution p { margin: 6px 0 0; line-height: 1.55; }
     .news-list { list-style: none; margin: 0 0 10px; padding: 0; display: flex; flex-direction: column; gap: 8px; }
+    .news-list.clamped .news-item:nth-child(n + 11) { display: none; }
     .news-item { display: grid; grid-template-columns: minmax(90px, auto) 1fr auto; gap: 4px 14px; align-items: baseline; border: 1.5px solid var(--line); border-radius: 12px; padding: 10px 16px; background: var(--paper-raised); }
     .news-group { font-family: var(--font-mono); font-size: 0.7rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--tomato); }
     .news-victim { font-weight: 600; overflow-wrap: anywhere; }
@@ -40,21 +66,13 @@
       .news-item { grid-template-columns: 1fr; }
       .news-meta, .news-time { grid-column: 1; grid-row: auto; }
     }
-    .news-cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 16px; margin: 18px 0 8px; }
+
+    .rw-cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 16px; margin: 18px 0 8px; }
     .news-card { border: 1.5px solid var(--line); border-radius: 14px; padding: 18px 20px; background: var(--paper-raised); }
     .news-card h2 { font-family: var(--font-display); font-weight: 900; font-size: 1.15rem; margin: 0 0 8px; }
     .news-card p { margin: 0 0 8px; font-size: 0.92rem; line-height: 1.6; }
-    .news-card code { font-family: var(--font-mono); font-size: 0.78rem; overflow-wrap: anywhere; }
     .news-card a.go { display: inline-block; margin: 4px 8px 0 0; font-family: var(--font-mono); font-size: 0.78rem; text-decoration: none; border: 1.5px solid var(--tomato); color: var(--tomato); border-radius: 999px; padding: 7px 15px; }
     .news-card a.go:hover { background: var(--tomato); color: var(--paper); }
-    .dir-group h3 { font-family: var(--font-display); font-weight: 700; font-size: 1.1rem; margin: 20px 0 8px; }
-    .dir-list { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 6px; }
-    .dir-item { display: flex; flex-wrap: wrap; gap: 2px 10px; align-items: baseline; padding: 7px 2px; border-bottom: 1px solid var(--line); }
-    .dir-name { font-weight: 600; }
-    .dir-name a { color: inherit; }
-    .dir-blurb { flex: 1 1 320px; font-size: 0.86rem; color: var(--ink-soft); }
-    .dir-rss { font-family: var(--font-mono); font-size: 0.7rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--tomato); text-decoration: none; border: 1px solid var(--tomato); border-radius: 999px; padding: 2px 10px; }
-    .dir-rss:hover { background: var(--tomato); color: var(--paper); }
     .alert-form { display: flex; flex-direction: column; gap: 4px; margin: 0 0 8px; }
     .alert-label { font-family: var(--font-mono); font-size: 0.68rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--ink-soft); margin-top: 6px; }
     .alert-form input { border: 1.5px solid var(--line); border-radius: 10px; padding: 8px 12px; background: var(--paper); color: inherit; font: inherit; }
@@ -65,6 +83,16 @@
     .alert-status { font-size: 0.85rem; margin: 0 0 8px; }
     .alert-status a { color: var(--tomato); }
     .alert-fine { font-size: 0.76rem; color: var(--ink-soft); margin: 0; }
+
+    .dir-group h3 { font-family: var(--font-display); font-weight: 700; font-size: 1.1rem; margin: 20px 0 8px; }
+    .dir-group:first-child h3 { margin-top: 0; }
+    .dir-list { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 6px; }
+    .dir-item { display: flex; flex-wrap: wrap; gap: 2px 10px; align-items: baseline; padding: 7px 2px; border-bottom: 1px solid var(--line); }
+    .dir-name { font-weight: 600; }
+    .dir-name a { color: inherit; }
+    .dir-blurb { flex: 1 1 320px; font-size: 0.86rem; color: var(--ink-soft); }
+    .dir-rss { font-family: var(--font-mono); font-size: 0.7rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--tomato); text-decoration: none; border: 1px solid var(--tomato); border-radius: 999px; padding: 2px 10px; }
+    .dir-rss:hover { background: var(--tomato); color: var(--paper); }
   </style>
 </head>
 <body class="theme-news">
@@ -73,67 +101,69 @@
 
     <!--site-nav-->
 
-  <header class="hero hero-compact">
+  <header class="hero hero-compact hero-slim">
     <p class="kicker">every source that matters &middot; one feed</p>
-    <h1 class="title">Security<br /><em>news</em></h1>
-    <p class="tagline">Headlines from twenty-plus trusted newsrooms, research teams, and practitioner blogs, merged hourly into a single feed, next to a live tracker of ransomware victim claims.</p>
+    <h1 class="title">Security <em>news</em></h1>
+    <p class="tagline">Twenty-plus trusted sources merged hourly into one feed, next to a live tracker of ransomware victim claims.</p>
   </header>
 
   <main id="main" class="ladle" tabindex="-1">
     <div class="news-wrap">
-      <h2 class="news-section-title">Latest headlines</h2>
-      <p class="news-status" id="hl-status" role="status">Loading the latest headlines&hellip;</p>
-      <ol class="hl-list" id="hl-list" aria-label="Latest cybersecurity headlines"></ol>
-
-      <div class="news-cards">
-        <article class="news-card">
-          <h2>One feed to subscribe to</h2>
-          <p>Everything on this page in your reader: every source below, merged and deduplicated hourly. Subscribe once and stop hunting for feeds.</p>
-          <p><code>https://thestateofcybersecurity.github.io/ransomwareRSS/cybersecurity-feed.xml</code></p>
-          <a class="go" href="https://thestateofcybersecurity.github.io/ransomwareRSS/cybersecurity-feed.xml" rel="noopener">Open the feed &rarr;</a>
-          <a class="go" href="https://thestateofcybersecurity.github.io/ransomwareRSS/feeds.opml" rel="noopener">Or grab the OPML &rarr;</a>
-        </article>
-        <article class="news-card">
-          <h2>How it works</h2>
-          <p>Headlines and short excerpts only; every click lands on the original publisher. The mix is capped per source, so one busy newsroom cannot drown out a quiet research blog.</p>
-        </article>
+      <div class="action-row">
+        <a class="action-pill primary" href="https://thestateofcybersecurity.github.io/ransomwareRSS/cybersecurity-feed.xml" rel="noopener">Subscribe: one feed for everything</a>
+        <button type="button" class="action-pill" id="watch-org-pill">Watch my org</button>
+        <a class="action-pill quiet" href="https://thestateofcybersecurity.github.io/ransomwareRSS/feeds.opml" rel="noopener" title="Import every recommended feed into your reader">OPML</a>
       </div>
 
-      <h2 class="news-section-title">Ransomware Watch</h2>
-      <p class="news-status" id="news-status" role="status">Loading the latest claims&hellip;</p>
-      <ol class="news-list" id="news-list" aria-label="Recent ransomware victim claims"></ol>
-
-      <div class="news-cards">
-        <article class="news-card">
-          <h2>Read this with care</h2>
-          <p>Every entry is a claim made by a criminal extortion group on its own leak site. Groups exaggerate, recycle old breaches, and sometimes name victims they never touched. Nothing here is verified.</p>
-          <p>Data is collected by the <a href="https://www.ransomware.live/" rel="noopener">ransomware.live</a> project; victim names link to its research pages. Ransomware Watch has its own feed:</p>
-          <p><code>https://thestateofcybersecurity.github.io/ransomwareRSS/feed.xml</code></p>
-          <a class="go" href="https://thestateofcybersecurity.github.io/ransomwareRSS/feed.xml" rel="noopener">Open the feed &rarr;</a>
-        </article>
-        <article class="news-card">
-          <h2>Would your org be ready?</h2>
-          <p>Watching the feed is the easy part. The ransomware readiness assessment walks through the controls that decide whether a claim like these becomes your bad week.</p>
-          <a class="go" href="../assess/">Check your readiness &rarr;</a>
-        </article>
-        <article class="news-card">
-          <h2>Get alerted if your org shows up</h2>
-          <p>Leave an email address and up to five watch terms (organization names or domains, comma-separated). If a new claim matches, you get an email within the hour.</p>
-          <form id="alert-form" class="alert-form">
-            <label class="alert-label" for="alert-email">Email</label>
-            <input id="alert-email" name="email" type="email" required autocomplete="email" placeholder="you@example.com" />
-            <label class="alert-label" for="alert-terms">Watch terms</label>
-            <input id="alert-terms" name="terms" type="text" required placeholder="Acme Corporation, acme.com" />
-            <button type="submit" class="alert-submit">Watch for my org</button>
-          </form>
-          <p class="alert-status" id="alert-status" role="status"></p>
-          <p class="alert-fine">Double opt-in; unsubscribing deletes everything immediately. This is the one feature on this site that stores anything server-side; details in the <a href="../privacy/">privacy policy</a>.</p>
-        </article>
+      <div class="news-tabs" role="tablist" aria-label="News sections">
+        <button class="news-tab" id="tab-headlines" role="tab" aria-selected="true" aria-controls="panel-headlines">Headlines</button>
+        <button class="news-tab" id="tab-ransomware" role="tab" aria-selected="false" aria-controls="panel-ransomware" tabindex="-1">Ransomware watch</button>
+        <button class="news-tab" id="tab-feeds" role="tab" aria-selected="false" aria-controls="panel-feeds" tabindex="-1">Feed directory</button>
       </div>
 
-      <h2 class="news-section-title">The feeds behind the feed</h2>
-      <p class="news-status" id="dir-status" role="status">Loading the directory&hellip;</p>
-      <div id="dir-wrap"></div>
+      <section id="panel-headlines" role="tabpanel" aria-labelledby="tab-headlines" tabindex="0">
+        <p class="news-status" id="hl-status" role="status">Loading the latest headlines&hellip;</p>
+        <ol class="hl-list clamped" id="hl-list" aria-label="Latest cybersecurity headlines"></ol>
+        <button type="button" class="show-more" id="hl-more" hidden>Show all headlines</button>
+        <p class="panel-note">Headlines and short excerpts only; every click lands on the original publisher, and the per-source cap keeps one busy newsroom from drowning out a quiet research blog. The same stream is the subscribe feed above: <code>cybersecurity-feed.xml</code>.</p>
+      </section>
+
+      <section id="panel-ransomware" role="tabpanel" aria-labelledby="tab-ransomware" tabindex="0" hidden>
+        <details class="news-caution">
+          <summary>These are criminal claims, not confirmed breaches</summary>
+          <p>Every entry is a claim made by a criminal extortion group on its own leak site. Groups exaggerate, recycle old breaches, and sometimes name victims they never touched. Nothing here is verified. Data is collected by the <a href="https://www.ransomware.live/" rel="noopener">ransomware.live</a> project; victim names link to its research pages. This tracker has its own feed: <a href="https://thestateofcybersecurity.github.io/ransomwareRSS/feed.xml" rel="noopener">feed.xml</a>.</p>
+        </details>
+        <p class="news-status" id="news-status" role="status">Loading the latest claims&hellip;</p>
+        <ol class="news-list clamped" id="news-list" aria-label="Recent ransomware victim claims"></ol>
+        <button type="button" class="show-more" id="rw-more" hidden>Show all claims</button>
+
+        <div class="rw-cards">
+          <article class="news-card">
+            <h2 id="alert-heading">Get alerted if your org shows up</h2>
+            <p>Leave an email address and up to five watch terms (organization names or domains, comma-separated). If a new claim matches, you get an email within the hour.</p>
+            <form id="alert-form" class="alert-form">
+              <label class="alert-label" for="alert-email">Email</label>
+              <input id="alert-email" name="email" type="email" required autocomplete="email" placeholder="you@example.com" />
+              <label class="alert-label" for="alert-terms">Watch terms</label>
+              <input id="alert-terms" name="terms" type="text" required placeholder="Acme Corporation, acme.com" />
+              <button type="submit" class="alert-submit">Watch for my org</button>
+            </form>
+            <p class="alert-status" id="alert-status" role="status"></p>
+            <p class="alert-fine">Double opt-in; unsubscribing deletes everything immediately. This is the one feature on this site that stores anything server-side; details in the <a href="../privacy/">privacy policy</a>.</p>
+          </article>
+          <article class="news-card">
+            <h2>Would your org be ready?</h2>
+            <p>Watching the feed is the easy part. The ransomware readiness assessment walks through the controls that decide whether a claim like these becomes your bad week.</p>
+            <a class="go" href="../assess/">Check your readiness &rarr;</a>
+          </article>
+        </div>
+      </section>
+
+      <section id="panel-feeds" role="tabpanel" aria-labelledby="tab-feeds" tabindex="0" hidden>
+        <p class="news-status" id="dir-status" role="status">Loading the directory&hellip;</p>
+        <div id="dir-wrap"></div>
+        <p class="panel-note">Want all of them at once? <a href="https://thestateofcybersecurity.github.io/ransomwareRSS/feeds.opml" rel="noopener">The OPML file</a> imports the whole list into any reader, or take the single merged feed from the button up top.</p>
+      </section>
     </div>
   </main>
 
