@@ -1065,6 +1065,7 @@ const urls = [
   // Derived from the filesystem so a new tool can never be missed (was hardcoded).
   ...toolSlugs.map((slug) => `${SITE}/tools/${slug}/`),
   `${SITE}/careers/`,
+  `${SITE}/news/`,
   `${SITE}/about/`,
   `${SITE}/assess/cmmc/`,
   `${SITE}/privacy/`,
