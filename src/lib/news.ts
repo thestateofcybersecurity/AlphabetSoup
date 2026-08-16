@@ -33,6 +33,10 @@ export interface NewsFeed {
 const FEED_BASE = 'https://thestateofcybersecurity.github.io/ransomwareRSS/';
 export const FEED_JSON_URL = `${FEED_BASE}feed.json`;
 export const FEED_XML_URL = `${FEED_BASE}feed.xml`;
+export const AGG_JSON_URL = `${FEED_BASE}cybersecurity-feed.json`;
+export const AGG_XML_URL = `${FEED_BASE}cybersecurity-feed.xml`;
+export const OPML_URL = `${FEED_BASE}feeds.opml`;
+export const DIRECTORY_JSON_URL = `${FEED_BASE}feeds.json`;
 
 /** Only links into ransomware.live survive parsing; anything else becomes ''. */
 const LINK_PREFIX = 'https://www.ransomware.live/';
@@ -117,4 +121,125 @@ export function renderStatus(feed: NewsFeed, now: Date): string {
   const count = feed.items.length;
   const freshness = feed.updated ? `, updated ${relativeTime(feed.updated, now)}` : '';
   return `${count} recent claim${count === 1 ? '' : 's'}${freshness}`;
+}
+
+/**
+ * The aggregated headlines feed (cybersecurity-feed.json): one item per story
+ * across the curated sources. Sources are reputable publishers, but the
+ * payload still transits our feed pipeline, so it gets the same hostile
+ * treatment; links must be https to survive.
+ */
+
+export interface Headline {
+  source: string;
+  sourceUrl: string;
+  title: string;
+  link: string;
+  /** ISO 8601 publication timestamp. */
+  date: string;
+  excerpt: string;
+}
+
+export interface HeadlineFeed {
+  updated: string;
+  items: Headline[];
+}
+
+function httpsOnly(url: string): string {
+  return url.startsWith('https://') ? url : '';
+}
+
+export function parseHeadlines(raw: unknown): HeadlineFeed {
+  if (typeof raw !== 'object' || raw === null || !Array.isArray((raw as { items?: unknown }).items)) {
+    return { updated: '', items: [] };
+  }
+  const { updated, items } = raw as { updated?: unknown; items: unknown[] };
+  const parsed: Headline[] = [];
+  for (const entry of items) {
+    if (typeof entry !== 'object' || entry === null) continue;
+    const record = entry as Record<string, unknown>;
+    const title = asString(record.title).trim();
+    const link = httpsOnly(asString(record.link));
+    const date = asString(record.date);
+    if (!title || !link || Number.isNaN(Date.parse(date))) continue;
+    parsed.push({
+      source: asString(record.source).trim(),
+      sourceUrl: httpsOnly(asString(record.sourceUrl)),
+      title,
+      link,
+      date,
+      excerpt: asString(record.excerpt).trim(),
+    });
+  }
+  return { updated: Number.isNaN(Date.parse(asString(updated))) ? '' : asString(updated), items: parsed };
+}
+
+export function renderHeadlines(items: Headline[], now: Date): string {
+  return items
+    .map(
+      (item) => `<li class="hl-item">
+    <a class="hl-title" href="${escAttr(item.link)}" rel="noopener" target="_blank">${esc(item.title)}</a>
+    <span class="hl-meta">${esc(item.source)}${item.source ? ' &middot; ' : ''}<time datetime="${escAttr(item.date)}">${esc(relativeTime(item.date, now))}</time></span>
+  </li>`,
+    )
+    .join('\n');
+}
+
+/** The recommended-feeds directory (feeds.json), grouped by category. */
+
+export interface FeedInfo {
+  name: string;
+  category: string;
+  url: string;
+  homepage: string;
+  blurb: string;
+}
+
+export function parseDirectory(raw: unknown): FeedInfo[] {
+  if (typeof raw !== 'object' || raw === null || !Array.isArray((raw as { feeds?: unknown }).feeds)) {
+    return [];
+  }
+  const parsed: FeedInfo[] = [];
+  for (const entry of (raw as { feeds: unknown[] }).feeds) {
+    if (typeof entry !== 'object' || entry === null) continue;
+    const record = entry as Record<string, unknown>;
+    const name = asString(record.name).trim();
+    const url = httpsOnly(asString(record.url));
+    if (!name || !url) continue;
+    parsed.push({
+      name,
+      category: asString(record.category).trim() || 'More',
+      url,
+      homepage: httpsOnly(asString(record.homepage)),
+      blurb: asString(record.blurb).trim(),
+    });
+  }
+  return parsed;
+}
+
+export function renderDirectory(feeds: FeedInfo[]): string {
+  const categories = [...new Set(feeds.map((feed) => feed.category))];
+  return categories
+    .map((category) => {
+      const rows = feeds
+        .filter((feed) => feed.category === category)
+        .map((feed) => {
+          const name = feed.homepage
+            ? `<a href="${escAttr(feed.homepage)}" rel="noopener">${esc(feed.name)}</a>`
+            : esc(feed.name);
+          return `<li class="dir-item">
+      <span class="dir-name">${name}</span>
+      <span class="dir-blurb">${esc(feed.blurb)}</span>
+      <a class="dir-rss" href="${escAttr(feed.url)}" rel="noopener">RSS</a>
+    </li>`;
+        })
+        .join('\n');
+      return `<section class="dir-group">
+    <h3>${esc(category)}</h3>
+    <ul class="dir-list">
+${rows}
+    </ul>
+  </section>`;
+    })
+    .join('\n');
 }
