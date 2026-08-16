@@ -80,6 +80,49 @@ async function loadDirectory(): Promise<void> {
   }
 }
 
+/**
+ * The alert subscription is the one feature on the site with a server side: a
+ * Cloudflare Worker at alerts.cybersecurityalphabetsoup.com storing email +
+ * watch terms, double opt-in, documented in /privacy/. The form degrades to a
+ * clear error message when the Worker is unreachable.
+ */
+const ALERTS_URL = 'https://alerts.cybersecurityalphabetsoup.com/subscribe';
+
+function wireAlertForm(): void {
+  const form = document.getElementById('alert-form') as HTMLFormElement | null;
+  const status = document.getElementById('alert-status') as HTMLParagraphElement | null;
+  if (!form || !status) return;
+  form.addEventListener('submit', (event) => {
+    event.preventDefault();
+    const submit = form.querySelector('button') as HTMLButtonElement;
+    const email = (form.elements.namedItem('email') as HTMLInputElement).value;
+    const terms = (form.elements.namedItem('terms') as HTMLInputElement).value;
+    submit.disabled = true;
+    status.textContent = 'Subscribing…';
+    void fetch(ALERTS_URL, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ email, terms }),
+    })
+      .then(async (response) => {
+        const body = (await response.json()) as { ok?: boolean; message?: string; error?: string };
+        if (response.ok && body.ok) {
+          form.hidden = true;
+          status.textContent = body.message ?? 'Check your inbox to confirm.';
+        } else {
+          status.textContent = body.error ?? 'Something went wrong. Try again shortly.';
+        }
+      })
+      .catch(() => {
+        status.textContent = 'The alert service could not be reached. Try again shortly.';
+      })
+      .finally(() => {
+        submit.disabled = false;
+      });
+  });
+}
+
 void loadHeadlines();
 void loadRansomwatch();
 void loadDirectory();
+wireAlertForm();

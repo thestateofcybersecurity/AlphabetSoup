@@ -55,6 +55,16 @@
     .dir-blurb { flex: 1 1 320px; font-size: 0.86rem; color: var(--ink-soft); }
     .dir-rss { font-family: var(--font-mono); font-size: 0.7rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--tomato); text-decoration: none; border: 1px solid var(--tomato); border-radius: 999px; padding: 2px 10px; }
     .dir-rss:hover { background: var(--tomato); color: var(--paper); }
+    .alert-form { display: flex; flex-direction: column; gap: 4px; margin: 0 0 8px; }
+    .alert-label { font-family: var(--font-mono); font-size: 0.68rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--ink-soft); margin-top: 6px; }
+    .alert-form input { border: 1.5px solid var(--line); border-radius: 10px; padding: 8px 12px; background: var(--paper); color: inherit; font: inherit; }
+    .alert-form input:focus { outline: 2px solid var(--tomato); outline-offset: 1px; }
+    .alert-submit { align-self: flex-start; margin-top: 10px; font-family: var(--font-mono); font-size: 0.78rem; border: 1.5px solid var(--tomato); background: var(--tomato); color: var(--paper); border-radius: 999px; padding: 8px 16px; cursor: pointer; }
+    .alert-submit:hover { background: var(--tomato-deep); border-color: var(--tomato-deep); }
+    .alert-submit[disabled] { opacity: 0.6; cursor: wait; }
+    .alert-status { font-size: 0.85rem; margin: 0 0 8px; }
+    .alert-status a { color: var(--tomato); }
+    .alert-fine { font-size: 0.76rem; color: var(--ink-soft); margin: 0; }
   </style>
 </head>
 <body class="theme-news">
@@ -105,6 +115,19 @@
           <h2>Would your org be ready?</h2>
           <p>Watching the feed is the easy part. The ransomware readiness assessment walks through the controls that decide whether a claim like these becomes your bad week.</p>
           <a class="go" href="../assess/">Check your readiness &rarr;</a>
+        </article>
+        <article class="news-card">
+          <h2>Get alerted if your org shows up</h2>
+          <p>Leave an email address and up to five watch terms (organization names or domains, comma-separated). If a new claim matches, you get an email within the hour.</p>
+          <form id="alert-form" class="alert-form">
+            <label class="alert-label" for="alert-email">Email</label>
+            <input id="alert-email" name="email" type="email" required autocomplete="email" placeholder="you@example.com" />
+            <label class="alert-label" for="alert-terms">Watch terms</label>
+            <input id="alert-terms" name="terms" type="text" required placeholder="Acme Corporation, acme.com" />
+            <button type="submit" class="alert-submit">Watch for my org</button>
+          </form>
+          <p class="alert-status" id="alert-status" role="status"></p>
+          <p class="alert-fine">Double opt-in; unsubscribing deletes everything immediately. This is the one feature on this site that stores anything server-side; details in the <a href="../privacy/">privacy policy</a>.</p>
         </article>
       </div>
 

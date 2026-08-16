@@ -113,6 +113,37 @@ test('each section falls back independently when its feed is down', async ({ pag
   await expect(page.locator('#dir-status a')).toHaveAttribute('href', `${BASE}feeds.opml`);
 });
 
+test('alert form submits to the Worker and reports both outcomes', async ({ page }) => {
+  await stubAll(page);
+  let sentBody: unknown = null;
+  await page.route('https://alerts.cybersecurityalphabetsoup.com/subscribe', (route) => {
+    sentBody = route.request().postDataJSON();
+    return route.fulfill({
+      contentType: 'application/json',
+      body: JSON.stringify({ ok: true, message: 'Check your inbox: confirm to start alerts.' }),
+    });
+  });
+  await page.goto('/news/');
+
+  await page.fill('#alert-email', 'user@example.com');
+  await page.fill('#alert-terms', 'Example Corp, example.com');
+  await page.click('.alert-submit');
+  await expect(page.locator('#alert-status')).toContainText('Check your inbox');
+  await expect(page.locator('#alert-form')).toBeHidden();
+  expect(sentBody).toEqual({ email: 'user@example.com', terms: 'Example Corp, example.com' });
+
+  // Error path: a fresh page whose Worker rejects the request.
+  await page.route('https://alerts.cybersecurityalphabetsoup.com/subscribe', (route) =>
+    route.fulfill({ status: 429, contentType: 'application/json', body: JSON.stringify({ error: 'Too many requests.' }) }),
+  );
+  await page.goto('/news/');
+  await page.fill('#alert-email', 'user@example.com');
+  await page.fill('#alert-terms', 'Example Corp');
+  await page.click('.alert-submit');
+  await expect(page.locator('#alert-status')).toContainText('Too many requests');
+  await expect(page.locator('#alert-form')).toBeVisible();
+});
+
 test('advertises both RSS feeds in the head and marks News current in the nav', async ({
   page,
 }) => {
