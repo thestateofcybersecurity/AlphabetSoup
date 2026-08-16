@@ -1140,6 +1140,20 @@ body {
   }
 }
 
+.theme-news {
+  --tomato: #a62639;
+  --tomato-deep: #86192a;
+  --broth: #d98a94;
+}
+
+@media (prefers-color-scheme: dark) {
+  .theme-news {
+    --tomato: #e8788a;
+    --tomato-deep: #f09aa8;
+    --broth: #a84355;
+  }
+}
+
 .theme-roadmap {
   --tomato: #9b5d29;
   --tomato-deep: #82491c;

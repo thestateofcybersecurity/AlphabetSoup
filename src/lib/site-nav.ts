@@ -34,6 +34,7 @@ export const NAV_LINKS: NavLink[] = [
   { path: 'assess/', label: 'Assess' },
   { path: 'roadmap/', label: 'Roadmap' },
   { path: 'tools/', label: 'Tools' },
+  { path: 'news/', label: 'News' },
   { path: 'blog/', label: 'Blog' },
   { path: 'careers/', label: 'Careers' },
   { path: 'about/', label: 'About' },

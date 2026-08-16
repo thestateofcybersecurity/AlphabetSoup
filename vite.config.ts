@@ -285,6 +285,7 @@ export default defineConfig({
         skillsMatrix: 'tools/skills-matrix/index.html',
         policyGenerator: 'tools/policy-generator/index.html',
         roadmap: 'roadmap/index.html',
+        news: 'news/index.html',
         about: 'about/index.html',
         privacy: 'privacy/index.html',
         disclosure: 'disclosure/index.html',

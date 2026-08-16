@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="color-scheme" content="light dark" />
+  <meta name="description" content="Ransomware Watch: a live feed of recent victim claims posted by ransomware groups to their leak sites, updated hourly, with an RSS feed you can subscribe to. Claims are unverified." />
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Ransomware Watch | Cybersecurity Alphabet Soup" />
+  <meta property="og:description" content="A live feed of recent ransomware victim claims, updated hourly, with an RSS feed you can subscribe to." />
+  <meta property="og:url" content="https://www.cybersecurityalphabetsoup.com/news/" />
+  <meta property="og:image" content="https://www.cybersecurityalphabetsoup.com/og-image.png" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <title>Ransomware Watch: recent victim claims | Cybersecurity Alphabet Soup</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,500..900;1,9..144,500&family=IBM+Plex+Mono:wght@500;600&family=IBM+Plex+Sans:ital,wght@0,400..600;1,400&display=swap" rel="stylesheet" />
+  <link rel="icon" href="/icon.svg" type="image/svg+xml" />
+  <link rel="stylesheet" href="/style.css" />
+  <link rel="alternate" type="application/rss+xml" title="Ransomware Watch" href="https://thestateofcybersecurity.github.io/ransomwareRSS/feed.xml" />
+  <style>
+    .news-wrap { max-width: 860px; margin: 0 auto 30px; }
+    .news-status { font-family: var(--font-mono); font-size: 0.72rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--ink-soft); margin: 0 0 14px; }
+    .news-status a { color: var(--tomato); }
+    .news-list { list-style: none; margin: 0 0 26px; padding: 0; display: flex; flex-direction: column; gap: 8px; }
+    .news-item { display: grid; grid-template-columns: minmax(90px, auto) 1fr auto; gap: 4px 14px; align-items: baseline; border: 1.5px solid var(--line); border-radius: 12px; padding: 10px 16px; background: var(--paper-raised); }
+    .news-group { font-family: var(--font-mono); font-size: 0.7rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--tomato); }
+    .news-victim { font-weight: 600; overflow-wrap: anywhere; }
+    .news-victim a { color: inherit; }
+    .news-meta { grid-column: 2; font-size: 0.82rem; color: var(--ink-soft); }
+    .news-time { grid-column: 3; grid-row: 1 / span 2; font-size: 0.78rem; color: var(--ink-soft); white-space: nowrap; }
+    @media (max-width: 560px) {
+      .news-item { grid-template-columns: 1fr; }
+      .news-meta, .news-time { grid-column: 1; grid-row: auto; }
+    }
+    .news-cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 16px; margin: 0 0 26px; }
+    .news-card { border: 1.5px solid var(--line); border-radius: 14px; padding: 18px 20px; background: var(--paper-raised); }
+    .news-card h2 { font-family: var(--font-display); font-weight: 900; font-size: 1.15rem; margin: 0 0 8px; }
+    .news-card p { margin: 0 0 8px; font-size: 0.92rem; line-height: 1.6; }
+    .news-card code { font-family: var(--font-mono); font-size: 0.78rem; overflow-wrap: anywhere; }
+    .news-card a.go { display: inline-block; margin-top: 4px; font-family: var(--font-mono); font-size: 0.78rem; text-decoration: none; border: 1.5px solid var(--tomato); color: var(--tomato); border-radius: 999px; padding: 7px 15px; }
+    .news-card a.go:hover { background: var(--tomato); color: var(--paper); }
+  </style>
+</head>
+<body class="theme-news">
+  <a class="skip-link" href="#main">Skip to content</a>
+  <div class="steam" aria-hidden="true"></div>
+
+    <!--site-nav-->
+
+  <header class="hero hero-compact">
+    <p class="kicker">live feed &middot; refreshed hourly</p>
+    <h1 class="title">Ransomware<br /><em>Watch</em></h1>
+    <p class="tagline">Recent victim claims posted by ransomware groups to their leak sites, so the headlines you study on this site stay connected to what is happening this week.</p>
+  </header>
+
+  <main id="main" class="ladle" tabindex="-1">
+    <div class="news-wrap">
+      <p class="news-status" id="news-status" role="status">Loading the latest claims&hellip;</p>
+      <ol class="news-list" id="news-list" aria-label="Recent ransomware victim claims"></ol>
+
+      <div class="news-cards">
+        <article class="news-card">
+          <h2>Subscribe by RSS</h2>
+          <p>The same feed, in your reader. It regenerates hourly from <a href="https://www.ransomware.live/" rel="noopener">ransomware.live</a> data.</p>
+          <p><code>https://thestateofcybersecurity.github.io/ransomwareRSS/feed.xml</code></p>
+          <a class="go" href="https://thestateofcybersecurity.github.io/ransomwareRSS/feed.xml" rel="noopener">Open the feed &rarr;</a>
+        </article>
+        <article class="news-card">
+          <h2>Read this with care</h2>
+          <p>Every entry is a claim made by a criminal extortion group on its own leak site. Groups exaggerate, recycle old breaches, and sometimes name victims they never touched. Nothing here is verified.</p>
+          <p>Data is collected by the <a href="https://www.ransomware.live/" rel="noopener">ransomware.live</a> project; victim names link to its research pages.</p>
+        </article>
+        <article class="news-card">
+          <h2>Would your org be ready?</h2>
+          <p>Watching the feed is the easy part. The ransomware readiness assessment walks through the controls that decide whether a claim like these becomes your bad week.</p>
+          <a class="go" href="../assess/">Check your readiness &rarr;</a>
+        </article>
+      </div>
+    </div>
+  </main>
+
+  <footer class="colophon">
+    <p>
+      Met an unfamiliar acronym in a breach writeup?
+      <a class="cyberdle-link" href="../">Browse the glossary &rarr;</a>
+    </p>
+    <p class="fine-print">
+      <a href="../privacy/">Privacy</a> &middot; <a href="../disclosure/">Affiliate disclosure</a>
+    </p>
+  </footer>
+
+  <script type="module" src="/src/news-main.ts"></script>
+</body>
+</html>
