@@ -39,15 +39,15 @@
   <header class="hero hero-compact">
     <p class="kicker">the fine print</p>
     <h1 class="title">Privacy<br /><em>policy</em></h1>
-    <p class="tagline">The short version: no accounts, no tracking cookies, privacy-friendly analytics that cannot identify you, and nothing you type here ever leaves your browser.</p>
+    <p class="tagline">The short version: no accounts, no tracking cookies, privacy-friendly analytics that cannot identify you, and nothing you type here leaves your browser, with one clearly-marked exception: the optional ransomware alert emails you can subscribe to on the news page.</p>
   </header>
 
   <main id="main" class="ladle">
     <section class="legal-prose" aria-label="Privacy policy">
-      <p class="legal-updated">Effective July 26, 2026</p>
+      <p class="legal-updated">Effective August 16, 2026</p>
 
       <h2 class="legal-h2">What this site collects</h2>
-      <p>Almost nothing, by design. Cybersecurity Alphabet Soup has no user accounts, no sign-up forms, and no advertising trackers. The site sets no cookies at all. The one thing it does measure is aggregate page traffic, described under Analytics below.</p>
+      <p>Almost nothing, by design. Cybersecurity Alphabet Soup has no user accounts and no advertising trackers. The site sets no cookies at all. It measures aggregate page traffic, described under Analytics below, and it stores the one thing you can explicitly hand it: an optional ransomware alert subscription, described under Ransomware watch alerts below.</p>
       <p>Interactive features (quiz progress, self-assessment answers and notes, roadmap plans, and everything you type into the tools, including company details and team names) are stored in your browser's localStorage on your own device. That data is never transmitted to this site, to the analytics provider, or to anyone else, and clearing your browser storage removes it completely. You can see exactly what is stored, download a copy, or erase all of it on <a href="../my/">your saved progress page</a>.</p>
 
       <h2 class="legal-h2">Analytics</h2>
@@ -69,6 +69,12 @@
       <h2 class="legal-h2">Outbound and affiliate links</h2>
       <p>This site links out to official standards bodies, vendors, training providers, and other resources. Once you follow a link, the destination site's privacy policy applies, not this one.</p>
       <p>Some outbound links are affiliate links, which means a partner may credit this site for your visit using a cookie set on <em>their</em> site after you click. This site itself sets no tracking cookies and shares no information about you with affiliate partners; attribution happens entirely on the destination's side. For the full picture, read the <a href="../disclosure/">affiliate disclosure</a>.</p>
+
+      <h2 class="legal-h2">Ransomware watch alerts</h2>
+      <p>The <a href="../news/">news page</a> offers an optional email alert: you give an email address and up to five watch terms (organization names or domains), and you get an email if a matching claim appears in the ransomware victim feed. This is the only feature on the site that stores anything server-side, and it is entirely opt-in.</p>
+      <p>What is stored, in a Cloudflare D1 database: your email address, your watch terms, confirmation state and timestamps, and a record of which feed entries you have already been alerted about. Nothing else. No names, no IP addresses tied to your subscription (request IPs are used only as salted hashes for rate limiting and are purged within two hours), and no usage tracking.</p>
+      <p>Alerts are double opt-in: nothing is sent beyond a single confirmation email until you click the link in it, and unconfirmed requests are deleted automatically after seven days. Every email includes an unsubscribe link, and unsubscribing deletes your email address and watch terms immediately; there is no dormant state and no list you remain on. Alert delivery uses <a href="https://resend.com/legal/privacy-policy" rel="noopener" target="_blank">Resend</a>, which processes recipient addresses to deliver the mail. Your subscription is never used for anything except these alerts: no newsletters, no marketing, no sharing, no selling.</p>
+      <p>One caution worth repeating from the news page: the feed consists of claims made by criminal groups, so an alert means your term matched a claim, not that a breach is confirmed.</p>
 
       <h2 class="legal-h2">Email</h2>
       <p>If you email me, I use your address only to reply. It is never added to a list, shared, or sold.</p>
