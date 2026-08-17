@@ -1851,5 +1851,146 @@
         "href": "https://www.anrdoezrs.net/click-8024903-13942196"
       }
     ]
+  },
+  {
+    "slug": "remove-yourself-from-data-brokers",
+    "title": "How to Remove Yourself From Data Broker Sites (Free and Paid Ways)",
+    "description": "Data brokers sell your address, phone, and relatives to anyone who asks. Here is how to opt out by hand for free, and when paying to automate it is worth it.",
+    "category": "Explainer",
+    "author": "Parker Brissette",
+    "date": "2026-08-17",
+    "readingMinutes": 6,
+    "tags": [
+      "privacy",
+      "data brokers",
+      "osint",
+      "identity theft",
+      "opt out"
+    ],
+    "body": [
+      {
+        "type": "p",
+        "text": "Search your own name plus your city and you will probably find yourself listed on a site you never signed up for. Your age, a current street address, a phone number, the names of your relatives, sometimes a guess at your income. Those are data broker profiles, assembled and sold entirely legally. For most people the discovery is merely unsettling. For anyone whose job attracts attention, it is a real security problem, because everything in that profile is raw material for somebody targeting you."
+      },
+      {
+        "type": "p",
+        "text": "**Disclosure:** this post contains an affiliate link, and the site may earn a commission if you buy through it, at no extra cost to you. The full policy, including which links are monetized and which are not, is on the [disclosure page](/disclosure/)."
+      },
+      {
+        "type": "h2",
+        "text": "Where the data actually comes from"
+      },
+      {
+        "type": "p",
+        "text": "Brokers do not hack anyone. They scrape public records, and there are more of those than people expect: property filings, voter rolls, court and bankruptcy records, professional licenses, marriage and divorce filings. Then they buy commercial data on top, from loyalty programs, warranty registrations, app software kits that quietly collect location, and marketing lists resold many times over. No single record is sensitive. Stitched together they become a durable profile of [PII](/?q=PII) that follows you across moves and name changes. People-search sites are just the retail storefront for that inventory."
+      },
+      {
+        "type": "p",
+        "text": "This is where a privacy problem becomes a security problem. A broker profile is the fastest [OSINT](/?q=OSINT) win an attacker gets, and it costs nearly nothing. Your employer plus your home address plus a relative's name is enough to build a phishing pretext that reads as legitimate, or to make a [BEC](/?q=BEC) attempt more convincing. It supplies answers to account recovery questions, gives a SIM swap crew what a carrier rep will ask for, and hands a harasser a place to show up."
+      },
+      {
+        "type": "h2",
+        "text": "The free route, done properly"
+      },
+      {
+        "type": "p",
+        "text": "You have a legal lever here. The [CCPA](/?q=CCPA), extended by the California Privacy Rights Act, gives California residents a right to opt out of the sale of their personal information and to demand deletion. If you live elsewhere, do not skip this. Most large brokers honor opt-out requests nationwide, because running one compliant process is cheaper than running two."
+      },
+      {
+        "type": "p",
+        "text": "The mechanics are repetitive but not difficult. Work through it in one sitting:"
+      },
+      {
+        "type": "list",
+        "items": [
+          "Search your name, your name plus city, and any previous addresses. Save the URL of every profile that is actually you.",
+          "Find the opt-out page, usually in the footer under wording like Do Not Sell My Personal Information or Privacy Choices.",
+          "Submit the exact profile URL rather than just your name. Requests that make the broker search for you get half honored far more often.",
+          "Use a dedicated email address. Most brokers send a confirmation link, and you do not want a fresh address they can append to the profile.",
+          "Start with the biggest offenders, since smaller sites buy from them: Spokeo, Whitepages, BeenVerified, and Radaris.",
+          "Check back in two weeks. Removals promised but never processed are common enough that verification is part of the job."
+        ]
+      },
+      {
+        "type": "p",
+        "text": "Budget ten to twenty minutes per site the first time, which puts an afternoon of focused work against the top tier. That is a good return for zero dollars."
+      },
+      {
+        "type": "h2",
+        "text": "Why doing it by hand becomes a treadmill"
+      },
+      {
+        "type": "p",
+        "text": "Here is the part free guides leave out. There are well over six hundred data brokers operating in the United States, and the long tail keeps growing. Worse, opting out of a retail people-search site does not remove you from the wholesale source feeding it. Public records get refreshed, your profile repopulates, and a site you cleaned in January is often live again by summer."
+      },
+      {
+        "type": "quote",
+        "text": "Removal is not a one-time cleanup. It is a subscription you pay either with money or with your own time, and the bill comes due every quarter."
+      },
+      {
+        "type": "p",
+        "text": "So the honest framing is this: the free route works, and it requires a recurring calendar reminder. If you will do that every three months, you do not need to pay anyone. If you know you will not, automation is the realistic option."
+      },
+      {
+        "type": "h2",
+        "text": "Paying to automate the grind"
+      },
+      {
+        "type": "p",
+        "text": "Removal services scan the broker ecosystem for you, file the opt-out requests, and re-scan on a schedule to catch profiles that come back. [Optery](https://get.optery.com/rhg204bv4giz) is the service this site partners with, and it is easy to recommend as a starting point because you can find out where you stand without paying anything. Its [free exposure report](https://get.optery.com/rhg204bv4giz) searches the broker landscape and shows the profiles it finds, with screenshots. Optery has also taken repeated Editors' Choice awards from PCMag, which is about as close to independent validation as this category offers."
+      },
+      {
+        "type": "p",
+        "text": "DeleteMe and Incogni are the credible alternatives worth comparing before you commit. Those are plain mentions with nothing behind them, which is the point: a recommendation is only worth reading if the alternatives get named honestly. Compare them on the same few things."
+      },
+      {
+        "type": "list",
+        "items": [
+          "How many brokers are actually covered, and whether that list is published rather than just claimed.",
+          "Whether you get proof of removal, ideally before and after screenshots, instead of a dashboard you have to trust.",
+          "How often re-scans run, because repopulation is the entire reason you are paying.",
+          "Whether custom removal requests are included for sites outside the standard list.",
+          "Family coverage, since a relative's live profile often re-exposes your address anyway."
+        ]
+      },
+      {
+        "type": "h2",
+        "text": "What removal cannot undo"
+      },
+      {
+        "type": "p",
+        "text": "Be clear about the boundary, because these services are sometimes sold as more than they are. Opting out shrinks your public, searchable footprint. It does not recall data already breached and traded, does not claw back copies a broker sold before you asked for deletion, and has no effect on what you have published yourself. A stalker who already has your address does not lose it when a listing comes down."
+      },
+      {
+        "type": "p",
+        "text": "Removal is one layer, not a strategy. Pair it with unique passwords in a password manager and [MFA](/?q=MFA) on every account that offers it, especially email and your mobile carrier, since those are the pivot points for taking over everything else. Freeze your credit while you are at it."
+      },
+      {
+        "type": "p",
+        "text": "The practical plan is simple. Run a free exposure scan so you know the size of the problem instead of guessing. Hand-remove the four or five worst offenders this week, because that alone kills most of what a casual search turns up. Then make an honest call about the recurring work: calendar it quarterly, or pay somebody to keep at it. What does not work is one enthusiastic weekend followed by two years of assuming it stuck."
+      }
+    ],
+    "related": [
+      {
+        "label": "PII in the glossary",
+        "href": "/?q=PII"
+      },
+      {
+        "label": "OSINT in the glossary",
+        "href": "/?q=OSINT"
+      },
+      {
+        "label": "CCPA in the glossary",
+        "href": "/?q=CCPA"
+      },
+      {
+        "label": "BEC in the glossary",
+        "href": "/?q=BEC"
+      },
+      {
+        "label": "Affiliate disclosure",
+        "href": "/disclosure/"
+      }
+    ]
   }
 ]
