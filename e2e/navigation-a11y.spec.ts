@@ -1,5 +1,5 @@
 import { expect, test } from '@playwright/test';
-import { NAV_LINK_COUNT } from '../src/lib/site-nav';
+import { NAV_LINK_COUNT, NAV_TOTAL_LINK_COUNT } from '../src/lib/site-nav';
 
 /**
  * Guards for the navigation and accessibility fixes.
@@ -24,7 +24,9 @@ for (const path of SAMPLE_PAGES) {
   test(`nav is complete and consistent on ${path}`, async ({ page }) => {
     await page.goto(path);
     const nav = page.locator('.site-nav');
-    await expect(nav.locator('a')).toHaveCount(NAV_LINK_COUNT);
+    // Every anchor including dropdown children, and the top-level row alone.
+    await expect(nav.locator('a')).toHaveCount(NAV_TOTAL_LINK_COUNT);
+    await expect(nav.locator(':scope > a, :scope > .nav-item > a.nav-parent')).toHaveCount(NAV_LINK_COUNT);
     // The links that had drifted out of individual pages. The four framework
     // links were consolidated into a single Frameworks entry when ISO was
     // added, because five separate links no longer fitted on one row.

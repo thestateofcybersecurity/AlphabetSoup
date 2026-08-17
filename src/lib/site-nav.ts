@@ -10,12 +10,22 @@
  * class names on purpose: hand-written pages use `.site-nav` (styled in
  * style.css) and generated pages use `.gnav` (styled by the inline PAGE_CSS
  * those pages ship). Only the link *content* is shared, which is what drifted.
+ *
+ * Sections with `children` render as dropdowns: the parent link still goes to
+ * the section hub, and the menu jumps straight to a specific page, so reaching
+ * one of the twelve tools no longer means hub, scroll, find. On `.site-nav`
+ * the menu opens on hover, keyboard focus, or a toggle button wired by
+ * /nav.js; on `.gnav` (generated pages ship no JS) it is hover and focus only.
+ * On narrow screens both navs stay flat scrollable rows: the parent link
+ * lands on the hub, which lists everything anyway.
  */
 
 export interface NavLink {
   /** Path relative to the site root, '' for the homepage. */
   path: string;
   label: string;
+  /** Sub-pages rendered as a dropdown menu under the parent link. */
+  children?: NavLink[];
 }
 
 /**
@@ -25,15 +35,46 @@ export interface NavLink {
  * one link each. Four separate links took 448px of a nav with 1237px to spend,
  * and adding ISO as a fifteenth link pushed it onto a second row. Consolidating
  * frees far more than that and leaves room for the next framework, which the
- * per-framework approach did not.
+ * per-framework approach did not. The dropdowns give the consolidated entries
+ * their direct links back without spending any row width.
+ *
+ * Tools children follow the scorecard's demand order (the same order the hub
+ * page lists them), with the two supporting tools at the end.
  */
 export const NAV_LINKS: NavLink[] = [
   { path: '', label: 'Acronyms' },
-  { path: 'frameworks/', label: 'Frameworks' },
+  {
+    path: 'frameworks/',
+    label: 'Frameworks',
+    children: [
+      { path: 'frameworks/nist-csf/', label: 'NIST CSF' },
+      { path: 'frameworks/cis/', label: 'CIS Controls' },
+      { path: 'frameworks/ai/', label: 'AI Security' },
+      { path: 'frameworks/iso/', label: 'ISO 27001' },
+      { path: 'frameworks/soc2/', label: 'SOC 2' },
+    ],
+  },
   { path: 'quiz/', label: 'Quiz' },
   { path: 'assess/', label: 'Assess' },
   { path: 'roadmap/', label: 'Roadmap' },
-  { path: 'tools/', label: 'Tools' },
+  {
+    path: 'tools/',
+    label: 'Tools',
+    children: [
+      { path: 'tools/crosswalk/', label: 'Control Crosswalk' },
+      { path: 'tools/ai-risk/', label: 'AI Risk Tiering' },
+      { path: 'tools/cloud-baseline/', label: 'Cloud Baseline' },
+      { path: 'tools/runbook/', label: 'Runbook and Tabletop' },
+      { path: 'tools/board-metrics/', label: 'Board Metrics' },
+      { path: 'tools/reg-mapper/', label: 'Regulatory Mapper' },
+      { path: 'tools/trust-package/', label: 'Trust Package' },
+      { path: 'tools/automation-roi/', label: 'Automation ROI' },
+      { path: 'tools/ssdlc/', label: 'Secure SDLC' },
+      { path: 'tools/skills-matrix/', label: 'Skills Matrix' },
+      { path: 'tools/policy-generator/', label: 'Policy Generator' },
+      { path: 'tools/ai-cloud-controls/', label: 'AI Cloud Controls' },
+    ],
+  },
   { path: 'news/', label: 'News' },
   { path: 'blog/', label: 'Blog' },
   { path: 'careers/', label: 'Careers' },
@@ -76,14 +117,22 @@ export const EXTERNAL_LINKS: ExternalNavLink[] = [
   },
 ];
 
-/** Total link count, so tests assert against the source instead of a literal. */
+/** Top-level link count (dropdown children excluded); tests assert against this. */
 export const NAV_LINK_COUNT = NAV_LINKS.length + EXTERNAL_LINKS.length;
+
+/** Every anchor the nav renders, dropdown children included. */
+export const NAV_TOTAL_LINK_COUNT =
+  NAV_LINK_COUNT + NAV_LINKS.reduce((sum, link) => sum + (link.children?.length ?? 0), 0);
 
 function externalAnchor(link: ExternalNavLink, playClass: string): string {
   const cls = link.className ? ` class="${link.className === 'nav-play' ? playClass : link.className}"` : '';
   const title = link.title ? ` title="${link.title}"` : '';
   return `<a${cls} href="${link.href}"${title} rel="noopener" target="_blank">${link.label}</a>`;
 }
+
+/** The chevron on dropdown toggles; inherits currentColor. */
+const CHEVRON =
+  '<svg viewBox="0 0 10 6" width="10" height="6" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M1 1l4 4 4-4"/></svg>';
 
 /**
  * Nav for the hand-written pages (class `.site-nav`).
@@ -103,18 +152,36 @@ export function renderSiteNav(prefix: string, currentPath: string): string {
     // its real destination, or Frameworks on /frameworks/iso/ would point back
     // at /frameworks/iso/ instead of the hub.
     const href = isExact ? './' : `${prefix}${link.path}`;
-    return `<a href="${href}"${isCurrent ? ' aria-current="page"' : ''}>${link.label}</a>`;
+    const anchor = `<a${link.children ? ' class="nav-parent"' : ''} href="${href}"${isCurrent ? ' aria-current="page"' : ''}>${link.label}</a>`;
+    if (!link.children) return anchor;
+    // Dropdown: the toggle button is wired by /nav.js (aria-expanded, Escape,
+    // outside click); hover and focus-within open it in CSS alone, so the menu
+    // works before the script runs and for keyboard users without it.
+    const menu = link.children
+      .map((child) => `<a href="${child.path === currentPath ? './' : `${prefix}${child.path}`}">${child.label}</a>`)
+      .join('\n          ');
+    return (
+      `<div class="nav-item">\n        ${anchor}` +
+      `<button type="button" class="nav-toggle" aria-expanded="false" aria-label="Open the ${link.label} menu">${CHEVRON}</button>\n` +
+      `        <div class="nav-menu" aria-label="${link.label} pages">\n          ${menu}\n        </div>\n      </div>`
+    );
   });
   const external = EXTERNAL_LINKS.map((l) => externalAnchor(l, 'nav-play'));
-  // /nav.js centers the current link when the nav is a scrollable row on
+  // /nav.js also centers the current link when the nav is a scrollable row on
   // narrow screens. External rather than inline: the site ships no inline
   // scripts (see e2e/csp.spec.ts), and deferred so the nav exists when it runs.
   return `<nav class="site-nav" aria-label="Site">\n      ${[...internal, ...external].join('\n      ')}\n    </nav><script src="/nav.js" defer></script>`;
 }
 
-/** Nav for generator-produced pages (class `.gnav`). */
+/** Nav for generator-produced pages (class `.gnav`). CSS-only dropdowns. */
 export function renderGeneratedNav(prefix: string): string {
-  const internal = NAV_LINKS.map((l) => `<a href="${prefix}${l.path}">${l.label}</a>`);
+  const internal = NAV_LINKS.map((link) => {
+    const anchor = (l: NavLink, caret = false): string =>
+      `<a href="${prefix}${l.path}">${l.label}${caret ? ' <span class="gnav-caret" aria-hidden="true">&#9662;</span>' : ''}</a>`;
+    if (!link.children) return anchor(link);
+    const menu = link.children.map((child) => anchor(child)).join('');
+    return `<div class="gnav-item">${anchor(link, true)}<div class="gnav-menu" aria-label="${link.label} pages">${menu}</div></div>`;
+  });
   const external = EXTERNAL_LINKS.map((l) => externalAnchor(l, 'play-link'));
   return `<nav class="gnav" aria-label="Site">${[...internal, ...external].join('')}</nav>`;
 }
