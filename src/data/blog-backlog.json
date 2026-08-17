@@ -103,6 +103,39 @@
       ]
     },
     {
+      "slug": "pdpa-vs-gdpr-what-changes",
+      "title": "PDPA vs GDPR: What Actually Changes for a US Company",
+      "category": "Explainer",
+      "brief": "Compare Singapore's and Thailand's Personal Data Protection Acts against GDPR for a US company that already has a GDPR program: consent and notification rules, the Do Not Call and data-breach obligations, DPO requirements, transfer limits, and penalties. Make clear which existing GDPR controls carry over and which gaps have to be closed separately.",
+      "links": [
+        "/?q=PDPA",
+        "/?q=GDPR",
+        "/?q=DPO"
+      ]
+    },
+    {
+      "slug": "popia-compliance-explained",
+      "title": "POPIA Compliance Explained: South Africa's Privacy Law in Practice",
+      "category": "Explainer",
+      "brief": "Walk through the Protection of Personal Information Act: the eight conditions for lawful processing, the Information Officer role and registration, special personal information, cross-border transfer rules, and the breach notification duty to the Information Regulator. Aim it at a security lead who has to operationalize it, not a lawyer.",
+      "links": [
+        "/?q=POPIA",
+        "/?q=PII",
+        "/?q=DPIA"
+      ]
+    },
+    {
+      "slug": "ptes-phase-by-phase",
+      "title": "The Penetration Testing Execution Standard (PTES), Phase by Phase",
+      "category": "Explainer",
+      "brief": "Walk the seven PTES phases end to end (pre-engagement interactions, intelligence gathering, threat modeling, vulnerability analysis, exploitation, post exploitation, reporting), what a buyer should expect from each, and how PTES compares to OSSTMM, OWASP WSTG, and the NIST SP 800-115 approach. Include what to put in a statement of work so scope and rules of engagement are unambiguous.",
+      "links": [
+        "/?q=PTES",
+        "/?q=OSSTMM",
+        "/?q=WSTG"
+      ]
+    },
+    {
       "slug": "remove-yourself-from-data-brokers",
       "title": "How to Remove Yourself From Data Broker Sites (Free and Paid Ways)",
       "category": "Explainer",

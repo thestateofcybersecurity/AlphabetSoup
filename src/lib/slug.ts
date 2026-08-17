@@ -37,6 +37,21 @@ export const LEGACY_ALIASES: Record<string, string> = {
   psk: 'WPA2',
   ca: 'X509',
   pt: 'PTES',
+  // Plurals and misspellings observed in Search Console queries.
+  pentest: 'PTES',
+  defars: 'DFARS',
+  dfar: 'DFARS',
+  gxpen: 'GXPN',
+  drps: 'DRP',
+  otps: 'OTP',
+  pcaps: 'PCAP',
+  ttps: 'TTP',
+  waps: 'WAP',
+  pufs: 'PUF',
+  tocttou: 'TOCTOU',
+  csirc: 'CSIRT',
+  cisf: 'CSF',
+  sop2: 'SOC2',
 };
 
 /** Resolve a legacy slug to a current dataset key, or null. */

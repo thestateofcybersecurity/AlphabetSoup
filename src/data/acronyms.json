@@ -438,6 +438,7 @@
       }
     ],
     "related": [
+      "SSP",
       "POAM",
       "FEDRAMP",
       "FISMA",
@@ -895,6 +896,7 @@
       }
     ],
     "related": [
+      "COMPTIA",
       "CYSA",
       "CISSP"
     ]
@@ -982,7 +984,8 @@
         "name": "Cisco",
         "url": "https://www.cisco.com/site/us/en/learn/training-certifications/certifications/security/ccnp-security/index.html"
       }
-    ]
+    ],
+    "related": []
   },
   "CCPA": {
     "expansion": "California Consumer Privacy Act",
@@ -1034,6 +1037,7 @@
       }
     ],
     "related": [
+      "ISC2",
       "CISSP",
       "CCSK",
       "CCZT",
@@ -1242,7 +1246,8 @@
         "name": "NIST FIPS 199",
         "url": "https://csrc.nist.gov/pubs/fips/199/final"
       }
-    ]
+    ],
+    "related": []
   },
   "CIBA": {
     "expansion": "Client Initiated Backchannel Authentication",
@@ -1315,6 +1320,7 @@
       }
     ],
     "related": [
+      "IAPP",
       "CIPPE",
       "CIPPUS",
       "CIPT",
@@ -1353,6 +1359,7 @@
       }
     ],
     "related": [
+      "IAPP",
       "CIPPE",
       "CIPM",
       "CIPT",
@@ -1372,6 +1379,7 @@
       }
     ],
     "related": [
+      "IAPP",
       "CIPM",
       "CIPPE",
       "CIPPUS",
@@ -1409,6 +1417,7 @@
       }
     ],
     "related": [
+      "IG1",
       "NIST",
       "STIG"
     ]
@@ -1483,6 +1492,7 @@
       }
     ],
     "related": [
+      "ISC2",
       "CCSP",
       "SSCP",
       "CSSLP",
@@ -1501,7 +1511,8 @@
         "name": "FBI CJIS Division",
         "url": "https://le.fbi.gov/cjis-division"
       }
-    ]
+    ],
+    "related": []
   },
   "CKS": {
     "expansion": "Certified Kubernetes Security Specialist",
@@ -1568,6 +1579,7 @@
       }
     ],
     "related": [
+      "DOD",
       "DFARS",
       "CUI",
       "NIST"
@@ -1898,7 +1910,8 @@
         "name": "CREST",
         "url": "https://www.crest-approved.org/"
       }
-    ]
+    ],
+    "related": []
   },
   "CRISC": {
     "expansion": "Certified in Risk and Information Systems Control",
@@ -2180,6 +2193,7 @@
       }
     ],
     "related": [
+      "ISC2",
       "CCSP",
       "CISSP",
       "SSCP"
@@ -2237,7 +2251,8 @@
         "name": "CTF101",
         "url": "https://ctf101.org/"
       }
-    ]
+    ],
+    "related": []
   },
   "CTI": {
     "expansion": "Cyber Threat Intelligence",
@@ -2320,6 +2335,7 @@
       }
     ],
     "related": [
+      "DOD",
       "CMMC",
       "DFARS",
       "FISMA"
@@ -2458,6 +2474,7 @@
       }
     ],
     "related": [
+      "COMPTIA",
       "CASP",
       "GCIA"
     ]
@@ -2582,6 +2599,7 @@
       }
     ],
     "related": [
+      "RDDOS",
       "DOS",
       "DRDOS",
       "REDOS",
@@ -2637,6 +2655,7 @@
       }
     ],
     "related": [
+      "DOD",
       "CMMC",
       "CUI"
     ]
@@ -2749,7 +2768,8 @@
         "name": "MITRE ATT&CK: DLL Search Order Hijacking",
         "url": "https://attack.mitre.org/techniques/T1574/001/"
       }
-    ]
+    ],
+    "related": []
   },
   "DLP": {
     "expansion": "Data Loss Prevention",
@@ -3207,7 +3227,8 @@
         "name": "Bureau of Industry and Security",
         "url": "https://www.bis.doc.gov/index.php/regulations/export-administration-regulations-ear"
       }
-    ]
+    ],
+    "related": []
   },
   "EASM": {
     "expansion": "External Attack Surface Management",
@@ -3833,6 +3854,7 @@
       }
     ],
     "related": [
+      "GIAC",
       "GCIH",
       "GREM",
       "CHFI",
@@ -3888,6 +3910,7 @@
       }
     ],
     "related": [
+      "GIAC",
       "GCFA",
       "ECIH",
       "GCIA",
@@ -4002,6 +4025,7 @@
       }
     ],
     "related": [
+      "GIAC",
       "ICS",
       "IEC62443"
     ]
@@ -4037,6 +4061,7 @@
       }
     ],
     "related": [
+      "GIAC",
       "GCIA",
       "GSEC"
     ]
@@ -4054,6 +4079,7 @@
       }
     ],
     "related": [
+      "GIAC",
       "GWAPT",
       "GXPN",
       "CEH",
@@ -4215,6 +4241,7 @@
       }
     ],
     "related": [
+      "GIAC",
       "GCIH",
       "GMON",
       "GSLC"
@@ -4233,6 +4260,7 @@
       }
     ],
     "related": [
+      "GIAC",
       "CISM",
       "GSEC"
     ]
@@ -4250,6 +4278,7 @@
       }
     ],
     "related": [
+      "GIAC",
       "GPEN",
       "GXPN",
       "OSWE"
@@ -4268,6 +4297,7 @@
       }
     ],
     "related": [
+      "GIAC",
       "GPEN",
       "GWAPT"
     ]
@@ -5091,6 +5121,7 @@
       }
     ],
     "related": [
+      "ISC2",
       "ISSAP",
       "ISSMP",
       "CISSP"
@@ -5109,6 +5140,7 @@
       }
     ],
     "related": [
+      "ISC2",
       "ISSAP",
       "ISSEP",
       "CISSP"
@@ -5129,7 +5161,8 @@
         "name": "eCFR Title 22 Subchapter M",
         "url": "https://www.ecfr.gov/current/title-22/chapter-I/subchapter-M"
       }
-    ]
+    ],
+    "related": []
   },
   "ITDR": {
     "expansion": "Identity Threat Detection and Response",
@@ -6223,6 +6256,9 @@
         "name": "NERC",
         "url": "https://www.nerc.com/"
       }
+    ],
+    "related": [
+      "NERC"
     ]
   },
   "NFC": {
@@ -6631,6 +6667,7 @@
       }
     ],
     "related": [
+      "OFFSEC",
       "OSEP",
       "PNPT",
       "EJPT",
@@ -6651,6 +6688,7 @@
       }
     ],
     "related": [
+      "OFFSEC",
       "OSTH",
       "OSCP",
       "OSED",
@@ -6671,6 +6709,7 @@
       }
     ],
     "related": [
+      "OFFSEC",
       "OSWE",
       "OSCP",
       "OSDA",
@@ -6709,7 +6748,8 @@
         "name": "NIST CSRC Glossary",
         "url": "https://csrc.nist.gov/glossary"
       }
-    ]
+    ],
+    "related": []
   },
   "OSSTMM": {
     "expansion": "Open Source Security Testing Methodology Manual",
@@ -6761,6 +6801,7 @@
       }
     ],
     "related": [
+      "OFFSEC",
       "OSED",
       "GWAPT",
       "OSCP",
@@ -6781,6 +6822,7 @@
       }
     ],
     "related": [
+      "OFFSEC",
       "CWSP",
       "OSCP",
       "OSDA",
@@ -7010,7 +7052,8 @@
         "name": "NIST CSRC Glossary",
         "url": "https://csrc.nist.gov/glossary"
       }
-    ]
+    ],
+    "related": []
   },
   "PCIDSS": {
     "expansion": "Payment Card Industry Data Security Standard",
@@ -7025,6 +7068,7 @@
       }
     ],
     "related": [
+      "PCI",
       "PCIP",
       "QSA"
     ]
@@ -7042,6 +7086,7 @@
       }
     ],
     "related": [
+      "PCI",
       "QSA",
       "PCIDSS"
     ]
@@ -7594,6 +7639,7 @@
       }
     ],
     "related": [
+      "PCI",
       "PCIP",
       "PCIDSS"
     ]
@@ -7904,6 +7950,7 @@
       }
     ],
     "related": [
+      "SSP",
       "CSF",
       "NIST",
       "ATO",
@@ -8128,7 +8175,8 @@
         "name": "OASIS SARIF",
         "url": "https://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html"
       }
-    ]
+    ],
+    "related": []
   },
   "SASE": {
     "expansion": "Secure Access Service Edge",
@@ -8695,7 +8743,8 @@
         "name": "Microsoft Learn",
         "url": "https://learn.microsoft.com/en-us/windows-server/storage/file-server/file-server-smb-overview"
       }
-    ]
+    ],
+    "related": []
   },
   "SMIME": {
     "expansion": "Secure/Multipurpose Internet Mail Extensions",
@@ -8784,7 +8833,8 @@
         "name": "W3C SOAP 1.2 Specification",
         "url": "https://www.w3.org/TR/soap12/"
       }
-    ]
+    ],
+    "related": []
   },
   "SOAR": {
     "expansion": "Security Orchestration, Automation, and Response",
@@ -9386,7 +9436,8 @@
         "name": "AWS Security Token Service API Reference",
         "url": "https://docs.aws.amazon.com/STS/latest/APIReference/welcome.html"
       }
-    ]
+    ],
+    "related": []
   },
   "SYSLOG": {
     "expansion": "System Logging Protocol",
@@ -9456,6 +9507,7 @@
       }
     ],
     "related": [
+      "TCPCRYPT",
       "UDP",
       "QUIC",
       "ICMP"
@@ -9711,7 +9763,8 @@
         "name": "CISA Tabletop Exercise Packages",
         "url": "https://www.cisa.gov/resources-tools/services/cisa-tabletop-exercise-packages"
       }
-    ]
+    ],
+    "related": []
   },
   "U2F": {
     "expansion": "Universal 2nd Factor",
@@ -9929,7 +9982,8 @@
         "name": "NIST CSRC Glossary",
         "url": "https://csrc.nist.gov/glossary"
       }
-    ]
+    ],
+    "related": []
   },
   "UTM": {
     "expansion": "Unified Threat Management",
@@ -10554,7 +10608,8 @@
         "name": "OWASP: XPath Injection",
         "url": "https://owasp.org/www-community/attacks/XPATH_Injection"
       }
-    ]
+    ],
+    "related": []
   },
   "XSS": {
     "expansion": "Cross-Site Scripting",
@@ -10690,6 +10745,310 @@
       "ZTA",
       "SASE",
       "SSE"
+    ]
+  },
+  "GIAC": {
+    "expansion": "Global Information Assurance Certification",
+    "display": "GIAC",
+    "category": "certifications",
+    "difficulty": "easy",
+    "explanation": "GIAC is the certification body founded by the SANS Institute that validates the hands-on skills taught in SANS courses. Its exams are open book, proctored, and organized into tracks such as offensive operations, digital forensics, cloud, and management, with credentials including GSEC, GCIH, GPEN, and GWAPT. GIAC certifications are widely accepted for US Department of Defense workforce requirements, and each one has to be renewed every four years.",
+    "sources": [
+      {
+        "name": "GIAC Certifications",
+        "url": "https://www.giac.org/"
+      }
+    ],
+    "related": [
+      "SANS",
+      "GSEC",
+      "GCIH",
+      "GPEN"
+    ]
+  },
+  "SANS": {
+    "expansion": "SysAdmin, Audit, Network and Security Institute",
+    "display": "SANS",
+    "category": "certifications",
+    "difficulty": "easy",
+    "explanation": "SANS is the training organization behind most GIAC certifications, and it also publishes widely used free resources such as the Internet Storm Center, reading room whitepapers, and incident response templates. Training is delivered as multi-day courses that pair directly with a GIAC exam attempt. In practice people say SANS when they mean the course and GIAC when they mean the credential that follows it.",
+    "sources": [
+      {
+        "name": "SANS Institute",
+        "url": "https://www.sans.org/"
+      }
+    ],
+    "related": [
+      "GIAC",
+      "GSEC",
+      "GCIH",
+      "GMON"
+    ]
+  },
+  "COMPTIA": {
+    "expansion": "Computing Technology Industry Association",
+    "display": "COMPTIA",
+    "category": "certifications",
+    "difficulty": "easy",
+    "explanation": "CompTIA is a vendor-neutral certification body whose security ladder runs from Security+ through CySA+ and PenTest+ up to CASP+ (now SecurityX). Its exams are widely used as baseline hiring filters and several meet US Department of Defense 8140 workforce requirements. Certifications renew on a three-year cycle through continuing education credits rather than a re-test.",
+    "sources": [
+      {
+        "name": "CompTIA Certifications",
+        "url": "https://www.comptia.org/certifications"
+      }
+    ],
+    "related": [
+      "CASP",
+      "CYSA",
+      "GIAC",
+      "ISC2"
+    ]
+  },
+  "ISC2": {
+    "expansion": "International Information System Security Certification Consortium",
+    "display": "ISC2",
+    "category": "certifications",
+    "difficulty": "easy",
+    "explanation": "ISC2 is the nonprofit body behind CISSP and its concentrations (ISSAP, ISSEP, ISSMP), along with CCSP, CSSLP, and the entry-level CC credential. Its certifications require documented work experience in addition to passing the exam, and holders must earn annual continuing professional education credits and pay a maintenance fee. CISSP in particular is a common requirement in security management job postings.",
+    "sources": [
+      {
+        "name": "ISC2 Certifications",
+        "url": "https://www.isc2.org/certifications"
+      }
+    ],
+    "related": [
+      "CISSP",
+      "CCSP",
+      "CSSLP",
+      "ISSMP"
+    ]
+  },
+  "OFFSEC": {
+    "expansion": "Offensive Security",
+    "display": "OFFSEC",
+    "category": "certifications",
+    "difficulty": "easy",
+    "explanation": "OffSec is the training company behind Kali Linux and the OSCP certification, known for exams that are entirely hands-on: candidates must compromise live machines in a timed lab and submit a professional report. Its catalog spans penetration testing (OSCP), web exploitation (OSWE), exploit development (OSED), wireless (OSWP), and defensive analysis (OSDA). The credentials carry weight because they cannot be passed by memorizing question banks.",
+    "sources": [
+      {
+        "name": "OffSec Certifications",
+        "url": "https://www.offsec.com/courses-and-certifications/"
+      }
+    ],
+    "related": [
+      "OSCP",
+      "OSWE",
+      "OSED",
+      "OSDA"
+    ]
+  },
+  "IAPP": {
+    "expansion": "International Association of Privacy Professionals",
+    "display": "IAPP",
+    "category": "certifications",
+    "difficulty": "easy",
+    "explanation": "The IAPP is the professional body for privacy practitioners and the issuer of the CIPP, CIPM, and CIPT certifications. CIPP is regional and comes in variants for US, European, Canadian, and Asian privacy law, while CIPM covers program management and CIPT covers privacy in technology. IAPP credentials are the usual baseline for data protection officer and privacy engineering roles.",
+    "sources": [
+      {
+        "name": "IAPP Certification",
+        "url": "https://iapp.org/certify/"
+      }
+    ],
+    "related": [
+      "CIPPUS",
+      "CIPM",
+      "CIPT",
+      "DPO"
+    ]
+  },
+  "NERC": {
+    "expansion": "North American Electric Reliability Corporation",
+    "display": "NERC",
+    "category": "governance",
+    "difficulty": "medium",
+    "explanation": "NERC is the nonprofit regulatory authority that sets and enforces reliability standards for the bulk power system across the United States, Canada, and part of Mexico, under oversight from FERC. Its Critical Infrastructure Protection standards are the cybersecurity subset, and violations carry financial penalties that can reach a million dollars per day. Utilities and grid operators are the regulated entities.",
+    "sources": [
+      {
+        "name": "NERC Reliability Standards",
+        "url": "https://www.nerc.com/pa/Stand/Pages/default.aspx"
+      }
+    ],
+    "related": [
+      "NERCCIP",
+      "CIP",
+      "ICS",
+      "SCADA"
+    ]
+  },
+  "CIP": {
+    "expansion": "Critical Infrastructure Protection",
+    "display": "CIP",
+    "category": "governance",
+    "difficulty": "medium",
+    "explanation": "CIP refers to the family of NERC standards (CIP-002 through CIP-015) that impose cybersecurity requirements on the bulk electric system, covering asset categorization, security management controls, personnel and training, electronic security perimeters, physical security, system security management, incident reporting, recovery plans, and supply chain risk. More broadly the term also describes national programs to secure sectors such as water, transport, and energy.",
+    "sources": [
+      {
+        "name": "NERC CIP Standards",
+        "url": "https://www.nerc.com/pa/Stand/Pages/CIPStandards.aspx"
+      }
+    ],
+    "related": [
+      "NERC",
+      "NERCCIP",
+      "ICS",
+      "SCADA"
+    ]
+  },
+  "PCI": {
+    "expansion": "Payment Card Industry",
+    "display": "PCI",
+    "category": "governance",
+    "difficulty": "easy",
+    "explanation": "PCI is shorthand for the Payment Card Industry Security Standards Council, the body founded by the major card brands that publishes PCI DSS along with related standards for PIN transaction security, software security, and point-to-point encryption. It also runs the assessor programs that produce QSAs and ASVs. Any organization that stores, processes, or transmits cardholder data falls in scope through its acquirer contract rather than through law.",
+    "sources": [
+      {
+        "name": "PCI Security Standards Council",
+        "url": "https://www.pcisecuritystandards.org/"
+      }
+    ],
+    "related": [
+      "PCIDSS",
+      "QSA",
+      "PCIP",
+      "CUI"
+    ]
+  },
+  "IG1": {
+    "expansion": "CIS Implementation Group 1",
+    "display": "IG1",
+    "category": "governance",
+    "difficulty": "easy",
+    "explanation": "IG1 is the CIS Controls baseline for small organizations with limited security expertise, defined as essential cyber hygiene. It is a subset of roughly 56 safeguards drawn from across all 18 controls, chosen because they counter the most common attack patterns and can be implemented with commodity tooling. Every organization is expected to reach IG1 before considering the larger IG2 and IG3 sets.",
+    "sources": [
+      {
+        "name": "CIS Controls Implementation Groups",
+        "url": "https://www.cisecurity.org/controls/implementation-groups"
+      }
+    ],
+    "related": [
+      "IG2",
+      "IG3",
+      "CIS",
+      "CSF"
+    ]
+  },
+  "IG2": {
+    "expansion": "CIS Implementation Group 2",
+    "display": "IG2",
+    "category": "governance",
+    "difficulty": "easy",
+    "explanation": "IG2 is the middle CIS Controls tier for organizations that have staff dedicated to managing IT infrastructure and that handle sensitive client or business data. It adds roughly 74 safeguards on top of IG1, introducing formal configuration management, network segmentation, centralized logging, and security awareness programs. IG2 assumes some in-house security capability rather than a single generalist.",
+    "sources": [
+      {
+        "name": "CIS Controls Implementation Groups",
+        "url": "https://www.cisecurity.org/controls/implementation-groups"
+      }
+    ],
+    "related": [
+      "IG1",
+      "IG3",
+      "CIS",
+      "CSF"
+    ]
+  },
+  "IG3": {
+    "expansion": "CIS Implementation Group 3",
+    "display": "IG3",
+    "category": "governance",
+    "difficulty": "easy",
+    "explanation": "IG3 is the full CIS Controls set, intended for organizations that employ security specialists across disciplines such as risk management, penetration testing, and application security, and that handle data subject to regulatory oversight. It covers all 153 safeguards and targets sophisticated adversaries rather than opportunistic attacks. Reaching IG3 implies mature detection, response, and testing programs.",
+    "sources": [
+      {
+        "name": "CIS Controls Implementation Groups",
+        "url": "https://www.cisecurity.org/controls/implementation-groups"
+      }
+    ],
+    "related": [
+      "IG1",
+      "IG2",
+      "CIS",
+      "CSF"
+    ]
+  },
+  "DOD": {
+    "expansion": "Department of Defense",
+    "display": "DOD",
+    "category": "governance",
+    "difficulty": "easy",
+    "explanation": "In a cybersecurity context DoD usually signals a specific compliance regime rather than the organization itself: DFARS clause 252.204-7012 and its NIST SP 800-171 requirements for contractors handling controlled unclassified information, the CMMC assessment program layered on top, DISA STIGs for system hardening, and the DoD 8140 workforce qualification framework that maps job roles to approved certifications.",
+    "sources": [
+      {
+        "name": "DoD Cyber Exchange",
+        "url": "https://public.cyber.mil/"
+      }
+    ],
+    "related": [
+      "DFARS",
+      "CMMC",
+      "CUI",
+      "STIG"
+    ]
+  },
+  "SSP": {
+    "expansion": "System Security Plan",
+    "display": "SSP",
+    "category": "governance",
+    "difficulty": "medium",
+    "explanation": "An SSP is the authoritative document describing a system's boundary, its operating environment, and how each required security control is implemented. It is a core RMF and FedRAMP artifact, is what an assessor reads before testing anything, and is paired with a POA&M listing the controls that are not yet fully met. Under DFARS and NIST SP 800-171, a current SSP is itself a contractual requirement.",
+    "sources": [
+      {
+        "name": "NIST SP 800-18 Guide for Developing Security Plans",
+        "url": "https://csrc.nist.gov/pubs/sp/800/18/r1/final"
+      }
+    ],
+    "related": [
+      "RMF",
+      "POAM",
+      "ATO",
+      "FEDRAMP"
+    ]
+  },
+  "RDDOS": {
+    "expansion": "Ransom Distributed Denial of Service",
+    "display": "RDDOS",
+    "category": "attacks",
+    "difficulty": "medium",
+    "explanation": "An RDDoS attack pairs extortion with a denial of service threat: the attacker sends a ransom demand, often backed by a short demonstration flood, and threatens a sustained attack unless paid by a deadline. Many campaigns are bluffs from groups impersonating known actors, so the standard guidance is not to pay and instead to confirm upstream DDoS mitigation and rate limiting are in place before the deadline.",
+    "sources": [
+      {
+        "name": "CISA Understanding and Responding to Distributed Denial-of-Service Attacks",
+        "url": "https://www.cisa.gov/resources-tools/resources/understanding-and-responding-distributed-denial-service-attacks"
+      }
+    ],
+    "related": [
+      "DDOS",
+      "CDN",
+      "WAF",
+      "IRP"
+    ]
+  },
+  "TCPCRYPT": {
+    "expansion": "Opportunistic Encryption for TCP",
+    "display": "TCPCRYPT",
+    "category": "protocols",
+    "difficulty": "hard",
+    "explanation": "Tcpcrypt is a TCP extension defined in RFC 8548 that encrypts connection payloads opportunistically, without certificates, configuration, or application changes. Because it does not authenticate the peer it stops passive eavesdropping but not an active machine-in-the-middle attacker, so it is a floor rather than a replacement for TLS. Adoption stayed limited, and TLS plus QUIC became the practical answer instead.",
+    "sources": [
+      {
+        "name": "RFC 8548 Cryptographic Protection of TCP Streams",
+        "url": "https://www.rfc-editor.org/rfc/rfc8548.html"
+      }
+    ],
+    "related": [
+      "TCP",
+      "TLS",
+      "QUIC",
+      "MITM"
     ]
   }
 }
