@@ -59,7 +59,7 @@ test('keyboard focus alone opens the menu, no JS interaction needed', async ({ p
   await page.locator('a.nav-parent', { hasText: 'Frameworks' }).focus();
   await page.keyboard.press('Tab');
   await page.keyboard.press('Tab');
-  await expect(page.locator('.nav-menu a', { hasText: 'NIST CSF' })).toBeFocused();
+  await expect(page.locator('.nav-menu[aria-label="Frameworks pages"] a').first()).toBeFocused();
   await expect.poll(() => menuOpacity(page, 'Frameworks')).toBe('1');
 });
 
@@ -85,4 +85,34 @@ test('narrow screens keep the flat scroll row: no toggles, no menus', async ({ p
     .first()
     .evaluate((el) => getComputedStyle(el).display);
   expect(hidden).toBe('none');
+});
+
+test('the Quiz menu deep-links straight into a deck', async ({ page }) => {
+  await page.goto('/');
+  const item = page.locator('.nav-item', { has: page.locator('a.nav-parent', { hasText: 'Quiz' }) });
+  await item.locator('.nav-toggle').click();
+  await item.locator('.nav-menu a', { hasText: 'CISSP' }).click();
+  await expect(page).toHaveURL(/\/quiz\/\?deck=cissp$/);
+  // A ?deck= link starts that round immediately.
+  await expect(page.locator('#player')).toBeVisible();
+});
+
+test('the Assess menu deep-links straight into an assessment', async ({ page }) => {
+  await page.goto('/');
+  const item = page.locator('.nav-item', { has: page.locator('a.nav-parent', { hasText: 'Assess' }) });
+  await item.locator('.nav-toggle').click();
+  await item.locator('.nav-menu a', { hasText: 'Zero Trust' }).click();
+  await expect(page).toHaveURL(/\/assess\/\?a=zero-trust$/);
+  await expect(page.locator('main')).toContainText('Zero Trust');
+});
+
+test('long menus scroll instead of running off the viewport', async ({ page }) => {
+  await page.goto('/');
+  const menu = page.locator('.nav-item', { has: page.locator('a.nav-parent', { hasText: 'Quiz' }) }).locator('.nav-menu');
+  const { maxHeight, overflowY } = await menu.evaluate((el) => {
+    const s = getComputedStyle(el);
+    return { maxHeight: s.maxHeight, overflowY: s.overflowY };
+  });
+  expect(overflowY).toBe('auto');
+  expect(maxHeight).not.toBe('none');
 });

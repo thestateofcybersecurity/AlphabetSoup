@@ -201,6 +201,8 @@ body {
   left: 0;
   z-index: 60;
   min-width: 190px;
+  max-height: min(60vh, 480px);
+  overflow-y: auto;
   display: flex;
   flex-direction: column;
   gap: 2px;

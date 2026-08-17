@@ -206,7 +206,7 @@ footer .play{font-family:'Fraunces',Georgia,serif;font-style:italic;font-weight:
 .gnav a.play-link{color:var(--tomato)}
 .gnav-item{position:relative;display:inline-flex}
 .gnav-caret{font-size:.6rem}
-.gnav-menu{position:absolute;top:100%;left:0;z-index:60;min-width:180px;display:flex;flex-direction:column;gap:2px;padding:8px;background:var(--paper-raised);border:1.5px solid var(--line);border-radius:12px;box-shadow:0 12px 28px rgb(0 0 0 / .14);opacity:0;pointer-events:none}
+.gnav-menu{position:absolute;top:100%;left:0;z-index:60;min-width:180px;max-height:min(60vh,480px);overflow-y:auto;display:flex;flex-direction:column;gap:2px;padding:8px;background:var(--paper-raised);border:1.5px solid var(--line);border-radius:12px;box-shadow:0 12px 28px rgb(0 0 0 / .14);opacity:0;pointer-events:none}
 .gnav-item:hover .gnav-menu,.gnav-item:focus-within .gnav-menu{opacity:1;pointer-events:auto}
 .gnav-menu a{display:block;text-align:left}
 @media(max-width:640px){.gnav-caret,.gnav-menu{display:none}}

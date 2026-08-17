@@ -52,7 +52,10 @@ test('the nav is a single row again, with the frameworks consolidated', async ({
   // top-level row entries (that is what wrapped the nav onto two rows).
   for (const label of ['NIST CSF', 'CIS Controls', 'AI Security']) {
     await expect(page.locator('.site-nav > a', { hasText: label }), label).toHaveCount(0);
-    await expect(page.locator('.site-nav .nav-menu a', { hasText: label }), label).toHaveCount(1);
+    await expect(
+      page.locator('.site-nav .nav-menu[aria-label="Frameworks pages"] a', { hasText: label }),
+      label,
+    ).toHaveCount(1);
   }
 });
 

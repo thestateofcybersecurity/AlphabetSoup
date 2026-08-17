@@ -98,14 +98,16 @@ test('definition pages surface the quiz decks that test the term', async ({ page
   await page.goto('/definitions/cvss.html');
   const deeper = page.locator('h2', { hasText: 'Go deeper' });
   await expect(deeper).toHaveCount(1);
-  const quizLinks = page.locator('a[href*="quiz/?deck="]');
+  // The gnav's Quiz dropdown also carries ?deck= links; this is about the
+  // Go deeper section in the page body.
+  const quizLinks = page.locator('a[href*="quiz/?deck="]:not(.gnav a)');
   expect(await quizLinks.count()).toBeGreaterThan(0);
   await expect(quizLinks.first()).toContainText(/Tested on the .+ quiz/);
 });
 
 test('a derived quiz link actually opens that deck', async ({ page }) => {
   await page.goto('/definitions/cvss.html');
-  const link = page.locator('a[href*="quiz/?deck="]').first();
+  const link = page.locator('a[href*="quiz/?deck="]:not(.gnav a)').first();
   const href = (await link.getAttribute('href')) ?? '';
   const slug = new URLSearchParams(href.split('?')[1]).get('deck');
   expect(slug, 'the link should name a deck').toBeTruthy();

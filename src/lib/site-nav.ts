@@ -54,8 +54,50 @@ export const NAV_LINKS: NavLink[] = [
       { path: 'frameworks/soc2/', label: 'SOC 2' },
     ],
   },
-  { path: 'quiz/', label: 'Quiz' },
-  { path: 'assess/', label: 'Assess' },
+  {
+    path: 'quiz/',
+    label: 'Quiz',
+    // ?deck= starts that deck immediately; slugs from src/data/quiz/index.json.
+    // The retired LPT deck stays reachable from the hub but is not worth a
+    // menu row.
+    children: [
+      { path: 'quiz/?deck=fundamentals', label: 'Fundamentals' },
+      { path: 'quiz/?deck=security-plus', label: 'Security+' },
+      { path: 'quiz/?deck=cissp', label: 'CISSP' },
+      { path: 'quiz/?deck=ceh', label: 'CEH' },
+      { path: 'quiz/?deck=chfi', label: 'CHFI' },
+      { path: 'quiz/?deck=cysa', label: 'CySA+' },
+      { path: 'quiz/?deck=gsec', label: 'GSEC' },
+      { path: 'quiz/?deck=sscp', label: 'SSCP' },
+      { path: 'quiz/?deck=cism', label: 'CISM' },
+      { path: 'quiz/?deck=cisa', label: 'CISA' },
+      { path: 'quiz/?deck=crisc', label: 'CRISC' },
+      { path: 'quiz/?deck=ccsp', label: 'CCSP' },
+      { path: 'quiz/?deck=ccsk', label: 'CCSK' },
+      { path: 'quiz/?deck=oscp', label: 'OSCP' },
+      { path: 'quiz/?deck=pentest-plus', label: 'PenTest+' },
+      { path: 'quiz/?deck=casp', label: 'CASP+' },
+      { path: 'quiz/?deck=pnpt', label: 'PNPT' },
+    ],
+  },
+  {
+    path: 'assess/',
+    label: 'Assess',
+    // ?a= opens that assessment directly; ids match src/assess-main.ts.
+    children: [
+      { path: 'assess/?a=ransomware', label: 'Ransomware' },
+      { path: 'assess/?a=cpg', label: 'CISA CPG' },
+      { path: 'assess/?a=cis-ig1', label: 'CIS IG1' },
+      { path: 'assess/?a=cis-v8', label: 'CIS Controls v8' },
+      { path: 'assess/?a=nist-csf', label: 'NIST CSF 2.0' },
+      { path: 'assess/?a=nist-800171', label: '800-171 / CMMC' },
+      { path: 'assess/?a=cyber-essentials', label: 'Cyber Essentials' },
+      { path: 'assess/?a=zero-trust', label: 'Zero Trust' },
+      { path: 'assess/?a=ssdf', label: 'SSDF' },
+      { path: 'assess/?a=pci-dss', label: 'PCI DSS' },
+      { path: 'assess/cmmc/', label: 'CMMC Guide' },
+    ],
+  },
   { path: 'roadmap/', label: 'Roadmap' },
   {
     path: 'tools/',
