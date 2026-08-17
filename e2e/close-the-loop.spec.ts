@@ -1,5 +1,5 @@
 import { expect, test } from '@playwright/test';
-import { NAV_LINK_COUNT } from '../src/lib/site-nav';
+import { NAV_TOTAL_LINK_COUNT } from '../src/lib/site-nav';
 
 test('assessment gaps flow into the roadmap planner', async ({ page }) => {
   await page.goto('/assess/');
@@ -61,7 +61,7 @@ test('quiz shows rationales and builds a drill bank', async ({ page }) => {
 test('generated pages carry the site nav', async ({ page }) => {
   await page.goto('/definitions/siem.html');
   // Derived from the nav source, so adding a link can never break this test.
-  await expect(page.locator('.gnav a')).toHaveCount(NAV_LINK_COUNT);
+  await expect(page.locator('.gnav a')).toHaveCount(NAV_TOTAL_LINK_COUNT);
   await expect(page.locator('.gnav a', { hasText: 'Blog' })).toHaveAttribute('href', '../blog/');
   await expect(page.locator('.gnav a', { hasText: 'Tools' })).toHaveAttribute('href', '../tools/');
   await expect(page.locator('.gnav a', { hasText: 'MITRE' })).toHaveAttribute(

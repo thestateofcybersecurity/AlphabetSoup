@@ -133,11 +133,15 @@ test('the nav stays a single row with SOC 2 added', async ({ page }) => {
   await page.setViewportSize({ width: 1280, height: 900 });
   await page.goto('/frameworks/soc2/');
   const rows = await page.evaluate(() => {
-    const links = [...document.querySelectorAll('.site-nav a')];
+    // Dropdown menu children are absolutely positioned below the row; only
+    // the top-level links decide whether the nav wraps.
+    const links = [...document.querySelectorAll('.site-nav a')].filter((a) => !a.closest('.nav-menu'));
     return new Set(links.map((a) => Math.round(a.getBoundingClientRect().top))).size;
   });
   expect(rows).toBe(1);
-  await expect(page.locator('.site-nav a', { hasText: 'SOC 2' })).toHaveCount(0);
+  // SOC 2 lives in the Frameworks dropdown, never in the top-level row.
+  await expect(page.locator('.site-nav > a', { hasText: 'SOC 2' })).toHaveCount(0);
+  await expect(page.locator('.site-nav .nav-menu a', { hasText: 'SOC 2' })).toHaveCount(1);
 });
 
 test('the Frameworks nav entry points at the hub, not at the SOC 2 page itself', async ({ page }) => {

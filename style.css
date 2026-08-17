@@ -159,6 +159,95 @@ body {
   }
 }
 
+/* ------------------------ nav dropdown menus ---------------------- */
+
+.site-nav .nav-item {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+}
+
+.nav-toggle {
+  appearance: none;
+  background: none;
+  border: none;
+  padding: 4px 5px;
+  margin-left: -3px;
+  cursor: pointer;
+  color: var(--ink-soft);
+  border-radius: 6px;
+  display: inline-flex;
+  align-items: center;
+}
+
+.nav-toggle:hover {
+  color: var(--tomato);
+}
+
+.nav-toggle svg {
+  transition: transform 0.15s ease;
+}
+
+.nav-item[data-open='true'] .nav-toggle svg {
+  transform: rotate(180deg);
+}
+
+/* Closed menus stay in the DOM and the tab order (opacity, not display:none),
+   so keyboard focus reaches a child link and :focus-within opens the menu
+   around it; no JS required for keyboard users. */
+.nav-menu {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  z-index: 60;
+  min-width: 190px;
+  max-height: min(60vh, 480px);
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding: 8px;
+  background: var(--paper-raised);
+  border: 1.5px solid var(--line);
+  border-radius: 12px;
+  box-shadow: 0 12px 28px rgb(0 0 0 / 0.14);
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(4px);
+  transition: opacity 0.12s ease, transform 0.12s ease;
+}
+
+.nav-item:focus-within .nav-menu,
+.nav-item[data-open='true'] .nav-menu {
+  opacity: 1;
+  pointer-events: auto;
+  transform: none;
+}
+
+@media (hover: hover) and (min-width: 641px) {
+  .nav-item:hover .nav-menu {
+    opacity: 1;
+    pointer-events: auto;
+    transform: none;
+  }
+}
+
+.site-nav .nav-menu a {
+  display: block;
+  text-align: left;
+  white-space: nowrap;
+}
+
+/* On the narrow-screen scroll row the parent link lands on the section hub,
+   which lists everything; a positioned dropdown cannot escape the row's
+   overflow clipping, so it stays desktop-only. */
+@media (max-width: 640px) {
+  .nav-toggle,
+  .nav-menu {
+    display: none;
+  }
+}
+
 .site-nav a {
   font-family: var(--font-mono);
   font-size: 0.72rem;

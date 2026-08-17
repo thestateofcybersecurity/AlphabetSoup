@@ -40,15 +40,22 @@ test('the nav is a single row again, with the frameworks consolidated', async ({
   await page.setViewportSize({ width: 1280, height: 900 });
   await page.goto('/frameworks/');
   const rows = await page.evaluate(() => {
-    const links = [...document.querySelectorAll('.site-nav a')];
+    // Dropdown menu children are absolutely positioned below the row; only
+    // the top-level links decide whether the nav wraps.
+    const links = [...document.querySelectorAll('.site-nav a')].filter((a) => !a.closest('.nav-menu'));
     return new Set(links.map((a) => Math.round(a.getBoundingClientRect().top))).size;
   });
   // Adding ISO as a fifteenth link pushed this to 2. It must stay at 1.
   expect(rows).toBe(1);
   await expect(page.locator('.site-nav a', { hasText: 'Frameworks' })).toHaveCount(1);
-  // The per-framework links are gone from the nav, not merely hidden.
-  for (const gone of ['NIST CSF', 'CIS Controls', 'AI Security']) {
-    await expect(page.locator('.site-nav a', { hasText: gone }), gone).toHaveCount(0);
+  // The per-framework links live in the Frameworks dropdown now, never as
+  // top-level row entries (that is what wrapped the nav onto two rows).
+  for (const label of ['NIST CSF', 'CIS Controls', 'AI Security']) {
+    await expect(page.locator('.site-nav > a', { hasText: label }), label).toHaveCount(0);
+    await expect(
+      page.locator('.site-nav .nav-menu[aria-label="Frameworks pages"] a', { hasText: label }),
+      label,
+    ).toHaveCount(1);
   }
 });
 

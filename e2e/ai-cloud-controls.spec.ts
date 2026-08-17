@@ -204,7 +204,9 @@ test('the risk tiering tool hands off into the mapper and back', async ({ page }
 
 test('the AI frameworks page links into the mapper', async ({ page }) => {
   await page.goto('/frameworks/ai/');
-  const link = page.locator('a[href="../../tools/ai-cloud-controls/"]');
+  // The nav's Tools dropdown also links to the mapper; this is about the
+  // page-body handoff in the footer.
+  const link = page.locator('.colophon a[href="../../tools/ai-cloud-controls/"]');
   await expect(link).toBeVisible();
   await link.click();
   await expect(page.locator('h1')).toContainText('control mapper');
