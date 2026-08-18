@@ -33,6 +33,8 @@ export interface Threat {
   id: string;
   title: string;
   stride: StrideCategory;
+  /** 'system' threats instantiate once, not per matching flow. */
+  scope?: 'system' | 'flow';
   appliesWhen: { components: string[]; minData?: string; exposures?: string[] };
   because: string;
   description: string;
@@ -63,6 +65,38 @@ export interface SystemProfile {
   owner?: string;
   /** Who reviews the model; the field that makes it a governance artifact. */
   reviewer?: string;
+  /** Custom diagram, when the modeler edits the canvas; absent = derived. */
+  graph?: SystemGraph;
+}
+
+/** A typed diagram node: the Threat Dragon trio, placed in a trust zone. */
+export interface GraphNode {
+  id: string;
+  kind: 'actor' | 'process' | 'store';
+  label: string;
+  sub?: string;
+  zone: 'users' | 'app' | 'outside';
+  x: number;
+  y: number;
+}
+
+/**
+ * A data flow between two nodes. `kind` names the component class whose
+ * threats attach to this flow ('plain' carries none), and `dataClass`
+ * overrides the system-wide data sensitivity for this flow alone.
+ */
+export interface GraphFlow {
+  id: string;
+  from: string;
+  to: string;
+  kind: string;
+  label: string;
+  dataClass?: string;
+}
+
+export interface SystemGraph {
+  nodes: GraphNode[];
+  flows: GraphFlow[];
 }
 
 /** The user's judgment on one candidate threat (question two). */
@@ -161,11 +195,11 @@ export interface ModelSummary {
 
 export function summarize(
   data: ThreatModelData,
-  candidates: CandidateThreat[],
+  instances: FlowInstance[],
   verdicts: Record<string, ThreatVerdict>,
 ): ModelSummary {
   const summary: ModelSummary = {
-    total: candidates.length,
+    total: instances.length,
     reviewed: 0,
     applies: 0,
     mitigated: 0,
@@ -176,8 +210,8 @@ export function summarize(
     byResidualRisk: { low: 0, medium: 0, high: 0, critical: 0 },
     mitigatedNoResidual: 0,
   };
-  for (const { threat } of candidates) {
-    const verdict = verdicts[threat.id] ?? { status: 'unreviewed' };
+  for (const { key } of instances) {
+    const verdict = verdicts[key] ?? { status: 'unreviewed' };
     if (verdict.status !== 'unreviewed') summary.reviewed += 1;
     if (verdict.status === 'mitigated') summary.mitigated += 1;
     if (verdict.status === 'not-applicable') summary.notApplicable += 1;
@@ -199,23 +233,25 @@ export function summarize(
 export function registerCsv(
   data: ThreatModelData,
   profile: SystemProfile,
-  candidates: CandidateThreat[],
+  instances: FlowInstance[],
   verdicts: Record<string, ThreatVerdict>,
 ): string {
   const escapeCell = (value: string): string => `"${value.replace(/"/g, '""')}"`;
   const rows = [
-    ['id', 'threat', 'stride', 'trust boundary', 'status', 'likelihood', 'impact', 'risk', 'treatment', 'owner', 'note', 'references'],
-    ...candidates.map(({ threat, boundary }) => {
-      const v = verdicts[threat.id] ?? { status: 'unreviewed' };
+    ['id', 'threat', 'stride', 'flow', 'trust boundary', 'status', 'likelihood', 'impact', 'risk', 'residual', 'treatment', 'owner', 'note', 'references'],
+    ...instances.map(({ threat, flow, boundary, key }) => {
+      const v = verdicts[key] ?? { status: 'unreviewed' };
       return [
         threat.id,
         threat.title,
         threat.stride,
+        flow.label,
         boundary,
         v.status,
         v.likelihood ?? '',
         v.impact ?? '',
         riskFor(data, v.likelihood, v.impact) ?? '',
+        riskFor(data, v.residualLikelihood, v.residualImpact) ?? '',
         v.treatment ?? '',
         v.owner ?? '',
         v.note ?? '',
@@ -244,6 +280,9 @@ export function validateThreatModel(data: ThreatModelData): string[] {
     if (ids.has(threat.id)) errors.push(`${where} duplicate id`);
     ids.add(threat.id);
     if (!STRIDE.includes(threat.stride)) errors.push(`${where} invalid STRIDE category "${threat.stride}"`);
+    if (threat.scope && threat.scope !== 'system' && threat.scope !== 'flow') {
+      errors.push(`${where} invalid scope "${threat.scope}"`);
+    }
     if (threat.appliesWhen.components.length === 0) errors.push(`${where} appliesWhen.components is empty`);
     for (const c of threat.appliesWhen.components) {
       if (!componentIds.has(c)) errors.push(`${where} unknown component "${c}"`);
@@ -333,39 +372,36 @@ const NODE_H = 46;
 const NODE_GAP = 64;
 const ZONE_TOP = 64;
 
+/** Fixed trust zone columns; a node's zone is the column that holds it. */
+export const ZONE_COLUMNS: { id: GraphNode['zone']; label: string; x: number; w: number }[] = [
+  { id: 'users', label: 'Untrusted users', x: 16, w: 140 },
+  { id: 'app', label: 'Your application', x: 186, w: 290 },
+  { id: 'outside', label: 'Outside your control', x: 506, w: 158 },
+];
+
+/** The zone whose column contains an x coordinate. */
+export function zoneAt(x: number): GraphNode['zone'] {
+  if (x < ZONE_COLUMNS[1].x - 10) return 'users';
+  if (x < ZONE_COLUMNS[2].x - 10) return 'app';
+  return 'outside';
+}
+
 /**
- * A deterministic three-zone data flow diagram for the described system.
- * Nodes exist only for selected components; flows carry the count of candidate
- * threats proposed where they run, so the picture and the threat list agree.
+ * The diagram the quick answers imply. Node and flow ids are stable (flow id
+ * equals the component id), so verdicts keyed on them survive a switch into
+ * the canvas editor and back.
  */
-export function diagramLayout(
-  profile: SystemProfile,
-  candidates: CandidateThreat[],
-): DiagramLayout | null {
+export function defaultGraph(data: ThreatModelData, profile: SystemProfile): SystemGraph {
   const has = (id: string) => profile.components.includes(id);
-  if (profile.components.length === 0) return null;
-
-  const counts: Record<string, number> = {};
-  for (const c of candidates) counts[c.componentId] = (counts[c.componentId] ?? 0) + 1;
-
-  const zoneDefs = [
-    { id: 'users', label: 'Untrusted users', x: 16, w: 140 },
-    { id: 'app', label: 'Your application', x: 186, w: 290 },
-    { id: 'outside', label: 'Outside your control', x: 506, w: 158 },
-  ];
-
-  const nodes: DiagramNode[] = [];
-  const place = (zone: string, id: string, label: string, sub: string, kind: DiagramNode['kind']) => {
-    const def = zoneDefs.find((z) => z.id === zone)!;
+  const nodes: GraphNode[] = [];
+  const place = (zone: GraphNode['zone'], id: string, label: string, sub: string, kind: GraphNode['kind']) => {
+    const col = ZONE_COLUMNS.find((z) => z.id === zone)!;
     const index = nodes.filter((n) => n.zone === zone).length;
-    nodes.push({
-      id, label, sub, kind, zone,
-      x: def.x + 12, y: ZONE_TOP + 26 + index * NODE_GAP, w: def.w - 24, h: NODE_H,
-    });
+    nodes.push({ id, kind, label, sub, zone, x: col.x + 12, y: ZONE_TOP + 26 + index * NODE_GAP });
   };
 
   if (has('user-chat')) place('users', 'users', 'Users', 'free-text input', 'actor');
-  place('app', 'app', 'Application', 'orchestration and prompts', 'process');
+  if (profile.components.length > 0) place('app', 'app', 'Application', 'orchestration and prompts', 'process');
   if (has('rag')) place('app', 'index', 'Vector index', 'your documents', 'store');
   if (has('self-hosted')) place('app', 'model', 'Self-hosted model', 'weights you run', 'process');
   if (has('training-data')) place('app', 'training', 'Training data', 'shapes the weights', 'store');
@@ -375,24 +411,12 @@ export function diagramLayout(
   if (has('agent-tools')) place('outside', 'tools', 'Tools and APIs', 'the agent acts here', 'process');
   if (has('batch')) place('outside', 'feeds', 'Data feeds', 'upstream sources', 'actor');
 
-  const byId = Object.fromEntries(nodes.map((n) => [n.id, n]));
-  const flows: DiagramFlow[] = [];
-  const connect = (componentId: string, fromId: string, toId: string) => {
-    const from = byId[fromId];
-    const to = byId[toId];
-    if (!from || !to) return;
-    const leftToRight = from.x < to.x;
-    const sameColumn = from.zone === to.zone;
-    const x1 = sameColumn ? from.x + from.w / 2 : leftToRight ? from.x + from.w : from.x;
-    const x2 = sameColumn ? to.x + to.w / 2 : leftToRight ? to.x : to.x + to.w;
-    const y1 = sameColumn ? (from.y < to.y ? from.y + from.h : from.y) : from.y + from.h / 2;
-    const y2 = sameColumn ? (from.y < to.y ? to.y : to.y + to.h) : to.y + to.h / 2;
-    flows.push({
-      id: `flow-${componentId}`, from: fromId, to: toId, componentId,
-      badge: counts[componentId] ?? 0, x1, y1, x2, y2,
-    });
+  const ids = new Set(nodes.map((n) => n.id));
+  const label = (id: string) => data.components.find((c) => c.id === id)?.label ?? id;
+  const flows: GraphFlow[] = [];
+  const connect = (kind: string, from: string, to: string) => {
+    if (ids.has(from) && ids.has(to)) flows.push({ id: kind, from, to, kind, label: label(kind) });
   };
-
   connect('user-chat', 'users', 'app');
   connect('rag', 'index', 'app');
   connect('vendor-llm', 'app', 'provider');
@@ -401,13 +425,139 @@ export function diagramLayout(
   connect('agent-tools', 'app', 'tools');
   connect('batch', 'feeds', 'pipeline');
   connect('output-decisions', 'app', 'consumer');
+  return { nodes, flows };
+}
 
-  const zones: DiagramZone[] = zoneDefs
-    .filter((def) => nodes.some((n) => n.zone === def.id))
-    .map((def) => {
-      const members = nodes.filter((n) => n.zone === def.id);
+/** The working graph: the modeler's canvas edits, or the derived default. */
+export function graphOf(data: ThreatModelData, profile: SystemProfile): SystemGraph {
+  return profile.graph ?? defaultGraph(data, profile);
+}
+
+/**
+ * A candidate threat attached to one specific flow. Two retrieval stores mean
+ * two sets of retrieval threats, each judged on its own.
+ */
+export interface FlowInstance {
+  threat: Threat;
+  flow: GraphFlow;
+  because: string;
+  boundary: string;
+  /** Unique verdict key for this threat on this flow. */
+  key: string;
+}
+
+function flowBoundary(graph: SystemGraph, flow: GraphFlow): string {
+  const from = graph.nodes.find((n) => n.id === flow.from);
+  const to = graph.nodes.find((n) => n.id === flow.to);
+  const zoneLabel = (z?: GraphNode['zone']) => ZONE_COLUMNS.find((c) => c.id === z)?.label ?? 'Unknown';
+  if (!from || !to) return 'Unknown boundary';
+  if (from.zone === to.zone) return `Inside ${zoneLabel(from.zone).toLowerCase()}`;
+  return `${zoneLabel(from.zone)} to ${zoneLabel(to.zone).toLowerCase()}`;
+}
+
+/**
+ * Per-flow threat enumeration over the working graph: still question-first
+ * (an empty graph proposes nothing), still gated on data class (per flow,
+ * falling back to the system-wide answer) and exposure.
+ */
+export function flowCandidates(data: ThreatModelData, profile: SystemProfile): FlowInstance[] {
+  const graph = graphOf(data, profile);
+  const rank = (id: string) => data.dataClasses.findIndex((d) => d.id === id);
+  const out: FlowInstance[] = [];
+  const systemSeen = new Set<string>();
+  for (const flow of graph.flows) {
+    if (flow.kind === 'plain') continue;
+    for (const threat of data.threats) {
+      const w = threat.appliesWhen;
+      if (!w.components.includes(flow.kind)) continue;
+      if (w.minData && rank(flow.dataClass ?? profile.dataClass) < rank(w.minData)) continue;
+      if (w.exposures && !w.exposures.includes(profile.exposure)) continue;
+      // System-scoped threats (ownership, inventory, audit) are about the
+      // whole system: one instance, on the first flow that surfaces them.
+      if (threat.scope === 'system') {
+        if (systemSeen.has(threat.id)) continue;
+        systemSeen.add(threat.id);
+        out.push({ threat, flow, because: threat.because, boundary: flowBoundary(graph, flow), key: `${threat.id}@system` });
+        continue;
+      }
+      out.push({
+        threat,
+        flow,
+        because: threat.because,
+        boundary: flowBoundary(graph, flow),
+        key: `${threat.id}@${flow.id}`,
+      });
+    }
+  }
+  return out;
+}
+
+/**
+ * Rewrite verdict keys from the pre-canvas format (bare threat ids) to
+ * per-flow instance keys, so models saved before the canvas existed load
+ * with their judgments intact.
+ */
+export function migrateVerdicts(
+  data: ThreatModelData,
+  profile: SystemProfile,
+  verdicts: Record<string, ThreatVerdict>,
+): Record<string, ThreatVerdict> {
+  if (Object.keys(verdicts).every((k) => k.includes('@'))) return verdicts;
+  const instances = flowCandidates(data, profile);
+  const migrated: Record<string, ThreatVerdict> = {};
+  for (const [key, verdict] of Object.entries(verdicts)) {
+    if (key.includes('@')) {
+      migrated[key] = verdict;
+      continue;
+    }
+    const instance = instances.find((i) => i.threat.id === key);
+    migrated[instance ? instance.key : key] = verdict;
+  }
+  return migrated;
+}
+
+/**
+ * Geometry for the working graph: zone columns sized to their members, node
+ * rects at their stored positions, flow lines between rect edges, badges
+ * counting the candidate threats per flow.
+ */
+export function diagramLayout(
+  data: ThreatModelData,
+  profile: SystemProfile,
+  instances: FlowInstance[],
+): DiagramLayout | null {
+  const graph = graphOf(data, profile);
+  if (graph.nodes.length === 0) return null;
+
+  const badges: Record<string, number> = {};
+  for (const i of instances) badges[i.flow.id] = (badges[i.flow.id] ?? 0) + 1;
+
+  const nodeW = (zone: GraphNode['zone']) => ZONE_COLUMNS.find((z) => z.id === zone)!.w - 24;
+  const nodes: DiagramNode[] = graph.nodes.map((n) => ({
+    id: n.id, label: n.label, sub: n.sub ?? '', kind: n.kind, zone: n.zone,
+    x: n.x, y: n.y, w: nodeW(n.zone), h: NODE_H,
+  }));
+  const byId = Object.fromEntries(nodes.map((n) => [n.id, n]));
+
+  const flows: DiagramFlow[] = graph.flows.flatMap((flow) => {
+    const from = byId[flow.from];
+    const to = byId[flow.to];
+    if (!from || !to) return [];
+    const leftToRight = from.x < to.x;
+    const sameColumn = from.zone === to.zone;
+    const x1 = sameColumn ? from.x + from.w / 2 : leftToRight ? from.x + from.w : from.x;
+    const x2 = sameColumn ? to.x + to.w / 2 : leftToRight ? to.x : to.x + to.w;
+    const y1 = sameColumn ? (from.y < to.y ? from.y + from.h : from.y) : from.y + from.h / 2;
+    const y2 = sameColumn ? (from.y < to.y ? to.y : to.y + to.h) : to.y + to.h / 2;
+    return [{ id: flow.id, from: flow.from, to: flow.to, componentId: flow.kind, badge: badges[flow.id] ?? 0, x1, y1, x2, y2 }];
+  });
+
+  const zones: DiagramZone[] = ZONE_COLUMNS
+    .filter((col) => nodes.some((n) => n.zone === col.id))
+    .map((col) => {
+      const members = nodes.filter((n) => n.zone === col.id);
       const bottom = Math.max(...members.map((n) => n.y + n.h));
-      return { id: def.id, label: def.label, x: def.x, y: ZONE_TOP, w: def.w, h: bottom - ZONE_TOP + 16 };
+      return { id: col.id, label: col.label, x: col.x, y: ZONE_TOP, w: col.w, h: bottom - ZONE_TOP + 16 };
     });
 
   const height = Math.max(...zones.map((z) => z.y + z.h)) + 24;
@@ -437,22 +587,22 @@ function tdSeverity(risk: RiskLevel | null): string {
 export function threatDragonModel(
   data: ThreatModelData,
   profile: SystemProfile,
-  candidates: CandidateThreat[],
+  instances: FlowInstance[],
   verdicts: Record<string, ThreatVerdict>,
   id: () => string,
 ): object {
-  const layout = diagramLayout(profile, candidates);
+  const layout = diagramLayout(data, profile, instances);
   if (!layout) throw new Error('Describe the system before exporting');
 
   const cellIds = new Map<string, string>();
   for (const node of layout.nodes) cellIds.set(node.id, id());
 
   let number = 0;
-  const threatsFor = (componentId: string) =>
-    candidates
-      .filter((c) => c.componentId === componentId)
-      .map(({ threat, because }) => {
-        const v = verdicts[threat.id] ?? { status: 'unreviewed' as const };
+  const threatsFor = (flowId: string) =>
+    instances
+      .filter((i) => i.flow.id === flowId)
+      .map(({ threat, because, key }) => {
+        const v = verdicts[key] ?? { status: 'unreviewed' as const };
         const mitigation = [
           ...threat.mitigations.map((m) => `- ${m.text}`),
           v.treatment ? `Treatment: ${v.treatment}${v.owner ? `, owner ${v.owner}` : ''}` : '',
@@ -499,9 +649,10 @@ export function threatDragonModel(
     },
   }));
 
+  const graph = graphOf(data, profile);
   const flowCells = layout.flows.map((flow) => {
-    const componentLabel = data.components.find((c) => c.id === flow.componentId)?.label ?? flow.componentId;
-    const threats = threatsFor(flow.componentId);
+    const componentLabel = graph.flows.find((f) => f.id === flow.id)?.label ?? flow.componentId;
+    const threats = threatsFor(flow.id);
     return {
       id: id(),
       shape: 'flow',
@@ -581,14 +732,17 @@ export function threatPlan(
 
   for (const model of models) {
     const system = model.profile.name || 'Untitled AI system';
-    for (const [threatId, verdict] of Object.entries(model.verdicts)) {
+    for (const [key, verdict] of Object.entries(model.verdicts)) {
       if (verdict.status !== 'applies' || verdict.treatment !== 'mitigate') continue;
+      const [threatId, flowId] = key.split('@');
       const threat = byId[threatId];
       if (!threat) continue;
+      const flowLabel = model.profile.graph?.flows.find((f) => f.id === flowId)?.label
+        ?? data.components.find((c) => c.id === flowId)?.label;
       const risk = riskFor(data, verdict.likelihood, verdict.impact);
       tasks.push({
-        id: `threat:${system.toLowerCase().replace(/[^a-z0-9]+/g, '-')}:${threatId}`,
-        label: `Mitigate ${threatId}: ${threat.title}`,
+        id: `threat:${system.toLowerCase().replace(/[^a-z0-9]+/g, '-')}:${key}`,
+        label: `Mitigate ${threatId}: ${threat.title}${flowLabel ? ` (${flowLabel})` : ''}`,
         group: system,
         detail:
           `${risk ? `${risk.toUpperCase()} risk. ` : ''}${threat.mitigations.map((m) => m.text).join(' ')}` +

@@ -6,13 +6,17 @@ import {
   boundaries,
   candidateThreats,
   diagramLayout,
+  flowCandidates,
+  migrateVerdicts,
   registerCsv,
   riskFor,
   summarize,
   threatDragonModel,
   threatPlan,
   validateThreatModel,
+  zoneAt,
 } from '../src/lib/ai-threat';
+import type { SystemGraph } from '../src/lib/ai-threat';
 
 const data = threatRaw as ThreatModelData;
 
@@ -95,8 +99,8 @@ describe('rating and summary', () => {
   });
 
   it('summarizes verdicts and flags incomplete work', () => {
-    const candidates = candidateThreats(data, profile({ components: ['user-chat'] }));
-    const [a, b, c] = candidates.map(({ threat }) => threat.id);
+    const candidates = flowCandidates(data, profile({ components: ['user-chat'] }));
+    const [a, b, c] = candidates.map(({ key }) => key);
     const verdicts: Record<string, ThreatVerdict> = {
       [a]: { status: 'applies', likelihood: 'likely', impact: 'material', treatment: 'mitigate', owner: 'AppSec' },
       [b]: { status: 'applies' },
@@ -112,7 +116,7 @@ describe('rating and summary', () => {
   });
 
   it('exports a register row per candidate with quoting intact', () => {
-    const candidates = candidateThreats(data, profile({ components: ['user-chat'], name: 'Bot, "v2"' }));
+    const candidates = flowCandidates(data, profile({ components: ['user-chat'], name: 'Bot, "v2"' }));
     const csv = registerCsv(data, profile({ components: ['user-chat'], name: 'Bot, "v2"' }), candidates, {});
     const lines = csv.split('\n');
     expect(lines[0]).toBe('"Bot, ""v2"""');
@@ -123,13 +127,13 @@ describe('rating and summary', () => {
 
 describe('derived diagram', () => {
   it('renders nothing for an undescribed system', () => {
-    expect(diagramLayout(profile(), [])).toBeNull();
+    expect(diagramLayout(data, profile(), [])).toBeNull();
   });
 
   it('places nodes only for selected components, with agreeing badges', () => {
     const p = profile({ components: ['user-chat', 'rag', 'agent-tools'] });
-    const cands = candidateThreats(data, p);
-    const layout = diagramLayout(p, cands)!;
+    const cands = flowCandidates(data, p);
+    const layout = diagramLayout(data, p, cands)!;
     const nodeIds = layout.nodes.map((n) => n.id);
     expect(nodeIds).toContain('users');
     expect(nodeIds).toContain('index');
@@ -151,10 +155,10 @@ describe('Threat Dragon export', () => {
 
   const exportModel = () => {
     let n = 0;
-    const cands = candidateThreats(data, tdProfile);
+    const cands = flowCandidates(data, tdProfile);
     const verdicts: Record<string, ThreatVerdict> = {
-      T01: { status: 'applies', likelihood: 'likely', impact: 'severe', treatment: 'mitigate', owner: 'AppSec' },
-      T02: { status: 'not-applicable', note: 'no secrets in prompts' },
+      'T01@user-chat': { status: 'applies', likelihood: 'likely', impact: 'severe', treatment: 'mitigate', owner: 'AppSec' },
+      'T02@user-chat': { status: 'not-applicable', note: 'no secrets in prompts' },
     };
     return threatDragonModel(data, tdProfile, cands, verdicts, () => `id-${n++}`) as {
       version: string;
@@ -176,7 +180,7 @@ describe('Threat Dragon export', () => {
     const model = exportModel();
     const cells = model.detail.diagrams[0].cells;
     const threats = cells.flatMap((c) => c.data?.threats ?? []);
-    expect(threats.length).toBe(candidateThreats(data, tdProfile).length);
+    expect(threats.length).toBe(flowCandidates(data, tdProfile).length);
     expect(model.detail.threatTop).toBe(threats.length);
     for (const threat of threats) {
       expect(['Open', 'Mitigated', 'NotApplicable']).toContain(threat.status);
@@ -196,10 +200,10 @@ describe('roadmap handoff and residual risk', () => {
     const models = [{
       profile: profile({ components: ['user-chat'], name: 'Bot A' }),
       verdicts: {
-        T01: { status: 'applies', likelihood: 'likely', impact: 'severe', treatment: 'mitigate' },
-        T02: { status: 'applies', likelihood: 'rare', impact: 'limited', treatment: 'mitigate' },
-        T05: { status: 'applies', likelihood: 'likely', impact: 'severe', treatment: 'accept' },
-        T04: { status: 'not-applicable' },
+        'T01@user-chat': { status: 'applies', likelihood: 'likely', impact: 'severe', treatment: 'mitigate' },
+        'T02@user-chat': { status: 'applies', likelihood: 'rare', impact: 'limited', treatment: 'mitigate' },
+        'T05@user-chat': { status: 'applies', likelihood: 'likely', impact: 'severe', treatment: 'accept' },
+        'T04@user-chat': { status: 'not-applicable' },
       } as Record<string, ThreatVerdict>,
     }];
     const tasks = threatPlan(data, models);
@@ -211,8 +215,8 @@ describe('roadmap handoff and residual risk', () => {
   });
 
   it('summarizes residual risk and flags unrated mitigations', () => {
-    const cands = candidateThreats(data, profile({ components: ['user-chat'] }));
-    const [a, b] = cands.map(({ threat }) => threat.id);
+    const cands = flowCandidates(data, profile({ components: ['user-chat'] }));
+    const [a, b] = cands.map(({ key }) => key);
     const verdicts: Record<string, ThreatVerdict> = {
       [a]: { status: 'applies', likelihood: 'likely', impact: 'severe', treatment: 'mitigate', residualLikelihood: 'rare', residualImpact: 'material' },
       [b]: { status: 'applies', likelihood: 'possible', impact: 'material', treatment: 'mitigate' },
@@ -220,5 +224,73 @@ describe('roadmap handoff and residual risk', () => {
     const summary = summarize(data, cands, verdicts);
     expect(summary.byResidualRisk.low).toBe(1);
     expect(summary.mitigatedNoResidual).toBe(1);
+  });
+});
+
+describe('canvas graph enumeration', () => {
+  const twoStoreGraph: SystemGraph = {
+    nodes: [
+      { id: 'app', kind: 'process', label: 'Application', zone: 'app', x: 198, y: 90 },
+      { id: 'kb1', kind: 'store', label: 'Public KB', zone: 'app', x: 198, y: 154 },
+      { id: 'kb2', kind: 'store', label: 'Customer KB', zone: 'app', x: 198, y: 218 },
+    ],
+    flows: [
+      { id: 'f1', from: 'kb1', to: 'app', kind: 'rag', label: 'Public KB retrieval', dataClass: 'public' },
+      { id: 'f2', from: 'kb2', to: 'app', kind: 'rag', label: 'Customer KB retrieval', dataClass: 'regulated' },
+      { id: 'f3', from: 'app', to: 'kb1', kind: 'plain', label: 'Cache write' },
+    ],
+  };
+
+  it('enumerates per flow: two retrieval stores mean two sets of threats', () => {
+    const p = profile({ components: [], graph: twoStoreGraph });
+    const list = flowCandidates(data, p);
+    const t07 = list.filter((i) => i.threat.id === 'T07');
+    expect(t07).toHaveLength(2);
+    expect(new Set(t07.map((i) => i.key))).toEqual(new Set(['T07@f1', 'T07@f2']));
+  });
+
+  it('gates on the per-flow data class, not just the system default', () => {
+    const p = profile({ components: [], graph: twoStoreGraph, dataClass: 'public' });
+    const list = flowCandidates(data, p);
+    // T10 (vector store leakage) needs confidential data: only the regulated flow.
+    const t10 = list.filter((i) => i.threat.id === 'T10');
+    expect(t10.map((i) => i.flow.id)).toEqual(['f2']);
+  });
+
+  it('plain flows carry no threats', () => {
+    const p = profile({ components: [], graph: twoStoreGraph });
+    expect(flowCandidates(data, p).some((i) => i.flow.id === 'f3')).toBe(false);
+  });
+
+  it('lays out custom graphs at their stored positions', () => {
+    const p = profile({ components: [], graph: twoStoreGraph });
+    const layout = diagramLayout(data, p, flowCandidates(data, p))!;
+    const kb2 = layout.nodes.find((n) => n.id === 'kb2')!;
+    expect(kb2.y).toBe(218);
+    expect(layout.flows).toHaveLength(3);
+  });
+
+  it('zoneAt maps x positions to the three columns', () => {
+    expect(zoneAt(60)).toBe('users');
+    expect(zoneAt(300)).toBe('app');
+    expect(zoneAt(600)).toBe('outside');
+  });
+});
+
+describe('verdict migration', () => {
+  it('rewrites bare threat ids to instance keys and keeps judgments', () => {
+    const p = profile({ components: ['user-chat'] });
+    const migrated = migrateVerdicts(data, p, {
+      T01: { status: 'applies', likelihood: 'likely', impact: 'severe' },
+      'T02@user-chat': { status: 'not-applicable' },
+    });
+    expect(migrated['T01@user-chat']?.status).toBe('applies');
+    expect(migrated['T02@user-chat']?.status).toBe('not-applicable');
+    expect(migrated.T01).toBeUndefined();
+  });
+
+  it('leaves already-migrated verdicts untouched', () => {
+    const verdicts = { 'T01@user-chat': { status: 'applies' as const } };
+    expect(migrateVerdicts(data, profile({ components: ['user-chat'] }), verdicts)).toBe(verdicts);
   });
 });
