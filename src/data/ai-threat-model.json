@@ -1,0 +1,385 @@
+{
+  "meta": {
+    "title": "AI Threat Modeler",
+    "version": "1.0.0",
+    "methodology": "Four-question threat modeling (what are we building, what can go wrong, what are we going to do about it, did we do a good job) with STRIDE categories per trust boundary. The tool proposes candidate threats only for the elements you said exist; you judge each one, it never concludes for you.",
+    "sources": [
+      { "name": "OWASP Top 10 for LLM Applications", "url": "https://genai.owasp.org/llm-top-10/" },
+      { "name": "NIST AI Risk Management Framework", "url": "https://www.nist.gov/itl/ai-risk-management-framework" },
+      { "name": "MITRE ATLAS", "url": "https://atlas.mitre.org/" },
+      { "name": "Threat Modeling Manifesto", "url": "https://www.threatmodelingmanifesto.org/" }
+    ]
+  },
+  "components": [
+    { "id": "user-chat", "label": "User-facing chat or free-text input", "detail": "People type or paste anything they want and the model reads it.", "boundary": "Untrusted user to application" },
+    { "id": "vendor-llm", "label": "Vendor model via API", "detail": "Prompts leave your environment for a provider such as OpenAI, Anthropic, Google, or a cloud-hosted model service.", "boundary": "Application to model provider" },
+    { "id": "self-hosted", "label": "Self-hosted or fine-tuned model", "detail": "You run the weights yourself, possibly fine-tuned or extended with adapters.", "boundary": "Model supply chain to runtime" },
+    { "id": "rag", "label": "Retrieval over your documents (RAG)", "detail": "The system searches a document or vector store and feeds what it finds into the prompt.", "boundary": "Corpus and index to prompt" },
+    { "id": "agent-tools", "label": "Agent that calls tools or APIs", "detail": "The model can trigger actions: query systems, write records, send messages, run code.", "boundary": "Model output to tool execution" },
+    { "id": "training-data", "label": "Training or fine-tuning on your data", "detail": "Your data shapes model weights, whether in-house or through a provider feature.", "boundary": "Training data to model weights" },
+    { "id": "output-decisions", "label": "Outputs feed decisions or downstream systems", "detail": "What the model produces is consumed by people making consequential calls, or parsed by other software.", "boundary": "Model output to consumer" },
+    { "id": "batch", "label": "Background or batch pipeline", "detail": "The model processes feeds, queues, or documents with nobody watching each run.", "boundary": "Upstream data feeds to pipeline" }
+  ],
+  "exposures": [
+    { "id": "internal", "label": "Internal users only", "detail": "Employees and contractors under your acceptable-use policy." },
+    { "id": "partner", "label": "Partners or customers with accounts", "detail": "Authenticated outsiders whose incentives are not yours." },
+    { "id": "public", "label": "Open to the public internet", "detail": "Anyone, including people who will deliberately probe it." }
+  ],
+  "dataClasses": [
+    { "id": "public", "label": "Public or synthetic data", "detail": "Nothing here would matter if it leaked." },
+    { "id": "internal", "label": "Internal business data", "detail": "Non-public but low harm on its own." },
+    { "id": "confidential", "label": "Confidential data", "detail": "Customer records, PII, financials, proprietary code." },
+    { "id": "regulated", "label": "Regulated or high-sensitivity data", "detail": "PHI, payment data, CUI, credentials and secrets." }
+  ],
+  "likelihood": [
+    { "id": "rare", "label": "Rare", "detail": "Needs a capable, targeted attacker or an unlucky chain of events; nothing about your exposure invites it." },
+    { "id": "possible", "label": "Possible", "detail": "Known techniques exist and your surface is reachable by people with a motive." },
+    { "id": "likely", "label": "Likely", "detail": "Commodity attacks or everyday misuse; it is probably being attempted already." }
+  ],
+  "impact": [
+    { "id": "limited", "label": "Limited", "detail": "Rework, embarrassment, or a contained internal error." },
+    { "id": "material", "label": "Material", "detail": "Customer harm, financial loss, or an incident you would have to report internally." },
+    { "id": "severe", "label": "Severe", "detail": "Regulatory exposure, safety or rights impact, or headline-level breach." }
+  ],
+  "riskMatrix": {
+    "rare|limited": "low",
+    "rare|material": "low",
+    "rare|severe": "medium",
+    "possible|limited": "low",
+    "possible|material": "medium",
+    "possible|severe": "high",
+    "likely|limited": "medium",
+    "likely|material": "high",
+    "likely|severe": "critical"
+  },
+  "threats": [
+    {
+      "id": "T01",
+      "title": "Direct prompt injection",
+      "stride": "Tampering",
+      "appliesWhen": { "components": ["user-chat"] },
+      "because": "you accept free-text input, and instructions typed by a user compete with your own",
+      "description": "A user writes input crafted to override the system prompt: ignore your instructions, adopt a new persona, reveal what you were told. The model cannot reliably tell your instructions from theirs, so guardrails written only in the prompt are suggestions, not controls.",
+      "refs": ["LLM01"],
+      "mitigations": [
+        { "text": "Treat every model output as untrusted; enforce rules in code after the model, not only in the prompt.", "refs": ["LLM01", "LLM05"] },
+        { "text": "Test with a library of known injection and jailbreak patterns before launch and on every prompt change.", "refs": ["MEASURE 2"] },
+        { "text": "Separate privileged instructions from user content structurally (system role, delimiters, input filtering) and keep secrets out of the prompt entirely.", "refs": ["LLM07"] }
+      ]
+    },
+    {
+      "id": "T02",
+      "title": "System prompt and configuration extraction",
+      "stride": "Information disclosure",
+      "appliesWhen": { "components": ["user-chat"] },
+      "because": "users can converse with the model, and models leak what they were told",
+      "description": "Users coax the model into revealing its system prompt, tool list, or embedded context. Anything in the prompt (credentials, internal URLs, business logic, other customers' data) should be assumed extractable by a patient user.",
+      "refs": ["LLM07", "LLM02"],
+      "mitigations": [
+        { "text": "Never place secrets, keys, or sensitive business logic in prompts; fetch capabilities server-side instead.", "refs": ["LLM07"] },
+        { "text": "Assume prompt disclosure is survivable: design so a leaked prompt embarrasses nobody and enables no attack.", "refs": ["LLM07"] }
+      ]
+    },
+    {
+      "id": "T03",
+      "title": "Sensitive data leakage through responses",
+      "stride": "Information disclosure",
+      "appliesWhen": { "components": ["user-chat", "rag"], "minData": "confidential" },
+      "because": "the system touches confidential or regulated data and produces free-form text",
+      "description": "The model reveals data the asking user should not see: another customer's record retrieved into context, a summary that includes the sensitive fields, or details recalled from earlier turns. Free-form output has no field-level access control unless you build one.",
+      "refs": ["LLM02"],
+      "mitigations": [
+        { "text": "Enforce the caller's data permissions at retrieval time, before content enters the prompt; the model never sees what the user may not.", "refs": ["LLM02"] },
+        { "text": "Filter or redact outputs for sensitive patterns (identifiers, secrets) before display, and log what was shown to whom.", "refs": ["LLM02", "MEASURE 3"] }
+      ]
+    },
+    {
+      "id": "T04",
+      "title": "Unbounded consumption and cost abuse",
+      "stride": "Denial of service",
+      "appliesWhen": { "components": ["user-chat", "agent-tools"], "exposures": ["partner", "public"] },
+      "because": "outsiders can drive load, and every request costs you compute or tokens",
+      "description": "Attackers or enthusiastic scripts hammer the endpoint with maximum-length prompts, recursive jobs, or scraped automation. The bill arrives before the alert does, and legitimate users starve behind the flood.",
+      "refs": ["LLM10"],
+      "mitigations": [
+        { "text": "Rate-limit per user and per key; cap input and output tokens per request and spend per account per day.", "refs": ["LLM10"] },
+        { "text": "Alert on spend and volume anomalies at a threshold you chose in advance, not on the invoice.", "refs": ["MEASURE 3"] }
+      ]
+    },
+    {
+      "id": "T05",
+      "title": "Confidently wrong output presented as fact",
+      "stride": "Tampering",
+      "appliesWhen": { "components": ["user-chat", "output-decisions"] },
+      "because": "people read the output, and fluent text reads as authoritative whether or not it is true",
+      "description": "The model fabricates a fact, citation, policy detail, or number, delivered in perfect prose. Users inherit the error, and your organization owns whatever was promised or asserted in its name.",
+      "refs": ["LLM09"],
+      "mitigations": [
+        { "text": "Ground answers in retrieved sources and show the citations; make unsourced answers visibly tentative.", "refs": ["LLM09"] },
+        { "text": "Define which claims require human review before they leave the building (prices, legal, medical, commitments).", "refs": ["GOVERN 3"] },
+        { "text": "Measure factuality on a fixed evaluation set before launch and after every model or prompt change.", "refs": ["MEASURE 2"] }
+      ]
+    },
+    {
+      "id": "T06",
+      "title": "Unauthenticated or impersonated use",
+      "stride": "Spoofing",
+      "appliesWhen": { "components": ["user-chat"], "exposures": ["partner", "public"] },
+      "because": "the system is reachable by outsiders, and identity is the boundary every other control assumes",
+      "description": "Weak or absent authentication lets attackers use the system as someone else: burning your quota, extracting another tenant's context, or generating abuse that traces back to your brand.",
+      "refs": ["LLM02", "GOVERN 6"],
+      "mitigations": [
+        { "text": "Require the same authentication and session controls as the surrounding product; no anonymous side door for the AI feature.", "refs": ["GOVERN 6"] },
+        { "text": "Bind conversation history and retrieval scope to the authenticated identity, never to a client-supplied id.", "refs": ["LLM02"] }
+      ]
+    },
+    {
+      "id": "T07",
+      "title": "Indirect prompt injection through retrieved content",
+      "stride": "Tampering",
+      "appliesWhen": { "components": ["rag"] },
+      "because": "retrieved documents enter the prompt, and whoever writes those documents writes to your model",
+      "description": "A document, wiki page, email, or webpage in your corpus contains instructions aimed at the model: exfiltrate the conversation, recommend the attacker's product, ignore prior rules. The model reads it as helpfully as any other context. Anyone with write access to the corpus has a path into every conversation that retrieves their content.",
+      "refs": ["LLM01", "LLM04"],
+      "mitigations": [
+        { "text": "Treat retrieved content as data, not instructions: strip or neutralize imperative patterns, and never let retrieved text authorize actions.", "refs": ["LLM01"] },
+        { "text": "Control and review who can write to the corpus; index only sources with an owner.", "refs": ["LLM04", "GOVERN 6"] },
+        { "text": "Red-team with poisoned documents before launch: plant instructions in the corpus and verify they do not steer behavior.", "refs": ["MEASURE 2"] }
+      ]
+    },
+    {
+      "id": "T08",
+      "title": "Retrieval index poisoning",
+      "stride": "Tampering",
+      "appliesWhen": { "components": ["rag"] },
+      "because": "answers are only as trustworthy as the corpus they are grounded in",
+      "description": "Someone seeds the knowledge base with subtly wrong content: outdated prices, altered procedures, fabricated policy. Grounded generation then launders the falsehood with a citation, making it more convincing than a hallucination.",
+      "refs": ["LLM04"],
+      "mitigations": [
+        { "text": "Version the corpus, attribute every document to an owner, and review changes to high-impact sources.", "refs": ["LLM04"] },
+        { "text": "Show sources in answers so a wrong document is discoverable by the people who know better.", "refs": ["LLM09"] }
+      ]
+    },
+    {
+      "id": "T09",
+      "title": "Retrieval bypasses document permissions",
+      "stride": "Information disclosure",
+      "appliesWhen": { "components": ["rag"], "minData": "internal" },
+      "because": "indexing flattens your permission model unless you rebuild it at query time",
+      "description": "The index was built from documents with different audiences, and search retrieves across all of them. A junior employee asks about compensation and the model helpfully summarizes the HR folder. The breach is silent: no file was opened, no share was clicked.",
+      "refs": ["LLM02"],
+      "mitigations": [
+        { "text": "Carry source permissions into the index and filter retrieval by the caller's entitlements on every query.", "refs": ["LLM02"] },
+        { "text": "Audit what the index contains against what it should contain, on a schedule, with a named owner.", "refs": ["MEASURE 3"] }
+      ]
+    },
+    {
+      "id": "T10",
+      "title": "Vector store exposure and embedding leakage",
+      "stride": "Information disclosure",
+      "appliesWhen": { "components": ["rag"], "minData": "confidential" },
+      "because": "embeddings are derived from your documents and the store is a new database nobody added to the asset inventory",
+      "description": "The vector database holds a queryable representation of your sensitive corpus, often outside the controls that guard the originals. Exposed instances, over-broad service credentials, and embedding inversion research all point the same way: treat the index as a copy of the data.",
+      "refs": ["LLM08", "LLM02"],
+      "mitigations": [
+        { "text": "Protect the vector store like the source documents: network isolation, authentication, encryption, backup, and inclusion in the asset inventory.", "refs": ["LLM08"] },
+        { "text": "Scope the retrieval service's credentials to read-only and to the collections it actually needs.", "refs": ["GOVERN 6"] }
+      ]
+    },
+    {
+      "id": "T11",
+      "title": "Provider retains or trains on your prompts",
+      "stride": "Information disclosure",
+      "appliesWhen": { "components": ["vendor-llm"], "minData": "internal" },
+      "because": "prompts leave your environment, and what happens next is a contract term, not a technical control",
+      "description": "Everything sent to the provider (prompts, retrieved context, uploaded files) is governed by their terms: retention windows, training rights, subprocessors, breach duties. On consumer or unreviewed tiers, your confidential data may be improving someone else's model.",
+      "refs": ["GOVERN 6", "MAP 4"],
+      "mitigations": [
+        { "text": "Use enterprise terms with no-training clauses and defined retention; have someone actually read them before go-live.", "refs": ["GOVERN 6"] },
+        { "text": "Minimize what crosses the boundary: strip identifiers and secrets from prompts where the task allows.", "refs": ["MAP 4"] }
+      ]
+    },
+    {
+      "id": "T12",
+      "title": "Provider outage, deprecation, or silent model change",
+      "stride": "Denial of service",
+      "appliesWhen": { "components": ["vendor-llm"] },
+      "because": "a dependency you do not operate can change or vanish on someone else's schedule",
+      "description": "The provider has an outage during your peak, retires the model version you tuned against, or ships an update that changes behavior under your carefully tested prompts. Your feature degrades and the root cause is outside your logs.",
+      "refs": ["MANAGE 3", "LLM03"],
+      "mitigations": [
+        { "text": "Pin model versions where offered, and re-run your evaluation set on every version change before adopting it.", "refs": ["MEASURE 2"] },
+        { "text": "Decide the degradation story in advance: queue, fallback model, or graceful refusal, and test it.", "refs": ["MANAGE 2"] }
+      ]
+    },
+    {
+      "id": "T13",
+      "title": "AI supply chain compromise",
+      "stride": "Tampering",
+      "appliesWhen": { "components": ["vendor-llm", "self-hosted"] },
+      "because": "models, adapters, SDKs, and prompt templates are dependencies with all the classic supply chain failure modes",
+      "description": "A poisoned model checkpoint or LoRA adapter from a public hub, a compromised inference SDK, or a tampered prompt template quietly changes what your system does. Model artifacts rarely get the scrutiny that packages now do, and they are harder to diff.",
+      "refs": ["LLM03", "LLM04"],
+      "mitigations": [
+        { "text": "Source models and adapters from named, trusted publishers; verify hashes; record provenance for every artifact in production.", "refs": ["LLM03", "MAP 2"] },
+        { "text": "Evaluate third-party artifacts for behavioral backdoors against your own test set before deployment.", "refs": ["MEASURE 2"] }
+      ]
+    },
+    {
+      "id": "T14",
+      "title": "Model theft and weight exfiltration",
+      "stride": "Information disclosure",
+      "appliesWhen": { "components": ["self-hosted"] },
+      "because": "the weights are a valuable, portable asset sitting on infrastructure you run",
+      "description": "Fine-tuned weights encode your data and your investment; a single file copy walks out with both. Snapshot access, over-broad storage permissions, and forgotten checkpoints in object storage are the usual doors.",
+      "refs": ["LLM02", "MAP 2"],
+      "mitigations": [
+        { "text": "Treat weight files as crown-jewel data: access-controlled storage, encryption, audit on read, and an inventory of every copy including checkpoints.", "refs": ["MAP 2"] }
+      ]
+    },
+    {
+      "id": "T15",
+      "title": "Training data poisoning",
+      "stride": "Tampering",
+      "appliesWhen": { "components": ["training-data"] },
+      "because": "whoever influences the training data influences every future output",
+      "description": "Malicious or simply wrong examples in the training or fine-tuning set teach durable bad behavior: a backdoor trigger phrase, a bias, a systematically wrong answer. Unlike a bad prompt, it cannot be fixed by editing a file; it is baked into the weights.",
+      "refs": ["LLM04"],
+      "mitigations": [
+        { "text": "Curate training sets from attributable sources, review samples before runs, and keep the exact dataset that produced each model version.", "refs": ["LLM04", "MAP 2"] },
+        { "text": "Evaluate models for trigger behaviors and regressions on a held-out set before promoting them.", "refs": ["MEASURE 2"] }
+      ]
+    },
+    {
+      "id": "T16",
+      "title": "Memorized training data resurfaces",
+      "stride": "Information disclosure",
+      "appliesWhen": { "components": ["training-data"], "minData": "confidential" },
+      "because": "models memorize fragments of what they were trained on, and prompts can pull them back out",
+      "description": "A model fine-tuned on support tickets or documents can regurgitate names, secrets, and verbatim passages to any user who asks the right way. The training set's most sensitive record defines the model's sensitivity.",
+      "refs": ["LLM02"],
+      "mitigations": [
+        { "text": "Scrub identifiers and secrets from training data before the run; the cheapest control is applied earliest.", "refs": ["LLM02"] },
+        { "text": "Classify the tuned model at the level of its most sensitive training data and gate access accordingly.", "refs": ["MAP 1"] }
+      ]
+    },
+    {
+      "id": "T17",
+      "title": "Untraceable training provenance",
+      "stride": "Repudiation",
+      "appliesWhen": { "components": ["training-data"] },
+      "because": "when a model misbehaves, the first question is what it was trained on, and you need an answer",
+      "description": "No record ties model versions to the datasets, consents, and licenses behind them. When a regulator, customer, or incident asks why the model does what it does, there is nothing to show, and retraining from scratch becomes the only remediation.",
+      "refs": ["MAP 2", "GOVERN 1"],
+      "mitigations": [
+        { "text": "Keep a model card per version: data sources, date ranges, consents and licenses, evaluation results, and who approved it.", "refs": ["GOVERN 1", "MAP 2"] }
+      ]
+    },
+    {
+      "id": "T18",
+      "title": "Excessive agency: over-privileged tools",
+      "stride": "Elevation of privilege",
+      "appliesWhen": { "components": ["agent-tools"] },
+      "because": "the agent can act, and it holds whatever power its credentials hold, steered by generated text",
+      "description": "The agent's service account can do far more than the use case needs: write where it should read, reach production where staging would do, act across every tenant. One manipulated or mistaken generation exercises all of it.",
+      "refs": ["LLM06"],
+      "mitigations": [
+        { "text": "Give each tool its own least-privilege, individually scoped credential; no shared god-account behind the agent.", "refs": ["LLM06"] },
+        { "text": "Require human approval for consequential actions (spend, delete, send, deploy), enforced outside the model.", "refs": ["GOVERN 3", "LLM06"] },
+        { "text": "Log every tool call with arguments and outcome, attributable to the originating request.", "refs": ["MEASURE 3"] }
+      ]
+    },
+    {
+      "id": "T19",
+      "title": "Hostile content steers agent actions",
+      "stride": "Elevation of privilege",
+      "appliesWhen": { "components": ["agent-tools"] },
+      "because": "the agent reads untrusted content and can act on what it reads",
+      "description": "A webpage, email, ticket, or document the agent processes contains instructions: forward the thread, call this API, approve this request. Reading plus acting turns every content source the agent touches into a command channel; this is how agent breaches actually happen.",
+      "refs": ["LLM01", "LLM06"],
+      "mitigations": [
+        { "text": "Never let content the agent read authorize an action; approvals and policies live outside the conversation.", "refs": ["LLM06"] },
+        { "text": "Constrain tool arguments server-side (allowlists, schemas, value ranges) so even a steered call stays inside the fence.", "refs": ["LLM05"] },
+        { "text": "Red-team with hostile documents and pages before launch, and after every new tool is added.", "refs": ["MEASURE 2"] }
+      ]
+    },
+    {
+      "id": "T20",
+      "title": "Secrets exposed to the model context",
+      "stride": "Information disclosure",
+      "appliesWhen": { "components": ["agent-tools"] },
+      "because": "tool plumbing tempts builders to put credentials where the model can see them",
+      "description": "API keys or tokens passed through prompts, tool results, or logs become extractable by injection and are copied into every conversation transcript. The model does not need to see credentials for the system to use them.",
+      "refs": ["LLM02", "LLM07"],
+      "mitigations": [
+        { "text": "Broker all credentials server-side; the model sees tool names and results, never secrets or raw tokens.", "refs": ["LLM07"] },
+        { "text": "Scrub transcripts and logs for secret patterns, and rotate anything that ever appeared in one.", "refs": ["MEASURE 3"] }
+      ]
+    },
+    {
+      "id": "T21",
+      "title": "Runaway agent loops",
+      "stride": "Denial of service",
+      "appliesWhen": { "components": ["agent-tools"] },
+      "because": "an agent that can call tools can call them again, and again, at machine speed",
+      "description": "A planning loop that never converges, two agents replying to each other, or a retry storm burns spend and hammers downstream systems. Without hard limits the failure runs until someone notices the bill or the outage.",
+      "refs": ["LLM10"],
+      "mitigations": [
+        { "text": "Enforce hard caps per task: steps, tool calls, tokens, wall-clock, and spend, with the run killed at the cap.", "refs": ["LLM10"] },
+        { "text": "Keep a tested kill switch that halts the agent fleet fast, and an owner who is allowed to pull it.", "refs": ["MANAGE 2"] }
+      ]
+    },
+    {
+      "id": "T22",
+      "title": "Output executed as code or markup",
+      "stride": "Elevation of privilege",
+      "appliesWhen": { "components": ["output-decisions", "agent-tools"] },
+      "because": "downstream software consumes model output, and generated text can be generated attack input",
+      "description": "Model output is rendered as HTML, executed as SQL or shell, or parsed into API calls without sanitization. Classic injection returns wearing an AI costume: the model becomes an attacker-steerable payload generator inside your trust boundary.",
+      "refs": ["LLM05"],
+      "mitigations": [
+        { "text": "Treat model output like user input everywhere it lands: encode, parameterize, sandbox, and validate against schemas.", "refs": ["LLM05"] }
+      ]
+    },
+    {
+      "id": "T23",
+      "title": "Automation bias in consequential decisions",
+      "stride": "Repudiation",
+      "appliesWhen": { "components": ["output-decisions"] },
+      "because": "outputs feed real decisions, and review quietly decays into rubber-stamping",
+      "description": "The model is right often enough that humans stop checking, and the process records a human decision that was actually the model's. When a consequential call goes wrong there is no meaningful review trail, only a checkbox that says there was.",
+      "refs": ["GOVERN 3", "LLM09"],
+      "mitigations": [
+        { "text": "Design review so the human adds information (sampling, second sources, disagreement prompts), not just a click.", "refs": ["GOVERN 3"] },
+        { "text": "Record what the model recommended versus what the human decided, and audit the divergence rate; zero divergence means nobody is reviewing.", "refs": ["MEASURE 3"] }
+      ]
+    },
+    {
+      "id": "T24",
+      "title": "Silent quality drift in unattended pipelines",
+      "stride": "Tampering",
+      "appliesWhen": { "components": ["batch"] },
+      "because": "nobody watches each run, so degradation compounds until an output that matters is wrong",
+      "description": "Upstream format changes, model updates, or slowly poisoned feeds degrade batch outputs for weeks before anyone looks. Every downstream consumer inherited the errors, and reconstructing which runs were affected is archaeology.",
+      "refs": ["MEASURE 3", "LLM04"],
+      "mitigations": [
+        { "text": "Score a sample of every batch against fixed quality checks, alert on drift, and stop the pipeline on threshold breach.", "refs": ["MEASURE 3"] },
+        { "text": "Keep inputs and outputs per run long enough to replay and to identify the blast radius of a bad stretch.", "refs": ["MANAGE 4"] }
+      ]
+    },
+    {
+      "id": "T25",
+      "title": "No owner, inventory entry, or audit trail",
+      "stride": "Repudiation",
+      "appliesWhen": { "components": ["user-chat", "vendor-llm", "self-hosted", "rag", "agent-tools", "training-data", "output-decisions", "batch"] },
+      "because": "every AI system needs someone accountable and a record of what it did, and defaults provide neither",
+      "description": "The system is in production but not in the AI inventory; logs do not tie outputs to model versions and prompts; no named person owns its behavior. The first incident becomes unattributable, and the first audit becomes an excavation.",
+      "refs": ["GOVERN 1", "GOVERN 2", "MEASURE 3"],
+      "mitigations": [
+        { "text": "Register the system in the AI inventory with a named business owner and risk owner.", "refs": ["GOVERN 1", "GOVERN 2"] },
+        { "text": "Log inputs, outputs, model version, and prompt version together so any output can be reconstructed and attributed.", "refs": ["MEASURE 3"] },
+        { "text": "Re-run this threat model on material change and at least annually; a model is a snapshot, not a certificate.", "refs": ["MAP 1"] }
+      ]
+    }
+  ]
+}

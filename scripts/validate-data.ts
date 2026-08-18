@@ -1,3 +1,4 @@
+import { validateThreatModel } from '../src/lib/ai-threat';
 import { readFileSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
 import { validateData } from '../src/data/validate';
@@ -459,6 +460,7 @@ const scorecard = load<{ cards: { id: string; onTheJobTool: { status: string } }
   '../src/data/scorecard.json',
 );
 const skillsMatrix = load<SkillsMatrix>('../src/data/skills-matrix.json');
+const threatModel = load<Parameters<typeof validateThreatModel>[0]>('../src/data/ai-threat-model.json');
 const blogPosts = load<BlogPost[]>('../src/data/blog-posts.json');
 const affiliates = load<{
   partners: Record<string, { name: string; url: string; network: string; blurb: string; direct?: boolean }>;
@@ -498,6 +500,7 @@ const problems = [
   ...validateTrustLibrary(trustLibrary).map((e) => `trust-library: ${e}`),
   ...validateRegulations(regulations).map((e) => `regulations: ${e}`),
   ...validateSkillsMatrix(skillsMatrix, new Set(scorecard.cards.map((c) => c.id))).map((e) => `skills-matrix: ${e}`),
+  ...validateThreatModel(threatModel).map((e) => `ai-threat-model: ${e}`),
   ...validateBlog(blogPosts).map((e) => `blog: ${e}`),
   ...(() => {
     // Affiliate placements point definition pages at partner /go/ redirects, so
@@ -543,5 +546,5 @@ if (problems.length > 0) {
 }
 console.log(
   `Data OK: ${Object.keys(acronyms).length} acronyms, ${Object.keys(csf).length} CSF subcategories, ${Object.keys(cis).length} CIS safeguards, ${ai.length} AI framework entries, ` +
-    `${cmmc.questions.length} 800-171/CMMC, ${cyberEssentials.questions.length} Cyber Essentials, ${ztmm.questions.length} ZTMM, ${ssdf.questions.length} SSDF, ${pci.questions.length} PCI DSS, ${crosswalk.controls.length} crosswalk domains, ${soc2.criteria.length} SOC 2 criteria, ${boardMetrics.metrics.length} board metrics, ${runbooks.scenarios.length} runbook scenarios, ${cloudBaseline.controls.length} cloud baseline controls, ${ssdlc.practices.length} SDLC practices, ${automationRoi.categories.length} automation categories, ${trustLibrary.entries.length} trust answers, ${regulations.regulations.length} regulations, ${skillsMatrix.competencies.length} team competencies, ${blogPosts.length} blog posts.`,
+    `${cmmc.questions.length} 800-171/CMMC, ${cyberEssentials.questions.length} Cyber Essentials, ${ztmm.questions.length} ZTMM, ${ssdf.questions.length} SSDF, ${pci.questions.length} PCI DSS, ${crosswalk.controls.length} crosswalk domains, ${soc2.criteria.length} SOC 2 criteria, ${boardMetrics.metrics.length} board metrics, ${runbooks.scenarios.length} runbook scenarios, ${cloudBaseline.controls.length} cloud baseline controls, ${ssdlc.practices.length} SDLC practices, ${automationRoi.categories.length} automation categories, ${trustLibrary.entries.length} trust answers, ${regulations.regulations.length} regulations, ${skillsMatrix.competencies.length} team competencies, ${threatModel.threats.length} AI threats, ${blogPosts.length} blog posts.`,
 );

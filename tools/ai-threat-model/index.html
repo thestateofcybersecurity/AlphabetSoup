@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="color-scheme" content="light dark" />
+  <meta name="description" content="A question-first AI threat modeler: describe your system, judge the candidate threats it proposes for your actual components, rate them with anchored scales, decide treatments, and export the register. STRIDE per trust boundary, mapped to the OWASP LLM Top 10 and NIST AI RMF. Everything stays in your browser." />
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="AI Threat Modeler | Cybersecurity Alphabet Soup" />
+  <meta property="og:description" content="Describe the system, judge the proposed threats, decide treatments, export the register. The four threat modeling questions, applied to AI systems." />
+  <meta property="og:url" content="https://www.cybersecurityalphabetsoup.com/tools/ai-threat-model/" />
+  <meta property="og:image" content="https://www.cybersecurityalphabetsoup.com/og-image.png" />
+  <title>AI Threat Modeler | Cybersecurity Alphabet Soup</title>
+  <link rel="icon" href="/icon.svg" type="image/svg+xml" />
+  <link rel="stylesheet" href="/style.css" />
+  <style>
+    .tm-wrap { max-width: 860px; margin: 0 auto; }
+    .tm-privacy { font-size: 0.84rem; color: var(--ink-soft); margin: 0 0 18px; }
+    .tm-stepper { display: flex; flex-wrap: wrap; gap: 8px; margin: 0 0 22px; }
+    .tm-step {
+      font: inherit; font-size: 0.82rem; font-weight: 600; cursor: pointer; text-align: left;
+      border: 1.5px solid var(--line); background: var(--paper-raised); color: var(--ink-soft);
+      border-radius: 10px; padding: 8px 14px; flex: 1 1 180px;
+    }
+    .tm-step.current { border-color: var(--tomato); color: var(--ink); }
+    .tm-step:disabled { opacity: 0.45; cursor: not-allowed; }
+    .tm-step-n {
+      display: inline-block; min-width: 1.5em; text-align: center; margin-right: 4px;
+      font-family: var(--font-mono); font-size: 0.72rem; color: var(--on-accent);
+      background: var(--tomato); border-radius: 7px; padding: 1px 4px;
+    }
+    .tm-lede { line-height: 1.6; color: var(--ink-soft); margin: 0 0 18px; }
+    .tm-field { display: block; margin: 0 0 18px; }
+    .tm-label { display: block; font-family: var(--font-mono); font-size: 0.7rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--tomato-deep); margin-bottom: 6px; }
+    .tm-field input, .tm-note, .tm-owner {
+      width: 100%; font: inherit; font-size: 0.95rem; padding: 9px 12px;
+      border: 1.5px solid var(--line); border-radius: 10px; background: var(--paper); color: var(--ink);
+    }
+    .tm-group { border: 1.5px solid var(--line); border-radius: 14px; background: var(--paper-raised); padding: 16px 18px; margin: 0 0 18px; }
+    .tm-group legend { font-weight: 600; padding: 0 6px; }
+    .tm-options { display: grid; gap: 8px; margin-top: 10px; }
+    .tm-options-row { grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); }
+    .tm-check {
+      display: grid; grid-template-columns: auto 1fr; grid-template-rows: auto auto; column-gap: 10px;
+      border: 1.5px solid var(--line); border-radius: 10px; padding: 10px 12px; cursor: pointer; background: var(--paper);
+    }
+    .tm-check:hover { border-color: var(--tomato); }
+    .tm-check.selected { border-color: var(--tomato); background: color-mix(in srgb, var(--tomato) 8%, var(--paper)); }
+    .tm-check input { grid-row: 1 / span 2; margin-top: 4px; accent-color: var(--tomato); }
+    .tm-check-label { font-weight: 600; font-size: 0.93rem; }
+    .tm-check-detail { grid-column: 2; font-size: 0.82rem; color: var(--ink-soft); line-height: 1.45; }
+    .tm-h { font-family: var(--font-mono); font-size: 0.74rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--tomato-deep); margin: 22px 0 10px; }
+    .tm-boundary-list { margin: 6px 0; padding-left: 22px; font-size: 0.92rem; line-height: 1.6; }
+    .tm-hint { font-size: 0.85rem; color: var(--ink-soft); }
+    .tm-progress { font-family: var(--font-mono); font-size: 0.75rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink-soft); }
+    .tm-card { border: 1.5px solid var(--line); border-radius: 12px; background: var(--paper-raised); padding: 14px 16px; margin: 0 0 12px; }
+    .tm-card.tm-applies { border-color: var(--status-bad); }
+    .tm-card.tm-mitigated { border-color: var(--status-good); }
+    .tm-card.tm-not-applicable { opacity: 0.65; }
+    .tm-card-head { display: flex; align-items: baseline; gap: 10px; flex-wrap: wrap; margin-bottom: 6px; }
+    .tm-id { font-family: var(--font-mono); font-size: 0.7rem; color: var(--ink-soft); }
+    .tm-card-title { margin: 0; font-size: 1.02rem; flex: 1 1 auto; }
+    .tm-stride { font-family: var(--font-mono); font-size: 0.64rem; letter-spacing: 0.08em; text-transform: uppercase; border: 1px solid var(--line); border-radius: 999px; padding: 2px 9px; color: var(--ink-soft); }
+    .tm-because { font-size: 0.85rem; font-style: italic; color: var(--tomato-deep); margin: 0 0 6px; }
+    .tm-desc { font-size: 0.9rem; line-height: 1.55; margin: 0 0 10px; }
+    .tm-refs { white-space: nowrap; }
+    .tm-ref {
+      display: inline-block; margin-left: 4px; font-family: var(--font-mono); font-size: 0.64rem;
+      border: 1px solid var(--tomato); color: var(--tomato-deep); border-radius: 6px; padding: 1px 6px;
+      text-decoration: none; vertical-align: 1px;
+    }
+    .tm-ref:hover { background: var(--tomato); color: var(--on-accent); }
+    .tm-verdict-row, .tm-treat-row { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; }
+    .tm-vbtn {
+      font: inherit; font-size: 0.82rem; font-weight: 600; cursor: pointer;
+      border: 1.5px solid var(--line); background: var(--paper); color: var(--ink-soft);
+      border-radius: 999px; padding: 6px 14px;
+    }
+    .tm-vbtn:hover { border-color: var(--tomato); color: var(--ink); }
+    .tm-vbtn.on { border-color: var(--tomato); background: var(--tomato); color: var(--on-accent); }
+    .tm-rating { display: flex; gap: 16px; flex-wrap: wrap; align-items: center; margin-top: 10px; }
+    .tm-scale { display: flex; gap: 6px; align-items: center; flex-wrap: wrap; }
+    .tm-scale-label { font-family: var(--font-mono); font-size: 0.66rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--ink-soft); }
+    .tm-scale-opt { border: 1.5px solid var(--line); border-radius: 8px; padding: 4px 10px; font-size: 0.8rem; cursor: pointer; }
+    .tm-scale-opt input { position: absolute; opacity: 0; pointer-events: none; }
+    .tm-scale-opt.selected { border-color: var(--tomato); background: color-mix(in srgb, var(--tomato) 10%, var(--paper)); font-weight: 600; }
+    .tm-risk { font-family: var(--font-mono); font-size: 0.68rem; letter-spacing: 0.08em; text-transform: uppercase; font-weight: 700; border-radius: 7px; padding: 2px 9px; border: 1.5px solid currentColor; }
+    .tm-risk-low { color: var(--status-good); background: color-mix(in srgb, var(--status-good) 8%, var(--paper)); }
+    .tm-risk-medium { color: var(--status-warn); background: color-mix(in srgb, var(--status-warn) 8%, var(--paper)); }
+    .tm-risk-high { color: var(--status-bad); background: color-mix(in srgb, var(--status-bad) 8%, var(--paper)); }
+    .tm-risk-critical { color: var(--status-bad); background: color-mix(in srgb, var(--status-bad) 16%, var(--paper)); border-width: 2.5px; font-weight: 800; }
+    .tm-note, .tm-owner { margin-top: 10px; }
+    .tm-owner { max-width: 220px; margin-top: 0; }
+    .tm-mitigations { margin: 6px 0 12px; padding-left: 20px; font-size: 0.9rem; line-height: 1.55; }
+    .tm-mitigations li { margin-bottom: 6px; }
+    .tm-actions { display: flex; gap: 10px; flex-wrap: wrap; margin: 22px 0; }
+    .tm-btn {
+      font: inherit; font-size: 0.88rem; font-weight: 600; cursor: pointer;
+      border: 1.5px solid var(--tomato); color: var(--tomato-deep); background: transparent;
+      border-radius: 10px; padding: 9px 16px;
+    }
+    .tm-btn:hover { background: var(--tomato); color: var(--on-accent); }
+    .tm-btn:disabled { opacity: 0.45; cursor: not-allowed; }
+    .tm-btn-primary { background: var(--tomato); color: var(--on-accent); }
+    .tm-btn-primary:hover { background: var(--tomato-deep); border-color: var(--tomato-deep); }
+    .tm-btn-sm { padding: 4px 10px; font-size: 0.78rem; }
+    .tm-btn-quiet { border-color: var(--line); color: var(--ink-soft); }
+    .tm-warnings { border: 1.5px solid var(--status-bad); border-radius: 12px; padding: 12px 16px; margin: 0 0 16px; }
+    .tm-warnings p { margin: 4px 0; font-size: 0.9rem; }
+    .tm-complete { border: 1.5px solid var(--status-good); border-radius: 12px; padding: 12px 16px; font-size: 0.9rem; }
+    .tm-tiles { display: flex; gap: 10px; flex-wrap: wrap; margin: 0 0 18px; }
+    .tm-tile {
+      border: 1.5px solid var(--line); border-radius: 12px; background: var(--paper-raised);
+      padding: 10px 16px; font-family: var(--font-mono); font-size: 0.68rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink-soft);
+    }
+    .tm-tile-n { display: block; font-family: var(--font-display); font-weight: 900; font-size: 1.6rem; color: var(--ink); }
+    .tm-tile-critical .tm-tile-n { color: var(--status-bad); }
+    .tm-tile-high .tm-tile-n { color: var(--status-bad); }
+    .tm-tile-medium .tm-tile-n { color: var(--status-warn); }
+    .tm-tile-low .tm-tile-n { color: var(--status-good); }
+    .tm-table-wrap, .tm-table { width: 100%; }
+    .tm-table { border-collapse: collapse; font-size: 0.85rem; }
+    .tm-table th, .tm-table td { text-align: left; padding: 7px 10px; border-bottom: 1px solid var(--line); vertical-align: top; }
+    .tm-table th { font-family: var(--font-mono); font-size: 0.64rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--ink-soft); }
+    .tm-row-unreviewed td { color: var(--ink-soft); }
+    .tm-model-list { list-style: none; padding: 0; margin: 8px 0 0; }
+    .tm-model-list li { display: flex; gap: 10px; align-items: center; border: 1.5px solid var(--line); border-radius: 10px; padding: 8px 12px; margin-bottom: 8px; background: var(--paper-raised); }
+    .tm-model-name { font-weight: 600; flex: 1 1 auto; }
+    .tm-model-meta { font-family: var(--font-mono); font-size: 0.72rem; color: var(--ink-soft); }
+    @media (max-width: 700px) { .tm-table { display: block; overflow-x: auto; } }
+    @media print {
+      .site-nav, .hero, .tm-stepper, .print-hide, .steam, .colophon { display: none !important; }
+    }
+  </style>
+</head>
+<body class="theme-ai">
+  <a class="skip-link" href="#main">Skip to content</a>
+  <div class="steam" aria-hidden="true"></div>
+
+    <!--site-nav-->
+
+  <header class="hero hero-compact">
+    <p class="kicker">ai governance &middot; <span id="threat-count">25</span> threats &middot; <span id="component-count">8</span> system elements</p>
+    <h1 class="title">AI threat<br /><em>modeler</em></h1>
+    <p class="tagline">The four questions of threat modeling, applied to AI systems: describe what you are building, judge the candidate threats proposed for exactly those elements, decide what you will do, and check the work. STRIDE per trust boundary, mapped to the OWASP LLM Top 10 and the NIST AI RMF.</p>
+  </header>
+
+  <main id="main" class="ladle tm-wrap">
+    <p class="tm-privacy">This tool asks before it answers: no threat is proposed until you describe the system, every proposal says which of your answers surfaced it, and every conclusion (applies, rating, treatment) is yours. Models live only in your browser; nothing is uploaded.</p>
+    <nav class="tm-stepper" id="stepper" aria-label="Threat modeling steps"></nav>
+    <section id="tm-body" aria-live="polite"></section>
+  </main>
+
+  <footer class="colophon">
+    <p>
+      Sizing the use case before modeling it?
+      <a class="cyberdle-link" href="../ai-risk/">Tier its risk first with the AI Use Case Risk Tiering tool &rarr;</a>
+    </p>
+    <p class="fine-print">
+      An unofficial plain-English tool, not a substitute for security review. Grounded in:
+      <a href="https://genai.owasp.org/llm-top-10/" rel="noopener">OWASP Top 10 for LLMs</a>,
+      <a href="https://www.nist.gov/itl/ai-risk-management-framework" rel="noopener">NIST AI RMF</a>,
+      <a href="https://atlas.mitre.org/" rel="noopener">MITRE ATLAS</a>,
+      <a href="https://www.threatmodelingmanifesto.org/" rel="noopener">Threat Modeling Manifesto</a>.
+    </p>
+  </footer>
+
+  <script type="module" src="/src/ai-threat-main.ts"></script>
+</body>
+</html>
