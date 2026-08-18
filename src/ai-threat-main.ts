@@ -1,6 +1,6 @@
 import threatRaw from './data/ai-threat-model.json';
 import type { RiskLevel, SystemProfile, ThreatModelData, ThreatVerdict } from './lib/ai-threat';
-import { boundaries, candidateThreats, registerCsv, riskFor, summarize } from './lib/ai-threat';
+import { boundaries, candidateThreats, diagramLayout, registerCsv, riskFor, summarize, threatDragonModel } from './lib/ai-threat';
 
 const data = threatRaw as ThreatModelData;
 
@@ -89,6 +89,14 @@ function renderStep1(host: HTMLElement): void {
     <label class="tm-field"><span class="tm-label">System name</span>
       <input id="tm-name" type="text" placeholder="e.g. Support ticket summarizer" value="${esc(p.name)}" />
     </label>
+    <div class="tm-two">
+      <label class="tm-field"><span class="tm-label">Owner</span>
+        <input id="tm-owner-field" type="text" placeholder="Accountable for the system" value="${esc(p.owner ?? '')}" />
+      </label>
+      <label class="tm-field"><span class="tm-label">Reviewer</span>
+        <input id="tm-reviewer-field" type="text" placeholder="Who reviews this model" value="${esc(p.reviewer ?? '')}" />
+      </label>
+    </div>
     <fieldset class="tm-group"><legend>Which elements exist? Select all that apply.</legend>
       <div class="tm-options">
         ${data.components.map((c) => `
@@ -147,6 +155,14 @@ function renderStep1(host: HTMLElement): void {
     state.profile.name = (event.target as HTMLInputElement).value;
     saveDraft();
   });
+  host.querySelector('#tm-owner-field')?.addEventListener('input', (event) => {
+    state.profile.owner = (event.target as HTMLInputElement).value;
+    saveDraft();
+  });
+  host.querySelector('#tm-reviewer-field')?.addEventListener('input', (event) => {
+    state.profile.reviewer = (event.target as HTMLInputElement).value;
+    saveDraft();
+  });
   $('#tm-to-2').addEventListener('click', () => goTo(2));
 }
 
@@ -159,7 +175,45 @@ function renderBoundaryPreview(): void {
   }
   host.innerHTML = `<h3 class="tm-h">Trust boundaries in this system</h3>
     <ul class="tm-boundary-list">${list.map((b) => `<li>${esc(b)}</li>`).join('')}</ul>
-    <p class="tm-hint">${candidates().length} candidate threats will be proposed across these boundaries, each for you to judge.</p>`;
+    ${diagramSvg()}
+    <p class="tm-hint">${candidates().length} candidate threats will be proposed across these boundaries, each for you to judge. The badges show where they attach.</p>`;
+}
+
+/** The derived data flow diagram: zones, nodes, flows, and threat badges. */
+function diagramSvg(): string {
+  const layout = diagramLayout(state.profile, candidates());
+  if (!layout) return '';
+  const zones = layout.zones
+    .map(
+      (z) => `<rect x="${z.x}" y="${z.y}" width="${z.w}" height="${z.h}" rx="10" fill="none" stroke="var(--line)" stroke-width="1.5" stroke-dasharray="6 4"/>` +
+        `<text x="${z.x + 10}" y="${z.y - 9}" class="tmd-zone">${esc(z.label)}</text>`,
+    )
+    .join('');
+  const nodes = layout.nodes
+    .map(
+      (n) => `<rect x="${n.x}" y="${n.y}" width="${n.w}" height="${n.h}" rx="8" fill="var(--paper-raised)" stroke="var(--tomato)" stroke-width="1"/>` +
+        `<text x="${n.x + 10}" y="${n.y + 19}" class="tmd-title">${esc(n.label)}</text>` +
+        `<text x="${n.x + 10}" y="${n.y + 35}" class="tmd-sub">${esc(n.sub)}</text>`,
+    )
+    .join('');
+  const flows = layout.flows
+    .map((f) => {
+      const mx = (f.x1 + f.x2) / 2;
+      const my = (f.y1 + f.y2) / 2;
+      const label = data.components.find((c) => c.id === f.componentId)?.label ?? f.componentId;
+      const badge = f.badge > 0
+        ? `<g><title>${esc(`${f.badge} candidate threats where "${label}" crosses a boundary`)}</title>` +
+          `<circle cx="${mx}" cy="${my}" r="11" fill="var(--paper)" stroke="var(--status-bad)" stroke-width="1.5"/>` +
+          `<text x="${mx}" y="${my + 4}" text-anchor="middle" class="tmd-badge">${f.badge}</text></g>`
+        : '';
+      return `<line x1="${f.x1}" y1="${f.y1}" x2="${f.x2}" y2="${f.y2}" stroke="var(--ink-soft)" stroke-width="1.2" marker-end="url(#tmd-arrow)"/>${badge}`;
+    })
+    .join('');
+  return `<figure class="tm-diagram"><svg width="100%" viewBox="0 0 ${layout.width} ${layout.height}" role="img" aria-label="Data flow diagram derived from the described system">` +
+    `<defs><marker id="tmd-arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">` +
+    `<path d="M2 1L8 5L2 9" fill="none" stroke="var(--ink-soft)" stroke-width="1.5" stroke-linecap="round"/></marker></defs>` +
+    `${zones}${flows}${nodes}</svg>` +
+    `<figcaption class="tm-hint">Derived from your answers, never drawn by hand. Badges: candidate threats at that flow.</figcaption></figure>`;
 }
 
 // ------------------------------- step 2 --------------------------------
@@ -290,6 +344,7 @@ function renderStep3(host: HTMLElement): void {
           <button type="button" class="tm-vbtn${verdict.treatment === 'accept' ? ' on' : ''}" data-treat="accept">Accept for now</button>
           <input class="tm-owner" type="text" placeholder="Owner" value="${esc(verdict.owner ?? '')}" aria-label="Owner for ${threat.id}" />
         </div>
+        ${verdict.treatment ? residualRow(threat.id, verdict) : ''}
       </article>`;
     }).join('')}
     <div class="tm-actions">
@@ -315,9 +370,41 @@ function renderStep3(host: HTMLElement): void {
       saveDraft();
     }
   });
+  host.addEventListener('change', (event) => {
+    const input = event.target as HTMLInputElement;
+    const card = input.closest('[data-threat]') as HTMLElement | null;
+    if (!card || input.type !== 'radio') return;
+    const id = card.dataset.threat!;
+    const verdict = verdictFor(id);
+    if (input.name === `rlik-${id}`) verdict.residualLikelihood = input.value;
+    if (input.name === `rimp-${id}`) verdict.residualImpact = input.value;
+    state.verdicts[id] = verdict;
+    saveDraft();
+    render();
+  });
   host.querySelectorAll('button[data-step-nav]').forEach((b) =>
     b.addEventListener('click', () => goTo(Number((b as HTMLElement).dataset.stepNav) as Step)),
   );
+}
+
+/** Residual re-rating: same anchored scales, after the treatment lands. */
+function residualRow(id: string, verdict: import('./lib/ai-threat').ThreatVerdict): string {
+  const residual = riskFor(data, verdict.residualLikelihood, verdict.residualImpact);
+  const pick = (kind: 'rlik' | 'rimp', options: typeof data.likelihood, chosen?: string) => `
+    <div class="tm-scale" role="radiogroup" aria-label="Residual ${kind === 'rlik' ? 'likelihood' : 'impact'}">
+      <span class="tm-scale-label">${kind === 'rlik' ? 'Likelihood' : 'Impact'}</span>
+      ${options.map((o) => `
+        <label class="tm-scale-opt${chosen === o.id ? ' selected' : ''}" title="${esc(o.detail)}">
+          <input type="radio" name="${kind}-${id}" value="${o.id}" ${chosen === o.id ? 'checked' : ''} />${esc(o.label)}
+        </label>`).join('')}
+    </div>`;
+  return `
+    <div class="tm-rating tm-residual">
+      <span class="tm-scale-label">After treatment:</span>
+      ${pick('rlik', data.likelihood, verdict.residualLikelihood)}
+      ${pick('rimp', data.impact, verdict.residualImpact)}
+      ${residual ? `<span class="tm-risk tm-risk-${residual}">residual ${residual}</span>` : '<span class="tm-hint">Re-rate to show the residual risk.</span>'}
+    </div>`;
 }
 
 // ------------------------------- step 4 --------------------------------
@@ -329,18 +416,25 @@ function renderStep4(host: HTMLElement): void {
   if (summary.reviewed < summary.total) warnings.push(`${summary.total - summary.reviewed} candidate threats have not been judged yet.`);
   if (summary.unrated > 0) warnings.push(`${summary.unrated} applying threats have no likelihood or impact rating.`);
   if (summary.untreated > 0) warnings.push(`${summary.untreated} applying threats have no treatment decision.`);
+  if (summary.mitigatedNoResidual > 0) warnings.push(`${summary.mitigatedNoResidual} mitigate decisions have no residual re-rating.`);
 
   const tile = (label: string, value: number, cls = '') => `<div class="tm-tile ${cls}"><span class="tm-tile-n">${value}</span>${label}</div>`;
   host.innerHTML = `
     <p class="tm-lede">The fourth question is honesty about the first three. This register is only as done as its weakest row; the warnings below are the work remaining.</p>
     ${warnings.length ? `<div class="tm-warnings">${warnings.map((w) => `<p>${esc(w)}</p>`).join('')}</div>` : '<p class="tm-complete">Every candidate judged, every applying threat rated and owned. This model is presentable.</p>'}
+    <div class="tm-meta-line">${state.profile.owner ? `Owner: ${esc(state.profile.owner)}. ` : ''}${state.profile.reviewer ? `Reviewer: ${esc(state.profile.reviewer)}.` : ''}</div>
+    ${diagramSvg()}
     <div class="tm-tiles">
       ${tile('candidates', summary.total)}
       ${tile('apply', summary.applies)}
       ${(['critical', 'high', 'medium', 'low'] as RiskLevel[]).map((r) => tile(r, summary.byRisk[r], `tm-tile-${r}`)).join('')}
     </div>
+    ${Object.values(summary.byResidualRisk).some((n) => n > 0) ? `
+    <div class="tm-tiles">
+      ${(['critical', 'high', 'medium', 'low'] as RiskLevel[]).map((r) => tile(`residual ${r}`, summary.byResidualRisk[r], `tm-tile-${r}`)).join('')}
+    </div>` : ''}
     <table class="tm-table">
-      <thead><tr><th>ID</th><th>Threat</th><th>Boundary</th><th>Status</th><th>Risk</th><th>Treatment</th><th>Owner</th></tr></thead>
+      <thead><tr><th>ID</th><th>Threat</th><th>Boundary</th><th>Status</th><th>Risk</th><th>Residual</th><th>Treatment</th><th>Owner</th></tr></thead>
       <tbody>
         ${list.map(({ threat, boundary }) => {
           const v = verdictFor(threat.id);
@@ -349,6 +443,7 @@ function renderStep4(host: HTMLElement): void {
             <td>${threat.id}</td><td>${esc(threat.title)}</td><td>${esc(boundary)}</td>
             <td>${v.status === 'unreviewed' ? '<em>unreviewed</em>' : esc(v.status)}</td>
             <td>${risk ? `<span class="tm-risk tm-risk-${risk}">${risk}</span>` : ''}</td>
+            <td>${(() => { const res = riskFor(data, v.residualLikelihood, v.residualImpact); return res ? `<span class="tm-risk tm-risk-${res}">${res}</span>` : ''; })()}</td>
             <td>${esc(v.treatment ?? '')}</td><td>${esc(v.owner ?? '')}</td>
           </tr>`;
         }).join('')}
@@ -358,6 +453,8 @@ function renderStep4(host: HTMLElement): void {
       <button type="button" class="tm-btn" data-step-nav="3">&larr; Back to treatment</button>
       <button type="button" class="tm-btn" id="tm-csv">Export register CSV</button>
       <button type="button" class="tm-btn" id="tm-json">Export model JSON</button>
+      <button type="button" class="tm-btn" id="tm-td">Export for Threat Dragon</button>
+      <a class="tm-btn" href="../../roadmap/?source=threat">Send mitigations to the roadmap &rarr;</a>
       <button type="button" class="tm-btn" id="tm-print">Print</button>
       <button type="button" class="tm-btn tm-btn-primary" id="tm-save">Save model</button>
     </div>
@@ -373,6 +470,10 @@ function renderStep4(host: HTMLElement): void {
     download(`${slug()}-threat-model.json`, JSON.stringify({ ...state, datasetVersion: data.meta.version }, null, 2), 'application/json');
   });
   $('#tm-print').addEventListener('click', () => window.print());
+  $('#tm-td').addEventListener('click', () => {
+    const model = threatDragonModel(data, state.profile, list, state.verdicts, () => crypto.randomUUID());
+    download(`${slug()}-threat-dragon.json`, JSON.stringify(model, null, 2), 'application/json');
+  });
   host.addEventListener('click', (event) => {
     const button = (event.target as HTMLElement).closest('#tm-models button[data-action]') as HTMLButtonElement | null;
     if (!button) return;

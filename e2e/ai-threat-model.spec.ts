@@ -1,3 +1,4 @@
+import { readFileSync } from 'node:fs';
 import { expect, test } from '@playwright/test';
 
 /**
@@ -74,4 +75,72 @@ test('the draft survives a reload', async ({ page }) => {
   await expect(page.locator('#tm-name')).toHaveValue('Ops agent');
   await expect(page.locator('.tm-check', { hasText: 'Agent that calls tools' }).locator('input')).toBeChecked();
   await expect(page.locator('#tm-to-2')).toBeEnabled();
+});
+
+test('the derived diagram appears with badges once the system is described', async ({ page }) => {
+  await page.locator('.tm-check', { hasText: 'User-facing chat' }).click();
+  await page.locator('.tm-check', { hasText: 'Retrieval over your documents' }).click();
+  const diagram = page.locator('.tm-diagram svg');
+  await expect(diagram).toBeVisible();
+  await expect(diagram.locator('text', { hasText: 'Untrusted users' })).toBeVisible();
+  await expect(diagram.locator('text', { hasText: 'Vector index' })).toBeVisible();
+  // Badge totals agree with the candidate count promised in the hint.
+  const badges = await diagram.locator('.tmd-badge').evaluateAll((els) => els.map((e) => Number(e.textContent)));
+  const total = badges.reduce((sum, b) => sum + b, 0);
+  await expect(page.locator('#tm-boundaries')).toContainText(`${total} candidate threats`);
+});
+
+test('residual re-rating shows inherent versus residual risk', async ({ page }) => {
+  await page.locator('.tm-check', { hasText: 'User-facing chat' }).click();
+  await page.locator('#tm-to-2').click();
+  const card = page.locator('.tm-card', { hasText: 'Direct prompt injection' });
+  await card.locator('button[data-verdict="applies"]').click();
+  await page.locator('.tm-card', { hasText: 'Direct prompt injection' }).locator('.tm-scale-opt', { hasText: 'Likely' }).click();
+  await page.locator('.tm-card', { hasText: 'Direct prompt injection' }).locator('.tm-scale-opt', { hasText: 'Severe' }).click();
+  await page.locator('button[data-step-nav="3"]').click();
+  await page.locator('[data-threat="T01"] button[data-treat="mitigate"]').click();
+  const residual = page.locator('[data-threat="T01"] .tm-residual');
+  await expect(residual).toContainText('After treatment');
+  await residual.locator('.tm-scale-opt', { hasText: 'Rare' }).click();
+  await page.locator('[data-threat="T01"] .tm-residual .tm-scale-opt', { hasText: 'Limited' }).click();
+  await expect(page.locator('[data-threat="T01"] .tm-residual .tm-risk')).toHaveText('residual low');
+  await page.locator('button[data-step-nav="4"]').click();
+  await expect(page.locator('.tm-tile', { hasText: 'residual low' })).toContainText('1');
+});
+
+test('mitigate decisions flow into the roadmap as tasks', async ({ page }) => {
+  await page.locator('#tm-name').fill('Handoff bot');
+  await page.locator('.tm-check', { hasText: 'User-facing chat' }).click();
+  await page.locator('#tm-to-2').click();
+  const card = page.locator('.tm-card', { hasText: 'Direct prompt injection' });
+  await card.locator('button[data-verdict="applies"]').click();
+  await page.locator('.tm-card', { hasText: 'Direct prompt injection' }).locator('.tm-scale-opt', { hasText: 'Likely' }).click();
+  await page.locator('.tm-card', { hasText: 'Direct prompt injection' }).locator('.tm-scale-opt', { hasText: 'Severe' }).click();
+  await page.locator('button[data-step-nav="3"]').click();
+  await page.locator('[data-threat="T01"] button[data-treat="mitigate"]').click();
+  await page.locator('button[data-step-nav="4"]').click();
+  await page.locator('a', { hasText: 'Send mitigations to the roadmap' }).click();
+  await expect(page).toHaveURL(/\/roadmap\/\?source=threat$/);
+  const taskCard = page.locator('.task-card, .plan-task, [class*=task]', { hasText: 'Mitigate T01' }).first();
+  await expect(taskCard).toBeVisible();
+  await expect(taskCard).toContainText('Direct prompt injection');
+});
+
+test('the Threat Dragon export downloads a valid v2 model', async ({ page }) => {
+  await page.locator('#tm-name').fill('TD export bot');
+  await page.locator('.tm-check', { hasText: 'User-facing chat' }).click();
+  await page.locator('#tm-to-2').click();
+  await page.locator('.tm-step', { hasText: 'good job' }).click();
+  const downloadPromise = page.waitForEvent('download');
+  await page.locator('#tm-td').click();
+  const download = await downloadPromise;
+  expect(download.suggestedFilename()).toBe('td-export-bot-threat-dragon.json');
+  const content = JSON.parse(readFileSync(await download.path(), 'utf8')) as {
+    version: string;
+    summary: { title: string };
+    detail: { diagrams: { cells: { shape: string }[] }[] };
+  };
+  expect(content.version).toBe('2.3.0');
+  expect(content.summary.title).toBe('TD export bot');
+  expect(content.detail.diagrams[0].cells.some((c: { shape: string }) => c.shape === 'flow')).toBe(true);
 });
