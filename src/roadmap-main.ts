@@ -39,7 +39,7 @@ const vciso = vcisoRaw as VcisoTask[];
 const byId = (id: string) => document.getElementById(id) as HTMLElement;
 const sel = (id: string) => byId(id) as HTMLSelectElement;
 
-type Source = 'program' | 'csf' | 'cis' | 'vciso' | 'gaps';
+type Source = 'program' | 'csf' | 'cis' | 'vciso' | 'gaps' | 'threat';
 
 const program = programRaw as { goals: ProgramGoal[] };
 
@@ -115,6 +115,7 @@ function storageKey(): string {
   if (s === 'cis') return `alphabetsoup:roadmap:cis:ig${sel('plan-ig').value}`;
   if (s === 'vciso') return `alphabetsoup:roadmap:vciso:${sel('plan-pkg').value}`;
   if (s === 'gaps') return `alphabetsoup:roadmap:gaps:${gapsAssessmentId()}`;
+  if (s === 'threat') return 'alphabetsoup:roadmap:threat';
   return 'alphabetsoup:roadmap:csf';
 }
 
@@ -151,6 +152,42 @@ function saveState(): void {
   }
 }
 
+/**
+ * Tasks from the AI Threat Modeler: one per mitigate-decision across saved
+ * models and the working draft. Lazy-loaded like the gap assessments; the
+ * threat dataset only ships when this source is chosen.
+ */
+let threatTasks: RoadmapTask[] | null = null;
+let threatLoading = false;
+
+function readThreatModels(): { profile: never; verdicts: never }[] {
+  const models: { profile: never; verdicts: never }[] = [];
+  try {
+    const saved = JSON.parse(localStorage.getItem('alphabetsoup:ai-threat:models') ?? '[]');
+    if (Array.isArray(saved)) models.push(...saved.filter((m) => m && typeof m === 'object' && m.profile));
+    const draft = JSON.parse(localStorage.getItem('alphabetsoup:ai-threat:draft') ?? 'null');
+    const draftName = draft?.profile?.name ?? '';
+    if (draft?.profile && !models.some((m) => (m as { profile: { name?: string } }).profile.name === draftName)) {
+      models.push(draft);
+    }
+  } catch {
+    /* unreadable state reads as no models */
+  }
+  return models;
+}
+
+function threatModelTasks(): RoadmapTask[] | null {
+  if (threatTasks) return threatTasks;
+  if (!threatLoading) {
+    threatLoading = true;
+    void Promise.all([import('./lib/ai-threat'), import('./data/ai-threat-model.json')]).then(([lib, raw]) => {
+      threatTasks = lib.threatPlan(raw.default as never, readThreatModels()) as RoadmapTask[];
+      render();
+    });
+  }
+  return null;
+}
+
 function currentTasks(): RoadmapTask[] {
   const s = source();
   if (s === 'program') return programPlan(program);
@@ -163,6 +200,7 @@ function currentTasks(): RoadmapTask[] {
     const answers = assessmentAnswers(id);
     return Object.keys(answers).length === 0 ? [] : gapsPlan(data, answers);
   }
+  if (s === 'threat') return threatModelTasks() ?? [];
   return csfPlan(csf, kpiDepth.csf);
 }
 
@@ -548,6 +586,19 @@ function render(): void {
   const board = byId('plan-board');
   board.innerHTML = '';
 
+  if (s === 'threat' && tasks.length === 0) {
+    byId('plan-summary').innerHTML = '';
+    if (threatTasks === null) return;
+    const wrap = el('div', 'plan-summary-line');
+    wrap.append('No mitigate decisions found in your threat models yet. ');
+    const link = document.createElement('a');
+    link.href = '../tools/ai-threat-model/';
+    link.textContent = 'Model a system first \u2192';
+    wrap.appendChild(link);
+    byId('plan-summary').appendChild(wrap);
+    return;
+  }
+
   if (s === 'gaps' && tasks.length === 0) {
     byId('plan-summary').innerHTML = '';
     // Dataset still loading: render() runs again when it lands, so show
@@ -665,7 +716,7 @@ function importJson(file: File): void {
 function main(): void {
   const params = new URLSearchParams(location.search);
   const requested = params.get('source');
-  if (requested && ['program', 'csf', 'cis', 'vciso', 'gaps'].includes(requested)) {
+  if (requested && ['program', 'csf', 'cis', 'vciso', 'gaps', 'threat'].includes(requested)) {
     sel('plan-source').value = requested;
   }
   const requestedAssessment = params.get('a');

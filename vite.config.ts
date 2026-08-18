@@ -274,6 +274,7 @@ export default defineConfig({
         tools: 'tools/index.html',
         aiRisk: 'tools/ai-risk/index.html',
         aiCloudControls: 'tools/ai-cloud-controls/index.html',
+        aiThreatModel: 'tools/ai-threat-model/index.html',
         crosswalk: 'tools/crosswalk/index.html',
         boardMetrics: 'tools/board-metrics/index.html',
         runbook: 'tools/runbook/index.html',

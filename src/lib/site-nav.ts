@@ -115,6 +115,7 @@ export const NAV_LINKS: NavLink[] = [
       { path: 'tools/skills-matrix/', label: 'Skills Matrix' },
       { path: 'tools/policy-generator/', label: 'Policy Generator' },
       { path: 'tools/ai-cloud-controls/', label: 'AI Cloud Controls' },
+      { path: 'tools/ai-threat-model/', label: 'AI Threat Modeler' },
     ],
   },
   { path: 'news/', label: 'News' },
