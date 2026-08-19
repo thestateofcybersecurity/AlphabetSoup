@@ -19,6 +19,7 @@ import {
   riskFor,
   summarize,
   threatDragonModel,
+  threatModelReport,
   zoneAt,
 } from './lib/ai-threat';
 
@@ -809,6 +810,7 @@ function renderStep4(host: HTMLElement): void {
       <button type="button" class="tm-btn" id="tm-csv">Export register CSV</button>
       <button type="button" class="tm-btn" id="tm-json">Export model JSON</button>
       <button type="button" class="tm-btn" id="tm-td">Export for Threat Dragon</button>
+      <button type="button" class="tm-btn tm-btn-primary" id="tm-report">Download report</button>
       <a class="tm-btn" href="../../roadmap/?source=threat">Send mitigations to the roadmap &rarr;</a>
       <button type="button" class="tm-btn" id="tm-print">Print</button>
       <button type="button" class="tm-btn tm-btn-primary" id="tm-save">Save model</button>
@@ -829,6 +831,10 @@ function renderStep4(host: HTMLElement): void {
     download(`${slug()}-threat-dragon.json`, JSON.stringify(model, null, 2), 'application/json');
   });
   $('#tm-print').addEventListener('click', () => window.print());
+  $('#tm-report').addEventListener('click', () => {
+    const generated = new Date().toLocaleDateString(undefined, { year: 'numeric', month: 'long', day: 'numeric' });
+    download(`${slug()}-threat-model-report.html`, threatModelReport(data, state.profile, list, state.verdicts, generated), 'text/html');
+  });
   host.addEventListener('click', (event) => {
     const button = (event.target as HTMLElement).closest('#tm-models button[data-action]') as HTMLButtonElement | null;
     if (!button) return;
