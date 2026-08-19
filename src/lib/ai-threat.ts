@@ -754,3 +754,242 @@ export function threatPlan(
   }
   return tasks.sort((a, b) => a.defaultQuarter.localeCompare(b.defaultQuarter) || a.id.localeCompare(b.id));
 }
+
+// ---------------------------------------------------------------------------
+// Report export: one self-contained HTML document, no external resources, so
+// it opens anywhere, attaches to a ticket, and prints to PDF from any
+// browser. Literal light-palette colors, because a document has one look.
+// ---------------------------------------------------------------------------
+
+const escapeHtml = (value: string): string =>
+  value
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;');
+
+const REPORT_COLORS: Record<RiskLevel, string> = {
+  low: '#397248',
+  medium: '#865f23',
+  high: '#b0402e',
+  critical: '#7a1f1f',
+};
+
+function reportSvg(data: ThreatModelData, profile: SystemProfile, instances: FlowInstance[]): string {
+  const layout = diagramLayout(data, profile, instances);
+  if (!layout) return '';
+  const graph = graphOf(data, profile);
+  const zones = layout.zones
+    .map(
+      (z) => `<rect x="${z.x}" y="${z.y}" width="${z.w}" height="${z.h}" rx="10" fill="none" stroke="#b8ab95" stroke-width="1.5" stroke-dasharray="6 4"/>` +
+        `<text x="${z.x + 10}" y="${z.y - 9}" font-size="11" letter-spacing="1" fill="#5c6a72" font-family="ui-monospace, monospace">${escapeHtml(z.label.toUpperCase())}</text>`,
+    )
+    .join('');
+  const flows = layout.flows
+    .map((f) => {
+      const mx = (f.x1 + f.x2) / 2;
+      const my = (f.y1 + f.y2) / 2;
+      const badge = f.badge > 0
+        ? `<circle cx="${mx}" cy="${my}" r="11" fill="#fff" stroke="#b0402e" stroke-width="1.5"/>` +
+          `<text x="${mx}" y="${my + 4}" text-anchor="middle" font-size="11" font-weight="700" fill="#b0402e" font-family="ui-monospace, monospace">${f.badge}</text>`
+        : '';
+      return `<line x1="${f.x1}" y1="${f.y1}" x2="${f.x2}" y2="${f.y2}" stroke="#5c6a72" stroke-width="1.2" marker-end="url(#rp-arrow)"/>${badge}`;
+    })
+    .join('');
+  const nodes = layout.nodes
+    .map(
+      (n) => `<rect x="${n.x}" y="${n.y}" width="${n.w}" height="${n.h}" rx="8" fill="#faf6ec" stroke="#c8401f" stroke-width="1"/>` +
+        `<text x="${n.x + 10}" y="${n.y + 19}" font-size="13" font-weight="600" fill="#23303a">${escapeHtml(n.label)}</text>` +
+        `<text x="${n.x + 10}" y="${n.y + 35}" font-size="11" fill="#5c6a72">${escapeHtml(n.sub || n.kind)}</text>`,
+    )
+    .join('');
+  const flowLabel = (id: string) => graph.flows.find((f) => f.id === id)?.label ?? '';
+  const legend = layout.flows.filter((f) => f.badge > 0).length > 0
+    ? `<text x="20" y="${layout.height - 6}" font-size="10" fill="#5c6a72">Badges: candidate threats where that flow crosses a trust boundary.</text>`
+    : '';
+  void flowLabel;
+  return `<svg width="100%" viewBox="0 0 ${layout.width} ${layout.height + 14}" role="img" aria-label="Data flow diagram" xmlns="http://www.w3.org/2000/svg">` +
+    `<defs><marker id="rp-arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">` +
+    `<path d="M2 1L8 5L2 9" fill="none" stroke="#5c6a72" stroke-width="1.5" stroke-linecap="round"/></marker></defs>${zones}${flows}${nodes}${legend}</svg>`;
+}
+
+/**
+ * The full threat model as a standalone HTML report: header and metadata,
+ * executive summary with open work called out, the diagram, the register,
+ * detail per applying threat, documented judgments (mitigated and
+ * not-applicable notes), and the methodology. Print-friendly A4 styling.
+ */
+export function threatModelReport(
+  data: ThreatModelData,
+  profile: SystemProfile,
+  instances: FlowInstance[],
+  verdicts: Record<string, ThreatVerdict>,
+  generatedAt: string,
+): string {
+  const e = escapeHtml;
+  const summary = summarize(data, instances, verdicts);
+  const name = profile.name || 'Untitled AI system';
+  const exposure = data.exposures.find((x) => x.id === profile.exposure)?.label ?? profile.exposure;
+  const dataClass = data.dataClasses.find((d) => d.id === profile.dataClass)?.label ?? profile.dataClass;
+
+  const riskBadge = (risk: RiskLevel | null): string =>
+    risk ? `<span class="risk" style="color:${REPORT_COLORS[risk]};border-color:${REPORT_COLORS[risk]}">${risk.toUpperCase()}</span>` : '';
+
+  const openWork: string[] = [];
+  if (summary.reviewed < summary.total) openWork.push(`${summary.total - summary.reviewed} candidate threats not yet judged`);
+  if (summary.unrated > 0) openWork.push(`${summary.unrated} applying threats without a rating`);
+  if (summary.untreated > 0) openWork.push(`${summary.untreated} applying threats without a treatment decision`);
+  if (summary.mitigatedNoResidual > 0) openWork.push(`${summary.mitigatedNoResidual} mitigate decisions without a residual re-rating`);
+  const unclassified = graphOf(data, profile).flows.filter((f) => f.kind === 'plain').length;
+  if (unclassified > 0) openWork.push(`${unclassified} unclassified flows on the diagram`);
+
+  const applying = instances.filter(({ key }) => (verdicts[key] ?? { status: 'unreviewed' }).status === 'applies');
+  const ranked = [...applying].sort((a, b) => {
+    const rank = (i: FlowInstance) => {
+      const v = verdicts[i.key]!;
+      const r = riskFor(data, v.likelihood, v.impact);
+      return r ? riskRank(r) : -1;
+    };
+    return rank(b) - rank(a);
+  });
+  const topRisks = ranked
+    .filter((i) => {
+      const v = verdicts[i.key]!;
+      const r = riskFor(data, v.likelihood, v.impact);
+      return r === 'critical' || r === 'high';
+    })
+    .map((i) => `<li>${e(i.threat.id)} ${e(i.threat.title)} <em>(${e(i.flow.label)})</em> ${riskBadge(riskFor(data, verdicts[i.key]!.likelihood, verdicts[i.key]!.impact))}</li>`);
+
+  const registerRows = instances
+    .map(({ threat, flow, boundary, key }) => {
+      const v = verdicts[key] ?? { status: 'unreviewed' as const };
+      const risk = riskFor(data, v.likelihood, v.impact);
+      const residual = riskFor(data, v.residualLikelihood, v.residualImpact);
+      return `<tr>
+        <td>${e(threat.id)}</td><td>${e(threat.title)}</td><td>${e(flow.label)}</td><td>${e(boundary)}</td>
+        <td>${e(v.status)}</td><td>${riskBadge(risk)}</td><td>${riskBadge(residual)}</td><td>${e(v.treatment ?? '')}</td><td>${e(v.owner ?? '')}</td>
+      </tr>`;
+    })
+    .join('');
+
+  const detailSections = ranked
+    .map((i) => {
+      const v = verdicts[i.key]!;
+      const risk = riskFor(data, v.likelihood, v.impact);
+      const residual = riskFor(data, v.residualLikelihood, v.residualImpact);
+      const refs = [...i.threat.refs, ...i.threat.mitigations.flatMap((m) => m.refs)];
+      const uniqueRefs = [...new Set(refs)];
+      return `<section class="detail">
+        <h3>${e(i.threat.id)} ${e(i.threat.title)} <span class="tag">${e(i.threat.stride)}</span> <span class="tag">${e(i.flow.label)}</span></h3>
+        <p class="because">Surfaced because ${e(i.because)}.</p>
+        <p>${e(i.threat.description)}</p>
+        <p><strong>Rating:</strong> ${e(v.likelihood ?? 'unrated')} likelihood, ${e(v.impact ?? 'unrated')} impact ${riskBadge(risk)}
+        ${v.treatment ? ` &middot; <strong>Treatment:</strong> ${e(v.treatment)}${v.owner ? `, owner ${e(v.owner)}` : ''}` : ''}
+        ${residual ? ` &middot; <strong>Residual:</strong> ${riskBadge(residual)}` : ''}</p>
+        <p><strong>Mitigations:</strong></p>
+        <ul>${i.threat.mitigations.map((m) => `<li>${e(m.text)}</li>`).join('')}</ul>
+        <p class="refs">References: ${uniqueRefs.map((r) => `<a href="https://www.cybersecurityalphabetsoup.com/frameworks/ai/?q=${encodeURIComponent(r)}">${e(r)}</a>`).join(', ')}</p>
+      </section>`;
+    })
+    .join('');
+
+  const judged = instances
+    .filter(({ key }) => {
+      const s = (verdicts[key] ?? { status: 'unreviewed' }).status;
+      return s === 'mitigated' || s === 'not-applicable';
+    })
+    .map(({ threat, flow, key }) => {
+      const v = verdicts[key]!;
+      return `<li><strong>${e(threat.id)} ${e(threat.title)}</strong> <em>(${e(flow.label)})</em>: ${v.status === 'mitigated' ? 'already mitigated' : 'not applicable'}${v.note ? ` &mdash;&#8288;` : ''}${v.note ? ` ${e(v.note)}` : ''}</li>`;
+    });
+
+  return `<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>AI Threat Model Report: ${e(name)}</title>
+<style>
+  :root { color-scheme: light; }
+  * { box-sizing: border-box; }
+  body { margin: 0 auto; max-width: 880px; padding: 40px 32px; font-family: Georgia, 'Times New Roman', serif; color: #23303a; background: #fff; line-height: 1.55; }
+  header { border-bottom: 3px solid #23303a; padding-bottom: 18px; margin-bottom: 24px; }
+  h1 { font-size: 1.9rem; margin: 0 0 4px; }
+  h2 { font-size: 1.2rem; border-bottom: 1px solid #d8ccb6; padding-bottom: 4px; margin: 30px 0 12px; }
+  h3 { font-size: 1.02rem; margin: 0 0 6px; }
+  .sub { color: #5c6a72; margin: 0; }
+  .meta { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 6px 20px; margin: 14px 0 0; font-size: 0.92rem; }
+  .meta div span { display: block; font-family: ui-monospace, monospace; font-size: 0.68rem; letter-spacing: 0.1em; text-transform: uppercase; color: #5c6a72; }
+  .risk { font-family: ui-monospace, monospace; font-size: 0.7rem; font-weight: 700; border: 1.5px solid; border-radius: 6px; padding: 1px 7px; white-space: nowrap; }
+  .open { border: 1.5px solid #b0402e; border-radius: 10px; padding: 10px 16px; margin: 12px 0; }
+  .open ul { margin: 6px 0; }
+  .complete { border: 1.5px solid #397248; border-radius: 10px; padding: 10px 16px; margin: 12px 0; }
+  .tiles { display: flex; gap: 14px; flex-wrap: wrap; margin: 12px 0; }
+  .tile { border: 1px solid #d8ccb6; border-radius: 10px; padding: 8px 16px; text-align: center; }
+  .tile b { display: block; font-size: 1.4rem; }
+  .tile span { font-family: ui-monospace, monospace; font-size: 0.66rem; letter-spacing: 0.08em; text-transform: uppercase; color: #5c6a72; }
+  table { width: 100%; border-collapse: collapse; font-size: 0.82rem; margin: 10px 0; }
+  th, td { text-align: left; padding: 6px 8px; border-bottom: 1px solid #e4dac6; vertical-align: top; }
+  th { font-family: ui-monospace, monospace; font-size: 0.64rem; letter-spacing: 0.1em; text-transform: uppercase; color: #5c6a72; }
+  .detail { border: 1px solid #d8ccb6; border-radius: 10px; padding: 14px 18px; margin: 0 0 12px; break-inside: avoid; }
+  .detail .because { font-style: italic; color: #993c1d; margin: 0 0 8px; font-size: 0.92rem; }
+  .tag { font-family: ui-monospace, monospace; font-size: 0.62rem; letter-spacing: 0.06em; text-transform: uppercase; border: 1px solid #d8ccb6; border-radius: 999px; padding: 1px 8px; color: #5c6a72; font-weight: 400; }
+  .refs { font-size: 0.85rem; }
+  .refs a { color: #993c1d; }
+  footer { border-top: 1px solid #d8ccb6; margin-top: 30px; padding-top: 12px; font-size: 0.82rem; color: #5c6a72; }
+  @media print { body { padding: 0; } .detail, tr { break-inside: avoid; } }
+</style>
+</head>
+<body>
+<header>
+  <h1>AI Threat Model: ${e(name)}</h1>
+  <p class="sub">Question-first threat model, STRIDE per trust boundary, produced with the Cybersecurity Alphabet Soup AI Threat Modeler.</p>
+  <div class="meta">
+    <div><span>Owner</span>${e(profile.owner || 'Not named')}</div>
+    <div><span>Reviewer</span>${e(profile.reviewer || 'Not named')}</div>
+    <div><span>Exposure</span>${e(exposure)}</div>
+    <div><span>Data sensitivity</span>${e(dataClass)}</div>
+    <div><span>Generated</span>${e(generatedAt)}</div>
+    <div><span>Threat library</span>v${e(data.meta.version)}</div>
+  </div>
+</header>
+
+<h2>Executive summary</h2>
+<div class="tiles">
+  <div class="tile"><b>${summary.total}</b><span>candidates</span></div>
+  <div class="tile"><b>${summary.applies}</b><span>apply</span></div>
+  <div class="tile"><b style="color:${REPORT_COLORS.critical}">${summary.byRisk.critical}</b><span>critical</span></div>
+  <div class="tile"><b style="color:${REPORT_COLORS.high}">${summary.byRisk.high}</b><span>high</span></div>
+  <div class="tile"><b style="color:${REPORT_COLORS.medium}">${summary.byRisk.medium}</b><span>medium</span></div>
+  <div class="tile"><b style="color:${REPORT_COLORS.low}">${summary.byRisk.low}</b><span>low</span></div>
+</div>
+${topRisks.length ? `<p><strong>Highest risks:</strong></p><ul>${topRisks.join('')}</ul>` : '<p>No threats are currently rated critical or high.</p>'}
+${openWork.length
+    ? `<div class="open"><strong>Open work in this model:</strong><ul>${openWork.map((w) => `<li>${e(w)}</li>`).join('')}</ul>This report reflects a model in progress; treat absent judgments as unknowns, not as safety.</div>`
+    : '<div class="complete">Every candidate threat has been judged, every applying threat rated and given a treatment decision. This model is complete as of the generation date.</div>'}
+
+<h2>System and trust boundaries</h2>
+${reportSvg(data, profile, instances)}
+
+<h2>Threat register</h2>
+<table>
+  <thead><tr><th>ID</th><th>Threat</th><th>Flow</th><th>Boundary</th><th>Status</th><th>Risk</th><th>Residual</th><th>Treatment</th><th>Owner</th></tr></thead>
+  <tbody>${registerRows}</tbody>
+</table>
+
+${detailSections ? `<h2>Applying threats in detail</h2>${detailSections}` : ''}
+
+${judged.length ? `<h2>Documented judgments</h2><ul>${judged.join('')}</ul>` : ''}
+
+<h2>Methodology</h2>
+<p>${e(data.meta.methodology)}</p>
+<p>Sources: ${data.meta.sources.map((s) => `<a href="${e(s.url)}">${e(s.name)}</a>`).join(', ')}.</p>
+
+<footer>
+  Generated ${e(generatedAt)} by the <a href="https://www.cybersecurityalphabetsoup.com/tools/ai-threat-model/">AI Threat Modeler</a> at cybersecurityalphabetsoup.com.
+  A threat model is a snapshot: re-run it on material change and at least annually.
+</footer>
+</body>
+</html>
+`;
+}

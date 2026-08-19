@@ -144,3 +144,25 @@ test('the Threat Dragon export downloads a valid v2 model', async ({ page }) => 
   expect(content.summary.title).toBe('TD export bot');
   expect(content.detail.diagrams[0].cells.some((c: { shape: string }) => c.shape === 'flow')).toBe(true);
 });
+
+test('the report downloads as a self-contained document', async ({ page }) => {
+  await page.locator('#tm-name').fill('Report bot');
+  await page.locator('.tm-check', { hasText: 'User-facing chat' }).click();
+  await page.locator('#tm-to-2').click();
+  const card = page.locator('.tm-card', { hasText: 'Direct prompt injection' });
+  await card.locator('button[data-verdict="applies"]').click();
+  await page.locator('.tm-card', { hasText: 'Direct prompt injection' }).locator('.tm-scale-opt', { hasText: 'Likely' }).click();
+  await page.locator('.tm-card', { hasText: 'Direct prompt injection' }).locator('.tm-scale-opt', { hasText: 'Severe' }).click();
+  await page.locator('.tm-step', { hasText: 'good job' }).click();
+  const downloadPromise = page.waitForEvent('download');
+  await page.locator('#tm-report').click();
+  const download = await downloadPromise;
+  expect(download.suggestedFilename()).toBe('report-bot-threat-model-report.html');
+  const html = readFileSync(await download.path(), 'utf8');
+  expect(html).toContain('AI Threat Model: Report bot');
+  expect(html).toContain('Executive summary');
+  expect(html).toContain('<svg');
+  expect(html).toContain('Threat register');
+  expect(html).toContain('CRITICAL');
+  expect(html).toContain('Open work in this model');
+});

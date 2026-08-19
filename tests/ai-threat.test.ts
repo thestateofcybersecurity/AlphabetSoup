@@ -12,6 +12,7 @@ import {
   riskFor,
   summarize,
   threatDragonModel,
+  threatModelReport,
   threatPlan,
   validateThreatModel,
   zoneAt,
@@ -292,5 +293,55 @@ describe('verdict migration', () => {
   it('leaves already-migrated verdicts untouched', () => {
     const verdicts = { 'T01@user-chat': { status: 'applies' as const } };
     expect(migrateVerdicts(data, profile({ components: ['user-chat'] }), verdicts)).toBe(verdicts);
+  });
+});
+
+describe('HTML report export', () => {
+  const reportFor = (verdicts: Record<string, ThreatVerdict>, name = 'Support bot <v2>') =>
+    threatModelReport(
+      data,
+      profile({ components: ['user-chat', 'rag'], name, owner: 'Parker', reviewer: 'CISO' }),
+      flowCandidates(data, profile({ components: ['user-chat', 'rag'] })),
+      verdicts,
+      'August 19, 2026',
+    );
+
+  it('is a standalone document with metadata, diagram, and full register', () => {
+    const report = reportFor({});
+    expect(report).toContain('<!DOCTYPE html>');
+    expect(report).toContain('Support bot &lt;v2&gt;');
+    expect(report).toContain('Parker');
+    expect(report).toContain('CISO');
+    expect(report).toContain('August 19, 2026');
+    expect(report).toContain('<svg');
+    // One register row per candidate instance.
+    const rows = report.split('<tbody>')[1].split('</tbody>')[0].match(/<tr>/g) ?? [];
+    expect(rows.length).toBe(flowCandidates(data, profile({ components: ['user-chat', 'rag'] })).length);
+    // No external resources: self-contained means attachable anywhere.
+    expect(report).not.toMatch(/src="http/);
+    expect(report).not.toMatch(/<link/);
+  });
+
+  it('is honest about open work and surfaces top risks when rated', () => {
+    const incomplete = reportFor({});
+    expect(incomplete).toContain('Open work in this model');
+    expect(incomplete).toContain('not yet judged');
+
+    const rated = reportFor({
+      'T01@user-chat': { status: 'applies', likelihood: 'likely', impact: 'severe', treatment: 'mitigate', owner: 'AppSec' },
+    });
+    expect(rated).toContain('Highest risks');
+    expect(rated).toContain('Direct prompt injection');
+    expect(rated).toContain('CRITICAL');
+  });
+
+  it('escapes user-controlled text everywhere it lands', () => {
+    const hostile = reportFor(
+      { 'T01@user-chat': { status: 'not-applicable', note: '<img src=x onerror=alert(1)>' } },
+      '<script>bad</script>',
+    );
+    expect(hostile).not.toContain('<script>bad');
+    expect(hostile).not.toContain('<img src=x');
+    expect(hostile).toContain('&lt;script&gt;bad');
   });
 });
