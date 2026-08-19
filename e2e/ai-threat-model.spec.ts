@@ -166,3 +166,48 @@ test('the report downloads as a self-contained document', async ({ page }) => {
   expect(html).toContain('CRITICAL');
   expect(html).toContain('Open work in this model');
 });
+
+test('importing a Threat Dragon model brings topology and preserved threats', async ({ page }) => {
+  await page.locator('#tm-import').setInputFiles('e2e/fixtures/td-sample.json');
+  await expect(page.locator('#tm-import-status')).toContainText('Imported "Imported Support Bot"');
+  await expect(page.locator('#tm-import-status')).toContainText('2 existing threats preserved');
+  await expect(page.locator('#tm-name')).toHaveValue('Imported Support Bot');
+  await expect(page.locator('#tm-canvas')).toBeVisible();
+  await expect(page.locator('[data-node-id="cell-user"]')).toBeVisible();
+  // Imported flows arrive unclassified: nothing is enumerated yet.
+  await expect(page.locator('#tm-boundaries > .tm-hint')).toContainText('0 candidate threats');
+
+  // Classify the chat flow and this library's threats appear alongside the
+  // imported ones on step two.
+  await page.locator('[data-flow-id="flow-1"]').click();
+  await page.locator('#tm-flow-kind').selectOption('user-chat');
+  await page.locator('#tm-to-2').click();
+  await expect(page.locator('.tm-card', { hasText: 'Direct prompt injection' })).toBeVisible();
+  await expect(page.locator('.tm-imported')).toHaveCount(2);
+  await expect(page.locator('.tm-imported', { hasText: 'Session fixation' })).toBeVisible();
+});
+
+test('importing over a described model asks before replacing', async ({ page }) => {
+  await page.locator('.tm-check', { hasText: 'User-facing chat' }).click();
+  await page.locator('#tm-import').setInputFiles('e2e/fixtures/td-sample.json');
+  await expect(page.locator('#tm-import-status')).toContainText('Replace the current model');
+  await page.locator('#tm-import-confirm').click();
+  await expect(page.locator('#tm-name')).toHaveValue('Imported Support Bot');
+});
+
+test('the privacy lens filters to LINDDUN threats and back', async ({ page }) => {
+  await page.locator('.tm-check', { hasText: 'User-facing chat' }).click();
+  await page.locator('input[name="dataClass"][value="confidential"]').click();
+  await page.locator('#tm-to-2').click();
+  const before = await page.locator('.tm-card').count();
+  await expect(page.locator('.tm-linddun').first()).toBeVisible();
+  await page.locator('#tm-lens').click();
+  await expect(page.locator('#tm-lens')).toHaveAttribute('aria-pressed', 'true');
+  const lensed = await page.locator('.tm-card').count();
+  expect(lensed).toBeLessThan(before);
+  await expect(page.locator('.tm-card', { hasText: 'linkable profile' })).toBeVisible();
+  // Progress still counts everything: the lens hides nothing from the math.
+  await expect(page.locator('#tm-progress')).toContainText(`of ${before} judged`);
+  await page.locator('#tm-lens').click();
+  await expect(page.locator('.tm-card')).toHaveCount(before);
+});
