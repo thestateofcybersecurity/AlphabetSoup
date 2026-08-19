@@ -18,6 +18,8 @@ import {
   registerCsv,
   riskFor,
   summarize,
+  importThreatDragon,
+  linddunSummary,
   threatDragonModel,
   threatModelReport,
   zoneAt,
@@ -49,6 +51,8 @@ let selected: { type: 'node' | 'flow'; id: string } | null = null;
 let connectFrom: string | null = null;
 let connecting = false;
 let resetArmed = false;
+let lensOn = false;
+let pendingImport: SystemProfile | null = null;
 let dragging: { id: string; dx: number; dy: number; moved: boolean } | null = null;
 
 const $ = <T extends HTMLElement = HTMLElement>(sel: string) => document.querySelector(sel) as T;
@@ -134,6 +138,12 @@ function renderStep1(host: HTMLElement): void {
     <div class="tm-mode-row" role="tablist" aria-label="How to describe the system">
       <button type="button" class="tm-vbtn${canvasMode ? '' : ' on'}" id="tm-mode-quick" role="tab" aria-selected="${!canvasMode}">Quick describe</button>
       <button type="button" class="tm-vbtn${canvasMode ? ' on' : ''}" id="tm-mode-canvas" role="tab" aria-selected="${canvasMode}">Canvas editor</button>
+    </div>
+    <div class="tm-import-row print-hide">
+      <label class="tm-btn tm-btn-sm">Import a Threat Dragon model
+        <input type="file" id="tm-import" accept=".json,application/json" hidden />
+      </label>
+      <span id="tm-import-status" class="tm-hint" role="status"></span>
     </div>
     <div id="tm-quick" ${canvasMode ? 'hidden' : ''}>
       <fieldset class="tm-group"><legend>Which elements exist? Select all that apply.</legend>
@@ -222,6 +232,53 @@ function renderStep1(host: HTMLElement): void {
     render();
   });
   $('#tm-to-2').addEventListener('click', () => goTo(2));
+  $('#tm-import').addEventListener('change', (event) => {
+    const file = (event.target as HTMLInputElement).files?.[0];
+    if (!file) return;
+    const reader = new FileReader();
+    reader.onload = () => {
+      const status = $('#tm-import-status');
+      try {
+        const profile = importThreatDragon(JSON.parse(String(reader.result)));
+        if (described()) {
+          // A described model is on screen: ask before replacing it.
+          pendingImport = profile;
+          status.innerHTML = '';
+          const note = document.createElement('span');
+          note.textContent = `Replace the current model with "${profile.name}"? `;
+          const confirm = document.createElement('button');
+          confirm.type = 'button';
+          confirm.className = 'tm-btn tm-btn-sm';
+          confirm.id = 'tm-import-confirm';
+          confirm.textContent = 'Import and replace';
+          confirm.addEventListener('click', applyImport);
+          status.append(note, confirm);
+        } else {
+          pendingImport = profile;
+          applyImport();
+        }
+      } catch (error) {
+        status.textContent = error instanceof Error ? error.message : 'That file could not be read.';
+      }
+    };
+    reader.readAsText(file);
+  });
+}
+
+function applyImport(): void {
+  if (!pendingImport) return;
+  state = { profile: pendingImport, verdicts: {} };
+  pendingImport = null;
+  canvasMode = true;
+  selected = null;
+  connecting = false;
+  connectFrom = null;
+  saveDraft();
+  render();
+  const status = document.querySelector('#tm-import-status');
+  if (status) {
+    status.textContent = `Imported "${state.profile.name}": ${state.profile.graph?.nodes.length ?? 0} elements, ${state.profile.graph?.flows.length ?? 0} flows${state.profile.imported?.length ? `, ${state.profile.imported.length} existing threats preserved` : ''}. Classify the flows to enumerate this library's threats.`;
+  }
 }
 
 function renderBoundaryPreview(): void {
@@ -281,10 +338,14 @@ function diagramSvg(interactive: boolean): string {
             `<circle cx="${mx}" cy="${my}" r="11" fill="var(--paper)" stroke="var(--line)" stroke-width="1.5"/>` +
             `<text x="${mx}" y="${my + 4}" text-anchor="middle" class="tmd-badge-plain">?</text></g>`
           : '';
-      const hit = interactive
-        ? `<line x1="${f.x1}" y1="${f.y1}" x2="${f.x2}" y2="${f.y2}" stroke="transparent" stroke-width="14" class="tmd-flow-hit" data-flow-id="${f.id}"/>`
-        : '';
-      return `<line x1="${f.x1}" y1="${f.y1}" x2="${f.x2}" y2="${f.y2}" stroke="${stroke}" stroke-width="${isSelected ? 2.2 : 1.2}" marker-end="url(#tmd-arrow)"/>${hit}${badge}`;
+      const line = `<line x1="${f.x1}" y1="${f.y1}" x2="${f.x2}" y2="${f.y2}" stroke="${stroke}" stroke-width="${isSelected ? 2.2 : 1.2}" marker-end="url(#tmd-arrow)"/>`;
+      if (!interactive) return `${line}${badge}`;
+      // One group per flow: the badge circle gives the group a real bounding
+      // box (a bare SVG line reports zero size, which breaks click targeting),
+      // and the fat transparent stroke keeps the whole length clickable.
+      const anchor = badge || `<circle cx="${mx}" cy="${my}" r="9" fill="transparent" stroke="var(--line)" stroke-width="1" stroke-dasharray="2 3"/>`;
+      const hit = `<line x1="${f.x1}" y1="${f.y1}" x2="${f.x2}" y2="${f.y2}" stroke="transparent" stroke-width="14" class="tmd-flow-hit"/>`;
+      return `<g class="tmd-flow" data-flow-id="${f.id}">${line}${hit}${anchor}</g>`;
     })
     .join('');
   return `<figure class="tm-diagram"><svg ${interactive ? 'id="tm-canvas" tabindex="0" ' : ''}width="100%" viewBox="0 0 ${layout.width} ${layout.height}" role="${interactive ? 'application' : 'img'}" aria-label="${interactive ? 'Editable data flow diagram; use the toolbar to add elements' : 'Data flow diagram derived from the described system'}">` +
@@ -571,7 +632,8 @@ window.addEventListener('pointerup', () => {
 // ------------------------------- step 2 --------------------------------
 
 function renderStep2(host: HTMLElement): void {
-  const list = instances();
+  const all = instances();
+  const list = lensOn ? all.filter((i) => (i.threat.linddun ?? []).length > 0) : all;
   const byFlow = new Map<string, FlowInstance[]>();
   for (const instance of list) {
     const group = byFlow.get(instance.flow.id) ?? [];
@@ -579,19 +641,53 @@ function renderStep2(host: HTMLElement): void {
     byFlow.set(instance.flow.id, group);
   }
 
-  const reviewed = list.filter(({ key }) => verdictFor(key).status !== 'unreviewed').length;
+  const reviewed = all.filter(({ key }) => verdictFor(key).status !== 'unreviewed').length;
+  const privacyCount = all.filter((i) => (i.threat.linddun ?? []).length > 0).length;
+  const imported = state.profile.imported ?? [];
   host.innerHTML = `
     <p class="tm-lede">These are candidates, not conclusions: each is proposed because of something you said in step one, and it needs your judgment. Mark each one, and rate the ones that apply with the anchored scales.</p>
-    <p class="tm-progress" id="tm-progress">${reviewed} of ${list.length} judged</p>
+    <div class="tm-lens-row print-hide">
+      <p class="tm-progress" id="tm-progress">${reviewed} of ${all.length} judged</p>
+      <button type="button" class="tm-vbtn${lensOn ? ' on' : ''}" id="tm-lens" aria-pressed="${lensOn}">Privacy lens (LINDDUN)</button>
+    </div>
+    ${lensOn ? `<p class="tm-hint">Showing the ${privacyCount} candidates that touch LINDDUN privacy categories; the other ${all.length - privacyCount} stay judged and counted, just out of view.</p>` : ''}
     ${[...byFlow.values()].map((group) => `
       <section class="tm-boundary-group">
         <h3 class="tm-h">${esc(group[0].flow.label)} &middot; ${esc(group[0].boundary)}</h3>
         ${group.map((instance) => threatCard(instance)).join('')}
       </section>`).join('')}
+    ${imported.length ? `
+      <section class="tm-boundary-group">
+        <h3 class="tm-h">Imported from Threat Dragon (${imported.length})</h3>
+        <p class="tm-hint">Preserved verbatim from the imported model; they travel into the report and the Threat Dragon re-export unchanged.</p>
+        ${imported.map(() => `
+          <article class="tm-card tm-imported">
+            <header class="tm-card-head">
+              <h4 class="tm-card-title"></h4>
+              <span class="tm-stride"></span>
+              <span class="tm-id"></span>
+            </header>
+            <p class="tm-desc"></p>
+          </article>`).join('')}
+      </section>` : ''}
     <div class="tm-actions">
       <button type="button" class="tm-btn" data-step-nav="1">&larr; Back to the system</button>
       <button type="button" class="tm-btn tm-btn-primary" data-step-nav="3">Decide what to do &rarr;</button>
     </div>`;
+
+  // Imported threat text is foreign, user-supplied data: textContent only.
+  host.querySelectorAll('.tm-imported').forEach((card, index) => {
+    const t = imported[index];
+    if (!t) return;
+    (card.querySelector('.tm-card-title') as HTMLElement).textContent = t.title;
+    (card.querySelector('.tm-stride') as HTMLElement).textContent = t.type || 'Imported';
+    (card.querySelector('.tm-id') as HTMLElement).textContent = `${t.cellName} · ${t.status}${t.severity ? ` · ${t.severity}` : ''}`;
+    (card.querySelector('.tm-desc') as HTMLElement).textContent = t.description;
+  });
+  host.querySelector('#tm-lens')?.addEventListener('click', () => {
+    lensOn = !lensOn;
+    render();
+  });
 
   host.addEventListener('click', (event) => {
     const button = (event.target as HTMLElement).closest('button[data-verdict]') as HTMLButtonElement | null;
@@ -652,6 +748,7 @@ function threatCard(instance: FlowInstance): string {
         <span class="tm-id">${threat.id}</span>
         <h4 class="tm-card-title">${esc(threat.title)}</h4>
         <span class="tm-stride">${esc(threat.stride)}</span>
+        ${(threat.linddun ?? []).map((c) => `<span class="tm-stride tm-linddun">${esc(c)}</span>`).join('')}
       </header>
       <p class="tm-because">Proposed because ${esc(because)}.</p>
       <p class="tm-desc">${esc(threat.description)} <span class="tm-refs">${refChips(threat.refs)}</span></p>
@@ -778,6 +875,12 @@ function renderStep4(host: HTMLElement): void {
     <p class="tm-lede">The fourth question is honesty about the first three. This register is only as done as its weakest row; the warnings below are the work remaining.</p>
     ${warnings.length ? `<div class="tm-warnings">${warnings.map((w) => `<p>${esc(w)}</p>`).join('')}</div>` : '<p class="tm-complete">Every candidate judged, every applying threat rated and owned. This model is presentable.</p>'}
     <div class="tm-meta-line">${state.profile.owner ? `Owner: ${esc(state.profile.owner)}. ` : ''}${state.profile.reviewer ? `Reviewer: ${esc(state.profile.reviewer)}.` : ''}</div>
+    ${(() => {
+      const privacy = linddunSummary(list, state.verdicts);
+      if (privacy.length === 0) return '';
+      return `<p class="tm-hint">Privacy lens: applying threats touch ${privacy.map((p) => `${esc(p.category)} (${p.threats.length})`).join(', ')}.</p>`;
+    })()}
+    ${(state.profile.imported ?? []).length ? `<p class="tm-hint">${(state.profile.imported ?? []).length} imported Threat Dragon threats are preserved in the report and re-export.</p>` : ''}
     ${diagramSvg(false)}
     <div class="tm-tiles">
       ${tile('candidates', summary.total)}

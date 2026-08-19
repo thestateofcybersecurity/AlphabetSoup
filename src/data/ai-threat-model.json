@@ -19,6 +19,10 @@
       {
         "name": "Threat Modeling Manifesto",
         "url": "https://www.threatmodelingmanifesto.org/"
+      },
+      {
+        "name": "LINDDUN privacy threat modeling",
+        "url": "https://linddun.org/"
       }
     ]
   },
@@ -253,6 +257,10 @@
             "MEASURE 3"
           ]
         }
+      ],
+      "linddun": [
+        "Disclosure of information",
+        "Identifiability"
       ]
     },
     {
@@ -453,6 +461,9 @@
             "MEASURE 3"
           ]
         }
+      ],
+      "linddun": [
+        "Disclosure of information"
       ]
     },
     {
@@ -484,6 +495,10 @@
             "GOVERN 6"
           ]
         }
+      ],
+      "linddun": [
+        "Disclosure of information",
+        "Identifiability"
       ]
     },
     {
@@ -515,6 +530,11 @@
             "MAP 4"
           ]
         }
+      ],
+      "linddun": [
+        "Disclosure of information",
+        "Non-compliance",
+        "Unawareness"
       ]
     },
     {
@@ -661,6 +681,10 @@
             "MAP 1"
           ]
         }
+      ],
+      "linddun": [
+        "Disclosure of information",
+        "Identifiability"
       ]
     },
     {
@@ -686,6 +710,9 @@
             "MAP 2"
           ]
         }
+      ],
+      "linddun": [
+        "Non-compliance"
       ]
     },
     {
@@ -788,6 +815,9 @@
             "MEASURE 3"
           ]
         }
+      ],
+      "linddun": [
+        "Disclosure of information"
       ]
     },
     {
@@ -871,6 +901,9 @@
             "MEASURE 3"
           ]
         }
+      ],
+      "linddun": [
+        "Unawareness"
       ]
     },
     {
@@ -947,7 +980,130 @@
           ]
         }
       ],
-      "scope": "system"
+      "scope": "system",
+      "linddun": [
+        "Non-compliance"
+      ]
+    },
+    {
+      "id": "T26",
+      "title": "Conversations accumulate into a linkable profile",
+      "stride": "Information disclosure",
+      "linddun": [
+        "Linkability",
+        "Identifiability"
+      ],
+      "appliesWhen": {
+        "components": [
+          "user-chat"
+        ],
+        "minData": "internal"
+      },
+      "because": "chat history is stored, and what a person asks over time reveals who they are and what they are dealing with",
+      "description": "Individually harmless prompts add up: health worries, finances, workplace conflicts, location hints. Stored transcripts become a behavioral profile linkable to the account, richer than anything the person ever agreed to share, and discoverable by anyone who later gains access to the logs.",
+      "refs": [
+        "LLM02",
+        "MAP 1"
+      ],
+      "mitigations": [
+        {
+          "text": "Set a retention period for transcripts that matches a stated purpose, and actually delete on schedule.",
+          "refs": [
+            "GOVERN 1"
+          ]
+        },
+        {
+          "text": "Separate identity from content where the use case allows: pseudonymous session ids, no silent joining of transcripts to profiles.",
+          "refs": [
+            "LLM02"
+          ]
+        },
+        {
+          "text": "Scope who and what can query stored conversations, and log access to them.",
+          "refs": [
+            "MEASURE 3"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "T27",
+      "title": "People are not told their data feeds an AI system",
+      "stride": "Repudiation",
+      "linddun": [
+        "Unawareness",
+        "Non-compliance"
+      ],
+      "appliesWhen": {
+        "components": [
+          "user-chat",
+          "training-data",
+          "batch"
+        ],
+        "minData": "confidential"
+      },
+      "because": "the system processes personal data, and privacy law expects notice, purpose, and a lawful basis before it does",
+      "description": "Customer or employee data flows into prompts, retrieval, or training without the people involved being told, without an updated privacy notice, and without anyone checking the lawful basis. The system can be technically secure and still be a regulatory finding: privacy compliance is about what you may do, not only what you protect.",
+      "refs": [
+        "GOVERN 1",
+        "MAP 4"
+      ],
+      "mitigations": [
+        {
+          "text": "Update privacy notices to name AI processing, its purposes, and any providers involved, before go-live.",
+          "refs": [
+            "GOVERN 1"
+          ]
+        },
+        {
+          "text": "Run a privacy review (DPIA where required) for use cases touching personal data, and record the lawful basis.",
+          "refs": [
+            "MAP 4"
+          ]
+        },
+        {
+          "text": "Honor deletion and objection rights across every copy: prompts, logs, indexes, and training sets.",
+          "refs": [
+            "MAP 4"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "T28",
+      "title": "The system infers more than people shared",
+      "stride": "Information disclosure",
+      "linddun": [
+        "Identifiability",
+        "Disclosure of information"
+      ],
+      "appliesWhen": {
+        "components": [
+          "output-decisions",
+          "user-chat"
+        ],
+        "minData": "internal"
+      },
+      "because": "models are inference engines, and outputs can surface sensitive attributes nobody typed in",
+      "description": "From writing style, purchase history, or question patterns, the model infers health status, seniority, mood, or identity, and states it or acts on it. Inferred personal data is still personal data: the person never disclosed it, cannot correct it, and may be harmed by decisions quietly built on it.",
+      "refs": [
+        "LLM09",
+        "GOVERN 3"
+      ],
+      "mitigations": [
+        {
+          "text": "Decide which inferred attributes are off-limits for output and decisions, and test that the system declines them.",
+          "refs": [
+            "MEASURE 2"
+          ]
+        },
+        {
+          "text": "Where inferences drive decisions, disclose that to the people affected and provide a contest path.",
+          "refs": [
+            "GOVERN 3"
+          ]
+        }
+      ]
     }
   ]
 }

@@ -35,6 +35,8 @@ export interface Threat {
   stride: StrideCategory;
   /** 'system' threats instantiate once, not per matching flow. */
   scope?: 'system' | 'flow';
+  /** LINDDUN privacy categories this threat touches, for the privacy lens. */
+  linddun?: string[];
   appliesWhen: { components: string[]; minData?: string; exposures?: string[] };
   because: string;
   description: string;
@@ -67,6 +69,21 @@ export interface SystemProfile {
   reviewer?: string;
   /** Custom diagram, when the modeler edits the canvas; absent = derived. */
   graph?: SystemGraph;
+  /** Threats carried over from an imported Threat Dragon model, read-only. */
+  imported?: ImportedThreat[];
+}
+
+/** A threat brought in from a Threat Dragon file, preserved verbatim. */
+export interface ImportedThreat {
+  /** The Threat Dragon cell id it was attached to (kept as our node/flow id). */
+  cell: string;
+  cellName: string;
+  title: string;
+  status: string;
+  severity: string;
+  type: string;
+  description: string;
+  mitigation: string;
 }
 
 /** A typed diagram node: the Threat Dragon trio, placed in a trust zone. */
@@ -282,6 +299,9 @@ export function validateThreatModel(data: ThreatModelData): string[] {
     if (!STRIDE.includes(threat.stride)) errors.push(`${where} invalid STRIDE category "${threat.stride}"`);
     if (threat.scope && threat.scope !== 'system' && threat.scope !== 'flow') {
       errors.push(`${where} invalid scope "${threat.scope}"`);
+    }
+    for (const category of threat.linddun ?? []) {
+      if (!LINDDUN_CATEGORIES.includes(category)) errors.push(`${where} invalid LINDDUN category "${category}"`);
     }
     if (threat.appliesWhen.components.length === 0) errors.push(`${where} appliesWhen.components is empty`);
     for (const c of threat.appliesWhen.components) {
@@ -632,27 +652,46 @@ export function threatDragonModel(
     data: { type: 'tm.BoundaryBox', name: zone.label, isTrustBoundary: true, hasOpenThreats: false },
   }));
 
-  const nodeCells = layout.nodes.map((node) => ({
-    id: cellIds.get(node.id)!,
-    shape: node.kind,
-    position: { x: node.x, y: node.y },
-    size: { width: node.w, height: node.h },
-    attrs: { text: { text: node.label } },
-    data: {
-      type: node.kind === 'actor' ? 'tm.Actor' : node.kind === 'store' ? 'tm.Store' : 'tm.Process',
-      name: node.label,
-      description: node.sub,
-      outOfScope: false,
-      reasonOutOfScope: '',
-      hasOpenThreats: false,
-      threats: [],
-    },
-  }));
+  const importedFor = (originalId: string) =>
+    (profile.imported ?? [])
+      .filter((t) => t.cell === originalId)
+      .map((t) => ({
+        id: id(),
+        title: t.title,
+        status: t.status,
+        severity: t.severity,
+        type: t.type,
+        description: t.description,
+        mitigation: t.mitigation,
+        modelType: 'STRIDE',
+        number: (number += 1),
+        score: '',
+      }));
+
+  const nodeCells = layout.nodes.map((node) => {
+    const carried = importedFor(node.id);
+    return {
+      id: cellIds.get(node.id)!,
+      shape: node.kind,
+      position: { x: node.x, y: node.y },
+      size: { width: node.w, height: node.h },
+      attrs: { text: { text: node.label } },
+      data: {
+        type: node.kind === 'actor' ? 'tm.Actor' : node.kind === 'store' ? 'tm.Store' : 'tm.Process',
+        name: node.label,
+        description: node.sub,
+        outOfScope: false,
+        reasonOutOfScope: '',
+        hasOpenThreats: carried.some((t) => t.status === 'Open'),
+        threats: carried,
+      },
+    };
+  });
 
   const graph = graphOf(data, profile);
   const flowCells = layout.flows.map((flow) => {
     const componentLabel = graph.flows.find((f) => f.id === flow.id)?.label ?? flow.componentId;
-    const threats = threatsFor(flow.id);
+    const threats = [...threatsFor(flow.id), ...importedFor(flow.id)];
     return {
       id: id(),
       shape: 'flow',
@@ -981,6 +1020,23 @@ ${detailSections ? `<h2>Applying threats in detail</h2>${detailSections}` : ''}
 
 ${judged.length ? `<h2>Documented judgments</h2><ul>${judged.join('')}</ul>` : ''}
 
+${(() => {
+    const privacy = linddunSummary(instances, verdicts);
+    if (privacy.length === 0) return '';
+    return `<h2>Privacy lens (LINDDUN)</h2>
+<p>Applying threats viewed through LINDDUN privacy categories; a threat can appear under more than one.</p>
+<ul>${privacy.map((entry) => `<li><strong>${e(entry.category)}:</strong> ${entry.threats.map((i) => `${e(i.threat.id)} ${e(i.threat.title)} <em>(${e(i.flow.label)})</em>`).join('; ')}</li>`).join('')}</ul>`;
+  })()}
+
+${(profile.imported ?? []).length
+    ? `<h2>Imported threats (Threat Dragon)</h2>
+<p>Carried over verbatim from the imported model, alongside this library's enumeration.</p>
+<table>
+  <thead><tr><th>Element</th><th>Threat</th><th>Type</th><th>Status</th><th>Severity</th></tr></thead>
+  <tbody>${(profile.imported ?? []).map((t) => `<tr><td>${e(t.cellName)}</td><td>${e(t.title)}</td><td>${e(t.type)}</td><td>${e(t.status)}</td><td>${e(t.severity)}</td></tr>`).join('')}</tbody>
+</table>`
+    : ''}
+
 <h2>Methodology</h2>
 <p>${e(data.meta.methodology)}</p>
 <p>Sources: ${data.meta.sources.map((s) => `<a href="${e(s.url)}">${e(s.name)}</a>`).join(', ')}.</p>
@@ -992,4 +1048,157 @@ ${judged.length ? `<h2>Documented judgments</h2><ul>${judged.join('')}</ul>` : '
 </body>
 </html>
 `;
+}
+
+// ---------------------------------------------------------------------------
+// LINDDUN privacy lens: the same candidates viewed through privacy categories.
+// ---------------------------------------------------------------------------
+
+export const LINDDUN_CATEGORIES = [
+  'Linkability',
+  'Identifiability',
+  'Non-repudiation',
+  'Detectability',
+  'Disclosure of information',
+  'Unawareness',
+  'Non-compliance',
+];
+
+/** Applying threats per LINDDUN category; categories with zero are omitted. */
+export function linddunSummary(
+  instances: FlowInstance[],
+  verdicts: Record<string, ThreatVerdict>,
+): { category: string; threats: FlowInstance[] }[] {
+  return LINDDUN_CATEGORIES.map((category) => ({
+    category,
+    threats: instances.filter(
+      (i) =>
+        (i.threat.linddun ?? []).includes(category) &&
+        (verdicts[i.key] ?? { status: 'unreviewed' }).status === 'applies',
+    ),
+  })).filter((entry) => entry.threats.length > 0);
+}
+
+// ---------------------------------------------------------------------------
+// Threat Dragon import: adopt a model made in the OWASP tool, keep its
+// topology and threats, then enrich it with this library's enumeration.
+// ---------------------------------------------------------------------------
+
+interface TdCell {
+  id?: string;
+  shape?: string;
+  position?: { x: number; y: number };
+  source?: { cell?: string };
+  target?: { cell?: string };
+  data?: {
+    name?: string;
+    description?: string;
+    type?: string;
+    isPublicNetwork?: boolean;
+    threats?: { title?: string; status?: string; severity?: string; type?: string; description?: string; mitigation?: string }[];
+  };
+}
+
+/**
+ * Parse a Threat Dragon v2 model into a system profile with a canvas graph.
+ *
+ * Topology and metadata carry over; existing threats are preserved verbatim
+ * as read-only imported threats attached to their original cells. Flows
+ * arrive unclassified on purpose: this library's threats only attach once
+ * the modeler says what each flow represents, the same question-first rule
+ * as a hand-drawn canvas. Trust zones are inferred from horizontal position.
+ */
+export function importThreatDragon(json: unknown): SystemProfile {
+  const model = json as {
+    version?: string;
+    summary?: { title?: string; owner?: string };
+    detail?: { reviewer?: string; diagrams?: { cells?: TdCell[] }[] };
+  };
+  if (!model || typeof model !== 'object' || !model.summary || !model.detail || !Array.isArray(model.detail.diagrams)) {
+    throw new Error('That file does not look like a Threat Dragon model (missing summary or diagrams).');
+  }
+  const cells = model.detail.diagrams[0]?.cells;
+  if (!Array.isArray(cells) || cells.length === 0) {
+    throw new Error('The first diagram in that model has no elements to import.');
+  }
+
+  const NODE_SHAPES: Record<string, GraphNode['kind']> = { actor: 'actor', process: 'process', store: 'store' };
+  const rawNodes = cells.filter((c) => c.shape && NODE_SHAPES[c.shape] && c.id);
+  if (rawNodes.length === 0) {
+    throw new Error('No actors, processes, or stores found in the first diagram.');
+  }
+
+  // Normalize arbitrary Threat Dragon coordinates into the three-zone layout:
+  // horizontal position picks the trust zone, vertical order is preserved.
+  const xs = rawNodes.map((c) => c.position?.x ?? 0);
+  const ys = rawNodes.map((c) => c.position?.y ?? 0);
+  const minX = Math.min(...xs);
+  const spanX = Math.max(1, Math.max(...xs) - minX);
+  const minY = Math.min(...ys);
+  const spanY = Math.max(1, Math.max(...ys) - minY);
+  const heightBudget = Math.max(180, rawNodes.length * 40);
+
+  const perZoneCount: Record<string, number> = {};
+  const nodes: GraphNode[] = rawNodes.map((cell) => {
+    const scaledX = 16 + ((cell.position!.x - minX) / spanX) * (640 - 16);
+    const zone = zoneAt(scaledX + 60);
+    const col = ZONE_COLUMNS.find((z) => z.id === zone)!;
+    const scaledY = 90 + ((cell.position!.y - minY) / spanY) * heightBudget;
+    perZoneCount[zone] = (perZoneCount[zone] ?? 0) + 1;
+    return {
+      id: cell.id!,
+      kind: NODE_SHAPES[cell.shape!],
+      label: cell.data?.name || 'Unnamed',
+      sub: (cell.data?.description || '').slice(0, 48),
+      zone,
+      x: col.x + 12,
+      y: Math.round(scaledY / 8) * 8,
+    };
+  });
+
+  // Nudge overlapping nodes apart within each zone, preserving order.
+  for (const zone of ['users', 'app', 'outside'] as const) {
+    const members = nodes.filter((n) => n.zone === zone).sort((a, b) => a.y - b.y);
+    members.forEach((n, index) => {
+      if (index > 0 && n.y < members[index - 1].y + 62) n.y = members[index - 1].y + 62;
+    });
+  }
+
+  const nodeIds = new Set(nodes.map((n) => n.id));
+  const flows: GraphFlow[] = cells
+    .filter((c) => c.shape === 'flow' && c.id && nodeIds.has(c.source?.cell ?? '') && nodeIds.has(c.target?.cell ?? ''))
+    .map((cell) => ({
+      id: cell.id!,
+      from: cell.source!.cell!,
+      to: cell.target!.cell!,
+      kind: 'plain',
+      label: cell.data?.name || 'Imported flow',
+    }));
+
+  const cellName = (id: string) =>
+    nodes.find((n) => n.id === id)?.label ?? flows.find((f) => f.id === id)?.label ?? 'Unknown element';
+  const imported: ImportedThreat[] = cells.flatMap((cell) =>
+    (cell.data?.threats ?? []).map((t) => ({
+      cell: cell.id ?? '',
+      cellName: cellName(cell.id ?? ''),
+      title: t.title ?? 'Untitled threat',
+      status: t.status ?? 'Open',
+      severity: t.severity ?? '',
+      type: t.type ?? '',
+      description: t.description ?? '',
+      mitigation: t.mitigation ?? '',
+    })),
+  );
+
+  const anyPublic = cells.some((c) => c.shape === 'flow' && c.data?.isPublicNetwork);
+  return {
+    name: model.summary.title || 'Imported threat model',
+    components: [],
+    exposure: anyPublic ? 'public' : 'internal',
+    dataClass: 'internal',
+    owner: model.summary.owner || undefined,
+    reviewer: model.detail.reviewer || undefined,
+    graph: { nodes, flows },
+    imported: imported.length > 0 ? imported : undefined,
+  };
 }

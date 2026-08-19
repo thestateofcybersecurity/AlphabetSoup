@@ -1,3 +1,4 @@
+import { readFileSync } from 'node:fs';
 import { describe, expect, it } from 'vitest';
 import threatRaw from '../src/data/ai-threat-model.json';
 import aiFrameworks from '../src/data/ai-frameworks.json';
@@ -7,6 +8,8 @@ import {
   candidateThreats,
   diagramLayout,
   flowCandidates,
+  importThreatDragon,
+  linddunSummary,
   migrateVerdicts,
   registerCsv,
   riskFor,
@@ -343,5 +346,74 @@ describe('HTML report export', () => {
     expect(hostile).not.toContain('<script>bad');
     expect(hostile).not.toContain('<img src=x');
     expect(hostile).toContain('&lt;script&gt;bad');
+  });
+});
+
+describe('LINDDUN privacy lens', () => {
+  it('annotates privacy threats with valid categories only', () => {
+    const annotated = data.threats.filter((t) => (t.linddun ?? []).length > 0);
+    expect(annotated.length).toBeGreaterThanOrEqual(10);
+    // The three privacy-specific threats exist and carry the lens.
+    for (const id of ['T26', 'T27', 'T28']) {
+      const threat = data.threats.find((t) => t.id === id);
+      expect(threat, id).toBeTruthy();
+      expect(threat!.linddun!.length, id).toBeGreaterThan(0);
+    }
+  });
+
+  it('summarizes applying threats per category, omitting empty ones', () => {
+    const p = profile({ components: ['user-chat'], dataClass: 'confidential' });
+    const list = flowCandidates(data, p);
+    const t26 = list.find((i) => i.threat.id === 'T26')!;
+    const summary = linddunSummary(list, { [t26.key]: { status: 'applies' } });
+    const categories = summary.map((s) => s.category);
+    expect(categories).toContain('Linkability');
+    expect(categories).toContain('Identifiability');
+    expect(categories).not.toContain('Detectability');
+    expect(linddunSummary(list, {})).toEqual([]);
+  });
+});
+
+describe('Threat Dragon import', () => {
+  const fixture = JSON.parse(readFileSync(new URL('../e2e/fixtures/td-sample.json', import.meta.url), 'utf8')) as unknown;
+
+  it('rejects files that are not Threat Dragon models', () => {
+    expect(() => importThreatDragon({ hello: 'world' })).toThrow(/does not look like/);
+    expect(() => importThreatDragon({ summary: {}, detail: { diagrams: [{ cells: [] }] } })).toThrow(/no elements/);
+  });
+
+  it('imports topology, metadata, and preserved threats', () => {
+    const imported = importThreatDragon(fixture);
+    expect(imported.name).toBe('Imported Support Bot');
+    expect(imported.owner).toBe('Jordan');
+    expect(imported.reviewer).toBe('Riley');
+    // isPublicNetwork on a flow raises the exposure inference.
+    expect(imported.exposure).toBe('public');
+    expect(imported.graph!.nodes.map((n) => n.id).sort()).toEqual(['cell-db', 'cell-user', 'cell-web']);
+    expect(imported.graph!.flows).toHaveLength(2);
+    // Question-first survives import: flows arrive unclassified.
+    expect(imported.graph!.flows.every((f) => f.kind === 'plain')).toBe(true);
+    expect(flowCandidates(data, imported)).toEqual([]);
+    // Leftmost node lands in the users zone, the rest in later zones.
+    expect(imported.graph!.nodes.find((n) => n.id === 'cell-user')!.zone).toBe('users');
+    // Both existing threats preserved with their cells named.
+    expect(imported.imported).toHaveLength(2);
+    expect(imported.imported![0].cellName).toBe('Chat backend');
+  });
+
+  it('round-trips imported threats through the Threat Dragon export', () => {
+    const imported = importThreatDragon(fixture);
+    // Classify one flow so our library enumerates alongside the carried threats.
+    imported.graph!.flows[0].kind = 'user-chat';
+    const list = flowCandidates(data, imported);
+    expect(list.length).toBeGreaterThan(0);
+    let n = 0;
+    const model = threatDragonModel(data, imported, list, {}, () => `id-${n++}`) as {
+      detail: { diagrams: { cells: { data?: { threats?: { title: string }[] } }[] }[] };
+    };
+    const titles = model.detail.diagrams[0].cells.flatMap((c) => c.data?.threats ?? []).map((t) => t.title);
+    expect(titles).toContain('Session fixation on chat tokens');
+    expect(titles).toContain('Downgrade to plain HTTP');
+    expect(titles.some((t) => t.includes('T01'))).toBe(true);
   });
 });
