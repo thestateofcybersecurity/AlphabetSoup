@@ -1992,5 +1992,151 @@
         "href": "/disclosure/"
       }
     ]
+  },
+  {
+    "slug": "pdpa-vs-gdpr-what-changes",
+    "title": "PDPA vs GDPR: What Actually Changes for a US Company",
+    "description": "Singapore and Thailand both call their privacy law the PDPA, and neither one is GDPR. Here is what your existing program covers and what it misses.",
+    "category": "Explainer",
+    "author": "Parker Brissette",
+    "date": "2026-08-20",
+    "readingMinutes": 6,
+    "tags": [
+      "pdpa",
+      "gdpr",
+      "privacy",
+      "compliance",
+      "data protection"
+    ],
+    "body": [
+      {
+        "type": "p",
+        "text": "If your company already runs a [GDPR](/?q=GDPR) program and sales just closed a customer in Singapore or Bangkok, legal's first question is whether the work you already did counts. Mostly, yes. Both countries run a Personal Data Protection Act, both abbreviated [PDPA](/?q=PDPA), and both borrow the vocabulary your privacy program already speaks. But they are two different laws sharing a nickname, and the gaps are specific enough that a company can sail through a European audit and still be quietly out of compliance in Asia."
+      },
+      {
+        "type": "h2",
+        "text": "Start with what carries over"
+      },
+      {
+        "type": "p",
+        "text": "The expensive part of any privacy program is knowing what data you hold, where it lives, and how long you keep it. That work is jurisdiction neutral. If you built a real record of processing activities rather than a spreadsheet someone abandoned in 2023, you have already paid for most of a PDPA program. These carry over:"
+      },
+      {
+        "type": "list",
+        "items": [
+          "**Data inventory and processing records.** Add a jurisdiction column and you are most of the way there.",
+          "**Subject rights workflow.** Singapore's rights are narrower than GDPR's. Thailand's are close to a full match.",
+          "**Vendor and processor contracts.** Your data processing addendum is the right shape. It needs new clauses, not a new document.",
+          "**Retention schedules.** Singapore requires you to stop retaining data once its purpose ends, the same discipline as storage limitation.",
+          "**Security controls.** Both laws state security duties in general terms, and your existing control set answers them."
+        ]
+      },
+      {
+        "type": "p",
+        "text": "What does not travel is the machinery specific to GDPR: the six lawful bases, the 72 hour clock as a universal rule, and your standard contractual clauses. Assuming they apply everywhere is where programs go wrong."
+      },
+      {
+        "type": "h2",
+        "text": "Two laws, one acronym"
+      },
+      {
+        "type": "p",
+        "text": "Thailand's PDPA reads like a translation of GDPR. It has lawful bases that map almost one to one, extraterritorial reach over companies offering goods or services to people in Thailand, controller and processor roles, and a supervisory authority. If Thailand is your only exposure, treat it as a GDPR variant and work the deltas."
+      },
+      {
+        "type": "p",
+        "text": "Singapore's PDPA is a different animal. It passed in 2012, before GDPR existed, and it is built around consent rather than a menu of lawful bases. You need consent to collect, use, or disclose personal data, and everything else is an enumerated exception. Amendments in the early 2020s added exceptions for legitimate interests and business improvement, but the model is still permission first with named carve outs, not a broad balancing test."
+      },
+      {
+        "type": "quote",
+        "text": "Thailand's PDPA is GDPR with different deadlines. Singapore's PDPA is a consent statute wearing similar clothes."
+      },
+      {
+        "type": "h2",
+        "text": "Consent, and the obligation nobody plans for"
+      },
+      {
+        "type": "p",
+        "text": "The practical consequence is that legitimate interest reasoning you documented for GDPR will not automatically hold in Singapore. The exceptions there are specific, and relying on one requires an assessment on record showing the benefit and how you reduced residual risk."
+      },
+      {
+        "type": "p",
+        "text": "Then there is the piece that consistently surprises US companies: Singapore's Do Not Call provisions. Before sending a marketing call or text to a Singapore number, you generally have to check the national registry unless you hold clear and unambiguous consent. It sits in the same statute as the data protection rules, so it lands on the privacy program even though it is a marketing control. Nothing in your GDPR work touches it, so find out who owns outbound campaigns before you tell anyone you are compliant."
+      },
+      {
+        "type": "p",
+        "text": "Thailand turns the other way. Consent must be explicit, separate from other terms, in plain language, and as easy to withdraw as it was to give. Legitimate interest exists there too, but guidance is still maturing, so many companies default to consent when in doubt."
+      },
+      {
+        "type": "h2",
+        "text": "Breach notification runs on different clocks"
+      },
+      {
+        "type": "p",
+        "text": "GDPR gives you 72 hours from awareness to notify the supervisory authority, and Thailand adopted the same window, so half your runbook is already correct."
+      },
+      {
+        "type": "p",
+        "text": "Singapore works differently and the difference is easy to miss. You assess without undue delay whether a breach is notifiable, and it is notifiable if it is likely to cause significant harm or affects a significant number of individuals. Once you determine that, you notify the commission within three calendar days. Calendar, not business. A Friday determination does not buy you until Wednesday."
+      },
+      {
+        "type": "p",
+        "text": "So your [incident response runbook](/tools/runbook/) needs a jurisdiction lookup early, not a footnote at the bottom. The team deciding severity at hour two is the team that starts the clock. Build a notification matrix listing each regime, its trigger, who files, and the deadline."
+      },
+      {
+        "type": "h2",
+        "text": "DPO, local representation, and transfers"
+      },
+      {
+        "type": "p",
+        "text": "Singapore requires every organisation to designate at least one [data protection officer](/?q=DPO) and publish that person's business contact information. There is no risk based threshold and no size exemption, so a two person subsidiary needs a named DPO the same as a bank does. The role can be an existing employee or outsourced, but it has to be real and reachable."
+      },
+      {
+        "type": "p",
+        "text": "Thailand takes the GDPR approach, requiring a DPO where core activities involve regular large scale monitoring or sensitive data. Foreign controllers targeting people in Thailand generally need a local representative."
+      },
+      {
+        "type": "p",
+        "text": "On transfers, neither law treats your European clauses as a magic wand. Singapore imposes a transfer limitation obligation requiring the recipient to be bound to a comparable standard of protection, usually by contract. Thailand uses an adequacy style determination plus recognized safeguards such as binding corporate rules. Add jurisdiction specific transfer language to your vendor paper and use a [policy generator](/tools/policy-generator/) to keep it consistent."
+      },
+      {
+        "type": "h2",
+        "text": "Penalties, and who feels them"
+      },
+      {
+        "type": "p",
+        "text": "Singapore raised its penalty ceiling to the higher of ten percent of annual local turnover or one million Singapore dollars for larger organisations. Enforcement decisions are published, and reading a few is more instructive than any summary. The recurring themes are careless vendor management, unpatched systems, and data kept accessible after its purpose ended."
+      },
+      {
+        "type": "p",
+        "text": "Thailand adds something GDPR does not have. Alongside administrative fines and civil damages that can include punitive multiples, certain misuse of sensitive personal data carries criminal liability, including imprisonment, and directors can be personally exposed. That is why Thailand deserves its own risk entry, not a line under international privacy."
+      },
+      {
+        "type": "p",
+        "text": "The right move is a delta assessment, not a second privacy program. Map your control set against each PDPA and the gaps usually cluster in three places: consent handling and the Do Not Call check for Singapore, notification timing in the runbook, and transfer language in vendor contracts. Use a [regulation mapper](/tools/reg-mapper/) or a [framework crosswalk](/tools/crosswalk/) to make that comparison reviewable and hand legal a gap list with owners. A program that already knows where its data lives is not starting over when a new jurisdiction shows up. It is filling in a column."
+      }
+    ],
+    "related": [
+      {
+        "label": "PDPA in the glossary",
+        "href": "/?q=PDPA"
+      },
+      {
+        "label": "GDPR in the glossary",
+        "href": "/?q=GDPR"
+      },
+      {
+        "label": "DPO in the glossary",
+        "href": "/?q=DPO"
+      },
+      {
+        "label": "Regulation Mapper",
+        "href": "/tools/reg-mapper/"
+      },
+      {
+        "label": "Framework Crosswalk",
+        "href": "/tools/crosswalk/"
+      }
+    ]
   }
 ]
