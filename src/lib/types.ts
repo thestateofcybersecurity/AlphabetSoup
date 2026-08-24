@@ -41,6 +41,13 @@ export interface AcronymEntry extends AcronymIndexEntry {
   sources: Source[];
   /** Curated related / commonly-confused acronym keys. */
   related?: string[];
+  /**
+   * Override for the `<title>` tag, without the site suffix. The default
+   * "KEY - Expansion" form reads well but matches almost nothing people type;
+   * entries that earn impressions on a different phrasing set this to lead
+   * with the question being asked. Only the title changes, never the H1.
+   */
+  seoTitle?: string;
 }
 
 export type AcronymData = Record<string, AcronymEntry>;

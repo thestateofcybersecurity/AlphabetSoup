@@ -176,6 +176,18 @@
     ],
     "RAT": [
       "eset"
+    ],
+    "HOTP": [
+      "proton-pass"
+    ],
+    "WEBAUTHN": [
+      "amazon-yubikey"
+    ],
+    "NVD": [
+      "tenable"
+    ],
+    "CPE": [
+      "tenable"
     ]
   }
 }

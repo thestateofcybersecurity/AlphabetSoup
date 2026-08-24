@@ -13,8 +13,32 @@ describe('AI frameworks dataset', () => {
   it('covers the four frameworks with the expected counts', () => {
     const counts: Record<string, number> = {};
     for (const entry of ai) counts[entry.frameworkCode] = (counts[entry.frameworkCode] ?? 0) + 1;
-    expect(counts).toEqual({ AIRMF: 19, 'OWASP-LLM': 10, ATLAS: 16, ISO42001: 9 });
-    expect(ai).toHaveLength(54);
+    expect(counts).toEqual({ AIRMF: 19, 'OWASP-LLM': 10, ATLAS: 117, ISO42001: 9 });
+    expect(ai).toHaveLength(155);
+  });
+
+  it('carries every ATLAS tactic and top-level technique', () => {
+    const atlas = ai.filter((e) => e.frameworkCode === 'ATLAS');
+    const tactics = atlas.filter((e) => /^AML\.TA\d+$/.test(e.code));
+    const techniques = atlas.filter((e) => /^AML\.T\d+$/.test(e.code));
+    // 16 tactics and 101 top-level techniques in ATLAS 2026.07. Subtechniques
+    // (AML.TXXXX.NNN) are deliberately not enumerated.
+    expect(tactics).toHaveLength(16);
+    expect(techniques).toHaveLength(101);
+    expect(tactics.length + techniques.length).toBe(atlas.length);
+    for (const entry of tactics) expect(entry.category).toBe('ATLAS Tactics');
+    for (const entry of techniques) expect(entry.category).toBe('ATLAS Techniques');
+  });
+
+  it('keeps framework entries contiguous so prev/next never crosses a boundary', () => {
+    const seen = new Set<string>();
+    let current = '';
+    for (const entry of ai) {
+      if (entry.frameworkCode === current) continue;
+      expect(seen.has(entry.frameworkCode)).toBe(false);
+      seen.add(entry.frameworkCode);
+      current = entry.frameworkCode;
+    }
   });
 
   it('uses only the registered framework codes', () => {

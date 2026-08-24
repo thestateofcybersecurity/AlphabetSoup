@@ -50,6 +50,19 @@ export function validateData(data: AcronymData): string[] {
     if (/—/.test(explanation + entry.expansion)) {
       errors.push(`${where} contains an em dash`);
     }
+    const seoTitle = entry.seoTitle?.trim();
+    if (seoTitle !== undefined) {
+      if (seoTitle.length < 10 || seoTitle.length > 70) {
+        errors.push(`${where} seoTitle length ${seoTitle.length} outside 10-70`);
+      }
+      if (/—/.test(seoTitle)) {
+        errors.push(`${where} seoTitle contains an em dash`);
+      }
+      // A title that drops the acronym loses the query it was written for.
+      if (!seoTitle.toUpperCase().includes(key)) {
+        errors.push(`${where} seoTitle does not mention "${key}"`);
+      }
+    }
     if (!Array.isArray(entry.sources) || entry.sources.length === 0) {
       errors.push(`${where} needs at least one source`);
     } else {

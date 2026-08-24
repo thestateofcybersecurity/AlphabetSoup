@@ -14,9 +14,13 @@ test('AI security page searches by code and filters by framework', async ({ page
   await page.locator('.pill', { hasText: 'OWASP LLM Top 10' }).click();
   await expect(page.locator('#result-meta')).toContainText('10 matches');
 
-  // The MITRE ATLAS filter yields the 16 tactics.
+  // The MITRE ATLAS filter yields the 16 tactics plus 101 top-level techniques,
+  // more than one page of results, so the meta reports the shown count too.
   await page.locator('.pill', { hasText: 'MITRE ATLAS' }).click();
-  await expect(page.locator('#result-meta')).toContainText('16 matches');
+  await expect(page.locator('#result-meta')).toContainText('117 matches');
+  // A technique page is reachable from the filtered list, not just the tactics.
+  await page.locator('#search').fill('AML.T0051');
+  await expect(page.locator('.fw-card').first().locator('.fw-id')).toHaveText('AML.T0051');
 });
 
 test('generated AI framework page renders metaphor, translation, source, and pager', async ({ page }) => {
