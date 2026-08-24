@@ -2138,5 +2138,148 @@
         "href": "/tools/crosswalk/"
       }
     ]
+  },
+  {
+    "slug": "popia-compliance-explained",
+    "title": "POPIA Compliance Explained: South Africa's Privacy Law in Practice",
+    "description": "South Africa's POPIA borrows GDPR vocabulary and then changes the rules. Here is what a security lead actually has to build to operationalize it.",
+    "category": "Explainer",
+    "author": "Parker Brissette",
+    "date": "2026-08-24",
+    "readingMinutes": 6,
+    "tags": [
+      "popia",
+      "privacy",
+      "compliance",
+      "south africa",
+      "data protection"
+    ],
+    "body": [
+      {
+        "type": "p",
+        "text": "South Africa's Protection of Personal Information Act reads like something drafted by people who studied the European privacy rules closely and then deliberately did several things differently. If you are the security lead who inherited [POPIA](/?q=POPIA) because it appeared in a customer contract or the company opened a Johannesburg office, most of your existing privacy work counts. The rest is about the parts that do not map cleanly."
+      },
+      {
+        "type": "h2",
+        "text": "The vocabulary changes before the work does"
+      },
+      {
+        "type": "p",
+        "text": "POPIA calls the entity that decides why and how data gets processed the **responsible party**, not the controller. The vendor processing on your behalf is the **operator**, not the processor."
+      },
+      {
+        "type": "p",
+        "text": "The substantive difference is who counts as a data subject. POPIA protects the personal information of **juristic persons**, meaning companies and other legal entities, not just living people. Your supplier list and a partner's financial details are in scope in a way they are not under [GDPR](/?q=GDPR). The Act also covers paper records in a filing system. If you scoped your processing records to natural persons and digital systems only, you have a gap on day one."
+      },
+      {
+        "type": "h2",
+        "text": "The eight conditions are your control map"
+      },
+      {
+        "type": "p",
+        "text": "POPIA does not hand you six lawful bases. It gives you eight conditions for lawful processing and you must satisfy all of them at once. Read them as a control checklist, not a menu:"
+      },
+      {
+        "type": "list",
+        "items": [
+          "**Accountability.** You must be able to show you meet the other seven. Auditors open here.",
+          "**Processing limitation.** Collect the minimum, with a lawful justification, from the data subject where practical.",
+          "**Purpose specification.** Define the purpose before you collect, disclose it, and delete or de-identify once it ends.",
+          "**Further processing limitation.** Any new use must be compatible with the original purpose.",
+          "**Information quality.** Keep records accurate and current for the purpose you defined.",
+          "**Openness.** Document your processing and tell data subjects what you are doing at the point of collection.",
+          "**Security safeguards.** Identify risks, apply reasonable technical and organizational measures, verify they work, keep them current.",
+          "**Data subject participation.** People can ask what you hold and require correction or deletion of information that is inaccurate, excessive, or unlawfully obtained."
+        ]
+      },
+      {
+        "type": "p",
+        "text": "Consent is one justification among several, not the default; contract performance, legal obligation, and legitimate interests all appear. Teams that build a consent banner as their entire POPIA response have the wrong shape of program."
+      },
+      {
+        "type": "h2",
+        "text": "The Information Officer is a real job, not a title"
+      },
+      {
+        "type": "p",
+        "text": "This is the requirement most companies get wrong and the easiest one for a regulator to check. Under POPIA the Information Officer is by default the head of the organization: the CEO or most senior person in the entity, not your privacy counsel or your CISO. You can appoint deputies in writing to do the daily work, but accountability stays at the top. The Information Officer must also be registered with the Information Regulator before taking up the duties."
+      },
+      {
+        "type": "p",
+        "text": "The regulations attach concrete duties to the role:"
+      },
+      {
+        "type": "list",
+        "items": [
+          "Develop, implement, and monitor a compliance framework.",
+          "Ensure a personal information impact assessment is done for each processing activity.",
+          "Publish a manual under the Promotion of Access to Information Act describing what records you hold and how to request them.",
+          "Run internal awareness sessions on POPIA and the Regulator's guidance.",
+          "Handle data subject requests and act as the contact point for the Regulator."
+        ]
+      },
+      {
+        "type": "p",
+        "text": "POPIA never uses the phrase [DPIA](/?q=DPIA), but the personal information impact assessment is the same instrument under another name. Reuse your existing template and add a column mapping each finding to one of the eight conditions. The [Regulation Mapper](/tools/reg-mapper/) helps line POPIA up against the regimes you already report on."
+      },
+      {
+        "type": "h2",
+        "text": "Special information, children, and prior authorisation"
+      },
+      {
+        "type": "p",
+        "text": "POPIA prohibits processing special personal information outright, then carves out exceptions. The categories are religious or philosophical beliefs, race or ethnic origin, trade union membership, political persuasion, health or sex life, biometric information, and criminal behaviour. Biometrics being named explicitly matters if you run fingerprint time clocks or facial access control on site. Children get their own regime: processing a child's information generally requires the consent of a competent person."
+      },
+      {
+        "type": "p",
+        "text": "Then there is the requirement with no real GDPR analogue. **Prior authorisation** means that before you start certain processing you must notify the Regulator and wait for its review. Triggers include using unique identifiers for a new purpose, processing criminal behaviour information for third parties, credit reporting, and transferring special or children's information to a country without adequate protection. This is a start and stop gate, not a filing you make afterward, and finding it late has delayed product launches."
+      },
+      {
+        "type": "h2",
+        "text": "Transfers out and the breach duty"
+      },
+      {
+        "type": "p",
+        "text": "Section 72 governs sending [PII](/?q=PII) outside South Africa. You need one of a short list of gateways, and three carry most of the weight: the recipient is bound by a law, binding corporate rules, or an agreement providing substantially similar protection with comparable onward transfer limits; the data subject consents; or the transfer is necessary to perform a contract with them. Your existing data processing addendum is close to the right shape and needs POPIA specific clauses, not a fresh document."
+      },
+      {
+        "type": "p",
+        "text": "Breach notification is where teams built on European muscle memory stumble. POPIA requires you to notify the Regulator and the affected data subjects **as soon as reasonably possible** after discovering that personal information was accessed or acquired by an unauthorised person. There is no 72 hour number to anchor on."
+      },
+      {
+        "type": "quote",
+        "text": "A fixed deadline tells you when you are late. An open standard means you have to defend your timeline, which is harder, not easier."
+      },
+      {
+        "type": "p",
+        "text": "The content and channel rules are prescriptive in a way GDPR's are not. Notice must be in writing and delivered by mail, by email, published on your website, published in the news media, or as the Regulator directs. It must give enough detail for the person to take protective measures, and name the unauthorised person where known. Your operators must tell you immediately when they discover a compromise, so verify that clause is in your contracts. Fold this into your existing [incident runbook](/tools/runbook/) rather than a separate playbook nobody reads at 2am."
+      },
+      {
+        "type": "p",
+        "text": "Starting from zero: confirm your Information Officer and register them, widen the data inventory to include juristic persons and paper records, assess your processing against the eight conditions, then close the gaps around special information, prior authorisation, and transfers. The enforcement risk is real, since the Act provides for administrative fines and, for some offences, criminal penalties. The better reason to do it properly is that the eight conditions are a fair description of a working privacy program. Build to them and the next jurisdiction costs a mapping exercise instead of another year."
+      }
+    ],
+    "related": [
+      {
+        "label": "POPIA in the glossary",
+        "href": "/?q=POPIA"
+      },
+      {
+        "label": "PII in the glossary",
+        "href": "/?q=PII"
+      },
+      {
+        "label": "DPIA in the glossary",
+        "href": "/?q=DPIA"
+      },
+      {
+        "label": "Regulation Mapper",
+        "href": "/tools/reg-mapper/"
+      },
+      {
+        "label": "Framework Crosswalk",
+        "href": "/tools/crosswalk/"
+      }
+    ]
   }
 ]
