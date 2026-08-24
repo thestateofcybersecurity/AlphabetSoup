@@ -1214,6 +1214,7 @@
   "CHFI": {
     "expansion": "Computer Hacking Forensic Investigator",
     "display": "CHFI",
+    "seoTitle": "CHFI Certification: Computer Hacking Forensic Investigator",
     "category": "certifications",
     "difficulty": "medium",
     "explanation": "CHFI is EC-Council's digital forensics certification, covering evidence acquisition, disk and network analysis, and documenting findings so they hold up in court. It targets forensic investigators, law enforcement, and incident responders who must reconstruct cybercrime. Its emphasis on legally defensible process, chain of custody, and courtroom-ready reporting is what separates forensic work from routine incident handling.",
@@ -3088,6 +3089,7 @@
   "DRP": {
     "expansion": "Disaster Recovery Plan",
     "display": "DRP",
+    "seoTitle": "What Is DRP in Cyber Security? Disaster Recovery Plan Explained",
     "category": "governance",
     "difficulty": "easy",
     "explanation": "The technology-focused companion to a business continuity plan: the documented procedures for restoring IT systems, data, and infrastructure after a disaster. It specifies backup strategies, alternate sites, recovery steps, and who does what. Testing the DRP regularly is what separates a real capability from a binder on a shelf.",
@@ -7094,6 +7096,7 @@
   "PDPA": {
     "expansion": "Personal Data Protection Act",
     "display": "PDPA",
+    "seoTitle": "What Is PDPA? Singapore's Personal Data Protection Act",
     "category": "governance",
     "difficulty": "hard",
     "explanation": "Singapore's data protection law governing the collection, use, and disclosure of personal data by private sector organizations. It requires consent, purpose limitation, and reasonable security arrangements, and includes a Do Not Call registry. The Personal Data Protection Commission enforces it, with financial penalties for organizations that mishandle data. Several other countries, including Thailand and Malaysia, have similarly named laws.",
@@ -7543,6 +7546,7 @@
   "PTES": {
     "expansion": "Penetration Testing Execution Standard",
     "display": "PTES",
+    "seoTitle": "PTES: The Penetration Testing Execution Standard, Explained",
     "category": "appsec",
     "difficulty": "hard",
     "explanation": "PTES is a community standard that defines the phases of a professional penetration test, from pre-engagement scoping and intelligence gathering through exploitation and reporting. It gives clients and testers a shared expectation of what a thorough test includes, so a pentest is more than just running a scanner. It fits the verification phase of the lifecycle, when an application or environment is tested like a real adversary would.",
@@ -8643,6 +8647,7 @@
   "SLE": {
     "expansion": "Single Loss Expectancy",
     "display": "SLE",
+    "seoTitle": "SLE: Single Loss Expectancy Formula and How to Calculate It",
     "category": "governance",
     "difficulty": "hard",
     "explanation": "The expected monetary loss from a single occurrence of a specific risk event, calculated as asset value multiplied by the exposure factor. It answers the question of how much one bad day would cost. It feeds into annualized loss expectancy when combined with how often the event is expected to happen.",
@@ -9936,6 +9941,7 @@
   "UPN": {
     "expansion": "User Principal Name",
     "display": "UPN",
+    "seoTitle": "UPN: User Principal Name in Active Directory and Entra ID",
     "category": "identity",
     "difficulty": "hard",
     "explanation": "A UPN is the internet-style login name for an Active Directory or Entra ID account, formatted like an email address such as user@domain.com. It is the primary sign-in identifier in modern Microsoft environments and must be consistent for hybrid identity synchronization to work. UPN mismatches are a classic cause of broken SSO.",
@@ -10344,6 +10350,7 @@
   "WIPS": {
     "expansion": "Wireless Intrusion Prevention System",
     "display": "WIPS",
+    "seoTitle": "WIPS: Wireless Intrusion Prevention System, and How It Beats WIDS",
     "category": "network",
     "difficulty": "hard",
     "explanation": "A WIPS extends wireless detection with active response, automatically containing threats like rogue access points by jamming their connections or blocking clients from joining them. Sensors are placed throughout a facility to cover the radio environment. It protects organizations from wireless attacks that bypass every wired defense.",
@@ -10826,6 +10833,7 @@
   "OFFSEC": {
     "expansion": "Offensive Security",
     "display": "OFFSEC",
+    "seoTitle": "OffSec: Offensive Security, Kali Linux, and the OSCP",
     "category": "certifications",
     "difficulty": "easy",
     "explanation": "OffSec is the training company behind Kali Linux and the OSCP certification, known for exams that are entirely hands-on: candidates must compromise live machines in a timed lab and submit a professional report. Its catalog spans penetration testing (OSCP), web exploitation (OSWE), exploit development (OSED), wireless (OSWP), and defensive analysis (OSDA). The credentials carry weight because they cannot be passed by memorizing question banks.",

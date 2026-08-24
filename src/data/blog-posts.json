@@ -560,7 +560,7 @@
   },
   {
     "slug": "siem-soar-xdr-explained",
-    "title": "SIEM vs SOAR vs XDR: What Each One Actually Does",
+    "title": "SIEM vs SOAR vs XDR vs EDR: What Each One Actually Does",
     "description": "A plain-English breakdown of SIEM, SOAR, and XDR, plus where EDR and MDR fit, so you can stop treating them as interchangeable buzzwords.",
     "category": "Spotlight",
     "author": "Parker Brissette",

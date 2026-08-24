@@ -301,6 +301,15 @@ function affiliateBlock(key: string): string {
     </div>`;
 }
 
+/**
+ * The `<title>` for a definition page. Defaults to "KEY - Expansion", which is
+ * accurate but rarely how the term is searched; entries carrying a `seoTitle`
+ * lead with the phrasing Search Console shows landing on the page instead.
+ */
+function definitionTitle(entry: AcronymEntry): string {
+  return entry.seoTitle?.trim() || `${entry.display} - ${entry.expansion}`;
+}
+
 function definitionPage(key: string, entry: AcronymEntry): string {
   const slug = slugForKey(key);
   const url = `${SITE}/definitions/${slug}.html`;
@@ -327,7 +336,7 @@ function definitionPage(key: string, entry: AcronymEntry): string {
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="color-scheme" content="light dark">
-  <title>${esc(entry.display)} - ${esc(entry.expansion)} | Cybersecurity Alphabet Soup</title>
+  <title>${esc(definitionTitle(entry))} | Cybersecurity Alphabet Soup</title>
   <meta name="description" content="${description}">
   <link rel="canonical" href="${url}">
   <meta property="og:type" content="article">
