@@ -2281,5 +2281,128 @@
         "href": "/tools/crosswalk/"
       }
     ]
+  },
+  {
+    "slug": "ptes-phase-by-phase",
+    "title": "The Penetration Testing Execution Standard (PTES), Phase by Phase",
+    "description": "PTES breaks a penetration test into seven phases. What each phase owes the buyer, how it compares to OSSTMM and WSTG, and what belongs in the SOW.",
+    "category": "Explainer",
+    "author": "Parker Brissette",
+    "date": "2026-08-27",
+    "readingMinutes": 6,
+    "tags": [
+      "ptes",
+      "penetration testing",
+      "osstmm",
+      "wstg",
+      "scoping"
+    ],
+    "body": [
+      {
+        "type": "p",
+        "text": "Most penetration tests go wrong before anyone sends a packet. They go wrong in the scoping call, when the buyer cannot say what they actually want tested, the vendor does not push back, and both sides sign a statement of work vague enough to guarantee an argument at the readout. The [Penetration Testing Execution Standard](/?q=PTES) exists because a group of practitioners got tired of having that argument. Starting in 2009, they wrote down what a complete test contains, from the first pricing conversation to the final report, so a buyer and a tester could point at the same document and mean the same thing."
+      },
+      {
+        "type": "p",
+        "text": "PTES is the answer to a procurement problem at least as much as a technical one."
+      },
+      {
+        "type": "h2",
+        "text": "The seven phases, and what each one owes you"
+      },
+      {
+        "type": "p",
+        "text": "PTES breaks an engagement into seven phases. If you are buying a test, each phase maps to something you should be able to ask for by name."
+      },
+      {
+        "type": "list",
+        "items": [
+          "**Pre-engagement interactions.** The scoping and rules-of-engagement work that makes the rest of the exercise legal.",
+          "**Intelligence gathering.** [OSINT](/?q=OSINT) and reconnaissance against the target. What can an attacker learn before touching your systems?",
+          "**Threat modeling.** Deciding which attackers and which assets matter, so the test spends effort where a breach would actually hurt.",
+          "**Vulnerability analysis.** Finding candidate weaknesses, from scanner output to manual review.",
+          "**Exploitation.** Proving a weakness is real by using it.",
+          "**Post exploitation.** Establishing what the access is worth. Can the tester reach the payroll database, or just a forgotten print server?",
+          "**Reporting.** The only deliverable most executives will ever see."
+        ]
+      },
+      {
+        "type": "p",
+        "text": "What I keep seeing is tests that quietly stop at phase four. The tester ran a scanner, sorted the findings by [CVSS](/?q=CVSS) score, and wrote them up. That is a vulnerability assessment. It is a reasonable thing to buy on purpose and an expensive thing to buy by accident when the invoice says penetration test."
+      },
+      {
+        "type": "h2",
+        "text": "Pre-engagement decides whether the test is legal"
+      },
+      {
+        "type": "p",
+        "text": "Everything the tester does in phases two through six is a crime without the authorization built in phase one. So the statement of work is not administrative overhead. It is the document that separates a penetration test from unauthorized access, and it has to be specific enough that a lawyer and an on-call engineer at 2 a.m. both read it the same way."
+      },
+      {
+        "type": "p",
+        "text": "Get the following in writing."
+      },
+      {
+        "type": "list",
+        "items": [
+          "Exact targets in scope, by IP range, domain, and application name, plus anything explicitly out of scope.",
+          "Testing windows with dates and hours, and a named contact on each side who can halt testing immediately.",
+          "Which techniques are allowed. Social engineering, physical entry, and denial of service each need their own yes or no.",
+          "Cloud provider rules. AWS dropped its pre-approval requirement for customer pentesting of eight core services back in 2019, but other providers and most SaaS vendors still expect notice.",
+          "Evidence handling. Where screenshots and captured credentials live during the test, and when they get destroyed.",
+          "Whether a retest of fixed findings is included, and the window for claiming it."
+        ]
+      },
+      {
+        "type": "h2",
+        "text": "The middle phases are where thin tests hide"
+      },
+      {
+        "type": "p",
+        "text": "Threat modeling is the phase most likely to be skipped, and its absence is easy to spot. A test with no threat model treats every finding as equally interesting, which is how you end up with a 60-page report where a default SNMP string on a lab switch sits two pages away from a reachable domain admin path, ranked by scanner severity rather than by what an attacker who wanted your data would do first."
+      },
+      {
+        "type": "p",
+        "text": "Exploitation and post exploitation are what you are paying a human for. A [CVE](/?q=CVE) with a frightening score might be unreachable in your environment, and a boring misconfiguration might chain into full compromise. [EPSS](/?q=EPSS) can estimate how likely a vulnerability is to be exploited in the wild. Only exploitation shows what it means in your network. Ask the vendor how they document that chain, because an evidence trail through post exploitation is what lets you defend a remediation budget six months later."
+      },
+      {
+        "type": "h2",
+        "text": "Where PTES sits against OSSTMM, WSTG, and 800-115"
+      },
+      {
+        "type": "p",
+        "text": "PTES is not the only standard, and picking one matters less than making the vendor commit to any of them. NIST SP 800-115 came out in September 2008 and reads like it. It is still what federal agencies and their assessors reach for, and it covers testing technique at a depth PTES does not attempt, but it says almost nothing about the commercial mechanics of buying a test. [OSSTMM](/?q=OSSTMM) version 3 landed in 2010 with its own metrics system, and almost nobody buying a commercial test asks for it by name. The [OWASP Web Security Testing Guide](/?q=WSTG) is the opposite case. Version 4.2 shipped in December 2020, it is actively maintained, and for web applications it is the checklist your tester should be working from."
+      },
+      {
+        "type": "p",
+        "text": "My honest ranking is annoying, because the best engagement structure comes from a standard that has barely been touched in a decade. Use PTES to shape the engagement and the statement of work. Use WSTG to judge depth on anything with a login page. Keep 800-115 in your back pocket for government-adjacent work, and skip OSSTMM unless a contract forces it on you."
+      },
+      {
+        "type": "p",
+        "text": "None of this requires you to become a tester. It requires you to ask which of the seven phases you are buying and what each one will hand you, then walk away from the engagement letter that cannot answer. A vendor who can talk through every phase before the contract is signed will usually work through them during the test too. The one who cannot is selling you a scan."
+      }
+    ],
+    "related": [
+      {
+        "label": "PTES in the glossary",
+        "href": "/?q=PTES"
+      },
+      {
+        "label": "OSSTMM in the glossary",
+        "href": "/?q=OSSTMM"
+      },
+      {
+        "label": "WSTG in the glossary",
+        "href": "/?q=WSTG"
+      },
+      {
+        "label": "CVSS in the glossary",
+        "href": "/?q=CVSS"
+      },
+      {
+        "label": "EPSS in the glossary",
+        "href": "/?q=EPSS"
+      }
+    ]
   }
 ]
