@@ -7,6 +7,14 @@ name: Verify analytics beacon
 # Scheduled rather than tied to deploys on purpose: the repo no longer contains
 # anything that could break the beacon, so the realistic failure is the
 # dashboard setting being changed between deploys.
+#
+# Since 2026-08-31 Cloudflare bot-scores GitHub Actions traffic and skips
+# beacon injection for it, so a page load from CI cannot prove the dashboard
+# toggle is on (real browsers verified healthy the same day the old check went
+# red). The browser spec now asserts what CI can observe deterministically
+# (proxied, no manual snippet, right token when injected), and the API step
+# below provides the strong recorded-pageviews guarantee once a
+# CF_WEB_ANALYTICS_TOKEN secret (Account Analytics:Read) is configured.
 on:
   schedule:
     - cron: '0 11 * * 1' # Mondays 11:00 UTC, an hour after the link check
@@ -29,3 +37,24 @@ jobs:
       - run: npm ci
       - run: npx playwright install --with-deps chromium
       - run: npm run check:analytics
+      - name: Verify pageviews are being recorded (needs CF_WEB_ANALYTICS_TOKEN)
+        env:
+          CF_TOKEN: ${{ secrets.CF_WEB_ANALYTICS_TOKEN }}
+          ACCOUNT_TAG: 96e4b77717b234b0ee6d171b7cc645c9
+        run: |
+          if [ -z "$CF_TOKEN" ]; then
+            echo "No CF_WEB_ANALYTICS_TOKEN secret configured; skipping the recorded-pageviews check."
+            echo "Add an API token with Account Analytics:Read to restore the strong guarantee."
+            exit 0
+          fi
+          since=$(date -u -d '48 hours ago' +%Y-%m-%dT%H:%M:%SZ)
+          count=$(curl -s -X POST https://api.cloudflare.com/client/v4/graphql \
+            -H "Authorization: Bearer $CF_TOKEN" \
+            -H "Content-Type: application/json" \
+            --data "{\"query\":\"query { viewer { accounts(filter: {accountTag: \\\"$ACCOUNT_TAG\\\"}) { rumPageloadEventsAdaptiveGroups(filter: {datetime_gt: \\\"$since\\\"}, limit: 1) { count } } } }\"}" \
+            | jq '[.data.viewer.accounts[0].rumPageloadEventsAdaptiveGroups[]?.count] | add // 0')
+          echo "Pageviews recorded in the last 48 hours: $count"
+          if [ "$count" -lt 1 ]; then
+            echo "::error::Web Analytics recorded zero pageviews in 48 hours; check the Automatic setup toggle on the zone"
+            exit 1
+          fi
