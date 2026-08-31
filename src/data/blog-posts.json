@@ -2404,5 +2404,109 @@
         "href": "/?q=EPSS"
       }
     ]
+  },
+  {
+    "slug": "dfars-7012-explained",
+    "title": "DFARS 252.204-7012: What the Clause Actually Requires",
+    "description": "The DFARS safeguarding clause has been in defense contracts since 2016. What counts as covered defense information, the 110 controls, and the 72-hour clock.",
+    "category": "Explainer",
+    "author": "Parker Brissette",
+    "date": "2026-08-31",
+    "readingMinutes": 6,
+    "tags": [
+      "dfars",
+      "cui",
+      "nist 800-171",
+      "cmmc",
+      "defense contracting"
+    ],
+    "body": [
+      {
+        "type": "p",
+        "text": "[DFARS](/?q=DFARS) 252.204-7012 is not a [CMMC](/assess/cmmc/) requirement. It has been in defense contracts since 2016, it binds the moment covered defense information touches a system you control, and no assessor has to show up for it to apply. Suppliers can usually quote the 72-hour reporting rule back to me. Fewer can say what triggers that clock, which of their systems are in scope, or what they owe the Department of Defense after the report goes in."
+      },
+      {
+        "type": "p",
+        "text": "Everything DoD has built since, CMMC included, sits on top of that one clause."
+      },
+      {
+        "type": "h2",
+        "text": "Covered defense information is broader than what gets marked"
+      },
+      {
+        "type": "p",
+        "text": "The clause reaches unclassified controlled technical information and the other categories in the [CUI](/?q=CUI) Registry that require safeguarding, when that information is either handed to you by DoD or developed by you in performance of the contract. Those last six words are where scope gets away from people. A drawing your own engineer produces under the contract can be covered defense information even though nobody delivered it to you with a marking on it. On engineering data, distribution statements B through F under DoDI 5230.24 are the usual signal."
+      },
+      {
+        "type": "p",
+        "text": "Marking is the government's job and the government is inconsistent at it. I lean toward treating anything that reads like controlled technical information as covered and putting the question to the contracting officer in writing, because the alternative is finding out during an incident that unmarked data was in scope the whole time. Ask in writing. Keep the answer."
+      },
+      {
+        "type": "h2",
+        "text": "The 110 requirements, and which revision you are scored against"
+      },
+      {
+        "type": "p",
+        "text": "Adequate security under 7012 means NIST SP 800-171, and for DoD contracts that still means Revision 2 with its 110 requirements across 14 families. Revision 3 arrived in May 2024 with a restructured set of 97 requirements and did not replace Rev 2 for contract purposes. Build to Rev 2, because Rev 2 is what your score is calculated from. Read Rev 3 anyway so the eventual switch is not a fire drill."
+      },
+      {
+        "type": "p",
+        "text": "Scoring is where I end up arguing with clients. A [self-assessment](/assess/) under the DoD methodology starts at 110 and subtracts weighted points for every requirement you have not implemented, 5 points for the heaviest ones, then 3, then 1, with a floor of negative 203. That number goes into SPRS, primes read it, and a bad one costs work. What I keep seeing is the score treated as the deliverable rather than the byproduct, with requirements marked implemented on the strength of a policy document describing a control that nobody has actually configured."
+      },
+      {
+        "type": "p",
+        "text": "A 110 sitting on a system security plan nobody maintains is worth less than an honest 88 with a dated plan of action."
+      },
+      {
+        "type": "h2",
+        "text": "Seventy-two hours, plus the 90 days nobody budgets for"
+      },
+      {
+        "type": "p",
+        "text": "Rapid reporting means filing a cyber incident report at dibnet.dod.mil within 72 hours of discovering an incident that affects covered defense information or your ability to perform operationally critical support, and that submission requires a DoD-approved medium assurance certificate that your company cannot obtain in the middle of a breach, which is a common way suppliers blow the window. Get the certificate now. Know who holds it."
+      },
+      {
+        "type": "p",
+        "text": "The clause also requires you to preserve and protect images of affected systems and relevant monitoring data for at least 90 days from the date you submit the report, so DoD can request media if it decides to look further. Ninety days of forensic images is a storage and chain-of-custody problem, and it belongs in your incident response plan before you need it. Reporting is not an admission of fault, and the clause says as much. Suppliers still stall, usually on advice from someone who never read paragraph (c)."
+      },
+      {
+        "type": "h2",
+        "text": "Cloud and flow-down are where the clause bites"
+      },
+      {
+        "type": "p",
+        "text": "If an external cloud provider stores, processes, or transmits your covered defense information, that provider has to meet the FedRAMP Moderate baseline or a documented equivalent, and it has to take on the incident reporting and media preservation duties as well. DoD CIO tightened equivalency in a December 2023 memo requiring a full body of evidence assessed by a FedRAMP-recognized third party assessment organization. Partial equivalency is not a thing. That paragraph is why defense work keeps landing in GCC High tenants, and it is a cost to price before signing rather than after."
+      },
+      {
+        "type": "p",
+        "text": "Paragraph (m) flows the clause down to subcontractors whose performance involves covered defense information or operationally critical support. Most primes flow it to the entire vendor list because deciding is harder than not deciding, and it lands on companies that will never see a controlled drawing. If you hold the prime contract, scope the flow-down to where the data actually travels and write down your reasoning. If you are the sub and the clause arrived with no covered defense information anywhere near your work, say so in writing rather than quietly inheriting an obligation you cannot meet. The [regulation mapper](/tools/reg-mapper/) is a decent way to see what else attaches to the same data."
+      },
+      {
+        "type": "p",
+        "text": "CMMC is the verification layer bolted on top of all of this. The program rule at 32 CFR part 170 took effect on 16 December 2024, and the acquisition clause that puts assessment levels into solicitations followed in 2025. None of that changes what 252.204-7012 already demands of a company holding covered defense information right now. The 72-hour clock does not wait for a certification schedule. Go look at the date on your system security plan, and start there."
+      }
+    ],
+    "related": [
+      {
+        "label": "DFARS in the glossary",
+        "href": "/?q=DFARS"
+      },
+      {
+        "label": "CUI in the glossary",
+        "href": "/?q=CUI"
+      },
+      {
+        "label": "CMMC self-assessment",
+        "href": "/assess/cmmc/"
+      },
+      {
+        "label": "Regulation Mapper",
+        "href": "/tools/reg-mapper/"
+      },
+      {
+        "label": "Assessments",
+        "href": "/assess/"
+      }
+    ]
   }
 ]
