@@ -3007,8 +3007,8 @@
     "explanation": "A role mandated by the GDPR for organizations that process large amounts of personal data or monitor people systematically. The DPO independently monitors privacy compliance, advises on data protection impact assessments, and serves as the contact point for regulators and data subjects. The role must be free from conflicts of interest and cannot be punished for doing its job.",
     "sources": [
       {
-        "name": "European Commission",
-        "url": "https://commission.europa.eu/law/law-topic/data-protection/reform/rules-business-and-organisations/obligations/data-protection-officers_en"
+        "name": "GDPR (Regulation (EU) 2016/679), Articles 37 to 39",
+        "url": "https://eur-lex.europa.eu/eli/reg/2016/679/oj"
       }
     ],
     "related": [
@@ -10471,10 +10471,6 @@
     "difficulty": "medium",
     "explanation": "X.509 is the international standard that defines the format of public key certificates, including the fields for subject, issuer, validity period, and extensions. Every HTTPS certificate your browser checks is an X.509 certificate, profiled for the Internet by RFC 5280. It is the foundation of web PKI, code signing, and most enterprise identity systems.",
     "sources": [
-      {
-        "name": "ITU-T Recommendation X.509",
-        "url": "https://www.itu.int/rec/T-REC-X.509"
-      },
       {
         "name": "IETF RFC 5280",
         "url": "https://datatracker.ietf.org/doc/html/rfc5280"
