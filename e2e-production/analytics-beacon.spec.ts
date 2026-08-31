@@ -35,8 +35,6 @@ import { expect, test } from '@playwright/test';
  */
 const EXPECTED_TOKEN = 'c9c9ccea7fe64f859f2a114e59ec0197';
 
-const BEACON_HOST = 'static.cloudflareinsights.com';
-
 /**
  * One page per generator code path. The definition and framework pages ship no
  * JavaScript of their own and carry the bulk of organic search traffic, so
@@ -57,7 +55,8 @@ for (const { path, what } of PAGES) {
     // 2. No manual snippet in the source: it double-counts alongside edge
     //    injection. Source-level, so bot-scoring cannot hide it.
     const html = await response.text();
-    expect(html.includes(BEACON_HOST), `${path}: a manual beacon snippet is in the page source; it double-counts whenever edge injection also runs`).toBe(false);
+    const manualSnippet = /<script[^>]+src="https:\/\/static\.cloudflareinsights\.com\//i;
+    expect(manualSnippet.test(html), `${path}: a manual beacon snippet is in the page source; it double-counts whenever edge injection also runs`).toBe(false);
 
     // 3. Rendered check: CI traffic is bot-scored and usually gets no
     //    injection, so absence does not fail. Presence with the wrong token
