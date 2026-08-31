@@ -1,5 +1,5 @@
 {
-  "note": "Topic queue for the twice-weekly blog cadence. The publishing routine picks the first topic whose slug is not already in blog-posts.json, writes a full post from the brief, and ships it. Add more topics to the end of the list to extend the cadence; edit freely. Ordering is deliberate near the front: topics with measured search demand in Search Console sit ahead of evergreen ones, so the cadence spends its next slots where impressions already exist. Briefs that name a sector and a constraint (a small team, a utility, a district, a defense supplier) get cited by AI assistants far more than generic explainers, so prefer that framing.",
+  "note": "Topic queue for the twice-weekly blog cadence. The publishing routine picks the first topic whose slug is not already in blog-posts.json, writes a full post from the brief, and ships it. Add more topics to the end of the list to extend the cadence; edit freely. Ordering is deliberate near the front: topics with measured search demand in Search Console sit ahead of evergreen ones, so the cadence spends its next slots where impressions already exist. Briefs that name a sector and a constraint (a small team, a utility, a district, a defense supplier) get cited by AI assistants far more than generic explainers, so prefer that framing. Provenance: the demand-ranked run at the front, sftp-vs-ftps-vs-tftp through hitech-vs-hipaa, was ordered on Google Search Console impressions for Aug 4 to 29, 2026, the property's first four weeks of data (file transfer 407, tcp 262, pdpa 225, scim 173, ptes 120, otp 105, dfars 83, nerc 76, ferpa 65, hitech/hipaa 63, chfi 49; iso-27001-annex-a-tour sits last on 32 impressions but holds the site's best average position, 46.6). Networking protocol acronyms were the largest cluster in that data and had no coverage at all, hence the three transport and file transfer additions. Bing Webmaster data was unavailable at the time, so this ranking is Google only. Re-measure before reshuffling this run rather than reordering it on intuition.",
   "topics": [
     {
       "slug": "cis-controls-ig1-starter",
@@ -125,50 +125,28 @@
       ]
     },
     {
-      "slug": "ptes-phase-by-phase",
-      "title": "The Penetration Testing Execution Standard (PTES), Phase by Phase",
+      "slug": "sftp-vs-ftps-vs-tftp",
+      "title": "SFTP vs FTPS vs TFTP: Picking a File Transfer That Survives an Audit",
       "category": "Explainer",
-      "brief": "Walk the seven PTES phases end to end (pre-engagement interactions, intelligence gathering, threat modeling, vulnerability analysis, exploitation, post exploitation, reporting), what a buyer should expect from each, and how PTES compares to OSSTMM, OWASP WSTG, and the NIST SP 800-115 approach. Include what to put in a statement of work so scope and rules of engagement are unambiguous.",
+      "brief": "Sort out the three file transfer acronyms for a hospital or utility team still running nightly file drops with a vendor and no network engineer to ask. Cover what each protocol actually is, which one rides SSH and which one wraps FTP in TLS, the ports and firewall implications of each, why TFTP has no authentication at all and belongs nowhere near production data, and what an auditor expects to see when a control calls for encrypted transfer in transit.",
       "links": [
-        "/?q=PTES",
-        "/?q=OSSTMM",
-        "/?q=WSTG"
+        "/?q=SFTP",
+        "/?q=FTPS",
+        "/?q=TFTP",
+        "/?q=SSH",
+        "/tools/cloud-baseline/"
       ]
     },
     {
-      "slug": "dfars-7012-explained",
-      "title": "DFARS 252.204-7012: What the Clause Actually Requires",
+      "slug": "tcp-udp-and-what-security-people-need",
+      "title": "TCP vs UDP: What Security People Actually Need to Know",
       "category": "Explainer",
-      "brief": "Walk a defense supplier through the DFARS safeguarding clause: what counts as covered defense information, the NIST 800-171 obligation it points at, the 72-hour incident reporting duty, cloud and subcontractor flow-down, and how it relates to CMMC assessment levels.",
+      "brief": "Explain the transport layer for a SOC analyst on a small team who reads firewall logs and tunes detections but never took a networking course. Cover the handshake versus connectionless delivery, why that difference decides what your logs can even prove, how it shapes spoofing and flood attacks, why UDP services get abused for amplification, and how the distinction shows up in firewall rules, IDS tuning, and scan results.",
       "links": [
-        "/?q=DFARS",
-        "/?q=CUI",
-        "/tools/reg-mapper/",
-        "/assess/"
-      ]
-    },
-    {
-      "slug": "ferpa-for-edtech-vendors",
-      "title": "FERPA for EdTech Vendors, in Plain English",
-      "category": "Explainer",
-      "brief": "Explain FERPA from the vendor side rather than the school side: what an education record is, the school official exception that most EdTech contracts rely on, directory information, parent and eligible-student rights, and the security controls a district will ask you to evidence.",
-      "links": [
-        "/?q=FERPA",
-        "/?q=PII",
-        "/tools/reg-mapper/",
-        "/tools/trust-package/"
-      ]
-    },
-    {
-      "slug": "hitech-vs-hipaa",
-      "title": "HITECH vs HIPAA: What the Amendment Actually Changed",
-      "category": "Explainer",
-      "brief": "Separate the 1996 statute from the 2009 amendment: breach notification, direct liability and enforcement for business associates, the tiered penalty structure, and the audit expectations that followed. Aimed at anyone who keeps seeing both acronyms and cannot tell which one imposes what.",
-      "links": [
-        "/?q=HIPAA",
-        "/?q=HITECH",
-        "/?q=PHI",
-        "/tools/reg-mapper/"
+        "/?q=TCP",
+        "/?q=UDP",
+        "/?q=ICMP",
+        "/?q=DMZ"
       ]
     },
     {
@@ -184,15 +162,27 @@
       ]
     },
     {
-      "slug": "nerc-cip-for-utilities",
-      "title": "NERC CIP for Utilities, in Plain English",
+      "slug": "scim-provisioning-explained",
+      "title": "SCIM: Automating Joiners, Movers, and Leavers",
       "category": "Explainer",
-      "brief": "Introduce the critical infrastructure protection standards for someone new to the bulk electric system: asset categorization as high, medium, or low impact, the electronic and physical security perimeters, personnel risk assessment, supply chain, and what an audit actually asks for. Note where CIP is stricter than the IT frameworks readers already know.",
+      "brief": "Explain SCIM for a school district or small IT team still deprovisioning accounts by hand from a spreadsheet. Cover what SCIM does, how provisioning differs from authentication so SAML and OIDC stop getting confused with it, what actually breaks without it (orphaned accounts, ex-staff keeping access, access reviews nobody can complete), and how automated provisioning maps to the account management controls an assessor will ask about.",
       "links": [
-        "/?q=NERC",
-        "/?q=ICS",
-        "/?q=SCADA",
-        "/frameworks/nist-csf/"
+        "/?q=SCIM",
+        "/?q=SAML",
+        "/?q=OIDC",
+        "/?q=IAM",
+        "/frameworks/cis/"
+      ]
+    },
+    {
+      "slug": "ptes-phase-by-phase",
+      "title": "The Penetration Testing Execution Standard (PTES), Phase by Phase",
+      "category": "Explainer",
+      "brief": "Walk the seven PTES phases end to end (pre-engagement interactions, intelligence gathering, threat modeling, vulnerability analysis, exploitation, post exploitation, reporting), what a buyer should expect from each, and how PTES compares to OSSTMM, OWASP WSTG, and the NIST SP 800-115 approach. Include what to put in a statement of work so scope and rules of engagement are unambiguous.",
+      "links": [
+        "/?q=PTES",
+        "/?q=OSSTMM",
+        "/?q=WSTG"
       ]
     },
     {
@@ -205,6 +195,42 @@
         "/?q=TOTP",
         "/?q=HOTP",
         "/?q=FIDO2"
+      ]
+    },
+    {
+      "slug": "dfars-7012-explained",
+      "title": "DFARS 252.204-7012: What the Clause Actually Requires",
+      "category": "Explainer",
+      "brief": "Walk a defense supplier through the DFARS safeguarding clause: what counts as covered defense information, the NIST 800-171 obligation it points at, the 72-hour incident reporting duty, cloud and subcontractor flow-down, and how it relates to CMMC assessment levels.",
+      "links": [
+        "/?q=DFARS",
+        "/?q=CUI",
+        "/tools/reg-mapper/",
+        "/assess/"
+      ]
+    },
+    {
+      "slug": "nerc-cip-for-utilities",
+      "title": "NERC CIP for Utilities, in Plain English",
+      "category": "Explainer",
+      "brief": "Introduce the critical infrastructure protection standards for someone new to the bulk electric system: asset categorization as high, medium, or low impact, the electronic and physical security perimeters, personnel risk assessment, supply chain, and what an audit actually asks for. Note where CIP is stricter than the IT frameworks readers already know.",
+      "links": [
+        "/?q=NERC",
+        "/?q=ICS",
+        "/?q=SCADA",
+        "/frameworks/nist-csf/"
+      ]
+    },
+    {
+      "slug": "ferpa-for-edtech-vendors",
+      "title": "FERPA for EdTech Vendors, in Plain English",
+      "category": "Explainer",
+      "brief": "Explain FERPA from the vendor side rather than the school side: what an education record is, the school official exception that most EdTech contracts rely on, directory information, parent and eligible-student rights, and the security controls a district will ask you to evidence.",
+      "links": [
+        "/?q=FERPA",
+        "/?q=PII",
+        "/tools/reg-mapper/",
+        "/tools/trust-package/"
       ]
     },
     {
@@ -230,6 +256,18 @@
         "/tools/crosswalk/",
         "/?q=ISMS",
         "/assess/"
+      ]
+    },
+    {
+      "slug": "hitech-vs-hipaa",
+      "title": "HITECH vs HIPAA: What the Amendment Actually Changed",
+      "category": "Explainer",
+      "brief": "Separate the 1996 statute from the 2009 amendment: breach notification, direct liability and enforcement for business associates, the tiered penalty structure, and the audit expectations that followed. Aimed at anyone who keeps seeing both acronyms and cannot tell which one imposes what.",
+      "links": [
+        "/?q=HIPAA",
+        "/?q=HITECH",
+        "/?q=PHI",
+        "/tools/reg-mapper/"
       ]
     },
     {
