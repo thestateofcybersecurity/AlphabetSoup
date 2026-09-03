@@ -2508,5 +2508,127 @@
         "href": "/assess/"
       }
     ]
+  },
+  {
+    "slug": "sftp-vs-ftps-vs-tftp",
+    "title": "SFTP vs FTPS vs TFTP: Picking a File Transfer That Survives an Audit",
+    "description": "SFTP rides SSH on one port. FTPS wraps FTP in TLS and drags a passive port range behind it. TFTP has no password field. How to pick and defend one.",
+    "category": "Explainer",
+    "author": "Parker Brissette",
+    "date": "2026-09-03",
+    "readingMinutes": 6,
+    "tags": [
+      "sftp",
+      "ftps",
+      "tftp",
+      "file transfer",
+      "encryption in transit"
+    ],
+    "body": [
+      {
+        "type": "p",
+        "text": "[SFTP](/?q=SFTP) and [FTPS](/?q=FTPS) are not the same protocol with a letter moved around. They share a rough purpose and almost nothing else. One is a subsystem of [SSH](/?q=SSH). The other is ordinary FTP with TLS bolted onto the front of it. The confusion is not the reader's fault. A vendor writes \"secure FTP\" on a datasheet and means whichever one their product ships."
+      },
+      {
+        "type": "p",
+        "text": "So when that vendor tells your team they support secure file transfer for the nightly drop, which one do you ask for, and what do you have to open to make it work? Follow it all the way down and it stops being a protocol comparison. It turns into a firewall decision and a key ownership decision, in that order."
+      },
+      {
+        "type": "h2",
+        "text": "One rides SSH. One wraps FTP in TLS."
+      },
+      {
+        "type": "p",
+        "text": "The IETF never actually finished SFTP. It is a subsystem of SSH, riding the transport defined in the 2006 architecture RFCs, and the file transfer draft got to version 6 and expired while every vendor shipped version 3 anyway. (That is why two SFTP servers can still disagree about file locking.) It runs on TCP 22. One connection, one port, commands and data inside the same encrypted channel."
+      },
+      {
+        "type": "p",
+        "text": "FTPS is FTP. RFC 4217 arrived in 2005 and described how a client sends AUTH TLS on the control connection at port 21 and negotiates encryption before the login goes across. That is explicit FTPS. Implicit FTPS assumes TLS from the first byte on port 990, predates the RFC, and is still shipping in products sold today. Under either flavor the control channel and the data channel are separate TCP connections, and that one detail is the entire operational story."
+      },
+      {
+        "type": "h2",
+        "text": "Your firewall decides this argument"
+      },
+      {
+        "type": "p",
+        "text": "FTP opens a second connection for every transfer. In passive mode the server picks a high port and tells the client to come get the data there, so the firewall has to permit an inbound range on top of 21, commonly something like 50000 to 51000. Once the control channel is encrypted, the firewall's FTP helper can no longer read the response that names the port, so it cannot open one on demand and the whole range gets pinned open permanently. What I keep seeing is FTPS chosen because 21 and 990 were already allowed, followed a week later by a change request to open a thousand inbound ports so transfers complete. That team traded a cleartext password for a much larger attack surface and then wrote \"encrypted in transit\" in the control evidence."
+      },
+      {
+        "type": "p",
+        "text": "SFTP needs 22. That is the list."
+      },
+      {
+        "type": "p",
+        "text": "If a vendor supports both, take SFTP. That is the hill I will die on. The single-port model survives NAT, and it survives the network engineer who left in 2023 with the passive range documentation."
+      },
+      {
+        "type": "h2",
+        "text": "TFTP has no password field"
+      },
+      {
+        "type": "p",
+        "text": "There is no password field. RFC 1350 published [TFTP](/?q=TFTP) in 1992 as a deliberately tiny protocol for machines that need to pull a file before they have an operating system to pull it with, and calling it a weaker cousin of FTP gets the risk wrong. UDP 69, no authentication, no encryption, no directory listing. Anyone who can reach the port reads whatever the server serves, and on plenty of appliances that is one directory nobody has opened since install day."
+      },
+      {
+        "type": "p",
+        "text": "It is still everywhere in 2026, and deleting it is not the play. Switch and firewall config backups ride it. So does PXE boot, and so does a lot of desk phone provisioning. The work is boundary work. TFTP belongs on a management VLAN carrying no patient records and no cardholder data, and it never shows up in a control narrative as the answer to how files move between you and a third party. If it does show up there, that is the finding, and no segmentation diagram talks an assessor out of it."
+      },
+      {
+        "type": "h2",
+        "text": "What an assessor is actually looking for"
+      },
+      {
+        "type": "p",
+        "text": "The control language is vaguer than people expect. NIST SP 800-171 control 3.13.8, renumbered 03.13.08 when Revision 3 landed in May 2024, asks for cryptographic mechanisms that prevent unauthorized disclosure of [CUI](/?q=CUI) in transit unless physical safeguards are doing that job instead. PCI DSS v4.0 requirement 4.2.1 asks for strong cryptography on account data crossing open public networks. The HIPAA Security Rule at 164.312(e) makes transmission encryption addressable, which is the word that has been getting hospitals in trouble since the 2005 compliance date. Not one of them names a protocol."
+      },
+      {
+        "type": "p",
+        "text": "What gets asked for in the room is narrower than the control text and easier to fail:"
+      },
+      {
+        "type": "list",
+        "items": [
+          "The protocol and the version, written down somewhere that is not an email. \"Secure FTP\" in a vendor contract is evidence of nothing.",
+          "TLS 1.2 or better with the weak ciphers turned off, if you went the FTPS route. A 2013-era FTP server still defaulting to TLS 1.0 will fail an external scan long before it fails an audit.",
+          "A named owner for the SSH keys or certificates. Not a team inbox. A rotation interval somebody has actually run.",
+          "Proof that TFTP is not in the path.",
+          "Logs showing which files moved and whether the transfer completed, because \"the drop failed silently for six weeks\" is an availability finding and an integrity one."
+        ]
+      },
+      {
+        "type": "p",
+        "text": "The finding I run into most often is none of those. It is a public key added to authorized_keys in 2019 for a contractor who finished the project and went home, still trusted, still working fine. The protocol was never the problem. Nobody owned the keys."
+      },
+      {
+        "type": "p",
+        "text": "I genuinely do not care whether that runs on OpenSSH with a chroot or on a commercial managed file transfer appliance with a dashboard. Pick the one your team will still be patching in three years. What I do not know yet is how much longer FTPS has. TLS 1.3 support across FTP servers is still uneven, the firewall behavior has not improved since 2005, and every new integration I get quoted goes to SFTP or to an HTTPS API. I would not call it dead. I also would not build anything new on it."
+      },
+      {
+        "type": "p",
+        "text": "So, the answer. If you are the analyst who owes a vendor questionnaire by Friday and the nightly drop is already running, ask for SFTP on 22 with key-based authentication and write the host fingerprint down. Take explicit FTPS on 21 with a documented passive range if SFTP genuinely is not on offer, and get the TLS version in writing. Keep TFTP on the management plane, away from the data you are being assessed on. Then go find out who rotates the keys, because that is the part that fails."
+      }
+    ],
+    "related": [
+      {
+        "label": "SFTP in the glossary",
+        "href": "/?q=SFTP"
+      },
+      {
+        "label": "FTPS in the glossary",
+        "href": "/?q=FTPS"
+      },
+      {
+        "label": "TFTP in the glossary",
+        "href": "/?q=TFTP"
+      },
+      {
+        "label": "SSH in the glossary",
+        "href": "/?q=SSH"
+      },
+      {
+        "label": "Cloud Baseline tool",
+        "href": "/tools/cloud-baseline/"
+      }
+    ]
   }
 ]
