@@ -1,5 +1,5 @@
 {
-  "note": "Topic queue for the twice-weekly blog cadence. The publishing routine picks the first topic whose slug is not already in blog-posts.json, writes a full post from the brief, and ships it. Add more topics to the end of the list to extend the cadence; edit freely. Ordering is deliberate near the front: topics with measured search demand in Search Console sit ahead of evergreen ones, so the cadence spends its next slots where impressions already exist. Briefs that name a sector and a constraint (a small team, a utility, a district, a defense supplier) get cited by AI assistants far more than generic explainers, so prefer that framing. Provenance: the demand-ranked run at the front, sftp-vs-ftps-vs-tftp through hitech-vs-hipaa, was ordered on Google Search Console impressions for Aug 4 to 29, 2026, the property's first four weeks of data (file transfer 407, tcp 262, pdpa 225, scim 173, ptes 120, otp 105, dfars 83, nerc 76, ferpa 65, hitech/hipaa 63, chfi 49; iso-27001-annex-a-tour sits last on 32 impressions but holds the site's best average position, 46.6). Networking protocol acronyms were the largest cluster in that data and had no coverage at all, hence the three transport and file transfer additions. Bing Webmaster data was unavailable at the time, so this ranking is Google only. Re-measure before reshuffling this run rather than reordering it on intuition.",
+  "note": "Topic queue for the twice-weekly blog cadence. The publishing routine picks the first topic whose slug is not already in blog-posts.json, writes a full post from the brief, and ships it. Add more topics to the end of the list to extend the cadence; edit freely. Ordering is deliberate near the front: topics with measured search demand in Search Console sit ahead of evergreen ones, so the cadence spends its next slots where impressions already exist. Briefs that name a sector and a constraint (a small team, a utility, a district, a defense supplier) get cited by AI assistants far more than generic explainers, so prefer that framing. Provenance: the demand-ranked run at the front, sftp-vs-ftps-vs-tftp through hitech-vs-hipaa, was ordered on Google Search Console impressions for Aug 4 to 29, 2026, the property's first four weeks of data (file transfer 407, tcp 262, pdpa 225, scim 173, ptes 120, otp 105, dfars 83, nerc 76, ferpa 65, hitech/hipaa 63, chfi 49; iso-27001-annex-a-tour sits last on 32 impressions but holds the site's best average position, 46.6). Networking protocol acronyms were the largest cluster in that data and had no coverage at all, hence the three transport and file transfer additions. Bing Webmaster data was unavailable at the time, so this ranking is Google only. Re-measure before reshuffling this run rather than reordering it on intuition. Second measurement, September 7 2026, covering August 5 to September 5 (Google) and the same window on Bing: four topics were repositioned at the front of the unpublished queue on that data. cis-control-6-access-management-ig1, nist-csf-2-starter-subcategories, and popia-pdpa-compliance-tooling were added, and iso-27001-annex-a-tour was moved up from last place. Rationale: control-identifier searches are the only queries where this site reaches page one (MITRE ATLAS technique IDs at positions 1 to 12, CSF subcategory codes at 8 to 11, CIS safeguard exact-text queries at 6 to 11, ISO Annex A control numbers at 19 to 36), while every consumer-product and certification-decision term on the hypothesis watchlist drew zero impressions across the whole window. Bing added the strongest single signal: 456 AI citations from a zero baseline on August 5, of which 361 (79 percent) went to cis-controls-ig1-starter alone, so the named-control-set starter format is the best-evidenced shape on the site and these briefs deliberately repeat it. The consumer-affiliate run at slugs 5 through 7 has now published and produced no measurable impressions, which is why no further product reviews were queued. Re-measure before reshuffling again.",
   "topics": [
     {
       "slug": "cis-controls-ig1-starter",
@@ -138,6 +138,54 @@
       ]
     },
     {
+      "slug": "cis-control-6-access-management-ig1",
+      "title": "CIS Control 6 on an IG1 Budget: Access Management Without a Platform",
+      "category": "Explainer",
+      "brief": "Work Control 6 for a 40-person manufacturer with one IT generalist and no identity platform: which of the eight safeguards are IG1, what each one means when your directory is a single Microsoft 365 tenant, how to run access grant and revoke as a checklist instead of a workflow engine, and what to buy first when the checklist stops scaling. Name the safeguards by number so the piece answers people searching a safeguard ID, and link every one to its plain-English page.",
+      "links": [
+        "/frameworks/cis/",
+        "/assess/?a=cis-ig1",
+        "/?q=MFA",
+        "/?q=RBAC"
+      ]
+    },
+    {
+      "slug": "nist-csf-2-starter-subcategories",
+      "title": "NIST CSF 2.0: The Subcategories to Start With When You Have No Program",
+      "category": "Explainer",
+      "brief": "The CSF has 106 subcategories and a rural hospital or a county government with one security hire cannot start with all of them. Pick a defensible starting subset across Govern, Identify, and Protect, explain why each earns its place before the others, and show how the Govern function changes the order people used to follow under 1.1. Cite subcategory identifiers directly (GV.RR-02, ID.AM-05, PR.AA-01) because those codes are what people search, and link each to its plain-English page.",
+      "links": [
+        "/frameworks/nist-csf/",
+        "/tools/crosswalk/",
+        "/assess/",
+        "/?q=CSF"
+      ]
+    },
+    {
+      "slug": "popia-pdpa-compliance-tooling",
+      "title": "Tooling for POPIA and PDPA: What a Small Team Actually Needs to Buy",
+      "category": "Explainer",
+      "brief": "A South African or Singaporean SME with no privacy counsel wants to know which of the compliance tooling categories are load-bearing and which are optional. Cover the records of processing, consent capture, subject request handling, breach notification timing, and cross-border transfer documentation each law expects, say plainly where a spreadsheet is still adequate and where it stops being adequate, and separate the requirements the two regimes share from the ones they do not.",
+      "links": [
+        "/?q=POPIA",
+        "/?q=PDPA",
+        "/tools/reg-mapper/",
+        "/?q=DPO"
+      ]
+    },
+    {
+      "slug": "iso-27001-annex-a-tour",
+      "title": "A Tour of ISO 27001 Annex A, Theme by Theme",
+      "category": "Explainer",
+      "brief": "Walk the 93 Annex A controls through the four 2022 themes (organizational, people, physical, technological), explain what changed from the 2013 fourteen-clause structure, and show how to use the Statement of Applicability without treating all 93 as mandatory. Point at the per-control pages for detail.",
+      "links": [
+        "/frameworks/iso/",
+        "/tools/crosswalk/",
+        "/?q=ISMS",
+        "/assess/"
+      ]
+    },
+    {
       "slug": "tcp-udp-and-what-security-people-need",
       "title": "TCP vs UDP: What Security People Actually Need to Know",
       "category": "Explainer",
@@ -244,18 +292,6 @@
         "/?q=DFIR",
         "/careers/",
         "/quiz/"
-      ]
-    },
-    {
-      "slug": "iso-27001-annex-a-tour",
-      "title": "A Tour of ISO 27001 Annex A, Theme by Theme",
-      "category": "Explainer",
-      "brief": "Walk the 93 Annex A controls through the four 2022 themes (organizational, people, physical, technological), explain what changed from the 2013 fourteen-clause structure, and show how to use the Statement of Applicability without treating all 93 as mandatory. Point at the per-control pages for detail.",
-      "links": [
-        "/frameworks/iso/",
-        "/tools/crosswalk/",
-        "/?q=ISMS",
-        "/assess/"
       ]
     },
     {
