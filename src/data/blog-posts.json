@@ -2630,5 +2630,143 @@
         "href": "/tools/cloud-baseline/"
       }
     ]
+  },
+  {
+    "slug": "cis-control-6-access-management-ig1",
+    "title": "CIS Control 6 on an IG1 Budget: Access Management Without a Platform",
+    "description": "CIS Control 6 at IG1 is five safeguards, not an identity project. What 6.1 through 6.5 ask for when your directory is one Microsoft 365 tenant.",
+    "category": "Explainer",
+    "author": "Parker Brissette",
+    "date": "2026-09-10",
+    "readingMinutes": 6,
+    "tags": [
+      "cis controls",
+      "access management",
+      "mfa",
+      "ig1",
+      "small business"
+    ],
+    "body": [
+      {
+        "type": "p",
+        "text": "[CIS Control 6](/frameworks/cis/) is not an identity project. At forty people with one IT generalist and a single Microsoft 365 tenant, it is five safeguards, a page of process, and one argument about who keeps local admin. The other three safeguards are real work. They are not your work yet."
+      },
+      {
+        "type": "p",
+        "text": "The pitch you will hear says otherwise. Access management, in a vendor deck, means a joiner-mover-leaver engine wired into your HR system, and the demo is genuinely good. It is also an answer to a problem you get at two hundred people, sold to you at forty."
+      },
+      {
+        "type": "h2",
+        "text": "Five of the eight are IG1, and two of those say preferably"
+      },
+      {
+        "type": "p",
+        "text": "Control 6 carries eight safeguards. Implementation Group 1 claims 6.1 through 6.5. Safeguards 6.6 and 6.7 are IG2, and 6.8, [role-based access control](/?q=RBAC), is IG3, which is the framework telling you politely that role definitions need an owner and you do not have one."
+      },
+      {
+        "type": "list",
+        "items": [
+          "**6.1 Establish an access granting process.** The safeguard text says preferably automated, which means a documented manual one passes, and at forty people a manual one is what you are going to have.",
+          "**6.2 Establish an access revoking process.** Same preferably. Disable accounts rather than delete them, so the audit trail survives the person.",
+          "**6.3 Require [MFA](/?q=MFA) for externally-exposed applications.** Anything a browser can reach from outside the building, which in most shops means a web portal somebody stood up years ago and forgot. Externally exposed means from the internet, not from the other VLAN.",
+          "**6.4 Require MFA for remote network access, which is the VPN if you still run one.**",
+          "**6.5 Require MFA for administrative access.** This one first. Global admins, the ERP admin login, the firewall."
+        ]
+      },
+      {
+        "type": "p",
+        "text": "That word preferably is the whole argument. CIS published v8.1 in June 2024 and left the wording alone, so an assessor reading 6.1 wants evidence that a process exists and gets followed, not a workflow engine. IG1 is 56 safeguards across all fifteen controls. Five of them live here, and none of the five requires a purchase order."
+      },
+      {
+        "type": "h2",
+        "text": "6.5 is the one I will argue about"
+      },
+      {
+        "type": "p",
+        "text": "Run 6.5 first."
+      },
+      {
+        "type": "p",
+        "text": "An account with tenant admin rights and a password is one credential stuffing hit away from being someone else's account, and at your size it probably owns the backups too. The grant process can wait a week. That cannot."
+      },
+      {
+        "type": "p",
+        "text": "Microsoft has already decided part of this for you. MFA enforcement on Azure portal and Entra admin center sign-ins started in October 2024 and reached the CLI and PowerShell through 2025. Security defaults are free in every Entra tenant and will push MFA registration to everyone. Conditional Access, which you want the moment you need to exempt a service account, requires Entra ID P1, and Microsoft 365 Business Premium already includes P1. If you are paying for Business Premium and still running security defaults, you own the better tool and are not using it."
+      },
+      {
+        "type": "p",
+        "text": "(Two break-glass accounts, excluded from your Conditional Access policies, long random passwords, credentials on paper in the safe. Microsoft documents the pattern. People skip it right up until the afternoon they lock themselves out of their own tenant.)"
+      },
+      {
+        "type": "p",
+        "text": "The most expensive mistake I keep seeing at this size is a company buying an identity platform to satisfy 6.1 and 6.2, when the safeguard text itself says preferably automated. Buy the license for Conditional Access. Do not buy it to avoid writing down who approves a new hire's access."
+      },
+      {
+        "type": "h2",
+        "text": "Grant is easy. Revoke is where these fail."
+      },
+      {
+        "type": "p",
+        "text": "A grant checklist is three lines and a name. New hire, named approver, which groups they land in, dated. Anybody in the office can run it."
+      },
+      {
+        "type": "p",
+        "text": "6.2 is harder than it looks because of a clause people read past. The safeguard covers termination, and it covers role change too, and role change is the half that gets skipped every time, so the machinist who moved into purchasing in March keeps the shop floor shares and picks up the finance folder on top of them, and eight months later nobody can say why he can see payroll."
+      },
+      {
+        "type": "p",
+        "text": "Disable rather than delete is not bureaucratic caution. In Microsoft 365, deleting a user starts a 30-day soft-delete window, and when it closes the mailbox and the OneDrive content go with it. Block sign-in, strip the licenses later, keep the object."
+      },
+      {
+        "type": "p",
+        "text": "What I keep seeing kill an access review has nothing to do with people who have HR records. It is the accounts nobody will name as accounts. The shared login on the machine at the end of the line that four operators share. The vendor remote support account that has been enabled since the install in 2019. The service account whose password is in a text file next to the ERP install. None of those appear on an offboarding list, because none of them belong to a person, and 6.2 does not care."
+      },
+      {
+        "type": "h2",
+        "text": "What to buy when the checklist stops scaling"
+      },
+      {
+        "type": "p",
+        "text": "The trigger is not headcount. It is the day you cannot answer who has access to a given system in under an hour, or the day two people run the checklist and give different answers."
+      },
+      {
+        "type": "p",
+        "text": "Safeguard 6.6 is an inventory of your authentication and authorization systems and 6.7 is centralizing access control, both of them IG2, and you cannot centralize what you have never listed. Run the inventory first and expect it to be uglier than you think, because most of it is SaaS with its own local accounts. [Single sign-on](/?q=SSO) goes on the apps holding customer data before it goes on anything convenient."
+      },
+      {
+        "type": "p",
+        "text": "I genuinely do not care whether your checklist lives in a spreadsheet, a shared ticket queue, or the back of the onboarding form. Pick the one your generalist will actually open on a Tuesday."
+      },
+      {
+        "type": "p",
+        "text": "Passkeys at this size I am less sure about. Entra supports them, the phishing resistance is real and beats any code you can read over the phone, and I have not watched a forty-person shop absorb the enrollment sessions and the lost-device path. Ask me in a year."
+      },
+      {
+        "type": "p",
+        "text": "If you are the one IT person here and a customer questionnaire is due Friday, the Control 6 questions on it are the MFA ones, and they are yes or no. Answer those honestly, then go look at what the [IG1 self-assessment](/assess/?a=cis-ig1) says about the other two."
+      },
+      {
+        "type": "p",
+        "text": "Turn on MFA in three places, write down who approves a grant, and disable accounts the day someone leaves. That is Control 6 at IG1, complete, in one page. It is worth more than the platform you were going to buy so you would not have to write the page."
+      }
+    ],
+    "related": [
+      {
+        "label": "CIS Controls, plain English",
+        "href": "/frameworks/cis/"
+      },
+      {
+        "label": "Run the CIS IG1 self-assessment",
+        "href": "/assess/?a=cis-ig1"
+      },
+      {
+        "label": "MFA in the glossary",
+        "href": "/?q=MFA"
+      },
+      {
+        "label": "RBAC in the glossary",
+        "href": "/?q=RBAC"
+      }
+    ]
   }
 ]
