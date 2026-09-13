@@ -155,6 +155,20 @@ const metaDescription = (text: string): string => {
 };
 
 /**
+ * The subject half of a framework page title, trimmed to ~70 chars on a word
+ * boundary. Returns raw text (not escaped): the caller escapes the assembled
+ * title once, so escaping here would double-encode it.
+ */
+const titleSubject = (text: string | undefined): string => {
+  if (!text) return '';
+  const clean = text.replace(/\s+/g, ' ').trim().replace(/\.$/, '');
+  if (clean.length <= 70) return clean;
+  const cut = clean.slice(0, 70);
+  const lastSpace = cut.lastIndexOf(' ');
+  return (lastSpace > 40 ? cut.slice(0, lastSpace) : cut).trimEnd() + '…';
+};
+
+/**
  * Serialize an object for embedding in an inline <script type="application/ld+json">.
  * JSON.stringify does not neutralize a literal "</script>" inside string fields, so
  * escape "<" as its JSON unicode form to prevent breaking out of the script element.
@@ -468,6 +482,14 @@ interface FrameworkPageInput {
   next?: string;
   accent: string;
   accentDark: string;
+  /**
+   * How people actually type this identifier into a search box, e.g.
+   * "ISO 27001 Annex A 8.33" rather than the bare "A.8.33". Used in the title
+   * tag so the searched phrase appears contiguously. Defaults to the id.
+   */
+  searchName?: string;
+  /** Short subject line for the title tag, e.g. the control's own name. */
+  titleSubject?: string;
   /** Short badge shown by the heading (e.g. an IG level). */
   badge?: string;
   /** Cross-framework mapping links (unofficial). */
@@ -479,10 +501,18 @@ function frameworkPage(input: FrameworkPageInput): string {
   const slug = frameworkSlug(input.id);
   const url = `${SITE}/frameworks/${input.sectionPath}/${slug}.html`;
   const description = metaDescription(input.translation);
+  // Search Console shows this site reaching page one only on control-identifier
+  // queries, and those are typed with the framework name attached ("iso 27001
+  // annex a 8.33", "cis controls v8 safeguard 4.2"), so the title has to carry
+  // that phrase in one piece rather than split across separators.
+  const searchName = input.searchName ?? input.id;
+  const subject = titleSubject(input.titleSubject);
+  const pageTitle = subject ? `${searchName}: ${subject}` : `${searchName} in plain English`;
   const jsonLd = jsonLdScript({
     '@context': 'https://schema.org',
     '@type': 'DefinedTerm',
-    name: input.id,
+    name: searchName,
+    alternateName: input.id,
     description: `${input.heading} In plain English: ${input.translation}`,
     url,
     inDefinedTermSet: { '@type': 'DefinedTermSet', name: input.sectionLabel, url: `${SITE}/frameworks/${input.sectionPath}/` },
@@ -502,11 +532,11 @@ function frameworkPage(input: FrameworkPageInput): string {
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="color-scheme" content="light dark">
-  <title>${esc(input.id)} in plain English | ${esc(input.sectionLabel)} | Cybersecurity Alphabet Soup</title>
+  <title>${esc(pageTitle)} | Cybersecurity Alphabet Soup</title>
   <meta name="description" content="${description}">
   <link rel="canonical" href="${url}">
   <meta property="og:type" content="article">
-  <meta property="og:title" content="${esc(input.id)} in plain English">
+  <meta property="og:title" content="${esc(pageTitle)}">
   <meta property="og:description" content="${description}">
   <meta property="og:url" content="${url}">
   <meta property="og:image" content="${SITE}/og-image.png">
@@ -727,6 +757,8 @@ csfIds.forEach((id, i) => {
       id,
       kickerTop: `${entry.function} / ${entry.category}`,
       heading: entry.text,
+      searchName: `NIST CSF 2.0 ${id}`,
+      titleSubject: entry.text,
       metaphor: entry.metaphor,
       translation: entry.translation,
       sectionPath: 'nist-csf',
@@ -760,6 +792,8 @@ cisIds.forEach((id, i) => {
       id,
       kickerTop: `Control ${entry.control} / ${entry.controlName}`,
       heading: entry.title,
+      searchName: `CIS Controls v8 Safeguard ${id}`,
+      titleSubject: entry.title,
       metaphor: entry.metaphor,
       translation: entry.translation,
       sectionPath: 'cis',
@@ -781,6 +815,147 @@ cisIds.forEach((id, i) => {
   );
 });
 
+// 4a-ig. One page per CIS Implementation Group.
+//
+// The hub already filters by IG, but that filter is client-side state with no
+// URL of its own, so "ig1" and "ig2" had nothing crawlable to rank. Search
+// Console has both terms sitting on page two against the hub page, which is
+// the whole catalogue rather than the group someone asked for.
+const IG_LEVELS = [
+  {
+    level: 1,
+    name: 'Essential cyber hygiene',
+    who: 'a small organization with limited IT and security expertise, often one generalist who owns everything',
+    blurb:
+      'IG1 is the floor, not a starter tier you graduate out of. Every organization is expected to reach it, and the safeguards in it are chosen to blunt the most common untargeted attacks rather than to satisfy an auditor.',
+  },
+  {
+    level: 2,
+    name: 'Risk-aware operations',
+    who: 'an organization with people whose actual job is managing IT infrastructure, and data whose loss would hurt',
+    blurb:
+      'IG2 is cumulative: it is every IG1 safeguard plus the ones that need someone to own them full time. The jump is less about buying tools and more about having a person accountable for configuration, logging, and access review.',
+  },
+  {
+    level: 3,
+    name: 'Specialist coverage',
+    who: 'an organization with security specialists across separate disciplines, and exposure that justifies them',
+    blurb:
+      'IG3 is the full catalogue. The safeguards added here assume dedicated expertise in areas like application security, incident response, and penetration testing, so reaching it is a staffing question before it is a control question.',
+  },
+];
+
+const igSlug = (level: number): string => `ig${level}`;
+
+IG_LEVELS.forEach(({ level, name, who, blurb }, i) => {
+  const included = cisIds.filter((id) => (cisIgs[id] ?? 3) <= level);
+  const added = cisIds.filter((id) => (cisIgs[id] ?? 3) === level);
+  const byControl = new Map<string, string[]>();
+  for (const id of included) {
+    const key = String(cis[id].control);
+    const list = byControl.get(key) ?? [];
+    list.push(id);
+    byControl.set(key, list);
+  }
+  const groups = [...byControl.entries()]
+    .map(
+      ([control, ids]) => `<h2>Control ${esc(control)}: ${esc(cis[ids[0]].controlName)}</h2>
+    <div class="related">${ids
+      .map(
+        (id) =>
+          `<a href="${frameworkSlug(id)}.html" title="${esc(cis[id].title)}">${esc(id)}</a>`,
+      )
+      .join('')}</div>`,
+    )
+    .join('\n    ');
+  const prev = IG_LEVELS[i - 1];
+  const next = IG_LEVELS[i + 1];
+  const url = `${SITE}/frameworks/cis/${igSlug(level)}.html`;
+  const description = metaDescription(
+    `CIS Controls v8 Implementation Group ${level} (${name}): all ${included.length} safeguards an organization at IG${level} is expected to implement, each linked to a plain-English explanation.`,
+  );
+  writeFileSync(
+    `${dist}/frameworks/cis/${igSlug(level)}.html`,
+    `<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="color-scheme" content="light dark">
+  <title>CIS Controls v8 IG${level}: All ${included.length} Implementation Group ${level} Safeguards | Cybersecurity Alphabet Soup</title>
+  <meta name="description" content="${description}">
+  <link rel="canonical" href="${url}">
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="CIS Controls v8 IG${level}: All ${included.length} Implementation Group ${level} Safeguards">
+  <meta property="og:description" content="${description}">
+  <meta property="og:url" content="${url}">
+  <meta property="og:image" content="${SITE}/og-image.png">
+  <meta name="twitter:card" content="summary">
+  <link rel="icon" href="../../icon.svg" type="image/svg+xml">
+  ${renderFontLinks()}
+  <style>${PAGE_CSS}
+:root{--tomato:#3e7d4f}
+@media(prefers-color-scheme:dark){:root{--tomato:#6fb383}}
+${FW_EXTRA_CSS}</style>
+  <script type="application/ld+json">${jsonLdScript({
+    '@context': 'https://schema.org',
+    '@type': 'DefinedTerm',
+    name: `CIS Controls v8 IG${level}`,
+    alternateName: `Implementation Group ${level}`,
+    description: `${name}. ${blurb}`,
+    url,
+    inDefinedTermSet: {
+      '@type': 'DefinedTermSet',
+      name: 'CIS Controls v8 in plain English',
+      url: `${SITE}/frameworks/cis/`,
+    },
+  })}</script>
+  <script type="application/ld+json">${breadcrumbLd([
+    { name: 'Cybersecurity Alphabet Soup', item: `${SITE}/` },
+    { name: 'CIS Controls v8 in plain English', item: `${SITE}/frameworks/cis/` },
+    { name: `IG${level}`, item: url },
+  ])}</script>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <main id="main" class="wrap" tabindex="-1">
+    ${renderGeneratedNav('../../')}
+    <a class="home" href="./">&larr; CIS Controls v8 in plain English</a>
+    <h1>CIS Controls v8 IG${level} <span class="ig-badge">${included.length} safeguards</span></h1>
+    <p class="expansion">Implementation Group ${level} / ${esc(name)}</p>
+    <div class="card"><p>Written for ${esc(who)}.</p></div>
+    <div class="metaphor"><span class="label">Think of it like</span>${
+      level === 1
+        ? 'Locking the doors and windows before you argue about the alarm system.'
+        : level === 2
+          ? 'Hiring someone whose job is the building, rather than asking whoever is nearest to check the locks.'
+          : 'Keeping a locksmith, an electrician, and a fire inspector on staff because the building is big enough to need all three.'
+    }</div>
+    <h2>In plain English</h2>
+    <p>${esc(blurb)}</p>
+    <p>IG${level} covers ${included.length} of the ${cisIds.length} safeguards in CIS Controls v8${
+      i === 0
+        ? ''
+        : `, which is every IG${level - 1} safeguard plus the ${added.length} added at this level`
+    }. Each one below links to a plain-English translation.</p>
+    ${groups}
+    <h2>Check yourself against it</h2>
+    <div class="related"><a href="../../assess/?a=cis-ig1">Run the IG1 assessment</a><a href="../../assess/?a=cis-v8">Run the full v8 assessment</a><a href="./">Browse all ${cisIds.length} safeguards</a></div>
+    <nav class="pager">${
+      prev ? `<a href="${igSlug(prev.level)}.html">&larr; IG${prev.level}</a>` : '<span></span>'
+    }${next ? `<a href="${igSlug(next.level)}.html">IG${next.level} &rarr;</a>` : '<span></span>'}</nav>
+    <footer>
+      <p class="play">Learn the language too: <a href="../../">browse the acronym glossary</a> or <a href="${CYBERDLE}" rel="noopener" target="_blank">play Cyberdle &rarr;</a></p>
+      <p>Unofficial plain-English companion. Official source: <a href="https://www.cisecurity.org/controls" rel="noopener">CIS Critical Security Controls</a>.</p>
+      <p><a href="../../privacy/">Privacy</a> &middot; <a href="../../disclosure/">Affiliate disclosure</a></p>
+    </footer>
+  </main>
+</body>
+</html>
+`,
+  );
+});
+
 // 4b. AI security framework pages (NIST AI RMF, OWASP LLM Top 10, MITRE ATLAS, ISO/IEC 42001).
 ai.forEach((entry, i) => {
   const prevEntry = ai[i - 1];
@@ -791,6 +966,8 @@ ai.forEach((entry, i) => {
       id: entry.code,
       kickerTop: `${entry.framework} / ${entry.title.length <= 40 ? entry.title : entry.category}`,
       heading: entry.official,
+      searchName: `${entry.code} (${entry.framework})`,
+      titleSubject: entry.title,
       metaphor: entry.metaphor,
       translation: entry.translation,
       sectionPath: 'ai',
@@ -838,6 +1015,8 @@ isoSorted.forEach((control, i) => {
       id: control.id,
       kickerTop: `${control.themeName} / ${control.id}`,
       heading: control.subject,
+      searchName: `ISO 27001 Annex A ${control.id.replace(/^A\./, '')}`,
+      titleSubject: control.subject,
       metaphor: control.metaphor,
       translation: control.translation,
       sectionPath: 'iso',
@@ -882,6 +1061,8 @@ soc2Sorted.forEach((criterion, i) => {
       id: criterion.id,
       kickerTop: `${criterion.familyName} / ${criterion.id}`,
       heading: criterion.subject,
+      searchName: `SOC 2 ${criterion.id}`,
+      titleSubject: criterion.subject,
       metaphor: criterion.metaphor,
       translation: criterion.translation,
       sectionPath: 'soc2',
@@ -1090,6 +1271,7 @@ const urls = [
   ...keys.map((key) => `${SITE}/definitions/${slugForKey(key)}.html`),
   ...csfIds.map((id) => `${SITE}/frameworks/nist-csf/${frameworkSlug(id)}.html`),
   ...cisIds.map((id) => `${SITE}/frameworks/cis/${frameworkSlug(id)}.html`),
+  ...IG_LEVELS.map(({ level }) => `${SITE}/frameworks/cis/${igSlug(level)}.html`),
   ...ai.map((entry) => `${SITE}/frameworks/ai/${frameworkSlug(entry.code)}.html`),
   `${SITE}/frameworks/iso/`,
   ...isoSorted.map((c) => `${SITE}/frameworks/iso/${frameworkSlug(c.id)}.html`),
