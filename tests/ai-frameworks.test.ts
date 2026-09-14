@@ -84,15 +84,19 @@ describe('AI frameworks dataset', () => {
 
     // Site-wide, ~158 generated pages still ship a description trimmed with an
     // ellipsis, and clearing that is a content backlog rather than a test. The
-    // 16 ATLAS tactic pages are held clean because they are the entry points to
-    // the section and the only ones drawing measurable impressions.
-    it('ships no truncated description on any ATLAS tactic page', () => {
+    // 16 ATLAS tactic pages are held to a stricter rule because they are the
+    // entry points to the section and the only ones drawing measurable
+    // impressions: each carries an authored snippet naming its techniques, so
+    // the set reads in one voice and a new tactic cannot quietly fall back to
+    // a translation written for a reader who already opened the page.
+    it('gives every ATLAS tactic page an authored, untruncated snippet', () => {
       const tactics = ai.filter((e) => e.category === 'ATLAS Tactics');
       expect(tactics).toHaveLength(16);
-      const truncated = tactics
-        .filter((e) => (e.metaDescription ?? e.translation).length > 160)
-        .map((e) => e.code);
+      const missing = tactics.filter((e) => e.metaDescription === undefined).map((e) => e.code);
+      expect(missing).toEqual([]);
+      const truncated = tactics.filter((e) => e.metaDescription!.length > 160).map((e) => e.code);
       expect(truncated).toEqual([]);
+      for (const entry of tactics) expect(entry.metaDescription).toMatch(/^The ATLAS tactic for /);
     });
 
     it('rejects an override that is too long, empty, or carries an em dash', () => {
