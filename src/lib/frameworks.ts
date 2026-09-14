@@ -31,6 +31,20 @@ export interface AiEntry {
   translation: string;
   sourceLabel: string;
   sourceUrl: string;
+  /**
+   * Overrides `title` in the page title only, leaving the on-page heading and
+   * the filter pills alone. Set it where the bare title is ambiguous across
+   * page types: an ATLAS tactic and an ATLAS technique otherwise produce near
+   * identical titles in a result list.
+   */
+  titleSubject?: string;
+  /**
+   * Overrides `translation` as the meta description. The translation is written
+   * for a reader who already opened the page; a snippet sometimes has to do a
+   * different job, naming what the page enumerates so the result is
+   * distinguishable from the official source ranking above it.
+   */
+  metaDescription?: string;
 }
 
 export type AiData = AiEntry[];
@@ -151,6 +165,20 @@ export function validateAi(data: AiData): string[] {
       if (entry[field]?.includes('—')) errors.push(`${where} ${field} contains an em dash`);
     }
     if (!/^https?:\/\//.test(entry.sourceUrl ?? '')) errors.push(`${where} invalid sourceUrl`);
+    // The two overrides exist to control what a search result shows, so the
+    // limits that matter are the ones the generator would silently enforce:
+    // titleSubject is trimmed past 70 chars and metaDescription past 160, both
+    // with an ellipsis. Fail here instead, so a snippet is never cut mid-phrase.
+    for (const [field, limit] of [
+      ['titleSubject', 70],
+      ['metaDescription', 160],
+    ] as const) {
+      const value = entry[field];
+      if (value === undefined) continue;
+      if (!value.trim()) errors.push(`${where} ${field} is empty`);
+      if (value.length > limit) errors.push(`${where} ${field} length ${value.length} over ${limit}`);
+      if (value.includes('—')) errors.push(`${where} ${field} contains an em dash`);
+    }
     checkProse(where, entry, errors);
   }
   for (const [code] of AI_FRAMEWORKS) {

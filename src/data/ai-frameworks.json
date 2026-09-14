@@ -429,7 +429,9 @@
     "metaphor": "A guest let into the living room finding the master key and quietly unlocking every other room in the house.",
     "translation": "Attackers turn limited access into broad control: jailbreaking an LLM past its guardrails, abusing an agent's tools, or breaking out onto the host machine.",
     "sourceLabel": "MITRE ATLAS",
-    "sourceUrl": "https://atlas.mitre.org/"
+    "sourceUrl": "https://atlas.mitre.org/",
+    "titleSubject": "Privilege Escalation Tactic",
+    "metaDescription": "The ATLAS tactic for turning limited access into control of an AI system: LLM Jailbreak, AI Agent Tool Invocation, and Escape to Host, explained."
   },
   {
     "code": "AML.TA0007",
@@ -453,7 +455,9 @@
     "metaphor": "Rifling through the kitchen drawers for the sticky note where someone wrote down all the passwords.",
     "translation": "Attackers hunt for logins and keys, pulling secrets out of AI agent configs, knowledge bases, or carelessly stored credentials to unlock more of the system.",
     "sourceLabel": "MITRE ATLAS",
-    "sourceUrl": "https://atlas.mitre.org/"
+    "sourceUrl": "https://atlas.mitre.org/",
+    "titleSubject": "Credential Access Tactic",
+    "metaDescription": "The ATLAS tactic for stealing logins and keys from AI systems: Unsecured Credentials, RAG Credential Harvesting, and agent config secrets, explained."
   },
   {
     "code": "AML.TA0008",
