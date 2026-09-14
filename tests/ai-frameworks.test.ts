@@ -82,6 +82,19 @@ describe('AI frameworks dataset', () => {
       }
     });
 
+    // Site-wide, ~158 generated pages still ship a description trimmed with an
+    // ellipsis, and clearing that is a content backlog rather than a test. The
+    // 16 ATLAS tactic pages are held clean because they are the entry points to
+    // the section and the only ones drawing measurable impressions.
+    it('ships no truncated description on any ATLAS tactic page', () => {
+      const tactics = ai.filter((e) => e.category === 'ATLAS Tactics');
+      expect(tactics).toHaveLength(16);
+      const truncated = tactics
+        .filter((e) => (e.metaDescription ?? e.translation).length > 160)
+        .map((e) => e.code);
+      expect(truncated).toEqual([]);
+    });
+
     it('rejects an override that is too long, empty, or carries an em dash', () => {
       const base = ai.find((e) => e.code === 'AML.TA0012');
       expect(base).toBeDefined();

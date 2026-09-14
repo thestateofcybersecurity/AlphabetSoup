@@ -417,7 +417,8 @@
     "metaphor": "Hiding a spare key under the mat so you can slip back in even after the family changes the locks.",
     "translation": "Attackers plant lasting backdoors in the AI: poisoned training data, a tampered model, or corrupted knowledge sources, so they keep access after reboots and fixes.",
     "sourceLabel": "MITRE ATLAS",
-    "sourceUrl": "https://atlas.mitre.org/"
+    "sourceUrl": "https://atlas.mitre.org/",
+    "metaDescription": "The ATLAS tactic for keeping a foothold in an AI system across restarts and cleanups: Poison Training Data, Manipulate AI Model, and RAG Poisoning."
   },
   {
     "code": "AML.TA0012",
@@ -481,7 +482,8 @@
     "metaphor": "Having slipped into one room, using a found keycard to move down the hall into the offices and storage closets.",
     "translation": "Attackers pivot from their entry point to other systems, like model registries, notebooks, or training pipelines, often reusing stolen keys or hijacking over-privileged AI agents.",
     "sourceLabel": "MITRE ATLAS",
-    "sourceUrl": "https://atlas.mitre.org/"
+    "sourceUrl": "https://atlas.mitre.org/",
+    "metaDescription": "The ATLAS tactic for pivoting from an AI foothold to model registries, notebooks, and training pipelines: Use Alternate Authentication Material, Phishing."
   },
   {
     "code": "AML.TA0009",
@@ -505,7 +507,8 @@
     "metaphor": "Buying the exact same lock as your target and practicing on it at home until you can pick it in seconds.",
     "translation": "Attackers rehearse offline: building a copycat model, crafting tricky inputs, or tampering with the model, then verifying the attack works before firing it for real.",
     "sourceLabel": "MITRE ATLAS",
-    "sourceUrl": "https://atlas.mitre.org/"
+    "sourceUrl": "https://atlas.mitre.org/",
+    "metaDescription": "The ATLAS tactic for rehearsing an attack before firing it for real: Create Proxy AI Model, Craft Adversarial Data, and Verify Attack, explained."
   },
   {
     "code": "AML.TA0014",
@@ -529,7 +532,8 @@
     "metaphor": "Carrying the loot out of the house, whether stuffed in a backpack or smuggled out little by little with the trash.",
     "translation": "Attackers spirit data out: model weights, training data, or secrets, by coaxing an LLM to leak its prompt or answers, or by channeling data through the inference API.",
     "sourceLabel": "MITRE ATLAS",
-    "sourceUrl": "https://atlas.mitre.org/"
+    "sourceUrl": "https://atlas.mitre.org/",
+    "metaDescription": "The ATLAS tactic for stealing AI artifacts and data: Exfiltration via AI Inference API, Extract LLM System Prompt, and LLM Data Leakage, explained."
   },
   {
     "code": "AML.TA0011",
@@ -541,7 +545,8 @@
     "metaphor": "Trashing the house on the way out: smashing things, jamming the locks, and running up the utility bills out of spite.",
     "translation": "Attackers cause the real damage: knocking the AI offline, degrading its accuracy, running up huge compute bills, or using its outputs to harm people and erode trust.",
     "sourceLabel": "MITRE ATLAS",
-    "sourceUrl": "https://atlas.mitre.org/"
+    "sourceUrl": "https://atlas.mitre.org/",
+    "metaDescription": "The ATLAS tactic for disrupting and discrediting an AI system: Denial of AI Service, Erode AI Model Integrity, and Cost Harvesting, explained."
   },
   {
     "code": "AML.T0000",
