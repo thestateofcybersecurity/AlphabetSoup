@@ -2893,5 +2893,120 @@
         "href": "/?q=CSF"
       }
     ]
+  },
+  {
+    "slug": "popia-pdpa-compliance-tooling",
+    "title": "Tooling for POPIA and PDPA: What a Small Team Actually Needs to Buy",
+    "description": "POPIA and PDPA are not GDPR renamed. Which privacy tooling modules are load-bearing for a South African or Singaporean SME, and where a spreadsheet works.",
+    "category": "Explainer",
+    "author": "Parker Brissette",
+    "date": "2026-09-14",
+    "readingMinutes": 7,
+    "tags": [
+      "popia",
+      "pdpa",
+      "privacy",
+      "compliance",
+      "small business"
+    ],
+    "body": [
+      {
+        "type": "p",
+        "text": "[POPIA](/?q=POPIA) and [PDPA](/?q=PDPA) are not [GDPR](/?q=GDPR) with the place names swapped out. The privacy tooling quote sitting in your inbox was almost certainly priced as though they were, because the vendor built the product for Europe in 2018 and has been selling the same six modules ever since."
+      },
+      {
+        "type": "p",
+        "text": "So take the quote apart line by line. Here is the module list an SME in Johannesburg or Singapore gets sent, and what each is worth under each law."
+      },
+      {
+        "type": "h2",
+        "text": "The quote, module by module"
+      },
+      {
+        "type": "list",
+        "items": [
+          "**Consent management platform.** The expensive one, usually the anchor of the quote. Under POPIA it earns its money only if you run direct marketing to people who are not already customers, because section 69 wants prior consent for unsolicited electronic marketing. Under PDPA it matters less than the salesperson implies, since the 2020 amendments widened deemed consent and added a legitimate interests exception, . A B2B firm with no cookie wall has very little consent to manage, and buying a CMP first means it bought the wrong module first.",
+          "**Records of processing.** Load-bearing in South Africa and largely not in Singapore, which is the single biggest divergence on this list. POPIA section 17 routes the documentation duty through the [PAIA](/?q=PAIA) manual under section 51 of the Promotion of Access to Information Act, and the exemption that let many private bodies skip that manual expired at the end of 2021. Singapore's Accountability Obligation asks for policies and practices, and the PDPC recommends a data inventory in its guides, but there is no statutory register equivalent to GDPR Article 30.",
+          "**Subject request handling.** Both laws, genuinely. POPIA carries access and correction rights in sections 23 and 24, PDPA in sections 21 and 22, and Singapore expects you to tell a requester the soonest time you can respond if you cannot manage it inside 30 days.",
+          "**Breach notification workflow.** Both, on wildly different clocks. See below.",
+          "**Cross-border transfer documentation.** Both. POPIA section 72 and PDPA section 26 both ask whether the recipient is bound to a comparable standard. This is contract work, not software.",
+          "**Automated data discovery and classification scanning.** Optional at your size. It is the module I would cut first from a sixty-person company's quote and the module I would fight for at six hundred."
+        ]
+      },
+      {
+        "type": "p",
+        "text": "Four of those six are paperwork and a mailbox somebody watches, and only two are software."
+      },
+      {
+        "type": "h2",
+        "text": "Registration is the thing a regulator can check without asking you"
+      },
+      {
+        "type": "p",
+        "text": "POPIA became fully enforceable on 1 July 2021 after a one year grace period, and it defaults the Information Officer role to the head of the organization. That means your CEO, unless somebody has been formally designated otherwise, and the role has to be registered with the Information Regulator. Singapore's requirement is lighter in one respect and heavier in another. Section 11(3) makes you designate at least one individual as [DPO](/?q=DPO), and that person's business contact information has to be publicly available. One is a filing. One is a line on your website."
+      },
+      {
+        "type": "p",
+        "text": "This is the hill. Register the Information Officer, publish the DPO contact, and do both before you sign a tooling contract. What I keep seeing is the reverse order. A company buys a consent platform it does not need, configures it for four months, and never files the registration, which is the one obligation a regulator can verify from its own desk without asking the company a single question."
+      },
+      {
+        "type": "p",
+        "text": "It is a form. Go file it."
+      },
+      {
+        "type": "h2",
+        "text": "The breach clock is where the two laws actually diverge"
+      },
+      {
+        "type": "p",
+        "text": "PDPA's mandatory notification regime took effect on 1 February 2021. You get up to 30 days to assess whether a breach is notifiable, then no more than 3 calendar days to tell the PDPC once you have determined that it is. Notifiable means significant harm to the affected individuals, or significant scale, and the regulations put a number on scale: 500 or more individuals. Since 1 October 2022 the financial penalty ceiling has been 10 percent of annual Singapore turnover or one million Singapore dollars, whichever is higher, so the arithmetic changed for anyone with real local revenue."
+      },
+      {
+        "type": "p",
+        "text": "POPIA section 22 has no clock. It says notify the Regulator and the affected data subjects as soon as reasonably possible after the compromise is discovered, which sounds gentler and is worse to operate against, because there is no number to plan a runbook around and no number to point at afterwards when somebody asks why it took eleven days. Write your own internal deadline. Three days is a fine choice, and matching Singapore's helps if you fall under both."
+      },
+      {
+        "type": "p",
+        "text": "If you are the ops lead at a sixty-person Singapore company and an enterprise customer has just sent you a security questionnaire with a PDPA section in it, the question that will trip you is not which tool you bought. It is who declares a breach and on what day."
+      },
+      {
+        "type": "h2",
+        "text": "Where the spreadsheet stops working"
+      },
+      {
+        "type": "p",
+        "text": "A spreadsheet is adequate for the records of processing and the transfer register at most SME sizes, and I do not especially care whether you keep it in Excel or a Notion table. The register is a reference document that changes a few times a year."
+      },
+      {
+        "type": "p",
+        "text": "It stops being adequate at one point. When a subject access request arrives and you cannot answer it out of the register inside the statutory window, the register has stopped being a record and become a diagram of what you wish were true. That happens when the count of systems holding personal data passes what one person can hold in their head, which in the companies I watch is around twenty five systems, not a headcount number at all. (The trigger is nearly always a second CRM arriving through an acquisition or a rogue marketing signup, which is also why the discovery scanning module gets bought a year after it would have helped.)"
+      },
+      {
+        "type": "p",
+        "text": "The part I am genuinely unsure about is how the Information Regulator will treat a small private body that has a compliant PAIA manual on its website and nothing real behind it. The manual is a public artifact and easy to check. The processing reality behind it is not, and I have not seen enough published guidance to predict where that line lands."
+      },
+      {
+        "type": "p",
+        "text": "Map what each law asks of you before you price anything, which takes an afternoon with the [regulation mapper](/tools/reg-mapper/) and the text of the two Acts. Then buy the two modules that came back load-bearing. The other four are a filing, a mailbox, a contract clause and a spreadsheet, and all four are cheaper than the module a vendor would rather sell you."
+      }
+    ],
+    "related": [
+      {
+        "label": "POPIA in the glossary",
+        "href": "/?q=POPIA"
+      },
+      {
+        "label": "PDPA in the glossary",
+        "href": "/?q=PDPA"
+      },
+      {
+        "label": "Map overlapping regulations",
+        "href": "/tools/reg-mapper/"
+      },
+      {
+        "label": "DPO in the glossary",
+        "href": "/?q=DPO"
+      }
+    ]
   }
 ]
