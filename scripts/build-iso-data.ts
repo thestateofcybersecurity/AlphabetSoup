@@ -160,18 +160,19 @@ const EXPECTED: Record<string, number> = { '5': 37, '6': 8, '7': 14, '8': 34 };
 const path = fileURLToPath(new URL('../src/data/iso-27001.json', import.meta.url));
 
 /**
- * Metaphor and translation are hand-written per control and live only in the
- * JSON. Re-running this script must carry them across rather than blank them,
- * so the structural check stays runnable without costing the content.
+ * Metaphor, translation, and metaDescription are hand-written per control and
+ * live only in the JSON. Re-running this script must carry them across rather
+ * than blank them, so the structural check stays runnable without costing the
+ * content.
  */
 const existing = (() => {
   try {
     const prev = JSON.parse(readFileSync(path, 'utf8')) as {
-      controls: { id: string; metaphor?: string; translation?: string }[];
+      controls: { id: string; metaphor?: string; translation?: string; metaDescription?: string }[];
     };
     return new Map(prev.controls.map((c) => [c.id, c]));
   } catch {
-    return new Map<string, { metaphor?: string; translation?: string }>();
+    return new Map<string, { metaphor?: string; translation?: string; metaDescription?: string }>();
   }
 })();
 
@@ -191,6 +192,8 @@ const controls = THEMES.flatMap((theme) => {
       subject,
       metaphor: prev?.metaphor ?? '',
       translation: prev?.translation ?? '',
+      // Omitted entirely when unset, so the field only appears where authored.
+      ...(prev?.metaDescription ? { metaDescription: prev.metaDescription } : {}),
     };
   });
 });

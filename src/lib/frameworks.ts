@@ -6,6 +6,11 @@ export interface CsfEntry {
   text: string;
   metaphor: string;
   translation: string;
+  /**
+   * Meta description override, used when the translation would be trimmed with
+   * an ellipsis. See the note on AiEntry.metaDescription.
+   */
+  metaDescription?: string;
 }
 
 export interface CisEntry {
@@ -14,6 +19,11 @@ export interface CisEntry {
   title: string;
   metaphor: string;
   translation: string;
+  /**
+   * Meta description override, used when the translation would be trimmed with
+   * an ellipsis. See the note on AiEntry.metaDescription.
+   */
+  metaDescription?: string;
 }
 
 export type CsfData = Record<string, CsfEntry>;
@@ -90,6 +100,28 @@ export function frameworkSlug(id: string): string {
   return id.toLowerCase().replace(/[^a-z0-9]+/g, '-');
 }
 
+/**
+ * The two search-result overrides are trimmed by the generator past 70 chars
+ * (title subject) and 160 (meta description), both with an ellipsis. Fail here
+ * instead, so a snippet is never shipped cut mid-phrase.
+ */
+function checkOverrides(
+  where: string,
+  entry: { titleSubject?: string; metaDescription?: string },
+  errors: string[],
+): void {
+  for (const [field, limit] of [
+    ['titleSubject', 70],
+    ['metaDescription', 160],
+  ] as const) {
+    const value = entry[field];
+    if (value === undefined) continue;
+    if (!value.trim()) errors.push(`${where} ${field} is empty`);
+    if (value.length > limit) errors.push(`${where} ${field} length ${value.length} over ${limit}`);
+    if (value.includes('—')) errors.push(`${where} ${field} contains an em dash`);
+  }
+}
+
 function checkProse(where: string, entry: { metaphor: string; translation: string }, errors: string[]): void {
   for (const field of ['metaphor', 'translation'] as const) {
     const value = entry[field]?.trim() ?? '';
@@ -114,6 +146,7 @@ export function validateCsf(data: CsfData): string[] {
     if (entry.categoryCode !== id.split('-')[0]) errors.push(`${where} categoryCode mismatch`);
     if (!entry.text?.trim()) errors.push(`${where} missing text`);
     if (entry.text?.includes('—')) errors.push(`${where} text contains an em dash`);
+    checkOverrides(where, entry, errors);
     checkProse(where, entry, errors);
   }
   for (const [fn, expected] of Object.entries(CSF_EXPECTED_COUNTS)) {
@@ -135,6 +168,7 @@ export function validateCis(data: CisData): string[] {
     if (entry.control !== control) errors.push(`${where} control number mismatch`);
     if (!entry.controlName?.trim()) errors.push(`${where} missing controlName`);
     if (!entry.title?.trim()) errors.push(`${where} missing title`);
+    checkOverrides(where, entry, errors);
     checkProse(where, entry, errors);
   }
   for (const [control, expected] of Object.entries(CIS_EXPECTED_COUNTS)) {
@@ -165,20 +199,7 @@ export function validateAi(data: AiData): string[] {
       if (entry[field]?.includes('—')) errors.push(`${where} ${field} contains an em dash`);
     }
     if (!/^https?:\/\//.test(entry.sourceUrl ?? '')) errors.push(`${where} invalid sourceUrl`);
-    // The two overrides exist to control what a search result shows, so the
-    // limits that matter are the ones the generator would silently enforce:
-    // titleSubject is trimmed past 70 chars and metaDescription past 160, both
-    // with an ellipsis. Fail here instead, so a snippet is never cut mid-phrase.
-    for (const [field, limit] of [
-      ['titleSubject', 70],
-      ['metaDescription', 160],
-    ] as const) {
-      const value = entry[field];
-      if (value === undefined) continue;
-      if (!value.trim()) errors.push(`${where} ${field} is empty`);
-      if (value.length > limit) errors.push(`${where} ${field} length ${value.length} over ${limit}`);
-      if (value.includes('—')) errors.push(`${where} ${field} contains an em dash`);
-    }
+    checkOverrides(where, entry, errors);
     checkProse(where, entry, errors);
   }
   for (const [code] of AI_FRAMEWORKS) {

@@ -31,7 +31,15 @@ const crosswalkControls = (
 ).controls;
 const isoData = JSON.parse(readFileSync(`${root}src/data/iso-27001.json`, 'utf8')) as {
   meta: { themes: { code: string; name: string }[] };
-  controls: { id: string; theme: string; themeName: string; subject: string; metaphor: string; translation: string }[];
+  controls: {
+    id: string;
+    theme: string;
+    themeName: string;
+    subject: string;
+    metaphor: string;
+    translation: string;
+    metaDescription?: string;
+  }[];
 };
 const soc2Data = JSON.parse(readFileSync(`${root}src/data/soc2.json`, 'utf8')) as Soc2Data;
 
@@ -763,6 +771,7 @@ csfIds.forEach((id, i) => {
       titleSubject: entry.text,
       metaphor: entry.metaphor,
       translation: entry.translation,
+      description: entry.metaDescription,
       sectionPath: 'nist-csf',
       sectionLabel: 'NIST CSF 2.0 in plain English',
       officialName: 'NIST Cybersecurity Framework',
@@ -798,6 +807,7 @@ cisIds.forEach((id, i) => {
       titleSubject: entry.title,
       metaphor: entry.metaphor,
       translation: entry.translation,
+      description: entry.metaDescription,
       sectionPath: 'cis',
       sectionLabel: 'CIS Controls v8 in plain English',
       officialName: 'CIS Critical Security Controls',
@@ -874,7 +884,7 @@ IG_LEVELS.forEach(({ level, name, who, blurb }, i) => {
   const next = IG_LEVELS[i + 1];
   const url = `${SITE}/frameworks/cis/${igSlug(level)}.html`;
   const description = metaDescription(
-    `CIS Controls v8 Implementation Group ${level} (${name}): all ${included.length} safeguards an organization at IG${level} is expected to implement, each linked to a plain-English explanation.`,
+    `All ${included.length} CIS Controls v8 IG${level} safeguards (${name}), each linked to a plain-English explanation of what it asks for.`,
   );
   writeFileSync(
     `${dist}/frameworks/cis/${igSlug(level)}.html`,
@@ -1022,6 +1032,7 @@ isoSorted.forEach((control, i) => {
       titleSubject: control.subject,
       metaphor: control.metaphor,
       translation: control.translation,
+      description: control.metaDescription,
       sectionPath: 'iso',
       sectionLabel: 'ISO 27001 Annex A in plain English',
       officialName: 'ISO/IEC 27001:2022',
@@ -1068,6 +1079,7 @@ soc2Sorted.forEach((criterion, i) => {
       titleSubject: criterion.subject,
       metaphor: criterion.metaphor,
       translation: criterion.translation,
+      description: criterion.metaDescription,
       sectionPath: 'soc2',
       sectionLabel: 'SOC 2 Trust Services Criteria in plain English',
       officialName: 'AICPA Trust Services Criteria',
