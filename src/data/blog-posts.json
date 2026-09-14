@@ -2768,5 +2768,130 @@
         "href": "/?q=RBAC"
       }
     ]
+  },
+  {
+    "slug": "nist-csf-2-starter-subcategories",
+    "title": "NIST CSF 2.0: The Subcategories to Start With When You Have No Program",
+    "description": "CSF 2.0 has 106 subcategories and you have one security hire. Which eight to do first, in what order, and why Govern comes before the asset inventory.",
+    "category": "Explainer",
+    "author": "Parker Brissette",
+    "date": "2026-09-14",
+    "readingMinutes": 6,
+    "tags": [
+      "nist csf",
+      "csf 2.0",
+      "governance",
+      "small business",
+      "risk management"
+    ],
+    "body": [
+      {
+        "type": "p",
+        "text": "Almost everyone tells a brand new program to start with an asset inventory. Under [NIST CSF 2.0](/frameworks/nist-csf/) that advice is out of date, and following it is how a one-person security function spends a year building a spreadsheet that nobody owns."
+      },
+      {
+        "type": "p",
+        "text": "The framework has 106 subcategories. You are going to do eight."
+      },
+      {
+        "type": "p",
+        "text": "Which eight, and in what order? The failure mode I keep seeing is not a bad pick. It is picking all of them, scoring every row 1 through 5, presenting the heat map to a board that nods politely, and having no capacity left in the fiscal year to change anything that was scored."
+      },
+      {
+        "type": "h2",
+        "text": "Govern is where a one-person program starts now"
+      },
+      {
+        "type": "p",
+        "text": "CSF 2.0 arrived on February 26, 2024 with six functions instead of five, 22 categories, and those 106 subcategories. Govern is the addition. In 1.1 the governance material lived inside Identify as the ID.GV category, which put it alongside the asset work rather than ahead of it. (The crosswalk NIST published with the release maps ID.GV straight into the new Govern function, which is a quick way to see that most of this is a reorganization of obligations you already had.)"
+      },
+      {
+        "type": "p",
+        "text": "GV.RR-02 goes on the board first. It asks that roles and authorities for managing cybersecurity risk are established, and then actually enforced. In a county government with one security hire, that is a one page memo naming who decides and who actually does the work. It costs a meeting. Every other subcategory below has an ownership problem hiding inside it, and GV.RR-02 is the only one that addresses ownership head on. This is the hill I will die on. If the memo does not exist, your shiny new inventory is being maintained by nobody in particular by March."
+      },
+      {
+        "type": "p",
+        "text": "Pair it with GV.PO-01. Not a fifty page policy. Four pages saying what the organization does about cyber risk, signed by a person who controls budget."
+      },
+      {
+        "type": "h2",
+        "text": "The eight, in the order I would work them"
+      },
+      {
+        "type": "p",
+        "text": "This is the subset I would defend to an assessor, and the sequence is the argument, not the membership."
+      },
+      {
+        "type": "list",
+        "items": [
+          "**GV.RR-02**. Name the owners. One page, signed.",
+          "**GV.PO-01**. The policy the other seven point back to when somebody asks why they have to.",
+          "**ID.AM-01** and **ID.AM-02**. Hardware and software inventories. This is the work everyone starts with and it belongs third, because a list without an owner and a policy behind it goes stale in a quarter. Build it from what you already have. Your [MDM](/?q=MDM) and your identity provider between them already know about most of the fleet, and a list that is eighty percent right this month beats one that is perfect next year.",
+          "**ID.AM-05**. Prioritize those assets by criticality and mission impact. Argued below.",
+          "**PR.AA-01**. Identities and credentials are managed. For most organizations that means one directory and a joiner-leaver process that actually runs on the day somebody leaves.",
+          "**PR.AA-03**. Users, services, and hardware are authenticated. In practice, [MFA](/?q=MFA) everywhere it will go, plus a written exception list for the places it will not.",
+          "**PR.DS-11**. Backups exist, and somebody restores one on purpose at least once. The restore test is the whole subcategory.",
+          "**PR.AT-01**. Awareness training. Cheap, boring, and the first thing an auditor asks to see."
+        ]
+      },
+      {
+        "type": "p",
+        "text": "I genuinely do not care whether you track this in a GRC platform or a spreadsheet. At this size the tool is not the constraint. Do run it through the [crosswalk](/tools/crosswalk/) if you also owe [CIS](/frameworks/cis/) or [SOC 2](/?q=SOC%202) evidence, because these eight cover a surprising amount of both, and mapping once is cheaper than doing the same work twice under two labels."
+      },
+      {
+        "type": "h2",
+        "text": "Criticality beats completeness, and this is where I lose people"
+      },
+      {
+        "type": "p",
+        "text": "ID.AM-05 asks you to rank the assets you just wrote down. People skip it, because it reads like a second pass over work they only just finished. What I keep seeing instead is a complete inventory with no ranking anywhere in it, which behaves exactly like no inventory at 2 a.m. when the question on the bridge call is which of the 340 machines actually matters."
+      },
+      {
+        "type": "p",
+        "text": "A rural hospital has maybe a dozen systems where an outage turns into a patient safety event. Everything else is inconvenience, expensive inconvenience in some cases, but inconvenience. If you cannot name that dozen from memory, the inventory is not yet doing its job. The ranking is also what keeps the next three years tractable, because every later subcategory gets scoped to the short list before it gets scoped to all 340."
+      },
+      {
+        "type": "p",
+        "text": "If you are the one security hire at a county government and the commissioners want a maturity number by the end of the quarter, the ranked list is what you present. Not the heat map."
+      },
+      {
+        "type": "h2",
+        "text": "What you are not doing in year one"
+      },
+      {
+        "type": "p",
+        "text": "Detect, Respond, and Recover are absent from that list on purpose, with one exception. RS.MA-01 says the incident response plan gets executed with relevant third parties once an incident is declared, and you should write that plan even if you cannot staff its execution, because the third parties in that sentence are your insurer and your outside counsel and their after-hours numbers belong somewhere other than in your head."
+      },
+      {
+        "type": "p",
+        "text": "DE.CM-01, network monitoring, is a real subcategory and a real budget line. Organizations that skip straight to it end up paying a managed provider to watch assets they cannot enumerate. That is an expensive way to discover you needed ID.AM-01."
+      },
+      {
+        "type": "p",
+        "text": "The piece I am still unsure about is the Organizational Profile. The Current and Target Profile structure is what 2.0 gives you in place of arguing about Tier numbers, and it is better than a Tier number. Whether anyone outside federal contracting will accept one as an audit artifact, two and a half years in, I do not know, and I have not yet seen a customer security questionnaire ask for it."
+      },
+      {
+        "type": "p",
+        "text": "Eight subcategories is not a program. It is the slice of a program that one person can actually finish this year, which is the only slice that counts when there is one of you. Run the [self assessment](/assess/) against those eight, write down what is missing, and come back for the next eight in July. The other 98 are not going anywhere."
+      }
+    ],
+    "related": [
+      {
+        "label": "NIST CSF 2.0, plain English",
+        "href": "/frameworks/nist-csf/"
+      },
+      {
+        "label": "Crosswalk CSF to other frameworks",
+        "href": "/tools/crosswalk/"
+      },
+      {
+        "label": "Run a free self assessment",
+        "href": "/assess/"
+      },
+      {
+        "label": "CSF in the glossary",
+        "href": "/?q=CSF"
+      }
+    ]
   }
 ]
