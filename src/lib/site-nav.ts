@@ -153,6 +153,11 @@ export const EXTERNAL_LINKS: ExternalNavLink[] = [
     title: 'Business Impact Assessment',
   },
   {
+    href: 'https://lantern.cybersecurityalphabetsoup.com/',
+    label: 'Lantern',
+    title: 'Lantern, shadow AI discovery for Microsoft 365',
+  },
+  {
     href: 'https://thestateofcybersecurity.github.io/cyberdle/',
     label: 'Cyberdle',
     title: 'Play Cyberdle, the daily acronym game',
