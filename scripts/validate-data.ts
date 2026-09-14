@@ -552,12 +552,15 @@ if (problems.length > 0) {
 {
   const truncated = (rows: { translation: string; metaDescription?: string }[]) =>
     rows.filter((r) => (r.metaDescription ?? r.translation).length > 160).length;
-  const isoControls = load<{ controls: { translation: string }[] }>('../src/data/iso-27001.json').controls;
+  const isoControls = load<{ controls: { translation: string; metaDescription?: string }[] }>(
+    '../src/data/iso-27001.json',
+  ).controls;
   const counts = [
     ['AI', truncated(ai), ai.length],
     ['CSF', truncated(Object.values(csf)), Object.keys(csf).length],
     ['CIS', truncated(Object.values(cis)), Object.keys(cis).length],
     ['ISO', truncated(isoControls), isoControls.length],
+    ['SOC2', truncated(soc2.criteria), soc2.criteria.length],
   ] as [string, number, number][];
   const total = counts.reduce((sum, [, n]) => sum + n, 0);
   if (total > 0) {
