@@ -70,4 +70,52 @@ describe('AI frameworks dataset', () => {
       expect(entry.sourceLabel.trim().length).toBeGreaterThan(0);
     }
   });
+
+  // The search-result overrides exist to control a snippet, so the thing worth
+  // guarding is that they stay inside the generator's trim limits. A value over
+  // the limit still builds, it just ships an ellipsis mid-phrase to searchers.
+  describe('search-result overrides', () => {
+    it('keeps every override inside the limit the generator would trim at', () => {
+      for (const entry of ai) {
+        if (entry.titleSubject !== undefined) expect(entry.titleSubject.length).toBeLessThanOrEqual(70);
+        if (entry.metaDescription !== undefined) expect(entry.metaDescription.length).toBeLessThanOrEqual(160);
+      }
+    });
+
+    // Site-wide, ~158 generated pages still ship a description trimmed with an
+    // ellipsis, and clearing that is a content backlog rather than a test. The
+    // 16 ATLAS tactic pages are held to a stricter rule because they are the
+    // entry points to the section and the only ones drawing measurable
+    // impressions: each carries an authored snippet naming its techniques, so
+    // the set reads in one voice and a new tactic cannot quietly fall back to
+    // a translation written for a reader who already opened the page.
+    it('gives every ATLAS tactic page an authored, untruncated snippet', () => {
+      const tactics = ai.filter((e) => e.category === 'ATLAS Tactics');
+      expect(tactics).toHaveLength(16);
+      const missing = tactics.filter((e) => e.metaDescription === undefined).map((e) => e.code);
+      expect(missing).toEqual([]);
+      const truncated = tactics.filter((e) => e.metaDescription!.length > 160).map((e) => e.code);
+      expect(truncated).toEqual([]);
+      for (const entry of tactics) expect(entry.metaDescription).toMatch(/^The ATLAS tactic for /);
+    });
+
+    it('rejects an override that is too long, empty, or carries an em dash', () => {
+      const base = ai.find((e) => e.code === 'AML.TA0012');
+      expect(base).toBeDefined();
+      const errors = validateAi([
+        { ...base!, code: 'AML.TA9001', metaDescription: 'x'.repeat(161) },
+        { ...base!, code: 'AML.TA9002', titleSubject: 'y'.repeat(71) },
+        { ...base!, code: 'AML.TA9003', titleSubject: '   ' },
+        { ...base!, code: 'AML.TA9004', metaDescription: 'Tactic — explained' },
+        // A fixture this small trips the "framework X: no entries" check too,
+        // which is not what this test is about.
+      ] as AiData).filter((e) => !e.startsWith('framework '));
+      expect(errors).toEqual([
+        '[AML.TA9001] metaDescription length 161 over 160',
+        '[AML.TA9002] titleSubject length 71 over 70',
+        '[AML.TA9003] titleSubject is empty',
+        '[AML.TA9004] metaDescription contains an em dash',
+      ]);
+    });
+  });
 });

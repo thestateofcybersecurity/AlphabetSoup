@@ -544,6 +544,30 @@ if (problems.length > 0) {
   for (const problem of problems) console.error(`  - ${problem}`);
   process.exit(1);
 }
+
+// Not a failure: a translation over 160 chars still builds, it just ships a
+// meta description cut on a word boundary with an ellipsis. Print the count so
+// the size of the backlog stays visible instead of being rediscovered from
+// Search Console. Set a metaDescription on an entry to take it off this list.
+{
+  const truncated = (rows: { translation: string; metaDescription?: string }[]) =>
+    rows.filter((r) => (r.metaDescription ?? r.translation).length > 160).length;
+  const isoControls = load<{ controls: { translation: string }[] }>('../src/data/iso-27001.json').controls;
+  const counts = [
+    ['AI', truncated(ai), ai.length],
+    ['CSF', truncated(Object.values(csf)), Object.keys(csf).length],
+    ['CIS', truncated(Object.values(cis)), Object.keys(cis).length],
+    ['ISO', truncated(isoControls), isoControls.length],
+  ] as [string, number, number][];
+  const total = counts.reduce((sum, [, n]) => sum + n, 0);
+  if (total > 0) {
+    console.log(
+      `Note: ${total} generated pages ship a truncated meta description (` +
+        counts.map(([label, n, of]) => `${label} ${n}/${of}`).join(', ') +
+        `). Set metaDescription to fix one.`,
+    );
+  }
+}
 console.log(
   `Data OK: ${Object.keys(acronyms).length} acronyms, ${Object.keys(csf).length} CSF subcategories, ${Object.keys(cis).length} CIS safeguards, ${ai.length} AI framework entries, ` +
     `${cmmc.questions.length} 800-171/CMMC, ${cyberEssentials.questions.length} Cyber Essentials, ${ztmm.questions.length} ZTMM, ${ssdf.questions.length} SSDF, ${pci.questions.length} PCI DSS, ${crosswalk.controls.length} crosswalk domains, ${soc2.criteria.length} SOC 2 criteria, ${boardMetrics.metrics.length} board metrics, ${runbooks.scenarios.length} runbook scenarios, ${cloudBaseline.controls.length} cloud baseline controls, ${ssdlc.practices.length} SDLC practices, ${automationRoi.categories.length} automation categories, ${trustLibrary.entries.length} trust answers, ${regulations.regulations.length} regulations, ${skillsMatrix.competencies.length} team competencies, ${threatModel.threats.length} AI threats, ${blogPosts.length} blog posts.`,

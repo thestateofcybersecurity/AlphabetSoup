@@ -490,6 +490,8 @@ interface FrameworkPageInput {
   searchName?: string;
   /** Short subject line for the title tag, e.g. the control's own name. */
   titleSubject?: string;
+  /** Meta description override. Defaults to the plain-English translation. */
+  description?: string;
   /** Short badge shown by the heading (e.g. an IG level). */
   badge?: string;
   /** Cross-framework mapping links (unofficial). */
@@ -500,7 +502,7 @@ interface FrameworkPageInput {
 function frameworkPage(input: FrameworkPageInput): string {
   const slug = frameworkSlug(input.id);
   const url = `${SITE}/frameworks/${input.sectionPath}/${slug}.html`;
-  const description = metaDescription(input.translation);
+  const description = metaDescription(input.description ?? input.translation);
   // Search Console shows this site reaching page one only on control-identifier
   // queries, and those are typed with the framework name attached ("iso 27001
   // annex a 8.33", "cis controls v8 safeguard 4.2"), so the title has to carry
@@ -967,9 +969,10 @@ ai.forEach((entry, i) => {
       kickerTop: `${entry.framework} / ${entry.title.length <= 40 ? entry.title : entry.category}`,
       heading: entry.official,
       searchName: `${entry.code} (${entry.framework})`,
-      titleSubject: entry.title,
+      titleSubject: entry.titleSubject ?? entry.title,
       metaphor: entry.metaphor,
       translation: entry.translation,
+      description: entry.metaDescription,
       sectionPath: 'ai',
       sectionLabel: 'AI security in plain English',
       officialName: entry.sourceLabel,
