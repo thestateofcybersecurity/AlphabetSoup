@@ -25,6 +25,8 @@ export interface Soc2Criterion {
   subject: string;
   metaphor: string;
   translation: string;
+  /** Meta description override; see AiEntry.metaDescription. */
+  metaDescription?: string;
 }
 
 export interface Soc2Family {

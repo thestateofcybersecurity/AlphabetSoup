@@ -21,6 +21,21 @@ describe('framework datasets', () => {
     expect(Object.keys(cis)).toHaveLength(153);
     expect(cis['15.7']).toBeDefined();
   });
+
+  // A metaDescription is only written where the translation would be trimmed
+  // with an ellipsis, and the whole point is to end on a finished thought. A
+  // value that is itself over the limit, or that trails off, would defeat that.
+  it('every authored snippet fits the limit and ends on a complete sentence', () => {
+    const authored = [
+      ...Object.entries(csf).map(([id, e]) => [`CSF ${id}`, e.metaDescription] as const),
+      ...Object.entries(cis).map(([id, e]) => [`CIS ${id}`, e.metaDescription] as const),
+    ].filter(([, d]) => d !== undefined) as [string, string][];
+    expect(authored.length).toBeGreaterThan(0);
+    for (const [where, d] of authored) {
+      expect(`${where}: ${d.length}`).toBe(`${where}: ${Math.min(d.length, 160)}`);
+      expect(`${where}: ${d.slice(-1)}`).toBe(`${where}: .`);
+    }
+  });
 });
 
 describe('frameworkSlug', () => {

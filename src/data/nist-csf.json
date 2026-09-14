@@ -114,7 +114,8 @@
     "categoryCode": "GV.OC",
     "text": "Internal and external stakeholders are understood, and their needs and expectations regarding cybersecurity risk management are understood and considered.",
     "metaphor": "Considering the needs of everyone in the household when making safety plans.",
-    "translation": "The family asks each person, from a nervous grandparent to a teen who wants privacy, what would make them feel safe, and builds those answers into the safety plan instead of guessing."
+    "translation": "The family asks each person, from a nervous grandparent to a teen who wants privacy, what would make them feel safe, and builds those answers into the safety plan instead of guessing.",
+    "metaDescription": "The family asks each person what would make them feel safe, from a nervous grandparent to a teen who wants privacy, and builds that into the plan."
   },
   "GV.OC-03": {
     "function": "Govern",
@@ -150,7 +151,8 @@
     "categoryCode": "GV.OV",
     "text": "Cybersecurity risk management strategy outcomes are reviewed to inform and adjust strategy and direction.",
     "metaphor": "Reviewing the effectiveness of your home security system.",
-    "translation": "After a while the family asks whether the cameras and locks actually stopped anything, then adjusts the plan based on the real answer instead of assuming it all worked."
+    "translation": "After a while the family asks whether the cameras and locks actually stopped anything, then adjusts the plan based on the real answer instead of assuming it all worked.",
+    "metaDescription": "The family asks whether the cameras and locks actually stopped anything, then adjusts the plan on the real answer rather than on an assumption."
   },
   "GV.OV-02": {
     "function": "Govern",
@@ -195,7 +197,8 @@
     "categoryCode": "GV.RM",
     "text": "Risk management objectives are established and agreed to by organizational stakeholders.",
     "metaphor": "The family sits down together and agrees on their safety goals for the home.",
-    "translation": "The family discusses and agrees on what they want to achieve with home safety, like how secure the house should be and what matters most to protect, so everyone is working toward the same goals."
+    "translation": "The family discusses and agrees on what they want to achieve with home safety, like how secure the house should be and what matters most to protect, so everyone is working toward the same goals.",
+    "metaDescription": "The family agrees what it wants from home safety, how secure the house should be and what matters most to protect, so everyone shares the goal."
   },
   "GV.RM-02": {
     "function": "Govern",
@@ -321,7 +324,8 @@
     "categoryCode": "GV.SC",
     "text": "Suppliers are known and prioritized by criticality.",
     "metaphor": "Ranking the people who work on your home by how badly you would miss them: when a pipe bursts the plumber matters far more than the gardener, so you know who to protect and call first.",
-    "translation": "The family sorts its service providers by how critical each one is, so if something fails they already know which relationships to safeguard and which to lean on first, rather than treating every helper as equally important."
+    "translation": "The family sorts its service providers by how critical each one is, so if something fails they already know which relationships to safeguard and which to lean on first, rather than treating every helper as equally important.",
+    "metaDescription": "The family sorts its service providers by how critical each is, so when something fails it already knows which relationships to protect first."
   },
   "GV.SC-05": {
     "function": "Govern",
@@ -384,7 +388,8 @@
     "categoryCode": "ID.AM",
     "text": "Inventories of hardware managed by the organization are maintained.",
     "metaphor": "Keeping a list of all your household appliances.",
-    "translation": "The family keeps an up-to-date list of all the appliances they own, like the refrigerator, washing machine, and microwave, so they know what they have and can maintain them properly."
+    "translation": "The family keeps an up-to-date list of all the appliances they own, like the refrigerator, washing machine, and microwave, so they know what they have and can maintain them properly.",
+    "metaDescription": "The family keeps an up-to-date list of the appliances it owns, so it knows what it has and can maintain everything properly."
   },
   "ID.AM-02": {
     "function": "Identify",
@@ -402,7 +407,8 @@
     "categoryCode": "ID.AM",
     "text": "Representations of the organization's authorized network communication and internal and external network data flows are maintained.",
     "metaphor": "Drawing a map of your home’s plumbing and electrical systems.",
-    "translation": "The family has a map that shows where all the pipes and wires run in their home, so they know how everything is connected and can troubleshoot problems if they arise."
+    "translation": "The family has a map that shows where all the pipes and wires run in their home, so they know how everything is connected and can troubleshoot problems if they arise.",
+    "metaDescription": "The family keeps a map of where the pipes and wires run, so it knows how everything connects and can troubleshoot problems when they arise."
   },
   "ID.AM-04": {
     "function": "Identify",
@@ -420,7 +426,8 @@
     "categoryCode": "ID.AM",
     "text": "Assets are prioritized based on classification, criticality, resources, and impact on the mission.",
     "metaphor": "Prioritizing which home repairs to tackle first based on their importance.",
-    "translation": "The family decides which repairs to address first, like fixing a leaking roof before painting a room, based on what’s most critical to the home’s safety and functionality."
+    "translation": "The family decides which repairs to address first, like fixing a leaking roof before painting a room, based on what’s most critical to the home’s safety and functionality.",
+    "metaDescription": "The family decides which repairs come first, fixing a leaking roof before painting a room, based on what matters most to the home's safety."
   },
   "ID.AM-07": {
     "function": "Identify",
