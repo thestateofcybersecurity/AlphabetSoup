@@ -398,6 +398,14 @@ function validateSkillsMatrix(data: SkillsMatrix, cardIds: Set<string>): string[
   return out;
 }
 
+interface BacklogTopic {
+  slug: string;
+  title: string;
+  category: string;
+  brief: string;
+  links: string[];
+}
+
 interface BlogPost {
   slug: string;
   title: string;
@@ -411,10 +419,38 @@ interface BlogPost {
   related: { label: string; href: string }[];
 }
 
+/**
+ * Max blog title length. A published post and the backlog topic it comes from
+ * share this cap, so an over-length backlog title is caught when it is written
+ * rather than after a post has been drafted against it.
+ */
+const BLOG_TITLE_MAX = 70;
+const BLOG_CATEGORIES = new Set(['Explainer', 'Career', 'Spotlight']);
+
+/** Structural checks for backlog topics, which become blog posts verbatim. */
+function validateBacklog(topics: BacklogTopic[]): string[] {
+  const out: string[] = [];
+  const seen = new Set<string>();
+  for (const t of topics) {
+    const w = t.slug || '?';
+    if (seen.has(t.slug)) out.push(`duplicate slug ${w}`);
+    seen.add(t.slug);
+    if (!/^[a-z0-9-]+$/.test(t.slug ?? '')) out.push(`${w}: bad slug`);
+    if (!t.title?.trim() || t.title.length > BLOG_TITLE_MAX) {
+      out.push(`${w}: title length ${t.title?.length ?? 0}, max ${BLOG_TITLE_MAX}`);
+    }
+    if (!BLOG_CATEGORIES.has(t.category)) out.push(`${w}: bad category ${t.category}`);
+    if (!t.brief?.trim()) out.push(`${w}: missing brief`);
+    if (!Array.isArray(t.links) || !t.links.length) out.push(`${w}: no links`);
+    if (JSON.stringify(t).includes('\u2014')) out.push(`${w}: em dash`);
+  }
+  return out;
+}
+
 /** Structural checks for blog posts. */
 function validateBlog(posts: BlogPost[]): string[] {
   const out: string[] = [];
-  const cats = new Set(['Explainer', 'Career', 'Spotlight']);
+  const cats = BLOG_CATEGORIES;
   const types = new Set(['p', 'h2', 'list', 'quote']);
   const seen = new Set<string>();
   for (const p of posts) {
@@ -422,7 +458,9 @@ function validateBlog(posts: BlogPost[]): string[] {
     if (seen.has(p.slug)) out.push(`duplicate slug ${w}`);
     seen.add(p.slug);
     if (!/^[a-z0-9-]+$/.test(p.slug)) out.push(`${w}: bad slug`);
-    if (!p.title?.trim() || p.title.length > 70) out.push(`${w}: title length`);
+    if (!p.title?.trim() || p.title.length > BLOG_TITLE_MAX) {
+      out.push(`${w}: title length ${p.title?.length ?? 0}, max ${BLOG_TITLE_MAX}`);
+    }
     if (!p.description || p.description.length < 100 || p.description.length > 170) out.push(`${w}: description length`);
     if (!cats.has(p.category)) out.push(`${w}: bad category ${p.category}`);
     if (!p.author?.trim()) out.push(`${w}: missing author`);
@@ -462,6 +500,7 @@ const scorecard = load<{ cards: { id: string; onTheJobTool: { status: string } }
 const skillsMatrix = load<SkillsMatrix>('../src/data/skills-matrix.json');
 const threatModel = load<Parameters<typeof validateThreatModel>[0]>('../src/data/ai-threat-model.json');
 const blogPosts = load<BlogPost[]>('../src/data/blog-posts.json');
+const blogBacklog = load<{ topics: BacklogTopic[] }>('../src/data/blog-backlog.json');
 const affiliates = load<{
   partners: Record<string, { name: string; url: string; network: string; blurb: string; direct?: boolean }>;
   placements: Record<string, string[]>;
@@ -502,6 +541,7 @@ const problems = [
   ...validateSkillsMatrix(skillsMatrix, new Set(scorecard.cards.map((c) => c.id))).map((e) => `skills-matrix: ${e}`),
   ...validateThreatModel(threatModel).map((e) => `ai-threat-model: ${e}`),
   ...validateBlog(blogPosts).map((e) => `blog: ${e}`),
+  ...validateBacklog(blogBacklog.topics).map((e) => `blog backlog: ${e}`),
   ...(() => {
     // Affiliate placements point definition pages at partner /go/ redirects, so
     // a typo here would render a dead recommendation on a live page.
@@ -570,5 +610,5 @@ if (problems.length > 0) {
 }
 console.log(
   `Data OK: ${Object.keys(acronyms).length} acronyms, ${Object.keys(csf).length} CSF subcategories, ${Object.keys(cis).length} CIS safeguards, ${ai.length} AI framework entries, ` +
-    `${cmmc.questions.length} 800-171/CMMC, ${cyberEssentials.questions.length} Cyber Essentials, ${ztmm.questions.length} ZTMM, ${ssdf.questions.length} SSDF, ${pci.questions.length} PCI DSS, ${crosswalk.controls.length} crosswalk domains, ${soc2.criteria.length} SOC 2 criteria, ${boardMetrics.metrics.length} board metrics, ${runbooks.scenarios.length} runbook scenarios, ${cloudBaseline.controls.length} cloud baseline controls, ${ssdlc.practices.length} SDLC practices, ${automationRoi.categories.length} automation categories, ${trustLibrary.entries.length} trust answers, ${regulations.regulations.length} regulations, ${skillsMatrix.competencies.length} team competencies, ${threatModel.threats.length} AI threats, ${blogPosts.length} blog posts.`,
+    `${cmmc.questions.length} 800-171/CMMC, ${cyberEssentials.questions.length} Cyber Essentials, ${ztmm.questions.length} ZTMM, ${ssdf.questions.length} SSDF, ${pci.questions.length} PCI DSS, ${crosswalk.controls.length} crosswalk domains, ${soc2.criteria.length} SOC 2 criteria, ${boardMetrics.metrics.length} board metrics, ${runbooks.scenarios.length} runbook scenarios, ${cloudBaseline.controls.length} cloud baseline controls, ${ssdlc.practices.length} SDLC practices, ${automationRoi.categories.length} automation categories, ${trustLibrary.entries.length} trust answers, ${regulations.regulations.length} regulations, ${skillsMatrix.competencies.length} team competencies, ${threatModel.threats.length} AI threats, ${blogPosts.length} blog posts, ${blogBacklog.topics.filter((t) => !blogPosts.some((p) => p.slug === t.slug)).length} unpublished backlog topics.`,
 );

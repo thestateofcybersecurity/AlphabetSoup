@@ -163,7 +163,7 @@
     },
     {
       "slug": "cis-controls-ig1-for-small-local-government",
-      "title": "CIS Controls IG1 for a Small City: What a Two-Person IT Shop Does First",
+      "title": "CIS Controls IG1 for a Small City: Where a Two-Person IT Shop Starts",
       "category": "Explainer",
       "brief": "Work IG1 for a municipality of twenty to fifty thousand residents whose whole IT department is two generalists who also fix the council chamber projector. Cover what makes local government different from a same-sized business: a public records law that limits what you can quietly delete, a budget locked to an annual appropriation cycle so the answer to any purchase is usually next fiscal year, elections infrastructure and a water or wastewater utility sitting inside the same network, and a police department with its own CJIS obligations. Walk the IG1 safeguards in the order a city can actually fund them, name each one by number so the piece answers people searching a safeguard ID, say plainly which ones are free configuration changes and which ones need a line item, and close with how to put the remainder in front of a council that does not read control frameworks.",
       "links": [
@@ -334,7 +334,7 @@
     },
     {
       "slug": "encryption-at-rest-vs-in-transit",
-      "title": "Encryption at Rest vs In Transit, and Why Key Management Is the Hard Part",
+      "title": "Encryption at Rest vs In Transit: Key Management Is the Hard Part",
       "category": "Spotlight",
       "brief": "Explain encryption at rest versus in transit in plain terms, why both matter, and why key management (rotation, access, custody) is where most of the real risk and effort lives.",
       "links": [
