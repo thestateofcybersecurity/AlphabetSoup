@@ -158,7 +158,8 @@
     "controlName": "Data Protection",
     "title": "Encrypt Sensitive Data at Rest",
     "metaphor": "Scrambling everything stored in the long-term archive room so even someone who reaches the shelves reads only gibberish.",
-    "translation": "Data sitting in servers, databases, and backups is encrypted in storage, so reaching the disk does not reveal the contents, distinct from the laptops and phones covered earlier."
+    "translation": "Data sitting in servers, databases, and backups is encrypted in storage, so reaching the disk does not reveal the contents, distinct from the laptops and phones covered earlier.",
+    "metaDescription": "Data in servers, databases, and backups is encrypted in storage, so reaching the disk does not reveal the contents. Laptops are covered earlier."
   },
   "3.12": {
     "control": 3,
@@ -417,14 +418,16 @@
     "controlName": "Audit Log Management",
     "title": "Establish and Maintain an Audit Log Management Process",
     "metaphor": "Keeping a detailed diary of daily activities in your home.",
-    "translation": "The family establishes a process for recording and reviewing important events and activities in their home (audit logs), ensuring they can track and understand what has happened over time."
+    "translation": "The family establishes a process for recording and reviewing important events and activities in their home (audit logs), ensuring they can track and understand what has happened over time.",
+    "metaDescription": "The family sets up a process for recording and reviewing important events at home, so it can track and understand what happened over time."
   },
   "8.2": {
     "control": 8,
     "controlName": "Audit Log Management",
     "title": "Collect Audit Logs",
     "metaphor": "Actually switching on the recorders in every room, not just owning them.",
-    "translation": "The plan from safeguard 8.1 is put into practice: logs are genuinely turned on and gathered from devices, applications, and the network so events are captured as they happen."
+    "translation": "The plan from safeguard 8.1 is put into practice: logs are genuinely turned on and gathered from devices, applications, and the network so events are captured as they happen.",
+    "metaDescription": "Safeguard 8.1 put into practice: logs are genuinely turned on and gathered from devices, applications, and the network as events happen."
   },
   "8.3": {
     "control": 8,
@@ -473,7 +476,8 @@
     "controlName": "Audit Log Management",
     "title": "Centralize Audit Logs",
     "metaphor": "Keeping all your home records in one central place for easy review.",
-    "translation": "The family stores all their recorded activities and events (audit logs) in one central location, making it easier to monitor and analyze what’s happening in the home."
+    "translation": "The family stores all their recorded activities and events (audit logs) in one central location, making it easier to monitor and analyze what’s happening in the home.",
+    "metaDescription": "The family keeps all its recorded events in one central place, which makes it far easier to monitor and analyze what is happening at home."
   },
   "8.10": {
     "control": 8,
@@ -550,7 +554,8 @@
     "controlName": "Malware Defenses",
     "title": "Deploy and Maintain Anti-Malware Software",
     "metaphor": "Setting up a security system to detect and stop intruders.",
-    "translation": "The family installs and maintains anti-malware software to detect and prevent malicious threats, just as they would install a home security system to protect against break-ins."
+    "translation": "The family installs and maintains anti-malware software to detect and prevent malicious threats, just as they would install a home security system to protect against break-ins.",
+    "metaDescription": "The family installs and maintains anti-malware software to detect and block malicious threats, as it would fit a home security system."
   },
   "10.2": {
     "control": 10,
@@ -564,7 +569,8 @@
     "controlName": "Malware Defenses",
     "title": "Disable Autorun and Autoplay for Removable Media",
     "metaphor": "Preventing anyone from automatically opening your door without your permission.",
-    "translation": "The family disables automatic functions that could allow threats to enter their home without their knowledge, just as they would prevent doors from being opened automatically."
+    "translation": "The family disables automatic functions that could allow threats to enter their home without their knowledge, just as they would prevent doors from being opened automatically.",
+    "metaDescription": "The family switches off automatic functions that let threats in unnoticed, as it would stop doors from opening on their own."
   },
   "10.4": {
     "control": 10,
@@ -578,7 +584,8 @@
     "controlName": "Malware Defenses",
     "title": "Enable Anti-Exploitation Features",
     "metaphor": "Adding extra locks to doors to prevent burglars from picking them.",
-    "translation": "The family enables features that prevent the exploitation of vulnerabilities, just as they would add extra locks to their doors to make it harder for burglars to break in."
+    "translation": "The family enables features that prevent the exploitation of vulnerabilities, just as they would add extra locks to their doors to make it harder for burglars to break in.",
+    "metaDescription": "The family turns on features that prevent vulnerabilities being exploited, as it would add extra locks to make a break-in harder."
   },
   "10.6": {
     "control": 10,
@@ -641,7 +648,8 @@
     "controlName": "Network Infrastructure Management",
     "title": "Establish and Maintain a Secure Network Architecture",
     "metaphor": "Designing your home layout to maximize safety and security.",
-    "translation": "The family establishes and maintains a secure design for their network, ensuring that the structure supports safe and secure operations, just as they would design their home layout with security in mind."
+    "translation": "The family establishes and maintains a secure design for their network, ensuring that the structure supports safe and secure operations, just as they would design their home layout with security in mind.",
+    "metaDescription": "The family establishes and maintains a secure design for its network, as it would lay out the rooms of a house with security in mind."
   },
   "12.3": {
     "control": 12,
@@ -655,7 +663,8 @@
     "controlName": "Network Infrastructure Management",
     "title": "Establish and Maintain Architecture Diagram(s)",
     "metaphor": "Drawing a detailed map of your home’s layout, including wiring and plumbing.",
-    "translation": "The family maintains detailed diagrams and documentation of their network’s architecture, ensuring they have a clear understanding of how everything is connected, just as they would have a map of their home’s layout."
+    "translation": "The family maintains detailed diagrams and documentation of their network’s architecture, ensuring they have a clear understanding of how everything is connected, just as they would have a map of their home’s layout.",
+    "metaDescription": "The family keeps diagrams and documentation of its network architecture, so it understands how everything connects, like a map of the house."
   },
   "12.5": {
     "control": 12,
@@ -697,7 +706,8 @@
     "controlName": "Network Monitoring and Defense",
     "title": "Deploy a Host-Based Intrusion Detection Solution",
     "metaphor": "Installing motion detectors in each room of your house.",
-    "translation": "The family installs intrusion detection software on individual devices to monitor for unusual activity, similar to how they would use motion detectors to detect movement in each room."
+    "translation": "The family installs intrusion detection software on individual devices to monitor for unusual activity, similar to how they would use motion detectors to detect movement in each room.",
+    "metaDescription": "The family installs intrusion detection software on individual devices to watch for unusual activity, like motion detectors in each room."
   },
   "13.3": {
     "control": 13,
@@ -732,7 +742,8 @@
     "controlName": "Network Monitoring and Defense",
     "title": "Deploy a Host-Based Intrusion Prevention Solution",
     "metaphor": "Setting up automatic locks on your doors that engage if someone tries to break in.",
-    "translation": "The family uses intrusion prevention tools on their devices to automatically block malicious activities, similar to having doors that lock automatically if someone attempts to break in."
+    "translation": "The family uses intrusion prevention tools on their devices to automatically block malicious activities, similar to having doors that lock automatically if someone attempts to break in.",
+    "metaDescription": "The family uses intrusion prevention tools that block malicious activity automatically, like doors that lock when someone tries to force them."
   },
   "13.8": {
     "control": 13,
@@ -767,7 +778,8 @@
     "controlName": "Security Awareness and Skills Training",
     "title": "Establish and Maintain a Security Awareness Program",
     "metaphor": "Teaching your family the importance of locking doors and windows before leaving the house.",
-    "translation": "The family establishes a program to educate everyone about security practices, ensuring they understand the importance of protecting their home, just as they would teach them to lock up before leaving."
+    "translation": "The family establishes a program to educate everyone about security practices, ensuring they understand the importance of protecting their home, just as they would teach them to lock up before leaving.",
+    "metaDescription": "The family runs a program teaching everyone security practices, so all of them understand why the home needs protecting before they leave it."
   },
   "14.2": {
     "control": 14,
@@ -809,7 +821,8 @@
     "controlName": "Security Awareness and Skills Training",
     "title": "Train Workforce on How to Identify and Report if Their Enterprise Assets are Missing Security Updates",
     "metaphor": "Teaching your family to notice if the home security system isn’t working properly and report it.",
-    "translation": "The family ensures everyone knows how to check for and report missing updates on their devices, just as they would ensure the home security system is functioning correctly."
+    "translation": "The family ensures everyone knows how to check for and report missing updates on their devices, just as they would ensure the home security system is functioning correctly.",
+    "metaDescription": "The family makes sure everyone can check for and report missing updates on their devices, as it would confirm the alarm still works."
   },
   "14.8": {
     "control": 14,
@@ -844,7 +857,8 @@
     "controlName": "Service Provider Management",
     "title": "Classify Service Providers",
     "metaphor": "Sorting your home helpers by how much access they need, from the mail carrier at the door to the babysitter with a key.",
-    "translation": "The family classifies their service providers based on how sensitive the work is and how much access it requires, just as they would treat a babysitter with a house key differently from a lawn service that never comes inside."
+    "translation": "The family classifies their service providers based on how sensitive the work is and how much access it requires, just as they would treat a babysitter with a house key differently from a lawn service that never comes inside.",
+    "metaDescription": "The family sorts service providers by sensitivity and access, treating a babysitter with a house key differently from a lawn service."
   },
   "15.4": {
     "control": 15,
@@ -858,7 +872,8 @@
     "controlName": "Service Provider Management",
     "title": "Assess Service Providers",
     "metaphor": "Checking references and reviews before hiring someone to work on your house.",
-    "translation": "The family regularly assesses their service providers to ensure they meet the necessary standards, just as they would check references and reviews before hiring someone to work on their home."
+    "translation": "The family regularly assesses their service providers to ensure they meet the necessary standards, just as they would check references and reviews before hiring someone to work on their home.",
+    "metaDescription": "The family regularly assesses its service providers against the standards it expects, as it would check references before hiring anyone."
   },
   "15.6": {
     "control": 15,
@@ -935,7 +950,8 @@
     "controlName": "Application Software Security",
     "title": "Train Developers in Application Security Concepts and Secure Coding",
     "metaphor": "Teaching your builders the best practices for constructing a safe and secure home.",
-    "translation": "The family ensures that their developers are trained in secure coding and application security, just as they would teach builders the best practices for constructing a safe home."
+    "translation": "The family ensures that their developers are trained in secure coding and application security, just as they would teach builders the best practices for constructing a safe home.",
+    "metaDescription": "The family makes sure its developers are trained in secure coding, as it would teach builders the best practices for a safe house."
   },
   "16.10": {
     "control": 16,
@@ -963,7 +979,8 @@
     "controlName": "Application Software Security",
     "title": "Conduct Application Penetration Testing",
     "metaphor": "Hiring a security expert to try breaking into your home to find weak points.",
-    "translation": "The family conducts penetration testing on their applications to identify vulnerabilities, just as they would hire a security expert to test the security of their home."
+    "translation": "The family conducts penetration testing on their applications to identify vulnerabilities, just as they would hire a security expert to test the security of their home.",
+    "metaDescription": "The family runs penetration tests against its applications to find vulnerabilities, as it would hire an expert to test the house."
   },
   "16.14": {
     "control": 16,

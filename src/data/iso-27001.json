@@ -231,7 +231,8 @@
    "themeName": "Organizational",
    "subject": "Assessing events and deciding what is an incident",
    "metaphor": "Working out whether the smoke is burnt toast or something worse.",
-   "translation": "The family assesses what it notices and decides whether it is a real problem, so that small things are not ignored and normal things are not treated as emergencies."
+   "translation": "The family assesses what it notices and decides whether it is a real problem, so that small things are not ignored and normal things are not treated as emergencies.",
+   "metaDescription": "The family assesses what it notices and decides whether it is a real problem, so small things are not ignored and normal ones are not emergencies."
   },
   {
    "id": "A.5.26",
@@ -311,7 +312,8 @@
    "themeName": "Organizational",
    "subject": "Independent review of the security program",
    "metaphor": "Asking a friend to walk round the house and say what they would target.",
-   "translation": "Someone outside the day-to-day running of things reviews whether the arrangements actually work, because the people who built them are the worst placed to judge."
+   "translation": "Someone outside the day-to-day running of things reviews whether the arrangements actually work, because the people who built them are the worst placed to judge.",
+   "metaDescription": "Someone outside the day-to-day reviews whether the arrangements actually work, because the people who built them are the worst placed to judge."
   },
   {
    "id": "A.5.36",

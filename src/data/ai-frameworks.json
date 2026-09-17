@@ -81,7 +81,8 @@
     "metaphor": "Before rearranging the furniture, walking through the whole room to see where the doors, outlets, and walkways are, so the plan fits the space you actually have.",
     "translation": "Start by understanding exactly what job the AI tool is for, where it will be used, and who it will touch, so every choice after that makes sense for your situation.",
     "sourceLabel": "NIST AI RMF 1.0",
-    "sourceUrl": "https://www.nist.gov/itl/ai-risk-management-framework"
+    "sourceUrl": "https://www.nist.gov/itl/ai-risk-management-framework",
+    "metaDescription": "Start by understanding exactly what job the AI tool is for, where it will be used, and who it will touch, so every later choice makes sense."
   },
   {
     "code": "MAP 2",
@@ -567,7 +568,8 @@
     "metaphor": "Reading a company's published architectural plans at the library before deciding which wall to knock through.",
     "translation": "Teams publish more about their AI than they realize. Papers, patents, and conference talks name the model architecture, the training approach, and often the people who built it, which is exactly the head start an attacker wants.",
     "sourceLabel": "MITRE ATLAS",
-    "sourceUrl": "https://atlas.mitre.org/"
+    "sourceUrl": "https://atlas.mitre.org/",
+    "metaDescription": "Papers, patents, and conference talks name the model architecture, the training approach, and often the people who built it. That is a head start."
   },
   {
     "code": "AML.T0001",
@@ -651,7 +653,8 @@
     "metaphor": "Piecing together a family's routine from what they post publicly, without ever going near the house.",
     "translation": "Search engines, social posts, and public repositories add up. Individually harmless details combine into a picture of who runs the AI system, what it is built on, and when nobody is watching it.",
     "sourceLabel": "MITRE ATLAS",
-    "sourceUrl": "https://atlas.mitre.org/"
+    "sourceUrl": "https://atlas.mitre.org/",
+    "metaDescription": "Search engines, social posts, and public repositories add up to a picture of who runs the AI system and what it is built on."
   },
   {
     "code": "AML.T0002",
@@ -663,7 +666,8 @@
     "metaphor": "Taking the free sample home so you can analyze the recipe at your own kitchen table.",
     "translation": "Published models and datasets are convenient for developers and equally convenient for attackers, who use the same downloads to build an offline copy of what you run in production.",
     "sourceLabel": "MITRE ATLAS",
-    "sourceUrl": "https://atlas.mitre.org/"
+    "sourceUrl": "https://atlas.mitre.org/",
+    "metaDescription": "Published models and datasets are as convenient for attackers as for developers: the same downloads build an offline copy of production."
   },
   {
     "code": "AML.T0008",
@@ -723,7 +727,8 @@
     "metaphor": "Opening a bank account under a business name you invented, purely so the paperwork looks legitimate later.",
     "translation": "A brand new account on a model hub or cloud platform costs nothing and gives an attacker a legitimate-looking identity to publish from, request quota with, or impersonate someone under.",
     "sourceLabel": "MITRE ATLAS",
-    "sourceUrl": "https://atlas.mitre.org/"
+    "sourceUrl": "https://atlas.mitre.org/",
+    "metaDescription": "A new account on a model hub costs nothing and gives an attacker a legitimate-looking identity to publish from, request quota with, or hide behind."
   },
   {
     "code": "AML.T0060",
@@ -735,7 +740,8 @@
     "metaphor": "A confident tour guide keeps sending visitors to a restaurant that was never there, so you open one at that address and wait.",
     "translation": "Language models invent plausible package names and URLs. If a model reliably hallucinates the same one, an attacker registers it, and every developer who follows the model's advice installs their code.",
     "sourceLabel": "MITRE ATLAS",
-    "sourceUrl": "https://atlas.mitre.org/"
+    "sourceUrl": "https://atlas.mitre.org/",
+    "metaDescription": "Language models invent plausible package names. If one is hallucinated reliably, an attacker registers it and ships code to everyone who follows."
   },
   {
     "code": "AML.T0065",
@@ -759,7 +765,8 @@
     "metaphor": "Writing a pamphlet specifically so it ends up in the doctor's waiting room, aimed at whoever picks it up.",
     "translation": "If you know what a retrieval system searches for, you can write a document engineered to be the one it finds. Whatever that document says then arrives with the system's authority behind it.",
     "sourceLabel": "MITRE ATLAS",
-    "sourceUrl": "https://atlas.mitre.org/"
+    "sourceUrl": "https://atlas.mitre.org/",
+    "metaDescription": "Knowing what a retrieval system searches for lets you write the document it finds, which then arrives carrying the system's own authority."
   },
   {
     "code": "AML.T0079",
@@ -783,7 +790,8 @@
     "metaphor": "Printing a counterfeit edition of a trusted cookbook, one ingredient changed, and getting it onto the shop shelf beside the real one.",
     "translation": "Model hubs, dataset repositories, package registries, and tool directories are supply chains. An artifact published there with a familiar-looking name can be pulled into a hundred systems that never inspected it.",
     "sourceLabel": "MITRE ATLAS",
-    "sourceUrl": "https://atlas.mitre.org/"
+    "sourceUrl": "https://atlas.mitre.org/",
+    "metaDescription": "Model hubs, dataset repositories, and package registries are supply chains. A familiar-looking name pulls a poisoned artifact into many systems."
   },
   {
     "code": "AML.T0010",
@@ -807,7 +815,8 @@
     "metaphor": "Walking in the front door with a key that works, so nobody thinks to question you.",
     "translation": "The quietest way into an AI platform is a real login. Stolen or leaked credentials produce activity that looks authorized, because as far as the system is concerned it is.",
     "sourceLabel": "MITRE ATLAS",
-    "sourceUrl": "https://atlas.mitre.org/"
+    "sourceUrl": "https://atlas.mitre.org/",
+    "metaDescription": "The quietest way into an AI platform is a real login. Stolen credentials produce activity that looks authorized, because the system thinks it is."
   },
   {
     "code": "AML.T0015",
@@ -831,7 +840,8 @@
     "metaphor": "Prying open a badly fitted window on the ground floor instead of arguing with the doorman.",
     "translation": "The model is often the best-defended part of the stack. The inference server, the notebook host, and the API gateway around it are ordinary software with ordinary vulnerabilities.",
     "sourceLabel": "MITRE ATLAS",
-    "sourceUrl": "https://atlas.mitre.org/"
+    "sourceUrl": "https://atlas.mitre.org/",
+    "metaDescription": "The model is often the best-defended part of the stack. The inference server, notebook host, and API gateway are ordinary vulnerable software."
   },
   {
     "code": "AML.T0052",
@@ -855,7 +865,8 @@
     "metaphor": "Picking up something contagious just by sitting in the waiting room, having touched nothing.",
     "translation": "Ordinary browsing is enough. When an AI agent fetches pages for a user, the agent becomes the one visiting hostile sites, and it does so far more often than any person would.",
     "sourceLabel": "MITRE ATLAS",
-    "sourceUrl": "https://atlas.mitre.org/"
+    "sourceUrl": "https://atlas.mitre.org/",
+    "metaDescription": "When an AI agent fetches pages for a user, the agent is the one visiting hostile sites, and it does so far more often than any person would."
   },
   {
     "code": "AML.T0093",
@@ -891,7 +902,8 @@
     "metaphor": "Putting a sticker on a road sign so the driver reads it wrong, without touching the car at all.",
     "translation": "Models that see the world can be attacked through the world. A sticker, a printed pattern, or a change in lighting can fool a vision system while the network and servers stay untouched.",
     "sourceLabel": "MITRE ATLAS",
-    "sourceUrl": "https://atlas.mitre.org/"
+    "sourceUrl": "https://atlas.mitre.org/",
+    "metaDescription": "Models that see the world can be attacked through it. A sticker or a change in lighting fools a vision system while the servers stay untouched."
   },
   {
     "code": "AML.T0044",
@@ -915,7 +927,8 @@
     "metaphor": "Studying the chef's technique by ordering from the menu every night, since the kitchen is closed to visitors.",
     "translation": "Any shipped feature that calls a model is a way to query that model. The consumer interface is often less monitored and less rate-limited than the API it sits on top of.",
     "sourceLabel": "MITRE ATLAS",
-    "sourceUrl": "https://atlas.mitre.org/"
+    "sourceUrl": "https://atlas.mitre.org/",
+    "metaDescription": "Any shipped feature that calls a model is a way to query it, and the consumer interface is usually less monitored than the API beneath it."
   },
   {
     "code": "AML.T0011",
@@ -951,7 +964,8 @@
     "metaphor": "Slipping a forged note into the stack a messenger is carrying, so the next instruction they follow is yours.",
     "translation": "Language models do not reliably separate instructions from data. Text that arrives inside a document, a web page, or an email can be read as a command and obeyed.",
     "sourceLabel": "MITRE ATLAS",
-    "sourceUrl": "https://atlas.mitre.org/"
+    "sourceUrl": "https://atlas.mitre.org/",
+    "metaDescription": "Language models do not reliably separate instructions from data, so text inside a document, web page, or email can be read as a command."
   },
   {
     "code": "AML.T0053",
@@ -987,7 +1001,8 @@
     "metaphor": "Hiring a temp who reports to you, sitting them at a desk inside the office, and letting them do the rounds.",
     "translation": "Instead of running the attack themselves, the adversary starts an agent in your environment and lets it work. It looks like internal automation and it operates at machine speed.",
     "sourceLabel": "MITRE ATLAS",
-    "sourceUrl": "https://atlas.mitre.org/"
+    "sourceUrl": "https://atlas.mitre.org/",
+    "metaDescription": "Rather than run the attack themselves, the adversary starts an agent in your environment. It looks like internal automation and moves fast."
   },
   {
     "code": "AML.T0018",
@@ -999,7 +1014,8 @@
     "metaphor": "Rewiring an appliance so it works normally until the one day you flip a hidden switch.",
     "translation": "A model file is code and data together. Editing it can install behavior that survives restarts and redeployments, because the backdoor ships inside the artifact everyone trusts.",
     "sourceLabel": "MITRE ATLAS",
-    "sourceUrl": "https://atlas.mitre.org/"
+    "sourceUrl": "https://atlas.mitre.org/",
+    "metaDescription": "A model file is code and data together. Editing it installs behavior that survives redeployment, because the backdoor ships inside the artifact."
   },
   {
     "code": "AML.T0061",
@@ -1023,7 +1039,8 @@
     "metaphor": "Filing a forged document in the reference cabinet, so every clerk who looks it up cites it as fact.",
     "translation": "Poison the corpus and you poison every answer drawn from it. The model behaves correctly; it is faithfully repeating a document that should never have been in the index.",
     "sourceLabel": "MITRE ATLAS",
-    "sourceUrl": "https://atlas.mitre.org/"
+    "sourceUrl": "https://atlas.mitre.org/",
+    "metaDescription": "Poison the corpus and you poison every answer drawn from it. The model behaves correctly, faithfully repeating a document that should not be there."
   },
   {
     "code": "AML.T0080",
@@ -1035,7 +1052,8 @@
     "metaphor": "Editing the notes someone left themselves overnight, so the plan they wake up and follow is not the one they wrote.",
     "translation": "An agent's context is its working memory. Anything an attacker can write into that memory shapes every decision the agent makes afterward, long after the original injection.",
     "sourceLabel": "MITRE ATLAS",
-    "sourceUrl": "https://atlas.mitre.org/"
+    "sourceUrl": "https://atlas.mitre.org/",
+    "metaDescription": "An agent's context is its working memory. Anything written into it shapes every later decision, long after the original injection."
   },
   {
     "code": "AML.T0081",
@@ -1047,7 +1065,8 @@
     "metaphor": "Quietly rewriting the standing orders pinned above the night guard's desk.",
     "translation": "Agent behavior lives in config: which tools it may call, what its system prompt says, which endpoint it talks to. Edit that file and you have changed the agent permanently without touching its code.",
     "sourceLabel": "MITRE ATLAS",
-    "sourceUrl": "https://atlas.mitre.org/"
+    "sourceUrl": "https://atlas.mitre.org/",
+    "metaDescription": "Agent behavior lives in config: which tools it calls, its system prompt, its endpoint. Edit that file and the agent is changed permanently."
   },
   {
     "code": "AML.T0099",
@@ -1059,7 +1078,8 @@
     "metaphor": "Changing the numbers in the ledger the accountant checks, rather than arguing with the accountant.",
     "translation": "Agents trust what their tools return. Corrupting the database, ticket queue, or file share behind a tool means the agent reasons correctly from data that is a lie.",
     "sourceLabel": "MITRE ATLAS",
-    "sourceUrl": "https://atlas.mitre.org/"
+    "sourceUrl": "https://atlas.mitre.org/",
+    "metaDescription": "Agents trust what their tools return. Corrupt the database or file share behind a tool and the agent reasons correctly from data that is a lie."
   },
   {
     "code": "AML.T0110",
@@ -1107,7 +1127,8 @@
     "metaphor": "Attaching an official-looking seal and reference number to a letter you wrote yourself.",
     "translation": "People judge an answer by its trappings. Fabricated citations, invented source links, and confident formatting make a poisoned response read like a well-researched one.",
     "sourceLabel": "MITRE ATLAS",
-    "sourceUrl": "https://atlas.mitre.org/"
+    "sourceUrl": "https://atlas.mitre.org/",
+    "metaDescription": "People judge an answer by its trappings. Fabricated citations and confident formatting make a poisoned response read like a researched one."
   },
   {
     "code": "AML.T0068",
@@ -1131,7 +1152,8 @@
     "metaphor": "Adding an invented entry to the encyclopedia, complete with the right typeface, so nobody questions it.",
     "translation": "A retrieval database is usually trusted without further checking. A single planted record will be surfaced, cited, and repeated as though it came from the organization itself.",
     "sourceLabel": "MITRE ATLAS",
-    "sourceUrl": "https://atlas.mitre.org/"
+    "sourceUrl": "https://atlas.mitre.org/",
+    "metaDescription": "A retrieval database is usually trusted without checking. One planted record gets surfaced, cited, and repeated as if the company wrote it."
   },
   {
     "code": "AML.T0073",
@@ -1143,7 +1165,8 @@
     "metaphor": "Turning up in the uniform of the utility company, clipboard in hand, and being shown to the basement.",
     "translation": "Trust is a shortcut people take. Synthesized voice and text now make a convincing impersonation quick to produce, so the usual cues of authenticity no longer prove much.",
     "sourceLabel": "MITRE ATLAS",
-    "sourceUrl": "https://atlas.mitre.org/"
+    "sourceUrl": "https://atlas.mitre.org/",
+    "metaDescription": "Synthesized voice and text make a convincing impersonation quick to produce, so the usual cues of authenticity no longer prove much."
   },
   {
     "code": "AML.T0074",
@@ -1191,7 +1214,8 @@
     "metaphor": "Leaving a sealed envelope marked open only when the bell rings.",
     "translation": "An injected instruction that does nothing today passes review today. It waits for a trigger word or the next session, so the malicious behavior and the malicious input never appear together.",
     "sourceLabel": "MITRE ATLAS",
-    "sourceUrl": "https://atlas.mitre.org/"
+    "sourceUrl": "https://atlas.mitre.org/",
+    "metaDescription": "An injected instruction that does nothing today passes review today. It waits for a trigger, so the behavior and the input never appear together."
   },
   {
     "code": "AML.T0097",
@@ -1227,7 +1251,8 @@
     "metaphor": "Running an honest bakery for two years to build the queue, then selling one bad batch on purpose.",
     "translation": "Trust is earned and then spent. A package or model that has been safe for a dozen releases gets updated without scrutiny, which is exactly what makes the poisoned release effective.",
     "sourceLabel": "MITRE ATLAS",
-    "sourceUrl": "https://atlas.mitre.org/"
+    "sourceUrl": "https://atlas.mitre.org/",
+    "metaDescription": "Trust is earned and then spent. A package safe for a dozen releases gets updated without scrutiny, which is what makes the poisoned release work."
   },
   {
     "code": "AML.T0111",
@@ -1239,7 +1264,8 @@
     "metaphor": "Filling the restaurant with paid diners so passersby assume the food must be good.",
     "translation": "Stars, downloads, and citations are the proxies people use for safety, and all of them can be manufactured. A component can look thoroughly vetted without anyone having vetted it.",
     "sourceLabel": "MITRE ATLAS",
-    "sourceUrl": "https://atlas.mitre.org/"
+    "sourceUrl": "https://atlas.mitre.org/",
+    "metaDescription": "Stars, downloads, and citations are the proxies people use for safety, and all of them can be manufactured without anyone vetting anything."
   },
   {
     "code": "AML.T0055",
@@ -1311,7 +1337,8 @@
     "metaphor": "Breaking the lock on the key cabinet rather than trying each key in turn.",
     "translation": "Some bugs hand over credentials directly. Exploiting one is faster than guessing, and it often works against systems where every other credential path is well defended.",
     "sourceLabel": "MITRE ATLAS",
-    "sourceUrl": "https://atlas.mitre.org/"
+    "sourceUrl": "https://atlas.mitre.org/",
+    "metaDescription": "Some bugs hand over credentials directly. Exploiting one is faster than guessing and often works where every other credential path is defended."
   },
   {
     "code": "AML.T0113",
@@ -1443,7 +1470,8 @@
     "metaphor": "Using a pass that was already stamped, so you never have to show identification at the next desk.",
     "translation": "Tokens and tickets are accepted in place of a login. Reusing one moves the attacker to the next system without ever triggering a password prompt or a multi-factor check.",
     "sourceLabel": "MITRE ATLAS",
-    "sourceUrl": "https://atlas.mitre.org/"
+    "sourceUrl": "https://atlas.mitre.org/",
+    "metaDescription": "Tokens and tickets are accepted in place of a login, so reusing one moves the attacker onward without triggering a password or MFA prompt."
   },
   {
     "code": "AML.T0035",
@@ -1515,7 +1543,8 @@
     "metaphor": "Testing the key in the lock once, quietly, well before the night you intend to use it.",
     "translation": "A failed attempt is a detection event. Verifying against a copy or a few careful queries means the attack that finally runs against production works the first time.",
     "sourceLabel": "MITRE ATLAS",
-    "sourceUrl": "https://atlas.mitre.org/"
+    "sourceUrl": "https://atlas.mitre.org/",
+    "metaDescription": "A failed attempt is a detection event. Verifying against a copy first means the attack that finally runs against production works first time."
   },
   {
     "code": "AML.T0043",
@@ -1575,7 +1604,8 @@
     "metaphor": "Passing messages through the office mailroom, since parcels move through it all day anyway.",
     "translation": "Traffic to a known model provider is expected and usually allowed. Hiding instructions inside those calls means the command channel looks exactly like the AI work everyone else is doing.",
     "sourceLabel": "MITRE ATLAS",
-    "sourceUrl": "https://atlas.mitre.org/"
+    "sourceUrl": "https://atlas.mitre.org/",
+    "metaDescription": "Traffic to a known model provider is expected and allowed, so instructions hidden in those calls make the command channel look like ordinary work."
   },
   {
     "code": "AML.T0108",
@@ -1587,7 +1617,8 @@
     "metaphor": "Using the household's own assistant to relay your orders, so no stranger is ever seen on the property.",
     "translation": "An agent that already runs, already has credentials, and already talks to the outside makes an ideal control channel. Nothing new needs installing for the attacker to keep issuing commands.",
     "sourceLabel": "MITRE ATLAS",
-    "sourceUrl": "https://atlas.mitre.org/"
+    "sourceUrl": "https://atlas.mitre.org/",
+    "metaDescription": "An agent that already runs, already holds credentials, and already talks outward is an ideal control channel. Nothing new needs installing."
   },
   {
     "code": "AML.T0114",
@@ -1611,7 +1642,8 @@
     "metaphor": "Copying a book by asking the librarian to read out one page at a time, day after day.",
     "translation": "The API is a data channel. Enough carefully chosen queries can pull back training examples, reconstruct model behavior, or recover information the model was never meant to reveal.",
     "sourceLabel": "MITRE ATLAS",
-    "sourceUrl": "https://atlas.mitre.org/"
+    "sourceUrl": "https://atlas.mitre.org/",
+    "metaDescription": "The API is a data channel. Enough chosen queries pull back training examples or recover information the model was never meant to reveal."
   },
   {
     "code": "AML.T0025",
@@ -1623,7 +1655,8 @@
     "metaphor": "Loading the boxes into an ordinary van and driving out the gate with everyone else at five o'clock.",
     "translation": "Once the data is gathered, getting it out is a normal exfiltration problem. Model weights are large, which is one of the few places the transfer might be noticed.",
     "sourceLabel": "MITRE ATLAS",
-    "sourceUrl": "https://atlas.mitre.org/"
+    "sourceUrl": "https://atlas.mitre.org/",
+    "metaDescription": "Once gathered, getting the data out is a normal exfiltration problem. Model weights are large, which is one of the few chances to notice it."
   },
   {
     "code": "AML.T0056",
@@ -1635,7 +1668,8 @@
     "metaphor": "Getting the actor to recite the director's private notes instead of their lines.",
     "translation": "System prompts often contain business logic, internal names, and the exact wording of the guardrails. Extracting one turns guesswork into a precise map of what to attack next.",
     "sourceLabel": "MITRE ATLAS",
-    "sourceUrl": "https://atlas.mitre.org/"
+    "sourceUrl": "https://atlas.mitre.org/",
+    "metaDescription": "System prompts hold business logic, internal names, and the wording of the guardrails. Extracting one turns guesswork into a map of the target."
   },
   {
     "code": "AML.T0057",
@@ -1683,7 +1717,8 @@
     "metaphor": "Filling a small restaurant with people who order nothing, so no real customer can get a table.",
     "translation": "Inference is expensive. It takes far fewer requests to exhaust a model-serving system than a conventional web service, so the bar for a successful denial of service is low.",
     "sourceLabel": "MITRE ATLAS",
-    "sourceUrl": "https://atlas.mitre.org/"
+    "sourceUrl": "https://atlas.mitre.org/",
+    "metaDescription": "Inference is expensive. Exhausting a model-serving system takes far fewer requests than a conventional web service, so the bar is low."
   },
   {
     "code": "AML.T0031",
@@ -1707,7 +1742,8 @@
     "metaphor": "Leaving every tap in the building running overnight, purely so the water bill arrives.",
     "translation": "Metered AI services turn traffic into money. An attacker who cannot break a system can still make it expensive enough that the organization throttles or shuts it down.",
     "sourceLabel": "MITRE ATLAS",
-    "sourceUrl": "https://atlas.mitre.org/"
+    "sourceUrl": "https://atlas.mitre.org/",
+    "metaDescription": "Metered AI services turn traffic into money. An attacker who cannot break the system can still make it too expensive to keep running."
   },
   {
     "code": "AML.T0046",
@@ -1767,7 +1803,8 @@
     "metaphor": "Getting at the whole house through the smart doorbell somebody installed last month.",
     "translation": "Local AI components are software with system access, and often newer and less hardened than anything else on the machine. Exploiting one is a route to the host itself.",
     "sourceLabel": "MITRE ATLAS",
-    "sourceUrl": "https://atlas.mitre.org/"
+    "sourceUrl": "https://atlas.mitre.org/",
+    "metaDescription": "Local AI components are software with system access, often newer and less hardened than anything else on the machine, and a route to the host."
   },
   {
     "code": "Overview",
@@ -1839,7 +1876,8 @@
     "metaphor": "Actually cooking dinner every night while following the safety routines, and pausing to think about how a new dish might affect guests with allergies or special diets.",
     "translation": "The organization operates its AI under the controls it planned and, before and during use, evaluates the real-world impact of each system on the people it touches.",
     "sourceLabel": "ISO/IEC 42001:2023",
-    "sourceUrl": "https://www.iso.org/standard/81230.html"
+    "sourceUrl": "https://www.iso.org/standard/81230.html",
+    "metaDescription": "The organization operates its AI under the controls it planned, and evaluates the real-world impact of each system on the people it touches."
   },
   {
     "code": "Clause 9",
@@ -1863,7 +1901,8 @@
     "metaphor": "After a small kitchen fire, you do not just put it out; you figure out why it started and change the habit so it does not happen again.",
     "translation": "The organization corrects failures, addresses their underlying causes, and treats the AI program as something it continually tunes rather than sets once and forgets.",
     "sourceLabel": "ISO/IEC 42001:2023",
-    "sourceUrl": "https://www.iso.org/standard/81230.html"
+    "sourceUrl": "https://www.iso.org/standard/81230.html",
+    "metaDescription": "The organization corrects failures, addresses their causes, and treats the AI program as something it continually tunes rather than sets once."
   },
   {
     "code": "Annex A",
@@ -1875,6 +1914,7 @@
     "metaphor": "A checklist of household safety measures to choose from: door locks, smoke alarms, a chore chart, labeling the cleaning chemicals, teaching the kids the rules, and vetting the babysitter.",
     "translation": "The organization selects from a catalog of AI safeguards, justifying which ones apply, to cover data quality, transparency, human oversight, and control of outside vendors.",
     "sourceLabel": "ISO/IEC 42001:2023",
-    "sourceUrl": "https://www.iso.org/standard/81230.html"
+    "sourceUrl": "https://www.iso.org/standard/81230.html",
+    "metaDescription": "The organization selects from a catalog of AI safeguards, justifying which apply, covering data quality, transparency, oversight, and vendors."
   }
 ]
