@@ -335,7 +335,7 @@ function definitionTitle(entry: AcronymEntry): string {
 function definitionPage(key: string, entry: AcronymEntry): string {
   const slug = slugForKey(key);
   const url = `${SITE}/definitions/${slug}.html`;
-  const description = metaDescription(entry.explanation);
+  const description = metaDescription(entry.metaDescription ?? entry.explanation);
   const jsonLd = jsonLdScript({
     '@context': 'https://schema.org',
     '@type': 'DefinedTerm',

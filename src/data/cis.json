@@ -369,7 +369,8 @@
     "controlName": "Continuous Vulnerability Management",
     "title": "Establish and Maintain a Vulnerability Management Process",
     "metaphor": "Regularly checking your home for cracks in the foundation.",
-    "translation": "The family establishes and maintains a routine process for identifying and addressing weaknesses in their home (enterprise assets), ensuring that any potential vulnerabilities are promptly detected and fixed."
+    "translation": "The family establishes and maintains a routine process for identifying and addressing weaknesses in their home (enterprise assets), ensuring that any potential vulnerabilities are promptly detected and fixed.",
+    "metaDescription": "The family keeps a routine process for finding and fixing weaknesses in their home (enterprise assets), so potential vulnerabilities are caught promptly."
   },
   "7.2": {
     "control": 7,

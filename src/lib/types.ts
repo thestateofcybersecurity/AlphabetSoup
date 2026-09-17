@@ -48,6 +48,14 @@ export interface AcronymEntry extends AcronymIndexEntry {
    * with the question being asked. Only the title changes, never the H1.
    */
   seoTitle?: string;
+  /**
+   * Meta description override, used when the explanation would be trimmed with
+   * an ellipsis. Every explanation here runs past 160 characters, so the page
+   * always trims. This exists for the entries where the cut landed on an
+   * article or preposition and read as a broken sentence rather than a clipped
+   * one. Only the meta and og description change, never the page body.
+   */
+  metaDescription?: string;
 }
 
 export type AcronymData = Record<string, AcronymEntry>;
