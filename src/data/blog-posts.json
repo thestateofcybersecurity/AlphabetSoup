@@ -3008,5 +3008,134 @@
         "href": "/?q=DPO"
       }
     ]
+  },
+  {
+    "slug": "cis-controls-ig1-for-small-local-government",
+    "title": "CIS Controls IG1 for a Small City: Where a Two-Person IT Shop Starts",
+    "description": "IG1 was written for small businesses. A city also runs a water utility, a police department under CJIS, and a records law. Here is the working order.",
+    "category": "Explainer",
+    "author": "Parker Brissette",
+    "date": "2026-09-17",
+    "readingMinutes": 6,
+    "tags": [
+      "cis controls",
+      "local government",
+      "ig1",
+      "compliance",
+      "small team"
+    ],
+    "body": [
+      {
+        "type": "p",
+        "text": "IG1 is not a framework for small organizations. It is a framework for small businesses, and a city of thirty thousand people is not a small business with a flag out front. Same headcount, sometimes. But a two-person IT shop in a municipality is carrying a water utility, a police department, an elections operation, and a records program that state law says you may not quietly clean up. CIS wrote the fifty-six [IG1](/?q=IG1) safeguards for an enterprise with no dedicated security staff, which fits a city exactly. The assumptions underneath it do not."
+      },
+      {
+        "type": "h2",
+        "text": "Where the essential hygiene framing holds up"
+      },
+      {
+        "type": "p",
+        "text": "Give CIS the credit first. Most of IG1 is configuration rather than procurement. Safeguard 4.3 is a session lock. 4.5 is the host firewall you are already licensed for, 4.7 is disabling default accounts, and 5.3 is disabling dormant ones. A competent generalist with domain admin closes a dozen of those in a week of evenings without opening a purchase order, and CIS's own Community Defense Model argues that IG1 on its own handles roughly three quarters of the ATT&CK techniques in the five attack patterns it models. Fifty-six items out of a hundred and fifty-three, for that."
+      },
+      {
+        "type": "p",
+        "text": "So the framing is right about difficulty. It is wrong about ownership."
+      },
+      {
+        "type": "h2",
+        "text": "1.1 is a jurisdiction problem, not a spreadsheet problem"
+      },
+      {
+        "type": "p",
+        "text": "Safeguard 1.1 asks for a detailed inventory of enterprise assets. In a business that is tedious. In a city it is a negotiation. The control workstation at the water plant belongs to Public Works, the dispatch consoles belong to the PD, and the public access machines in the library belong to a director who reports to a separate board. Not one of those departments would call itself IT, and most of them are right that nobody told them otherwise."
+      },
+      {
+        "type": "p",
+        "text": "What I keep seeing is that 1.1 stalls there and everything downstream stalls with it, because the rest of the list counts things. You cannot patch what you have not counted (7.3). You cannot back it up either (11.2)."
+      },
+      {
+        "type": "p",
+        "text": "The police department is the one that bites."
+      },
+      {
+        "type": "p",
+        "text": "[CJIS](/?q=CJIS) has required [multi-factor authentication](/?q=MFA) for access to criminal justice information since October 1, 2024, so the PD is already under an identity requirement stricter than IG1's 6.5, usually on systems city IT does not administer. Put it in the inventory as its own line and stop trying to fold it into the domain."
+      },
+      {
+        "type": "p",
+        "text": "I do not have a clean answer for the utility side. Safeguard 2.2 says authorized software has to be currently supported, and the HMI driving the lift stations runs an operating system the integrator will not certify a replacement for. Every option there is money or accepted risk."
+      },
+      {
+        "type": "h2",
+        "text": "3.4 runs backwards in local government"
+      },
+      {
+        "type": "p",
+        "text": "Retention is where the small-business version of this advice actively hurts you. A company enforces retention to shrink what an intruder can carry out, and the instinct is to delete early. A city operates under a state records retention schedule, where deleting early is what produces the lawsuit instead of preventing it. Safeguard 3.4 asks you to enforce retention against a minimum and a maximum. Your minimum is not yours to set. Legal owns it, the clerk administers it, and IT implements what they land on."
+      },
+      {
+        "type": "p",
+        "text": "8.3 asks for ninety days of audit log storage as a floor. Ninety days is cheap. The expensive discovery arrives later, the first time a public records request touches email and you find out the mail archive and the audit log were never the same retention conversation."
+      },
+      {
+        "type": "h2",
+        "text": "The appropriation cycle sets the order, not the risk register"
+      },
+      {
+        "type": "p",
+        "text": "Sort what is left into free and funded, because the fiscal year decides the rest. Free means a configuration change or a service somebody else already pays for. CISA still runs no-cost vulnerability scanning for state and local government, which covers most of 7.1 without a requisition. Funded means a budget line, and for a city that pile is short and boringly predictable."
+      },
+      {
+        "type": "list",
+        "items": [
+          "**Log storage and retention** (8.2 and 8.3). Ninety days is the floor, and usually the first real line item.",
+          "**An isolated copy of recovery data** (11.4). The offline one. This is the safeguard ransomware actually tests.",
+          "**MFA licensing** (6.3 through 6.5) for everyone with email, not only for the four people holding admin rights.",
+          "**Whatever keeps the asset inventory current.** Free to start. Not free past roughly two hundred devices, which a city of thirty thousand passes before you finish counting."
+        ]
+      },
+      {
+        "type": "p",
+        "text": "I genuinely do not care which password manager or [DNS](/?q=DNS) filter you pick. Buy the one with a government price list and move on. The order I will argue about is inventory first, every time, before a dollar goes to tooling, because every quote you request before 1.1 is finished is priced against a number you invented."
+      },
+      {
+        "type": "p",
+        "text": "Check the free list before you build a plan on it. CISA's cooperative agreement funding for MS-ISAC ended on September 30, 2025 and parts of that program moved to paid membership afterward, so a 2023 article's list of no-cost services may not match what is available this budget cycle."
+      },
+      {
+        "type": "h2",
+        "text": "What to put in front of the council"
+      },
+      {
+        "type": "p",
+        "text": "Councils do not read control frameworks and should not be asked to. Two numbers travel. How many of the fifty-six are closed, and what stops working if the answer to the rest is no. Only the second one moves a vote. Utility billing and dispatch are what a resident notices inside the first day of a ransomware event, and a council that watched a neighboring city run a boil-water notice on paper understands the ask without a control number."
+      },
+      {
+        "type": "p",
+        "text": "If you are the one standing at the fall budget workshop with one slide and eleven minutes, the free pile is your credibility and the funded pile is your ask. (The same two people who own this list also own the council chamber projector, which is not a joke about priorities, it is a scheduling constraint.) Work the [IG1 checklist](/assess/?a=cis-ig1) until the free pile is empty, then move the remainder into the [board metrics](/tools/board-metrics/) view, where it reads as a line item. The [CIS framework page](/frameworks/cis/) carries the full safeguard wording for a policy citation."
+      },
+      {
+        "type": "p",
+        "text": "The list is not the hard part here. Fifty-six safeguards is a smaller ask than most frameworks put in front of a city, and many of them close for free inside two months. The hard part is getting four departments to agree they are on the same network before any of it starts counting. Start the inventory now, in September, so the number is real by the time the budget is."
+      }
+    ],
+    "related": [
+      {
+        "label": "CIS Controls framework",
+        "href": "/frameworks/cis/"
+      },
+      {
+        "label": "Run the IG1 checklist",
+        "href": "/assess/?a=cis-ig1"
+      },
+      {
+        "label": "Board metrics builder",
+        "href": "/tools/board-metrics/"
+      },
+      {
+        "label": "CJIS in the glossary",
+        "href": "/?q=CJIS"
+      }
+    ]
   }
 ]
