@@ -3137,5 +3137,121 @@
         "href": "/?q=CJIS"
       }
     ]
+  },
+  {
+    "slug": "tcp-udp-and-what-security-people-need",
+    "title": "TCP vs UDP: What Security People Actually Need to Know",
+    "description": "TCP's handshake is evidence you can cite. UDP hands you a source field a stranger wrote. What that difference changes in your scans and your egress rules.",
+    "category": "Explainer",
+    "author": "Parker Brissette",
+    "date": "2026-09-17",
+    "readingMinutes": 5,
+    "tags": [
+      "tcp",
+      "udp",
+      "network security",
+      "detection engineering",
+      "quic"
+    ],
+    "body": [
+      {
+        "type": "p",
+        "text": "[TCP](/?q=TCP) and [UDP](/?q=UDP) is not a networking-course question security people get to skip. It decides what your own logs are able to prove. Two scan results that look almost identical mean opposite things, and the difference is not in the tool you ran."
+      },
+      {
+        "type": "p",
+        "text": "Here is one line off a UDP scan of a name server."
+      },
+      {
+        "type": "quote",
+        "text": "53/udp open|filtered domain"
+      },
+      {
+        "type": "p",
+        "text": "That pipe is nmap telling you it does not know. A probe went to UDP 53 and nothing came back, and nothing coming back is equally consistent with a healthy resolver that ignored a malformed query, a firewall dropping the packet silently, and no service running there at all. Scan TCP 53 instead and you get a verdict, because a closed TCP port owes you a RST. That obligation was written down in RFC 793 in 1981, and it is most of the reason port scanning works as well as it does."
+      },
+      {
+        "type": "h2",
+        "text": "The handshake is evidence, not a control"
+      },
+      {
+        "type": "p",
+        "text": "SYN, SYN-ACK, ACK. The second packet carries a sequence number the client has to echo back, and an attacker sitting off the path can forge a SYN with any source address they want but cannot see the reply, so they cannot finish. RFC 6528 made those initial sequence numbers hard to guess back in 2012, which closed the last shortcut anyone was using in practice. A completed TCP connection in your firewall log is therefore a claim about the physical world. Something at that address received a packet and answered."
+      },
+      {
+        "type": "p",
+        "text": "A UDP log line claims nothing of the kind. It tells you a datagram arrived carrying that source address. The source address is a field."
+      },
+      {
+        "type": "h2",
+        "text": "There is no such thing as a UDP session"
+      },
+      {
+        "type": "p",
+        "text": "Your stateful firewall shows you UDP flows anyway. It is being polite rather than accurate. Linux conntrack invents the state and expires it on a timer. The default nf_conntrack_udp_timeout is 30 seconds. Whatever your appliance vendor picked is probably in the same neighborhood and probably not on the page you were reading when you wrote the rule."
+      },
+      {
+        "type": "p",
+        "text": "What I keep watching go wrong is a detection written against a count of UDP sessions. There is no session to count. The rule ends up measuring whichever timeout the network team last touched, so it fires in one datacenter and stays silent in another, and nobody works out why for a week. A rule that depends on a number an engineer can change without telling you is not a detection."
+      },
+      {
+        "type": "p",
+        "text": "Three places this shows up in ordinary work:"
+      },
+      {
+        "type": "list",
+        "items": [
+          "Scan results. A sweep of all 65,535 UDP ports against a Linux host can run past 18 hours, because the kernel rate limits [ICMP](/?q=ICMP) unreachable replies to about one per second and the scanner has to sit there waiting for them. (Nmap has documented this for years and it still ruins somebody's first internal assessment every year.)",
+          "IDS thresholds. Anything phrased as connections per minute needs a packet rate instead, or it needs a definition of connection that you wrote down yourself.",
+          "Egress rules. An allow for return traffic is a timeout window rather than a connection, which is exactly as loose as it sounds."
+        ]
+      },
+      {
+        "type": "h2",
+        "text": "Amplification is a UDP problem for one boring reason"
+      },
+      {
+        "type": "p",
+        "text": "A UDP server answers before it knows who asked. That is it. No handshake means no chance to check that the source address is real, so a small forged request produces a large reply pointed at somebody else. The NTP monlist command tracked as CVE-2013-5211 returned up to 556 times the bytes it received. Memcached listening on UDP 11211 was worse by two orders of magnitude, and in February 2018 that arithmetic delivered GitHub 1.35 Tbps of traffic it had not ordered. Neither one was a clever exploit. Both were a service answering a stranger honestly."
+      },
+      {
+        "type": "p",
+        "text": "RFC 2827 asked providers to filter forged source addresses at the edge back in 2000, and if BCP 38 were actually deployed everywhere most of this would stop. It is not, so the version you control is smaller. Inventory the UDP services you expose from the [DMZ](/?q=DMZ), decide which ones genuinely need to answer the entire internet, and put the rest behind an allowlist. Whether you find them with nmap or masscan, I genuinely do not care. Use the one your team already knows."
+      },
+      {
+        "type": "h2",
+        "text": "QUIC moved this argument into your egress rules"
+      },
+      {
+        "type": "p",
+        "text": "RFC 9000 shipped in May 2021 and put HTTP/3 on UDP 443, which means a large and still growing share of your users' web traffic no longer travels the TCP path your proxy was bought to read. Browsers try [QUIC](/?q=QUIC) first and fall back to TCP when UDP 443 is unreachable, so the decision is genuinely yours and the two answers are not equivalent."
+      },
+      {
+        "type": "p",
+        "text": "I will take the block. In a regulated environment in 2026 I would rather force the fallback and keep the inspection the company already paid for than hold a clean egress path nobody can read. That costs some latency and it will break a video call now and then, and I still think it is the right trade for a defense contractor or a hospital. If you are the analyst who has to explain to an incident lead on Thursday morning why there is no record of what left the network, latency is not the expensive part of that conversation. What I do not know is how long the position holds. More of the internet assumes UDP 443 works every year, and at some point blocking it stops being a tuning choice and becomes an outage you caused."
+      },
+      {
+        "type": "p",
+        "text": "None of this asks you to learn networking properly. It asks you to know which of your logs is a witness and which one is a rumor. TCP tells you something completed. UDP tells you a packet turned up wearing a name tag it wrote for itself, and every detection, threshold, and firewall rule you build on top of it inherits that fact whether or not anyone on the team says so out loud."
+      }
+    ],
+    "related": [
+      {
+        "label": "TCP in the glossary",
+        "href": "/?q=TCP"
+      },
+      {
+        "label": "UDP in the glossary",
+        "href": "/?q=UDP"
+      },
+      {
+        "label": "ICMP in the glossary",
+        "href": "/?q=ICMP"
+      },
+      {
+        "label": "DMZ in the glossary",
+        "href": "/?q=DMZ"
+      }
+    ]
   }
 ]
