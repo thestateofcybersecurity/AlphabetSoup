@@ -1,0 +1,1 @@
+"""Outpost application package."""

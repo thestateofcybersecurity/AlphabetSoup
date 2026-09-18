@@ -5,3 +5,8 @@ playwright-report
 shots
 .claude
 __pycache__
+.venv
+.env
+*.egg-info
+.pytest_cache
+.ruff_cache
