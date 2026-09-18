@@ -1,10 +1,8 @@
 # Outpost
 
-Consultant-led, AI-driven security remediation on the Reasoning Engine. Design documents live in [`../docs/outpost/`](../docs/outpost/) while this skeleton sits in the Alphabet Soup repository; it is laid out as a standalone project so it lifts into its own repository unchanged:
+Consultant-led, AI-driven security remediation on the Reasoning Engine.
 
-```bash
-git subtree split --prefix=outpost -b outpost-main   # then push outpost-main to the new repo
-```
+The design documents (roadmap, tenant isolation, engine contract, schema, router contracts, connector specs, screen mockups) live in the Alphabet Soup repository under [`docs/outpost/`](https://github.com/thestateofcybersecurity/AlphabetSoup/tree/main/docs/outpost). The SQL in `sql/` is the canonical copy once this repository exists; the design copies are reference. CI runs ruff and the two-tenant suite against a Postgres 16 service on every push and pull request.
 
 ## What is here
 
