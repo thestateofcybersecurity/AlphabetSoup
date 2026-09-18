@@ -1,0 +1,736 @@
+<title>Outpost Screens</title>
+<meta name="description" content="Interactive mockup of the Outpost Command Deck, Bridge, and Hangar screens with example data.">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@500;600;700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+:root {
+  --font-display: 'Rajdhani', 'Arial Narrow', sans-serif;
+  --font-body: 'IBM Plex Sans', system-ui, sans-serif;
+  --font-mono: 'IBM Plex Mono', ui-monospace, monospace;
+
+  /* Light palette on bare :root (the design is dark-first; the roles swap consistently below). */
+  --ground: #eef2f8;
+  --raised: #ffffff;
+  --sunken: #e3e9f3;
+  --line: #cbd5e6;
+  --line-strong: #9fb0cc;
+  --ink: #101828;
+  --ink-soft: #4f5f7a;
+  --ink-mute: #7d8ba3;
+  --accent: #0a6fc2;
+  --accent-deep: #07528f;
+  --accent-soft: rgba(10, 111, 194, 0.12);
+  --on-accent: #ffffff;
+  --amber: #8a5a00;
+  --amber-soft: rgba(196, 130, 0, 0.14);
+  --red: #b3261e;
+  --red-soft: rgba(179, 38, 30, 0.12);
+  --green: #1c7a47;
+  --green-soft: rgba(28, 122, 71, 0.14);
+  --scan: rgba(10, 111, 194, 0.06);
+  --glow: 0 0 0 3px rgba(10, 111, 194, 0.25);
+  --shadow: 0 10px 30px rgba(16, 24, 40, 0.10);
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --ground: #0b1020;
+    --raised: #131a2e;
+    --sunken: #0e1428;
+    --line: #253052;
+    --line-strong: #3b4a75;
+    --ink: #e6ecf7;
+    --ink-soft: #a3aec7;
+    --ink-mute: #6f7c9c;
+    --accent: #5ec8ff;
+    --accent-deep: #8ed9ff;
+    --accent-soft: rgba(94, 200, 255, 0.12);
+    --on-accent: #0b1020;
+    --amber: #f0b34a;
+    --amber-soft: rgba(240, 179, 74, 0.14);
+    --red: #ff6b6b;
+    --red-soft: rgba(255, 107, 107, 0.14);
+    --green: #4fcf8a;
+    --green-soft: rgba(79, 207, 138, 0.14);
+    --scan: rgba(94, 200, 255, 0.05);
+    --glow: 0 0 0 3px rgba(94, 200, 255, 0.35);
+    --shadow: 0 14px 40px rgba(0, 0, 0, 0.45);
+  }
+}
+:root[data-theme="dark"] {
+  --ground: #0b1020;
+  --raised: #131a2e;
+  --sunken: #0e1428;
+  --line: #253052;
+  --line-strong: #3b4a75;
+  --ink: #e6ecf7;
+  --ink-soft: #a3aec7;
+  --ink-mute: #6f7c9c;
+  --accent: #5ec8ff;
+  --accent-deep: #8ed9ff;
+  --accent-soft: rgba(94, 200, 255, 0.12);
+  --on-accent: #0b1020;
+  --amber: #f0b34a;
+  --amber-soft: rgba(240, 179, 74, 0.14);
+  --red: #ff6b6b;
+  --red-soft: rgba(255, 107, 107, 0.14);
+  --green: #4fcf8a;
+  --green-soft: rgba(79, 207, 138, 0.14);
+  --scan: rgba(94, 200, 255, 0.05);
+  --glow: 0 0 0 3px rgba(94, 200, 255, 0.35);
+  --shadow: 0 14px 40px rgba(0, 0, 0, 0.45);
+}
+
+* { box-sizing: border-box; }
+html, body { height: 100%; }
+body {
+  margin: 0;
+  background: var(--ground);
+  color: var(--ink);
+  font-family: var(--font-body);
+  font-size: 14px;
+  line-height: 1.5;
+}
+a { color: var(--accent); }
+button { font: inherit; }
+:focus-visible { outline: none; box-shadow: var(--glow); border-radius: 4px; }
+
+/* ---------- command bar ---------- */
+.bar {
+  position: sticky; top: env(safe-area-inset-top, 0px); z-index: 5;
+  background:
+    repeating-linear-gradient(0deg, var(--scan) 0 1px, transparent 1px 3px),
+    var(--raised);
+  border-bottom: 1px solid var(--line);
+  padding-inline: 16px;
+}
+.bar-inner {
+  max-width: 1280px; margin: 0 auto; display: flex; flex-wrap: wrap; align-items: center; gap: 10px 20px; min-height: 56px; padding-block: 8px;
+}
+.brand { display: flex; align-items: center; gap: 10px; font-family: var(--font-display); font-weight: 700; font-size: 22px; letter-spacing: 0.22em; text-transform: uppercase; }
+.brand .sigil { width: 26px; height: 26px; border: 2px solid var(--accent); border-radius: 50%; position: relative; }
+.brand .sigil::after { content: ""; position: absolute; inset: 6px; background: var(--accent); border-radius: 50%; }
+.tabs { display: flex; gap: 4px; flex-wrap: wrap; }
+.tab {
+  background: transparent; border: 1px solid transparent; color: var(--ink-soft); padding: 6px 12px; border-radius: 4px; cursor: pointer;
+  font-family: var(--font-display); font-weight: 600; font-size: 15px; letter-spacing: 0.08em; text-transform: uppercase;
+}
+.tab[aria-selected="true"] { color: var(--accent); border-color: var(--accent); background: var(--accent-soft); }
+.tab:hover { color: var(--ink); }
+.ctx { margin-left: auto; display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+.acting { display: inline-flex; align-items: center; gap: 8px; padding: 5px 10px; border: 1px solid var(--line-strong); border-radius: 4px; font-family: var(--font-mono); font-size: 12px; color: var(--ink-soft); }
+.acting b { color: var(--ink); font-weight: 500; }
+.acting .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--green); box-shadow: 0 0 8px var(--green); }
+.icon-btn { background: var(--sunken); border: 1px solid var(--line); color: var(--ink-soft); border-radius: 4px; padding: 5px 9px; cursor: pointer; }
+
+/* ---------- page ---------- */
+.page { max-width: 1280px; margin: 0 auto; padding-inline: 16px; padding-block: 22px 60px; }
+.screen[hidden] { display: none; }
+.screen-head { display: flex; flex-wrap: wrap; align-items: end; gap: 6px 24px; margin-bottom: 18px; }
+.eyebrow { font-family: var(--font-display); font-weight: 600; font-size: 12px; letter-spacing: 0.24em; text-transform: uppercase; color: var(--accent); }
+h1 { font-family: var(--font-display); font-weight: 700; font-size: 34px; letter-spacing: 0.06em; text-transform: uppercase; margin: 0; line-height: 1.05; text-wrap: balance; }
+.plain { color: var(--ink-soft); margin: 0; max-width: 62ch; }
+.role-pill { margin-left: auto; font-family: var(--font-mono); font-size: 12px; color: var(--ink-soft); border: 1px dashed var(--line-strong); padding: 4px 10px; border-radius: 4px; }
+h2 { font-family: var(--font-display); font-weight: 600; font-size: 17px; letter-spacing: 0.12em; text-transform: uppercase; margin: 0; }
+h3 { font-size: 15px; font-weight: 600; margin: 0; }
+.grid { display: grid; gap: 16px; }
+.cols-4 { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+.cols-3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+.cols-2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+.span-2 { grid-column: span 2; }
+@media (max-width: 980px) { .cols-4 { grid-template-columns: repeat(2, minmax(0, 1fr)); } .cols-3 { grid-template-columns: 1fr; } .cols-2 { grid-template-columns: 1fr; } .span-2 { grid-column: auto; } }
+@media (max-width: 560px) { .cols-4 { grid-template-columns: 1fr; } }
+.section { display: grid; gap: 12px; margin-top: 22px; align-content: start; }
+.grid > *, .section > *, .approval > *, .row > * { min-width: 0; }
+.section-head { display: flex; align-items: baseline; gap: 12px; flex-wrap: wrap; }
+.section-head .note { color: var(--ink-mute); font-size: 13px; }
+.section-head .right { margin-left: auto; }
+
+.panel { background: var(--raised); border: 1px solid var(--line); border-radius: 6px; padding: 16px; }
+.panel.flat { background: transparent; }
+.frame { position: relative; box-shadow: var(--shadow); }
+.frame::before, .frame::after { content: ""; position: absolute; width: 14px; height: 14px; border: 2px solid var(--accent); pointer-events: none; }
+.frame::before { top: -1px; left: -1px; border-right: 0; border-bottom: 0; border-radius: 6px 0 0 0; }
+.frame::after { bottom: -1px; right: -1px; border-left: 0; border-top: 0; border-radius: 0 0 6px 0; }
+
+/* stat tiles */
+.tile { display: grid; gap: 4px; background: var(--raised); border: 1px solid var(--line); border-radius: 6px; padding: 14px 16px; }
+.tile .label { font-family: var(--font-display); font-weight: 600; font-size: 12px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--ink-soft); }
+.tile .value { font-family: var(--font-display); font-weight: 700; font-size: 38px; line-height: 1; font-variant-numeric: tabular-nums; }
+.tile .sub { color: var(--ink-mute); font-size: 12px; }
+.tile.warn .value { color: var(--amber); }
+.tile.bad .value { color: var(--red); }
+
+/* pills and chips */
+.pill { display: inline-flex; align-items: center; gap: 6px; padding: 2px 8px; border-radius: 3px; font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.04em; text-transform: uppercase; border: 1px solid var(--line-strong); color: var(--ink-soft); white-space: nowrap; }
+.pill::before { content: ""; width: 7px; height: 7px; border-radius: 50%; background: currentColor; }
+.pill.good { color: var(--green); border-color: var(--green); background: var(--green-soft); }
+.pill.warn { color: var(--amber); border-color: var(--amber); background: var(--amber-soft); }
+.pill.bad { color: var(--red); border-color: var(--red); background: var(--red-soft); }
+.pill.accent { color: var(--accent); border-color: var(--accent); background: var(--accent-soft); }
+.pill.mute::before { display: none; }
+.chip { display: inline-block; padding: 2px 7px; border-radius: 3px; background: var(--sunken); border: 1px solid var(--line); font-family: var(--font-mono); font-size: 11px; color: var(--ink-soft); }
+.mono { font-family: var(--font-mono); font-size: 12px; color: var(--ink-soft); }
+.muted { color: var(--ink-mute); }
+.small { font-size: 12px; }
+
+/* segmented bar */
+.seg { --p: 0%; height: 10px; border-radius: 2px; background: var(--sunken); position: relative; overflow: hidden; border: 1px solid var(--line); }
+.seg::before { content: ""; position: absolute; inset: 0; width: var(--p); background: var(--accent); }
+.seg::after { content: ""; position: absolute; inset: 0; background: repeating-linear-gradient(90deg, transparent 0 calc(5% - 2px), var(--raised) calc(5% - 2px) 5%); }
+.seg.warn::before { background: var(--amber); }
+.seg.bad::before { background: var(--red); }
+.seg.good::before { background: var(--green); }
+
+/* buttons */
+.btn { display: inline-flex; align-items: center; gap: 6px; padding: 7px 14px; border-radius: 4px; border: 1px solid var(--line-strong); background: var(--raised); color: var(--ink); cursor: pointer; font-family: var(--font-display); font-weight: 600; font-size: 14px; letter-spacing: 0.1em; text-transform: uppercase; }
+.btn:hover { border-color: var(--accent); color: var(--accent); }
+.btn.primary { background: var(--accent); border-color: var(--accent); color: var(--on-accent); }
+.btn.primary:hover { background: var(--accent-deep); border-color: var(--accent-deep); color: var(--on-accent); }
+.btn.danger { border-color: var(--red); color: var(--red); background: transparent; }
+.btn.danger:hover { background: var(--red-soft); }
+.btn.quiet { border-color: transparent; background: transparent; color: var(--ink-soft); }
+.btn[disabled] { opacity: 0.5; cursor: not-allowed; }
+.btn.sm { padding: 4px 10px; font-size: 12px; }
+
+/* tables and lists */
+.table-wrap { overflow-x: auto; }
+table { width: 100%; border-collapse: collapse; font-size: 13px; }
+th { text-align: left; font-family: var(--font-display); font-weight: 600; font-size: 12px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--ink-soft); padding: 8px 10px; border-bottom: 1px solid var(--line-strong); white-space: nowrap; }
+td { padding: 10px; border-bottom: 1px solid var(--line); vertical-align: middle; font-variant-numeric: tabular-nums; }
+tr:last-child td { border-bottom: 0; }
+tr.selectable { cursor: pointer; }
+tr.selectable:hover td { background: var(--accent-soft); }
+.num { text-align: right; }
+.list { display: grid; gap: 10px; }
+.row { display: grid; grid-template-columns: auto 1fr auto; gap: 12px; align-items: center; padding: 10px 12px; border: 1px solid var(--line); border-radius: 4px; background: var(--raised); }
+.row .lead { display: grid; gap: 2px; }
+.row .lead .t { font-weight: 600; }
+.row .lead .s { color: var(--ink-mute); font-size: 12px; }
+.sev { width: 4px; align-self: stretch; border-radius: 2px; background: var(--line-strong); }
+.sev.critical { background: var(--red); } .sev.high { background: var(--amber); } .sev.medium { background: var(--accent); } .sev.low { background: var(--ink-mute); }
+
+/* approvals */
+.approval { display: grid; gap: 12px; }
+.approval .calls { background: var(--sunken); border: 1px solid var(--line); border-radius: 4px; padding: 10px 12px; font-family: var(--font-mono); font-size: 12px; overflow-x: auto; }
+.approval .calls div { white-space: pre; }
+.sig { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.sig .side { border: 1px solid var(--line); border-radius: 4px; padding: 8px 10px; display: grid; gap: 4px; }
+.sig .side.ok { border-color: var(--green); background: var(--green-soft); }
+.sig .side .who { font-family: var(--font-display); font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; font-size: 12px; }
+.hash { font-family: var(--font-mono); font-size: 11px; color: var(--ink-mute); word-break: break-all; }
+
+/* chart */
+.chart { width: 100%; height: auto; display: block; }
+.chart .grid-line { stroke: var(--line); stroke-width: 1; }
+.chart .axis-text { fill: var(--ink-mute); font-family: var(--font-mono); font-size: 11px; }
+.chart .area { fill: var(--accent); fill-opacity: 0.12; }
+.chart .line { fill: none; stroke: var(--accent); stroke-width: 2; stroke-linejoin: round; }
+.chart .pt { fill: var(--raised); stroke: var(--accent); stroke-width: 2; }
+.chart .pt.end { fill: var(--accent); r: 5; }
+.chart .cross { stroke: var(--line-strong); stroke-dasharray: 3 3; opacity: 0; }
+.chart .end-label { fill: var(--ink); font-family: var(--font-display); font-weight: 700; font-size: 16px; }
+.tip { position: absolute; pointer-events: none; background: var(--raised); border: 1px solid var(--line-strong); border-radius: 4px; padding: 6px 8px; font-size: 12px; box-shadow: var(--shadow); opacity: 0; transition: opacity .12s; }
+.chart-wrap { position: relative; }
+
+/* hangar */
+.conn { display: grid; gap: 10px; background: var(--raised); border: 1px solid var(--line); border-radius: 6px; padding: 14px; }
+.conn .head { display: flex; align-items: center; gap: 10px; }
+.conn .glyph { width: 34px; height: 34px; border-radius: 4px; display: grid; place-items: center; font-family: var(--font-display); font-weight: 700; font-size: 13px; letter-spacing: 0.04em; background: var(--sunken); border: 1px solid var(--line-strong); color: var(--ink-soft); }
+.conn .name { font-weight: 600; }
+.conn .type { color: var(--ink-mute); font-size: 12px; }
+.conn .scopes { display: flex; flex-wrap: wrap; gap: 6px; }
+.conn .foot { display: flex; align-items: center; gap: 10px; font-size: 12px; color: var(--ink-soft); flex-wrap: wrap; }
+.conn .foot .right { margin-left: auto; }
+.conn.awaiting { border-color: var(--amber); }
+.trust { display: grid; gap: 10px; }
+.trust pre { margin: 0; background: var(--sunken); border: 1px solid var(--line); border-radius: 4px; padding: 10px 12px; font-family: var(--font-mono); font-size: 12px; overflow-x: auto; color: var(--ink-soft); }
+.steps { margin: 0; padding-left: 20px; display: grid; gap: 6px; }
+.locked { opacity: 0.85; }
+.unlock-hint { display: flex; align-items: center; gap: 10px; padding: 10px 12px; border: 1px dashed var(--accent); border-radius: 4px; background: var(--accent-soft); }
+
+.footnote { margin-top: 30px; color: var(--ink-mute); font-size: 12px; border-top: 1px solid var(--line); padding-top: 12px; }
+.kill { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; padding: 12px 14px; border: 1px solid var(--red); border-radius: 6px; background: var(--red-soft); }
+.kill .t { font-family: var(--font-display); font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: var(--red); }
+.toast { position: fixed; left: 50%; bottom: calc(20px + env(safe-area-inset-bottom, 0px)); transform: translateX(-50%); background: var(--raised); border: 1px solid var(--accent); border-radius: 4px; padding: 8px 14px; font-size: 13px; box-shadow: var(--shadow); opacity: 0; transition: opacity .2s; z-index: 9; max-width: calc(100% - 32px); }
+.toast.show { opacity: 1; }
+.ticker { font-family: var(--font-mono); font-size: 12px; color: var(--ink-soft); display: flex; gap: 18px; flex-wrap: wrap; }
+.ticker span::before { content: "▸ "; color: var(--accent); }
+@media (prefers-reduced-motion: reduce) { .tip, .toast { transition: none; } }
+</style>
+
+<header class="bar">
+  <div class="bar-inner">
+    <div class="brand"><span class="sigil" aria-hidden="true"></span>Outpost</div>
+    <nav class="tabs" role="tablist" aria-label="Screens">
+      <button class="tab" role="tab" id="tab-deck" aria-selected="true" aria-controls="deck">Command Deck</button>
+      <button class="tab" role="tab" id="tab-bridge" aria-selected="false" aria-controls="bridge">Bridge</button>
+      <button class="tab" role="tab" id="tab-hangar" aria-selected="false" aria-controls="hangar">Hangar</button>
+    </nav>
+    <div class="ctx">
+      <span class="acting" id="acting"><span class="dot" aria-hidden="true"></span>acting as <b id="acting-name">Consultants LLC</b> <span id="acting-kind">(home)</span></span>
+      <button class="icon-btn" id="theme-toggle" aria-label="Toggle light or dark theme">◐</button>
+    </div>
+  </div>
+</header>
+
+<main class="page">
+
+<!-- ============================== COMMAND DECK ============================== -->
+<section class="screen" id="deck" role="tabpanel" aria-labelledby="tab-deck">
+  <div class="screen-head">
+    <div>
+      <div class="eyebrow">Consultant view</div>
+      <h1>Command Deck</h1>
+      <p class="plain">Every client you are assigned to, at a glance. Counts only: nothing here reads a client's records until you enter their tenant.</p>
+    </div>
+    <span class="role-pill">role: consultant_lead · firm: Consultants LLC</span>
+  </div>
+
+  <div class="grid cols-4">
+    <div class="tile"><span class="label">Clients assigned</span><span class="value">3</span><span class="sub">2 engagements active, 1 ends in 12 days</span></div>
+    <div class="tile warn"><span class="label">Clearances waiting on you</span><span class="value">2</span><span class="sub">consultant signature needed</span></div>
+    <div class="tile bad"><span class="label">Sorties failed, 7 days</span><span class="value">1</span><span class="sub">Bravo Health · verification failed, rolled back</span></div>
+    <div class="tile"><span class="label">Missions due this week</span><span class="value">4</span><span class="sub">2 quarterly re-assessments</span></div>
+  </div>
+
+  <div class="section">
+    <div class="section-head">
+      <h2>Fleet</h2>
+      <span class="note">from GET /firm/fleet · engagement summaries, refreshed hourly by each client's own job</span>
+    </div>
+    <div class="panel frame table-wrap">
+      <table id="fleet">
+        <thead><tr>
+          <th>Client</th><th>Engagement</th><th>Posture</th><th class="num">Open</th><th class="num">Critical</th><th class="num">Clearances</th><th class="num">Failed 7d</th><th>Uplinks</th><th></th>
+        </tr></thead>
+        <tbody>
+          <tr class="selectable" data-client="Acme Logistics" data-eng="eng-01J8">
+            <td><b>Acme Logistics</b><div class="mono">acme · customer</div></td>
+            <td>Active · ends 2027-03-31<div class="mono">lead</div></td>
+            <td><span class="pill good">Managed</span><div class="mono">72 · ▲ 6</div></td>
+            <td class="num">41</td><td class="num">2</td><td class="num"><b>1</b></td><td class="num">0</td>
+            <td><span class="pill good">4 healthy</span></td>
+            <td class="num"><button class="btn sm primary enter">Enter</button></td>
+          </tr>
+          <tr class="selectable" data-client="Bravo Health" data-eng="eng-01J9">
+            <td><b>Bravo Health</b><div class="mono">bravo · customer</div></td>
+            <td>Active · ends 2026-12-15<div class="mono">lead</div></td>
+            <td><span class="pill warn">Developing</span><div class="mono">54 · ▲ 3</div></td>
+            <td class="num">88</td><td class="num">7</td><td class="num"><b>1</b></td><td class="num" style="color:var(--red)">1</td>
+            <td><span class="pill warn">1 degraded</span></td>
+            <td class="num"><button class="btn sm primary enter">Enter</button></td>
+          </tr>
+          <tr class="selectable" data-client="Cedar Credit Union" data-eng="eng-01JA">
+            <td><b>Cedar Credit Union</b><div class="mono">cedar · customer</div></td>
+            <td>Ends in 12 days · 2026-09-30<div class="mono">analyst</div></td>
+            <td><span class="pill good">Managed</span><div class="mono">81 · ▲ 1</div></td>
+            <td class="num">12</td><td class="num">0</td><td class="num">0</td><td class="num">0</td>
+            <td><span class="pill good">3 healthy</span></td>
+            <td class="num"><button class="btn sm primary enter">Enter</button></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="grid cols-2" style="margin-top:22px">
+    <div class="section" style="margin-top:0">
+      <div class="section-head"><h2>Clearances waiting on you</h2><span class="note">consultant side · GET /approvals</span></div>
+      <div class="list">
+        <div class="row">
+          <span class="sev high" aria-hidden="true"></span>
+          <div class="lead"><span class="t">Acme Logistics · Enforce MFA registration campaign</span><span class="s">Clearance · 38 users · customer admin signed 2h ago · expires in 70h</span></div>
+          <button class="btn sm enter" data-client="Acme Logistics" data-eng="eng-01J8">Review</button>
+        </div>
+        <div class="row">
+          <span class="sev medium" aria-hidden="true"></span>
+          <div class="lead"><span class="t">Bravo Health · Block public blob containers</span><span class="s">Clearance · 3 containers · waiting on both sides · expires in 41h</span></div>
+          <button class="btn sm enter" data-client="Bravo Health" data-eng="eng-01J9">Review</button>
+        </div>
+      </div>
+    </div>
+    <div class="section" style="margin-top:0">
+      <div class="section-head"><h2>Missions due</h2><span class="note">catalog cadence</span></div>
+      <div class="list">
+        <div class="row"><span class="sev medium" aria-hidden="true"></span><div class="lead"><span class="t">Acme · Cloud CIS Foundations (AWS)</span><span class="s">Quarterly · last run 2026-06-19 · score 68</span></div><span class="pill accent">due Fri</span></div>
+        <div class="row"><span class="sev medium" aria-hidden="true"></span><div class="lead"><span class="t">Bravo · Identity baseline (Entra ID)</span><span class="s">Monthly · last run 2026-08-18 · score 51</span></div><span class="pill warn">overdue 1d</span></div>
+        <div class="row"><span class="sev low" aria-hidden="true"></span><div class="lead"><span class="t">Cedar · Ransomware readiness</span><span class="s">Questionnaire · 48 practices · 6 need an answer</span></div><span class="pill mute">due Tue</span></div>
+        <div class="row"><span class="sev low" aria-hidden="true"></span><div class="lead"><span class="t">Acme · External attack surface (passive)</span><span class="s">Weekly diff · 14 verified assets</span></div><span class="pill mute">due Sun</span></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="panel flat" style="border-style:dashed">
+      <div class="ticker">
+        <span>Entering a client mints a new 15-minute token, revokes this one, and writes to both flight recorders.</span>
+        <span>Phishing-resistant MFA is required to switch.</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================== BRIDGE ============================== -->
+<section class="screen" id="bridge" role="tabpanel" aria-labelledby="tab-bridge" hidden>
+  <div class="screen-head">
+    <div>
+      <div class="eyebrow">Customer view · <span id="bridge-client">Acme Logistics</span></div>
+      <h1>Bridge</h1>
+      <p class="plain">Your security posture, the missions that measure it, and the work that improves it. Nothing runs against your systems without a preview you can read.</p>
+    </div>
+    <span class="role-pill" id="bridge-role">role: customer_admin</span>
+  </div>
+
+  <div class="grid cols-3">
+    <div class="panel frame span-2">
+      <div class="section-head" style="margin-bottom:8px">
+        <h2>Posture</h2>
+        <span class="note">weighted across 5 missions · one score per assessment run</span>
+        <span class="right pill good">Managed · 72</span>
+      </div>
+      <div class="chart-wrap">
+        <svg class="chart" id="posture" viewBox="0 0 640 220" role="img" aria-label="Posture score over the last eight assessment runs, rising from 41 to 72"></svg>
+        <div class="tip" id="posture-tip"></div>
+      </div>
+    </div>
+    <div class="grid" style="grid-template-rows:auto auto auto; gap:12px">
+      <div class="tile"><span class="label">Open findings</span><span class="value">41</span><span class="sub">2 critical · 9 high · 22 medium · 8 low</span></div>
+      <div class="tile warn"><span class="label">Waiting for your clearance</span><span class="value">1</span><span class="sub">consultant already signed one</span></div>
+      <div class="tile"><span class="label">Next patrol</span><span class="value" style="font-size:22px;padding-top:6px">Sat 02:00</span><span class="sub">Disable stale accounts · Autopilot · window 22:00 to 04:00 CT</span></div>
+    </div>
+  </div>
+
+  <div class="grid cols-2" style="margin-top:22px">
+    <div class="section" style="margin-top:0">
+      <div class="section-head"><h2>Clearance</h2><span class="note">sorties waiting for two signatures</span></div>
+      <div class="panel frame approval" id="approval-card">
+        <div>
+          <div class="section-head"><h3>Block public S3 buckets</h3><span class="pill warn">awaiting clearance</span></div>
+          <div class="muted small">Playbook cloud.block-public-storage · blast radius low · reversible · resolves 3 findings from Cloud CIS Foundations (AWS)</div>
+        </div>
+        <div>
+          <div class="eyebrow" style="font-size:11px;margin-bottom:6px">Preview · exactly what will run</div>
+          <div class="calls">
+<div>1  aws-mcp  s3.put_public_access_block   bucket=acme-exports-2019     BlockPublicAcls=true IgnorePublicAcls=true</div>
+<div>2  aws-mcp  s3.put_public_access_block   bucket=acme-static-legacy    BlockPublicAcls=true IgnorePublicAcls=true</div>
+<div>3  aws-mcp  s3.put_public_access_block   bucket=acme-vendor-dropbox   BlockPublicAcls=true IgnorePublicAcls=true</div>
+<div>   verify   cis-aws.2.1.5 re-run on the three buckets · rollback: restore the saved configuration</div>
+          </div>
+          <div class="hash">preview sha256 9f2c…e41b · a changed preview voids every signature</div>
+        </div>
+        <div class="sig">
+          <div class="side" id="sig-customer"><span class="who">Customer</span><span class="small muted">waiting on a customer admin</span></div>
+          <div class="side ok"><span class="who">Consultant</span><span class="small">Dana Okafor · 09:14 today</span></div>
+        </div>
+        <div style="display:flex;gap:10px;flex-wrap:wrap;align-items:center">
+          <button class="btn primary" id="approve">Approve as customer</button>
+          <button class="btn" id="reject">Reject</button>
+          <span class="muted small">expires in 61h · single use</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="section" style="margin-top:0">
+      <div class="section-head"><h2>Missions</h2><span class="note">unlocked by your uplinks</span></div>
+      <div class="list">
+        <div class="row" style="grid-template-columns:1fr auto">
+          <div class="lead"><span class="t">Identity baseline · Entra ID</span><span class="s">monthly · run 2026-09-02 · 38 of 41 checks evidenced automatically</span><div class="seg" style="--p:78%;margin-top:6px"></div></div>
+          <div style="text-align:right"><b style="font-family:var(--font-display);font-size:22px">78</b><div><span class="pill good">briefed</span></div></div>
+        </div>
+        <div class="row" style="grid-template-columns:1fr auto">
+          <div class="lead"><span class="t">Cloud CIS Foundations · AWS</span><span class="s">quarterly · run 2026-06-19 · 54 controls · due Friday</span><div class="seg warn" style="--p:68%;margin-top:6px"></div></div>
+          <div style="text-align:right"><b style="font-family:var(--font-display);font-size:22px">68</b><div><span class="pill accent">due</span></div></div>
+        </div>
+        <div class="row" style="grid-template-columns:1fr auto">
+          <div class="lead"><span class="t">Email authentication · M365</span><span class="s">monthly · run 2026-09-10 · DMARC at quarantine, reject pending</span><div class="seg" style="--p:85%;margin-top:6px"></div></div>
+          <div style="text-align:right"><b style="font-family:var(--font-display);font-size:22px">85</b><div><span class="pill good">briefed</span></div></div>
+        </div>
+        <div class="row" style="grid-template-columns:1fr auto">
+          <div class="lead"><span class="t">Ransomware readiness</span><span class="s">questionnaire · 48 practices · 5 answers still needed from your team</span><div class="seg bad" style="--p:52%;margin-top:6px"></div></div>
+          <div style="text-align:right"><b style="font-family:var(--font-display);font-size:22px">52</b><div><span class="pill warn">answers</span></div></div>
+        </div>
+        <div class="row" style="grid-template-columns:1fr auto">
+          <div class="lead"><span class="t">External attack surface · passive</span><span class="s">weekly diff · 14 verified assets · 1 new host since last run</span><div class="seg" style="--p:90%;margin-top:6px"></div></div>
+          <div style="text-align:right"><b style="font-family:var(--font-display);font-size:22px">90</b><div><span class="pill good">briefed</span></div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="grid cols-3" style="margin-top:22px">
+    <div class="section" style="margin-top:0">
+      <div class="section-head"><h2>Patrols</h2><span class="note">scheduled sorties</span></div>
+      <div class="list">
+        <div class="row"><span class="sev low" aria-hidden="true"></span><div class="lead"><span class="t">Disable stale accounts</span><span class="s">Autopilot · Sat 02:00 · 3 verified runs in a row</span></div><span class="pill accent">autopilot</span></div>
+        <div class="row"><span class="sev low" aria-hidden="true"></span><div class="lead"><span class="t">Dependency fix pull requests</span><span class="s">Autopilot · daily 06:00 · 4 repos</span></div><span class="pill accent">autopilot</span></div>
+        <div class="row"><span class="sev medium" aria-hidden="true"></span><div class="lead"><span class="t">DMARC step up to reject</span><span class="s">Clearance · when you and Dana both sign</span></div><span class="pill warn">clearance</span></div>
+        <div class="row"><span class="sev low" aria-hidden="true"></span><div class="lead"><span class="t">Restore test reminder</span><span class="s">Beacon · monthly · runbook attached</span></div><span class="pill mute">beacon</span></div>
+      </div>
+    </div>
+    <div class="section" style="margin-top:0">
+      <div class="section-head"><h2>Contacts</h2><span class="note">top open findings</span></div>
+      <div class="list">
+        <div class="row"><span class="sev critical" aria-hidden="true"></span><div class="lead"><span class="t">2 global admins without phishing-resistant MFA</span><span class="s">Identity baseline · CIS 6.5 · CSF PR.AA-03</span></div><span class="pill bad">critical</span></div>
+        <div class="row"><span class="sev critical" aria-hidden="true"></span><div class="lead"><span class="t">CloudTrail not enabled in us-west-2</span><span class="s">Cloud CIS · 3.1 · one region</span></div><span class="pill bad">critical</span></div>
+        <div class="row"><span class="sev high" aria-hidden="true"></span><div class="lead"><span class="t">3 S3 buckets allow public ACLs</span><span class="s">Cloud CIS · 2.1.5 · sortie awaiting clearance</span></div><span class="pill warn">high</span></div>
+        <div class="row"><span class="sev high" aria-hidden="true"></span><div class="lead"><span class="t">New host exposed: vpn2.acme-logistics.example</span><span class="s">Attack surface · port 443, self-signed certificate</span></div><span class="pill warn">high</span></div>
+      </div>
+    </div>
+    <div class="section" style="margin-top:0">
+      <div class="section-head"><h2>Who has looked</h2><span class="note">access from outside your tenant</span></div>
+      <div class="panel table-wrap">
+        <table>
+          <thead><tr><th>When</th><th>Who</th><th>What</th></tr></thead>
+          <tbody>
+            <tr><td class="mono">09:14</td><td>Dana Okafor<div class="mono">Consultants LLC</div></td><td>signed clearance · sortie 01J9…</td></tr>
+            <tr><td class="mono">09:02</td><td>Dana Okafor<div class="mono">Consultants LLC</div></td><td>read 41 findings</td></tr>
+            <tr><td class="mono">Yesterday</td><td>Dana Okafor<div class="mono">Consultants LLC</div></td><td>entered tenant · session switch</td></tr>
+            <tr><td class="mono">Mon</td><td>Priya Nair<div class="mono">Consultants LLC</div></td><td>started mission · Email authentication</td></tr>
+          </tbody>
+        </table>
+        <div class="small muted" style="margin-top:8px">Every read by a consultant is on your flight recorder. <a href="#">Export the chain</a></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="kill">
+      <span class="t">Abort all sorties</span>
+      <span class="small" style="color:var(--ink-soft)">Cancels every queued and running sortie, revokes run credentials, pauses Autopilot. A reason is required and both flight recorders get it.</span>
+      <button class="btn danger" style="margin-left:auto" id="kill">Abort</button>
+    </div>
+  </div>
+</section>
+
+<!-- ============================== HANGAR ============================== -->
+<section class="screen" id="hangar" role="tabpanel" aria-labelledby="tab-hangar" hidden>
+  <div class="screen-head">
+    <div>
+      <div class="eyebrow">Shared view · <span id="hangar-client">Acme Logistics</span></div>
+      <h1>Hangar</h1>
+      <p class="plain">Uplinks are the connections to your systems. A consultant can request one. Only you can complete it, in your own console. Each uplink unlocks missions.</p>
+    </div>
+    <span class="role-pill">GET /connectors · POST /connectors/{id}/complete is customer-only</span>
+  </div>
+
+  <div class="grid cols-4">
+    <div class="tile"><span class="label">Uplinks</span><span class="value">5</span><span class="sub">4 connected · 1 awaiting you</span></div>
+    <div class="tile"><span class="label">Missions unlocked</span><span class="value">7</span><span class="sub">of 14 in the catalog</span></div>
+    <div class="tile warn"><span class="label">Write scopes granted</span><span class="value">2</span><span class="sub">requested separately from read</span></div>
+    <div class="tile"><span class="label">Credentials held</span><span class="value" style="font-size:22px;padding-top:6px">per-tenant KMS</span><span class="sub">short-lived, derived at run time</span></div>
+  </div>
+
+  <div class="section">
+    <div class="section-head"><h2>Awaiting you</h2><span class="note">a consultant requested this; complete it in your console</span></div>
+    <div class="panel frame conn awaiting">
+      <div class="head">
+        <span class="glyph">AWS</span>
+        <div><div class="name">AWS · production account</div><div class="type">aws-role · requested by Dana Okafor · 2 days ago</div></div>
+        <span class="pill warn" style="margin-left:auto">awaiting customer</span>
+      </div>
+      <div class="grid cols-2">
+        <div class="trust">
+          <div class="eyebrow" style="font-size:11px">Trust instructions</div>
+          <ol class="steps">
+            <li>Create an IAM role named <span class="chip">OutpostReadOnly</span> in account <span class="chip">123456789012</span>.</li>
+            <li>Paste the trust policy on the right. The ExternalId is unique to your tenant and this request.</li>
+            <li>Attach <span class="chip">SecurityAudit</span> and <span class="chip">ViewOnlyAccess</span>. No write permissions are requested at this step.</li>
+            <li>Paste the role ARN below. Outpost assumes it once to run a health check.</li>
+          </ol>
+          <label class="small muted" for="role-arn">Role ARN</label>
+          <input id="role-arn" placeholder="arn:aws:iam::123456789012:role/OutpostReadOnly" style="width:100%;padding:8px 10px;border:1px solid var(--line-strong);border-radius:4px;background:var(--sunken);color:var(--ink);font-family:var(--font-mono);font-size:12px">
+          <div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap">
+            <button class="btn primary" id="complete">Complete connection</button>
+            <span class="small muted">customer admin only · expires in 5 days</span>
+          </div>
+        </div>
+        <div class="trust">
+          <div class="eyebrow" style="font-size:11px">Trust policy · read scope</div>
+<pre>{
+  "Version": "2012-10-17",
+  "Statement": [{
+    "Effect": "Allow",
+    "Principal": { "AWS": "arn:aws:iam::OUTPOST:role/run-worker" },
+    "Action": "sts:AssumeRole",
+    "Condition": {
+      "StringEquals": { "sts:ExternalId": "acme-7f3e9c1a-4b2d" }
+    }
+  }]
+}</pre>
+          <div class="small muted">Unlocks: Cloud CIS Foundations (AWS), Backup verification, Cloud inventory for the attack surface scanner.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-head"><h2>Connected</h2><span class="note">health checked hourly</span></div>
+    <div class="grid cols-2">
+      <div class="conn">
+        <div class="head"><span class="glyph">ENT</span><div><div class="name">Entra ID · acme-logistics</div><div class="type">oauth · completed by Maria Chen · 2026-08-12</div></div><span class="pill good" style="margin-left:auto">connected</span></div>
+        <div class="scopes"><span class="chip">read:identity</span><span class="chip">read:conditional-access</span><span class="chip" style="border-color:var(--amber);color:var(--amber)">write:user-state</span></div>
+        <div class="foot"><span>Unlocks 3 missions</span><span>·</span><span>2 playbooks</span><span class="right"><button class="btn sm quiet">Health</button><button class="btn sm quiet">Scopes</button></span></div>
+      </div>
+      <div class="conn">
+        <div class="head"><span class="glyph">M365</span><div><div class="name">Microsoft 365 · acme-logistics</div><div class="type">oauth · completed by Maria Chen · 2026-08-12</div></div><span class="pill good" style="margin-left:auto">connected</span></div>
+        <div class="scopes"><span class="chip">read:mail-config</span><span class="chip">read:sharing</span><span class="chip" style="border-color:var(--amber);color:var(--amber)">write:dns-txt</span></div>
+        <div class="foot"><span>Unlocks 2 missions</span><span>·</span><span>2 playbooks</span><span class="right"><button class="btn sm quiet">Health</button><button class="btn sm quiet">Scopes</button></span></div>
+      </div>
+      <div class="conn">
+        <div class="head"><span class="glyph">GH</span><div><div class="name">GitHub · acme-logistics org</div><div class="type">github app · completed by Tom Reyes · 2026-08-20</div></div><span class="pill good" style="margin-left:auto">connected</span></div>
+        <div class="scopes"><span class="chip">read:repos</span><span class="chip">read:security-events</span><span class="chip" style="border-color:var(--amber);color:var(--amber)">write:pull-requests</span></div>
+        <div class="foot"><span>Unlocks 1 mission</span><span>·</span><span>2 playbooks</span><span class="right"><button class="btn sm quiet">Health</button><button class="btn sm quiet">Scopes</button></span></div>
+      </div>
+      <div class="conn">
+        <div class="head"><span class="glyph">EDR</span><div><div class="name">CrowdStrike Falcon</div><div class="type">api-key · completed by Maria Chen · 2026-09-01</div></div><span class="pill warn" style="margin-left:auto">degraded</span></div>
+        <div class="scopes"><span class="chip">read:hosts</span><span class="chip">read:detections</span></div>
+        <div class="foot"><span style="color:var(--amber)">Key expires in 9 days · rotation reminder sent</span><span class="right"><button class="btn sm quiet">Health</button><button class="btn sm quiet">Rotate</button></span></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-head"><h2>Mission catalog</h2><span class="note">GET /catalog/missions · unlocked is computed from healthy uplinks</span></div>
+    <div class="unlock-hint"><span class="pill accent">3 more</span><span>missions unlock if you connect <b>Okta</b> or grant <b>read:endpoints</b> on CrowdStrike.</span></div>
+    <div class="panel table-wrap">
+      <table>
+        <thead><tr><th>Mission</th><th>Domain</th><th>Needs</th><th>Seeded from</th><th>Status</th></tr></thead>
+        <tbody>
+          <tr><td><b>Identity baseline</b></td><td>Identity</td><td><span class="chip">read:identity</span></td><td class="mono">new catalog</td><td><span class="pill good">unlocked</span></td></tr>
+          <tr><td><b>Cloud CIS Foundations (AWS)</b></td><td>Cloud</td><td><span class="chip">read:cloud</span></td><td class="mono">cloud-baseline.json</td><td><span class="pill warn">awaiting uplink</span></td></tr>
+          <tr><td><b>Email authentication</b></td><td>Email</td><td><span class="chip">read:mail-config</span></td><td class="mono">new catalog</td><td><span class="pill good">unlocked</span></td></tr>
+          <tr><td><b>Secure SDLC maturity</b></td><td>AppSec</td><td><span class="chip">read:repos</span></td><td class="mono">ssdlc.json · SSDF</td><td><span class="pill good">unlocked</span></td></tr>
+          <tr><td><b>Ransomware readiness</b></td><td>Data</td><td><span class="muted">questionnaire</span></td><td class="mono">assessment.json</td><td><span class="pill good">unlocked</span></td></tr>
+          <tr class="locked"><td><b>EDR coverage</b></td><td>Endpoint</td><td><span class="chip">read:hosts</span> <span class="chip" style="border-color:var(--amber);color:var(--amber)">read:endpoints</span></td><td class="mono">new catalog</td><td><span class="pill mute">locked</span></td></tr>
+          <tr class="locked"><td><b>Privileged access review</b></td><td>Identity</td><td><span class="chip">read:identity</span> <span class="chip" style="border-color:var(--amber);color:var(--amber)">read:okta-admin</span></td><td class="mono">new catalog</td><td><span class="pill mute">locked</span></td></tr>
+          <tr class="locked"><td><b>Vulnerability exposure triage</b></td><td>Vuln mgmt</td><td><span class="chip" style="border-color:var(--amber);color:var(--amber)">read:vulns</span></td><td class="mono">new catalog</td><td><span class="pill mute">locked</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<p class="footnote">Mockup with example data. Acme Logistics, Bravo Health, Cedar Credit Union, and every person named here are invented. Screen vocabulary and endpoints follow docs/outpost/ROUTERS.md.</p>
+</main>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script>
+(function () {
+  var root = document.documentElement;
+  var toast = document.getElementById('toast');
+  var toastTimer;
+  function say(msg) {
+    toast.textContent = msg; toast.classList.add('show');
+    clearTimeout(toastTimer); toastTimer = setTimeout(function () { toast.classList.remove('show'); }, 3200);
+  }
+
+  /* theme toggle: explicit choice stamps data-theme; system default stamps nothing */
+  function currentDark() {
+    var t = root.getAttribute('data-theme');
+    if (t) return t === 'dark';
+    return window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+  }
+  document.getElementById('theme-toggle').addEventListener('click', function () {
+    var next = currentDark() ? 'light' : 'dark';
+    root.setAttribute('data-theme', next);
+    try { localStorage.setItem('outpost-theme', next); } catch (e) {}
+  });
+  try { var saved = localStorage.getItem('outpost-theme'); if (saved) root.setAttribute('data-theme', saved); } catch (e) {}
+
+  /* screens */
+  var tabs = Array.prototype.slice.call(document.querySelectorAll('.tab'));
+  var screens = { deck: document.getElementById('deck'), bridge: document.getElementById('bridge'), hangar: document.getElementById('hangar') };
+  var actingName = document.getElementById('acting-name');
+  var actingKind = document.getElementById('acting-kind');
+  var client = 'Acme Logistics';
+  function show(id) {
+    Object.keys(screens).forEach(function (k) { screens[k].hidden = k !== id; });
+    tabs.forEach(function (t) { t.setAttribute('aria-selected', String(t.getAttribute('aria-controls') === id)); });
+    if (id === 'deck') { actingName.textContent = 'Consultants LLC'; actingKind.textContent = '(home)'; }
+    else { actingName.textContent = client; actingKind.textContent = '(engagement)'; }
+    try { localStorage.setItem('outpost-screen', id); } catch (e) {}
+    window.scrollTo({ top: 0 });
+  }
+  tabs.forEach(function (t) { t.addEventListener('click', function () { show(t.getAttribute('aria-controls')); }); });
+  Array.prototype.forEach.call(document.querySelectorAll('.enter'), function (b) {
+    b.addEventListener('click', function (ev) {
+      ev.stopPropagation();
+      var src = b.closest('[data-client]') || b;
+      client = src.getAttribute('data-client') || client;
+      document.getElementById('bridge-client').textContent = client;
+      document.getElementById('hangar-client').textContent = client;
+      document.getElementById('bridge-role').textContent = 'role: consultant_lead · acting in ' + client;
+      show('bridge');
+      say('Entered ' + client + '. New token issued, previous session revoked, both flight recorders updated.');
+    });
+  });
+  Array.prototype.forEach.call(document.querySelectorAll('#fleet tr.selectable'), function (r) {
+    r.addEventListener('click', function () { r.querySelector('.enter').click(); });
+  });
+  try { var s = localStorage.getItem('outpost-screen'); if (s && screens[s]) show(s); } catch (e) {}
+
+  /* approval flow */
+  var approve = document.getElementById('approve');
+  approve.addEventListener('click', function () {
+    var side = document.getElementById('sig-customer');
+    side.classList.add('ok');
+    side.innerHTML = '<span class="who">Customer</span><span class="small">Maria Chen · just now</span>';
+    approve.disabled = true; document.getElementById('reject').disabled = true;
+    var pill = document.querySelector('#approval-card .pill');
+    pill.className = 'pill good'; pill.textContent = 'approved · executing in window';
+    say('Both signatures on preview 9f2c…e41b. Sortie moves to approved; Temporal is signalled.');
+  });
+  document.getElementById('reject').addEventListener('click', function () {
+    var pill = document.querySelector('#approval-card .pill');
+    pill.className = 'pill bad'; pill.textContent = 'rejected';
+    approve.disabled = true; document.getElementById('reject').disabled = true;
+    say('Rejected. One rejection from either side ends the sortie.');
+  });
+  document.getElementById('kill').addEventListener('click', function () {
+    say('Abort needs a reason. In the real screen this opens a confirmation with a required reason field.');
+  });
+  document.getElementById('complete').addEventListener('click', function () {
+    var v = document.getElementById('role-arn').value.trim();
+    if (!v) { say('Paste the role ARN first.'); return; }
+    say('Assuming the role once with your ExternalId, then running the health check.');
+  });
+
+  /* posture chart: one series, eight assessment runs */
+  var data = [
+    { d: '2025-10', v: 41 }, { d: '2025-12', v: 46 }, { d: '2026-01', v: 48 }, { d: '2026-03', v: 55 },
+    { d: '2026-04', v: 58 }, { d: '2026-06', v: 63 }, { d: '2026-08', v: 66 }, { d: '2026-09', v: 72 }
+  ];
+  var svg = document.getElementById('posture');
+  var W = 640, H = 220, L = 34, R = 44, T = 18, B = 30;
+  var pw = W - L - R, ph = H - T - B;
+  function x(i) { return L + (i / (data.length - 1)) * pw; }
+  function y(v) { return T + ph - (v / 100) * ph; }
+  var ns = 'http://www.w3.org/2000/svg';
+  function el(n, a) { var e = document.createElementNS(ns, n); for (var k in a) e.setAttribute(k, a[k]); return e; }
+  [0, 25, 50, 75, 100].forEach(function (g) {
+    svg.appendChild(el('line', { x1: L, x2: L + pw, y1: y(g), y2: y(g), 'class': 'grid-line' }));
+    var t = el('text', { x: L - 6, y: y(g) + 3, 'text-anchor': 'end', 'class': 'axis-text' }); t.textContent = g; svg.appendChild(t);
+  });
+  var pts = data.map(function (p, i) { return x(i) + ',' + y(p.v); });
+  svg.appendChild(el('polygon', { points: pts.join(' ') + ' ' + x(data.length - 1) + ',' + y(0) + ' ' + x(0) + ',' + y(0), 'class': 'area' }));
+  svg.appendChild(el('polyline', { points: pts.join(' '), 'class': 'line' }));
+  var cross = el('line', { y1: T, y2: T + ph, x1: 0, x2: 0, 'class': 'cross' }); svg.appendChild(cross);
+  data.forEach(function (p, i) {
+    var last = i === data.length - 1;
+    svg.appendChild(el('circle', { cx: x(i), cy: y(p.v), r: last ? 5 : 3.5, 'class': 'pt' + (last ? ' end' : '') }));
+    if (i % 2 === 1 || last) { var t = el('text', { x: x(i), y: H - 10, 'text-anchor': 'middle', 'class': 'axis-text' }); t.textContent = p.d; svg.appendChild(t); }
+  });
+  var endLabel = el('text', { x: x(data.length - 1) + 10, y: y(72) + 6, 'class': 'end-label' }); endLabel.textContent = '72'; svg.appendChild(endLabel);
+  var tip = document.getElementById('posture-tip');
+  svg.addEventListener('mousemove', function (ev) {
+    var r = svg.getBoundingClientRect();
+    var mx = (ev.clientX - r.left) * (W / r.width);
+    var i = Math.max(0, Math.min(data.length - 1, Math.round(((mx - L) / pw) * (data.length - 1))));
+    cross.setAttribute('x1', x(i)); cross.setAttribute('x2', x(i)); cross.style.opacity = 1;
+    tip.innerHTML = '<b>' + data[i].v + '</b> · ' + data[i].d + (i > 0 ? ' · ' + (data[i].v - data[i - 1].v >= 0 ? '▲ ' : '▼ ') + Math.abs(data[i].v - data[i - 1].v) + ' vs prior run' : ' · first run');
+    tip.style.left = Math.min(r.width - 170, (x(i) / W) * r.width + 8) + 'px';
+    tip.style.top = ((y(data[i].v) / H) * r.height - 44) + 'px';
+    tip.style.opacity = 1;
+  });
+  svg.addEventListener('mouseleave', function () { cross.style.opacity = 0; tip.style.opacity = 0; });
+})();
+</script>
