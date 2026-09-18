@@ -286,8 +286,18 @@ Rough sizes assume two to three engineers plus you on product. Each phase has an
 | 7 | First two connectors? | Entra ID and AWS. | Phase 0 |
 | 8 | Codename? | Outpost. | Everywhere |
 
-## 11. Next steps
+## 11. Phase 0 artifacts
 
-1. Turn Phase 0 into concrete artifacts: the engine package contract (a written interface the engine team can build against), the Outpost Postgres schema with RLS policies, and the router contracts for tenants, engagements, connectors, catalog, approvals, and runs.
-2. Mock the Command Deck, Bridge, and Hangar screens in the Outpost theme so the vocabulary and the dual-approval flow can be tested with a consultant before code.
-3. Write the Entra ID and AWS connector specs: minimum permissions, the customer-side trust template, the capability list, and the missions each unlocks.
+| File | What it is | Verified how |
+|---|---|---|
+| [engine_contract.py](engine_contract.py) | The typed interface the Reasoning Engine package must expose: `RequestContext`, tenant-scoped sessions and repositories, the model gateway with per-tenant policy, blackboard and index credentials, dataset and scoring ports, router factories, the two-tenant fixture. | Compiles under `python -m py_compile`; dataclass invariants (cross-tenant needs an engagement, a policy needs a provider, credentials stay out of `repr`) smoke-tested. |
+| [ENGINE-CONTRACT.md](ENGINE-CONTRACT.md) | Versioning, the engine-side retrofit list, how the 38 existing routers are bucketed, transaction ownership, untrusted content, non-goals. | Review. |
+| [schema.sql](schema.sql) | Runnable Postgres schema: `platform`, `catalog`, and `outpost` schemas, three roles, RLS on every tenant table via `outpost.protect()`, composite tenant-bound foreign keys, the hash-chained flight recorder with `audit_verify`, grants. | Loaded on Postgres 16, idempotent on re-run, and a two-tenant proof script (list, fetch by id, filter by tenant, insert, update, delete, cross-tenant child reference, wrong encryption context, unscoped session, audit tamper, chain verification) passes as the `outpost_app` role. |
+| [check_rls.sql](check_rls.sql) | The CI lint: any tenant table missing `tenant_id`, RLS, FORCE, or a real policy, and any `tenant_id` outside the `outpost` schema, is a build failure. | Returns zero rows on the clean schema and seven violations across three deliberately broken tables. |
+| [ROUTERS.md](ROUTERS.md) | Router contracts: conventions (tenant id forbidden in requests, cross-tenant is 404 plus audit, problem+json, idempotency keys, cursors) and every endpoint for session, platform, firm, tenant settings, connectors, catalog, missions, findings, recommendations and plans, enablements, sorties, approvals, scanner, flight recorder, notifications, mounted engine routers, and internal job endpoints. | Review. |
+
+## 12. Next steps
+
+1. Review the router contracts against the screens: mock the Command Deck, Bridge, and Hangar in the Outpost theme and check every screen has the endpoints it needs.
+2. Write the Entra ID and AWS connector specs: minimum permissions per capability, the customer-side trust template, and the missions each unlocks. Seed `catalog.connector_types` and `catalog.missions` from them.
+3. Hand ENGINE-CONTRACT.md and engine_contract.py to the engine team as the 1.0 retrofit scope.

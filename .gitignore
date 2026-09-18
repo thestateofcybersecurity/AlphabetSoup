@@ -4,3 +4,4 @@ test-results
 playwright-report
 shots
 .claude
+__pycache__
