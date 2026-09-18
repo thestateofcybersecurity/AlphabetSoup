@@ -33,6 +33,15 @@ const frameworks = (crosswalkRaw.frameworks as unknown as Framework[]).filter((f
 );
 
 /**
+ * Short names for every framework the crosswalk maps, not only the reported
+ * ones: a policy's control mapping block lists all of them, and an id like
+ * `nhitop10` printed in a document handed to an assessor is not a citation.
+ */
+const FRAMEWORK_LABELS: Record<string, string> = Object.fromEntries(
+  (crosswalkRaw.frameworks as unknown as { id: string; short: string }[]).map((f) => [f.id, f.short]),
+);
+
+/**
  * Real control counts for the frameworks this site holds in full.
  *
  * Coverage is measured against these, not against how much the crosswalk maps.
@@ -78,6 +87,9 @@ const CHECK_FIELDS = [
   'cardData',
   'healthData',
   'controlledUnclassified',
+  'usesAi',
+  'buildsAi',
+  'runsOt',
 ] as const;
 
 function readProfile(): Profile {
@@ -169,7 +181,7 @@ function renderPolicies(rendered: ReturnType<typeof renderPolicy>[], profile: Pr
       const evidence = p.evidence.map((e) => `<li>${esc(e)}</li>`).join('');
       const maps = Object.entries(p.mappings)
         .filter(([, ids]) => ids.length > 0)
-        .map(([fw, ids]) => `${esc(fw.toUpperCase())}: ${esc(ids.join(', '))}`)
+        .map(([fw, ids]) => `${esc(FRAMEWORK_LABELS[fw] ?? fw.toUpperCase())}: ${esc(ids.join(', '))}`)
         .join('<br />');
       return `<details class="pg-policy" data-policy="${escAttr(p.id)}">
         <summary><span>${esc(p.title)}</span><span class="pg-count">${p.requirements.length} requirements</span></summary>
@@ -191,7 +203,7 @@ function renderPolicies(rendered: ReturnType<typeof renderPolicy>[], profile: Pr
     const btn = (event.target as HTMLElement).closest<HTMLElement>('[data-download]');
     if (!btn) return;
     const one = rendered.find((r) => r.id === btn.dataset.download);
-    if (one) downloadText(policyToMarkdown(one, profile), `${one.id}.md`);
+    if (one) downloadText(policyToMarkdown(one, profile, FRAMEWORK_LABELS), `${one.id}.md`);
   });
 }
 
@@ -225,7 +237,7 @@ function render(): void {
   renderPolicies(rendered, profile);
 
   current = {
-    md: setToMarkdown(rendered, selection, profile, tier, cover),
+    md: setToMarkdown(rendered, selection, profile, tier, cover, FRAMEWORK_LABELS),
     count: selection.included.length,
   };
 }

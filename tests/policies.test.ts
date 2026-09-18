@@ -141,16 +141,30 @@ describe('framework coverage claims', () => {
     }
   });
 
-  it('accounts for every control domain, either with a policy or as declared out of scope', () => {
-    // The catalog covered all 24 domains when it was written; the crosswalk has
-    // since grown to 45. Rather than let the difference go unnoticed, every
-    // domain without a policy is named in the catalog's own metadata, so a new
-    // domain fails this test until someone decides whether it gets a policy.
+  it('covers every control domain exactly once, in the crosswalk\'s own order', () => {
+    // The catalog is complete again: each of the crosswalk's 45 domains has one
+    // policy, so coverage can be computed without gaps or double counting. The
+    // order is asserted too, because a generated policy set is a document, and
+    // it should read in program order rather than in the order policies were
+    // written.
     const all = (crosswalk.controls as { id: string }[]).map((c) => c.id);
-    const covered = new Set(policies.map((p) => p.domain));
-    const declared = catalog.meta.outOfScopeDomains as string[];
-    expect(all.filter((id) => !covered.has(id))).toEqual(declared);
-    expect(declared.filter((id) => covered.has(id)), 'declared out of scope but covered').toEqual([]);
+    expect(policies.map((p) => p.domain)).toEqual(all);
+  });
+
+  it('states a reason for every conditional policy, and gates it on real profile fields', () => {
+    // An excluded policy that does not say why is indistinguishable, to an
+    // assessor, from a policy nobody wrote.
+    const FIELDS = new Set([
+      'buildsSoftware', 'hasOffices', 'usesCloud', 'personalData', 'cardData',
+      'healthData', 'controlledUnclassified', 'usesAi', 'buildsAi', 'runsOt',
+    ]);
+    for (const p of policies as (Policy & { appliesWhen?: { anyOf: string[]; reason: string } })[]) {
+      if (!p.appliesWhen) continue;
+      expect(p.appliesWhen.anyOf.length, p.id).toBeGreaterThan(0);
+      for (const f of p.appliesWhen.anyOf) expect(FIELDS.has(f), `${p.id}: ${f}`).toBe(true);
+      expect(p.appliesWhen.reason.length, p.id).toBeGreaterThan(60);
+      expect(p.appliesWhen.reason, p.id).toMatch(/applicable|scope/i);
+    }
   });
 
   it('does not let full domain coverage be read as full framework coverage', () => {

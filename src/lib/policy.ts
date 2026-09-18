@@ -36,6 +36,12 @@ export interface Profile {
   healthData: boolean;
   controlledUnclassified: boolean;
   personalData: boolean;
+  /** Uses AI tools, whether built in house, bought, or embedded in a product. */
+  usesAi: boolean;
+  /** Builds, tunes, or deploys AI systems, which is a strictly larger obligation. */
+  buildsAi: boolean;
+  /** Operates industrial control, process, or building management systems. */
+  runsOt: boolean;
 }
 
 export const EMPTY_PROFILE: Profile = {
@@ -50,7 +56,26 @@ export const EMPTY_PROFILE: Profile = {
   healthData: false,
   controlledUnclassified: false,
   personalData: true,
+  // AI defaults on because AI features arrive inside products an organization
+  // already uses, so "we do not use AI" is usually a discovery failure rather
+  // than a fact. Building AI is the narrower claim and defaults off.
+  usesAi: true,
+  buildsAi: false,
+  runsOt: false,
 };
+
+/**
+ * When a policy applies, and what to say when it does not.
+ *
+ * Included when any listed profile field is true. A single-element `anyOf` is
+ * the common case; two or more express a policy that more than one condition
+ * can trigger, such as AI governance applying to an organization that uses AI
+ * or builds it.
+ */
+export interface Applicability {
+  anyOf: (keyof Profile)[];
+  reason: string;
+}
 
 export interface CatalogPolicy {
   id: string;
@@ -64,6 +89,8 @@ export interface CatalogPolicy {
   exceptions: string;
   review: string;
   evidence: string[];
+  /** Absent means the policy is baseline and always applies. */
+  appliesWhen?: Applicability;
 }
 
 export interface Catalog {
@@ -113,28 +140,21 @@ export interface Selection {
 /**
  * Split the catalog into what applies and what does not.
  *
- * Only two policies are ever excluded, and both only on an unambiguous signal.
- * Everything else in the catalog is baseline: an organization that stores no
- * card data still needs an access control policy.
+ * A policy is excluded only when the catalog itself declares a condition and no
+ * part of it is met. Everything without a condition is baseline: an
+ * organization that stores no card data still needs an access control policy.
+ *
+ * The conditions live in the data rather than here because the catalog grew
+ * from 24 policies to 45, and an API security policy sent to an organization
+ * that writes no software is the same failure as omitting one that does.
  */
 export function selectPolicies(catalog: Catalog, profile: Profile): Selection {
   const included: CatalogPolicy[] = [];
   const excluded: Exclusion[] = [];
   for (const policy of catalog.policies) {
-    if (policy.domain === 'appsec' && !profile.buildsSoftware) {
-      excluded.push({
-        policy,
-        reason:
-          'Not applicable: this organization does not develop or materially customize software. If that changes, this policy becomes required.',
-      });
-      continue;
-    }
-    if (policy.domain === 'physical' && !profile.hasOffices) {
-      excluded.push({
-        policy,
-        reason:
-          'Reduced scope: this organization operates no facilities of its own. Physical protection of equipment used by remote workers is covered by the Endpoint and Asset Management policies.',
-      });
+    const when = policy.appliesWhen;
+    if (when && !when.anyOf.some((field) => Boolean(profile[field]))) {
+      excluded.push({ policy, reason: when.reason });
       continue;
     }
     included.push(policy);
@@ -282,8 +302,24 @@ export function uncoveredControls(
 
 const TIER_LABEL: Record<Tier, string> = { ig1: 'IG1', ig2: 'IG2', ig3: 'IG3' };
 
+/**
+ * Display names for framework identifiers, keyed by id.
+ *
+ * Uppercasing the id was readable while the crosswalk held seven frameworks
+ * with names like `csf` and `pci`. It is not readable now that it holds ids
+ * like `n80053` and `nhitop10`, so callers pass the crosswalk's own short
+ * names and the uppercased id remains only as a fallback.
+ */
+export type FrameworkLabels = Record<string, string>;
+
+const label = (id: string, labels?: FrameworkLabels): string => labels?.[id] ?? id.toUpperCase();
+
 /** One policy as a Markdown document. */
-export function policyToMarkdown(policy: RenderedPolicy, profile: Profile): string {
+export function policyToMarkdown(
+  policy: RenderedPolicy,
+  profile: Profile,
+  labels?: FrameworkLabels,
+): string {
   const lines: string[] = [`# ${policy.title}`, ''];
   if (profile.orgName.trim()) lines.push(`**Organization:** ${profile.orgName.trim()}`, '');
   lines.push(`## Purpose`, '', policy.purpose, '', `## Scope`, '', policy.scope, '');
@@ -298,7 +334,7 @@ export function policyToMarkdown(policy: RenderedPolicy, profile: Profile): stri
   const mapped = Object.entries(policy.mappings).filter(([, ids]) => ids.length > 0);
   if (mapped.length > 0) {
     lines.push('', `## Control mapping`, '');
-    for (const [fw, ids] of mapped) lines.push(`- **${fw.toUpperCase()}:** ${ids.join(', ')}`);
+    for (const [fw, ids] of mapped) lines.push(`- **${label(fw, labels)}:** ${ids.join(', ')}`);
   }
   return lines.join('\n');
 }
@@ -310,6 +346,7 @@ export function setToMarkdown(
   profile: Profile,
   tier: Tier,
   cover: FrameworkCoverage[],
+  labels?: FrameworkLabels,
 ): string {
   const org = profile.orgName.trim() || 'the organization';
   const lines: string[] = [
@@ -341,6 +378,6 @@ export function setToMarkdown(
   lines.push(`## Contents`, '');
   for (const p of rendered) lines.push(`- ${p.title}`);
   lines.push('');
-  for (const p of rendered) lines.push('---', '', policyToMarkdown(p, profile), '');
+  for (const p of rendered) lines.push('---', '', policyToMarkdown(p, profile, labels), '');
   return lines.join('\n');
 }

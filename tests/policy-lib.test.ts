@@ -39,6 +39,17 @@ const SIZES: Record<string, number> = {
 
 const profile = (over: Partial<Profile> = {}): Profile => ({ ...EMPTY_PROFILE, ...over });
 
+/** An organization every conditional policy in the catalog applies to. */
+const EVERYTHING = profile({
+  buildsSoftware: true,
+  hasOffices: true,
+  usesCloud: true,
+  personalData: true,
+  usesAi: true,
+  buildsAi: true,
+  runsOt: true,
+});
+
 describe('tier derivation', () => {
   it('puts a small unregulated organization at the floor', () => {
     expect(deriveTier(profile({ size: 'small' }))).toBe('ig1');
@@ -94,10 +105,33 @@ describe('tier accumulation', () => {
 });
 
 describe('policy selection', () => {
-  it('includes everything for an organization that builds software and has offices', () => {
-    const s = selectPolicies(catalog, profile({ buildsSoftware: true, hasOffices: true }));
+  it('includes everything for an organization that meets every declared condition', () => {
+    const s = selectPolicies(catalog, EVERYTHING);
     expect(s.included).toHaveLength(catalog.policies.length);
     expect(s.excluded).toEqual([]);
+  });
+
+  it('excludes an AI policy from an organization that neither uses nor builds AI', () => {
+    const s = selectPolicies(catalog, profile({ usesAi: false, buildsAi: false }));
+    const ex = s.excluded.find((e) => e.policy.domain === 'ai-governance');
+    expect(ex).toBeDefined();
+    expect(ex!.reason.length).toBeGreaterThan(40);
+  });
+
+  it('keeps AI governance for an organization that builds AI but did not tick using it', () => {
+    // The condition is anyOf, so building AI is enough on its own. Handing
+    // someone the technical AI policies without the governance one would be a
+    // worse set than handing them nothing.
+    const s = selectPolicies(catalog, profile({ usesAi: false, buildsAi: true }));
+    expect(s.included.some((p) => p.domain === 'ai-governance')).toBe(true);
+  });
+
+  it('withholds the deeper AI policies from an organization that only consumes AI', () => {
+    const s = selectPolicies(catalog, profile({ usesAi: true, buildsAi: false }));
+    expect(s.included.some((p) => p.domain === 'ai-governance')).toBe(true);
+    for (const domain of ['ai-lifecycle', 'ai-supply-chain', 'ai-runtime', 'agentic-ai']) {
+      expect(s.included.some((p) => p.domain === domain), domain).toBe(false);
+    }
   });
 
   it('excludes secure development with a stated reason, never silently', () => {
@@ -155,14 +189,14 @@ describe('placeholder substitution', () => {
 });
 
 describe('coverage reporting', () => {
-  const all = selectPolicies(catalog, profile({ buildsSoftware: true, hasOffices: true })).included;
+  const all = selectPolicies(catalog, EVERYTHING).included;
 
   it('measures against the real framework, not the mapped subset', () => {
     const c = coverage(all, frameworks, domains, SIZES).find((x) => x.id === 'csf')!;
-    // The catalog reaches all 99 mapped subcategories, but CSF has 106.
-    expect(c.addressed).toBe(99);
+    // The catalog reaches all 102 mapped subcategories, but CSF has 106.
+    expect(c.addressed).toBe(102);
     expect(c.frameworkTotal).toBe(106);
-    expect(c.percent).toBe(93);
+    expect(c.percent).toBe(96);
     expect(c.approximate).toBe(false);
   });
 
@@ -191,10 +225,10 @@ describe('coverage reporting', () => {
 
   it('now measures ISO against its real control count', () => {
     const c = coverage(all, frameworks, domains, SIZES).find((x) => x.id === 'iso')!;
-    // 78 of Annex A's 93 controls are mapped, so this must not read as 100%.
+    // 81 of Annex A's 93 controls are mapped, so this must not read as 100%.
     expect(c.frameworkTotal).toBe(93);
-    expect(c.addressed).toBe(78);
-    expect(c.percent).toBe(84);
+    expect(c.addressed).toBe(81);
+    expect(c.percent).toBe(87);
     expect(c.approximate).toBe(false);
   });
 

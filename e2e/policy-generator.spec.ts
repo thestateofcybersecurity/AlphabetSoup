@@ -79,13 +79,24 @@ test('adds requirements as the tier rises', async ({ page }) => {
   expect(parseInt(at3, 10)).toBeGreaterThan(parseInt(at1, 10));
 });
 
+/** A profile every conditional policy in the catalog applies to. */
+const EVERYTHING = {
+  buildsSoftware: true,
+  hasOffices: true,
+  usesCloud: true,
+  personalData: true,
+  usesAi: true,
+  buildsAi: true,
+  runsOt: true,
+};
+
 test('never claims full coverage of a framework it only partly maps', async ({ page }) => {
   await page.goto(URL);
-  await setProfile(page, { buildsSoftware: true, hasOffices: true });
+  await setProfile(page, EVERYTHING);
   const rows = await page.locator('.pg-cov tbody tr').allInnerTexts();
   const csf = rows.find((r) => /NIST CSF/.test(r))!;
-  // The catalog reaches all 99 mapped subcategories, but CSF has 106.
-  expect(csf).toContain('99 of 106');
+  // The catalog reaches all 102 mapped subcategories, but CSF has 106.
+  expect(csf).toContain('102 of 106');
   expect(csf).not.toContain('100%');
 });
 
@@ -100,11 +111,11 @@ test('shows no percentage where the true denominator is unknown', async ({ page 
 
 test('measures ISO against all 93 Annex A controls', async ({ page }) => {
   await page.goto(URL);
-  await setProfile(page, { buildsSoftware: true, hasOffices: true });
+  await setProfile(page, EVERYTHING);
   const iso = page.locator('.pg-cov tbody tr').filter({ hasText: 'ISO' });
-  // 78 of 93 mapped, so this must read 84% rather than 100%.
-  await expect(iso).toContainText('78 of 93');
-  await expect(iso).toContainText('84%');
+  // 81 of 93 mapped, so this must read 87% rather than 100%.
+  await expect(iso).toContainText('81 of 93');
+  await expect(iso).toContainText('87%');
 });
 
 test('states why a policy was excluded rather than dropping it silently', async ({ page }) => {
@@ -126,7 +137,33 @@ test('includes secure development once the organization builds software', async 
   await page.goto(URL);
   await setProfile(page, { buildsSoftware: true });
   await expect(page.locator('#pg-excluded')).not.toContainText('Secure Development');
-  await expect(page.locator('.pg-policy').filter({ hasText: 'Secure Development' })).toHaveCount(1);
+  await expect(page.locator('.pg-policy').filter({ hasText: 'Secure Development Policy' })).toHaveCount(1);
+  // The software-conditional policies arrive together, since an organization
+  // that writes code also exposes interfaces and runs a development process.
+  await expect(page.locator('.pg-policy').filter({ hasText: 'API Security Policy' })).toHaveCount(1);
+});
+
+test('withholds the AI build policies until the organization says it builds AI', async ({ page }) => {
+  await page.goto(URL);
+  // Using AI is the default, so governance applies from the start.
+  await expect(page.locator('.pg-policy').filter({ hasText: 'Artificial Intelligence Governance' })).toHaveCount(1);
+  await expect(page.locator('#pg-excluded')).toContainText('Agentic AI');
+  await setProfile(page, { buildsAi: true });
+  await expect(page.locator('#pg-excluded')).not.toContainText('Agentic AI');
+  // Matched on the full title: "Agentic AI" alone is also a framework short
+  // name, so it appears in the control mapping block of many other policies.
+  await expect(
+    page.locator('.pg-policy').filter({ hasText: 'Agentic AI and Autonomous Action Policy' }),
+  ).toHaveCount(1);
+});
+
+test('excludes operational technology unless the organization runs it', async ({ page }) => {
+  await page.goto(URL);
+  await expect(page.locator('#pg-excluded')).toContainText('Operational Technology');
+  await setProfile(page, { runsOt: true });
+  await expect(
+    page.locator('.pg-policy').filter({ hasText: 'Operational Technology Security Policy' }),
+  ).toHaveCount(1);
 });
 
 test('warns that a policy is not evidence of effectiveness', async ({ page }) => {
