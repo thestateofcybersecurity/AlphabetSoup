@@ -247,6 +247,43 @@ tr.selectable:hover td { background: var(--accent-soft); }
 .locked { opacity: 0.85; }
 .unlock-hint { display: flex; align-items: center; gap: 10px; padding: 10px 12px; border: 1px dashed var(--accent); border-radius: 4px; background: var(--accent-soft); }
 
+
+/* briefing, sortie, plan, scanner */
+.rec { display: grid; gap: 4px; }
+.rec-head { display: grid; grid-template-columns: auto 1fr auto; gap: 12px; align-items: center; }
+.rec-head .lead { display: grid; gap: 2px; }
+.rec-head .lead .t { font-weight: 600; }
+.rec-head .lead .s { color: var(--ink-mute); font-size: 12px; }
+.trust > * { min-width: 0; }
+.rec-act { display: flex; gap: 10px; flex-wrap: wrap; align-items: center; }
+.rec-act select { font: inherit; font-size: 12px; background: var(--sunken); color: var(--ink); border: 1px solid var(--line-strong); border-radius: 4px; padding: 3px 6px; margin-left: 4px; }
+.rec.accepted { border-color: var(--green); } .rec.deferred { opacity: 0.7; } .rec.rejected { opacity: 0.5; }
+.phases { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 8px; }
+.phases li { display: grid; gap: 4px; padding: 10px 12px; border: 1px solid var(--line); border-radius: 4px; background: var(--sunken); border-top: 3px solid var(--line-strong); }
+.phases li.done { border-top-color: var(--green); } .phases li.fail { border-top-color: var(--red); } .phases li.wait { border-top-color: var(--amber); }
+.phases .ph { font-family: var(--font-display); font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; font-size: 13px; }
+.phases .when { font-family: var(--font-mono); font-size: 11px; color: var(--ink-mute); }
+.phases .what { font-size: 12px; color: var(--ink-soft); }
+@media (max-width: 980px) { .phases { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+.sm-tab { font-size: 12px; padding: 3px 9px; }
+.stream { display: grid; gap: 4px; font-size: 12px; }
+.cap { display: grid; gap: 10px; }
+.board { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 12px; }
+@media (max-width: 980px) { .board { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 560px) { .board { grid-template-columns: 1fr; } }
+.col { display: grid; gap: 10px; align-content: start; }
+.col-head { font-family: var(--font-display); font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; font-size: 14px; padding-bottom: 6px; border-bottom: 1px solid var(--line-strong); display: flex; justify-content: space-between; align-items: baseline; }
+.task { display: grid; gap: 6px; background: var(--raised); border: 1px solid var(--line); border-radius: 4px; padding: 10px 12px; }
+.task .t { font-weight: 600; } .task .s { color: var(--ink-mute); font-size: 12px; }
+.task .kpis { display: flex; flex-wrap: wrap; gap: 4px; }
+.kpi { font-family: var(--font-mono); font-size: 11px; padding: 1px 6px; border-radius: 3px; border: 1px solid var(--line-strong); color: var(--ink-soft); }
+.kpi.met { border-color: var(--green); color: var(--green); background: var(--green-soft); }
+.kpi.partial { border-color: var(--amber); color: var(--amber); background: var(--amber-soft); }
+.kpi.unmet { border-color: var(--line-strong); }
+.task .status { justify-self: start; }
+.task .status[data-s="done"] { border-color: var(--green); color: var(--green); }
+.task .status[data-s="doing"] { border-color: var(--accent); color: var(--accent); }
+.switch { display: inline-flex; align-items: center; gap: 6px; font-family: var(--font-mono); font-size: 11px; color: var(--ink-soft); }
 .footnote { margin-top: 30px; color: var(--ink-mute); font-size: 12px; border-top: 1px solid var(--line); padding-top: 12px; }
 .kill { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; padding: 12px 14px; border: 1px solid var(--red); border-radius: 6px; background: var(--red-soft); }
 .kill .t { font-family: var(--font-display); font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: var(--red); }
@@ -264,6 +301,10 @@ tr.selectable:hover td { background: var(--accent-soft); }
       <button class="tab" role="tab" id="tab-deck" aria-selected="true" aria-controls="deck">Command Deck</button>
       <button class="tab" role="tab" id="tab-bridge" aria-selected="false" aria-controls="bridge">Bridge</button>
       <button class="tab" role="tab" id="tab-hangar" aria-selected="false" aria-controls="hangar">Hangar</button>
+      <button class="tab" role="tab" id="tab-briefing" aria-selected="false" aria-controls="briefing">Briefing</button>
+      <button class="tab" role="tab" id="tab-sortie" aria-selected="false" aria-controls="sortie">Sortie</button>
+      <button class="tab" role="tab" id="tab-plan" aria-selected="false" aria-controls="plan">Plan</button>
+      <button class="tab" role="tab" id="tab-scanner" aria-selected="false" aria-controls="scanner">Perimeter</button>
     </nav>
     <div class="ctx">
       <span class="acting" id="acting"><span class="dot" aria-hidden="true"></span>acting as <b id="acting-name">Consultants LLC</b> <span id="acting-kind">(home)</span></span>
@@ -609,6 +650,296 @@ tr.selectable:hover td { background: var(--accent-soft); }
   </div>
 </section>
 
+<!-- ============================== BRIEFING ============================== -->
+<section class="screen" id="briefing" role="tabpanel" aria-labelledby="tab-briefing" hidden>
+  <div class="screen-head">
+    <div>
+      <div class="eyebrow">Mission briefing · <span class="client-name">Acme Logistics</span></div>
+      <h1>Cloud CIS Foundations · AWS</h1>
+      <p class="plain">What the assessment found in account 123456789012 across six regions, what changed since June, and what we recommend running to fix it.</p>
+    </div>
+    <span class="role-pill">GET /missions/runs/01J9M…/briefing · run 2026-09-19 · scope: 1 account, 6 regions</span>
+  </div>
+
+  <div class="grid cols-4">
+    <div class="tile"><span class="label">Score</span><span class="value">68</span><span class="sub"><span class="pill warn">Developing</span> · ▲ 5 since 2026-06-19</span></div>
+    <div class="tile"><span class="label">Checks</span><span class="value">20</span><span class="sub">12 pass · 6 fail · 1 n/a · 1 unknown</span></div>
+    <div class="tile bad"><span class="label">Open findings</span><span class="value">6</span><span class="sub">2 critical · 3 high · 1 medium · 3 new, 6 resolved since last run</span></div>
+    <div class="tile"><span class="label">Evidence</span><span class="value">19</span><span class="sub">of 20 checks evidenced from the account · 1 needs an answer</span></div>
+  </div>
+
+  <div class="grid cols-3" style="margin-top:22px">
+    <div class="section" style="margin-top:0">
+      <div class="section-head"><h2>By domain</h2><span class="note">checks passed per domain</span></div>
+      <div class="panel list">
+        <div><div class="section-head small" style="margin-bottom:4px"><b>Identity</b><span class="right mono">4 of 6</span></div><div class="seg warn" style="--p:67%"></div></div>
+        <div><div class="section-head small" style="margin-bottom:4px"><b>Logging</b><span class="right mono">2 of 4</span></div><div class="seg bad" style="--p:50%"></div></div>
+        <div><div class="section-head small" style="margin-bottom:4px"><b>Network</b><span class="right mono">3 of 4</span></div><div class="seg" style="--p:75%"></div></div>
+        <div><div class="section-head small" style="margin-bottom:4px"><b>Workload</b><span class="right mono">2 of 3</span></div><div class="seg warn" style="--p:67%"></div></div>
+        <div><div class="section-head small" style="margin-bottom:4px"><b>Data</b><span class="right mono">1 of 3</span></div><div class="seg bad" style="--p:33%"></div></div>
+        <div class="small muted">One check (SSO through Identity Center) is n/a: no human IAM users exist.</div>
+      </div>
+    </div>
+    <div class="section" style="margin-top:0">
+      <div class="section-head"><h2>Needs an answer</h2><span class="note">evidence came back unknown</span></div>
+      <div class="panel frame" id="answer-card">
+        <div class="lead"><b>Patching and access through Systems Manager</b><div class="small muted" style="margin-top:4px">The account denies <span class="chip">ssm:DescribeInstanceInformation</span> by SCP, so Outpost could not count managed instances. Answer for the assessment; the evidence document records that you did.</div></div>
+        <p class="small" style="margin:10px 0 6px">Are OS patching and administrative access on EC2 handled through Systems Manager rather than SSH keys?</p>
+        <div style="display:flex;gap:6px;flex-wrap:wrap">
+          <button class="btn sm answer" data-a="yes">Yes</button>
+          <button class="btn sm answer" data-a="alt">Other control</button>
+          <button class="btn sm answer" data-a="na">N/A</button>
+          <button class="btn sm answer" data-a="no">No</button>
+        </div>
+        <div class="small muted" style="margin-top:8px" id="answer-state">Unanswered · counts against the score until answered</div>
+      </div>
+    </div>
+    <div class="section" style="margin-top:0">
+      <div class="section-head"><h2>Since last run</h2><span class="note">2026-06-19 → 2026-09-19</span></div>
+      <div class="panel list">
+        <div class="row" style="grid-template-columns:auto 1fr"><span class="sev low" style="background:var(--green)" aria-hidden="true"></span><div class="lead"><span class="t">6 resolved</span><span class="s">root MFA, root keys, IMDSv2 on 14 instances, VPC flow logs, default SG hygiene, ECR scanning</span></div></div>
+        <div class="row" style="grid-template-columns:auto 1fr"><span class="sev high" aria-hidden="true"></span><div class="lead"><span class="t">3 new</span><span class="s">public ACL on acme-vendor-dropbox, GuardDuty off in eu-west-1 (new region), stale key for svc-legacy-export</span></div></div>
+        <div class="row" style="grid-template-columns:auto 1fr"><span class="sev medium" aria-hidden="true"></span><div class="lead"><span class="t">3 unchanged</span><span class="s">CloudTrail single-region, log archive not locked, database subnet routing</span></div></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-head"><h2>Recommendations</h2><span class="note">generated by the engine, edited by the consultant · accept sets the mode within the ceiling and creates a plan task</span></div>
+    <div class="list" id="recs">
+      <div class="panel rec" data-ceiling="autopilot">
+        <div class="rec-head"><span class="sev critical" aria-hidden="true"></span><div class="lead"><span class="t">Block public S3 buckets</span><span class="s">Resolves 1 critical finding · 3 buckets · playbook cloud.block-public-storage · blast radius low · reversible</span></div><span class="pill accent">ceiling: autopilot</span></div>
+        <p class="small" style="margin:8px 0">Three buckets allow public ACLs. One has a static website configuration and will be skipped and listed for a human. Suggested cadence: run when the finding recurs.</p>
+        <div class="rec-act"><label class="small muted">Mode <select class="mode"><option>autopilot</option><option selected>clearance</option><option>beacon</option></select></label><label class="small muted">Cadence <select><option selected>on finding</option><option>weekly</option><option>monthly</option></select></label><button class="btn sm primary accept">Accept</button><button class="btn sm defer">Defer</button><button class="btn sm quiet reject-rec">Reject</button><span class="small muted state"></span></div>
+      </div>
+      <div class="panel rec" data-ceiling="clearance">
+        <div class="rec-head"><span class="sev critical" aria-hidden="true"></span><div class="lead"><span class="t">Enable multi-region CloudTrail</span><span class="s">Resolves 1 critical finding · playbook cloud.enable-cloudtrail-all-regions · blast radius medium · not reversible</span></div><span class="pill warn">ceiling: clearance</span></div>
+        <p class="small" style="margin:8px 0">One trail records us-east-1 only. The playbook creates a multi-region trail into a new locked bucket. Because it creates resources it cannot run unattended.</p>
+        <div class="rec-act"><label class="small muted">Mode <select class="mode"><option disabled>autopilot</option><option selected>clearance</option><option>beacon</option></select></label><label class="small muted">Cadence <select><option selected>once</option></select></label><button class="btn sm primary accept">Accept</button><button class="btn sm defer">Defer</button><button class="btn sm quiet reject-rec">Reject</button><span class="small muted state"></span></div>
+      </div>
+      <div class="panel rec" data-ceiling="clearance">
+        <div class="rec-head"><span class="sev high" aria-hidden="true"></span><div class="lead"><span class="t">Deactivate stale access keys</span><span class="s">Resolves 1 high finding · 2 keys · playbook cloud.deactivate-stale-access-keys · blast radius medium · reversible</span></div><span class="pill warn">ceiling: clearance</span></div>
+        <p class="small" style="margin:8px 0">Two keys unused for more than 90 days. Deactivation, never deletion, so a forgotten integration can be restored in one call.</p>
+        <div class="rec-act"><label class="small muted">Mode <select class="mode"><option disabled>autopilot</option><option selected>clearance</option><option>beacon</option></select></label><label class="small muted">Cadence <select><option selected>on finding</option><option>monthly</option></select></label><button class="btn sm primary accept">Accept</button><button class="btn sm defer">Defer</button><button class="btn sm quiet reject-rec">Reject</button><span class="small muted state"></span></div>
+      </div>
+      <div class="panel rec" data-ceiling="autopilot">
+        <div class="rec-head"><span class="sev high" aria-hidden="true"></span><div class="lead"><span class="t">Enable GuardDuty in eu-west-1</span><span class="s">Resolves 1 high finding · playbook cloud.enable-guardduty · blast radius low · reversible</span></div><span class="pill accent">ceiling: autopilot</span></div>
+        <p class="small" style="margin:8px 0">A region was opted in since the last run and has no detector. Suggested: Autopilot monthly, so newly opted-in regions are covered without a ticket.</p>
+        <div class="rec-act"><label class="small muted">Mode <select class="mode"><option selected>autopilot</option><option>clearance</option><option>beacon</option></select></label><label class="small muted">Cadence <select><option selected>monthly</option><option>on finding</option></select></label><button class="btn sm primary accept">Accept</button><button class="btn sm defer">Defer</button><button class="btn sm quiet reject-rec">Reject</button><span class="small muted state"></span></div>
+      </div>
+      <div class="panel rec" data-ceiling="beacon">
+        <div class="rec-head"><span class="sev high" aria-hidden="true"></span><div class="lead"><span class="t">Lock the log archive bucket</span><span class="s">Resolves 1 high finding · no playbook writes Object Lock · runbook attached</span></div><span class="pill mute">ceiling: beacon</span></div>
+        <p class="small" style="margin:8px 0">Object Lock cannot be enabled on an existing bucket. The runbook walks through creating a locked archive and repointing the trail. Beacon reminds the owner monthly until the check passes.</p>
+        <div class="rec-act"><label class="small muted">Mode <select class="mode"><option disabled>autopilot</option><option disabled>clearance</option><option selected>beacon</option></select></label><label class="small muted">Cadence <select><option selected>monthly</option></select></label><button class="btn sm primary accept">Accept</button><button class="btn sm defer">Defer</button><button class="btn sm quiet reject-rec">Reject</button><span class="small muted state"></span></div>
+      </div>
+    </div>
+    <div class="panel flat" style="border-style:dashed;display:flex;gap:12px;flex-wrap:wrap;align-items:center"><span class="small"><b id="rec-count">0</b> accepted → plan tasks</span><button class="btn sm" id="to-plan">Open the plan</button><span class="small muted">Accepting an Autopilot mode still needs both signatures before it is enabled.</span></div>
+  </div>
+</section>
+
+<!-- ============================== SORTIE ============================== -->
+<section class="screen" id="sortie" role="tabpanel" aria-labelledby="tab-sortie" hidden>
+  <div class="screen-head">
+    <div>
+      <div class="eyebrow">Sortie · <span class="client-name">Acme Logistics</span></div>
+      <h1>Block public S3 buckets</h1>
+      <p class="plain">One run of a playbook, end to end. Every call it planned, every call it made, what verification found, and what it undid.</p>
+    </div>
+    <span class="role-pill">GET /sorties/01J9K7… · playbook cloud.block-public-storage · trigger: on finding · mode: clearance</span>
+  </div>
+
+  <div class="panel frame">
+    <div class="section-head" style="margin-bottom:12px"><h2>Phases</h2><span class="note">Temporal workflow 01J9K7… · <span class="pill bad">rolled back</span></span><span class="right mono">source identity outpost:acme · session tags outpost:run=01J9K7</span></div>
+    <ol class="phases">
+      <li class="done"><span class="ph">Planning</span><span class="when">09:02:11</span><span class="what">Agent read 1 finding, 3 assets. Model route bedrock/opus.</span></li>
+      <li class="done"><span class="ph">Preview</span><span class="when">09:02:48</span><span class="what">3 calls · sha256 9f2c…e41b</span></li>
+      <li class="done"><span class="ph">Clearance</span><span class="when">09:14 → 11:40</span><span class="what">Dana Okafor (consultant) · Maria Chen (customer) · both on 9f2c…e41b</span></li>
+      <li class="done"><span class="ph">Execute</span><span class="when">22:00:03</span><span class="what">3 of 3 calls matched the preview · 3 ok · credentials expired 23:00</span></li>
+      <li class="fail"><span class="ph">Verify</span><span class="when">22:00:41</span><span class="what">s3.public_access re-run: 2 pass, 1 fail · acme-vendor-dropbox still public through a bucket policy</span></li>
+      <li class="done"><span class="ph">Rollback</span><span class="when">22:01:02</span><span class="what">3 calls restored the saved configuration · finding stays open · Briefing gets a note for a human</span></li>
+    </ol>
+  </div>
+
+  <div class="grid cols-3" style="margin-top:22px">
+    <div class="section span-2" style="margin-top:0">
+      <div class="section-head">
+        <h2>Calls</h2>
+        <div class="tabs" role="tablist" aria-label="Call phases" style="margin-left:6px">
+          <button class="tab sm-tab" role="tab" aria-selected="true" data-phase="preview">Preview 3</button>
+          <button class="tab sm-tab" role="tab" aria-selected="false" data-phase="execute">Execute 3</button>
+          <button class="tab sm-tab" role="tab" aria-selected="false" data-phase="rollback">Rollback 3</button>
+        </div>
+      </div>
+      <div class="panel table-wrap">
+        <table class="calls-table" data-phase="preview">
+          <thead><tr><th>#</th><th>Tool</th><th>Params</th><th>Hash</th><th>Status</th></tr></thead>
+          <tbody>
+            <tr><td class="mono">1</td><td class="mono">aws-mcp · s3.put_public_access_block</td><td class="mono">bucket=acme-exports-2019 · BlockPublicAcls=true IgnorePublicAcls=true BlockPublicPolicy=true RestrictPublicBuckets=true</td><td class="mono">7a11…c0de</td><td><span class="pill accent">previewed</span></td></tr>
+            <tr><td class="mono">2</td><td class="mono">aws-mcp · s3.put_public_access_block</td><td class="mono">bucket=acme-static-legacy · same</td><td class="mono">b3f0…19aa</td><td><span class="pill accent">previewed</span></td></tr>
+            <tr><td class="mono">3</td><td class="mono">aws-mcp · s3.put_public_access_block</td><td class="mono">bucket=acme-vendor-dropbox · same</td><td class="mono">e9d4…77f2</td><td><span class="pill accent">previewed</span></td></tr>
+          </tbody>
+        </table>
+        <table class="calls-table" data-phase="execute" hidden>
+          <thead><tr><th>#</th><th>Tool</th><th>Params</th><th>Hash</th><th>Status</th></tr></thead>
+          <tbody>
+            <tr><td class="mono">1</td><td class="mono">aws-mcp · s3.put_public_access_block</td><td class="mono">bucket=acme-exports-2019 · …</td><td class="mono">7a11…c0de <span class="pill good mute">= preview</span></td><td><span class="pill good">ok · 22:00:03</span></td></tr>
+            <tr><td class="mono">2</td><td class="mono">aws-mcp · s3.put_public_access_block</td><td class="mono">bucket=acme-static-legacy · …</td><td class="mono">b3f0…19aa <span class="pill good mute">= preview</span></td><td><span class="pill good">ok · 22:00:05</span></td></tr>
+            <tr><td class="mono">3</td><td class="mono">aws-mcp · s3.put_public_access_block</td><td class="mono">bucket=acme-vendor-dropbox · …</td><td class="mono">e9d4…77f2 <span class="pill good mute">= preview</span></td><td><span class="pill good">ok · 22:00:07</span></td></tr>
+          </tbody>
+        </table>
+        <table class="calls-table" data-phase="rollback" hidden>
+          <thead><tr><th>#</th><th>Tool</th><th>Params</th><th>Hash</th><th>Status</th></tr></thead>
+          <tbody>
+            <tr><td class="mono">1</td><td class="mono">aws-mcp · s3.put_public_access_block</td><td class="mono">bucket=acme-exports-2019 · saved config (all false)</td><td class="mono">41aa…0e3b</td><td><span class="pill good">ok · 22:01:02</span></td></tr>
+            <tr><td class="mono">2</td><td class="mono">aws-mcp · s3.put_public_access_block</td><td class="mono">bucket=acme-static-legacy · saved config</td><td class="mono">c2d8…5f10</td><td><span class="pill good">ok · 22:01:03</span></td></tr>
+            <tr><td class="mono">3</td><td class="mono">aws-mcp · s3.put_public_access_block</td><td class="mono">bucket=acme-vendor-dropbox · saved config</td><td class="mono">9be1…d244</td><td><span class="pill good">ok · 22:01:04</span></td></tr>
+          </tbody>
+        </table>
+        <div class="small muted" style="margin-top:8px">The executor refuses any executed call whose hash is not in the approved preview. All three matched. The customer's CloudTrail shows each call under source identity <span class="chip">outpost:acme</span>.</div>
+      </div>
+    </div>
+    <div class="section" style="margin-top:0">
+      <div class="section-head"><h2>Verification</h2><span class="note">the check re-runs on the same assets</span></div>
+      <div class="panel list">
+        <div class="row"><span class="sev low" style="background:var(--green)" aria-hidden="true"></span><div class="lead"><span class="t">acme-exports-2019</span><span class="s">public access blocked</span></div><span class="pill good">pass</span></div>
+        <div class="row"><span class="sev low" style="background:var(--green)" aria-hidden="true"></span><div class="lead"><span class="t">acme-static-legacy</span><span class="s">public access blocked</span></div><span class="pill good">pass</span></div>
+        <div class="row"><span class="sev critical" aria-hidden="true"></span><div class="lead"><span class="t">acme-vendor-dropbox</span><span class="s">still public: a bucket policy grants s3:GetObject to *. Block Public Access applied, but the finding's check also inspects policy reach.</span></div><span class="pill bad">fail</span></div>
+        <div class="small muted">Verification failed, so the sortie rolled back all three and the finding stays open. The Briefing now carries a note: the vendor drop bucket needs a human to decide whether the policy is intentional.</div>
+      </div>
+      <div class="section-head" style="margin-top:14px"><h2>Live stream</h2><span class="note">blackboard t:acme:runs:01J9K7</span></div>
+      <div class="panel stream mono">
+        <div>22:00:00 <span class="muted">credentials issued · STS session 1h · ExternalId ok</span></div>
+        <div>22:00:03 <span class="muted">execute 1/3 ok</span></div>
+        <div>22:00:05 <span class="muted">execute 2/3 ok</span></div>
+        <div>22:00:07 <span class="muted">execute 3/3 ok</span></div>
+        <div>22:00:41 <span style="color:var(--red)">verify: 1 fail</span></div>
+        <div>22:01:04 <span class="muted">rollback complete · 3/3</span></div>
+        <div>22:01:05 <span class="muted">credentials revoked · ACL user deleted</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================== PLAN ============================== -->
+<section class="screen" id="plan" role="tabpanel" aria-labelledby="tab-plan" hidden>
+  <div class="screen-head">
+    <div>
+      <div class="eyebrow">Remediation plan · <span class="client-name">Acme Logistics</span></div>
+      <h1>FY27 Plan</h1>
+      <p class="plain">Accepted recommendations become tasks with an owner, a quarter, and the KPI that proves them done. Same model as the free roadmap planner, fed by missions instead of by hand.</p>
+    </div>
+    <span class="role-pill">GET /plans/01J9P… · start Oct 2026 · export csv · json</span>
+  </div>
+
+  <div class="grid cols-4">
+    <div class="tile"><span class="label">Tasks</span><span class="value">14</span><span class="sub">5 done · 4 doing · 5 to do</span></div>
+    <div class="tile"><span class="label">KPIs met</span><span class="value">6<span style="font-size:20px;color:var(--ink-mute)"> / 17</span></span><span class="sub">4 partial · 7 unmet</span></div>
+    <div class="tile"><span class="label">Program maturity</span><span class="value" style="font-size:22px;padding-top:6px">Developing</span><span class="sub">rolls up from KPI attainment · Managed at 70%</span></div>
+    <div class="tile warn"><span class="label">Heaviest quarter</span><span class="value">Q2</span><span class="sub">118 hours · Jan to Mar 2027</span></div>
+  </div>
+
+  <div class="section">
+    <div class="section-head"><h2>Capacity</h2><span class="note">estimated hours per quarter from playbook and runbook effort</span></div>
+    <div class="panel cap">
+      <div><div class="section-head small"><b>Q1 · Oct–Dec 2026</b><span class="right mono">64 h</span></div><div class="seg" style="--p:54%"></div></div>
+      <div><div class="section-head small"><b>Q2 · Jan–Mar 2027</b><span class="right mono">118 h</span></div><div class="seg warn" style="--p:100%"></div></div>
+      <div><div class="section-head small"><b>Q3 · Apr–Jun 2027</b><span class="right mono">42 h</span></div><div class="seg" style="--p:36%"></div></div>
+      <div><div class="section-head small"><b>Q4 · Jul–Sep 2027</b><span class="right mono">28 h</span></div><div class="seg" style="--p:24%"></div></div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-head"><h2>Quarters</h2><span class="note">click a task's status to advance it · filters:</span><span class="chip">all</span><span class="chip">cloud</span><span class="chip">identity</span><span class="chip">hide done</span></div>
+    <div class="board">
+      <div class="col">
+        <div class="col-head">Q1 <span class="mono">Oct–Dec 2026</span></div>
+        <div class="task"><div class="t">Block public S3 buckets</div><div class="s">Autopilot · owner T. Reyes · from Cloud CIS run 2026-09-19</div><div class="kpis"><span class="kpi met">0 public buckets</span><span class="kpi partial">policy reach reviewed</span></div><button class="btn sm status" data-s="doing">doing</button></div>
+        <div class="task"><div class="t">Enable multi-region CloudTrail</div><div class="s">Clearance · owner T. Reyes · 6 h</div><div class="kpis"><span class="kpi unmet">trail in all regions</span><span class="kpi unmet">log validation on</span></div><button class="btn sm status" data-s="todo">to do</button></div>
+        <div class="task"><div class="t">Disable stale accounts</div><div class="s">Autopilot · owner M. Chen · running Saturdays</div><div class="kpis"><span class="kpi met">0 stale enabled accounts</span></div><button class="btn sm status" data-s="done">done</button></div>
+        <div class="task"><div class="t">MFA registration campaign</div><div class="s">Autopilot · owner M. Chen</div><div class="kpis"><span class="kpi partial">95% registered (now 88%)</span></div><button class="btn sm status" data-s="doing">doing</button></div>
+      </div>
+      <div class="col">
+        <div class="col-head">Q2 <span class="mono">Jan–Mar 2027</span></div>
+        <div class="task"><div class="t">Lock the log archive bucket</div><div class="s">Beacon · owner T. Reyes · runbook · 16 h</div><div class="kpis"><span class="kpi unmet">Object Lock compliance mode</span></div><button class="btn sm status" data-s="todo">to do</button></div>
+        <div class="task"><div class="t">Block legacy authentication</div><div class="s">Clearance · owner M. Chen · report-only first · 12 h</div><div class="kpis"><span class="kpi unmet">0 legacy sign-ins in 30 days</span></div><button class="btn sm status" data-s="doing">doing</button></div>
+        <div class="task"><div class="t">Databases to private subnets</div><div class="s">Manual · owner platform team · 60 h</div><div class="kpis"><span class="kpi unmet">0 databases with IGW route</span></div><button class="btn sm status" data-s="todo">to do</button></div>
+        <div class="task"><div class="t">Tabletop: ransomware scenario</div><div class="s">Beacon · owner D. Okafor · runbook from the site · 30 h</div><div class="kpis"><span class="kpi unmet">exercise held</span><span class="kpi unmet">3 gaps ticketed</span></div><button class="btn sm status" data-s="todo">to do</button></div>
+      </div>
+      <div class="col">
+        <div class="col-head">Q3 <span class="mono">Apr–Jun 2027</span></div>
+        <div class="task"><div class="t">Deactivate stale access keys</div><div class="s">Clearance · owner T. Reyes · monthly</div><div class="kpis"><span class="kpi met">0 keys unused 90d</span></div><button class="btn sm status" data-s="done">done</button></div>
+        <div class="task"><div class="t">Remove unused privileged roles</div><div class="s">Clearance · owner M. Chen · 8 h</div><div class="kpis"><span class="kpi partial">≤ 5 global admins (now 6)</span></div><button class="btn sm status" data-s="doing">doing</button></div>
+        <div class="task"><div class="t">DMARC to reject</div><div class="s">Clearance · owner M. Chen</div><div class="kpis"><span class="kpi met">p=reject on all domains</span></div><button class="btn sm status" data-s="done">done</button></div>
+      </div>
+      <div class="col">
+        <div class="col-head">Q4 <span class="mono">Jul–Sep 2027</span></div>
+        <div class="task"><div class="t">Enable GuardDuty everywhere</div><div class="s">Autopilot monthly · owner T. Reyes</div><div class="kpis"><span class="kpi met">detector in every opted-in region</span></div><button class="btn sm status" data-s="done">done</button></div>
+        <div class="task"><div class="t">Restore test</div><div class="s">Beacon · owner platform team · annual · 8 h</div><div class="kpis"><span class="kpi unmet">restore job completed</span></div><button class="btn sm status" data-s="todo">to do</button></div>
+        <div class="task"><div class="t">Re-assess Cloud CIS Foundations</div><div class="s">Mission · quarterly cadence</div><div class="kpis"><span class="kpi met">score ≥ 70</span></div><button class="btn sm status" data-s="done">done</button></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================== SCANNER ============================== -->
+<section class="screen" id="scanner" role="tabpanel" aria-labelledby="tab-scanner" hidden>
+  <div class="screen-head">
+    <div>
+      <div class="eyebrow">Attack surface · <span class="client-name">Acme Logistics</span></div>
+      <h1>Perimeter</h1>
+      <p class="plain">What the internet can see of you. Outpost only scans assets you have proven you own, from a published address range, at a rate you set.</p>
+    </div>
+    <span class="role-pill">GET /scan/assets · scanner egress 203.0.113.0/28 · rDNS scan.outpost.example</span>
+  </div>
+
+  <div class="grid cols-4">
+    <div class="tile"><span class="label">Verified assets</span><span class="value">14</span><span class="sub">11 from AWS inventory · 3 by DNS challenge</span></div>
+    <div class="tile warn"><span class="label">Awaiting verification</span><span class="value">2</span><span class="sub">proposed by Dana Okafor</span></div>
+    <div class="tile"><span class="label">Active probing</span><span class="value">9</span><span class="sub">of 14 verified · 2 req/s default</span></div>
+    <div class="tile bad"><span class="label">Changes this week</span><span class="value">4</span><span class="sub">1 new host · 1 new port · 1 expiring cert · 1 gone</span></div>
+  </div>
+
+  <div class="grid cols-3" style="margin-top:22px">
+    <div class="section span-2" style="margin-top:0">
+      <div class="section-head"><h2>Assets</h2><span class="note">probing is refused until an asset is verified</span></div>
+      <div class="panel table-wrap">
+        <table id="assets">
+          <thead><tr><th>Asset</th><th>Source</th><th>Verified</th><th>Probing</th><th>Rate</th></tr></thead>
+          <tbody>
+            <tr><td><b>acme-logistics.example</b><div class="mono">domain</div></td><td class="mono">manual</td><td><span class="pill good">dns-txt · 2026-08-14</span></td><td><label class="switch"><input type="checkbox" checked> on</label></td><td class="mono">2/s</td></tr>
+            <tr><td><b>vpn2.acme-logistics.example</b><div class="mono">host · new this week</div></td><td class="mono">dns-enum</td><td><span class="pill good">parent domain</span></td><td><label class="switch"><input type="checkbox" checked> on</label></td><td class="mono">2/s</td></tr>
+            <tr><td><b>52.14.0.0/28</b><div class="mono">cidr</div></td><td class="mono">aws-inventory</td><td><span class="pill good">cloud inventory</span></td><td><label class="switch"><input type="checkbox" checked> on</label></td><td class="mono">5/s</td></tr>
+            <tr><td><b>d1x9z.cloudfront.example</b><div class="mono">host</div></td><td class="mono">aws-inventory</td><td><span class="pill good">cloud inventory</span></td><td><label class="switch"><input type="checkbox"> off</label></td><td class="mono">2/s</td></tr>
+            <tr id="asset-pending"><td><b>acmelogistics.co</b><div class="mono">domain · proposed by Dana Okafor</div></td><td class="mono">manual</td><td><span class="pill warn">awaiting challenge</span></td><td><label class="switch"><input type="checkbox" disabled> refused</label></td><td class="mono">—</td></tr>
+            <tr><td><b>198.51.100.40</b><div class="mono">host · proposed by Dana Okafor</div></td><td class="mono">manual</td><td><span class="pill warn">awaiting challenge</span></td><td><label class="switch"><input type="checkbox" disabled> refused</label></td><td class="mono">—</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <div class="section" style="margin-top:0">
+      <div class="section-head"><h2>Prove ownership</h2><span class="note">customer admin</span></div>
+      <div class="panel frame trust" id="verify-card">
+        <div><b>acmelogistics.co</b><div class="small muted">Choose a method. The consultant proposed this domain; only you can verify it.</div></div>
+        <div style="display:flex;gap:6px;flex-wrap:wrap"><button class="btn sm primary" id="m-dns" aria-pressed="true">DNS TXT</button><button class="btn sm" id="m-http" aria-pressed="false">Well-known file</button></div>
+        <pre id="challenge">_outpost-verify.acmelogistics.co  TXT  "outpost-verify=8c1f0e2d-acme-7f3e9c1a"</pre>
+        <div class="small muted">Outpost checks every 10 minutes for 7 days. Nothing is probed until the record resolves.</div>
+        <div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap"><button class="btn primary" id="check-verify">Check now</button><span class="small muted" id="verify-state">not found yet</span></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-head"><h2>Changes since last run</h2><span class="note">diff, not dump · 2026-09-12 → 2026-09-19</span></div>
+    <div class="grid cols-2">
+      <div class="row"><span class="sev high" aria-hidden="true"></span><div class="lead"><span class="t">New host · vpn2.acme-logistics.example</span><span class="s">443/tcp open · self-signed certificate · finding created (high)</span></div><span class="pill warn">new</span></div>
+      <div class="row"><span class="sev medium" aria-hidden="true"></span><div class="lead"><span class="t">New port · 52.14.0.7</span><span class="s">8080/tcp open · HTTP · Jenkins login page fingerprint</span></div><span class="pill warn">new</span></div>
+      <div class="row"><span class="sev medium" aria-hidden="true"></span><div class="lead"><span class="t">Certificate expiring · api.acme-logistics.example</span><span class="s">expires 2026-10-02 · 13 days · Beacon reminder sent to owner</span></div><span class="pill accent">expiring</span></div>
+      <div class="row"><span class="sev low" aria-hidden="true"></span><div class="lead"><span class="t">Gone · legacy.acme-logistics.example</span><span class="s">no longer resolves · asset retired · finding closed</span></div><span class="pill mute">gone</span></div>
+    </div>
+    <div class="panel flat small muted" style="border-style:dashed">Passive sources every run: certificate transparency, DNS, cloud inventory. Active probing: TCP connect and TLS handshake only, never authentication or exploitation. Findings that need exploitation to confirm are marked unconfirmed and routed to a human.</div>
+  </div>
+</section>
+
 <p class="footnote">Mockup with example data. Acme Logistics, Bravo Health, Cedar Credit Union, and every person named here are invented. Screen vocabulary and endpoints follow docs/outpost/ROUTERS.md.</p>
 </main>
 <div class="toast" id="toast" role="status" aria-live="polite"></div>
@@ -638,7 +969,7 @@ tr.selectable:hover td { background: var(--accent-soft); }
 
   /* screens */
   var tabs = Array.prototype.slice.call(document.querySelectorAll('.tab'));
-  var screens = { deck: document.getElementById('deck'), bridge: document.getElementById('bridge'), hangar: document.getElementById('hangar') };
+  var screens = {}; ['deck','bridge','hangar','briefing','sortie','plan','scanner'].forEach(function (k) { screens[k] = document.getElementById(k); });
   var actingName = document.getElementById('acting-name');
   var actingKind = document.getElementById('acting-kind');
   var client = 'Acme Logistics';
@@ -658,6 +989,7 @@ tr.selectable:hover td { background: var(--accent-soft); }
       client = src.getAttribute('data-client') || client;
       document.getElementById('bridge-client').textContent = client;
       document.getElementById('hangar-client').textContent = client;
+      Array.prototype.forEach.call(document.querySelectorAll('.client-name'), function (n) { n.textContent = client; });
       document.getElementById('bridge-role').textContent = 'role: consultant_lead · acting in ' + client;
       show('bridge');
       say('Entered ' + client + '. New token issued, previous session revoked, both flight recorders updated.');
@@ -692,6 +1024,64 @@ tr.selectable:hover td { background: var(--accent-soft); }
     var v = document.getElementById('role-arn').value.trim();
     if (!v) { say('Paste the role ARN first.'); return; }
     say('Assuming the role once with your ExternalId, then running the health check.');
+  });
+
+
+  /* briefing */
+  var answered = false;
+  Array.prototype.forEach.call(document.querySelectorAll('.answer'), function (b) {
+    b.addEventListener('click', function () {
+      Array.prototype.forEach.call(document.querySelectorAll('.answer'), function (x) { x.classList.remove('primary'); });
+      b.classList.add('primary'); answered = true;
+      document.getElementById('answer-state').textContent = 'Answered "' + b.textContent + '" · recorded as a human answer with the SCP denial as evidence · re-score on save';
+      say('Answer recorded. The evidence document notes the collector was denied and who answered.');
+    });
+  });
+  var accepted = 0;
+  Array.prototype.forEach.call(document.querySelectorAll('.rec'), function (rec) {
+    var st = rec.querySelector('.state');
+    rec.querySelector('.accept').addEventListener('click', function () {
+      if (rec.classList.contains('accepted')) return;
+      var mode = rec.querySelector('.mode').value;
+      rec.classList.remove('deferred', 'rejected'); rec.classList.add('accepted'); accepted += 1;
+      document.getElementById('rec-count').textContent = accepted;
+      st.textContent = 'accepted · ' + mode + (mode === 'autopilot' ? ' · needs both signatures to enable' : '') + ' · plan task created';
+    });
+    rec.querySelector('.defer').addEventListener('click', function () { rec.classList.remove('accepted', 'rejected'); rec.classList.add('deferred'); st.textContent = 'deferred · stays on the briefing'; });
+    rec.querySelector('.reject-rec').addEventListener('click', function () { rec.classList.remove('accepted', 'deferred'); rec.classList.add('rejected'); st.textContent = 'rejected · reason required in the real screen'; });
+  });
+  document.getElementById('to-plan').addEventListener('click', function () { show('plan'); });
+
+  /* sortie phase tabs */
+  Array.prototype.forEach.call(document.querySelectorAll('.sm-tab'), function (t) {
+    t.addEventListener('click', function () {
+      var ph = t.getAttribute('data-phase');
+      Array.prototype.forEach.call(document.querySelectorAll('.sm-tab'), function (x) { x.setAttribute('aria-selected', String(x === t)); });
+      Array.prototype.forEach.call(document.querySelectorAll('.calls-table'), function (tb) { tb.hidden = tb.getAttribute('data-phase') !== ph; });
+    });
+  });
+
+  /* plan task status */
+  var order = { todo: 'doing', doing: 'done', done: 'todo' }, label = { todo: 'to do', doing: 'doing', done: 'done' };
+  Array.prototype.forEach.call(document.querySelectorAll('.task .status'), function (b) {
+    b.addEventListener('click', function () { var n = order[b.getAttribute('data-s')]; b.setAttribute('data-s', n); b.textContent = label[n]; });
+  });
+
+  /* scanner verification */
+  var dns = document.getElementById('m-dns'), http = document.getElementById('m-http'), ch = document.getElementById('challenge');
+  function method(isDns) {
+    dns.setAttribute('aria-pressed', String(isDns)); http.setAttribute('aria-pressed', String(!isDns));
+    dns.classList.toggle('primary', isDns); http.classList.toggle('primary', !isDns);
+    ch.textContent = isDns ? '_outpost-verify.acmelogistics.co  TXT  "outpost-verify=8c1f0e2d-acme-7f3e9c1a"' : 'https://acmelogistics.co/.well-known/outpost-verify.txt\noutpost-verify=8c1f0e2d-acme-7f3e9c1a';
+  }
+  dns.addEventListener('click', function () { method(true); }); http.addEventListener('click', function () { method(false); });
+  document.getElementById('check-verify').addEventListener('click', function () {
+    document.getElementById('verify-state').textContent = 'verified just now by Maria Chen · dns-txt';
+    var row = document.getElementById('asset-pending');
+    row.querySelector('.pill').className = 'pill good'; row.querySelector('.pill').textContent = 'dns-txt · just now';
+    var cb = row.querySelector('input'); cb.disabled = false; cb.parentNode.lastChild.textContent = ' off';
+    row.querySelector('td:last-child').textContent = '2/s';
+    say('Ownership verified. Active probing can now be switched on for acmelogistics.co.');
   });
 
   /* posture chart: one series, eight assessment runs */
