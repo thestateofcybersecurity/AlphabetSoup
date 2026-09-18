@@ -1494,6 +1494,7 @@
     "official": "Adversaries mine information repositories such as wikis, ticket systems, code hosts, and shared drives for valuable information about the AI system and the organization running it.",
     "metaphor": "Spending an afternoon in the company archive, where everything anyone ever wrote down is filed.",
     "translation": "Internal wikis and ticket queues explain how the AI platform works, who owns it, and where its weak points are, usually in more candid language than any external document.",
+    "metaDescription": "Internal wikis and ticket queues explain how the AI platform works, who owns it, and where its weak points are, in more candid language than public docs.",
     "sourceLabel": "MITRE ATLAS",
     "sourceUrl": "https://atlas.mitre.org/"
   },

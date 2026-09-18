@@ -520,6 +520,17 @@ for (const [csfId, cisIds] of Object.entries(map)) {
 
 const problems = [
   ...validateData(acronyms).map((e) => `acronyms: ${e}`),
+  // An override that is itself over the limit, or empty, defeats the point of
+  // having one: the page would trim it again and land back on a broken phrase.
+  ...Object.entries(acronyms)
+    .filter(([, e]) => e.metaDescription !== undefined)
+    .flatMap(([k, e]) => {
+      const d = e.metaDescription as string;
+      if (!d.trim()) return [`acronyms: ${k}: empty metaDescription`];
+      if (d.length > 160) return [`acronyms: ${k}: metaDescription ${d.length} chars, max 160`];
+      if (d.includes('—')) return [`acronyms: ${k}: metaDescription em dash`];
+      return [];
+    }),
   ...validateCsf(csf).map((e) => `nist-csf: ${e}`),
   ...validateCis(cis).map((e) => `cis: ${e}`),
   ...validateAi(ai).map((e) => `ai-frameworks: ${e}`),
@@ -601,6 +612,13 @@ if (problems.length > 0) {
     ['CIS', truncated(Object.values(cis)), Object.keys(cis).length],
     ['ISO', truncated(isoControls), isoControls.length],
     ['SOC2', truncated(soc2.criteria), soc2.criteria.length],
+    // Definitions keep the long text in `explanation`, not `translation`, so
+    // they need their own count rather than the shared helper.
+    [
+      'DEF',
+      Object.values(acronyms).filter((e) => (e.metaDescription ?? e.explanation).length > 160).length,
+      Object.keys(acronyms).length,
+    ],
   ] as [string, number, number][];
   const total = counts.reduce((sum, [, n]) => sum + n, 0);
   if (total > 0) {
