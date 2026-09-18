@@ -1,9 +1,9 @@
-# Bastion: AI-driven security remediation platform
+# Outpost: AI-driven security remediation platform
 
-**Status:** brainstorm and roadmap, v0.1 (2026-09-18). Nothing here is built yet.
+**Status:** roadmap, v0.2 (2026-09-18). Nothing here is built yet. The eight open questions from v0.1 are decided; see §10.
 **Companion doc:** [TENANT-ISOLATION.md](TENANT-ISOLATION.md) covers the multi-tenant security architecture in depth.
 
-"Bastion" is a working codename. Alternatives that keep the same feel: Outpost, Vanguard, Beacon. Avoid names that are Star Wars trademarks (Holocron, Kyber) or existing security products (Sentinel, Guardian, Sentry).
+"Outpost" is the codename (decided 2026-09-18). It is not a Star Wars trademark and does not collide with a current security product, but check the mark before it goes on a public page.
 
 ---
 
@@ -17,15 +17,15 @@ Three things make it different from a scanner or a GRC tool:
 2. **Missions, not dashboards.** Every engagement is a sequence of missions. A mission assesses one thing with one tool, produces findings, and recommends the playbooks that would fix them and how often they should run.
 3. **Remediation with a dial.** Each playbook runs in one of three modes. The customer can turn the dial per playbook, and the platform enforces a ceiling per playbook based on blast radius.
 
-The Reasoning Engine (FastAPI, Postgres, Elasticsearch, Redis, Bedrock gateway) already has missions, findings, datasets, an ontology, and a live agent blackboard. Bastion is a new product surface on that engine plus a hard multi-tenant boundary, not a second backend.
+The Reasoning Engine (FastAPI, Postgres, Elasticsearch, Redis, Bedrock gateway) already has missions, findings, datasets, an ontology, and a live agent blackboard. Outpost is a **new repository** that imports the engine as a package and adds the multi-tenant boundary, the connector and playbook layers, and its own UI. It is not a second backend, and it is not a fork.
 
 ---
 
 ## 2. What we already have to build from
 
-The Alphabet Soup site is client-only, but every scoring and planning module in `src/lib/` is pure TypeScript with no DOM dependency, and every dataset in `src/data/` is fact-checked JSON. That gives us a seed catalog on day one. The table maps each site asset to its role in Bastion.
+The Alphabet Soup site is client-only, but every scoring and planning module in `src/lib/` is pure TypeScript with no DOM dependency, and every dataset in `src/data/` is fact-checked JSON. That gives us a seed catalog on day one. The table maps each site asset to its role in Outpost.
 
-| Site asset | Where it lives | Role in Bastion |
+| Site asset | Where it lives | Role in Outpost |
 |---|---|---|
 | 10 self-assessments (Ransomware, CISA CPG, CIS IG1, CIS v8, NIST CSF, 800-171/CMMC, Cyber Essentials, Zero Trust, SSDF, PCI DSS) | `src/data/assessment*.json`, `src/lib/assessment.ts` | **Questionnaire missions.** Same question bank, but each question gets an optional `evidence` hook so a connector can auto-answer it. `scoreAssessment`, `readinessBand`, `latestDelta` port as-is for scoring and trend. |
 | Security program (16 goals, KPIs, milestones, hours) and roadmap planner | `security-program.json`, `roadmap-kpis.json`, `src/lib/roadmap.ts` | **Remediation plan model.** A mission's accepted recommendations become a plan with quarters, owners, KPIs, and maturity roll-up. `gapsPlan` already turns assessment answers into tasks. |
@@ -36,7 +36,7 @@ The Alphabet Soup site is client-only, but every scoring and planning module in 
 | Cloud baseline (54 CIS Foundations controls, AWS/Azure/GCP, 30/60/90) | `cloud-baseline.json`, `src/lib/cloud-baseline.ts` | **Cloud posture mission.** Each control gets a connector check and a playbook. `buildPlan` becomes the recommended cadence. |
 | Secure SDLC rubric (19 practices, 6 phases) + SSDF assessment | `ssdlc.json`, `src/lib/ssdlc.ts` | **AppSec mission.** Repo connectors evidence the practices; `adoptionPlan` sequences the playbooks. |
 | Incident runbooks (5 scenarios, injects, comms templates) | `runbooks.json`, `src/lib/runbook.ts` | **IR readiness mission and tabletop playbook.** The tabletop-scheduler agent fills and schedules them. |
-| AI risk tiering, AI threat model, AI workload control mapper | `ai-risk-tiering.json`, `ai-threat-model.json`, `ai-cloud-controls.json` and their libs | **AI security domain.** Use-case register, threat register, and cloud-native control checks. Also the model for how Bastion governs *its own* agents (see §7). |
+| AI risk tiering, AI threat model, AI workload control mapper | `ai-risk-tiering.json`, `ai-threat-model.json`, `ai-cloud-controls.json` and their libs | **AI security domain.** Use-case register, threat register, and cloud-native control checks. Also the model for how Outpost governs *its own* agents (see §7). |
 | Board metrics (12 metrics, thresholds, talk tracks) | `board-metrics.json`, `src/lib/board-metrics.ts` | **Executive reporting.** Mission results feed metric values automatically. |
 | Automation ROI | `automation-roi.json`, `src/lib/automation-roi.ts` | **Playbook prioritization.** Ranks which agents to switch on first by hours saved vs. effort. |
 | Skills matrix | `skills-matrix.json`, `src/lib/skills-matrix.ts` | **People domain.** Team coverage feeds the "who owns this remediation" question. |
@@ -74,7 +74,7 @@ The Alphabet Soup site is client-only, but every scoring and planning module in 
 
 ## 4. Domain coverage
 
-Bastion has to span GRC to AppSec. Each domain below lists the connectors that unlock it, the initial missions, seeded from site data where possible, and the first playbooks. Playbooks marked (A) can be offered in Autopilot; everything else caps at Clearance.
+Outpost has to span GRC to AppSec. Each domain below lists the connectors that unlock it, the initial missions, seeded from site data where possible, and the first playbooks. Playbooks marked (A) can be offered in Autopilot; everything else caps at Clearance.
 
 | Domain | Connectors | Initial missions | First playbooks |
 |---|---|---|---|
@@ -116,8 +116,8 @@ Unlock -> Scope -> Assess -> Brief -> Plan -> Execute -> Verify -> Debrief
 
 | Mode | What happens | Who can enable | Ceiling logic |
 |---|---|---|---|
-| **Autopilot** | Runs on schedule, unattended, inside a change window. Preview and result are logged. Notifies on completion and on any deviation from the preview. | Customer admin, with a consultant countersign on first enablement | Only playbooks with `blast_radius: low`, `reversible: true`, and a passing verification step in the last 3 runs |
-| **Clearance** | Agent prepares plan and preview, then waits. Approver sees a diff, an affected-asset list, and the rollback plan. Approvals expire (default 72h) and are single-use. | Customer admin or consultant per tenant policy; dual approval configurable for `blast_radius: high` | Default for everything |
+| **Autopilot** | Runs on schedule, unattended, inside a change window. Preview and result are logged. Notifies on completion and on any deviation from the preview. | Enabling Autopilot is itself a dual approval (customer admin plus consultant). Either party can disable it alone. | Only playbooks with `blast_radius: low`, `reversible: true`, and a passing verification step in the last 3 runs |
+| **Clearance** | Agent prepares plan and preview, then waits. Approvers see a diff, an affected-asset list, and the rollback plan. **Two approvals are required: one customer admin and one assigned consultant.** Either can go first; each approval is bound to the preview hash, single-use, and expires after 72h. A changed preview voids both. The customer admin can additionally require a second customer approver for `blast_radius: high`. | Customer admin plus consultant | Default for everything |
 | **Beacon** | Agent prepares the plan and a runbook, then notifies a human with a "run now" button and the manual steps. Nothing executes without the click. | Anyone with the operator role | Default for playbooks that touch production write scopes the customer has not granted |
 
 Every mode has a **kill switch**: tenant-wide "abort all sorties" that cancels queued and in-flight runs and revokes the run's temporary credentials.
@@ -152,19 +152,45 @@ Every mode has a **kill switch**: tenant-wide "abort all sorties" that cancels q
 +---------------------------------------------------------------+
 ```
 
-Key decisions to make early (my recommendation in bold):
+### Repository and package boundary (decided)
 
-- **Same service or separate?** **Same FastAPI service, new bounded contexts.** Missions and findings already exist. The cost is a tenancy retrofit of all 38 existing routers, which is Phase 0's biggest job and is worth doing once, properly.
-- **Scheduler.** **Temporal** if the team can run it; otherwise Celery beat with a Postgres lease table. Runs need durable state across retries, approvals that wait days, and cancellation. Temporal's workflow model fits "sortie" exactly.
-- **Run isolation.** **One ECS Fargate task (or Lambda for short checks) per run**, never a long-lived shared worker pool with tenant data in memory.
-- **MCP servers.** Build our own for each connector family, run them inside the run container, hand them a tenant-bound short-lived credential. Third-party MCP servers go through an allowlist and a static review before any tenant can enable them.
-- **Model routing.** Per-mission model choice already exists. Add a per-tenant **data residency and provider allowlist** so a customer can forbid non-Bedrock providers.
+Outpost lives in its own repository and depends on the Reasoning Engine as a versioned Python package. That forces a clean contract, and the contract is where the tenancy work lands.
+
+What the engine package must expose for Outpost to import it:
+
+- **Mission and finding models** as importable SQLAlchemy models and Pydantic schemas, with a `tenant_id` column and RLS policy on every tenant-scoped table. If the engine's tables lack `tenant_id` today, that migration ships in the engine first, as its own release, before Outpost's Phase 0 starts.
+- **A request-context protocol** (`RequestContext { acting_tenant, actor, engagement, role }`) that every engine repository and router accepts. Outpost's middleware builds it; the engine never reads tenant identity from anywhere else.
+- **The model gateway** as a callable with a `tenant_policy` argument (provider allowlist, guardrail id, data residency) so Outpost can enforce per-tenant routing.
+- **The blackboard and event bus** as a client that takes a key-prefix and a Redis ACL credential rather than opening its own connection.
+- **Router factories**, not mounted apps: `engine.routers.missions(ctx_dependency)` so Outpost mounts them under its own auth.
+- **Dataset and ontology loaders** that accept an index name resolver, so shared corpora and tenant corpora resolve to different aliases.
+
+Anything the engine cannot expose this way is wrapped in Outpost rather than patched in a fork. The engine's own release cadence is decoupled: Outpost pins a version and upgrades deliberately.
+
+### Other early decisions (decided)
+
+- **Scheduler: Temporal.** Each sortie is a Temporal workflow: plan, preview, wait-for-approvals (days, durable), execute, verify, rollback. Cancellation is the kill switch. Temporal runs as a managed cluster (Temporal Cloud) unless there is a reason to self-host; namespaces are per environment, and the tenant id is a search attribute on every workflow so operators can find and cancel by tenant.
+- **Run isolation.** One ECS Fargate task per run (Lambda for short read-only checks), never a shared long-lived worker with tenant data in memory. Temporal activities launch the task and await it.
+- **MCP servers.** Our own per connector family, run inside the run container with a tenant-bound short-lived credential. Third-party MCP servers go through an allowlist and a static review before any tenant can enable them.
+- **Model routing.** Per-mission model choice already exists. Each tenant carries a **provider allowlist and data-residency policy**; a customer can forbid OpenAI and Gemini routing entirely, and the gateway enforces it, not the mission config. The default for a new tenant is Bedrock only.
+- **First connectors.** Entra ID and AWS. They unlock the most missions per connector for the typical customer and exercise both credential patterns (OAuth app consent and cross-account role assumption with ExternalId).
+- **Trust step.** The customer admin always completes the OAuth consent or applies the role-trust template in their own console. The consultant prepares the request and sees the health of the result, never the credential.
+
+### External attack surface scanner (decided: build our own)
+
+The scanner is Outpost's one component that touches systems Outpost has no credential for, so it needs its own rules.
+
+- **Ownership before scanning.** A domain or IP range enters scope only after the customer proves control: a DNS TXT record, an HTTP well-known file, or a cloud-connector-derived inventory (public IPs and hostnames read from the connected AWS account are auto-verified). Consultants can propose scope; they cannot verify it.
+- **Passive first, active second.** Passive sources (certificate transparency, DNS, cloud inventory) run on every cadence. Active probing (port and TLS checks, HTTP fingerprinting) runs only against verified assets, from a fixed published IP range with a reverse-DNS identity, at a rate limit the customer can lower.
+- **Never exploit.** The scanner identifies exposure and version; it does not attempt authentication, injection, or denial. Findings that need exploitation to confirm are marked "unconfirmed" and routed to a human.
+- **Diff, not dump.** The mission output is what changed since the last run: new hosts, new open ports, expiring certificates, dropped assets.
+- Phasing: passive sources and the diff engine in Phase 1 (it needs no write scope and unlocks the Network domain early); active probing in Phase 3 once the ownership-verification and rate-limit machinery has run for a while.
 
 ---
 
 ## 7. Security posture (summary; detail in TENANT-ISOLATION.md)
 
-Bastion is a system that holds credentials to customers' crown-jewel systems and lets AI agents change them. Its own security has to be better than the posture it sells.
+Outpost is a system that holds credentials to customers' crown-jewel systems and lets AI agents change them. Its own security has to be better than the posture it sells.
 
 1. **Tenant id comes only from the token.** Never from a path, query, or body. Middleware sets it on the DB session and RLS enforces it. A schema lint fails CI if any table lacks `tenant_id` and an RLS policy.
 2. **Consultants switch context explicitly.** A consultant token names one `acting_tenant` at a time, bound to an active engagement. Switching mints a new token, expires the old one, and writes an audit event the customer can see.
@@ -175,13 +201,13 @@ Bastion is a system that holds credentials to customers' crown-jewel systems and
 7. **Append-only, hash-chained audit log.** Customer can see every consultant read. Exportable.
 8. **Cross-tenant leak tests are a CI gate.** Every endpoint runs against a two-tenant fixture and must return 403 or 404 with an empty body for the other tenant.
 9. **Crypto-shred on offboarding.** Destroying the tenant's KMS key renders every secret and encrypted field unreadable.
-10. **Dogfood.** Bastion's own AI agents get tiered with the AI risk tool, threat-modeled with the AI threat model tool, and controlled with the AI workload control mapper. Publish the result.
+10. **Dogfood.** Outpost's own AI agents get tiered with the AI risk tool, threat-modeled with the AI threat model tool, and controlled with the AI workload control mapper. Publish the result.
 
 ---
 
 ## 8. Look and feel
 
-The site is warm editorial (cream paper, tomato, serif headlines). Bastion is the night shift: the same design discipline, a different mood.
+The site is warm editorial (cream paper, tomato, serif headlines). Outpost is the night shift: the same design discipline, a different mood.
 
 - **Dark-first, light mode supported.** Deep space navy and near-black paper; a cool holo-blue as the primary accent; amber for warnings and Beacon; red reserved for critical findings and the kill switch. Keep the site's rule that every accent clears 4.5:1 against its paper in both schemes, and keep a `tests/contrast.test.ts` equivalent.
 - **Typography.** Keep IBM Plex Sans for body and IBM Plex Mono for telemetry, ids, and log lines. Replace Fraunces with a geometric display face with wide tracking for mission titles (Space Grotesk or Orbitron used sparingly for headings only).
@@ -197,11 +223,13 @@ Rough sizes assume two to three engineers plus you on product. Each phase has an
 
 ### Phase 0: Foundation (6 to 8 weeks)
 
+- New `outpost` repository. Engine package contract (see §6): `RequestContext`, router factories, tenant-aware gateway and blackboard clients. Engine `tenant_id` migration shipped and released first if needed.
 - Tenant, firm, engagement, user, and role models. OIDC login with enforced MFA. Consultant context switch.
 - Postgres RLS on every table, tenant middleware, schema lint in CI, two-tenant leak test harness.
 - Elasticsearch per-tenant alias and API key provisioning. Redis key namespacing and ACLs.
 - Append-only audit log with hash chaining and a customer-visible access view.
-- Connector framework: OAuth, AWS role assumption with ExternalId, static API key (discouraged) with per-tenant KMS envelope encryption. Capability declaration and health checks.
+- Connector framework: OAuth, AWS role assumption with ExternalId, static API key (discouraged) with per-tenant KMS envelope encryption. Capability declaration and health checks. The customer-completes-trust flow for both Entra ID and AWS.
+- Temporal namespace, the sortie workflow skeleton (plan, preview, dual approval wait, execute, verify), and the kill switch.
 - Mission catalog schema. Two read-only missions seeded: **Identity baseline** (Entra ID) and **Cloud CIS Foundations** (AWS, from `cloud-baseline.json`).
 - Frontend shell: Command Deck, Bridge, Hangar, theme system, contrast tests.
 - **Exit gate:** cross-tenant test suite green, external pentest of the tenancy layer with no high findings, tenancy retrofit of the existing 38 routers complete.
@@ -210,6 +238,7 @@ Rough sizes assume two to three engineers plus you on product. Each phase has an
 
 - Port the 10 site assessments as questionnaire missions with evidence hooks. Port `assessment.ts` scoring.
 - New control catalogs for identity, endpoint, email, vulnerability, network, detection (same JSON shape as `cloud-baseline.json`).
+- External attack surface scanner, passive sources and diff engine only, with ownership verification.
 - Connectors: Okta, Google Workspace, M365, GitHub, Azure, GCP, CrowdStrike or Defender, Tenable or Qualys. Read scopes only.
 - Findings model with crosswalk normalization and plain-English explanations from the framework corpora loaded into the ontology and Elasticsearch.
 - Mission Briefing page with recommendation list (playbook, mode ceiling, cadence). Recommendations are generated by the Reasoning Engine and reviewed by the consultant.
@@ -219,8 +248,8 @@ Rough sizes assume two to three engineers plus you on product. Each phase has an
 ### Phase 2: Remediate (8 weeks)
 
 - Playbook model: agent, MCP tools, preconditions, blast radius, reversibility, verification, rollback, default cadence.
-- Execution modes with ceilings, approvals with expiry and dual-approval option, Beacon reminders, kill switch.
-- Scheduler (Temporal) and ephemeral run workers with tenant-scoped secrets and egress allowlists.
+- Execution modes with ceilings, dual approval (customer admin plus consultant) bound to the preview hash, expiry, Beacon reminders.
+- Ephemeral run workers launched from Temporal activities with tenant-scoped secrets and egress allowlists.
 - Live run streaming through the Redis blackboard to the Bridge.
 - First ten playbooks, all low blast radius: stale-account disable, MFA campaign, audit logging enable, public storage block, branch protection, dependency fix PR, DMARC step-up, ticket creation, restore-test reminder, tabletop scheduler.
 - Remediation plan view (roadmap planner model) with KPIs and maturity roll-up.
@@ -232,6 +261,7 @@ Rough sizes assume two to three engineers plus you on product. Each phase has an
 - Agent registry: each agent declares tools, model tier, and the playbooks it serves. Agents are tiered with the AI risk tool and threat-modeled before release.
 - Third-party MCP allowlist with static review and per-tenant enablement.
 - Cadence learning: recommend cadence from finding recurrence rather than a static default.
+- External attack surface scanner, active probing from a published IP range with per-customer rate limits.
 - Cross-domain playbooks (an identity finding that also fixes a cloud IAM finding).
 
 ### Phase 4: Report and scale (month 8 onward)
@@ -239,19 +269,25 @@ Rough sizes assume two to three engineers plus you on product. Each phase has an
 - Board pack generation from `board-metrics.json`, trust package refresh from findings, automation ROI on which playbooks earned their keep.
 - Multi-consultant firms, engagement handoff, customer self-service for connector renewal.
 - Data export and crypto-shred offboarding.
-- SOC 2 Type II for Bastion itself, using Bastion.
+- SOC 2 Type II for Outpost itself, using Outpost.
 
 ---
 
-## 10. Open questions for you
+## 10. Decisions log
 
-These change the design materially, so they need your call rather than my default.
+| # | Question | Decision (2026-09-18) | Where it lands |
+|---|---|---|---|
+| 1 | Where does Outpost live? | New repository that imports the Reasoning Engine as a package. | §6 package contract; Phase 0 |
+| 2 | Who approves in Clearance mode? | Both: one customer admin and one assigned consultant, either order, bound to the preview hash. | §5 execution modes; TENANT-ISOLATION §9 |
+| 3 | Who completes the connector trust step? | The customer, always. Consultants prepare and observe, never hold credentials. | §6; TENANT-ISOLATION §7 |
+| 4 | External attack surface scanner? | Build our own, passive first, active only against ownership-verified assets. | §6; Phases 1 and 3 |
+| 5 | Run orchestrator? | Temporal. | §6; Phase 0 |
+| 6 | Per-tenant AI provider allowlist? | Yes. Customer can forbid non-Bedrock routing; default is Bedrock only. | §6; TENANT-ISOLATION §9 |
+| 7 | First two connectors? | Entra ID and AWS. | Phase 0 |
+| 8 | Codename? | Outpost. | Everywhere |
 
-1. **Where does Bastion live?** New surface inside the Reasoning Engine repo, or a new repo that imports the engine as a package? I recommend inside, with the tenancy retrofit as the first milestone.
-2. **Who approves in Clearance mode by default:** the customer, the consultant, or both? My draft says customer admin, with consultant countersign only on first Autopilot enablement.
-3. **Do consultants ever hold connector credentials,** or does the customer always complete the OAuth or role-trust step themselves? I recommend the customer always completes it; the consultant only prepares the request.
-4. **Scanner of our own for external attack surface,** or integrate a vendor? Our own is a big lift but a strong differentiator.
-5. **Temporal** as the run orchestrator: is running it acceptable operationally?
-6. **Provider allowlist per tenant:** should a customer be able to forbid OpenAI and Gemini routing entirely? I assume yes.
-7. **Which two connectors first?** My draft picks Entra ID and AWS because they unlock the most missions per connector for the typical SMB customer.
-8. **Codename.** Bastion, Outpost, Vanguard, or something else.
+## 11. Next steps
+
+1. Turn Phase 0 into concrete artifacts: the engine package contract (a written interface the engine team can build against), the Outpost Postgres schema with RLS policies, and the router contracts for tenants, engagements, connectors, catalog, approvals, and runs.
+2. Mock the Command Deck, Bridge, and Hangar screens in the Outpost theme so the vocabulary and the dual-approval flow can be tested with a consultant before code.
+3. Write the Entra ID and AWS connector specs: minimum permissions, the customer-side trust template, the capability list, and the missions each unlocks.
