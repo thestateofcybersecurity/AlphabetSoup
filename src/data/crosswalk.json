@@ -1,24 +1,222 @@
 {
  "meta": {
   "title": "Control Crosswalk Mapper",
-  "version": "1.0.0",
-  "note": "A curated, domain-level crosswalk. Coverage is measured against the requirements this crosswalk maps, not every clause of each framework.",
+  "version": "2.0.0",
+  "note": "A curated, domain-level crosswalk. Coverage is measured against the requirements this crosswalk maps for each framework, not every clause of the standard. Mapping granularity differs by framework and is stated on each one.",
+  "groups": [
+   {
+    "id": "govern",
+    "name": "Govern"
+   },
+   {
+    "id": "identify",
+    "name": "Identify"
+   },
+   {
+    "id": "identity",
+    "name": "Identity and access"
+   },
+   {
+    "id": "platform",
+    "name": "Platform and infrastructure"
+   },
+   {
+    "id": "build",
+    "name": "Build and change"
+   },
+   {
+    "id": "ai",
+    "name": "AI and emerging technology"
+   },
+   {
+    "id": "detect",
+    "name": "Detect, respond, recover"
+   },
+   {
+    "id": "people",
+    "name": "People"
+   }
+  ],
+  "families": [
+   {
+    "id": "core",
+    "name": "Core control catalogs",
+    "blurb": "The broad, all-purpose control sets an entire security program is usually measured against."
+   },
+   {
+    "id": "cloud",
+    "name": "Cloud and architecture",
+    "blurb": "Benchmarks and reference architectures for cloud platforms and the way networks are now drawn."
+   },
+   {
+    "id": "sector",
+    "name": "Sector and technology specific",
+    "blurb": "Standards that only bite in a particular industry or on a particular class of system."
+   },
+   {
+    "id": "threat",
+    "name": "Threat and weakness catalogs",
+    "blurb": "Adversary behavior and software weakness taxonomies, used to check defenses against what attackers actually do."
+   },
+   {
+    "id": "appsec",
+    "name": "Application and API security",
+    "blurb": "What the software you build and the interfaces you expose are measured against."
+   },
+   {
+    "id": "ai",
+    "name": "AI governance and security",
+    "blurb": "The fast-moving set of AI-specific standards, regulations, and threat taxonomies."
+   },
+   {
+    "id": "crypto",
+    "name": "Cryptography and post-quantum",
+    "blurb": "The algorithm standards and the migration guidance for getting off the ones quantum computers will break."
+   },
+   {
+    "id": "maturity",
+    "name": "Maturity and workforce",
+    "blurb": "How repeatable the program is and who is supposed to be doing the work."
+   },
+   {
+    "id": "offense",
+    "name": "Testing methodology",
+    "blurb": "Published method for testing your own defenses so a report can be compared year over year."
+   },
+   {
+    "id": "pending",
+    "name": "Program-specific models",
+    "blurb": "Engagement models, vendor catalogs, and benchmark sets that belong to a specific program. Structure is in place; content is supplied per engagement."
+   }
+  ],
   "sources": [
    {
-    "name": "NIST Cybersecurity Framework 2.0",
+    "name": "NIST CSF 2.0",
     "url": "https://www.nist.gov/cyberframework"
-   },
-   {
-    "name": "ISO/IEC 27001:2022",
-    "url": "https://www.iso.org/standard/27001"
-   },
-   {
-    "name": "AICPA Trust Services Criteria (SOC 2)",
-    "url": "https://www.aicpa-cima.com/resources/download/2017-trust-services-criteria-with-revised-points-of-focus-2022"
    },
    {
     "name": "CIS Controls v8",
     "url": "https://www.cisecurity.org/controls/v8"
+   },
+   {
+    "name": "ISO/IEC 27001:2022 Annex A",
+    "url": "https://www.iso.org/standard/27001"
+   },
+   {
+    "name": "SOC 2 Trust Services Criteria",
+    "url": "https://www.aicpa-cima.com/resources/download/2017-trust-services-criteria-with-revised-points-of-focus-2022"
+   },
+   {
+    "name": "PCI DSS v4.0",
+    "url": "https://www.pcisecuritystandards.org/document_library/"
+   },
+   {
+    "name": "NIST SP 800-53 Rev. 5",
+    "url": "https://csrc.nist.gov/pubs/sp/800/53/r5/upd1/final"
+   },
+   {
+    "name": "NIST SP 800-171",
+    "url": "https://csrc.nist.gov/pubs/sp/800/171/r2/upd1/final"
+   },
+   {
+    "name": "CMMC 2.0",
+    "url": "https://dodcio.defense.gov/CMMC/"
+   },
+   {
+    "name": "HIPAA Security Rule",
+    "url": "https://www.ecfr.gov/current/title-45/subtitle-A/subchapter-C/part-164/subpart-C"
+   },
+   {
+    "name": "CISA Cross-Sector Cybersecurity Performance Goals",
+    "url": "https://www.cisa.gov/cross-sector-cybersecurity-performance-goals"
+   },
+   {
+    "name": "CSA Cloud Controls Matrix v4",
+    "url": "https://cloudsecurityalliance.org/research/cloud-controls-matrix"
+   },
+   {
+    "name": "CIS Amazon Web Services Foundations Benchmark",
+    "url": "https://www.cisecurity.org/benchmark/amazon_web_services"
+   },
+   {
+    "name": "CIS Microsoft Azure Foundations Benchmark",
+    "url": "https://www.cisecurity.org/benchmark/azure"
+   },
+   {
+    "name": "NIST SP 800-207 Zero Trust Architecture",
+    "url": "https://csrc.nist.gov/pubs/sp/800/207/final"
+   },
+   {
+    "name": "IEC 62443 industrial automation and control systems",
+    "url": "https://www.isa.org/standards-and-publications/isa-standards/isa-iec-62443-series-of-standards"
+   },
+   {
+    "name": "CIS Oracle Database Benchmark",
+    "url": "https://www.cisecurity.org/benchmark/oracle_database"
+   },
+   {
+    "name": "Telecom network and AI security baselines",
+    "url": "https://www.gsma.com/security/"
+   },
+   {
+    "name": "MITRE ATT&CK Enterprise",
+    "url": "https://attack.mitre.org/mitigations/enterprise/"
+   },
+   {
+    "name": "MITRE ATLAS",
+    "url": "https://atlas.mitre.org/"
+   },
+   {
+    "name": "CWE Top 25 Most Dangerous Software Weaknesses",
+    "url": "https://cwe.mitre.org/top25/"
+   },
+   {
+    "name": "OWASP Software Assurance Maturity Model",
+    "url": "https://owaspsamm.org/"
+   },
+   {
+    "name": "OWASP API Security Top 10",
+    "url": "https://owasp.org/API-Security/editions/2023/en/0x11-t10/"
+   },
+   {
+    "name": "OWASP Non-Human Identity Top 10",
+    "url": "https://owasp.org/www-project-non-human-identities-top-10/"
+   },
+   {
+    "name": "NIST AI Risk Management Framework",
+    "url": "https://www.nist.gov/itl/ai-risk-management-framework"
+   },
+   {
+    "name": "ISO/IEC 42001:2023 AI management system",
+    "url": "https://www.iso.org/standard/42001"
+   },
+   {
+    "name": "EU Artificial Intelligence Act",
+    "url": "https://eur-lex.europa.eu/eli/reg/2024/1689/oj"
+   },
+   {
+    "name": "OWASP Top 10 for Large Language Model Applications",
+    "url": "https://genai.owasp.org/llm-top-10/"
+   },
+   {
+    "name": "OWASP Agentic AI threats and mitigations",
+    "url": "https://genai.owasp.org/resource/agentic-ai-threats-and-mitigations/"
+   },
+   {
+    "name": "NIST post-quantum standards and migration guidance",
+    "url": "https://csrc.nist.gov/projects/post-quantum-cryptography"
+   },
+   {
+    "name": "CMMI maturity levels",
+    "url": "https://cmmiinstitute.com/"
+   },
+   {
+    "name": "NICE Workforce Framework for Cybersecurity",
+    "url": "https://niccs.cisa.gov/workforce-development/nice-framework"
+   },
+   {
+    "name": "Penetration testing methodology",
+    "url": "https://csrc.nist.gov/pubs/sp/800/115/final"
    }
   ]
  },
@@ -27,48 +225,637 @@
    "id": "csf",
    "name": "NIST CSF 2.0",
    "short": "NIST CSF",
-   "total": 99
-  },
-  {
-   "id": "iso",
-   "name": "ISO/IEC 27001:2022 Annex A",
-   "short": "ISO 27001",
-   "total": 78
-  },
-  {
-   "id": "soc2",
-   "name": "SOC 2 Trust Services Criteria",
-   "short": "SOC 2",
-   "total": 40
+   "family": "core",
+   "kind": "control-set",
+   "unit": "subcategories",
+   "version": "2.0",
+   "url": "https://www.nist.gov/cyberframework",
+   "note": "Mapped at the subcategory level, the same 106 subcategories this site translates.",
+   "status": "mapped",
+   "total": 102
   },
   {
    "id": "cis",
    "name": "CIS Controls v8",
    "short": "CIS v8",
-   "total": 141
+   "family": "core",
+   "kind": "control-set",
+   "unit": "safeguards",
+   "version": "8",
+   "url": "https://www.cisecurity.org/controls/v8",
+   "note": "Mapped at the safeguard level across all three implementation groups.",
+   "status": "mapped",
+   "total": 146
+  },
+  {
+   "id": "iso",
+   "name": "ISO/IEC 27001:2022 Annex A",
+   "short": "ISO 27001",
+   "family": "core",
+   "kind": "control-set",
+   "unit": "Annex A controls",
+   "version": "2022",
+   "url": "https://www.iso.org/standard/27001",
+   "note": "Mapped to the 93 Annex A controls. Clause 4 to 10 management system requirements are not enumerated here.",
+   "status": "mapped",
+   "total": 81
+  },
+  {
+   "id": "soc2",
+   "name": "SOC 2 Trust Services Criteria",
+   "short": "SOC 2",
+   "family": "core",
+   "kind": "control-set",
+   "unit": "criteria",
+   "version": "2017 with 2022 points of focus",
+   "url": "https://www.aicpa-cima.com/resources/download/2017-trust-services-criteria-with-revised-points-of-focus-2022",
+   "note": "Mapped to the common criteria plus availability and confidentiality. The criteria themselves are paywalled.",
+   "status": "mapped",
+   "total": 40
   },
   {
    "id": "pci",
    "name": "PCI DSS v4.0",
    "short": "PCI DSS",
+   "family": "core",
+   "kind": "control-set",
+   "unit": "requirements",
+   "version": "4.0",
+   "url": "https://www.pcisecuritystandards.org/document_library/",
+   "note": "Mapped at the twelve top-level requirements, not the several hundred sub-requirements.",
+   "status": "mapped",
    "total": 12
   },
   {
-   "id": "cmmc",
-   "name": "NIST SP 800-171 / CMMC",
+   "id": "n80053",
+   "name": "NIST SP 800-53 Rev. 5",
+   "short": "800-53",
+   "family": "core",
+   "kind": "control-set",
+   "unit": "controls",
+   "version": "Rev. 5",
+   "url": "https://csrc.nist.gov/pubs/sp/800/53/r5/upd1/final",
+   "note": "Mapped to base controls. Control enhancements are not enumerated.",
+   "status": "mapped",
+   "total": 116
+  },
+  {
+   "id": "n800171",
+   "name": "NIST SP 800-171",
    "short": "800-171",
+   "family": "core",
+   "kind": "control-set",
+   "unit": "families",
+   "version": "Rev. 2",
+   "url": "https://csrc.nist.gov/pubs/sp/800/171/r2/upd1/final",
+   "note": "Mapped at the fourteen families, the same ones this site's 800-171 self-assessment is built on.",
+   "status": "mapped",
    "total": 14
+  },
+  {
+   "id": "cmmc",
+   "name": "CMMC 2.0",
+   "short": "CMMC",
+   "family": "core",
+   "kind": "control-set",
+   "unit": "levels and domains",
+   "version": "2.0",
+   "url": "https://dodcio.defense.gov/CMMC/",
+   "note": "Mapped to the three certification levels and the fourteen domains it inherits from 800-171.",
+   "status": "mapped",
+   "total": 17
   },
   {
    "id": "hipaa",
    "name": "HIPAA Security Rule",
    "short": "HIPAA",
+   "family": "core",
+   "kind": "control-set",
+   "unit": "standards",
+   "version": "45 CFR Part 164 Subpart C",
+   "url": "https://www.ecfr.gov/current/title-45/subtitle-A/subchapter-C/part-164/subpart-C",
+   "note": "Mapped to the administrative, physical, and technical safeguard standards.",
+   "status": "mapped",
    "total": 21
+  },
+  {
+   "id": "cpg",
+   "name": "CISA Cross-Sector Cybersecurity Performance Goals",
+   "short": "CISA CPG",
+   "family": "core",
+   "kind": "control-set",
+   "unit": "goals",
+   "version": "2.0",
+   "url": "https://www.cisa.gov/cross-sector-cybersecurity-performance-goals",
+   "note": "A voluntary floor rather than a full framework, aimed at organizations without a mature program.",
+   "status": "mapped",
+   "total": 34
+  },
+  {
+   "id": "ccm",
+   "name": "CSA Cloud Controls Matrix v4",
+   "short": "CSA CCM",
+   "family": "cloud",
+   "kind": "control-set",
+   "unit": "domains",
+   "version": "4.0",
+   "url": "https://cloudsecurityalliance.org/research/cloud-controls-matrix",
+   "note": "Mapped at the seventeen domains. The full matrix has 197 control objectives beneath them.",
+   "status": "mapped",
+   "total": 17
+  },
+  {
+   "id": "cisaws",
+   "name": "CIS Amazon Web Services Foundations Benchmark",
+   "short": "CIS AWS",
+   "family": "cloud",
+   "kind": "benchmark",
+   "unit": "sections",
+   "version": "v3",
+   "url": "https://www.cisecurity.org/benchmark/amazon_web_services",
+   "note": "Mapped at the benchmark's five sections, not the individual recommendations, which change with the platform.",
+   "status": "mapped",
+   "total": 5
+  },
+  {
+   "id": "cisazure",
+   "name": "CIS Microsoft Azure Foundations Benchmark",
+   "short": "CIS Azure",
+   "family": "cloud",
+   "kind": "benchmark",
+   "unit": "sections",
+   "version": "v2",
+   "url": "https://www.cisecurity.org/benchmark/azure",
+   "note": "Mapped at the benchmark's service sections, not the individual recommendations.",
+   "status": "mapped",
+   "total": 9
+  },
+  {
+   "id": "zta",
+   "name": "NIST SP 800-207 Zero Trust Architecture",
+   "short": "800-207",
+   "family": "cloud",
+   "kind": "architecture",
+   "unit": "tenets and components",
+   "version": "SP 800-207",
+   "url": "https://csrc.nist.gov/pubs/sp/800/207/final",
+   "note": "An architecture document, not a control catalog. Mapped to its seven tenets and three logical components.",
+   "status": "mapped",
+   "total": 10
+  },
+  {
+   "id": "iec62443",
+   "name": "IEC 62443 industrial automation and control systems",
+   "short": "IEC 62443",
+   "family": "sector",
+   "kind": "control-set",
+   "unit": "foundational requirements",
+   "version": "62443-3-3 and 62443-2-1",
+   "url": "https://www.isa.org/standards-and-publications/isa-standards/isa-iec-62443-series-of-standards",
+   "note": "Mapped to the seven foundational requirements plus the security program and secure development parts.",
+   "status": "mapped",
+   "total": 9
+  },
+  {
+   "id": "oracle",
+   "name": "CIS Oracle Database Benchmark",
+   "short": "CIS Oracle",
+   "family": "sector",
+   "kind": "benchmark",
+   "unit": "sections",
+   "version": "19c",
+   "url": "https://www.cisecurity.org/benchmark/oracle_database",
+   "note": "Mapped at the benchmark's five sections. Oracle DBSAT and CIS-CAT are the tools that assess against it.",
+   "status": "mapped",
+   "total": 5
+  },
+  {
+   "id": "telco",
+   "name": "Telecom network and AI security baselines",
+   "short": "Telecom",
+   "family": "sector",
+   "kind": "control-set",
+   "unit": "documents",
+   "version": "3GPP and GSMA",
+   "url": "https://www.gsma.com/security/",
+   "note": "Mapped at the document level: 3GPP TS 33.501 and TS 33.117, GSMA NG.127 and FS.31. Clause-level detail is behind member access.",
+   "status": "mapped",
+   "total": 4
+  },
+  {
+   "id": "attack",
+   "name": "MITRE ATT&CK Enterprise",
+   "short": "ATT&CK",
+   "family": "threat",
+   "kind": "taxonomy",
+   "unit": "mitigations",
+   "version": "Enterprise",
+   "url": "https://attack.mitre.org/mitigations/enterprise/",
+   "note": "Mapped to ATT&CK mitigations, the control-shaped layer of the matrix, rather than to tactics or techniques.",
+   "status": "mapped",
+   "total": 39
+  },
+  {
+   "id": "atlas",
+   "name": "MITRE ATLAS",
+   "short": "ATLAS",
+   "family": "threat",
+   "kind": "taxonomy",
+   "unit": "tactics",
+   "version": "ATLAS",
+   "url": "https://atlas.mitre.org/",
+   "note": "Mapped to the sixteen adversarial AI tactics this site already translates in plain English.",
+   "status": "mapped",
+   "total": 16
+  },
+  {
+   "id": "cwe25",
+   "name": "CWE Top 25 Most Dangerous Software Weaknesses",
+   "short": "CWE Top 25",
+   "family": "threat",
+   "kind": "taxonomy",
+   "unit": "weaknesses",
+   "version": "2024",
+   "url": "https://cwe.mitre.org/top25/",
+   "note": "A ranked weakness list, not a control set. Useful as a target list for what secure development has to prevent.",
+   "status": "mapped",
+   "total": 25
+  },
+  {
+   "id": "samm",
+   "name": "OWASP Software Assurance Maturity Model",
+   "short": "OWASP SAMM",
+   "family": "appsec",
+   "kind": "maturity-model",
+   "unit": "security practices",
+   "version": "2.0",
+   "url": "https://owaspsamm.org/",
+   "note": "Mapped to the fifteen security practices. Each has three maturity levels beneath it.",
+   "status": "mapped",
+   "total": 15
+  },
+  {
+   "id": "owaspapi",
+   "name": "OWASP API Security Top 10",
+   "short": "OWASP API",
+   "family": "appsec",
+   "kind": "taxonomy",
+   "unit": "risks",
+   "version": "2023",
+   "url": "https://owasp.org/API-Security/editions/2023/en/0x11-t10/",
+   "note": "A risk list for machine-to-machine interfaces.",
+   "status": "mapped",
+   "total": 10
+  },
+  {
+   "id": "nhitop10",
+   "name": "OWASP Non-Human Identity Top 10",
+   "short": "OWASP NHI",
+   "family": "appsec",
+   "kind": "taxonomy",
+   "unit": "risks",
+   "version": "2025",
+   "url": "https://owasp.org/www-project-non-human-identities-top-10/",
+   "note": "A risk list for service accounts, tokens, keys, and workload identities.",
+   "status": "mapped",
+   "total": 10
+  },
+  {
+   "id": "airmf",
+   "name": "NIST AI Risk Management Framework",
+   "short": "NIST AI RMF",
+   "family": "ai",
+   "kind": "control-set",
+   "unit": "subcategories",
+   "version": "1.0",
+   "url": "https://www.nist.gov/itl/ai-risk-management-framework",
+   "note": "Mapped to the nineteen subcategories of Govern, Map, Measure, and Manage that this site translates.",
+   "status": "mapped",
+   "total": 19
+  },
+  {
+   "id": "iso42001",
+   "name": "ISO/IEC 42001:2023 AI management system",
+   "short": "ISO 42001",
+   "family": "ai",
+   "kind": "control-set",
+   "unit": "clauses",
+   "version": "2023",
+   "url": "https://www.iso.org/standard/42001",
+   "note": "Mapped at the clause level plus Annex A, matching this site's plain-English translation.",
+   "status": "mapped",
+   "total": 9
+  },
+  {
+   "id": "euaiact",
+   "name": "EU Artificial Intelligence Act",
+   "short": "EU AI Act",
+   "family": "ai",
+   "kind": "regulation",
+   "unit": "articles",
+   "version": "Regulation (EU) 2024/1689",
+   "url": "https://eur-lex.europa.eu/eli/reg/2024/1689/oj",
+   "note": "Mapped to the obligation articles that translate into controls. Obligations phase in through 2027 and depend on your role and risk class.",
+   "status": "mapped",
+   "total": 15
+  },
+  {
+   "id": "owaspllm",
+   "name": "OWASP Top 10 for Large Language Model Applications",
+   "short": "OWASP LLM",
+   "family": "ai",
+   "kind": "taxonomy",
+   "unit": "risks",
+   "version": "2025",
+   "url": "https://genai.owasp.org/llm-top-10/",
+   "note": "A risk list for generative AI applications, translated in plain English on this site.",
+   "status": "mapped",
+   "total": 10
+  },
+  {
+   "id": "agentic",
+   "name": "OWASP Agentic AI threats and mitigations",
+   "short": "Agentic AI",
+   "family": "ai",
+   "kind": "taxonomy",
+   "unit": "threats",
+   "version": "1.0",
+   "url": "https://genai.owasp.org/resource/agentic-ai-threats-and-mitigations/",
+   "note": "Fifteen agent-specific threats. The closest thing to a published capability model for agentic AI security.",
+   "status": "mapped",
+   "total": 15
+  },
+  {
+   "id": "pqc",
+   "name": "NIST post-quantum standards and migration guidance",
+   "short": "PQC",
+   "family": "crypto",
+   "kind": "control-set",
+   "unit": "standards",
+   "version": "FIPS 203 to 205",
+   "url": "https://csrc.nist.gov/projects/post-quantum-cryptography",
+   "note": "The algorithm standards plus the migration and transition guidance that tells you what to do with them.",
+   "status": "mapped",
+   "total": 7
+  },
+  {
+   "id": "cmmi",
+   "name": "CMMI maturity levels",
+   "short": "CMMI",
+   "family": "maturity",
+   "kind": "maturity-model",
+   "unit": "maturity levels",
+   "version": "3.0",
+   "url": "https://cmmiinstitute.com/",
+   "note": "A generic process maturity scale. Mapped to the five levels, not to CMMI practice areas.",
+   "status": "mapped",
+   "total": 5
+  },
+  {
+   "id": "nice",
+   "name": "NICE Workforce Framework for Cybersecurity",
+   "short": "NICE",
+   "family": "maturity",
+   "kind": "workforce",
+   "unit": "work role categories",
+   "version": "NIST SP 800-181r1",
+   "url": "https://niccs.cisa.gov/workforce-development/nice-framework",
+   "note": "Mapped to the seven work role categories. Task, knowledge, and skill statements sit beneath them.",
+   "status": "mapped",
+   "total": 7
+  },
+  {
+   "id": "pentest",
+   "name": "Penetration testing methodology",
+   "short": "Pentest method",
+   "family": "offense",
+   "kind": "methodology",
+   "unit": "phases",
+   "version": "NIST SP 800-115 and PTES",
+   "url": "https://csrc.nist.gov/pubs/sp/800/115/final",
+   "note": "The two published methods most network penetration test reports are structured around.",
+   "status": "mapped",
+   "total": 11
+  },
+  {
+   "id": "bastionone",
+   "name": "BastionOne engagement model",
+   "short": "BastionOne",
+   "family": "pending",
+   "kind": "engagement model",
+   "unit": "",
+   "version": "",
+   "url": "",
+   "note": "Engagement phases, deliverables, and the recon methodology behind a network penetration test.",
+   "status": "pending",
+   "total": 0
+  },
+  {
+   "id": "quiltworks",
+   "name": "QuiltWorks coalition framework",
+   "short": "QuiltWorks",
+   "family": "pending",
+   "kind": "coalition framework",
+   "unit": "",
+   "version": "",
+   "url": "",
+   "note": "Shared-defense structure for organizations pooling security capability.",
+   "status": "pending",
+   "total": 0
+  },
+  {
+   "id": "frontier",
+   "name": "Frontier AI readiness framework",
+   "short": "Frontier AI",
+   "family": "pending",
+   "kind": "readiness framework",
+   "unit": "",
+   "version": "",
+   "url": "",
+   "note": "Readiness tiers for organizations adopting frontier-scale AI capability.",
+   "status": "pending",
+   "total": 0
+  },
+  {
+   "id": "falcon",
+   "name": "Falcon module catalog",
+   "short": "Falcon",
+   "family": "pending",
+   "kind": "vendor catalog",
+   "unit": "",
+   "version": "",
+   "url": "",
+   "note": "Platform module coverage mapped to the control domains each module actually satisfies.",
+   "status": "pending",
+   "total": 0
+  },
+  {
+   "id": "mavendor",
+   "name": "M&A vendor portfolio",
+   "short": "M&A portfolio",
+   "family": "pending",
+   "kind": "portfolio model",
+   "unit": "",
+   "version": "",
+   "url": "",
+   "note": "Acquired-company tool overlap, consolidation candidates, and contract timing.",
+   "status": "pending",
+   "total": 0
+  },
+  {
+   "id": "fisher",
+   "name": "Fisher Phillips AI legal checklist",
+   "short": "FP legal",
+   "family": "pending",
+   "kind": "legal checklist",
+   "unit": "",
+   "version": "",
+   "url": "",
+   "note": "Six employment and workplace law checkpoints for deploying AI on staff or candidates.",
+   "status": "pending",
+   "total": 0
+  },
+  {
+   "id": "accenture",
+   "name": "Accenture telecom AI testing framework",
+   "short": "Telco AI T1-T7",
+   "family": "pending",
+   "kind": "test framework",
+   "unit": "",
+   "version": "",
+   "url": "",
+   "note": "Seven test dimensions for AI deployed in telecom networks, used alongside GSMA NG.127.",
+   "status": "pending",
+   "total": 0
+  }
+ ],
+ "signals": [
+  {
+   "id": "kev",
+   "name": "CISA Known Exploited Vulnerabilities catalog",
+   "short": "CISA KEV",
+   "status": "public",
+   "url": "https://www.cisa.gov/known-exploited-vulnerabilities-catalog",
+   "what": "The authoritative list of vulnerabilities with confirmed in-the-wild exploitation, with remediation due dates for federal agencies.",
+   "domains": [
+    "vuln-prioritization",
+    "vuln-mgmt",
+    "threat-intel",
+    "offensive-testing",
+    "db-security"
+   ]
+  },
+  {
+   "id": "epss",
+   "name": "FIRST Exploit Prediction Scoring System",
+   "short": "EPSS",
+   "status": "public",
+   "url": "https://www.first.org/epss/",
+   "what": "A daily-updated probability that a given vulnerability will be exploited in the next 30 days. Pairs with KEV to rank what is left.",
+   "domains": [
+    "vuln-prioritization",
+    "vuln-mgmt",
+    "program-maturity"
+   ]
+  },
+  {
+   "id": "cvss",
+   "name": "CVSS severity scoring",
+   "short": "CVSS",
+   "status": "public",
+   "url": "https://www.first.org/cvss/",
+   "what": "Severity of a vulnerability if exploited. On its own it is a poor queue, which is why KEV and EPSS exist.",
+   "domains": [
+    "vuln-prioritization",
+    "vuln-mgmt"
+   ]
+  },
+  {
+   "id": "dbsat",
+   "name": "Oracle Database Security Assessment Tool",
+   "short": "DBSAT",
+   "status": "public",
+   "url": "https://www.oracle.com/database/technologies/security/dbsat.html",
+   "what": "Oracle's own assessment tool. Produces the findings a CIS Oracle benchmark review is usually built on.",
+   "domains": [
+    "db-security",
+    "secure-config",
+    "compliance-audit"
+   ]
+  },
+  {
+   "id": "ciscat",
+   "name": "CIS-CAT Pro Assessor",
+   "short": "CIS-CAT",
+   "status": "public",
+   "url": "https://www.cisecurity.org/cybersecurity-tools/cis-cat-pro",
+   "what": "Automated scoring of a system against a CIS Benchmark, which is how benchmark coverage gets measured rather than asserted.",
+   "domains": [
+    "secure-config",
+    "cloud-posture",
+    "db-security",
+    "compliance-audit"
+   ]
+  },
+  {
+   "id": "cbom",
+   "name": "CycloneDX cryptographic bill of materials",
+   "short": "CBOM",
+   "status": "public",
+   "url": "https://cyclonedx.org/capabilities/cbom/",
+   "what": "A machine-readable inventory of the cryptography a system uses. The starting artifact for any post-quantum migration plan.",
+   "domains": [
+    "pqc",
+    "crypto",
+    "asset-mgmt",
+    "ai-supply-chain"
+   ]
+  },
+  {
+   "id": "sbom",
+   "name": "Software bill of materials",
+   "short": "SBOM",
+   "status": "public",
+   "url": "https://www.cisa.gov/sbom",
+   "what": "The dependency inventory that makes supply chain questions answerable in hours instead of weeks.",
+   "domains": [
+    "third-party",
+    "appsec",
+    "ai-supply-chain",
+    "vuln-mgmt"
+   ]
+  },
+  {
+   "id": "peerbench",
+   "name": "Industry peer benchmark data",
+   "short": "Peer benchmark",
+   "status": "pending",
+   "url": "",
+   "what": "Analyst and survey data on what comparable organizations spend, staff, and achieve. Licensed content, supplied per engagement.",
+   "domains": [
+    "program-maturity",
+    "governance",
+    "workforce"
+   ]
+  },
+  {
+   "id": "costbench",
+   "name": "Consulting cost benchmarks",
+   "short": "Cost benchmark",
+   "status": "pending",
+   "url": "",
+   "what": "Typical market rates and effort ranges for assessment, testing, and advisory work. Supplied per engagement.",
+   "domains": [
+    "program-maturity",
+    "offensive-testing",
+    "ma-integration"
+   ]
   }
  ],
  "controls": [
   {
    "id": "governance",
+   "group": "govern",
    "domain": "Governance and Risk Management",
    "summary": "Roles, policies, risk appetite, and oversight that steer the whole program.",
    "mappings": {
@@ -118,7 +905,21 @@
     "pci": [
      "12"
     ],
+    "n80053": [
+     "PM-1",
+     "PM-9",
+     "PM-11",
+     "PL-1",
+     "PL-2",
+     "RA-1",
+     "CA-1"
+    ],
+    "n800171": [
+     "CA",
+     "RA"
+    ],
     "cmmc": [
+     "Level 2",
      "CA",
      "RA"
     ],
@@ -128,11 +929,421 @@
      "policies-and-procedures",
      "documentation",
      "evaluation"
-    ]
+    ],
+    "cpg": [
+     "1.A",
+     "1.B"
+    ],
+    "ccm": [
+     "GRC"
+    ],
+    "cisaws": [
+     "1"
+    ],
+    "cisazure": [],
+    "zta": [],
+    "iec62443": [
+     "62443-2-1"
+    ],
+    "oracle": [],
+    "telco": [
+     "FS.31"
+    ],
+    "attack": [
+     "M1047"
+    ],
+    "atlas": [],
+    "cwe25": [],
+    "samm": [
+     "SM",
+     "PC"
+    ],
+    "owaspapi": [],
+    "nhitop10": [],
+    "airmf": [
+     "GOVERN 1",
+     "GOVERN 2"
+    ],
+    "iso42001": [
+     "Clause 5",
+     "Clause 6"
+    ],
+    "euaiact": [
+     "Art. 17"
+    ],
+    "owaspllm": [],
+    "agentic": [],
+    "pqc": [],
+    "cmmi": [
+     "ML2",
+     "ML3"
+    ],
+    "nice": [
+     "OG"
+    ],
+    "pentest": [
+     "800-115 Planning",
+     "PTES Pre-engagement"
+    ],
+    "bastionone": [],
+    "quiltworks": [],
+    "frontier": [],
+    "falcon": [],
+    "mavendor": [],
+    "fisher": [],
+    "accenture": []
+   }
+  },
+  {
+   "id": "compliance-audit",
+   "group": "govern",
+   "domain": "Compliance and Audit Management",
+   "summary": "Proving the program works to auditors, regulators, and customers.",
+   "mappings": {
+    "csf": [
+     "GV.OC-03",
+     "GV.OV-01",
+     "GV.OV-02",
+     "GV.OV-03",
+     "ID.IM-01",
+     "ID.IM-02",
+     "ID.IM-04"
+    ],
+    "cis": [
+     "8.1",
+     "8.2",
+     "8.5",
+     "18.2",
+     "18.4",
+     "18.5"
+    ],
+    "iso": [
+     "A.5.31",
+     "A.5.32",
+     "A.5.35",
+     "A.5.36",
+     "A.8.34"
+    ],
+    "soc2": [
+     "CC4.1",
+     "CC4.2",
+     "CC3.1",
+     "CC2.1",
+     "CC5.1"
+    ],
+    "pci": [
+     "11",
+     "12"
+    ],
+    "n80053": [
+     "CA-2",
+     "CA-5",
+     "CA-7",
+     "PM-14",
+     "AU-6"
+    ],
+    "n800171": [
+     "CA"
+    ],
+    "cmmc": [
+     "Level 2",
+     "Level 3",
+     "CA"
+    ],
+    "hipaa": [
+     "evaluation",
+     "documentation"
+    ],
+    "cpg": [
+     "1.B",
+     "2.C"
+    ],
+    "ccm": [
+     "A&A",
+     "GRC"
+    ],
+    "cisaws": [
+     "3"
+    ],
+    "cisazure": [
+     "5"
+    ],
+    "zta": [],
+    "iec62443": [
+     "62443-2-1"
+    ],
+    "oracle": [
+     "5"
+    ],
+    "telco": [],
+    "attack": [
+     "M1047"
+    ],
+    "atlas": [],
+    "cwe25": [],
+    "samm": [
+     "PC"
+    ],
+    "owaspapi": [],
+    "nhitop10": [],
+    "airmf": [
+     "GOVERN 1",
+     "MEASURE 1"
+    ],
+    "iso42001": [
+     "Clause 9"
+    ],
+    "euaiact": [
+     "Art. 11",
+     "Art. 17"
+    ],
+    "owaspllm": [],
+    "agentic": [],
+    "pqc": [],
+    "cmmi": [
+     "ML3",
+     "ML4"
+    ],
+    "nice": [
+     "OG"
+    ],
+    "pentest": [
+     "800-115 Reporting",
+     "PTES Reporting"
+    ],
+    "bastionone": [],
+    "quiltworks": [],
+    "frontier": [],
+    "falcon": [],
+    "mavendor": [],
+    "fisher": [],
+    "accenture": []
+   }
+  },
+  {
+   "id": "program-maturity",
+   "group": "govern",
+   "domain": "Program Maturity and Benchmarking",
+   "summary": "Measuring how repeatable the program is and comparing it against peers and a target state.",
+   "mappings": {
+    "csf": [
+     "GV.OV-01",
+     "GV.OV-02",
+     "GV.OV-03",
+     "ID.IM-01",
+     "ID.IM-02",
+     "GV.RM-02"
+    ],
+    "cis": [
+     "18.1",
+     "18.2",
+     "18.3",
+     "18.4",
+     "18.5"
+    ],
+    "iso": [
+     "A.5.35",
+     "A.5.36"
+    ],
+    "soc2": [
+     "CC3.1",
+     "CC4.1",
+     "CC4.2"
+    ],
+    "pci": [
+     "12"
+    ],
+    "n80053": [
+     "PM-6",
+     "PM-14",
+     "PM-31",
+     "CA-7"
+    ],
+    "n800171": [
+     "CA"
+    ],
+    "cmmc": [
+     "Level 1",
+     "Level 2",
+     "Level 3",
+     "CA"
+    ],
+    "hipaa": [
+     "evaluation",
+     "documentation"
+    ],
+    "cpg": [
+     "1.B",
+     "6.A"
+    ],
+    "ccm": [
+     "A&A",
+     "GRC"
+    ],
+    "cisaws": [],
+    "cisazure": [],
+    "zta": [],
+    "iec62443": [
+     "62443-2-1"
+    ],
+    "oracle": [],
+    "telco": [],
+    "attack": [],
+    "atlas": [],
+    "cwe25": [],
+    "samm": [
+     "SM"
+    ],
+    "owaspapi": [],
+    "nhitop10": [],
+    "airmf": [
+     "MEASURE 1",
+     "MANAGE 4"
+    ],
+    "iso42001": [
+     "Clause 9",
+     "Clause 10"
+    ],
+    "euaiact": [
+     "Art. 17",
+     "Art. 72"
+    ],
+    "owaspllm": [],
+    "agentic": [],
+    "pqc": [
+     "SP 1800-38"
+    ],
+    "cmmi": [
+     "ML1",
+     "ML2",
+     "ML3",
+     "ML4",
+     "ML5"
+    ],
+    "nice": [
+     "OG"
+    ],
+    "pentest": [
+     "800-115 Reporting"
+    ],
+    "bastionone": [],
+    "quiltworks": [],
+    "frontier": [],
+    "falcon": [],
+    "mavendor": [],
+    "fisher": [],
+    "accenture": []
+   }
+  },
+  {
+   "id": "policy-legal",
+   "group": "govern",
+   "domain": "Legal, Regulatory, and Workplace Obligations",
+   "summary": "Tracking the laws, contracts, and employment rules that bind how you use technology and AI.",
+   "mappings": {
+    "csf": [
+     "GV.OC-02",
+     "GV.OC-03",
+     "GV.PO-01",
+     "GV.PO-02",
+     "GV.RR-02"
+    ],
+    "cis": [
+     "3.1",
+     "14.1",
+     "15.4"
+    ],
+    "iso": [
+     "A.5.31",
+     "A.5.32",
+     "A.5.33",
+     "A.5.34",
+     "A.6.2",
+     "A.6.4"
+    ],
+    "soc2": [
+     "CC1.5",
+     "CC2.2",
+     "CC2.3",
+     "CC5.3"
+    ],
+    "pci": [
+     "12"
+    ],
+    "n80053": [
+     "PL-1",
+     "PT-1",
+     "PS-6",
+     "SA-4"
+    ],
+    "n800171": [
+     "CA",
+     "PS"
+    ],
+    "cmmc": [
+     "CA"
+    ],
+    "hipaa": [
+     "policies-and-procedures",
+     "documentation"
+    ],
+    "cpg": [
+     "1.B"
+    ],
+    "ccm": [
+     "GRC",
+     "HRS"
+    ],
+    "cisaws": [],
+    "cisazure": [],
+    "zta": [],
+    "iec62443": [],
+    "oracle": [],
+    "telco": [],
+    "attack": [
+     "M1036"
+    ],
+    "atlas": [],
+    "cwe25": [],
+    "samm": [
+     "PC"
+    ],
+    "owaspapi": [],
+    "nhitop10": [],
+    "airmf": [
+     "GOVERN 1",
+     "GOVERN 4",
+     "MAP 1"
+    ],
+    "iso42001": [
+     "Clause 4",
+     "Clause 5"
+    ],
+    "euaiact": [
+     "Art. 4",
+     "Art. 50",
+     "Art. 53"
+    ],
+    "owaspllm": [],
+    "agentic": [],
+    "pqc": [],
+    "cmmi": [],
+    "nice": [
+     "OG"
+    ],
+    "pentest": [],
+    "bastionone": [],
+    "quiltworks": [],
+    "frontier": [],
+    "falcon": [],
+    "mavendor": [],
+    "fisher": [],
+    "accenture": []
    }
   },
   {
    "id": "asset-mgmt",
+   "group": "identify",
    "domain": "Asset Management",
    "summary": "A current inventory of the hardware, software, and data you have to protect.",
    "mappings": {
@@ -171,17 +1382,80 @@
      "2",
      "9"
     ],
+    "n80053": [
+     "CM-8",
+     "PM-5",
+     "SA-4"
+    ],
+    "n800171": [
+     "CM",
+     "MP"
+    ],
     "cmmc": [
      "CM",
      "MP"
     ],
     "hipaa": [
      "device-and-media-controls"
-    ]
+    ],
+    "cpg": [
+     "2.A",
+     "2.E"
+    ],
+    "ccm": [
+     "DCS",
+     "UEM"
+    ],
+    "cisaws": [
+     "2"
+    ],
+    "cisazure": [],
+    "zta": [
+     "ZT-1",
+     "ZT-5",
+     "ZT-7"
+    ],
+    "iec62443": [
+     "62443-2-1"
+    ],
+    "oracle": [],
+    "telco": [],
+    "attack": [
+     "M1033",
+     "M1034"
+    ],
+    "atlas": [],
+    "cwe25": [],
+    "samm": [],
+    "owaspapi": [
+     "API9"
+    ],
+    "nhitop10": [],
+    "airmf": [],
+    "iso42001": [],
+    "euaiact": [],
+    "owaspllm": [],
+    "agentic": [],
+    "pqc": [
+     "SP 1800-38"
+    ],
+    "cmmi": [],
+    "nice": [],
+    "pentest": [
+     "800-115 Discovery"
+    ],
+    "bastionone": [],
+    "quiltworks": [],
+    "frontier": [],
+    "falcon": [],
+    "mavendor": [],
+    "fisher": [],
+    "accenture": []
    }
   },
   {
    "id": "data-protection",
+   "group": "identify",
    "domain": "Data Classification and Protection",
    "summary": "Knowing what data you hold, how sensitive it is, and guarding it through its life.",
    "mappings": {
@@ -219,6 +1493,17 @@
      "3",
      "4"
     ],
+    "n80053": [
+     "MP-2",
+     "MP-4",
+     "RA-2",
+     "SC-28",
+     "PT-2"
+    ],
+    "n800171": [
+     "MP",
+     "SC"
+    ],
     "cmmc": [
      "MP",
      "SC"
@@ -226,11 +1511,878 @@
     "hipaa": [
      "device-and-media-controls",
      "integrity"
-    ]
+    ],
+    "cpg": [
+     "3.K",
+     "3.R"
+    ],
+    "ccm": [
+     "CEK",
+     "DSP"
+    ],
+    "cisaws": [
+     "2"
+    ],
+    "cisazure": [
+     "3",
+     "8"
+    ],
+    "zta": [
+     "ZT-1",
+     "ZT-4"
+    ],
+    "iec62443": [
+     "FR4"
+    ],
+    "oracle": [
+     "4"
+    ],
+    "telco": [],
+    "attack": [
+     "M1022",
+     "M1041",
+     "M1057"
+    ],
+    "atlas": [
+     "AML.TA0009",
+     "AML.TA0010"
+    ],
+    "cwe25": [],
+    "samm": [],
+    "owaspapi": [
+     "API1",
+     "API3"
+    ],
+    "nhitop10": [],
+    "airmf": [
+     "MEASURE 2"
+    ],
+    "iso42001": [],
+    "euaiact": [
+     "Art. 10"
+    ],
+    "owaspllm": [
+     "LLM02",
+     "LLM08"
+    ],
+    "agentic": [
+     "T1"
+    ],
+    "pqc": [
+     "FIPS 203",
+     "SP 800-131A"
+    ],
+    "cmmi": [],
+    "nice": [],
+    "pentest": [],
+    "bastionone": [],
+    "quiltworks": [],
+    "frontier": [],
+    "falcon": [],
+    "mavendor": [],
+    "fisher": [],
+    "accenture": []
+   }
+  },
+  {
+   "id": "privacy",
+   "group": "identify",
+   "domain": "Privacy and Data Governance",
+   "summary": "Handling personal data lawfully: purpose, consent, retention, and the rights people can exercise.",
+   "mappings": {
+    "csf": [
+     "GV.OC-03",
+     "ID.AM-07",
+     "PR.DS-01",
+     "PR.DS-02"
+    ],
+    "cis": [
+     "3.1",
+     "3.2",
+     "3.4",
+     "3.5",
+     "3.13"
+    ],
+    "iso": [
+     "A.5.12",
+     "A.5.33",
+     "A.5.34",
+     "A.8.11"
+    ],
+    "soc2": [
+     "CC2.3",
+     "CC6.1",
+     "C1.1",
+     "C1.2"
+    ],
+    "pci": [
+     "3"
+    ],
+    "n80053": [
+     "PT-2",
+     "PT-3",
+     "PT-4",
+     "PT-5",
+     "PT-6",
+     "SI-18"
+    ],
+    "n800171": [
+     "AC",
+     "MP",
+     "SC"
+    ],
+    "cmmc": [
+     "MP",
+     "SC"
+    ],
+    "hipaa": [
+     "access-control",
+     "integrity",
+     "device-and-media-controls"
+    ],
+    "cpg": [
+     "3.K"
+    ],
+    "ccm": [
+     "DSP"
+    ],
+    "cisaws": [
+     "2"
+    ],
+    "cisazure": [
+     "3",
+     "4"
+    ],
+    "zta": [],
+    "iec62443": [],
+    "oracle": [
+     "4"
+    ],
+    "telco": [
+     "TS 33.501"
+    ],
+    "attack": [
+     "M1041",
+     "M1057"
+    ],
+    "atlas": [
+     "AML.TA0009"
+    ],
+    "cwe25": [],
+    "samm": [],
+    "owaspapi": [],
+    "nhitop10": [],
+    "airmf": [
+     "MAP 5",
+     "MEASURE 2"
+    ],
+    "iso42001": [
+     "Annex A"
+    ],
+    "euaiact": [
+     "Art. 10"
+    ],
+    "owaspllm": [
+     "LLM02"
+    ],
+    "agentic": [],
+    "pqc": [],
+    "cmmi": [],
+    "nice": [],
+    "pentest": [],
+    "bastionone": [],
+    "quiltworks": [],
+    "frontier": [],
+    "falcon": [],
+    "mavendor": [],
+    "fisher": [],
+    "accenture": []
+   }
+  },
+  {
+   "id": "third-party",
+   "group": "identify",
+   "domain": "Third-Party and Supplier Risk",
+   "summary": "Managing the risk that vendors and partners introduce.",
+   "mappings": {
+    "csf": [
+     "GV.SC-01",
+     "GV.SC-02",
+     "GV.SC-03",
+     "GV.SC-04",
+     "GV.SC-05",
+     "GV.SC-06",
+     "GV.SC-07",
+     "GV.SC-08",
+     "GV.SC-09",
+     "GV.SC-10",
+     "ID.RA-10"
+    ],
+    "cis": [
+     "15.1",
+     "15.2",
+     "15.3",
+     "15.4",
+     "15.5",
+     "15.6",
+     "15.7"
+    ],
+    "iso": [
+     "A.5.19",
+     "A.5.20",
+     "A.5.21",
+     "A.5.22",
+     "A.5.23"
+    ],
+    "soc2": [
+     "CC9.2",
+     "CC2.3"
+    ],
+    "pci": [
+     "12"
+    ],
+    "n80053": [
+     "SR-1",
+     "SR-2",
+     "SR-3",
+     "SR-5",
+     "SR-6",
+     "SR-11",
+     "SA-9"
+    ],
+    "n800171": [
+     "CA"
+    ],
+    "cmmc": [
+     "CA"
+    ],
+    "hipaa": [
+     "business-associate-contracts-and-other-arrangements",
+     "business-associate-contracts-or-other-arrangements"
+    ],
+    "cpg": [
+     "1.D",
+     "1.E"
+    ],
+    "ccm": [
+     "STA"
+    ],
+    "cisaws": [],
+    "cisazure": [],
+    "zta": [],
+    "iec62443": [
+     "62443-4-1"
+    ],
+    "oracle": [],
+    "telco": [
+     "FS.31"
+    ],
+    "attack": [
+     "M1019",
+     "M1051"
+    ],
+    "atlas": [
+     "AML.TA0003"
+    ],
+    "cwe25": [],
+    "samm": [
+     "SB"
+    ],
+    "owaspapi": [
+     "API10"
+    ],
+    "nhitop10": [
+     "NHI3"
+    ],
+    "airmf": [
+     "GOVERN 6",
+     "MAP 4",
+     "MANAGE 3"
+    ],
+    "iso42001": [
+     "Annex A"
+    ],
+    "euaiact": [
+     "Art. 53"
+    ],
+    "owaspllm": [
+     "LLM03"
+    ],
+    "agentic": [],
+    "pqc": [
+     "SP 1800-38",
+     "CNSA 2.0"
+    ],
+    "cmmi": [
+     "ML2"
+    ],
+    "nice": [],
+    "pentest": [
+     "800-115 Planning",
+     "PTES Pre-engagement"
+    ],
+    "bastionone": [],
+    "quiltworks": [],
+    "frontier": [],
+    "falcon": [],
+    "mavendor": [],
+    "fisher": [],
+    "accenture": []
+   }
+  },
+  {
+   "id": "threat-intel",
+   "group": "identify",
+   "domain": "Threat Intelligence and Disclosure",
+   "summary": "Learning about threats and giving outsiders a way to report weaknesses.",
+   "mappings": {
+    "csf": [
+     "ID.RA-02",
+     "ID.RA-03",
+     "RS.AN-07",
+     "GV.RM-06",
+     "ID.RA-08"
+    ],
+    "cis": [
+     "7.1",
+     "7.6",
+     "18.1",
+     "18.3"
+    ],
+    "iso": [
+     "A.5.6",
+     "A.5.7",
+     "A.8.8"
+    ],
+    "soc2": [
+     "CC3.2",
+     "CC7.1",
+     "CC2.3"
+    ],
+    "pci": [
+     "6",
+     "11"
+    ],
+    "n80053": [
+     "PM-16",
+     "RA-3",
+     "RA-10",
+     "SI-5"
+    ],
+    "n800171": [
+     "RA",
+     "SI"
+    ],
+    "cmmc": [
+     "RA",
+     "SI"
+    ],
+    "hipaa": [
+     "security-management-process"
+    ],
+    "cpg": [
+     "2.D"
+    ],
+    "ccm": [
+     "SEF",
+     "TVM"
+    ],
+    "cisaws": [],
+    "cisazure": [],
+    "zta": [],
+    "iec62443": [],
+    "oracle": [],
+    "telco": [],
+    "attack": [
+     "M1019",
+     "M1056"
+    ],
+    "atlas": [
+     "AML.TA0002",
+     "AML.TA0003"
+    ],
+    "cwe25": [],
+    "samm": [
+     "TA"
+    ],
+    "owaspapi": [],
+    "nhitop10": [],
+    "airmf": [
+     "MAP 5",
+     "MEASURE 3"
+    ],
+    "iso42001": [],
+    "euaiact": [],
+    "owaspllm": [],
+    "agentic": [],
+    "pqc": [],
+    "cmmi": [],
+    "nice": [
+     "CI"
+    ],
+    "pentest": [
+     "PTES Intelligence Gathering",
+     "PTES Threat Modeling"
+    ],
+    "bastionone": [],
+    "quiltworks": [],
+    "frontier": [],
+    "falcon": [],
+    "mavendor": [],
+    "fisher": [],
+    "accenture": []
+   }
+  },
+  {
+   "id": "vuln-mgmt",
+   "group": "identify",
+   "domain": "Vulnerability and Patch Management",
+   "summary": "Finding weaknesses and fixing or patching them on a schedule.",
+   "mappings": {
+    "csf": [
+     "ID.RA-01",
+     "ID.RA-06",
+     "PR.PS-02",
+     "PR.PS-03"
+    ],
+    "cis": [
+     "7.1",
+     "7.2",
+     "7.3",
+     "7.4",
+     "7.5",
+     "7.6",
+     "7.7"
+    ],
+    "iso": [
+     "A.8.8",
+     "A.8.19"
+    ],
+    "soc2": [
+     "CC7.1",
+     "CC3.2"
+    ],
+    "pci": [
+     "6",
+     "11"
+    ],
+    "n80053": [
+     "RA-5",
+     "SI-2",
+     "SI-3"
+    ],
+    "n800171": [
+     "RA",
+     "SI"
+    ],
+    "cmmc": [
+     "RA",
+     "SI"
+    ],
+    "hipaa": [
+     "security-management-process"
+    ],
+    "cpg": [
+     "2.B",
+     "3.S"
+    ],
+    "ccm": [
+     "TVM"
+    ],
+    "cisaws": [
+     "4"
+    ],
+    "cisazure": [
+     "2"
+    ],
+    "zta": [],
+    "iec62443": [
+     "FR3",
+     "62443-2-1"
+    ],
+    "oracle": [
+     "1"
+    ],
+    "telco": [
+     "TS 33.117"
+    ],
+    "attack": [
+     "M1016",
+     "M1051"
+    ],
+    "atlas": [
+     "AML.TA0004"
+    ],
+    "cwe25": [
+     "CWE-787",
+     "CWE-79",
+     "CWE-89"
+    ],
+    "samm": [
+     "DM",
+     "ST"
+    ],
+    "owaspapi": [
+     "API8",
+     "API9"
+    ],
+    "nhitop10": [],
+    "airmf": [],
+    "iso42001": [],
+    "euaiact": [],
+    "owaspllm": [],
+    "agentic": [],
+    "pqc": [],
+    "cmmi": [
+     "ML2",
+     "ML3"
+    ],
+    "nice": [
+     "PD"
+    ],
+    "pentest": [
+     "800-115 Discovery",
+     "PTES Vulnerability Analysis"
+    ],
+    "bastionone": [],
+    "quiltworks": [],
+    "frontier": [],
+    "falcon": [],
+    "mavendor": [],
+    "fisher": [],
+    "accenture": []
+   }
+  },
+  {
+   "id": "vuln-prioritization",
+   "group": "identify",
+   "domain": "Exploit-Driven Vulnerability Prioritization",
+   "summary": "Fixing first what is actually being exploited, using known-exploited and exploit-likelihood signals rather than severity alone.",
+   "mappings": {
+    "csf": [
+     "ID.RA-01",
+     "ID.RA-04",
+     "ID.RA-05",
+     "ID.RA-06",
+     "ID.RA-08"
+    ],
+    "cis": [
+     "7.1",
+     "7.2",
+     "7.3",
+     "7.4",
+     "7.7"
+    ],
+    "iso": [
+     "A.5.7",
+     "A.8.8"
+    ],
+    "soc2": [
+     "CC3.2",
+     "CC3.4",
+     "CC7.1"
+    ],
+    "pci": [
+     "6",
+     "11"
+    ],
+    "n80053": [
+     "RA-5",
+     "RA-7",
+     "SI-2"
+    ],
+    "n800171": [
+     "RA",
+     "SI"
+    ],
+    "cmmc": [
+     "RA",
+     "SI"
+    ],
+    "hipaa": [
+     "security-management-process"
+    ],
+    "cpg": [
+     "2.B",
+     "3.S"
+    ],
+    "ccm": [
+     "TVM"
+    ],
+    "cisaws": [],
+    "cisazure": [],
+    "zta": [],
+    "iec62443": [],
+    "oracle": [],
+    "telco": [],
+    "attack": [
+     "M1016",
+     "M1051"
+    ],
+    "atlas": [],
+    "cwe25": [
+     "CWE-787",
+     "CWE-94",
+     "CWE-502"
+    ],
+    "samm": [
+     "DM"
+    ],
+    "owaspapi": [],
+    "nhitop10": [],
+    "airmf": [],
+    "iso42001": [],
+    "euaiact": [],
+    "owaspllm": [],
+    "agentic": [],
+    "pqc": [],
+    "cmmi": [],
+    "nice": [
+     "PD"
+    ],
+    "pentest": [
+     "PTES Vulnerability Analysis",
+     "PTES Exploitation"
+    ],
+    "bastionone": [],
+    "quiltworks": [],
+    "frontier": [],
+    "falcon": [],
+    "mavendor": [],
+    "fisher": [],
+    "accenture": []
+   }
+  },
+  {
+   "id": "shadow-discovery",
+   "group": "identify",
+   "domain": "Shadow IT and Shadow AI Discovery",
+   "summary": "Finding the tools, SaaS accounts, and AI services people adopted without telling anyone.",
+   "mappings": {
+    "csf": [
+     "ID.AM-01",
+     "ID.AM-02",
+     "ID.AM-08",
+     "DE.CM-09",
+     "GV.PO-01"
+    ],
+    "cis": [
+     "1.1",
+     "1.2",
+     "1.5",
+     "2.1",
+     "2.3",
+     "2.4",
+     "2.5"
+    ],
+    "iso": [
+     "A.5.9",
+     "A.5.10",
+     "A.5.23",
+     "A.8.19"
+    ],
+    "soc2": [
+     "CC3.2",
+     "CC6.1",
+     "CC7.1"
+    ],
+    "pci": [
+     "2",
+     "12"
+    ],
+    "n80053": [
+     "CM-7",
+     "CM-8",
+     "AC-20",
+     "SA-9",
+     "SI-4"
+    ],
+    "n800171": [
+     "AC",
+     "CM"
+    ],
+    "cmmc": [
+     "AC",
+     "CM"
+    ],
+    "hipaa": [
+     "security-management-process",
+     "information-access-management"
+    ],
+    "cpg": [
+     "2.A",
+     "3.P"
+    ],
+    "ccm": [
+     "GRC",
+     "STA",
+     "UEM"
+    ],
+    "cisaws": [
+     "3",
+     "4"
+    ],
+    "cisazure": [
+     "2",
+     "5"
+    ],
+    "zta": [],
+    "iec62443": [],
+    "oracle": [],
+    "telco": [],
+    "attack": [
+     "M1033",
+     "M1034",
+     "M1042"
+    ],
+    "atlas": [
+     "AML.TA0002",
+     "AML.TA0008"
+    ],
+    "cwe25": [],
+    "samm": [],
+    "owaspapi": [
+     "API9"
+    ],
+    "nhitop10": [
+     "NHI3",
+     "NHI9"
+    ],
+    "airmf": [
+     "MAP 1",
+     "GOVERN 1"
+    ],
+    "iso42001": [
+     "Clause 4"
+    ],
+    "euaiact": [],
+    "owaspllm": [
+     "LLM03"
+    ],
+    "agentic": [],
+    "pqc": [],
+    "cmmi": [],
+    "nice": [
+     "PD"
+    ],
+    "pentest": [
+     "800-115 Discovery",
+     "PTES Intelligence Gathering"
+    ],
+    "bastionone": [],
+    "quiltworks": [],
+    "frontier": [],
+    "falcon": [],
+    "mavendor": [],
+    "fisher": [],
+    "accenture": []
+   }
+  },
+  {
+   "id": "ma-integration",
+   "group": "identify",
+   "domain": "Merger, Acquisition, and Divestiture Security",
+   "summary": "Diligence before a deal and safe network, identity, and vendor integration after it.",
+   "mappings": {
+    "csf": [
+     "ID.AM-01",
+     "ID.AM-02",
+     "GV.OC-04",
+     "GV.SC-04",
+     "ID.RA-09"
+    ],
+    "cis": [
+     "1.1",
+     "1.2",
+     "2.1",
+     "15.1"
+    ],
+    "iso": [
+     "A.5.9",
+     "A.5.19",
+     "A.5.29"
+    ],
+    "soc2": [
+     "CC2.1",
+     "CC3.4",
+     "CC9.2"
+    ],
+    "pci": [
+     "12"
+    ],
+    "n80053": [
+     "CA-3",
+     "CM-8",
+     "PM-5",
+     "SA-4",
+     "SR-3"
+    ],
+    "n800171": [
+     "CA",
+     "CM"
+    ],
+    "cmmc": [
+     "CA",
+     "CM"
+    ],
+    "hipaa": [
+     "business-associate-contracts-and-other-arrangements",
+     "evaluation"
+    ],
+    "cpg": [
+     "2.A",
+     "2.E"
+    ],
+    "ccm": [
+     "GRC",
+     "STA"
+    ],
+    "cisaws": [
+     "1",
+     "3"
+    ],
+    "cisazure": [
+     "1",
+     "5"
+    ],
+    "zta": [],
+    "iec62443": [],
+    "oracle": [],
+    "telco": [],
+    "attack": [
+     "M1018",
+     "M1033"
+    ],
+    "atlas": [],
+    "cwe25": [],
+    "samm": [],
+    "owaspapi": [],
+    "nhitop10": [],
+    "airmf": [],
+    "iso42001": [],
+    "euaiact": [],
+    "owaspllm": [],
+    "agentic": [],
+    "pqc": [
+     "SP 1800-38"
+    ],
+    "cmmi": [],
+    "nice": [
+     "OG"
+    ],
+    "pentest": [],
+    "bastionone": [],
+    "quiltworks": [],
+    "frontier": [],
+    "falcon": [],
+    "mavendor": [],
+    "fisher": [],
+    "accenture": []
    }
   },
   {
    "id": "iam",
+   "group": "identity",
    "domain": "Identity and Access Management",
    "summary": "Granting, reviewing, and revoking access so people reach only what they should.",
    "mappings": {
@@ -266,6 +2418,17 @@
     "pci": [
      "7"
     ],
+    "n80053": [
+     "AC-1",
+     "AC-2",
+     "AC-3",
+     "AC-5",
+     "AC-6",
+     "PS-4"
+    ],
+    "n800171": [
+     "AC"
+    ],
     "cmmc": [
      "AC"
     ],
@@ -273,11 +2436,86 @@
      "information-access-management",
      "access-control",
      "workforce-security"
-    ]
+    ],
+    "cpg": [
+     "3.C",
+     "3.D",
+     "3.H"
+    ],
+    "ccm": [
+     "IAM"
+    ],
+    "cisaws": [
+     "1"
+    ],
+    "cisazure": [
+     "1"
+    ],
+    "zta": [
+     "ZT-4",
+     "ZT-6",
+     "PA"
+    ],
+    "iec62443": [
+     "FR1",
+     "FR2"
+    ],
+    "oracle": [
+     "4"
+    ],
+    "telco": [],
+    "attack": [
+     "M1018",
+     "M1026",
+     "M1036"
+    ],
+    "atlas": [
+     "AML.TA0004",
+     "AML.TA0013"
+    ],
+    "cwe25": [
+     "CWE-862",
+     "CWE-863",
+     "CWE-269"
+    ],
+    "samm": [],
+    "owaspapi": [
+     "API1",
+     "API3",
+     "API5"
+    ],
+    "nhitop10": [
+     "NHI1",
+     "NHI5",
+     "NHI9",
+     "NHI10"
+    ],
+    "airmf": [],
+    "iso42001": [],
+    "euaiact": [],
+    "owaspllm": [
+     "LLM06"
+    ],
+    "agentic": [
+     "T3",
+     "T9"
+    ],
+    "pqc": [],
+    "cmmi": [],
+    "nice": [],
+    "pentest": [],
+    "bastionone": [],
+    "quiltworks": [],
+    "frontier": [],
+    "falcon": [],
+    "mavendor": [],
+    "fisher": [],
+    "accenture": []
    }
   },
   {
    "id": "authentication",
+   "group": "identity",
    "domain": "Authentication and Credentials",
    "summary": "Proving who a user is, including multi-factor authentication and credential hygiene.",
    "mappings": {
@@ -303,17 +2541,93 @@
     "pci": [
      "8"
     ],
+    "n80053": [
+     "IA-2",
+     "IA-4",
+     "IA-5",
+     "IA-8"
+    ],
+    "n800171": [
+     "IA"
+    ],
     "cmmc": [
      "IA"
     ],
     "hipaa": [
      "person-or-entity-authentication",
      "access-control"
-    ]
+    ],
+    "cpg": [
+     "3.A",
+     "3.B",
+     "3.C",
+     "3.F"
+    ],
+    "ccm": [
+     "IAM"
+    ],
+    "cisaws": [
+     "1"
+    ],
+    "cisazure": [
+     "1"
+    ],
+    "zta": [
+     "ZT-4",
+     "ZT-6",
+     "PE"
+    ],
+    "iec62443": [
+     "FR1"
+    ],
+    "oracle": [
+     "3"
+    ],
+    "telco": [
+     "TS 33.501"
+    ],
+    "attack": [
+     "M1027",
+     "M1032",
+     "M1043"
+    ],
+    "atlas": [
+     "AML.TA0013"
+    ],
+    "cwe25": [
+     "CWE-287",
+     "CWE-306",
+     "CWE-798"
+    ],
+    "samm": [],
+    "owaspapi": [
+     "API2"
+    ],
+    "nhitop10": [
+     "NHI4",
+     "NHI7"
+    ],
+    "airmf": [],
+    "iso42001": [],
+    "euaiact": [],
+    "owaspllm": [],
+    "agentic": [],
+    "pqc": [],
+    "cmmi": [],
+    "nice": [],
+    "pentest": [],
+    "bastionone": [],
+    "quiltworks": [],
+    "frontier": [],
+    "falcon": [],
+    "mavendor": [],
+    "fisher": [],
+    "accenture": []
    }
   },
   {
    "id": "pam",
+   "group": "identity",
    "domain": "Privileged Access Management",
    "summary": "Extra control over admin and other high-power accounts.",
    "mappings": {
@@ -338,6 +2652,16 @@
      "7",
      "8"
     ],
+    "n80053": [
+     "AC-5",
+     "AC-6",
+     "AC-17",
+     "AU-9"
+    ],
+    "n800171": [
+     "AC",
+     "IA"
+    ],
     "cmmc": [
      "AC",
      "IA"
@@ -345,11 +2669,353 @@
     "hipaa": [
      "information-access-management",
      "access-control"
-    ]
+    ],
+    "cpg": [
+     "3.G",
+     "3.H"
+    ],
+    "ccm": [
+     "IAM"
+    ],
+    "cisaws": [
+     "1"
+    ],
+    "cisazure": [
+     "1"
+    ],
+    "zta": [
+     "ZT-4",
+     "ZT-6"
+    ],
+    "iec62443": [
+     "FR2"
+    ],
+    "oracle": [
+     "4"
+    ],
+    "telco": [],
+    "attack": [
+     "M1025",
+     "M1026",
+     "M1052"
+    ],
+    "atlas": [
+     "AML.TA0012"
+    ],
+    "cwe25": [],
+    "samm": [],
+    "owaspapi": [],
+    "nhitop10": [
+     "NHI5",
+     "NHI10"
+    ],
+    "airmf": [],
+    "iso42001": [],
+    "euaiact": [],
+    "owaspllm": [],
+    "agentic": [
+     "T3"
+    ],
+    "pqc": [],
+    "cmmi": [],
+    "nice": [],
+    "pentest": [],
+    "bastionone": [],
+    "quiltworks": [],
+    "frontier": [],
+    "falcon": [],
+    "mavendor": [],
+    "fisher": [],
+    "accenture": []
+   }
+  },
+  {
+   "id": "nhi",
+   "group": "identity",
+   "domain": "Non-Human Identity and Secrets Management",
+   "summary": "Governing the service accounts, API keys, tokens, and workload identities that now outnumber your people.",
+   "mappings": {
+    "csf": [
+     "ID.AM-02",
+     "PR.AA-01",
+     "PR.AA-02",
+     "PR.AA-05"
+    ],
+    "cis": [
+     "5.1",
+     "5.2",
+     "5.4",
+     "5.6",
+     "6.2"
+    ],
+    "iso": [
+     "A.5.16",
+     "A.5.17",
+     "A.8.5",
+     "A.8.24"
+    ],
+    "soc2": [
+     "CC6.1",
+     "CC6.2",
+     "CC6.3"
+    ],
+    "pci": [
+     "7",
+     "8"
+    ],
+    "n80053": [
+     "IA-3",
+     "IA-5",
+     "IA-9",
+     "AC-3",
+     "SC-12"
+    ],
+    "n800171": [
+     "AC",
+     "IA"
+    ],
+    "cmmc": [
+     "AC",
+     "IA"
+    ],
+    "hipaa": [
+     "access-control",
+     "person-or-entity-authentication"
+    ],
+    "cpg": [
+     "3.A",
+     "3.C",
+     "3.H"
+    ],
+    "ccm": [
+     "CEK",
+     "IAM"
+    ],
+    "cisaws": [
+     "1"
+    ],
+    "cisazure": [
+     "1",
+     "8"
+    ],
+    "zta": [
+     "ZT-1",
+     "ZT-4",
+     "ZT-6"
+    ],
+    "iec62443": [
+     "FR1"
+    ],
+    "oracle": [
+     "3",
+     "4"
+    ],
+    "telco": [],
+    "attack": [
+     "M1026",
+     "M1041",
+     "M1043"
+    ],
+    "atlas": [
+     "AML.TA0006",
+     "AML.TA0013"
+    ],
+    "cwe25": [
+     "CWE-798",
+     "CWE-287"
+    ],
+    "samm": [],
+    "owaspapi": [
+     "API2",
+     "API5"
+    ],
+    "nhitop10": [
+     "NHI1",
+     "NHI2",
+     "NHI3",
+     "NHI4",
+     "NHI5",
+     "NHI6",
+     "NHI7",
+     "NHI8",
+     "NHI9",
+     "NHI10"
+    ],
+    "airmf": [],
+    "iso42001": [],
+    "euaiact": [],
+    "owaspllm": [
+     "LLM06"
+    ],
+    "agentic": [
+     "T3",
+     "T9"
+    ],
+    "pqc": [
+     "FIPS 204"
+    ],
+    "cmmi": [],
+    "nice": [],
+    "pentest": [],
+    "bastionone": [],
+    "quiltworks": [],
+    "frontier": [],
+    "falcon": [],
+    "mavendor": [],
+    "fisher": [],
+    "accenture": []
+   }
+  },
+  {
+   "id": "zero-trust",
+   "group": "identity",
+   "domain": "Zero Trust Architecture",
+   "summary": "Deciding access per request from identity, device, and context instead of trusting the network.",
+   "mappings": {
+    "csf": [
+     "ID.AM-03",
+     "PR.AA-03",
+     "PR.AA-05",
+     "PR.IR-01",
+     "DE.CM-01"
+    ],
+    "cis": [
+     "4.1",
+     "5.4",
+     "6.3",
+     "6.4",
+     "6.5",
+     "6.7",
+     "6.8",
+     "12.2",
+     "13.4"
+    ],
+    "iso": [
+     "A.5.15",
+     "A.5.18",
+     "A.8.2",
+     "A.8.3",
+     "A.8.20",
+     "A.8.22"
+    ],
+    "soc2": [
+     "CC6.1",
+     "CC6.3",
+     "CC6.6"
+    ],
+    "pci": [
+     "1",
+     "7",
+     "8"
+    ],
+    "n80053": [
+     "AC-2",
+     "AC-3",
+     "AC-4",
+     "AC-6",
+     "IA-2",
+     "SC-7",
+     "SI-4"
+    ],
+    "n800171": [
+     "AC",
+     "IA",
+     "SC"
+    ],
+    "cmmc": [
+     "AC",
+     "IA",
+     "SC"
+    ],
+    "hipaa": [
+     "access-control",
+     "person-or-entity-authentication",
+     "information-access-management"
+    ],
+    "cpg": [
+     "3.F",
+     "3.H",
+     "3.I"
+    ],
+    "ccm": [
+     "IAM",
+     "IVS"
+    ],
+    "cisaws": [
+     "1",
+     "5"
+    ],
+    "cisazure": [
+     "1",
+     "6"
+    ],
+    "zta": [
+     "ZT-1",
+     "ZT-2",
+     "ZT-3",
+     "ZT-4",
+     "ZT-5",
+     "ZT-6",
+     "ZT-7",
+     "PE",
+     "PA",
+     "PEP"
+    ],
+    "iec62443": [
+     "FR1",
+     "FR5"
+    ],
+    "oracle": [
+     "3",
+     "4"
+    ],
+    "telco": [
+     "TS 33.501"
+    ],
+    "attack": [
+     "M1018",
+     "M1030",
+     "M1032",
+     "M1035"
+    ],
+    "atlas": [
+     "AML.TA0012",
+     "AML.TA0015"
+    ],
+    "cwe25": [],
+    "samm": [],
+    "owaspapi": [
+     "API1",
+     "API5"
+    ],
+    "nhitop10": [
+     "NHI4",
+     "NHI5"
+    ],
+    "airmf": [],
+    "iso42001": [],
+    "euaiact": [],
+    "owaspllm": [],
+    "agentic": [
+     "T3",
+     "T13"
+    ],
+    "pqc": [],
+    "cmmi": [],
+    "nice": [],
+    "pentest": [],
+    "bastionone": [],
+    "quiltworks": [],
+    "frontier": [],
+    "falcon": [],
+    "mavendor": [],
+    "fisher": [],
+    "accenture": []
    }
   },
   {
    "id": "network-security",
+   "group": "platform",
    "domain": "Network Security and Segmentation",
    "summary": "Controlling traffic and separating the network so a breach cannot spread freely.",
    "mappings": {
@@ -381,16 +3047,232 @@
     "pci": [
      "1"
     ],
+    "n80053": [
+     "SC-7",
+     "SC-8",
+     "AC-4",
+     "CA-3"
+    ],
+    "n800171": [
+     "SC"
+    ],
     "cmmc": [
      "SC"
     ],
     "hipaa": [
      "transmission-security"
-    ]
+    ],
+    "cpg": [
+     "2.E",
+     "3.I"
+    ],
+    "ccm": [
+     "IVS"
+    ],
+    "cisaws": [
+     "5"
+    ],
+    "cisazure": [
+     "6"
+    ],
+    "zta": [
+     "ZT-2",
+     "ZT-3",
+     "ZT-5",
+     "PEP"
+    ],
+    "iec62443": [
+     "FR5"
+    ],
+    "oracle": [
+     "3"
+    ],
+    "telco": [
+     "TS 33.501",
+     "FS.31"
+    ],
+    "attack": [
+     "M1030",
+     "M1031",
+     "M1035",
+     "M1037"
+    ],
+    "atlas": [
+     "AML.TA0014",
+     "AML.TA0015"
+    ],
+    "cwe25": [
+     "CWE-918"
+    ],
+    "samm": [],
+    "owaspapi": [
+     "API7"
+    ],
+    "nhitop10": [],
+    "airmf": [],
+    "iso42001": [],
+    "euaiact": [],
+    "owaspllm": [],
+    "agentic": [
+     "T12",
+     "T14"
+    ],
+    "pqc": [
+     "FIPS 203",
+     "SP 800-131A"
+    ],
+    "cmmi": [],
+    "nice": [
+     "IO"
+    ],
+    "pentest": [
+     "PTES Exploitation",
+     "PTES Post-exploitation"
+    ],
+    "bastionone": [],
+    "quiltworks": [],
+    "frontier": [],
+    "falcon": [],
+    "mavendor": [],
+    "fisher": [],
+    "accenture": []
+   }
+  },
+  {
+   "id": "cloud-posture",
+   "group": "platform",
+   "domain": "Cloud Platform Baseline and Posture",
+   "summary": "Holding cloud accounts and subscriptions to a published benchmark and catching drift from it.",
+   "mappings": {
+    "csf": [
+     "ID.AM-01",
+     "PR.IR-01",
+     "PR.PS-01",
+     "DE.CM-09"
+    ],
+    "cis": [
+     "4.1",
+     "4.2",
+     "4.6",
+     "4.7",
+     "12.2",
+     "12.8"
+    ],
+    "iso": [
+     "A.5.23",
+     "A.8.9",
+     "A.8.20",
+     "A.8.31"
+    ],
+    "soc2": [
+     "CC6.1",
+     "CC6.6",
+     "CC7.1"
+    ],
+    "pci": [
+     "1",
+     "2",
+     "6"
+    ],
+    "n80053": [
+     "CM-2",
+     "CM-6",
+     "CM-7",
+     "AC-20",
+     "SA-9"
+    ],
+    "n800171": [
+     "CM",
+     "SC"
+    ],
+    "cmmc": [
+     "CM",
+     "SC"
+    ],
+    "hipaa": [
+     "security-management-process",
+     "access-control"
+    ],
+    "cpg": [
+     "3.H",
+     "3.S"
+    ],
+    "ccm": [
+     "CCC",
+     "DCS",
+     "IVS"
+    ],
+    "cisaws": [
+     "1",
+     "2",
+     "3",
+     "4",
+     "5"
+    ],
+    "cisazure": [
+     "2",
+     "3",
+     "6",
+     "7"
+    ],
+    "zta": [
+     "ZT-2",
+     "ZT-3",
+     "PEP"
+    ],
+    "iec62443": [],
+    "oracle": [],
+    "telco": [],
+    "attack": [
+     "M1018",
+     "M1026",
+     "M1047",
+     "M1054"
+    ],
+    "atlas": [
+     "AML.TA0004",
+     "AML.TA0012"
+    ],
+    "cwe25": [
+     "CWE-306",
+     "CWE-798"
+    ],
+    "samm": [
+     "EM",
+     "OM"
+    ],
+    "owaspapi": [
+     "API8"
+    ],
+    "nhitop10": [
+     "NHI6",
+     "NHI8"
+    ],
+    "airmf": [],
+    "iso42001": [],
+    "euaiact": [],
+    "owaspllm": [],
+    "agentic": [],
+    "pqc": [
+     "FIPS 140-3"
+    ],
+    "cmmi": [],
+    "nice": [
+     "IO"
+    ],
+    "pentest": [],
+    "bastionone": [],
+    "quiltworks": [],
+    "frontier": [],
+    "falcon": [],
+    "mavendor": [],
+    "fisher": [],
+    "accenture": []
    }
   },
   {
    "id": "endpoint",
+   "group": "platform",
    "domain": "Endpoint and Malware Defense",
    "summary": "Protecting laptops, servers, and mobile devices, and stopping malicious code.",
    "mappings": {
@@ -421,17 +3303,82 @@
     "pci": [
      "5"
     ],
+    "n80053": [
+     "SI-3",
+     "SI-4",
+     "CM-7",
+     "MP-7"
+    ],
+    "n800171": [
+     "SI"
+    ],
     "cmmc": [
      "SI"
     ],
     "hipaa": [
      "workstation-security",
      "workstation-use"
-    ]
+    ],
+    "cpg": [
+     "3.M",
+     "3.R",
+     "4.A"
+    ],
+    "ccm": [
+     "TVM",
+     "UEM"
+    ],
+    "cisaws": [],
+    "cisazure": [
+     "2",
+     "7"
+    ],
+    "zta": [
+     "ZT-5",
+     "ZT-7"
+    ],
+    "iec62443": [
+     "FR3"
+    ],
+    "oracle": [],
+    "telco": [],
+    "attack": [
+     "M1038",
+     "M1040",
+     "M1049",
+     "M1050"
+    ],
+    "atlas": [
+     "AML.TA0005",
+     "AML.TA0006"
+    ],
+    "cwe25": [],
+    "samm": [],
+    "owaspapi": [],
+    "nhitop10": [],
+    "airmf": [],
+    "iso42001": [],
+    "euaiact": [],
+    "owaspllm": [],
+    "agentic": [],
+    "pqc": [],
+    "cmmi": [],
+    "nice": [
+     "IO"
+    ],
+    "pentest": [],
+    "bastionone": [],
+    "quiltworks": [],
+    "frontier": [],
+    "falcon": [],
+    "mavendor": [],
+    "fisher": [],
+    "accenture": []
    }
   },
   {
    "id": "secure-config",
+   "group": "platform",
    "domain": "Secure Configuration and Hardening",
    "summary": "Shipping and keeping systems in a locked-down, known-good state.",
    "mappings": {
@@ -465,57 +3412,343 @@
     "pci": [
      "2"
     ],
+    "n80053": [
+     "CM-2",
+     "CM-3",
+     "CM-6",
+     "CM-7",
+     "SA-10"
+    ],
+    "n800171": [
+     "CM"
+    ],
     "cmmc": [
      "CM"
     ],
     "hipaa": [
      "workstation-use"
-    ]
+    ],
+    "cpg": [
+     "3.A",
+     "3.M",
+     "3.S"
+    ],
+    "ccm": [
+     "CCC",
+     "IVS",
+     "UEM"
+    ],
+    "cisaws": [
+     "1",
+     "2",
+     "5"
+    ],
+    "cisazure": [
+     "7",
+     "9"
+    ],
+    "zta": [
+     "ZT-5",
+     "ZT-7"
+    ],
+    "iec62443": [
+     "FR3"
+    ],
+    "oracle": [
+     "1",
+     "2"
+    ],
+    "telco": [
+     "TS 33.117",
+     "FS.31"
+    ],
+    "attack": [
+     "M1015",
+     "M1028",
+     "M1042",
+     "M1054"
+    ],
+    "atlas": [
+     "AML.TA0006"
+    ],
+    "cwe25": [
+     "CWE-798",
+     "CWE-306",
+     "CWE-269"
+    ],
+    "samm": [
+     "EM",
+     "SD"
+    ],
+    "owaspapi": [
+     "API8"
+    ],
+    "nhitop10": [
+     "NHI6",
+     "NHI8"
+    ],
+    "airmf": [],
+    "iso42001": [],
+    "euaiact": [],
+    "owaspllm": [],
+    "agentic": [],
+    "pqc": [],
+    "cmmi": [],
+    "nice": [
+     "IO"
+    ],
+    "pentest": [],
+    "bastionone": [],
+    "quiltworks": [],
+    "frontier": [],
+    "falcon": [],
+    "mavendor": [],
+    "fisher": [],
+    "accenture": []
    }
   },
   {
-   "id": "vuln-mgmt",
-   "domain": "Vulnerability and Patch Management",
-   "summary": "Finding weaknesses and fixing or patching them on a schedule.",
+   "id": "db-security",
+   "group": "platform",
+   "domain": "Database Security",
+   "summary": "Hardening the database itself: parameters, listeners, privileges, native auditing, and encryption at rest.",
    "mappings": {
     "csf": [
-     "ID.RA-01",
-     "ID.RA-06",
-     "PR.PS-02",
-     "PR.PS-03"
+     "PR.AA-05",
+     "PR.DS-01",
+     "PR.PS-01",
+     "DE.CM-09"
     ],
     "cis": [
-     "7.1",
-     "7.2",
-     "7.3",
-     "7.4",
-     "7.5",
-     "7.6",
-     "7.7"
+     "3.3",
+     "3.11",
+     "6.8",
+     "8.2"
     ],
     "iso": [
-     "A.8.8",
-     "A.8.19"
+     "A.8.3",
+     "A.8.4",
+     "A.8.11",
+     "A.8.15"
     ],
     "soc2": [
-     "CC7.1",
-     "CC3.2"
+     "CC6.1",
+     "CC6.7",
+     "C1.1"
     ],
     "pci": [
-     "6",
-     "11"
+     "3",
+     "7",
+     "8",
+     "10"
+    ],
+    "n80053": [
+     "AC-3",
+     "AU-2",
+     "SC-28",
+     "CM-6",
+     "SI-10"
+    ],
+    "n800171": [
+     "AC",
+     "AU",
+     "SC"
     ],
     "cmmc": [
-     "RA",
-     "SI"
+     "AC",
+     "AU"
     ],
     "hipaa": [
-     "security-management-process"
-    ]
+     "access-control",
+     "audit-controls",
+     "integrity"
+    ],
+    "cpg": [
+     "3.H",
+     "3.K"
+    ],
+    "ccm": [
+     "DSP",
+     "IVS",
+     "LOG"
+    ],
+    "cisaws": [
+     "2",
+     "3"
+    ],
+    "cisazure": [
+     "4"
+    ],
+    "zta": [
+     "ZT-3",
+     "ZT-4"
+    ],
+    "iec62443": [],
+    "oracle": [
+     "1",
+     "2",
+     "3",
+     "4",
+     "5"
+    ],
+    "telco": [],
+    "attack": [
+     "M1022",
+     "M1041",
+     "M1047"
+    ],
+    "atlas": [],
+    "cwe25": [
+     "CWE-89",
+     "CWE-200",
+     "CWE-863"
+    ],
+    "samm": [],
+    "owaspapi": [],
+    "nhitop10": [],
+    "airmf": [],
+    "iso42001": [],
+    "euaiact": [],
+    "owaspllm": [],
+    "agentic": [],
+    "pqc": [
+     "FIPS 140-3"
+    ],
+    "cmmi": [],
+    "nice": [
+     "IO"
+    ],
+    "pentest": [],
+    "bastionone": [],
+    "quiltworks": [],
+    "frontier": [],
+    "falcon": [],
+    "mavendor": [],
+    "fisher": [],
+    "accenture": []
+   }
+  },
+  {
+   "id": "ot-ics",
+   "group": "platform",
+   "domain": "OT and Industrial Control System Security",
+   "summary": "Protecting plant and process networks where safety and availability outrank confidentiality.",
+   "mappings": {
+    "csf": [
+     "ID.AM-04",
+     "PR.IR-01",
+     "PR.IR-02",
+     "PR.IR-03",
+     "DE.CM-02"
+    ],
+    "cis": [
+     "1.1",
+     "4.1",
+     "12.2",
+     "12.8",
+     "13.4"
+    ],
+    "iso": [
+     "A.7.1",
+     "A.7.4",
+     "A.8.20",
+     "A.8.22"
+    ],
+    "soc2": [
+     "CC6.4",
+     "CC6.6",
+     "A1.2"
+    ],
+    "pci": [
+     "1",
+     "9"
+    ],
+    "n80053": [
+     "SC-7",
+     "CM-6",
+     "PE-3",
+     "SI-4",
+     "MA-4"
+    ],
+    "n800171": [
+     "CM",
+     "PE",
+     "SC"
+    ],
+    "cmmc": [
+     "PE",
+     "SC"
+    ],
+    "hipaa": [
+     "facility-access-controls",
+     "device-and-media-controls"
+    ],
+    "cpg": [
+     "3.A",
+     "3.I"
+    ],
+    "ccm": [
+     "DCS",
+     "IVS"
+    ],
+    "cisaws": [],
+    "cisazure": [],
+    "zta": [
+     "ZT-2",
+     "ZT-5"
+    ],
+    "iec62443": [
+     "FR1",
+     "FR2",
+     "FR3",
+     "FR4",
+     "FR5",
+     "FR6",
+     "FR7",
+     "62443-2-1"
+    ],
+    "oracle": [],
+    "telco": [
+     "FS.31"
+    ],
+    "attack": [
+     "M1030",
+     "M1034",
+     "M1035"
+    ],
+    "atlas": [],
+    "cwe25": [],
+    "samm": [],
+    "owaspapi": [],
+    "nhitop10": [],
+    "airmf": [],
+    "iso42001": [],
+    "euaiact": [],
+    "owaspllm": [],
+    "agentic": [],
+    "pqc": [
+     "CNSA 2.0"
+    ],
+    "cmmi": [],
+    "nice": [
+     "IO",
+     "PD"
+    ],
+    "pentest": [
+     "PTES Pre-engagement"
+    ],
+    "bastionone": [],
+    "quiltworks": [],
+    "frontier": [],
+    "falcon": [],
+    "mavendor": [],
+    "fisher": [],
+    "accenture": []
    }
   },
   {
    "id": "crypto",
+   "group": "platform",
    "domain": "Encryption and Key Management",
    "summary": "Encrypting data at rest and in transit, and managing the keys behind it.",
    "mappings": {
@@ -540,17 +3773,1681 @@
      "3",
      "4"
     ],
+    "n80053": [
+     "SC-12",
+     "SC-13",
+     "SC-17",
+     "SC-28",
+     "IA-7"
+    ],
+    "n800171": [
+     "SC"
+    ],
     "cmmc": [
      "SC"
     ],
     "hipaa": [
      "transmission-security",
      "access-control"
-    ]
+    ],
+    "cpg": [
+     "3.K"
+    ],
+    "ccm": [
+     "CEK"
+    ],
+    "cisaws": [
+     "2"
+    ],
+    "cisazure": [
+     "8"
+    ],
+    "zta": [],
+    "iec62443": [
+     "FR4"
+    ],
+    "oracle": [
+     "2"
+    ],
+    "telco": [
+     "TS 33.501"
+    ],
+    "attack": [
+     "M1020",
+     "M1041",
+     "M1045"
+    ],
+    "atlas": [
+     "AML.TA0010"
+    ],
+    "cwe25": [
+     "CWE-798"
+    ],
+    "samm": [],
+    "owaspapi": [],
+    "nhitop10": [
+     "NHI2",
+     "NHI7"
+    ],
+    "airmf": [],
+    "iso42001": [],
+    "euaiact": [],
+    "owaspllm": [],
+    "agentic": [],
+    "pqc": [
+     "FIPS 203",
+     "FIPS 204",
+     "FIPS 205",
+     "FIPS 140-3",
+     "SP 800-131A",
+     "CNSA 2.0"
+    ],
+    "cmmi": [],
+    "nice": [],
+    "pentest": [],
+    "bastionone": [],
+    "quiltworks": [],
+    "frontier": [],
+    "falcon": [],
+    "mavendor": [],
+    "fisher": [],
+    "accenture": []
+   }
+  },
+  {
+   "id": "pqc",
+   "group": "platform",
+   "domain": "Post-Quantum Readiness and Crypto Agility",
+   "summary": "Inventorying quantum-vulnerable algorithms, building a cryptographic bill of materials, and planning the migration to the new standards.",
+   "mappings": {
+    "csf": [
+     "ID.AM-08",
+     "ID.RA-09",
+     "PR.DS-01",
+     "PR.DS-02"
+    ],
+    "cis": [
+     "2.1",
+     "3.6",
+     "3.9",
+     "3.10",
+     "3.11"
+    ],
+    "iso": [
+     "A.5.9",
+     "A.8.24",
+     "A.8.32"
+    ],
+    "soc2": [
+     "CC3.2",
+     "CC6.1",
+     "CC6.7"
+    ],
+    "pci": [
+     "3",
+     "4"
+    ],
+    "n80053": [
+     "SC-12",
+     "SC-13",
+     "CM-8",
+     "RA-9",
+     "SA-4"
+    ],
+    "n800171": [
+     "SC"
+    ],
+    "cmmc": [
+     "SC"
+    ],
+    "hipaa": [
+     "transmission-security",
+     "access-control"
+    ],
+    "cpg": [
+     "3.K"
+    ],
+    "ccm": [
+     "CEK"
+    ],
+    "cisaws": [],
+    "cisazure": [
+     "8"
+    ],
+    "zta": [],
+    "iec62443": [
+     "FR4"
+    ],
+    "oracle": [],
+    "telco": [
+     "TS 33.501"
+    ],
+    "attack": [
+     "M1020",
+     "M1041"
+    ],
+    "atlas": [],
+    "cwe25": [],
+    "samm": [],
+    "owaspapi": [],
+    "nhitop10": [],
+    "airmf": [],
+    "iso42001": [],
+    "euaiact": [],
+    "owaspllm": [],
+    "agentic": [],
+    "pqc": [
+     "FIPS 203",
+     "FIPS 204",
+     "FIPS 205",
+     "FIPS 140-3",
+     "SP 800-131A",
+     "SP 1800-38",
+     "CNSA 2.0"
+    ],
+    "cmmi": [],
+    "nice": [],
+    "pentest": [],
+    "bastionone": [],
+    "quiltworks": [],
+    "frontier": [],
+    "falcon": [],
+    "mavendor": [],
+    "fisher": [],
+    "accenture": []
+   }
+  },
+  {
+   "id": "email-web",
+   "group": "platform",
+   "domain": "Email and Web Protections",
+   "summary": "Filtering the two channels attackers use most: email and the browser.",
+   "mappings": {
+    "csf": [
+     "PR.PS-05",
+     "DE.CM-01"
+    ],
+    "cis": [
+     "9.1",
+     "9.2",
+     "9.3",
+     "9.4",
+     "9.5",
+     "9.6",
+     "9.7"
+    ],
+    "iso": [
+     "A.5.14",
+     "A.8.23"
+    ],
+    "soc2": [
+     "CC6.6",
+     "CC6.8"
+    ],
+    "pci": [
+     "5"
+    ],
+    "n80053": [
+     "SC-7",
+     "SC-18",
+     "SI-8",
+     "AC-4"
+    ],
+    "n800171": [
+     "SC",
+     "SI"
+    ],
+    "cmmc": [
+     "SC",
+     "SI"
+    ],
+    "hipaa": [
+     "transmission-security"
+    ],
+    "cpg": [
+     "3.L",
+     "3.M"
+    ],
+    "ccm": [
+     "TVM",
+     "UEM"
+    ],
+    "cisaws": [],
+    "cisazure": [],
+    "zta": [],
+    "iec62443": [],
+    "oracle": [],
+    "telco": [],
+    "attack": [
+     "M1021",
+     "M1031",
+     "M1049",
+     "M1054"
+    ],
+    "atlas": [],
+    "cwe25": [
+     "CWE-79",
+     "CWE-352"
+    ],
+    "samm": [],
+    "owaspapi": [],
+    "nhitop10": [],
+    "airmf": [],
+    "iso42001": [],
+    "euaiact": [],
+    "owaspllm": [],
+    "agentic": [],
+    "pqc": [],
+    "cmmi": [],
+    "nice": [],
+    "pentest": [],
+    "bastionone": [],
+    "quiltworks": [],
+    "frontier": [],
+    "falcon": [],
+    "mavendor": [],
+    "fisher": [],
+    "accenture": []
+   }
+  },
+  {
+   "id": "physical",
+   "group": "platform",
+   "domain": "Physical and Environmental Security",
+   "summary": "Protecting facilities, equipment, and the people in them.",
+   "mappings": {
+    "csf": [
+     "PR.AA-06",
+     "ID.AM-01",
+     "PR.IR-02"
+    ],
+    "cis": [
+     "1.1"
+    ],
+    "iso": [
+     "A.7.1",
+     "A.7.2",
+     "A.7.3",
+     "A.7.4",
+     "A.7.5",
+     "A.7.8"
+    ],
+    "soc2": [
+     "CC6.4",
+     "CC6.5",
+     "A1.2"
+    ],
+    "pci": [
+     "9"
+    ],
+    "n80053": [
+     "PE-2",
+     "PE-3",
+     "PE-6",
+     "PE-13",
+     "PE-14"
+    ],
+    "n800171": [
+     "PE"
+    ],
+    "cmmc": [
+     "PE"
+    ],
+    "hipaa": [
+     "facility-access-controls",
+     "workstation-security",
+     "device-and-media-controls"
+    ],
+    "cpg": [
+     "3.D"
+    ],
+    "ccm": [
+     "DCS"
+    ],
+    "cisaws": [],
+    "cisazure": [],
+    "zta": [],
+    "iec62443": [
+     "FR5"
+    ],
+    "oracle": [],
+    "telco": [],
+    "attack": [
+     "M1034"
+    ],
+    "atlas": [],
+    "cwe25": [],
+    "samm": [],
+    "owaspapi": [],
+    "nhitop10": [],
+    "airmf": [],
+    "iso42001": [],
+    "euaiact": [],
+    "owaspllm": [],
+    "agentic": [],
+    "pqc": [],
+    "cmmi": [],
+    "nice": [],
+    "pentest": [],
+    "bastionone": [],
+    "quiltworks": [],
+    "frontier": [],
+    "falcon": [],
+    "mavendor": [],
+    "fisher": [],
+    "accenture": []
+   }
+  },
+  {
+   "id": "appsec",
+   "group": "build",
+   "domain": "Application Security and Secure Development",
+   "summary": "Building and running software so it does not ship exploitable flaws.",
+   "mappings": {
+    "csf": [
+     "PR.PS-06",
+     "PR.PS-01"
+    ],
+    "cis": [
+     "16.1",
+     "16.2",
+     "16.3",
+     "16.4",
+     "16.5",
+     "16.6",
+     "16.7",
+     "16.10",
+     "16.11",
+     "16.12",
+     "16.13",
+     "16.14",
+     "16.8",
+     "16.9"
+    ],
+    "iso": [
+     "A.8.25",
+     "A.8.26",
+     "A.8.27",
+     "A.8.28",
+     "A.8.29",
+     "A.8.31"
+    ],
+    "soc2": [
+     "CC8.1",
+     "CC6.1",
+     "PI1.2",
+     "PI1.3"
+    ],
+    "pci": [
+     "6"
+    ],
+    "n80053": [
+     "SA-3",
+     "SA-8",
+     "SA-11",
+     "SA-15",
+     "SI-10"
+    ],
+    "n800171": [
+     "CM",
+     "SI"
+    ],
+    "cmmc": [
+     "CM",
+     "SI"
+    ],
+    "hipaa": [
+     "integrity"
+    ],
+    "cpg": [
+     "2.D",
+     "3.N"
+    ],
+    "ccm": [
+     "AIS"
+    ],
+    "cisaws": [],
+    "cisazure": [
+     "9"
+    ],
+    "zta": [],
+    "iec62443": [
+     "62443-4-1"
+    ],
+    "oracle": [],
+    "telco": [],
+    "attack": [
+     "M1013",
+     "M1044",
+     "M1048"
+    ],
+    "atlas": [
+     "AML.TA0004",
+     "AML.TA0005"
+    ],
+    "cwe25": [
+     "CWE-79",
+     "CWE-787",
+     "CWE-89",
+     "CWE-352",
+     "CWE-22",
+     "CWE-125",
+     "CWE-78",
+     "CWE-416",
+     "CWE-862",
+     "CWE-434",
+     "CWE-94",
+     "CWE-20",
+     "CWE-77",
+     "CWE-287",
+     "CWE-269",
+     "CWE-502",
+     "CWE-200",
+     "CWE-863",
+     "CWE-918",
+     "CWE-119",
+     "CWE-476",
+     "CWE-798",
+     "CWE-190",
+     "CWE-400",
+     "CWE-306"
+    ],
+    "samm": [
+     "SR",
+     "SA",
+     "SB",
+     "SD",
+     "DM",
+     "AA",
+     "RT",
+     "ST"
+    ],
+    "owaspapi": [
+     "API4",
+     "API8",
+     "API10"
+    ],
+    "nhitop10": [
+     "NHI2",
+     "NHI7"
+    ],
+    "airmf": [],
+    "iso42001": [],
+    "euaiact": [],
+    "owaspllm": [
+     "LLM01",
+     "LLM05"
+    ],
+    "agentic": [
+     "T2",
+     "T11"
+    ],
+    "pqc": [
+     "FIPS 140-3",
+     "SP 1800-38"
+    ],
+    "cmmi": [],
+    "nice": [
+     "DD"
+    ],
+    "pentest": [
+     "PTES Vulnerability Analysis"
+    ],
+    "bastionone": [],
+    "quiltworks": [],
+    "frontier": [],
+    "falcon": [],
+    "mavendor": [],
+    "fisher": [],
+    "accenture": []
+   }
+  },
+  {
+   "id": "api-security",
+   "group": "build",
+   "domain": "API Security",
+   "summary": "Protecting the machine-to-machine interfaces: authorization per object, inventory, and rate limits.",
+   "mappings": {
+    "csf": [
+     "ID.AM-02",
+     "PR.AA-05",
+     "PR.PS-06",
+     "DE.CM-09"
+    ],
+    "cis": [
+     "16.1",
+     "16.5",
+     "16.10",
+     "16.11"
+    ],
+    "iso": [
+     "A.5.15",
+     "A.8.20",
+     "A.8.26",
+     "A.8.28"
+    ],
+    "soc2": [
+     "CC6.1",
+     "CC6.6",
+     "CC8.1"
+    ],
+    "pci": [
+     "6",
+     "8"
+    ],
+    "n80053": [
+     "AC-3",
+     "AC-4",
+     "IA-2",
+     "SC-8",
+     "SI-10"
+    ],
+    "n800171": [
+     "AC",
+     "SC",
+     "SI"
+    ],
+    "cmmc": [
+     "SC",
+     "SI"
+    ],
+    "hipaa": [
+     "transmission-security",
+     "access-control"
+    ],
+    "cpg": [
+     "3.S"
+    ],
+    "ccm": [
+     "AIS",
+     "IPY"
+    ],
+    "cisaws": [
+     "5"
+    ],
+    "cisazure": [
+     "9"
+    ],
+    "zta": [
+     "ZT-2",
+     "ZT-3",
+     "PEP"
+    ],
+    "iec62443": [],
+    "oracle": [],
+    "telco": [],
+    "attack": [
+     "M1035",
+     "M1037",
+     "M1041"
+    ],
+    "atlas": [
+     "AML.TA0000",
+     "AML.TA0004"
+    ],
+    "cwe25": [
+     "CWE-862",
+     "CWE-863",
+     "CWE-287",
+     "CWE-918",
+     "CWE-20",
+     "CWE-400",
+     "CWE-306",
+     "CWE-200"
+    ],
+    "samm": [
+     "SR",
+     "ST",
+     "AA"
+    ],
+    "owaspapi": [
+     "API1",
+     "API2",
+     "API3",
+     "API4",
+     "API5",
+     "API6",
+     "API7",
+     "API8",
+     "API9",
+     "API10"
+    ],
+    "nhitop10": [],
+    "airmf": [],
+    "iso42001": [],
+    "euaiact": [],
+    "owaspllm": [
+     "LLM05",
+     "LLM10"
+    ],
+    "agentic": [
+     "T2",
+     "T4"
+    ],
+    "pqc": [],
+    "cmmi": [],
+    "nice": [
+     "DD"
+    ],
+    "pentest": [
+     "PTES Vulnerability Analysis"
+    ],
+    "bastionone": [],
+    "quiltworks": [],
+    "frontier": [],
+    "falcon": [],
+    "mavendor": [],
+    "fisher": [],
+    "accenture": []
+   }
+  },
+  {
+   "id": "sdlc-maturity",
+   "group": "build",
+   "domain": "Secure Development Lifecycle Maturity",
+   "summary": "Measuring and raising how consistently security practice is built into how software gets made.",
+   "mappings": {
+    "csf": [
+     "GV.SC-05",
+     "ID.IM-01",
+     "ID.IM-02",
+     "PR.PS-06"
+    ],
+    "cis": [
+     "16.1",
+     "16.2",
+     "16.6",
+     "16.7",
+     "16.9"
+    ],
+    "iso": [
+     "A.8.25",
+     "A.8.26",
+     "A.8.27",
+     "A.8.28",
+     "A.8.29",
+     "A.8.30",
+     "A.8.31"
+    ],
+    "soc2": [
+     "CC1.4",
+     "CC5.2",
+     "CC8.1"
+    ],
+    "pci": [
+     "6",
+     "12"
+    ],
+    "n80053": [
+     "SA-3",
+     "SA-8",
+     "SA-11",
+     "SA-15",
+     "SA-17"
+    ],
+    "n800171": [
+     "CM"
+    ],
+    "cmmc": [
+     "CM"
+    ],
+    "hipaa": [
+     "integrity",
+     "policies-and-procedures"
+    ],
+    "cpg": [
+     "2.D",
+     "3.N"
+    ],
+    "ccm": [
+     "AIS",
+     "CCC"
+    ],
+    "cisaws": [],
+    "cisazure": [],
+    "zta": [],
+    "iec62443": [
+     "62443-4-1"
+    ],
+    "oracle": [],
+    "telco": [],
+    "attack": [
+     "M1013",
+     "M1045"
+    ],
+    "atlas": [],
+    "cwe25": [
+     "CWE-79",
+     "CWE-89",
+     "CWE-787",
+     "CWE-20",
+     "CWE-798"
+    ],
+    "samm": [
+     "SM",
+     "PC",
+     "EG",
+     "TA",
+     "SR",
+     "SA",
+     "SB",
+     "SD",
+     "DM",
+     "AA",
+     "RT",
+     "ST",
+     "IM",
+     "EM",
+     "OM"
+    ],
+    "owaspapi": [],
+    "nhitop10": [
+     "NHI2",
+     "NHI7"
+    ],
+    "airmf": [],
+    "iso42001": [],
+    "euaiact": [],
+    "owaspllm": [],
+    "agentic": [],
+    "pqc": [
+     "SP 1800-38"
+    ],
+    "cmmi": [
+     "ML2",
+     "ML3",
+     "ML4"
+    ],
+    "nice": [
+     "DD"
+    ],
+    "pentest": [],
+    "bastionone": [],
+    "quiltworks": [],
+    "frontier": [],
+    "falcon": [],
+    "mavendor": [],
+    "fisher": [],
+    "accenture": []
+   }
+  },
+  {
+   "id": "change-mgmt",
+   "group": "build",
+   "domain": "Change Management",
+   "summary": "Reviewing and controlling changes so they do not break security.",
+   "mappings": {
+    "csf": [
+     "ID.RA-07",
+     "PR.PS-01",
+     "ID.IM-03"
+    ],
+    "cis": [
+     "4.2",
+     "16.7"
+    ],
+    "iso": [
+     "A.8.19",
+     "A.8.32"
+    ],
+    "soc2": [
+     "CC8.1",
+     "CC3.4",
+     "CC5.2"
+    ],
+    "pci": [
+     "6"
+    ],
+    "n80053": [
+     "CM-3",
+     "CM-4",
+     "CM-5",
+     "SA-10"
+    ],
+    "n800171": [
+     "CM",
+     "MA"
+    ],
+    "cmmc": [
+     "CM",
+     "MA"
+    ],
+    "hipaa": [
+     "policies-and-procedures"
+    ],
+    "cpg": [
+     "3.N",
+     "3.P"
+    ],
+    "ccm": [
+     "CCC"
+    ],
+    "cisaws": [],
+    "cisazure": [],
+    "zta": [],
+    "iec62443": [
+     "62443-4-1"
+    ],
+    "oracle": [],
+    "telco": [],
+    "attack": [
+     "M1033",
+     "M1054"
+    ],
+    "atlas": [],
+    "cwe25": [],
+    "samm": [
+     "SB",
+     "SD"
+    ],
+    "owaspapi": [],
+    "nhitop10": [
+     "NHI1"
+    ],
+    "airmf": [],
+    "iso42001": [],
+    "euaiact": [],
+    "owaspllm": [],
+    "agentic": [],
+    "pqc": [
+     "SP 1800-38"
+    ],
+    "cmmi": [
+     "ML2",
+     "ML3"
+    ],
+    "nice": [],
+    "pentest": [],
+    "bastionone": [],
+    "quiltworks": [],
+    "frontier": [],
+    "falcon": [],
+    "mavendor": [],
+    "fisher": [],
+    "accenture": []
+   }
+  },
+  {
+   "id": "offensive-testing",
+   "group": "build",
+   "domain": "Penetration Testing and Adversary Emulation",
+   "summary": "Paying someone to attack you on purpose, with a defined method and a report you act on.",
+   "mappings": {
+    "csf": [
+     "ID.IM-01",
+     "ID.IM-02",
+     "ID.RA-01",
+     "ID.RA-05"
+    ],
+    "cis": [
+     "18.1",
+     "18.2",
+     "18.3",
+     "18.4",
+     "18.5"
+    ],
+    "iso": [
+     "A.5.35",
+     "A.8.8",
+     "A.8.29"
+    ],
+    "soc2": [
+     "CC3.2",
+     "CC4.1",
+     "CC7.1"
+    ],
+    "pci": [
+     "11"
+    ],
+    "n80053": [
+     "CA-2",
+     "CA-8",
+     "RA-5"
+    ],
+    "n800171": [
+     "CA",
+     "RA"
+    ],
+    "cmmc": [
+     "CA",
+     "RA"
+    ],
+    "hipaa": [
+     "evaluation",
+     "security-management-process"
+    ],
+    "cpg": [
+     "2.C",
+     "2.D"
+    ],
+    "ccm": [
+     "AIS",
+     "TVM"
+    ],
+    "cisaws": [],
+    "cisazure": [],
+    "zta": [],
+    "iec62443": [],
+    "oracle": [],
+    "telco": [
+     "TS 33.117"
+    ],
+    "attack": [
+     "M1016",
+     "M1056"
+    ],
+    "atlas": [
+     "AML.TA0001",
+     "AML.TA0002"
+    ],
+    "cwe25": [
+     "CWE-79",
+     "CWE-89",
+     "CWE-22"
+    ],
+    "samm": [
+     "AA",
+     "ST"
+    ],
+    "owaspapi": [
+     "API1",
+     "API5"
+    ],
+    "nhitop10": [
+     "NHI2"
+    ],
+    "airmf": [
+     "MEASURE 2",
+     "MEASURE 3"
+    ],
+    "iso42001": [],
+    "euaiact": [
+     "Art. 15",
+     "Art. 55"
+    ],
+    "owaspllm": [
+     "LLM01",
+     "LLM04"
+    ],
+    "agentic": [
+     "T6",
+     "T7"
+    ],
+    "pqc": [],
+    "cmmi": [],
+    "nice": [
+     "CE"
+    ],
+    "pentest": [
+     "800-115 Planning",
+     "800-115 Discovery",
+     "800-115 Attack",
+     "800-115 Reporting",
+     "PTES Pre-engagement",
+     "PTES Intelligence Gathering",
+     "PTES Threat Modeling",
+     "PTES Vulnerability Analysis",
+     "PTES Exploitation",
+     "PTES Post-exploitation",
+     "PTES Reporting"
+    ],
+    "bastionone": [],
+    "quiltworks": [],
+    "frontier": [],
+    "falcon": [],
+    "mavendor": [],
+    "fisher": [],
+    "accenture": []
+   }
+  },
+  {
+   "id": "ai-governance",
+   "group": "ai",
+   "domain": "AI Governance and Accountability",
+   "summary": "An inventory of AI use, a named owner for each one, a risk tier, and a gate before it goes live.",
+   "mappings": {
+    "csf": [
+     "GV.OC-01",
+     "GV.RM-01",
+     "GV.RR-01",
+     "GV.PO-01",
+     "ID.AM-01"
+    ],
+    "cis": [
+     "2.1",
+     "2.3",
+     "3.1",
+     "15.1"
+    ],
+    "iso": [
+     "A.5.1",
+     "A.5.2",
+     "A.5.36"
+    ],
+    "soc2": [
+     "CC1.2",
+     "CC3.1",
+     "CC5.1"
+    ],
+    "pci": [
+     "12"
+    ],
+    "n80053": [
+     "PM-1",
+     "PM-9",
+     "RA-3",
+     "PT-1",
+     "SA-8"
+    ],
+    "n800171": [
+     "CA",
+     "RA"
+    ],
+    "cmmc": [],
+    "hipaa": [
+     "security-management-process",
+     "assigned-security-responsibility"
+    ],
+    "cpg": [],
+    "ccm": [
+     "GRC"
+    ],
+    "cisaws": [],
+    "cisazure": [],
+    "zta": [],
+    "iec62443": [],
+    "oracle": [],
+    "telco": [
+     "NG.127"
+    ],
+    "attack": [
+     "M1017"
+    ],
+    "atlas": [],
+    "cwe25": [],
+    "samm": [],
+    "owaspapi": [],
+    "nhitop10": [],
+    "airmf": [
+     "GOVERN 1",
+     "GOVERN 2",
+     "GOVERN 3",
+     "GOVERN 4",
+     "GOVERN 5",
+     "GOVERN 6",
+     "MANAGE 1"
+    ],
+    "iso42001": [
+     "Overview",
+     "Clause 4",
+     "Clause 5",
+     "Clause 6",
+     "Clause 7",
+     "Annex A"
+    ],
+    "euaiact": [
+     "Art. 9",
+     "Art. 17",
+     "Art. 26",
+     "Art. 72"
+    ],
+    "owaspllm": [
+     "LLM09"
+    ],
+    "agentic": [
+     "T7",
+     "T10"
+    ],
+    "pqc": [],
+    "cmmi": [
+     "ML3"
+    ],
+    "nice": [
+     "OG"
+    ],
+    "pentest": [],
+    "bastionone": [],
+    "quiltworks": [],
+    "frontier": [],
+    "falcon": [],
+    "mavendor": [],
+    "fisher": [],
+    "accenture": []
+   }
+  },
+  {
+   "id": "ai-lifecycle",
+   "group": "ai",
+   "domain": "AI Testing, Evaluation, and Assurance",
+   "summary": "Measuring an AI system for accuracy, robustness, bias, and abuse before and after release.",
+   "mappings": {
+    "csf": [
+     "ID.RA-01",
+     "ID.IM-01",
+     "ID.IM-02",
+     "PR.PS-06"
+    ],
+    "cis": [
+     "16.1",
+     "16.6",
+     "18.2"
+    ],
+    "iso": [
+     "A.8.29",
+     "A.8.31",
+     "A.8.33"
+    ],
+    "soc2": [
+     "CC3.2",
+     "CC4.1",
+     "CC8.1"
+    ],
+    "pci": [
+     "6"
+    ],
+    "n80053": [
+     "SA-11",
+     "CA-2",
+     "CA-8",
+     "RA-3",
+     "SI-4"
+    ],
+    "n800171": [
+     "CA",
+     "SI"
+    ],
+    "cmmc": [],
+    "hipaa": [
+     "evaluation",
+     "integrity"
+    ],
+    "cpg": [],
+    "ccm": [
+     "A&A",
+     "AIS"
+    ],
+    "cisaws": [],
+    "cisazure": [],
+    "zta": [],
+    "iec62443": [],
+    "oracle": [],
+    "telco": [
+     "NG.127"
+    ],
+    "attack": [
+     "M1016"
+    ],
+    "atlas": [
+     "AML.TA0000",
+     "AML.TA0001",
+     "AML.TA0011"
+    ],
+    "cwe25": [],
+    "samm": [
+     "RT",
+     "ST"
+    ],
+    "owaspapi": [],
+    "nhitop10": [],
+    "airmf": [
+     "MAP 2",
+     "MEASURE 1",
+     "MEASURE 2",
+     "MEASURE 3",
+     "MEASURE 4",
+     "MANAGE 2"
+    ],
+    "iso42001": [
+     "Clause 8",
+     "Clause 9",
+     "Annex A"
+    ],
+    "euaiact": [
+     "Art. 9",
+     "Art. 11",
+     "Art. 15",
+     "Art. 55"
+    ],
+    "owaspllm": [
+     "LLM02",
+     "LLM04",
+     "LLM09"
+    ],
+    "agentic": [
+     "T5",
+     "T6",
+     "T7"
+    ],
+    "pqc": [],
+    "cmmi": [],
+    "nice": [
+     "DD"
+    ],
+    "pentest": [
+     "PTES Threat Modeling"
+    ],
+    "bastionone": [],
+    "quiltworks": [],
+    "frontier": [],
+    "falcon": [],
+    "mavendor": [],
+    "fisher": [],
+    "accenture": []
+   }
+  },
+  {
+   "id": "ai-supply-chain",
+   "group": "ai",
+   "domain": "Model and Training Data Supply Chain",
+   "summary": "Knowing where models, weights, datasets, and AI dependencies came from and whether they were tampered with.",
+   "mappings": {
+    "csf": [
+     "GV.SC-04",
+     "GV.SC-05",
+     "GV.SC-07",
+     "ID.AM-08",
+     "ID.RA-09"
+    ],
+    "cis": [
+     "15.1",
+     "15.2",
+     "15.4",
+     "16.6",
+     "16.11"
+    ],
+    "iso": [
+     "A.5.19",
+     "A.5.20",
+     "A.5.21",
+     "A.5.23",
+     "A.8.30"
+    ],
+    "soc2": [
+     "CC3.2",
+     "CC8.1",
+     "CC9.2"
+    ],
+    "pci": [
+     "6",
+     "12"
+    ],
+    "n80053": [
+     "SR-3",
+     "SR-4",
+     "SR-5",
+     "SR-11",
+     "SA-9"
+    ],
+    "n800171": [
+     "CA"
+    ],
+    "cmmc": [],
+    "hipaa": [
+     "business-associate-contracts-and-other-arrangements"
+    ],
+    "cpg": [],
+    "ccm": [
+     "AIS",
+     "STA"
+    ],
+    "cisaws": [],
+    "cisazure": [],
+    "zta": [],
+    "iec62443": [],
+    "oracle": [],
+    "telco": [
+     "NG.127"
+    ],
+    "attack": [
+     "M1045",
+     "M1051"
+    ],
+    "atlas": [
+     "AML.TA0003",
+     "AML.TA0004",
+     "AML.TA0001"
+    ],
+    "cwe25": [],
+    "samm": [
+     "SB"
+    ],
+    "owaspapi": [],
+    "nhitop10": [
+     "NHI3"
+    ],
+    "airmf": [
+     "MAP 4",
+     "GOVERN 6",
+     "MANAGE 3"
+    ],
+    "iso42001": [
+     "Clause 8",
+     "Annex A"
+    ],
+    "euaiact": [
+     "Art. 10",
+     "Art. 53"
+    ],
+    "owaspllm": [
+     "LLM03",
+     "LLM04"
+    ],
+    "agentic": [
+     "T1",
+     "T12"
+    ],
+    "pqc": [],
+    "cmmi": [],
+    "nice": [],
+    "pentest": [],
+    "bastionone": [],
+    "quiltworks": [],
+    "frontier": [],
+    "falcon": [],
+    "mavendor": [],
+    "fisher": [],
+    "accenture": []
+   }
+  },
+  {
+   "id": "ai-runtime",
+   "group": "ai",
+   "domain": "AI Application Runtime Controls",
+   "summary": "Guardrails around a live AI application: input handling, output handling, retrieval boundaries, and usage limits.",
+   "mappings": {
+    "csf": [
+     "PR.AA-05",
+     "PR.DS-01",
+     "PR.PS-06",
+     "DE.CM-09"
+    ],
+    "cis": [
+     "3.3",
+     "8.2",
+     "16.10",
+     "16.11"
+    ],
+    "iso": [
+     "A.8.16",
+     "A.8.25",
+     "A.8.26",
+     "A.8.28"
+    ],
+    "soc2": [
+     "CC6.1",
+     "CC6.7",
+     "CC7.2"
+    ],
+    "pci": [
+     "3",
+     "6"
+    ],
+    "n80053": [
+     "SI-10",
+     "SI-15",
+     "AC-4",
+     "SC-7",
+     "AU-2"
+    ],
+    "n800171": [
+     "SC",
+     "SI"
+    ],
+    "cmmc": [],
+    "hipaa": [
+     "access-control",
+     "audit-controls"
+    ],
+    "cpg": [],
+    "ccm": [
+     "AIS",
+     "LOG"
+    ],
+    "cisaws": [
+     "3",
+     "4"
+    ],
+    "cisazure": [
+     "5",
+     "9"
+    ],
+    "zta": [],
+    "iec62443": [],
+    "oracle": [],
+    "telco": [
+     "NG.127"
+    ],
+    "attack": [
+     "M1038",
+     "M1048"
+    ],
+    "atlas": [
+     "AML.TA0005",
+     "AML.TA0007",
+     "AML.TA0010",
+     "AML.TA0011"
+    ],
+    "cwe25": [
+     "CWE-94",
+     "CWE-77",
+     "CWE-20",
+     "CWE-502"
+    ],
+    "samm": [
+     "SR",
+     "ST"
+    ],
+    "owaspapi": [
+     "API4",
+     "API7",
+     "API10"
+    ],
+    "nhitop10": [
+     "NHI4"
+    ],
+    "airmf": [
+     "MEASURE 2",
+     "MANAGE 2",
+     "MANAGE 4"
+    ],
+    "iso42001": [
+     "Clause 8",
+     "Annex A"
+    ],
+    "euaiact": [
+     "Art. 13",
+     "Art. 15",
+     "Art. 50"
+    ],
+    "owaspllm": [
+     "LLM01",
+     "LLM02",
+     "LLM05",
+     "LLM07",
+     "LLM08",
+     "LLM09",
+     "LLM10"
+    ],
+    "agentic": [
+     "T1",
+     "T5",
+     "T6",
+     "T11"
+    ],
+    "pqc": [],
+    "cmmi": [],
+    "nice": [],
+    "pentest": [],
+    "bastionone": [],
+    "quiltworks": [],
+    "frontier": [],
+    "falcon": [],
+    "mavendor": [],
+    "fisher": [],
+    "accenture": []
+   }
+  },
+  {
+   "id": "agentic-ai",
+   "group": "ai",
+   "domain": "Agentic AI and Autonomous Action Control",
+   "summary": "Constraining what an AI agent may do on its own: tool permissions, its own identity, memory integrity, and a human stop.",
+   "mappings": {
+    "csf": [
+     "ID.AM-02",
+     "PR.AA-01",
+     "PR.AA-05",
+     "PR.IR-01",
+     "DE.CM-09"
+    ],
+    "cis": [
+     "5.1",
+     "5.4",
+     "6.8",
+     "8.2",
+     "16.11"
+    ],
+    "iso": [
+     "A.5.15",
+     "A.5.18",
+     "A.8.2",
+     "A.8.16"
+    ],
+    "soc2": [
+     "CC6.1",
+     "CC6.3",
+     "CC7.2"
+    ],
+    "pci": [
+     "7",
+     "8",
+     "10"
+    ],
+    "n80053": [
+     "AC-3",
+     "AC-4",
+     "AC-6",
+     "AU-2",
+     "IA-9",
+     "SI-4"
+    ],
+    "n800171": [
+     "AC",
+     "AU",
+     "SI"
+    ],
+    "cmmc": [],
+    "hipaa": [
+     "access-control",
+     "audit-controls",
+     "person-or-entity-authentication"
+    ],
+    "cpg": [],
+    "ccm": [
+     "AIS",
+     "IAM",
+     "LOG"
+    ],
+    "cisaws": [
+     "1",
+     "3"
+    ],
+    "cisazure": [
+     "1",
+     "5"
+    ],
+    "zta": [
+     "ZT-4",
+     "ZT-6",
+     "PEP"
+    ],
+    "iec62443": [],
+    "oracle": [],
+    "telco": [
+     "NG.127"
+    ],
+    "attack": [
+     "M1018",
+     "M1026",
+     "M1048"
+    ],
+    "atlas": [
+     "AML.TA0005",
+     "AML.TA0012",
+     "AML.TA0014",
+     "AML.TA0015"
+    ],
+    "cwe25": [
+     "CWE-94",
+     "CWE-77",
+     "CWE-269"
+    ],
+    "samm": [
+     "SA",
+     "RT"
+    ],
+    "owaspapi": [
+     "API5",
+     "API6",
+     "API7"
+    ],
+    "nhitop10": [
+     "NHI5",
+     "NHI9",
+     "NHI10"
+    ],
+    "airmf": [
+     "MAP 3",
+     "MANAGE 2",
+     "MANAGE 4"
+    ],
+    "iso42001": [
+     "Clause 8",
+     "Annex A"
+    ],
+    "euaiact": [
+     "Art. 14",
+     "Art. 15"
+    ],
+    "owaspllm": [
+     "LLM01",
+     "LLM05",
+     "LLM06",
+     "LLM10"
+    ],
+    "agentic": [
+     "T1",
+     "T2",
+     "T3",
+     "T4",
+     "T5",
+     "T6",
+     "T7",
+     "T8",
+     "T9",
+     "T10",
+     "T11",
+     "T12",
+     "T13",
+     "T14",
+     "T15"
+    ],
+    "pqc": [],
+    "cmmi": [],
+    "nice": [],
+    "pentest": [],
+    "bastionone": [],
+    "quiltworks": [],
+    "frontier": [],
+    "falcon": [],
+    "mavendor": [],
+    "fisher": [],
+    "accenture": []
    }
   },
   {
    "id": "logging-detection",
+   "group": "detect",
    "domain": "Logging, Monitoring, and Detection",
    "summary": "Collecting logs and watching for the signs of an attack in progress.",
    "mappings": {
@@ -598,142 +5495,113 @@
     "pci": [
      "10"
     ],
+    "n80053": [
+     "AU-2",
+     "AU-3",
+     "AU-6",
+     "AU-9",
+     "AU-12",
+     "SI-4"
+    ],
+    "n800171": [
+     "AU"
+    ],
     "cmmc": [
      "AU"
     ],
     "hipaa": [
      "audit-controls",
      "security-management-process"
-    ]
-   }
-  },
-  {
-   "id": "email-web",
-   "domain": "Email and Web Protections",
-   "summary": "Filtering the two channels attackers use most: email and the browser.",
-   "mappings": {
-    "csf": [
-     "PR.PS-05",
-     "DE.CM-01"
     ],
-    "cis": [
-     "9.1",
-     "9.2",
-     "9.3",
-     "9.4",
-     "9.5",
-     "9.6",
-     "9.7"
+    "cpg": [
+     "3.E",
+     "3.Q",
+     "4.B"
     ],
-    "iso": [
-     "A.5.14",
-     "A.8.23"
+    "ccm": [
+     "LOG"
     ],
-    "soc2": [
-     "CC6.6",
-     "CC6.8"
+    "cisaws": [
+     "3",
+     "4"
     ],
-    "pci": [
+    "cisazure": [
      "5"
     ],
-    "cmmc": [
-     "SC",
-     "SI"
+    "zta": [
+     "ZT-7",
+     "PE"
     ],
-    "hipaa": [
-     "transmission-security"
-    ]
-   }
-  },
-  {
-   "id": "appsec",
-   "domain": "Application Security and Secure Development",
-   "summary": "Building and running software so it does not ship exploitable flaws.",
-   "mappings": {
-    "csf": [
-     "PR.PS-06",
-     "PR.PS-01"
+    "iec62443": [
+     "FR6"
     ],
-    "cis": [
-     "16.1",
-     "16.2",
-     "16.3",
-     "16.4",
-     "16.5",
-     "16.6",
-     "16.7",
-     "16.10",
-     "16.11",
-     "16.12",
-     "16.13",
-     "16.14",
-     "16.8",
-     "16.9"
+    "oracle": [
+     "5"
     ],
-    "iso": [
-     "A.8.25",
-     "A.8.26",
-     "A.8.27",
-     "A.8.28",
-     "A.8.29",
-     "A.8.31"
+    "telco": [
+     "TS 33.117",
+     "FS.31"
     ],
-    "soc2": [
-     "CC8.1",
-     "CC6.1",
-     "PI1.2",
-     "PI1.3"
+    "attack": [
+     "M1031",
+     "M1047",
+     "M1057"
     ],
-    "pci": [
-     "6"
+    "atlas": [
+     "AML.TA0007",
+     "AML.TA0008",
+     "AML.TA0014"
     ],
-    "cmmc": [
-     "CM",
-     "SI"
+    "cwe25": [],
+    "samm": [
+     "OM"
     ],
-    "hipaa": [
-     "integrity"
-    ]
-   }
-  },
-  {
-   "id": "backup",
-   "domain": "Data Backup and Recovery",
-   "summary": "Reliable, tested backups you can actually restore from.",
-   "mappings": {
-    "csf": [
-     "PR.DS-11"
+    "owaspapi": [
+     "API4",
+     "API6"
     ],
-    "cis": [
-     "11.1",
-     "11.2",
-     "11.3",
-     "11.4",
-     "11.5"
+    "nhitop10": [
+     "NHI9",
+     "NHI10"
     ],
-    "iso": [
-     "A.8.13",
-     "A.8.14"
+    "airmf": [
+     "MEASURE 3",
+     "MANAGE 4"
     ],
-    "soc2": [
-     "A1.2",
-     "A1.3",
-     "CC7.5"
+    "iso42001": [],
+    "euaiact": [
+     "Art. 12",
+     "Art. 72"
     ],
-    "pci": [
-     "9",
-     "12"
+    "owaspllm": [
+     "LLM01",
+     "LLM10"
     ],
-    "cmmc": [
-     "MP"
+    "agentic": [
+     "T8",
+     "T12",
+     "T13"
     ],
-    "hipaa": [
-     "contingency-plan"
-    ]
+    "pqc": [],
+    "cmmi": [
+     "ML4"
+    ],
+    "nice": [
+     "PD"
+    ],
+    "pentest": [],
+    "bastionone": [],
+    "quiltworks": [],
+    "frontier": [],
+    "falcon": [],
+    "mavendor": [],
+    "fisher": [],
+    "accenture": []
    }
   },
   {
    "id": "incident-response",
+   "group": "detect",
    "domain": "Incident Response",
    "summary": "A plan and a team to detect, contain, and recover from incidents.",
    "mappings": {
@@ -788,16 +5656,182 @@
     "pci": [
      "12"
     ],
+    "n80053": [
+     "IR-1",
+     "IR-4",
+     "IR-5",
+     "IR-6",
+     "IR-8"
+    ],
+    "n800171": [
+     "IR"
+    ],
     "cmmc": [
      "IR"
     ],
     "hipaa": [
      "security-incident-procedures"
-    ]
+    ],
+    "cpg": [
+     "1.C",
+     "4.B",
+     "5.A",
+     "5.B"
+    ],
+    "ccm": [
+     "SEF"
+    ],
+    "cisaws": [
+     "4"
+    ],
+    "cisazure": [
+     "2",
+     "5"
+    ],
+    "zta": [],
+    "iec62443": [
+     "FR6"
+    ],
+    "oracle": [],
+    "telco": [],
+    "attack": [
+     "M1047"
+    ],
+    "atlas": [
+     "AML.TA0011"
+    ],
+    "cwe25": [],
+    "samm": [
+     "IM"
+    ],
+    "owaspapi": [],
+    "nhitop10": [],
+    "airmf": [
+     "MANAGE 4"
+    ],
+    "iso42001": [
+     "Clause 10"
+    ],
+    "euaiact": [
+     "Art. 73"
+    ],
+    "owaspllm": [],
+    "agentic": [
+     "T8",
+     "T13"
+    ],
+    "pqc": [],
+    "cmmi": [
+     "ML2",
+     "ML3"
+    ],
+    "nice": [
+     "PD",
+     "IN"
+    ],
+    "pentest": [
+     "PTES Post-exploitation"
+    ],
+    "bastionone": [],
+    "quiltworks": [],
+    "frontier": [],
+    "falcon": [],
+    "mavendor": [],
+    "fisher": [],
+    "accenture": []
+   }
+  },
+  {
+   "id": "backup",
+   "group": "detect",
+   "domain": "Data Backup and Recovery",
+   "summary": "Reliable, tested backups you can actually restore from.",
+   "mappings": {
+    "csf": [
+     "PR.DS-11"
+    ],
+    "cis": [
+     "11.1",
+     "11.2",
+     "11.3",
+     "11.4",
+     "11.5"
+    ],
+    "iso": [
+     "A.8.13",
+     "A.8.14"
+    ],
+    "soc2": [
+     "A1.2",
+     "A1.3",
+     "CC7.5"
+    ],
+    "pci": [
+     "9",
+     "12"
+    ],
+    "n80053": [
+     "CP-9",
+     "CP-10",
+     "MP-4"
+    ],
+    "n800171": [
+     "MP"
+    ],
+    "cmmc": [
+     "MP"
+    ],
+    "hipaa": [
+     "contingency-plan"
+    ],
+    "cpg": [
+     "3.O"
+    ],
+    "ccm": [
+     "BCR"
+    ],
+    "cisaws": [
+     "2"
+    ],
+    "cisazure": [
+     "3"
+    ],
+    "zta": [],
+    "iec62443": [
+     "FR7"
+    ],
+    "oracle": [],
+    "telco": [],
+    "attack": [
+     "M1029",
+     "M1053"
+    ],
+    "atlas": [],
+    "cwe25": [],
+    "samm": [],
+    "owaspapi": [],
+    "nhitop10": [],
+    "airmf": [],
+    "iso42001": [],
+    "euaiact": [],
+    "owaspllm": [],
+    "agentic": [],
+    "pqc": [],
+    "cmmi": [],
+    "nice": [],
+    "pentest": [],
+    "bastionone": [],
+    "quiltworks": [],
+    "frontier": [],
+    "falcon": [],
+    "mavendor": [],
+    "fisher": [],
+    "accenture": []
    }
   },
   {
    "id": "continuity",
+   "group": "detect",
    "domain": "Business Continuity and Resilience",
    "summary": "Keeping critical operations running through disruption.",
    "mappings": {
@@ -829,16 +5863,74 @@
     "pci": [
      "12"
     ],
+    "n80053": [
+     "CP-2",
+     "CP-4",
+     "CP-7",
+     "CP-8",
+     "CP-10"
+    ],
+    "n800171": [
+     "IR"
+    ],
     "cmmc": [
      "IR"
     ],
     "hipaa": [
      "contingency-plan"
-    ]
+    ],
+    "cpg": [
+     "3.O",
+     "6.A"
+    ],
+    "ccm": [
+     "BCR"
+    ],
+    "cisaws": [],
+    "cisazure": [],
+    "zta": [],
+    "iec62443": [
+     "FR7"
+    ],
+    "oracle": [],
+    "telco": [],
+    "attack": [
+     "M1053"
+    ],
+    "atlas": [
+     "AML.TA0011"
+    ],
+    "cwe25": [],
+    "samm": [
+     "OM"
+    ],
+    "owaspapi": [],
+    "nhitop10": [],
+    "airmf": [],
+    "iso42001": [],
+    "euaiact": [],
+    "owaspllm": [],
+    "agentic": [
+     "T4"
+    ],
+    "pqc": [],
+    "cmmi": [
+     "ML3"
+    ],
+    "nice": [],
+    "pentest": [],
+    "bastionone": [],
+    "quiltworks": [],
+    "frontier": [],
+    "falcon": [],
+    "mavendor": [],
+    "fisher": [],
+    "accenture": []
    }
   },
   {
    "id": "awareness",
+   "group": "people",
    "domain": "Security Awareness and Training",
    "summary": "Teaching people to recognize and resist the attacks aimed at them.",
    "mappings": {
@@ -869,181 +5961,76 @@
     "pci": [
      "12"
     ],
+    "n80053": [
+     "AT-2",
+     "AT-3",
+     "AT-4"
+    ],
+    "n800171": [
+     "AT"
+    ],
     "cmmc": [
      "AT"
     ],
     "hipaa": [
      "security-awareness-and-training"
-    ]
-   }
-  },
-  {
-   "id": "physical",
-   "domain": "Physical and Environmental Security",
-   "summary": "Protecting facilities, equipment, and the people in them.",
-   "mappings": {
-    "csf": [
-     "PR.AA-06",
-     "ID.AM-01",
-     "PR.IR-02"
     ],
-    "cis": [
-     "1.1"
+    "cpg": [
+     "3.J"
     ],
-    "iso": [
-     "A.7.1",
-     "A.7.2",
-     "A.7.3",
-     "A.7.4",
-     "A.7.5",
-     "A.7.8"
+    "ccm": [
+     "HRS"
     ],
-    "soc2": [
-     "CC6.4",
-     "CC6.5",
-     "A1.2"
+    "cisaws": [],
+    "cisazure": [],
+    "zta": [],
+    "iec62443": [
+     "62443-2-1"
     ],
-    "pci": [
-     "9"
+    "oracle": [],
+    "telco": [],
+    "attack": [
+     "M1017"
     ],
-    "cmmc": [
-     "PE"
+    "atlas": [],
+    "cwe25": [],
+    "samm": [
+     "EG"
     ],
-    "hipaa": [
-     "facility-access-controls",
-     "workstation-security",
-     "device-and-media-controls"
-    ]
-   }
-  },
-  {
-   "id": "third-party",
-   "domain": "Third-Party and Supplier Risk",
-   "summary": "Managing the risk that vendors and partners introduce.",
-   "mappings": {
-    "csf": [
-     "GV.SC-01",
-     "GV.SC-02",
-     "GV.SC-03",
-     "GV.SC-04",
-     "GV.SC-05",
-     "GV.SC-06",
-     "GV.SC-07",
-     "GV.SC-08",
-     "GV.SC-09",
-     "GV.SC-10",
-     "ID.RA-10"
+    "owaspapi": [],
+    "nhitop10": [],
+    "airmf": [
+     "GOVERN 4"
     ],
-    "cis": [
-     "15.1",
-     "15.2",
-     "15.3",
-     "15.4",
-     "15.5",
-     "15.6",
-     "15.7"
+    "iso42001": [
+     "Clause 7"
     ],
-    "iso": [
-     "A.5.19",
-     "A.5.20",
-     "A.5.21",
-     "A.5.22",
-     "A.5.23"
+    "euaiact": [
+     "Art. 4"
     ],
-    "soc2": [
-     "CC9.2",
-     "CC2.3"
+    "owaspllm": [],
+    "agentic": [
+     "T10",
+     "T15"
     ],
-    "pci": [
-     "12"
+    "pqc": [],
+    "cmmi": [],
+    "nice": [
+     "OG"
     ],
-    "cmmc": [
-     "CA"
-    ],
-    "hipaa": [
-     "business-associate-contracts-and-other-arrangements",
-     "business-associate-contracts-or-other-arrangements"
-    ]
-   }
-  },
-  {
-   "id": "threat-intel",
-   "domain": "Threat Intelligence and Disclosure",
-   "summary": "Learning about threats and giving outsiders a way to report weaknesses.",
-   "mappings": {
-    "csf": [
-     "ID.RA-02",
-     "ID.RA-03",
-     "RS.AN-07",
-     "GV.RM-06",
-     "ID.RA-08"
-    ],
-    "cis": [
-     "7.1",
-     "7.6",
-     "18.1",
-     "18.3"
-    ],
-    "iso": [
-     "A.5.6",
-     "A.5.7",
-     "A.8.8"
-    ],
-    "soc2": [
-     "CC3.2",
-     "CC7.1",
-     "CC2.3"
-    ],
-    "pci": [
-     "6",
-     "11"
-    ],
-    "cmmc": [
-     "RA",
-     "SI"
-    ],
-    "hipaa": [
-     "security-management-process"
-    ]
-   }
-  },
-  {
-   "id": "change-mgmt",
-   "domain": "Change Management",
-   "summary": "Reviewing and controlling changes so they do not break security.",
-   "mappings": {
-    "csf": [
-     "ID.RA-07",
-     "PR.PS-01",
-     "ID.IM-03"
-    ],
-    "cis": [
-     "4.2",
-     "16.7"
-    ],
-    "iso": [
-     "A.8.19",
-     "A.8.32"
-    ],
-    "soc2": [
-     "CC8.1",
-     "CC3.4",
-     "CC5.2"
-    ],
-    "pci": [
-     "6"
-    ],
-    "cmmc": [
-     "CM",
-     "MA"
-    ],
-    "hipaa": [
-     "policies-and-procedures"
-    ]
+    "pentest": [],
+    "bastionone": [],
+    "quiltworks": [],
+    "frontier": [],
+    "falcon": [],
+    "mavendor": [],
+    "fisher": [],
+    "accenture": []
    }
   },
   {
    "id": "personnel",
+   "group": "people",
    "domain": "Personnel Security",
    "summary": "Screening, agreements, and offboarding across the employment life cycle.",
    "mappings": {
@@ -1075,61 +6062,174 @@
     "pci": [
      "12"
     ],
+    "n80053": [
+     "PS-2",
+     "PS-3",
+     "PS-4",
+     "PS-5",
+     "PS-7"
+    ],
+    "n800171": [
+     "PS"
+    ],
     "cmmc": [
      "PS"
     ],
     "hipaa": [
      "workforce-security"
-    ]
+    ],
+    "cpg": [
+     "3.D"
+    ],
+    "ccm": [
+     "HRS"
+    ],
+    "cisaws": [],
+    "cisazure": [],
+    "zta": [],
+    "iec62443": [
+     "62443-2-1"
+    ],
+    "oracle": [],
+    "telco": [],
+    "attack": [
+     "M1018",
+     "M1036"
+    ],
+    "atlas": [],
+    "cwe25": [],
+    "samm": [],
+    "owaspapi": [],
+    "nhitop10": [
+     "NHI1"
+    ],
+    "airmf": [],
+    "iso42001": [],
+    "euaiact": [],
+    "owaspllm": [],
+    "agentic": [],
+    "pqc": [],
+    "cmmi": [],
+    "nice": [
+     "OG"
+    ],
+    "pentest": [],
+    "bastionone": [],
+    "quiltworks": [],
+    "frontier": [],
+    "falcon": [],
+    "mavendor": [],
+    "fisher": [],
+    "accenture": []
    }
   },
   {
-   "id": "compliance-audit",
-   "domain": "Compliance and Audit Management",
-   "summary": "Proving the program works to auditors, regulators, and customers.",
+   "id": "workforce",
+   "group": "people",
+   "domain": "Workforce Planning and Skills Development",
+   "summary": "Defining security work roles, the skills each needs, and how you hire and grow into them.",
    "mappings": {
     "csf": [
-     "GV.OC-03",
-     "GV.OV-01",
-     "GV.OV-02",
-     "GV.OV-03",
-     "ID.IM-01",
-     "ID.IM-02",
-     "ID.IM-04"
+     "GV.RR-02",
+     "GV.RR-04",
+     "PR.AT-01",
+     "PR.AT-02"
     ],
     "cis": [
-     "8.1",
-     "8.2",
-     "8.5",
-     "18.2",
-     "18.4",
-     "18.5"
+     "14.1",
+     "14.9",
+     "17.1",
+     "17.5"
     ],
     "iso": [
-     "A.5.31",
-     "A.5.32",
-     "A.5.35",
-     "A.5.36",
-     "A.8.34"
+     "A.5.2",
+     "A.6.1",
+     "A.6.3",
+     "A.6.4"
     ],
     "soc2": [
-     "CC4.1",
-     "CC4.2",
-     "CC3.1",
-     "CC2.1",
-     "CC5.1"
+     "CC1.3",
+     "CC1.4",
+     "CC2.2"
     ],
     "pci": [
-     "11",
      "12"
     ],
+    "n80053": [
+     "AT-2",
+     "AT-3",
+     "PM-13",
+     "PS-2"
+    ],
+    "n800171": [
+     "AT",
+     "PS"
+    ],
     "cmmc": [
-     "CA"
+     "AT",
+     "PS"
     ],
     "hipaa": [
-     "evaluation",
-     "documentation"
-    ]
+     "security-awareness-and-training",
+     "workforce-security"
+    ],
+    "cpg": [
+     "3.J"
+    ],
+    "ccm": [
+     "HRS"
+    ],
+    "cisaws": [],
+    "cisazure": [],
+    "zta": [],
+    "iec62443": [],
+    "oracle": [],
+    "telco": [],
+    "attack": [
+     "M1017"
+    ],
+    "atlas": [],
+    "cwe25": [],
+    "samm": [
+     "EG"
+    ],
+    "owaspapi": [],
+    "nhitop10": [],
+    "airmf": [
+     "GOVERN 2",
+     "GOVERN 3"
+    ],
+    "iso42001": [
+     "Clause 7"
+    ],
+    "euaiact": [
+     "Art. 4",
+     "Art. 14"
+    ],
+    "owaspllm": [],
+    "agentic": [],
+    "pqc": [],
+    "cmmi": [
+     "ML2",
+     "ML3"
+    ],
+    "nice": [
+     "OG",
+     "DD",
+     "IO",
+     "PD",
+     "IN",
+     "CI",
+     "CE"
+    ],
+    "pentest": [],
+    "bastionone": [],
+    "quiltworks": [],
+    "frontier": [],
+    "falcon": [],
+    "mavendor": [],
+    "fisher": [],
+    "accenture": []
    }
   }
  ]

@@ -141,11 +141,16 @@ describe('framework coverage claims', () => {
     }
   });
 
-  it('covers every control domain exactly once', () => {
-    // The catalog is complete: each of the crosswalk's 24 domains has one
-    // policy, so coverage can be computed without gaps or double counting.
-    const all = (crosswalk.controls as { id: string }[]).map((c) => c.id).sort();
-    expect(policies.map((p) => p.domain).sort()).toEqual(all);
+  it('accounts for every control domain, either with a policy or as declared out of scope', () => {
+    // The catalog covered all 24 domains when it was written; the crosswalk has
+    // since grown to 45. Rather than let the difference go unnoticed, every
+    // domain without a policy is named in the catalog's own metadata, so a new
+    // domain fails this test until someone decides whether it gets a policy.
+    const all = (crosswalk.controls as { id: string }[]).map((c) => c.id);
+    const covered = new Set(policies.map((p) => p.domain));
+    const declared = catalog.meta.outOfScopeDomains as string[];
+    expect(all.filter((id) => !covered.has(id))).toEqual(declared);
+    expect(declared.filter((id) => covered.has(id)), 'declared out of scope but covered').toEqual([]);
   });
 
   it('does not let full domain coverage be read as full framework coverage', () => {

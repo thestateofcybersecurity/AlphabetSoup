@@ -24,6 +24,7 @@ interface Framework {
   id: string;
   name: string;
   short: string;
+  status: 'mapped' | 'pending';
   total: number;
 }
 
@@ -35,7 +36,7 @@ const VALID: Record<string, Set<string>> = {
   csf: new Set(Object.keys(csf as Record<string, unknown>)),
   cis: new Set(Object.keys(cis as Record<string, unknown>)),
   pci: new Set((pci.categories as { id: string }[]).map((c) => c.id)),
-  cmmc: new Set((cmmc.categories as { id: string }[]).map((c) => c.id)),
+  n800171: new Set((cmmc.categories as { id: string }[]).map((c) => c.id)),
   hipaa: new Set((hipaa.standards as { slug: string }[]).map((s) => s.slug)),
 };
 
@@ -90,10 +91,20 @@ describe('HIPAA Security Rule dataset', () => {
 });
 
 describe('crosswalk mappings', () => {
-  it('covers all seven frameworks', () => {
-    expect(frameworks.map((f) => f.id).sort()).toEqual(
-      ['cis', 'cmmc', 'csf', 'hipaa', 'iso', 'pci', 'soc2'].sort(),
-    );
+  it('still carries the seven frameworks the policy generator reports against', () => {
+    // The crosswalk maps far more than these, but these are the ones the policy
+    // generator turns into a coverage claim, so losing one is a silent
+    // regression in a tool that promises an audit-facing number.
+    for (const id of ['cis', 'csf', 'hipaa', 'iso', 'n800171', 'pci', 'soc2']) {
+      expect(frameworks.map((f) => f.id), id).toContain(id);
+    }
+  });
+
+  it('gives every mapped framework a distinct id and a non-zero total', () => {
+    const mapped = frameworks.filter((f) => f.status === 'mapped');
+    expect(new Set(mapped.map((f) => f.id)).size).toBe(mapped.length);
+    expect(mapped.length).toBeGreaterThanOrEqual(30);
+    for (const f of mapped) expect(f.total, f.id).toBeGreaterThan(0);
   });
 
   it('maps every domain to every framework that has a checkable dataset', () => {

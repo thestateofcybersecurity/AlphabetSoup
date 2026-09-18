@@ -19,7 +19,18 @@ import {
 
 const catalog = catalogRaw as unknown as Catalog;
 const domains = crosswalkRaw.controls as unknown as CrosswalkDomain[];
-const frameworks = crosswalkRaw.frameworks as unknown as Framework[];
+/**
+ * The frameworks this generator reports against.
+ *
+ * The crosswalk maps far more than these, but a policy set can only make an
+ * honest coverage claim where this site holds, or can reason about, the whole
+ * framework. Listing every mapped framework here would fill the results with
+ * rows reading "not measurable", which is noise, not information.
+ */
+const REPORTED = ['csf', 'cis', 'iso', 'soc2', 'pci', 'n800171', 'hipaa'];
+const frameworks = (crosswalkRaw.frameworks as unknown as Framework[]).filter((f) =>
+  REPORTED.includes(f.id),
+);
 
 /**
  * Real control counts for the frameworks this site holds in full.
@@ -40,7 +51,7 @@ const FRAMEWORK_SIZES: Record<string, number> = {
   cis: 153,
   hipaa: 22,
   pci: 12,
-  cmmc: 14,
+  n800171: 14,
   iso: 93,
 };
 

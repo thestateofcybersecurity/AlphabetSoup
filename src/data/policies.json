@@ -2,6 +2,30 @@
  "meta": {
   "name": "Policy catalog",
   "note": "Original policy text written for this site. Tiers follow CIS Implementation Groups and are additive: an IG2 policy includes every IG1 statement, and IG3 includes both. Placeholders in {{braces}} are substituted from the organization profile.",
+  "catalogScope": "The crosswalk grew past this catalog. These control domains are real and mapped, but no policy has been written for them yet, so the generator makes no coverage claim on their behalf. Listing them keeps the gap visible instead of silent.",
+  "outOfScopeDomains": [
+   "program-maturity",
+   "policy-legal",
+   "privacy",
+   "vuln-prioritization",
+   "shadow-discovery",
+   "ma-integration",
+   "nhi",
+   "zero-trust",
+   "cloud-posture",
+   "db-security",
+   "ot-ics",
+   "pqc",
+   "api-security",
+   "sdlc-maturity",
+   "offensive-testing",
+   "ai-governance",
+   "ai-lifecycle",
+   "ai-supply-chain",
+   "ai-runtime",
+   "agentic-ai",
+   "workforce"
+  ],
   "tiers": [
    {
     "id": "ig1",

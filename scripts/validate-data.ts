@@ -34,9 +34,44 @@ function validateAssessment(data: AssessmentData): string[] {
   return out;
 }
 
+interface CrosswalkFramework {
+  id: string;
+  name: string;
+  short: string;
+  family: string;
+  kind: string;
+  unit: string;
+  version: string;
+  url: string;
+  note: string;
+  status: 'mapped' | 'pending';
+  total: number;
+}
+
+interface CrosswalkSignal {
+  id: string;
+  name: string;
+  short: string;
+  status: 'public' | 'pending';
+  url: string;
+  what: string;
+  domains: string[];
+}
+
 interface CrosswalkData {
-  frameworks: { id: 'csf' | 'cis' | 'iso' | 'soc2'; total: number }[];
-  controls: { id: string; domain: string; summary: string; mappings: Record<string, string[]> }[];
+  meta: {
+    groups: { id: string; name: string }[];
+    families: { id: string; name: string; blurb: string }[];
+  };
+  frameworks: CrosswalkFramework[];
+  signals: CrosswalkSignal[];
+  controls: {
+    id: string;
+    group: string;
+    domain: string;
+    summary: string;
+    mappings: Record<string, string[]>;
+  }[];
 }
 
 /**
@@ -83,12 +118,25 @@ function validateSoc2(data: Soc2Data): string[] {
   return out;
 }
 
-/** Structural + reference checks for the control crosswalk. */
+/**
+ * Structural + reference checks for the control crosswalk.
+ *
+ * The crosswalk is the widest dataset on the site: 45 control domains against
+ * 32 mapped frameworks. Its danger is quiet drift, an identifier that stops
+ * existing or a framework total that no longer matches what is mapped, so every
+ * framework whose identifiers this site independently holds is checked against
+ * that dataset rather than against a pattern.
+ */
 function validateCrosswalk(
   data: CrosswalkData,
   csf: CsfData,
   cis: CisData,
   soc2: Soc2Data,
+  ai: AiData,
+  cpg: AssessmentData,
+  hipaa: { standards: { slug: string }[] },
+  n800171: AssessmentData,
+  pci: AssessmentData,
 ): string[] {
   const out: string[] = [];
   const isoRe = /^A\.(5\.(3[0-7]|[12]?[0-9])|6\.[1-8]|7\.(1[0-4]|[1-9])|8\.(3[0-4]|[12]?[0-9]))$/;
@@ -101,24 +149,81 @@ function validateCrosswalk(
    * Processing Integrity is deliberately not enumerated. See src/lib/soc2.ts.
    */
   const soc2Ids = new Set([...soc2.criteria.map((c) => c.id), 'PI1.2', 'PI1.3']);
+  const aiCodes = (code: string): Set<string> =>
+    new Set(ai.filter((e) => e.frameworkCode === code).map((e) => e.code));
+
+  /** Frameworks whose identifiers this site holds, so a dangling id is catchable. */
+  const known: Record<string, Set<string>> = {
+    csf: new Set(Object.keys(csf)),
+    cis: new Set(Object.keys(cis)),
+    soc2: soc2Ids,
+    hipaa: new Set(hipaa.standards.map((h) => h.slug)),
+    cpg: new Set(cpg.questions.map((q) => q.id)),
+    n800171: new Set(n800171.categories.map((c) => c.id)),
+    pci: new Set(pci.categories.map((c) => c.id)),
+    atlas: aiCodes('ATLAS'),
+    airmf: aiCodes('AIRMF'),
+    iso42001: aiCodes('ISO42001'),
+    owaspllm: aiCodes('OWASP-LLM'),
+  };
+
+  const groupIds = new Set(data.meta.groups.map((g) => g.id));
+  const familyIds = new Set(data.meta.families.map((f) => f.id));
+  const domainIds = new Set(data.controls.map((c) => c.id));
+  const frameworkIds = new Set(data.frameworks.map((f) => f.id));
+
+  const seenFramework = new Set<string>();
+  for (const f of data.frameworks) {
+    if (seenFramework.has(f.id)) out.push(`duplicate framework id ${f.id}`);
+    seenFramework.add(f.id);
+    if (!familyIds.has(f.family)) out.push(`${f.id}: unknown family ${f.family}`);
+    if (f.status !== 'mapped' && f.status !== 'pending') out.push(`${f.id}: bad status ${f.status}`);
+    for (const field of ['name', 'short', 'kind', 'note'] as const) {
+      if (!f[field]?.trim()) out.push(`${f.id}: empty ${field}`);
+    }
+    if (JSON.stringify(f).includes('—')) out.push(`${f.id}: em dash in framework metadata`);
+    if (f.status === 'mapped') {
+      if (!f.url.startsWith('https://')) out.push(`${f.id}: no source url`);
+      if (!f.unit.trim()) out.push(`${f.id}: no mapping unit stated`);
+      if (f.total === 0) out.push(`${f.id}: mapped but maps nothing`);
+    } else if (f.total !== 0) {
+      out.push(`${f.id}: pending frameworks must map nothing`);
+    }
+    const distinct = new Set(data.controls.flatMap((c) => c.mappings[f.id] ?? []));
+    if (distinct.size !== f.total) out.push(`${f.id}: total ${f.total} != ${distinct.size} distinct mapped ids`);
+  }
+
   const seen = new Set<string>();
   for (const c of data.controls) {
     if (seen.has(c.id)) out.push(`duplicate domain id ${c.id}`);
     seen.add(c.id);
+    if (!groupIds.has(c.group)) out.push(`${c.id}: unknown group ${c.group}`);
     const total = c.mappings.csf.length + c.mappings.cis.length + c.mappings.iso.length + c.mappings.soc2.length;
     if (total === 0) out.push(`${c.id}: no mappings`);
     for (const field of ['domain', 'summary'] as const) {
       if (c[field]?.includes('—')) out.push(`${c.id}: em dash in ${field}`);
     }
-    for (const id of c.mappings.csf) if (!(id in csf)) out.push(`${c.id}: unknown CSF id ${id}`);
-    for (const id of c.mappings.cis) if (!(id in cis)) out.push(`${c.id}: unknown CIS id ${id}`);
+    for (const fid of frameworkIds) {
+      if (!Array.isArray(c.mappings[fid])) out.push(`${c.id}: missing ${fid} mapping array`);
+    }
+    for (const [fid, ids] of Object.entries(c.mappings)) {
+      if (!frameworkIds.has(fid)) out.push(`${c.id}: maps unknown framework ${fid}`);
+      if (new Set(ids).size !== ids.length) out.push(`${c.id}: duplicate ${fid} ids`);
+      const valid = known[fid];
+      if (valid) {
+        for (const id of ids) if (!valid.has(id)) out.push(`${c.id}: unknown ${fid} id ${id}`);
+      }
+    }
     for (const id of c.mappings.iso) if (!isoRe.test(id)) out.push(`${c.id}: invalid ISO id ${id}`);
-    for (const id of c.mappings.soc2) if (!soc2Ids.has(id)) out.push(`${c.id}: unknown SOC2 id ${id}`);
   }
-  for (const f of data.frameworks) {
-    const distinct = new Set(data.controls.flatMap((c) => c.mappings[f.id]));
-    if (distinct.size !== f.total) out.push(`${f.id}: total ${f.total} != ${distinct.size} distinct mapped ids`);
+
+  for (const s of data.signals) {
+    if (!s.what?.trim()) out.push(`signal ${s.id}: no description`);
+    if (s.status === 'public' && !s.url.startsWith('https://')) out.push(`signal ${s.id}: no source url`);
+    if (JSON.stringify(s).includes('—')) out.push(`signal ${s.id}: em dash`);
+    for (const d of s.domains) if (!domainIds.has(d)) out.push(`signal ${s.id}: unknown domain ${d}`);
   }
+
   return out;
 }
 
@@ -485,6 +590,8 @@ const cyberEssentials = load<AssessmentData>('../src/data/assessment-cyber-essen
 const ztmm = load<AssessmentData>('../src/data/assessment-ztmm.json');
 const ssdf = load<AssessmentData>('../src/data/assessment-ssdf.json');
 const pci = load<AssessmentData>('../src/data/assessment-pci-dss.json');
+const cpg = load<AssessmentData>('../src/data/assessment-cpg.json');
+const hipaaRule = load<{ standards: { slug: string }[] }>('../src/data/hipaa-security.json');
 const crosswalk = load<CrosswalkData>('../src/data/crosswalk.json');
 const soc2 = load<Soc2Data>('../src/data/soc2.json');
 const boardMetrics = load<{ metrics: BoardMetric[] }>('../src/data/board-metrics.json');
@@ -529,7 +636,7 @@ const problems = [
   ...validateAssessment(ztmm).map((e) => `ztmm: ${e}`),
   ...validateAssessment(ssdf).map((e) => `ssdf: ${e}`),
   ...validateAssessment(pci).map((e) => `pci-dss: ${e}`),
-  ...validateCrosswalk(crosswalk, csf, cis, soc2).map((e) => `crosswalk: ${e}`),
+  ...validateCrosswalk(crosswalk, csf, cis, soc2, ai, cpg, hipaaRule, cmmc, pci).map((e) => `crosswalk: ${e}`),
   ...validateSoc2(soc2).map((e) => `soc2: ${e}`),
   ...validateBoardMetrics(boardMetrics.metrics).map((e) => `board-metrics: ${e}`),
   ...validateRunbooks(runbooks.scenarios).map((e) => `runbooks: ${e}`),
@@ -613,5 +720,5 @@ if (problems.length > 0) {
 }
 console.log(
   `Data OK: ${Object.keys(acronyms).length} acronyms, ${Object.keys(csf).length} CSF subcategories, ${Object.keys(cis).length} CIS safeguards, ${ai.length} AI framework entries, ` +
-    `${cmmc.questions.length} 800-171/CMMC, ${cyberEssentials.questions.length} Cyber Essentials, ${ztmm.questions.length} ZTMM, ${ssdf.questions.length} SSDF, ${pci.questions.length} PCI DSS, ${crosswalk.controls.length} crosswalk domains, ${soc2.criteria.length} SOC 2 criteria, ${boardMetrics.metrics.length} board metrics, ${runbooks.scenarios.length} runbook scenarios, ${cloudBaseline.controls.length} cloud baseline controls, ${ssdlc.practices.length} SDLC practices, ${automationRoi.categories.length} automation categories, ${trustLibrary.entries.length} trust answers, ${regulations.regulations.length} regulations, ${skillsMatrix.competencies.length} team competencies, ${threatModel.threats.length} AI threats, ${blogPosts.length} blog posts, ${blogBacklog.topics.filter((t) => !blogPosts.some((p) => p.slug === t.slug)).length} unpublished backlog topics.`,
+    `${cmmc.questions.length} 800-171/CMMC, ${cyberEssentials.questions.length} Cyber Essentials, ${ztmm.questions.length} ZTMM, ${ssdf.questions.length} SSDF, ${pci.questions.length} PCI DSS, ${crosswalk.controls.length} crosswalk domains across ${crosswalk.frameworks.filter((f) => f.status === 'mapped').length} mapped frameworks, ${soc2.criteria.length} SOC 2 criteria, ${boardMetrics.metrics.length} board metrics, ${runbooks.scenarios.length} runbook scenarios, ${cloudBaseline.controls.length} cloud baseline controls, ${ssdlc.practices.length} SDLC practices, ${automationRoi.categories.length} automation categories, ${trustLibrary.entries.length} trust answers, ${regulations.regulations.length} regulations, ${skillsMatrix.competencies.length} team competencies, ${threatModel.threats.length} AI threats, ${blogPosts.length} blog posts, ${blogBacklog.topics.filter((t) => !blogPosts.some((p) => p.slug === t.slug)).length} unpublished backlog topics.`,
 );

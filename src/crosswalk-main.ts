@@ -1,18 +1,40 @@
 import crosswalkRaw from './data/crosswalk.json';
-import type { CrosswalkData, FrameworkId } from './lib/crosswalk';
-import { coverage, gapCsv, gapRegister } from './lib/crosswalk';
+import type { CrosswalkData, Framework, FrameworkId } from './lib/crosswalk';
+import {
+  coverage,
+  gapCsv,
+  gapRegister,
+  mappedFrameworks,
+  mappingCsv,
+  pendingFrameworks,
+  signalsFor,
+} from './lib/crosswalk';
 
-const data = crosswalkRaw as CrosswalkData;
+const data = crosswalkRaw as unknown as CrosswalkData;
 
 const STATE_KEY = 'alphabetsoup:crosswalk:state';
 const REGISTER_KEY = 'alphabetsoup:crosswalk:register';
 
-// Framework pages exist on the site for CSF and CIS, so their IDs deep-link;
-// ISO and SOC 2 have no on-site pages and render as plain chips.
-const FRAMEWORK_LINK: Partial<Record<FrameworkId, string>> = {
+// Frameworks with a plain-English browser on this site deep-link from their
+// chips. Everything else renders as a plain chip: a link to a page that does
+// not exist is worse than no link.
+const FRAMEWORK_LINK: Record<string, string> = {
   csf: '../../frameworks/nist-csf/',
   cis: '../../frameworks/cis/',
+  iso: '../../frameworks/iso/',
+  soc2: '../../frameworks/soc2/',
+  airmf: '../../frameworks/ai/',
+  atlas: '../../frameworks/ai/',
+  iso42001: '../../frameworks/ai/',
+  owaspllm: '../../frameworks/ai/',
 };
+
+// The crosswalk cites these two SOC 2 criteria, but Processing Integrity is
+// deliberately not enumerated on this site, so a link would search for nothing.
+const UNLINKED_CODES = new Set(['PI1.2', 'PI1.3']);
+
+const MAPPED = mappedFrameworks(data);
+const PENDING = pendingFrameworks(data);
 
 interface RegisterEntry {
   id: string;
@@ -22,9 +44,17 @@ interface RegisterEntry {
   savedAt: string;
 }
 
-const allFrameworkIds = data.frameworks.map((f) => f.id);
+const allFrameworkIds = MAPPED.map((f) => f.id);
+/**
+ * The scope opens on the core catalogs rather than on all 32 frameworks. Every
+ * framework in scope adds a chip row to all 45 domains, and a first screen
+ * showing several hundred identifiers teaches nothing. The family presets are
+ * one click away.
+ */
+const DEFAULT_SCOPE = MAPPED.filter((f) => f.family === 'core').map((f) => f.id);
+
 let implemented = new Set<string>();
-let scope = new Set<FrameworkId>(allFrameworkIds);
+let scope = new Set<FrameworkId>(DEFAULT_SCOPE);
 
 const $ = <T extends HTMLElement = HTMLElement>(sel: string) => document.querySelector(sel) as T;
 
@@ -54,6 +84,9 @@ function loadState(): void {
       implemented = new Set(storedImpl.filter((x): x is string => typeof x === 'string' && validIds.has(x)));
     }
     if (Array.isArray(storedScope)) {
+      // A saved scope can name a framework that has since been renamed, so it
+      // is filtered rather than trusted. An empty result falls back to the
+      // default instead of leaving the tool with nothing to measure against.
       const next = storedScope.filter((x): x is FrameworkId => allFrameworkIds.includes(x as FrameworkId));
       if (next.length > 0) scope = new Set(next);
     }
@@ -64,17 +97,42 @@ function loadState(): void {
 
 // ------------------------------- scope --------------------------------
 
+function frameworkTitle(f: Framework): string {
+  const version = f.version ? ` (${f.version})` : '';
+  return `${f.name}${version}. Mapped at the level of ${f.unit}. ${f.note}`;
+}
+
 function renderScope(): void {
   const host = $('#scope');
-  host.innerHTML = data.frameworks
-    .map(
-      (f) => `
-      <label class="cw-scope-opt${scope.has(f.id) ? ' selected' : ''}">
-        <input type="checkbox" value="${f.id}" ${scope.has(f.id) ? 'checked' : ''} />
-        ${esc(f.short)} <span class="cw-scope-name">${f.total}</span>
-      </label>`,
-    )
+  host.innerHTML = data.meta.families
+    .filter((family) => MAPPED.some((f) => f.family === family.id))
+    .map((family) => {
+      const members = MAPPED.filter((f) => f.family === family.id);
+      return `
+      <div class="cw-family" data-family="${family.id}">
+        <div class="cw-family-head">
+          <h3 class="cw-family-name">${esc(family.name)}</h3>
+          <button type="button" class="cw-btn cw-btn-quiet cw-family-toggle" data-family="${family.id}"
+                  aria-label="Select every framework under ${esc(family.name)}">
+            Select all
+          </button>
+        </div>
+        <p class="cw-family-blurb">${esc(family.blurb)}</p>
+        <div class="cw-scope-opts">
+          ${members
+            .map(
+              (f) => `
+            <label class="cw-scope-opt${scope.has(f.id) ? ' selected' : ''}" title="${esc(frameworkTitle(f))}">
+              <input type="checkbox" value="${f.id}" ${scope.has(f.id) ? 'checked' : ''} />
+              ${esc(f.short)} <span class="cw-scope-name">${f.total}</span>
+            </label>`,
+            )
+            .join('')}
+        </div>
+      </div>`;
+    })
     .join('');
+
   host.addEventListener('change', (event) => {
     const input = event.target as HTMLInputElement;
     if (input.type !== 'checkbox') return;
@@ -82,43 +140,121 @@ function renderScope(): void {
     if (input.checked) scope.add(id);
     else scope.delete(id);
     input.closest('.cw-scope-opt')?.classList.toggle('selected', input.checked);
-    persistState();
-    renderResult();
-    syncControlChips();
+    afterScopeChange();
   });
+
+  // A family button selects the whole family, or clears it when it is already
+  // fully selected, so the same control both adds and removes.
+  host.addEventListener('click', (event) => {
+    const button = (event.target as HTMLElement).closest<HTMLButtonElement>('.cw-family-toggle');
+    if (!button) return;
+    const members = MAPPED.filter((f) => f.family === button.dataset.family);
+    const allOn = members.every((f) => scope.has(f.id));
+    for (const f of members) {
+      if (allOn) scope.delete(f.id);
+      else scope.add(f.id);
+    }
+    renderScopeSelection();
+    afterScopeChange();
+  });
+
+  $('#scope-all').addEventListener('click', () => {
+    scope = new Set(allFrameworkIds);
+    renderScopeSelection();
+    afterScopeChange();
+  });
+  $('#scope-core').addEventListener('click', () => {
+    scope = new Set(DEFAULT_SCOPE);
+    renderScopeSelection();
+    afterScopeChange();
+  });
+}
+
+function afterScopeChange(): void {
+  persistState();
+  renderScopeSummary();
+  renderResult();
+  syncControlChips();
+}
+
+function renderScopeSummary(): void {
+  const count = scope.size;
+  const requirements = MAPPED.filter((f) => scope.has(f.id)).reduce((sum, f) => sum + f.total, 0);
+  $('#scope-summary').textContent =
+    count === 0
+      ? 'No frameworks selected'
+      : `${count} framework${count === 1 ? '' : 's'} in scope, ${requirements} mapped requirements`;
+}
+
+function renderPending(): void {
+  if (PENDING.length === 0) return;
+  $('#pending').innerHTML = PENDING.map(
+    (f) => `
+    <li class="cw-pending-item">
+      <span class="cw-pending-name">${esc(f.name)}</span>
+      <span class="cw-pending-kind">${esc(f.kind)}</span>
+      <p class="cw-pending-note">${esc(f.note)}</p>
+    </li>`,
+  ).join('');
 }
 
 // ------------------------------ controls ------------------------------
 
 function chipFor(fid: FrameworkId, code: string): string {
   const base = FRAMEWORK_LINK[fid];
-  if (base) {
+  if (base && !UNLINKED_CODES.has(code)) {
     return `<a class="cw-chip" href="${base}?q=${encodeURIComponent(code)}" title="Read ${esc(code)} in plain English">${esc(code)}</a>`;
   }
   return `<span class="cw-chip">${esc(code)}</span>`;
 }
 
 function mapsHtml(control: CrosswalkData['controls'][number]): string {
-  return data.frameworks
-    .filter((f) => scope.has(f.id))
+  const rows = MAPPED.filter((f) => scope.has(f.id))
     .map((f) => {
       const codes = control.mappings[f.id] ?? [];
       if (codes.length === 0) return '';
       return `
         <div class="cw-map-row">
-          <span class="cw-map-label">${esc(f.short)}</span>
+          <span class="cw-map-label" title="${esc(frameworkTitle(f))}">${esc(f.short)}</span>
           ${codes.map((c) => chipFor(f.id, c)).join(' ')}
         </div>`;
     })
     .join('');
+
+  const signals = signalsFor(data, control.id);
+  const signalRow =
+    signals.length === 0
+      ? ''
+      : `
+        <div class="cw-map-row cw-signal-row">
+          <span class="cw-map-label" title="Feeds and reference data consulted in this domain. Not scored as coverage.">Feeds</span>
+          ${signals
+            .map((s) =>
+              s.url
+                ? `<a class="cw-chip cw-chip-signal" href="${s.url}" rel="noopener" title="${esc(s.what)}">${esc(s.short)}</a>`
+                : `<span class="cw-chip cw-chip-signal" title="${esc(s.what)}">${esc(s.short)}</span>`,
+            )
+            .join(' ')}
+        </div>`;
+
+  return rows + signalRow;
 }
 
 function renderControls(): void {
   const host = $('#controls');
-  host.innerHTML = data.controls
-    .map((c) => {
-      const done = implemented.has(c.id);
-      return `
+  const groupName = new Map(data.meta.groups.map((g) => [g.id, g.name]));
+  let currentGroup = '';
+  const parts: string[] = [];
+
+  for (const c of data.controls) {
+    if (c.group !== currentGroup) {
+      currentGroup = c.group;
+      parts.push(
+        `<li class="cw-group-head" role="presentation">${esc(groupName.get(c.group) ?? c.group)}</li>`,
+      );
+    }
+    const done = implemented.has(c.id);
+    parts.push(`
       <li class="cw-control${done ? ' done' : ''}" data-id="${c.id}">
         <input type="checkbox" ${done ? 'checked' : ''} aria-label="We run: ${esc(c.domain)}" />
         <div class="cw-control-body">
@@ -126,9 +262,9 @@ function renderControls(): void {
           <p class="cw-control-summary">${esc(c.summary)}</p>
           <div class="cw-maps">${mapsHtml(c)}</div>
         </div>
-      </li>`;
-    })
-    .join('');
+      </li>`);
+  }
+  host.innerHTML = parts.join('');
 
   host.addEventListener('change', (event) => {
     const input = event.target as HTMLInputElement;
@@ -184,7 +320,7 @@ function renderResult(): void {
       (row) => `
       <div class="cw-cov-row">
         <div class="cw-cov-top">
-          <span class="cw-cov-name">${esc(row.framework.name)}</span>
+          <span class="cw-cov-name" title="${esc(frameworkTitle(row.framework))}">${esc(row.framework.name)}</span>
           <span class="cw-cov-num">${row.covered} / ${row.total} &middot; ${row.pct}%</span>
         </div>
         <div class="cw-cov-track"><div class="cw-cov-fill" style="width:${row.pct}%"></div></div>
@@ -192,11 +328,12 @@ function renderResult(): void {
     )
     .join('');
 
-  const scoped = data.frameworks.filter((f) => scope.has(f.id));
+  const scoped = MAPPED.filter((f) => scope.has(f.id));
   const gapTable =
     gaps.length === 0
       ? '<p class="cw-empty">No gaps for the selected frameworks.</p>'
       : `
+      <div class="cw-gap-scroll">
       <table class="cw-gap-table">
         <thead>
           <tr>
@@ -217,7 +354,8 @@ function renderResult(): void {
             )
             .join('')}
         </tbody>
-      </table>`;
+      </table>
+      </div>`;
 
   panel.innerHTML = `
     <h3 class="cw-section-head" style="margin-top:0;">Coverage</h3>
@@ -230,12 +368,16 @@ function renderResult(): void {
       <input id="profile-name" type="text" placeholder="Name this program (e.g. Acme prod environment)" aria-label="Program name" />
       <button type="button" class="cw-btn cw-btn-primary" id="save-profile">Save profile</button>
       <button type="button" class="cw-btn" id="export-gaps"${gaps.length === 0 ? ' disabled' : ''}>Export gaps as CSV</button>
+      <button type="button" class="cw-btn" id="export-mapping">Export full mapping as CSV</button>
       <button type="button" class="cw-btn" id="print-result">Print</button>
     </div>`;
 
   $('#export-gaps').addEventListener('click', () => {
     if (gaps.length === 0) return;
     download(gapCsv(data, gaps, scope), 'crosswalk-gap-register.csv', 'text/csv');
+  });
+  $('#export-mapping').addEventListener('click', () => {
+    download(mappingCsv(data, scope), 'crosswalk-mapping.csv', 'text/csv');
   });
   $('#print-result').addEventListener('click', () => window.print());
   $('#save-profile').addEventListener('click', () => {
@@ -345,11 +487,12 @@ function initRegister(): void {
     }
     const validIds = new Set(data.controls.map((c) => c.id));
     implemented = new Set(entry.implemented.filter((x) => validIds.has(x)));
-    const nextScope = entry.scope?.filter((x) => allFrameworkIds.includes(x)) ?? allFrameworkIds;
-    scope = new Set(nextScope.length > 0 ? nextScope : allFrameworkIds);
+    const nextScope = entry.scope?.filter((x) => allFrameworkIds.includes(x)) ?? DEFAULT_SCOPE;
+    scope = new Set(nextScope.length > 0 ? nextScope : DEFAULT_SCOPE);
     persistState();
     renderScopeSelection();
     renderControlsSelection();
+    renderScopeSummary();
     syncControlChips();
     renderResult();
     $('#main').scrollIntoView({ behavior: 'smooth' });
@@ -384,7 +527,10 @@ function renderControlsSelection(): void {
 
 loadState();
 $('#domain-count').textContent = String(data.controls.length);
+$('#framework-count').textContent = String(MAPPED.length);
 renderScope();
+renderScopeSummary();
+renderPending();
 renderControls();
 renderResult();
 renderRegister();
