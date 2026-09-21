@@ -11,7 +11,7 @@ permissions:
 jobs:
   link-check:
     runs-on: ubuntu-latest
-    # Checks a few hundred outbound URLs; normally about 100 seconds.
+    # Checks around 600 outbound URLs, every one cited in src/data; ~2 minutes.
     timeout-minutes: 10
     steps:
       - uses: actions/checkout@v7

@@ -627,7 +627,7 @@
         },
         {
           "name": "DFARS 252.204-7012 (Acquisition.gov)",
-          "url": "https://www.acquisition.gov/dfars/252.204-7012-safeguarding-covered-defense-information-and-cyber-incident-reporting"
+          "url": "https://www.acquisition.gov/dfars/252.204-7012-safeguarding-covered-defense-information-and-cyber-incident-reporting."
         }
       ],
       "caveat": "NIST SP 800-171 is a standard applied through contract, not a freestanding law; it governs when a federal contract invokes it for controlled unclassified information, so holding CUI outside any such contract may not trigger it."
@@ -710,8 +710,8 @@
           "url": "https://www.congress.gov/bill/107th-congress/house-bill/3763"
         },
         {
-          "name": "SEC Implementation of SOX",
-          "url": "https://www.sec.gov/rules-regulations/sarbanes-oxley-section-404"
+          "name": "SEC Final Rule 33-8238 (SOX 404 implementation)",
+          "url": "https://www.sec.gov/rules/final/33-8238.htm"
         }
       ],
       "caveat": "Most SOX obligations apply to SEC-reporting public companies; a few provisions reach private companies, and the external auditor attestation requirement depends on filer status, so smaller reporting companies may be partly exempt."
@@ -794,8 +794,8 @@
           "url": "https://www.ilga.gov/legislation/ilcs/ilcs3.asp?ActID=3004&ChapterID=57"
         },
         {
-          "name": "Illinois Attorney General Consumer Privacy",
-          "url": "https://illinoisattorneygeneral.gov/consumers/privacy.html"
+          "name": "Illinois Attorney General Consumer Protection",
+          "url": "https://illinoisattorneygeneral.gov/consumer-protection/"
         }
       ],
       "caveat": "BIPA is Illinois-specific but the most litigated biometric law due to its private right of action; other states such as Texas and Washington have their own biometric laws with different enforcement, so scope depends on where your subjects are located."

@@ -23,7 +23,7 @@ Everything runs client-side: there is no backend and no account. Progress (quiz 
 - **Homepage** ([index.html](index.html) + [src/main.ts](src/main.ts)): instant ranked search, category pills, A-Z browsing, a date-seeded "Soup of the Day", and paged results ("Show more"). Queries that match a framework control or a quiz deck also surface cross-section hits.
 - **Generated pages**: `npm run build` runs Vite, then [scripts/generate-pages.ts](scripts/generate-pages.ts) renders SEO-friendly static pages: one per acronym (`dist/definitions/<slug>.html`), one per CSF subcategory, and one per CIS safeguard (804 total), each with canonical URL, Open Graph tags, JSON-LD, and cross-links. Every acronym also gets a per-term 1200x630 social image (rendered at build with satori and resvg) so shared links unfurl with the term and its expansion. It also emits redirects for every legacy URL from the old hand-written site, `sitemap.xml`, and `robots.txt`.
 - **Framework, quiz, assess, and roadmap pages**: each is an additional Vite entry sharing `style.css` with its own accent theme.
-- **Data** ([src/data/](src/data/)): `acronyms.json`, `nist-csf.json`, `cis.json`, the `csf-cis-map.json` crosswalk, and the `quiz/` decks, all fact-checked. `npm run validate:data` enforces the schemas, including exact CSF (106) and CIS (153) completeness and the mapping's integrity; `npm run check:links` verifies every acronym source URL (also runs weekly in CI).
+- **Data** ([src/data/](src/data/)): `acronyms.json`, `nist-csf.json`, `cis.json`, the `csf-cis-map.json` crosswalk, and the `quiz/` decks, all fact-checked. `npm run validate:data` enforces the schemas, including exact CSF (106) and CIS (153) completeness and the mapping's integrity; `npm run check:links` verifies every source URL cited anywhere in `src/data/`, affiliate links excepted (also runs weekly in CI).
 
 ## Development
 
@@ -32,7 +32,7 @@ npm install
 npm run dev            # local dev server (interactive pages; generated pages are built by npm run build)
 npm test               # Vitest unit tests (search, slugs/redirects, frameworks, quiz, assessment, roadmap)
 npm run validate:data  # dataset schema + completeness + mapping validation
-npm run check:links    # verify every acronym source URL resolves
+npm run check:links    # verify every cited source URL in src/data resolves
 npm run build          # typecheck + Vite build + generate 804 static pages into dist/
 npm run test:e2e       # Playwright end-to-end tests (run npm run build first)
 npm run shots          # capture every page (light/dark, desktop/mobile) to ./shots for visual review
