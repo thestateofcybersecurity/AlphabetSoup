@@ -284,7 +284,7 @@
     "sources": [
       {
         "name": "OWASP API Security Project",
-        "url": "https://owasp.org/www-project-api-security/"
+        "url": "https://api-security.owasp.org/"
       }
     ],
     "related": [
@@ -404,7 +404,7 @@
     "sources": [
       {
         "name": "OWASP ASVS",
-        "url": "https://owasp.org/www-project-application-security-verification-standard/"
+        "url": "https://owasp.org/projects/asvs"
       }
     ],
     "related": [
@@ -650,7 +650,7 @@
     "sources": [
       {
         "name": "OWASP API Security Project",
-        "url": "https://owasp.org/www-project-api-security/"
+        "url": "https://api-security.owasp.org/"
       }
     ],
     "related": [
@@ -1293,7 +1293,7 @@
     "sources": [
       {
         "name": "OWASP Top 10 CI/CD Security Risks",
-        "url": "https://owasp.org/www-project-top-10-ci-cd-security-risks/"
+        "url": "https://owasp.github.io/www-project-top-10-ci-cd-security-risks/"
       }
     ],
     "related": [
@@ -4567,7 +4567,7 @@
     "sources": [
       {
         "name": "OWASP WSTG: Testing for HTTP Parameter Pollution",
-        "url": "https://owasp.org/www-project-web-security-testing-guide/stable/4-Web_Application_Security_Testing/07-Input_Validation_Testing/04-Testing_for_HTTP_Parameter_Pollution"
+        "url": "https://github.com/OWASP/wstg/blob/master/document/4-Web_Application_Security_Testing/07-Injection/04-HTTP_Parameter_Pollution.md"
       }
     ],
     "related": [
@@ -5644,8 +5644,8 @@
     "explanation": "Local File Inclusion occurs when a web application can be tricked into loading files from the server's own filesystem that were never meant to be exposed. Attackers use it to read configuration files, credentials, or source code, and in some cases escalate it to code execution. It stems from building file paths out of untrusted user input.",
     "sources": [
       {
-        "name": "OWASP WSTG: Testing for Local File Inclusion",
-        "url": "https://owasp.org/www-project-web-security-testing-guide/stable/4-Web_Application_Security_Testing/07-Input_Validation_Testing/11.1-Testing_for_Local_File_Inclusion"
+        "name": "OWASP WSTG: Testing for File Inclusion",
+        "url": "https://github.com/OWASP/wstg/blob/master/document/4-Web_Application_Security_Testing/07-Injection/11.1-File_Inclusion.md"
       }
     ],
     "related": [
@@ -8014,8 +8014,8 @@
     "metaDescription": "Remote File Inclusion is a web flaw where an application can be made to fetch and execute a file hosted on an attacker-controlled server.",
     "sources": [
       {
-        "name": "OWASP WSTG: Testing for Remote File Inclusion",
-        "url": "https://owasp.org/www-project-web-security-testing-guide/stable/4-Web_Application_Security_Testing/07-Input_Validation_Testing/11.2-Testing_for_Remote_File_Inclusion"
+        "name": "OWASP WSTG: Testing for File Inclusion",
+        "url": "https://github.com/OWASP/wstg/blob/master/document/4-Web_Application_Security_Testing/07-Injection/11.1-File_Inclusion.md"
       }
     ],
     "related": [
@@ -9450,7 +9450,7 @@
     "sources": [
       {
         "name": "OWASP WSTG: Testing for Server-side Template Injection",
-        "url": "https://owasp.org/www-project-web-security-testing-guide/v42/4-Web_Application_Security_Testing/07-Input_Validation_Testing/18-Testing_for_Server-side_Template_Injection"
+        "url": "https://github.com/OWASP/wstg/blob/master/document/4-Web_Application_Security_Testing/07-Injection/18-Server-side_Template_Injection.md"
       }
     ],
     "related": [
