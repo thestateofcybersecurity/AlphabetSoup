@@ -1,32 +1,46 @@
-import { readFileSync } from 'node:fs';
+import { readFileSync, readdirSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
+import { basename, join } from 'node:path';
 import { checkUrl, shouldFail, summarize, type CheckResult } from '../src/lib/link-check';
-import type { AcronymData } from '../src/lib/types';
+import { affiliateHosts, collectUrls, type Document } from '../src/lib/link-sources';
 
 /**
- * Checks every source URL cited by the acronym dataset.
+ * Checks every source URL cited anywhere in src/data.
  *
  * Broken links fail the build. Links that could not be reached are reported as
  * warnings instead, because a connection reset from a CI runner says something
  * about the network path rather than about the link. See src/lib/link-check.ts
- * for why that distinction was worth making.
+ * for why that distinction was worth making, and src/lib/link-sources.ts for
+ * how the URLs are found and why affiliate links are left out.
  */
 
-const dataPath = fileURLToPath(new URL('../src/data/acronyms.json', import.meta.url));
-const data = JSON.parse(readFileSync(dataPath, 'utf8')) as AcronymData;
+const dataDir = fileURLToPath(new URL('../src/data', import.meta.url));
 
-const urlOwners = new Map<string, string[]>();
-for (const [key, entry] of Object.entries(data)) {
-  for (const source of entry.sources) {
-    const owners = urlOwners.get(source.url) ?? [];
-    owners.push(key);
-    urlOwners.set(source.url, owners);
-  }
+/** Every .json under src/data, including the quiz subdirectory. */
+function dataFiles(dir: string): string[] {
+  return readdirSync(dir, { withFileTypes: true }).flatMap((entry) => {
+    const path = join(dir, entry.name);
+    if (entry.isDirectory()) return dataFiles(path);
+    return entry.isFile() && entry.name.endsWith('.json') ? [path] : [];
+  });
 }
+
+const paths = dataFiles(dataDir).sort();
+const documents: Document[] = paths.map((path) => ({
+  file: basename(path),
+  data: JSON.parse(readFileSync(path, 'utf8')) as unknown,
+}));
+
+const affiliates = documents.find((d) => d.file === 'affiliates.json');
+const hosts = affiliateHosts(affiliates?.data ?? {});
+const { owners: urlOwners, skipped } = collectUrls(documents, hosts);
 
 const CONCURRENCY = 10;
 const urls = [...urlOwners.keys()];
-console.log(`Checking ${urls.length} unique source URLs...`);
+console.log(`Checking ${urls.length} unique source URLs across ${documents.length} data files...`);
+if (skipped.length > 0) {
+  console.log(`  (${skipped.length} affiliate links skipped: they are paid click trackers)`);
+}
 
 const results: CheckResult[] = [];
 for (let i = 0; i < urls.length; i += CONCURRENCY) {
