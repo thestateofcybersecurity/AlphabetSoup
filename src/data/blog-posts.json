@@ -3253,5 +3253,166 @@
         "href": "/?q=DMZ"
       }
     ]
+  },
+  {
+    "slug": "iso-27001-annex-a-tour",
+    "title": "A Tour of ISO 27001 Annex A, Theme by Theme",
+    "description": "Annex A's 93 controls aren't a to-do list. What the 2022 themes changed, and why the justification column is the whole Statement of Applicability.",
+    "category": "Explainer",
+    "author": "Parker Brissette",
+    "date": "2026-09-21",
+    "readingMinutes": 6,
+    "tags": [
+      "iso 27001",
+      "annex a",
+      "isms",
+      "compliance",
+      "audit"
+    ],
+    "body": [
+      {
+        "type": "p",
+        "text": "Annex A isn't a set of requirements. It's a list you're required to have an opinion about."
+      },
+      {
+        "type": "p",
+        "text": "That's clause 6.1.3 d) of [ISO 27001](/frameworks/iso/), and it's the clause that gets skipped. The 93 controls get pasted into a spreadsheet, every row gets marked applicable because marking one inapplicable feels risky, and the company signs up for 93 controls it never actually chose."
+      },
+      {
+        "type": "p",
+        "text": "A row in a Statement of Applicability has about five fields. They usually arrive looking like this:"
+      },
+      {
+        "type": "quote",
+        "text": "A.5.23 | Information security for use of cloud services | Applicable | Partially implemented | See cloud policy"
+      },
+      {
+        "type": "p",
+        "text": "Four of those fields are doing no work. I only care about one of them."
+      },
+      {
+        "type": "h2",
+        "text": "93 controls is 114 controls with the duplicates merged"
+      },
+      {
+        "type": "p",
+        "text": "The 2013 edition had 114 controls across 14 clauses, A.5 through A.18. The 2022 edition has 93 across four themes. Eleven of the 93 are genuinely new, and most of the rest of the drop is merging."
+      },
+      {
+        "type": "p",
+        "text": "So the count went down. I haven't watched the work go down with it."
+      },
+      {
+        "type": "p",
+        "text": "A.5.18 Access rights is three of the old controls stacked into one row: provisioning, periodic review, and removal when somebody leaves. One row, three separate piles of evidence behind it. Anyone who told you the 2022 revision would make recertification lighter was reading the table of contents, not the annex."
+      },
+      {
+        "type": "p",
+        "text": "The transition window is closed, by the way. The four themes landed in 2022, and certificates issued against the 2013 edition stopped being valid on 31 October 2025. A 14-clause control mapping you inherited from a predecessor is a historical document now."
+      },
+      {
+        "type": "h2",
+        "text": "The four themes sort the rows. They don't rank them."
+      },
+      {
+        "type": "p",
+        "text": "Organizational is 37 controls. Technological is 34. Physical is 14 and People is 8. That's your 93."
+      },
+      {
+        "type": "p",
+        "text": "The themes are a filing decision. They tell you which department ends up owning a row, which genuinely helps when you're handing out work, and they tell you nothing about what to do first."
+      },
+      {
+        "type": "p",
+        "text": "ISO 27002:2022 is where the sorting actually lives. Every control there carries attributes, including control type, the security properties it touches, and operational capability. Filter by operational capability and you get a work plan. Filter by theme and you get an org chart. I build mine by capability."
+      },
+      {
+        "type": "p",
+        "text": "I don't much care which view you build your spreadsheet in. Pick one and stop re-sorting it."
+      },
+      {
+        "type": "p",
+        "text": "The People theme has 8 rows, and that number always lands wrong. Eight controls covering screening, employment terms, awareness, the disciplinary process, what happens after someone leaves, confidentiality agreements, remote work, and event reporting. Shortest theme, most findings. Every one of those rows is a record HR has to produce, and HR doesn't report to you."
+      },
+      {
+        "type": "h2",
+        "text": "The justification column is the whole document"
+      },
+      {
+        "type": "p",
+        "text": "You're allowed to exclude a control. You just have to say why, in writing, in a column a stranger is going to read."
+      },
+      {
+        "type": "p",
+        "text": "What I keep seeing is that column filled in last, at the end of an afternoon, by copy and paste. It's also the first column an auditor opens. They can already see which controls you claim. What they're reading for is whether anybody thought about it."
+      },
+      {
+        "type": "p",
+        "text": "This is the hill I'll die on. \"Not applicable, we hold no owned premises and all staff are remote\" is a perfectly good exclusion for most of the Physical theme, because it's a fact somebody can check. \"Covered by other controls\" is not an exclusion. It's a promise to have a worse conversation in six months, and I keep watching that conversation happen."
+      },
+      {
+        "type": "p",
+        "text": "Same logic for A.8.28 Secure coding at a company that writes no code. Say exactly that, name the [SaaS](/?q=SaaS) you buy instead, and move on."
+      },
+      {
+        "type": "h2",
+        "text": "The eleven new controls are where the SoAs go vague"
+      },
+      {
+        "type": "p",
+        "text": "These are the 2022 additions:"
+      },
+      {
+        "type": "list",
+        "items": [
+          "A.5.7 Threat intelligence.",
+          "A.5.23 Information security for use of cloud services.",
+          "A.5.30 ICT readiness for business continuity.",
+          "A.7.4 Physical security monitoring.",
+          "A.8.9 Configuration management, A.8.10 Information deletion, A.8.11 Data masking, and A.8.12 Data leakage prevention, which arrived together and get answered together, usually by pointing at one [DLP](/?q=DLP) product that only covers email.",
+          "A.8.16 Monitoring activities.",
+          "A.8.23 Web filtering.",
+          "A.8.28 Secure coding."
+        ]
+      },
+      {
+        "type": "p",
+        "text": "A.5.23 is the one I argue about. It reads like a procurement control, so it gets answered with a vendor questionnaire, and then nobody looks at the actual tenant configuration. If your SoA says A.5.23 is implemented and you can't tell me who is able to create an admin role in production, it isn't implemented."
+      },
+      {
+        "type": "p",
+        "text": "A.5.7 I'm less certain about. I don't know what proportionate threat intelligence looks like at a 40-person company, and I've watched that row get satisfied with a feed subscription nobody reads. If you've made it work at that size, I'd like to hear how."
+      },
+      {
+        "type": "p",
+        "text": "If you're the one handing this spreadsheet to a certification body in three weeks, I wouldn't start at A.5.1 and work down. Sort by what you already hold evidence for and fill those rows first. Then spend the time that's left on the exclusions and on those eleven, because those are the rows that get questioned."
+      },
+      {
+        "type": "p",
+        "text": "If Annex A is landing on top of something you already run, [the crosswalk](/tools/crosswalk/) maps the overlap so you aren't rebuilding a control set you own. A [self-assessment](/assess/) gets you the evidence column before you touch the justification one."
+      },
+      {
+        "type": "p",
+        "text": "93 rows. Maybe 60 of them are already true at your company. The document's job is to prove you know which."
+      }
+    ],
+    "related": [
+      {
+        "label": "ISO 27001 framework page",
+        "href": "/frameworks/iso/"
+      },
+      {
+        "label": "Map Annex A against your other frameworks",
+        "href": "/tools/crosswalk/"
+      },
+      {
+        "label": "ISMS in the glossary",
+        "href": "/?q=ISMS"
+      },
+      {
+        "label": "Run a control self-assessment",
+        "href": "/assess/"
+      }
+    ]
   }
 ]
