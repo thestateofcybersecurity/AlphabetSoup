@@ -3414,5 +3414,189 @@
         "href": "/assess/"
       }
     ]
+  },
+  {
+    "slug": "pdpa-across-asia-pacific",
+    "title": "PDPA Is Not One Law: Singapore, Thailand, and Malaysia Compared",
+    "description": "Singapore, Thailand, and Malaysia each have a PDPA. How their breach clocks, DPO rules, consent, and fines differ, and which one to build a program to.",
+    "category": "Explainer",
+    "author": "Parker Brissette",
+    "date": "2026-09-24",
+    "readingMinutes": 6,
+    "tags": [
+      "pdpa",
+      "privacy",
+      "singapore",
+      "thailand",
+      "malaysia"
+    ],
+    "body": [
+      {
+        "type": "p",
+        "text": "PDPA isn't one law. It's three, and the one most regional programs forget is Malaysia's."
+      },
+      {
+        "type": "p",
+        "text": "Singapore's [PDPA](/?q=PDPA) passed in 2012. Thailand's passed in 2019 and only became fully enforceable on June 1, 2022. Malaysia's is the oldest, from 2010, and it's the one that changed most in the last two years. Same four letters, three regulators, three penalty schedules."
+      },
+      {
+        "type": "p",
+        "text": "I keep seeing regional privacy plans that treat Singapore and Thailand as the two real laws and Malaysia as a footnote. That was a defensible shortcut in 2023. It isn't now."
+      },
+      {
+        "type": "p",
+        "text": "So here's the question worth working through. If you operate in all three, which one do you build the program to?"
+      },
+      {
+        "type": "h2",
+        "text": "Which one covers you at all?"
+      },
+      {
+        "type": "p",
+        "text": "The first thing I check is scope, because it splits before any duty does. Thailand reaches controllers abroad that sell to or monitor people in Thailand. That's [GDPR](/?q=GDPR) Article 3 almost word for word. Singapore covers private-sector organizations and leaves public agencies to a separate act."
+      },
+      {
+        "type": "p",
+        "text": "Malaysia's act applies to personal data processed in commercial transactions. Federal and state governments sit outside it entirely."
+      },
+      {
+        "type": "p",
+        "text": "That last one matters for anyone selling into Malaysian public-sector accounts, because your customer isn't bound by the same statute you are."
+      },
+      {
+        "type": "h2",
+        "text": "Whose breach clock is shortest?"
+      },
+      {
+        "type": "p",
+        "text": "Closer than they used to be."
+      },
+      {
+        "type": "p",
+        "text": "Thailand gives you 72 hours from awareness to notify its PDPC, unless the breach is unlikely to put anyone at risk. Singapore's mandatory notification has been live since February 1, 2021. You get up to 30 days to decide whether a breach is notifiable (significant harm, or 500 or more people). Then it's 3 calendar days to tell the PDPC."
+      },
+      {
+        "type": "p",
+        "text": "Malaysia had no mandatory notification at all until June 1, 2025, when the third phase of its 2024 amendments took effect. Now it's 72 hours to the Commissioner, and notice to affected people within 7 days where there's significant harm."
+      },
+      {
+        "type": "p",
+        "text": "I'd run all three off one 72-hour clock that starts at awareness. Singapore's assessment window is legal, and I still don't want an incident process that reads like it has a month of slack in it. Put the lookup in your [incident runbook](/tools/runbook/) at the severity call, not in an appendix."
+      },
+      {
+        "type": "h2",
+        "text": "Can one DPO cover all three?"
+      },
+      {
+        "type": "p",
+        "text": "No. This is the part I'll argue about."
+      },
+      {
+        "type": "p",
+        "text": "Singapore wants every organization to designate at least one [DPO](/?q=DPO), with no size threshold, and doesn't care where that person sits. Thailand requires one only when your core activities involve regular large-scale monitoring or sensitive data, or you're a public authority, and it's fine with outsourcing the role."
+      },
+      {
+        "type": "p",
+        "text": "Malaysia's June 2025 phase made a DPO mandatory past 20,000 people's personal data, or 10,000 people's sensitive data, or with regular and systematic monitoring. The Commissioner's guideline then wants that DPO resident in Malaysia for at least 180 days a year. They also need to work in both Bahasa Malaysia and English. A regional privacy lead in Singapore with three flags on their email signature doesn't clear that bar for the third flag."
+      },
+      {
+        "type": "p",
+        "text": "Whether the regional lead sits in Singapore or Bangkok, I honestly don't care. Pick whoever will actually answer a regulator's email on a Friday."
+      },
+      {
+        "type": "h2",
+        "text": "Does consent travel?"
+      },
+      {
+        "type": "p",
+        "text": "This is where the three really split."
+      },
+      {
+        "type": "p",
+        "text": "Thailand has GDPR-style lawful bases in Section 24, including contract and legitimate interest, so consent is one option among several. Singapore starts from consent and widened it in 2021 with deemed consent by notification and a legitimate interests exception. Malaysia is still consent first, with a short list of exceptions in section 6 and no general legitimate interest basis. (Its notice also has to go out in both Bahasa Malaysia and English under section 7(3), which an English-only regional template quietly fails.)"
+      },
+      {
+        "type": "p",
+        "text": "Transfers are where I keep seeing GDPR clauses pasted in unchanged. Singapore's Transfer Limitation Obligation wants a comparable standard of protection, usually shown by contract, binding corporate rules, or APEC CBPR certification. Thailand's Section 28 wants the destination to meet the PDPC's adequacy standard, with safeguards like BCRs as the fallback. Malaysia's 2024 amendments dropped the ministerial whitelist and now ask whether the destination has a substantially similar law or adequate protection."
+      },
+      {
+        "type": "h2",
+        "text": "What does getting it wrong cost?"
+      },
+      {
+        "type": "list",
+        "items": [
+          "**Singapore**: up to 10% of annual Singapore turnover for organizations above S$10 million, otherwise up to S$1 million. The turnover cap has applied since October 1, 2022.",
+          "**Thailand**: administrative fines up to THB 5 million, criminal penalties that include prison for some misuse of sensitive data, and punitive damages up to twice actual damages.",
+          "**Malaysia**: up to RM1 million and 3 years in prison per offense since January 1, 2025."
+        ]
+      },
+      {
+        "type": "p",
+        "text": "Thailand's PDPC has already shown it'll use its numbers. In August 2024 it fined an online IT retailer THB 7 million after a breach, and the missing DPO was part of the finding."
+      },
+      {
+        "type": "p",
+        "text": "Malaysia is my honest unknown. As of September 2026 I haven't seen the Commissioner test the new ceiling in a public case. I can't tell you yet whether RM1 million is a number anyone will actually pay."
+      },
+      {
+        "type": "h2",
+        "text": "So which one do you build to?"
+      },
+      {
+        "type": "p",
+        "text": "Thailand. That's the hill."
+      },
+      {
+        "type": "p",
+        "text": "It's the most GDPR-shaped of the three. A program built on Section 24 lawful bases and a 72-hour clock already clears Singapore's breach timing and most of its consent rules."
+      },
+      {
+        "type": "list",
+        "items": [
+          "A consent-first notice in two languages.",
+          "A resident DPO once you pass 20,000 people.",
+          "A fresh look at processor contracts, since processors picked up a direct security duty in the 2025 phases."
+        ]
+      },
+      {
+        "type": "p",
+        "text": "That's the Malaysia patch list. I'd scope it as its own workstream with its own owner."
+      },
+      {
+        "type": "p",
+        "text": "The build I'd push back on hardest is starting from Singapore. Deemed consent by notification doesn't exist in Malaysia, so every notice gets rewritten anyway, and you've spent the budget twice."
+      },
+      {
+        "type": "p",
+        "text": "If you're taking an APAC privacy plan to the steering committee before Q4 budgets close, that's your slide. Thailand as the base, Malaysia as the patch list, Singapore as the check."
+      },
+      {
+        "type": "p",
+        "text": "The [regulation mapper](/tools/reg-mapper/) doesn't carry any of the three PDPAs yet. It'll still give you the GDPR baseline to diff against, and the [policy generator](/tools/policy-generator/) keeps the bilingual notice from drifting."
+      },
+      {
+        "type": "p",
+        "text": "Three laws, one acronym. Build to the one that's hardest to retrofit."
+      }
+    ],
+    "related": [
+      {
+        "label": "PDPA in the glossary",
+        "href": "/?q=PDPA"
+      },
+      {
+        "label": "DPO in the glossary",
+        "href": "/?q=DPO"
+      },
+      {
+        "label": "GDPR in the glossary",
+        "href": "/?q=GDPR"
+      },
+      {
+        "label": "Map regulations against your controls",
+        "href": "/tools/reg-mapper/"
+      }
+    ]
   }
 ]
