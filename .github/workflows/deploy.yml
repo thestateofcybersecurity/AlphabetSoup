@@ -151,3 +151,39 @@ jobs:
               --body "$body")
             echo "Opened $url"
           fi
+
+  # The other half of notify-failure. That job opens the issue but nothing
+  # closed it, so issue #132 sat open for eleven days after production had
+  # recovered on September 14 2026, reporting a stale site that wasn't stale.
+  # Runs under exactly the opposite condition, so a clean deploy on main
+  # closes any open deploy-failure issue with a link to the run that fixed it.
+  close-failure:
+    if: >-
+      always() && github.event_name != 'pull_request' &&
+      needs.build.result == 'success' &&
+      needs.deploy.result == 'success' &&
+      needs.indexnow.result == 'success'
+    needs: [build, deploy, indexnow]
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    permissions:
+      issues: write
+    steps:
+      - name: Close any open deploy failure issue
+        env:
+          GH_TOKEN: ${{ github.token }}
+          GH_REPO: ${{ github.repository }}
+          RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+          COMMIT_SHA: ${{ github.sha }}
+        run: |
+          set -euo pipefail
+          open=$(gh issue list --label deploy-failure --state open --json number --jq '.[].number' || true)
+          if [ -z "$open" ]; then
+            echo "No open deploy-failure issue"
+            exit 0
+          fi
+          for n in $open; do
+            gh issue close "$n" --reason completed \
+              --comment "Production recovered: $RUN_URL deployed \`$COMMIT_SHA\` successfully. Closing automatically."
+            echo "Closed #$n"
+          done
