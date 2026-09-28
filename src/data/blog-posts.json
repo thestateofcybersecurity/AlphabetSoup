@@ -3598,5 +3598,189 @@
         "href": "/tools/reg-mapper/"
       }
     ]
+  },
+  {
+    "slug": "scim-provisioning-explained",
+    "title": "SCIM: Automating Joiners, Movers, and Leavers",
+    "description": "SSO stops the next login. It doesn't remove accounts. How SCIM handles joiners, movers, and leavers, and maps to CIS Controls 5.1, 5.3, 6.1, and 6.2.",
+    "category": "Explainer",
+    "author": "Parker Brissette",
+    "date": "2026-09-28",
+    "readingMinutes": 5,
+    "tags": [
+      "scim",
+      "identity",
+      "provisioning",
+      "iam",
+      "cis-controls"
+    ],
+    "body": [
+      {
+        "type": "p",
+        "text": "SSO isn't offboarding. That's the hill."
+      },
+      {
+        "type": "p",
+        "text": "The take I hear from small IT teams is that once every app sits behind Okta or Entra ID, you disable the person in one place and the leaver is handled."
+      },
+      {
+        "type": "p",
+        "text": "It's half right."
+      },
+      {
+        "type": "p",
+        "text": "The other half is how an ex-employee keeps an account in a gradebook app for a year."
+      },
+      {
+        "type": "p",
+        "text": "[SCIM](/?q=SCIM) covers that other half. SCIM 2.0 turned eleven this month (RFC 7643 and RFC 7644, September 2015), and plenty of school districts still deprovision off a spreadsheet."
+      },
+      {
+        "type": "h2",
+        "text": "Where the SSO crowd is right"
+      },
+      {
+        "type": "p",
+        "text": "Concede the good part first. If every app authenticates through your IdP over [SAML](/?q=SAML) or [OIDC](/?q=OIDC), disabling the user there stops the next login everywhere at once."
+      },
+      {
+        "type": "p",
+        "text": "SAML 2.0 has been an OASIS standard since 2005 and OIDC since 2014."
+      },
+      {
+        "type": "p",
+        "text": "Neither was built to create or delete an account. They answer one question at login time. Is this person who they claim to be?"
+      },
+      {
+        "type": "p",
+        "text": "Provisioning asks something else. Does an account exist in the app at all, and what can it do? The IdP sends a POST to /Users when someone's hired, a PATCH when something changes, and a PATCH setting active to false when they leave."
+      },
+      {
+        "type": "h2",
+        "text": "The next login isn't the problem"
+      },
+      {
+        "type": "p",
+        "text": "Disabling the IdP account blocks the next sign-in. It doesn't reach into the app."
+      },
+      {
+        "type": "p",
+        "text": "A SaaS app that keeps its own session cookie, or lets users mint API tokens and app passwords, holds credentials that never go back to your IdP to ask permission."
+      },
+      {
+        "type": "p",
+        "text": "A token someone created in March doesn't check with Okta in October."
+      },
+      {
+        "type": "p",
+        "text": "The app has to be told the account is dead, and SCIM's deactivate call is the thing that tells it."
+      },
+      {
+        "type": "p",
+        "text": "Apps vary on what they do with that call, and I wouldn't trust one I hadn't tested. Deactivate a test user and see whether their open session actually dies."
+      },
+      {
+        "type": "h2",
+        "text": "JIT provisioning only runs one way"
+      },
+      {
+        "type": "p",
+        "text": "This is the contested term, so it's the one worth defining. Just-in-time provisioning rides on the SAML assertion and creates the app account the first time someone logs in. It never removes one, because a person who's gone never logs in again to trigger anything."
+      },
+      {
+        "type": "p",
+        "text": "So a SAML-only app piles up accounts. Every coach, long-term sub, and student teacher who ever signed in still has a row, one you're paying a license for and one an attacker can reach through the app's password reset if local login is still on."
+      },
+      {
+        "type": "p",
+        "text": "(SCIM started out in 2011 as Simple Cloud Identity Management. The IETF renamed it System for Cross-domain Identity Management, which is more accurate and a lot worse on a slide.)"
+      },
+      {
+        "type": "h2",
+        "text": "Movers are the part nobody automates"
+      },
+      {
+        "type": "p",
+        "text": "What I keep seeing is that leavers get caught eventually and movers never do. A teacher becomes an assistant principal, keeps the old building's gradebook admin role, and picks up the new building's SIS access on top of it."
+      },
+      {
+        "type": "p",
+        "text": "Nobody files a ticket to lose access."
+      },
+      {
+        "type": "p",
+        "text": "SCIM fixes this only if group membership drives it. Put the role in the source of truth (HR for staff, the SIS for students), let the IdP map it to groups, and push those groups to the app through the /Groups endpoint. When the role changes, the old group drops off."
+      },
+      {
+        "type": "p",
+        "text": "Entra ID runs incremental provisioning roughly every 40 minutes, which is slower than instant and a lot faster than an annual review."
+      },
+      {
+        "type": "p",
+        "text": "I don't care whether that IdP is Okta, Entra ID, or JumpCloud. Use the one your budget already pays for."
+      },
+      {
+        "type": "p",
+        "text": "Students are where I don't have a clean answer yet. Graduation turns a whole senior class into leavers on one day in June, and I haven't settled how long a deactivated student account should sit before it's deleted."
+      },
+      {
+        "type": "p",
+        "text": "Keeping it preserves the audit trail. It also keeps a few hundred dormant identities around."
+      },
+      {
+        "type": "h2",
+        "text": "What the assessor will ask for"
+      },
+      {
+        "type": "p",
+        "text": "If you're the one-person IT shop at a district and the auditor wants your account inventory by Friday, start here."
+      },
+      {
+        "type": "p",
+        "text": "[CIS Controls](/frameworks/cis/) v8 puts this in four IG1 safeguards. 5.1 wants an inventory of accounts. 5.3 wants dormant accounts disabled after 45 days of inactivity. 6.1 and 6.2 want a process for granting and revoking access, and 6.2 names role change right next to termination."
+      },
+      {
+        "type": "p",
+        "text": "Both 6.1 and 6.2 say **preferably automated**. A spreadsheet meets the letter of it. SCIM logs give the assessor a timestamp for every create and every deactivate, which is the evidence they actually want."
+      },
+      {
+        "type": "p",
+        "text": "On the federal side, that's AC-2(1)."
+      },
+      {
+        "type": "p",
+        "text": "The access review is where the spreadsheet falls apart. You can't certify who has access to an app that holds accounts your [IAM](/?q=IAM) stack has never heard of."
+      },
+      {
+        "type": "p",
+        "text": "If I had one identity budget line at a district this year, it'd go to SCIM on the apps holding student records and payroll, even if that means paying for the vendor's enterprise tier to get it."
+      },
+      {
+        "type": "p",
+        "text": "SSO decides who gets in. SCIM decides who's still there."
+      }
+    ],
+    "related": [
+      {
+        "label": "SCIM in the glossary",
+        "href": "/?q=SCIM"
+      },
+      {
+        "label": "SAML in the glossary",
+        "href": "/?q=SAML"
+      },
+      {
+        "label": "OIDC in the glossary",
+        "href": "/?q=OIDC"
+      },
+      {
+        "label": "IAM in the glossary",
+        "href": "/?q=IAM"
+      },
+      {
+        "label": "CIS Controls v8 safeguards",
+        "href": "/frameworks/cis/"
+      }
+    ]
   }
 ]
