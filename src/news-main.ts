@@ -102,8 +102,35 @@ function wireClamp(listId: string, buttonId: string, noun: string, total: number
  * per-section fallback that still points at the raw feed.
  */
 
+function buildValidatedUrl(baseUrl: string): string {
+  try {
+    // Minimal path validation
+    if (baseUrl.includes('/../') || /\/%2e%2e\//i.test(baseUrl)) {
+      throw new Error('Invalid path');
+    }
+    
+    const url = new URL(baseUrl);
+    
+    // Protocol check
+    if (!['http:', 'https:'].includes(url.protocol)) {
+      throw new Error('Invalid protocol');
+    }
+    
+    // Domain validation - allow GitHub Pages where the feeds are hosted
+    const allowedDomains = ['thestateofcybersecurity.github.io'];
+    if (!allowedDomains.includes(url.hostname)) {
+      throw new Error('Invalid host');
+    }
+    
+    return url.href;
+  } catch {
+    throw new Error('Invalid URL');
+  }
+}
+
 async function fetchJson(url: string): Promise<unknown> {
-  const response = await fetch(url);
+  const validatedUrl = buildValidatedUrl(url);
+  const response = await fetch(validatedUrl);
   if (!response.ok) throw new Error(`${url} responded ${response.status}`);
   return response.json();
 }
