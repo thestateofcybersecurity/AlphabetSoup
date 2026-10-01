@@ -3782,5 +3782,188 @@
         "href": "/frameworks/cis/"
       }
     ]
+  },
+  {
+    "slug": "cis-controls-v8-list-explained",
+    "title": "The 18 CIS Controls v8, Listed and Explained in Plain English",
+    "description": "All 18 CIS Controls v8 in official order, what each is for, its first safeguard, and why the two inventories come first. IG1 is 56 safeguards, IG3 is 153.",
+    "category": "Explainer",
+    "author": "Parker Brissette",
+    "date": "2026-10-01",
+    "readingMinutes": 6,
+    "tags": [
+      "cis-controls",
+      "cis-v8",
+      "implementation-groups",
+      "frameworks",
+      "asset-inventory"
+    ],
+    "body": [
+      {
+        "type": "p",
+        "text": "The CIS Controls aren't 18 equal controls. They're two inventories, and then sixteen things that assume you finished the inventories."
+      },
+      {
+        "type": "p",
+        "text": "That's my hill."
+      },
+      {
+        "type": "p",
+        "text": "Version 8 came out in May 2021 with 153 safeguards sorted into 18 [CIS](/?q=CIS) Controls."
+      },
+      {
+        "type": "p",
+        "text": "Here they are in the official order. The number in each line is the first safeguard, the one you'd actually start on."
+      },
+      {
+        "type": "h2",
+        "text": "The 18, in order"
+      },
+      {
+        "type": "list",
+        "items": [
+          "**1. Inventory and Control of Enterprise Assets.** Every device that touches your network, including the ones nobody bought through IT. Safeguard 1.1 asks for a detailed asset inventory, kept current.",
+          "**2. Inventory and Control of Software Assets.** Same idea for software. 2.1 is the software inventory, and 2.2 says everything on it has to still be supported.",
+          "**3. Data Protection.** Fourteen safeguards, tied for the biggest control. 3.1 asks for a data management process before anyone mentions encryption.",
+          "**4. Secure Configuration of Enterprise Assets and Software.** Hardening. 4.1 asks for a documented secure configuration process, which is where the CIS Benchmarks come in.",
+          "**5. Account Management.** 5.1 is an inventory of accounts. Yes, another inventory.",
+          "**6. Access Control Management.** Who gets access and how it gets taken away. 6.1 is an access granting process, and [MFA](/?q=MFA) shows up in 6.3 through 6.5.",
+          "**7. Continuous Vulnerability Management.** 7.1 asks for a written vulnerability management process. Not a scanner. A process.",
+          "**8. Audit Log Management.** 8.1 is a log management process. Twelve safeguards, and only 3 of them are IG1.",
+          "**9. Email and Web Browser Protections.** 9.1 says run only fully supported browsers and email clients.",
+          "**10. Malware Defenses.** 10.1 is deploy anti-malware. Your [EDR](/?q=EDR) probably covers it.",
+          "**11. Data Recovery.** Backups. 11.1 is a recovery process, and 11.4 wants an isolated copy of the recovery data, which is the one ransomware crews go looking for.",
+          "**12. Network Infrastructure Management.** 12.1 says keep the network gear up to date.",
+          "**13. Network Monitoring and Defense.** 13.1 is centralized security event alerting, which in practice means a [SIEM](/?q=SIEM). Zero IG1 safeguards.",
+          "**14. Security Awareness and Skills Training.** 14.1 asks for a program. Eight of its nine safeguards are IG1.",
+          "**15. Service Provider Management.** New in v8. 15.1 is, again, an inventory, this time of your vendors.",
+          "**16. Application Software Security.** Only bites if you write or ship code. 16.1 asks for a secure development process.",
+          "**17. Incident Response Management.** 17.1 asks you to name the person who runs incident handling, plus a backup for when they're on a plane.",
+          "**18. Penetration Testing.** Dead last."
+        ]
+      },
+      {
+        "type": "h2",
+        "text": "Why 1 and 2 go first"
+      },
+      {
+        "type": "p",
+        "text": "They aren't first because they're easy. You can't patch a laptop you don't know exists, and you can't say a piece of software is supported if you never wrote down that it's installed."
+      },
+      {
+        "type": "p",
+        "text": "Count the lists. 1.1 is devices, 2.1 is software, 3.2 is data, 5.1 is accounts, 15.1 is service providers."
+      },
+      {
+        "type": "p",
+        "text": "Five of the 18 controls carry an inventory."
+      },
+      {
+        "type": "p",
+        "text": "What I keep seeing is the opposite order. A team buys an EDR license, rolls it out, and only then finds out the console and the finance spreadsheet disagree about how many laptops the company owns."
+      },
+      {
+        "type": "p",
+        "text": "That disagreement is Control 1. They just did it last."
+      },
+      {
+        "type": "p",
+        "text": "I'd rather see a messy spreadsheet of every laptop than a clean EDR dashboard that covers most of them."
+      },
+      {
+        "type": "h2",
+        "text": "56, then 130, then 153"
+      },
+      {
+        "type": "p",
+        "text": "The implementation groups stack. IG1 is 56 safeguards, IG2 adds 74 more for 130, and IG3 adds the last 23 to reach all 153."
+      },
+      {
+        "type": "p",
+        "text": "CIS calls IG1 essential cyber hygiene. I read that as the floor for everyone, not a small-business edition."
+      },
+      {
+        "type": "p",
+        "text": "Three controls have no IG1 safeguards at all. Network monitoring (13), application security (16), and pen testing (18) only start at IG2."
+      },
+      {
+        "type": "p",
+        "text": "So here's the side my pen-testing friends won't like. If you haven't finished IG1, don't buy a pentest yet. You'll pay for a findings report that says, at length, that you didn't finish Controls 1 and 2."
+      },
+      {
+        "type": "p",
+        "text": "Control 14 is the odd one out the other way. Eight of its nine safeguards sit in IG1, which makes training the most front-loaded control in the set."
+      },
+      {
+        "type": "p",
+        "text": "If you're the one-person IT shop that has to tell the board by December 31 what \"we follow CIS\" means, say IG1 and mean all 56. The [IG1 list](/frameworks/cis/ig1.html) is the scope. The [IG3 page](/frameworks/cis/ig3.html) is where you go when someone asks what's left."
+      },
+      {
+        "type": "h2",
+        "text": "Top 20, v7, v8, v8.1. Same family."
+      },
+      {
+        "type": "p",
+        "text": "The CIS Critical Security Controls, the CSC, and the Top 20 are one lineage."
+      },
+      {
+        "type": "p",
+        "text": "(SANS ran the list for years before it moved over to CIS in 2015, so somebody in your next audit meeting will still call it the SANS Top 20 and mean exactly this list of controls.)"
+      },
+      {
+        "type": "p",
+        "text": "Version 7.1 in 2019 had 20 controls. Version 8 cut that to 18 by grouping safeguards around activities instead of around who manages the device."
+      },
+      {
+        "type": "p",
+        "text": "Wireless Access Control stopped being its own control. Service Provider Management showed up as Control 15."
+      },
+      {
+        "type": "p",
+        "text": "Then v8.1 landed in June 2024 and added a Govern function so the mapping lines up with [NIST CSF 2.0](/?q=NIST%20CSF), which NIST published that February. The count stayed at 18."
+      },
+      {
+        "type": "p",
+        "text": "I don't care which name goes in your policy. Write v8.1 if you want to be current, or v8 if that's what your cyber insurance questionnaire asks about."
+      },
+      {
+        "type": "p",
+        "text": "Whether the Govern tag changes how a 40-person company actually runs its program, I don't know yet."
+      },
+      {
+        "type": "p",
+        "text": "It's October 2026 and it reads to me like a relabel more than new work. I'd want another audit cycle before I said that with a straight face."
+      },
+      {
+        "type": "h2",
+        "text": "Where to start Monday"
+      },
+      {
+        "type": "p",
+        "text": "Open the [plain-English safeguard pages](/frameworks/cis/), then run the [IG1 assessment](/assess/?a=cis-ig1) and count how many of the 56 you'd sign your name to. If 1.1 is a no, you already know what Monday is for."
+      }
+    ],
+    "related": [
+      {
+        "label": "CIS Controls v8 in plain English",
+        "href": "/frameworks/cis/"
+      },
+      {
+        "label": "The 56 IG1 safeguards",
+        "href": "/frameworks/cis/ig1.html"
+      },
+      {
+        "label": "All 153 safeguards (IG3)",
+        "href": "/frameworks/cis/ig3.html"
+      },
+      {
+        "label": "Run the CIS Controls v8 assessment",
+        "href": "/assess/?a=cis-v8"
+      },
+      {
+        "label": "Look up CIS in the glossary",
+        "href": "/?q=CIS"
+      }
+    ]
   }
 ]
