@@ -3965,5 +3965,173 @@
         "href": "/?q=CIS"
       }
     ]
+  },
+  {
+    "slug": "rmf-step-by-step-authorization",
+    "title": "RMF, Step by Step: How a Federal System Gets Authorized",
+    "description": "The seven NIST 800-37 RMF steps in the order teams run them, from the FIPS 199 call to the ATO letter, and why Assess and Authorize are where packages stall.",
+    "category": "Explainer",
+    "author": "Parker Brissette",
+    "date": "2026-10-05",
+    "readingMinutes": 6,
+    "tags": [
+      "rmf",
+      "ato",
+      "nist-800-37",
+      "nist-800-53",
+      "federal-compliance"
+    ],
+    "body": [
+      {
+        "type": "p",
+        "text": "[RMF](/?q=RMF) isn't seven equal steps. Two of them decide what you'll be held to, and the rest mostly decide how long it takes."
+      },
+      {
+        "type": "p",
+        "text": "NIST SP 800-37 Rev. 2 lists them in the order you actually run them."
+      },
+      {
+        "type": "list",
+        "items": [
+          "**Prepare.** Name the authorizing official, draw the system boundary, and find out who owns the common controls.",
+          "**Categorize.** One FIPS 199 decision. Low, moderate, or high.",
+          "**Select.** The 800-53 baseline, then tailoring.",
+          "**Implement.** Build the controls and describe each one in the [SSP](/?q=SSP).",
+          "**Assess.** An independent assessor tests them and writes the Security Assessment Report.",
+          "**Authorize.** The AO signs, or doesn't.",
+          "**Monitor.** Forever."
+        ]
+      },
+      {
+        "type": "p",
+        "text": "(Rev. 1 in 2010 had six. Prepare only showed up in Rev. 2 in December 2018, and plenty of training decks still draw the old six-step circle.)"
+      },
+      {
+        "type": "p",
+        "text": "What I keep seeing is teams treat the first two like paperwork and the last three like a surprise. It should be the other way around."
+      },
+      {
+        "type": "h2",
+        "text": "Categorize is a one-page decision"
+      },
+      {
+        "type": "p",
+        "text": "FIPS 199 asks the same question once for each leg of the CIA triad. How bad is it if this system fails?"
+      },
+      {
+        "type": "p",
+        "text": "You rate each one low, moderate, or high, and the highest rating wins. That's the high-water mark from FIPS 200."
+      },
+      {
+        "type": "p",
+        "text": "Here's my hill. Don't categorize high to be safe. I'd push back on that one every single time."
+      },
+      {
+        "type": "p",
+        "text": "The 800-53B baselines are 149 controls at low, 287 at moderate, and 370 at high. Bumping a moderate system to high because nobody wanted to argue with the data owner buys you 83 more controls to build and test, and every one that isn't finished lands on the POA&M."
+      },
+      {
+        "type": "p",
+        "text": "Write the rationale down against the information types in SP 800-60. The assessor will ask, and \"it felt moderate\" won't hold up."
+      },
+      {
+        "type": "h2",
+        "text": "The baseline is a starting point"
+      },
+      {
+        "type": "p",
+        "text": "Select hands you a baseline. Tailoring is the part people skip, and it's completely legitimate."
+      },
+      {
+        "type": "p",
+        "text": "No wireless on the system means AC-18 gets a one-line justification instead of an implementation. Hosting on a FedRAMP-authorized cloud means most of the PE family is inherited from the provider, and you shouldn't be writing your own physical security narrative for a data center you've never seen. Overlays run the other direction. On national security systems, the CNSSI 1253 overlays add controls back."
+      },
+      {
+        "type": "p",
+        "text": "Implement is the longest step and the least interesting one to write about. You build the controls and describe each one in the SSP."
+      },
+      {
+        "type": "p",
+        "text": "Write that SSP for the assessor who has to test it. The AO will read the summary. I'd rather hand over 40 pages that are true than 300 pages copied from the last system's package."
+      },
+      {
+        "type": "h2",
+        "text": "Assess and Authorize are where packages die"
+      },
+      {
+        "type": "p",
+        "text": "Assessment is the first time someone outside the team reads the SSP next to the real system. Every gap between the two becomes a finding in the Security Assessment Report."
+      },
+      {
+        "type": "p",
+        "text": "Each finding gets fixed before signature or goes on the [Plan of Action and Milestones](/?q=POA%26M) with an owner and a date. An AO can sign with open items. What stalls a signature is a POA&M full of high findings with no dates, or residual risk nobody bothered to write down."
+      },
+      {
+        "type": "p",
+        "text": "Then you wait. The [ATO](/?q=ATO) letter is the only output anyone upstream cares about, and it runs on the AO's calendar, not yours."
+      },
+      {
+        "type": "p",
+        "text": "If you're the system owner whose current ATO expires in March 2027, book the assessor this month. That's the step with a queue."
+      },
+      {
+        "type": "p",
+        "text": "I don't care whether you track the POA&M in eMASS, Xacta, or a spreadsheet. I care that every row has a date."
+      },
+      {
+        "type": "h2",
+        "text": "Three things RMF gets confused with"
+      },
+      {
+        "type": "list",
+        "items": [
+          "**The [Cybersecurity Framework](/frameworks/nist-csf/).** CSF 2.0, released February 2024, describes outcomes for any organization. RMF is the process for authorizing one federal system. You can brief the board in CSF terms and still owe an RMF package.",
+          "**NIST SP 800-171.** That's what flows down to a contractor holding CUI through DFARS 252.204-7012. Rev. 2 has 110 requirements, and it's the version [CMMC Level 2](/assess/cmmc/) assesses against. No AO, no ATO. If that's your actual situation, run the [800-171 self-assessment](/assess/?a=nist-800171) instead.",
+          "**Bank RMF.** Unrelated. Finance uses the same three letters for its own risk management framework, so ask before you take the interview."
+        ]
+      },
+      {
+        "type": "h2",
+        "text": "The three-year clock already stopped"
+      },
+      {
+        "type": "p",
+        "text": "Monitor used to mean waiting three years and doing the whole package again. The 2016 rewrite of OMB Circular A-130 dropped that fixed cycle in favor of ongoing authorization, fed by a continuous monitoring program built on SP 800-137."
+      },
+      {
+        "type": "p",
+        "text": "DoD pushed further with its February 2022 continuous ATO memo, written for software factories that ship through DevSecOps pipelines."
+      },
+      {
+        "type": "p",
+        "text": "It's October 2026, and plenty of programs still live on the three-year rhythm because their monitoring can't produce evidence on demand. I honestly don't know yet whether cATO spreads past the pipeline teams that pioneered it or stays a badge for the few programs with the tooling to earn it."
+      },
+      {
+        "type": "p",
+        "text": "Either way, the order hasn't changed. If I had one week on a new package, I'd spend all of it on Categorize. Get that right and the other six steps are just work."
+      }
+    ],
+    "related": [
+      {
+        "label": "Look up RMF in the glossary",
+        "href": "/?q=RMF"
+      },
+      {
+        "label": "What an ATO is",
+        "href": "/?q=ATO"
+      },
+      {
+        "label": "What goes in an SSP",
+        "href": "/?q=SSP"
+      },
+      {
+        "label": "NIST CSF in plain English",
+        "href": "/frameworks/nist-csf/"
+      },
+      {
+        "label": "Run the NIST 800-171 assessment",
+        "href": "/assess/?a=nist-800171"
+      }
+    ]
   }
 ]
