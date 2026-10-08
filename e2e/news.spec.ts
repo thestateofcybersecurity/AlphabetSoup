@@ -153,6 +153,14 @@ test('each section falls back independently when its feed is down', async ({ pag
 
 test('alert form submits to the Worker and reports both outcomes', async ({ page }) => {
   await stubAll(page);
+  // Turnstile is opt-in through TURNSTILE_SITE_KEY; with the key empty the
+  // page must make no request to challenges.cloudflare.com and the body
+  // must carry no token, so the site stays CSP-clean and the Worker
+  // contract unchanged.
+  const turnstileRequests: string[] = [];
+  page.on('request', (request) => {
+    if (request.url().includes('challenges.cloudflare.com')) turnstileRequests.push(request.url());
+  });
   let sentBody: unknown = null;
   await page.route('https://alerts.cybersecurityalphabetsoup.com/subscribe', (route) => {
     sentBody = route.request().postDataJSON();
@@ -169,6 +177,8 @@ test('alert form submits to the Worker and reports both outcomes', async ({ page
   await expect(page.locator('#alert-status')).toContainText('Check your inbox');
   await expect(page.locator('#alert-form')).toBeHidden();
   expect(sentBody).toEqual({ email: 'user@example.com', terms: 'Example Corp, example.com' });
+  expect(turnstileRequests).toEqual([]);
+  await expect(page.locator('.alert-turnstile')).toHaveCount(0);
 
   // Error path: a fresh page whose Worker rejects the request.
   await page.route('https://alerts.cybersecurityalphabetsoup.com/subscribe', (route) =>
