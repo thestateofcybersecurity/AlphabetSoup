@@ -4133,5 +4133,164 @@
         "href": "/assess/?a=nist-800171"
       }
     ]
+  },
+  {
+    "slug": "mitre-atlas-tactics-explained",
+    "title": "All 16 MITRE ATLAS Tactics, AML.TA0000 to AML.TA0015, Explained",
+    "description": "All 16 MITRE ATLAS tactics in the order an attack on an AI system runs, why the AML.TA numbers look scrambled, and the two tactics ATT&CK doesn't have.",
+    "category": "Explainer",
+    "author": "Parker Brissette",
+    "date": "2026-10-08",
+    "readingMinutes": 6,
+    "tags": [
+      "mitre-atlas",
+      "ai-security",
+      "threat-modeling",
+      "adversarial-ml",
+      "mitre-attack"
+    ],
+    "body": [
+      {
+        "type": "p",
+        "text": "[MITRE ATLAS](/?q=ATLAS) isn't a security framework. It's a catalog of how people break AI systems, and if you already know [ATT&CK](/?q=MITRE%20ATT%26CK), only two of its 16 tactics are new to you."
+      },
+      {
+        "type": "p",
+        "text": "So why does the matrix start at AML.TA0002?"
+      },
+      {
+        "type": "h2",
+        "text": "Why the numbers look scrambled"
+      },
+      {
+        "type": "p",
+        "text": "The two tactics ATT&CK doesn't have got the first two IDs. AI Model Access is AML.TA0000 and AI Attack Staging is AML.TA0001."
+      },
+      {
+        "type": "p",
+        "text": "The ATT&CK names came next. Reconnaissance through Impact took TA0002 to TA0011. Then [Privilege Escalation](/frameworks/ai/aml-ta0012.html) (TA0012) and [Credential Access](/frameworks/ai/aml-ta0013.html) (TA0013) were added and took the next free numbers, with Command and Control (TA0014) and Lateral Movement (TA0015) after those. The IDs record when a tactic joined. They say nothing about where it sits in an attack."
+      },
+      {
+        "type": "p",
+        "text": "Both AI tactics used to say ML instead of AI. Same tactics, new label, and I don't care which one you type into the ticket as long as the ID is right. (AML here means adversarial machine learning, not anti-money laundering. Your BSA officer will get confused by that exactly once.)"
+      },
+      {
+        "type": "p",
+        "text": "The whole thing traces back to the Adversarial ML Threat Matrix that MITRE and Microsoft published in October 2020."
+      },
+      {
+        "type": "h2",
+        "text": "What order an attack actually runs in"
+      },
+      {
+        "type": "p",
+        "text": "Here's the matrix re-sorted the way a real attack against a model unfolds, with one technique per tactic. Each name links to the site's page for it."
+      },
+      {
+        "type": "list",
+        "items": [
+          "[Reconnaissance](/frameworks/ai/aml-ta0002.html), AML.TA0002. Find out which model you run and what's been published about breaking it. Example: AML.T0001, Search Open AI Vulnerability Analysis.",
+          "[Resource Development](/frameworks/ai/aml-ta0003.html), AML.TA0003. Build the kit before touching you. Example: AML.T0020, Training Data Poisoning, which lives here and not under Impact.",
+          "[Initial Access](/frameworks/ai/aml-ta0004.html), AML.TA0004. Get a foothold. Example: AML.T0010, AI Supply Chain Compromise.",
+          "[AI Model Access](/frameworks/ai/aml-ta0000.html), AML.TA0000. Get a way to send the model inputs and read its outputs. Example: AML.T0040, AI Model Inference API Access.",
+          "[Execution](/frameworks/ai/aml-ta0005.html), AML.TA0005. Run something. Example: AML.T0051, LLM Prompt Injection.",
+          "[Persistence](/frameworks/ai/aml-ta0006.html), AML.TA0006. Stay in after a restart or a new session. Example: AML.T0070, RAG Poisoning.",
+          "[Privilege Escalation](/frameworks/ai/aml-ta0012.html), AML.TA0012. Get the model to do what its guardrails say it can't. Example: AML.T0054, LLM Jailbreak.",
+          "[Defense Evasion](/frameworks/ai/aml-ta0007.html), AML.TA0007. Slip past the classifier that's supposed to catch you. Example: AML.T0015, Evade AI Model.",
+          "[Credential Access](/frameworks/ai/aml-ta0013.html), AML.TA0013. Steal the keys. Example: AML.T0083, Credentials from AI Agent Configuration.",
+          "[Discovery](/frameworks/ai/aml-ta0008.html), AML.TA0008. Map what the model and its tools can reach. Example: AML.T0069, Discover LLM System Information.",
+          "[Lateral Movement](/frameworks/ai/aml-ta0015.html), AML.TA0015. Move from the AI system into the rest of the estate. Example: AML.T0091, Use Alternate Authentication Material.",
+          "[Collection](/frameworks/ai/aml-ta0009.html), AML.TA0009. Gather the valuable stuff. Example: AML.T0035, AI Artifact Collection.",
+          "[AI Attack Staging](/frameworks/ai/aml-ta0001.html), AML.TA0001. Build and test the attack offline before firing it at the real target. Example: AML.T0005, Create Proxy AI Model.",
+          "[Command and Control](/frameworks/ai/aml-ta0014.html), AML.TA0014. Keep a line back to the attacker. Example: AML.T0072, Reverse Shell.",
+          "[Exfiltration](/frameworks/ai/aml-ta0010.html), AML.TA0010. Get it out. Example: AML.T0024, Exfiltration via AI Inference API.",
+          "[Impact](/frameworks/ai/aml-ta0011.html), AML.TA0011. Do the damage, or run up the bill. Example: AML.T0034, Cost Harvesting."
+        ]
+      },
+      {
+        "type": "h2",
+        "text": "The two tactics ATT&CK people skip"
+      },
+      {
+        "type": "p",
+        "text": "Start with model access, the attacker's channel to the model. Usually that's the inference API (AML.T0040). Sometimes it's the weights themselves (AML.T0044, Full AI Model Access), and for a camera or sensor model it can be standing in front of it (AML.T0041)."
+      },
+      {
+        "type": "p",
+        "text": "AI Attack Staging is the attacker's lab."
+      },
+      {
+        "type": "p",
+        "text": "They query your model enough times to train a lookalike (AML.T0005). Then they craft adversarial inputs against the lookalike on their own hardware, where you can't see them (AML.T0043, Craft Adversarial Data), and fire a handful of tests at your production model to confirm it works (AML.T0042, Verify Attack). All you'll ever hold is a burst of API calls that looked like ordinary traffic. That's why I ask for inference API logs before I ask for anything else on an AI review."
+      },
+      {
+        "type": "p",
+        "text": "What I keep seeing is AI threat models that skip both of these and spend four pages on prompt injection. Prompt injection matters, and I'd never drop it. It's also the one technique everybody already knows to look for."
+      },
+      {
+        "type": "h2",
+        "text": "Where ATLAS stops being useful"
+      },
+      {
+        "type": "p",
+        "text": "ATLAS is a threat catalog. It isn't a control set, and I'll argue with anyone who puts it in an audit scope. It does publish mitigations under AML.M codes, but there's no assessment procedure and nothing an auditor can mark met or not met."
+      },
+      {
+        "type": "p",
+        "text": "For the application layer, use the OWASP Top 10 for LLM Applications, where LLM01 is prompt injection. For governance, use [NIST AI RMF](/?q=AI%20RMF) 1.0 from January 2023, starting with GOVERN 1. Both sit next to ATLAS on the [AI frameworks page](/frameworks/ai/)."
+      },
+      {
+        "type": "p",
+        "text": "Here's what I don't know. The site's copy of ATLAS carries 101 techniques as of October 2026, and most of the newest IDs, AML.T0099 through AML.T0115, are about agents and their tools. I'd expect some of those to get merged or renamed before that corner of the matrix settles down."
+      },
+      {
+        "type": "h2",
+        "text": "Using it on one real feature"
+      },
+      {
+        "type": "p",
+        "text": "If you're the one shipping a customer-facing RAG chatbot before the November change freeze, don't map it to all 16 tactics. Pick five techniques that fit that one feature. For a RAG bot I'd start with these."
+      },
+      {
+        "type": "list",
+        "items": [
+          "AML.T0051, LLM Prompt Injection.",
+          "AML.T0070, RAG Poisoning, because anyone who can edit a page in the index can edit your answers.",
+          "AML.T0056, Extract LLM System Prompt.",
+          "AML.T0057, LLM Data Leakage.",
+          "AML.T0034, Cost Harvesting."
+        ]
+      },
+      {
+        "type": "p",
+        "text": "Then run those five through the [AI threat model tool](/tools/ai-threat-model/) and get each one tied to a framework reference and an owner."
+      },
+      {
+        "type": "p",
+        "text": "Five rows you'll defend in a review beat 101 rows nobody reads."
+      }
+    ],
+    "related": [
+      {
+        "label": "AI security frameworks in plain English",
+        "href": "/frameworks/ai/"
+      },
+      {
+        "label": "AML.TA0012, Privilege Escalation",
+        "href": "/frameworks/ai/aml-ta0012.html"
+      },
+      {
+        "label": "AML.TA0013, Credential Access",
+        "href": "/frameworks/ai/aml-ta0013.html"
+      },
+      {
+        "label": "Threat model an AI feature",
+        "href": "/tools/ai-threat-model/"
+      },
+      {
+        "label": "Look up ATLAS in the glossary",
+        "href": "/?q=ATLAS"
+      }
+    ]
   }
 ]
