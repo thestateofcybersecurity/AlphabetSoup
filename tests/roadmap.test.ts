@@ -114,7 +114,20 @@ describe('plan state helpers', () => {
     );
     expect(csv).toContain('Dana,2026-03-01,kickoff');
   });
+
+  it('neutralizes formula triggers in free-text CSV cells', () => {
+    const csv = planToCsv(
+      [{ id: 'x', label: '=HYPERLINK("https://evil.example","open")', group: 'g', detail: '', defaultQuarter: 'Q1' }],
+      { x: { quarter: 'Q2', status: 'planned', owner: '+Dana', date: '-2026', note: '@cmd|calc' } },
+    );
+    const row = csv.split('\n')[1];
+    expect(row).toContain(`"'=HYPERLINK(""https://evil.example"",""open"")"`);
+    expect(row).toContain(`'+Dana,'-2026,'@cmd|calc`);
+    // Nothing in the export starts a cell with a bare trigger.
+    for (const cell of row.split(',')) expect(cell).not.toMatch(/^[=+\-@]/);
+  });
 });
+
 
 describe('security program', () => {
   it('has a comprehensive, well-formed set of goals', () => {

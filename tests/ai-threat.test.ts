@@ -130,6 +130,20 @@ describe('rating and summary', () => {
     expect(lines).toHaveLength(candidates.length + 2);
     expect(lines[1]).toContain('trust boundary');
   });
+
+  it('neutralizes formula triggers in the register CSV', () => {
+    const p = profile({ components: ['user-chat'], name: '=cmd|calc' });
+    const candidates = flowCandidates(data, p);
+    const csv = registerCsv(data, p, candidates, {
+      [candidates[0].key]: { status: 'applies', owner: '+Dana', note: '@SUM(A1)', treatment: 'mitigate' },
+    });
+    const lines = csv.split('\n');
+    expect(lines[0]).toBe(`"'=cmd|calc"`);
+    expect(lines[2]).toContain(`"'+Dana","'@SUM(A1)"`);
+    for (const line of lines) {
+      for (const cell of line.split('","')) expect(cell.replace(/^"/, '')).not.toMatch(/^[=+\-@]/);
+    }
+  });
 });
 
 describe('derived diagram', () => {

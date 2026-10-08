@@ -8,6 +8,7 @@
  * tool proposes; the modeler concludes.
  */
 
+import { neutralizeFormula } from './csv';
 import { safeId } from './escape';
 
 export type StrideCategory =
@@ -411,7 +412,7 @@ export function registerCsv(
   instances: FlowInstance[],
   verdicts: Record<string, ThreatVerdict>,
 ): string {
-  const escapeCell = (value: string): string => `"${value.replace(/"/g, '""')}"`;
+  const escapeCell = (value: string): string => `"${neutralizeFormula(value).replace(/"/g, '""')}"`;
   const rows = [
     ['id', 'threat', 'stride', 'flow', 'trust boundary', 'status', 'likelihood', 'impact', 'risk', 'residual', 'treatment', 'owner', 'note', 'references'],
     ...instances.map(({ threat, flow, boundary, key }) => {
