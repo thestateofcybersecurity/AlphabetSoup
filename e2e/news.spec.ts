@@ -159,7 +159,7 @@ test('alert form submits to the Worker and reports both outcomes', async ({ page
   // contract unchanged.
   const turnstileRequests: string[] = [];
   page.on('request', (request) => {
-    if (request.url().includes('challenges.cloudflare.com')) turnstileRequests.push(request.url());
+    if (new URL(request.url()).hostname === 'challenges.cloudflare.com') turnstileRequests.push(request.url());
   });
   let sentBody: unknown = null;
   await page.route('https://alerts.cybersecurityalphabetsoup.com/subscribe', (route) => {
