@@ -80,6 +80,8 @@
     .alert-submit { align-self: flex-start; margin-top: 10px; font-family: var(--font-mono); font-size: 0.78rem; border: 1.5px solid var(--tomato); background: var(--tomato); color: var(--paper); border-radius: 999px; padding: 8px 16px; cursor: pointer; }
     .alert-submit:hover { background: var(--tomato-deep); border-color: var(--tomato-deep); }
     .alert-submit[disabled] { opacity: 0.6; cursor: wait; }
+    /* Turnstile slot: present only when TURNSTILE_SITE_KEY is set (src/lib/config.ts). */
+    .alert-turnstile { margin-top: 10px; min-height: 0; }
     .alert-status { font-size: 0.85rem; margin: 0 0 8px; }
     .alert-status a { color: var(--tomato); }
     .alert-fine { font-size: 0.76rem; color: var(--ink-soft); margin: 0; }

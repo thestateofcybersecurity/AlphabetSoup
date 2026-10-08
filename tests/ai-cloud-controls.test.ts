@@ -215,6 +215,16 @@ describe('grouping and output', () => {
     expect(csv).toContain('Microsoft');
   });
 
+  it('neutralizes formula triggers in every CSV cell', () => {
+    // Catalog text is authored, but the exporter must still be safe by
+    // construction: no cell in any export may start with a formula trigger.
+    for (const selection of [sel('answers'), sel('connects', 'azure'), sel('acts', 'gcp')]) {
+      for (const line of controlsCsv(data, selection).split('\n')) {
+        for (const cell of line.split(',')) expect(cell.replace(/^"/, '')).not.toMatch(/^[=+\-@\t\r]/);
+      }
+    }
+  });
+
   it('quotes CSV fields containing commas', () => {
     const csv = controlsCsv(data, sel('acts'));
     for (const line of csv.split('\n')) {
