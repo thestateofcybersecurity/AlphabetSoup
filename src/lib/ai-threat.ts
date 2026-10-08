@@ -8,6 +8,8 @@
  * tool proposes; the modeler concludes.
  */
 
+import { safeId } from './escape';
+
 export type StrideCategory =
   | 'Spoofing'
   | 'Tampering'
@@ -128,6 +130,162 @@ export interface ThreatVerdict {
   /** Re-rating after the treatment lands: the residual risk anchors. */
   residualLikelihood?: string;
   residualImpact?: string;
+}
+
+/** The verdict enums as runtime allowlists; the union types only exist at compile time. */
+export const VERDICT_STATUSES: ThreatVerdict['status'][] = ['applies', 'mitigated', 'not-applicable', 'unreviewed'];
+export const TREATMENTS: NonNullable<ThreatVerdict['treatment']>[] = ['mitigate', 'accept'];
+
+const NODE_KINDS: GraphNode['kind'][] = ['actor', 'process', 'store'];
+const ZONES: GraphNode['zone'][] = ['users', 'app', 'outside'];
+
+/** Verdict keys are `${threat.id}@${flow.id}` (or a bare threat id pre-canvas) and land in attributes. */
+const SAFE_KEY = /^[A-Za-z0-9_@.-]+$/;
+
+const isRecord = (value: unknown): value is Record<string, unknown> =>
+  typeof value === 'object' && value !== null && !Array.isArray(value);
+const str = (value: unknown, fallback = ''): string => (typeof value === 'string' ? value : fallback);
+const optStr = (value: unknown): string | undefined => (typeof value === 'string' ? value : undefined);
+const num = (value: unknown, fallback = 0): number => (typeof value === 'number' && Number.isFinite(value) ? value : fallback);
+
+/** Fresh selector-safe id for anything that arrived with an unsafe one. */
+function freshId(prefix: string): string {
+  return `${prefix}-${crypto.randomUUID().slice(0, 8)}`;
+}
+
+/**
+ * Map foreign ids onto selector-safe ones, consistently. Ids that are already
+ * safe stay as they are (so verdict keys and saved models keep matching);
+ * anything else is replaced, and every later reference to the same foreign id
+ * gets the same replacement. Collisions between a replacement and an id that
+ * is already in use are resolved by drawing again.
+ */
+function idMapper(newId: () => string): { map: Map<string, string>; mapId: (id: unknown) => string } {
+  const map = new Map<string, string>();
+  const used = new Set<string>();
+  const mapId = (id: unknown): string => {
+    const key = typeof id === 'string' ? id : JSON.stringify(id) ?? 'undefined';
+    const existing = map.get(key);
+    if (existing) return existing;
+    let safe = safeId(id, newId);
+    while (used.has(safe)) safe = newId();
+    used.add(safe);
+    map.set(key, safe);
+    return safe;
+  };
+  return { map, mapId };
+}
+
+/**
+ * Rebuild a system profile from untrusted input: a stored draft, a saved
+ * model, a restored backup. Everything is coerced to the shape the renderer
+ * expects, and node and flow ids (which land in attributes and selectors)
+ * are forced selector-safe with references remapped to match. Returns null
+ * when the input is not a profile at all.
+ */
+export function sanitizeProfile(
+  raw: unknown,
+  newId: () => string = () => freshId('n'),
+): { profile: SystemProfile; idMap: Map<string, string> } | null {
+  if (!isRecord(raw) || !Array.isArray(raw.components)) return null;
+  const profile: SystemProfile = {
+    name: str(raw.name),
+    components: raw.components.filter((c): c is string => typeof c === 'string'),
+    exposure: str(raw.exposure, 'internal'),
+    dataClass: str(raw.dataClass, 'internal'),
+  };
+  if (typeof raw.owner === 'string') profile.owner = raw.owner;
+  if (typeof raw.reviewer === 'string') profile.reviewer = raw.reviewer;
+
+  const { map, mapId } = idMapper(newId);
+  if (isRecord(raw.graph)) {
+    const rawNodes = Array.isArray(raw.graph.nodes) ? raw.graph.nodes : [];
+    const rawFlows = Array.isArray(raw.graph.flows) ? raw.graph.flows : [];
+    const nodes: GraphNode[] = rawNodes.filter(isRecord).map((n) => ({
+      id: mapId(n.id),
+      kind: NODE_KINDS.includes(n.kind as GraphNode['kind']) ? (n.kind as GraphNode['kind']) : 'process',
+      label: str(n.label),
+      sub: optStr(n.sub),
+      zone: ZONES.includes(n.zone as GraphNode['zone']) ? (n.zone as GraphNode['zone']) : 'app',
+      x: num(n.x),
+      y: num(n.y),
+    }));
+    const nodeIds = new Set(nodes.map((n) => n.id));
+    const flows: GraphFlow[] = rawFlows
+      .filter(isRecord)
+      .map((f) => ({
+        id: mapId(f.id),
+        from: map.get(str(f.from)) ?? '',
+        to: map.get(str(f.to)) ?? '',
+        kind: str(f.kind, 'plain'),
+        label: str(f.label),
+        dataClass: optStr(f.dataClass),
+      }))
+      .filter((f) => nodeIds.has(f.from) && nodeIds.has(f.to));
+    profile.graph = { nodes, flows };
+  }
+  if (Array.isArray(raw.imported)) {
+    const imported: ImportedThreat[] = raw.imported.filter(isRecord).map((t) => ({
+      cell: map.get(str(t.cell)) ?? '',
+      cellName: str(t.cellName),
+      title: str(t.title),
+      status: str(t.status),
+      severity: str(t.severity),
+      type: str(t.type),
+      description: str(t.description),
+      mitigation: str(t.mitigation),
+    }));
+    if (imported.length > 0) profile.imported = imported;
+  }
+  return { profile, idMap: map };
+}
+
+/**
+ * Rebuild verdicts from untrusted input. Status and treatment are coerced to
+ * their allowlists (both are interpolated into class attributes), free-text
+ * fields must be strings, and keys must be selector-safe. When the profile's
+ * flow ids were remapped, the matching verdict keys follow them.
+ */
+export function sanitizeVerdicts(raw: unknown, idMap?: Map<string, string>): Record<string, ThreatVerdict> {
+  if (!isRecord(raw)) return {};
+  const out: Record<string, ThreatVerdict> = {};
+  for (const [rawKey, value] of Object.entries(raw)) {
+    if (!isRecord(value)) continue;
+    const at = rawKey.indexOf('@');
+    const flowId = at >= 0 ? rawKey.slice(at + 1) : null;
+    const key = flowId !== null && idMap?.has(flowId) ? `${rawKey.slice(0, at)}@${idMap.get(flowId)}` : rawKey;
+    if (!SAFE_KEY.test(key)) continue;
+    const verdict: ThreatVerdict = {
+      status: VERDICT_STATUSES.includes(value.status as ThreatVerdict['status'])
+        ? (value.status as ThreatVerdict['status'])
+        : 'unreviewed',
+    };
+    if (TREATMENTS.includes(value.treatment as NonNullable<ThreatVerdict['treatment']>)) {
+      verdict.treatment = value.treatment as ThreatVerdict['treatment'];
+    }
+    for (const field of ['likelihood', 'impact', 'note', 'owner', 'residualLikelihood', 'residualImpact'] as const) {
+      const text = optStr(value[field]);
+      if (text !== undefined) verdict[field] = text;
+    }
+    out[key] = verdict;
+  }
+  return out;
+}
+
+/** A stored model (draft, saved model, backup entry) rebuilt from untrusted input, or null. */
+export function sanitizeModel(
+  raw: unknown,
+  newId?: () => string,
+): { profile: SystemProfile; verdicts: Record<string, ThreatVerdict>; savedAt?: string } | null {
+  if (!isRecord(raw)) return null;
+  const cleaned = sanitizeProfile(raw.profile, newId);
+  if (!cleaned) return null;
+  const model: { profile: SystemProfile; verdicts: Record<string, ThreatVerdict>; savedAt?: string } = {
+    profile: cleaned.profile,
+    verdicts: sanitizeVerdicts(raw.verdicts, cleaned.idMap),
+  };
+  if (typeof raw.savedAt === 'string') model.savedAt = raw.savedAt;
+  return model;
 }
 
 export const RISK_ORDER: RiskLevel[] = ['low', 'medium', 'high', 'critical'];
@@ -1107,8 +1265,12 @@ interface TdCell {
  * arrive unclassified on purpose: this library's threats only attach once
  * the modeler says what each flow represents, the same question-first rule
  * as a hand-drawn canvas. Trust zones are inferred from horizontal position.
+ *
+ * Cell ids are foreign input that ends up in attributes and selectors, so
+ * every id is passed through the selector-safe check and replaced when it
+ * fails, with flow endpoints and carried threats remapped to match.
  */
-export function importThreatDragon(json: unknown): SystemProfile {
+export function importThreatDragon(json: unknown, newId: () => string = () => freshId('td')): SystemProfile {
   const model = json as {
     version?: string;
     summary?: { title?: string; owner?: string };
@@ -1138,6 +1300,7 @@ export function importThreatDragon(json: unknown): SystemProfile {
   const spanY = Math.max(1, Math.max(...ys) - minY);
   const heightBudget = Math.max(180, rawNodes.length * 40);
 
+  const { map: idMap, mapId } = idMapper(newId);
   const perZoneCount: Record<string, number> = {};
   const nodes: GraphNode[] = rawNodes.map((cell) => {
     const scaledX = 16 + ((cell.position!.x - minX) / spanX) * (640 - 16);
@@ -1146,7 +1309,7 @@ export function importThreatDragon(json: unknown): SystemProfile {
     const scaledY = 90 + ((cell.position!.y - minY) / spanY) * heightBudget;
     perZoneCount[zone] = (perZoneCount[zone] ?? 0) + 1;
     return {
-      id: cell.id!,
+      id: mapId(cell.id),
       kind: NODE_SHAPES[cell.shape!],
       label: cell.data?.name || 'Unnamed',
       sub: (cell.data?.description || '').slice(0, 48),
@@ -1164,13 +1327,17 @@ export function importThreatDragon(json: unknown): SystemProfile {
     });
   }
 
+  // Endpoints are looked up through the id map, so a flow whose source or
+  // target was renamed still finds its nodes.
   const nodeIds = new Set(nodes.map((n) => n.id));
+  const endpoint = (ref: unknown): string | undefined =>
+    typeof ref === 'string' ? idMap.get(ref) : undefined;
   const flows: GraphFlow[] = cells
-    .filter((c) => c.shape === 'flow' && c.id && nodeIds.has(c.source?.cell ?? '') && nodeIds.has(c.target?.cell ?? ''))
+    .filter((c) => c.shape === 'flow' && c.id && nodeIds.has(endpoint(c.source?.cell) ?? '') && nodeIds.has(endpoint(c.target?.cell) ?? ''))
     .map((cell) => ({
-      id: cell.id!,
-      from: cell.source!.cell!,
-      to: cell.target!.cell!,
+      id: mapId(cell.id),
+      from: endpoint(cell.source!.cell)!,
+      to: endpoint(cell.target!.cell)!,
       kind: 'plain',
       label: cell.data?.name || 'Imported flow',
     }));
@@ -1179,8 +1346,8 @@ export function importThreatDragon(json: unknown): SystemProfile {
     nodes.find((n) => n.id === id)?.label ?? flows.find((f) => f.id === id)?.label ?? 'Unknown element';
   const imported: ImportedThreat[] = cells.flatMap((cell) =>
     (cell.data?.threats ?? []).map((t) => ({
-      cell: cell.id ?? '',
-      cellName: cellName(cell.id ?? ''),
+      cell: endpoint(cell.id) ?? '',
+      cellName: cellName(endpoint(cell.id) ?? ''),
       title: t.title ?? 'Untitled threat',
       status: t.status ?? 'Open',
       severity: t.severity ?? '',

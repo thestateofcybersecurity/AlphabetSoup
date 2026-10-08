@@ -13,6 +13,9 @@ import {
   migrateVerdicts,
   registerCsv,
   riskFor,
+  sanitizeModel,
+  sanitizeProfile,
+  sanitizeVerdicts,
   summarize,
   threatDragonModel,
   threatModelReport,
@@ -415,5 +418,120 @@ describe('Threat Dragon import', () => {
     expect(titles).toContain('Session fixation on chat tokens');
     expect(titles).toContain('Downgrade to plain HTTP');
     expect(titles.some((t) => t.includes('T01'))).toBe(true);
+  });
+});
+
+/**
+ * Pentest 2026-10-07, finding M1: ids and verdict enums from a Threat Dragon
+ * file or from stored state are interpolated into attributes, so they must
+ * be selector-safe by the time they leave the trust boundary.
+ */
+const SELECTOR_SAFE = /^[A-Za-z0-9_-]+$/;
+const POC_ID = 'x"><img src=x onerror="document.documentElement.setAttribute(\'data-poc\',\'fired\')">';
+
+describe('Threat Dragon import sanitizes ids', () => {
+  const poisoned = JSON.parse(readFileSync(new URL('../e2e/fixtures/td-poisoned.json', import.meta.url), 'utf8')) as unknown;
+
+  it('replaces unsafe cell ids and keeps the topology intact', () => {
+    let n = 0;
+    const imported = importThreatDragon(poisoned, () => `gen-${n++}`);
+    const nodeIds = imported.graph!.nodes.map((node) => node.id);
+    const flowIds = imported.graph!.flows.map((flow) => flow.id);
+    for (const id of [...nodeIds, ...flowIds]) expect(id).toMatch(SELECTOR_SAFE);
+    // The safe id survives untouched; the two unsafe ones were regenerated.
+    expect(nodeIds).toContain('safe-store');
+    expect(nodeIds).toHaveLength(3);
+    expect(new Set(nodeIds).size).toBe(3);
+    expect(flowIds).toContain('flow-2');
+    expect(flowIds).toHaveLength(2);
+    // Flow endpoints follow the renamed nodes, so nothing dangles.
+    for (const flow of imported.graph!.flows) {
+      expect(nodeIds).toContain(flow.from);
+      expect(nodeIds).toContain(flow.to);
+    }
+    // Carried threats point at the renamed cell and still resolve its name.
+    expect(imported.imported).toHaveLength(1);
+    expect(imported.imported![0].cell).toMatch(SELECTOR_SAFE);
+    expect(imported.imported![0].cellName).toBe('Chat backend');
+    expect(JSON.stringify(imported.graph)).not.toContain('onerror');
+    expect(JSON.stringify(imported.graph)).not.toContain('<script>');
+  });
+
+  it('leaves a clean file exactly as it was', () => {
+    const clean = JSON.parse(readFileSync(new URL('../e2e/fixtures/td-sample.json', import.meta.url), 'utf8')) as unknown;
+    const imported = importThreatDragon(clean, () => 'never');
+    expect(imported.graph!.nodes.map((n) => n.id).sort()).toEqual(['cell-db', 'cell-user', 'cell-web']);
+    expect(imported.graph!.flows.map((f) => f.id).sort()).toEqual(['flow-1', 'flow-2']);
+    expect(imported.imported![0].cell).toBe('cell-web');
+  });
+});
+
+describe('stored model sanitizing', () => {
+  const poisonedDraft = {
+    profile: {
+      name: 'PoC',
+      components: ['user-chat', 42, null],
+      exposure: 'internal',
+      dataClass: 'internal',
+      graph: {
+        nodes: [
+          { id: POC_ID, kind: 'process', label: 'node', sub: '', zone: 'app', x: 300, y: 100 },
+          { id: 'ok', kind: 'nonsense', label: 7, zone: 'moon', x: 'left', y: 40 },
+          'not a node',
+        ],
+        flows: [
+          { id: '" onload="x', from: POC_ID, to: 'ok', kind: 'plain', label: 'f' },
+          { id: 'dangling', from: 'missing', to: 'ok', kind: 'plain', label: 'g' },
+        ],
+      },
+      imported: [{ cell: POC_ID, cellName: 'node', title: 'Carried', status: 'Open', severity: '', type: '', description: '', mitigation: '' }],
+    },
+    verdicts: {
+      ['T01@' + POC_ID]: { status: '" onload="x', treatment: 'x', note: 'n', owner: ['array'] },
+      'T02@user-chat': { status: 'mitigated', treatment: 'accept', likelihood: 'likely' },
+      'bad"key': { status: 'applies' },
+      'T03@user-chat': 'not an object',
+    },
+    savedAt: '2026-10-07T00:00:00.000Z',
+  };
+
+  it('forces node and flow ids selector-safe and remaps references', () => {
+    let n = 0;
+    const cleaned = sanitizeProfile(poisonedDraft.profile, () => `gen-${n++}`)!;
+    const { profile, idMap } = cleaned;
+    const nodeIds = profile.graph!.nodes.map((node) => node.id);
+    expect(nodeIds).toEqual(['gen-0', 'ok']);
+    expect(idMap.get(POC_ID)).toBe('gen-0');
+    // Bad enums and non-string fields are coerced, not trusted.
+    expect(profile.graph!.nodes[1]).toMatchObject({ kind: 'process', zone: 'app', label: '', x: 0, y: 40 });
+    // The flow id was regenerated, its endpoints follow the node rename, and
+    // the dangling flow is dropped.
+    expect(profile.graph!.flows).toHaveLength(1);
+    expect(profile.graph!.flows[0]).toMatchObject({ id: 'gen-1', from: 'gen-0', to: 'ok' });
+    expect(profile.imported![0].cell).toBe('gen-0');
+    expect(profile.components).toEqual(['user-chat']);
+    expect(JSON.stringify(profile)).not.toContain('onerror');
+  });
+
+  it('allowlists verdict status and treatment and follows renamed flows', () => {
+    const idMap = new Map([[POC_ID, 'gen-0']]);
+    const verdicts = sanitizeVerdicts(poisonedDraft.verdicts, idMap);
+    expect(Object.keys(verdicts).sort()).toEqual(['T01@gen-0', 'T02@user-chat']);
+    expect(verdicts['T01@gen-0']).toEqual({ status: 'unreviewed', note: 'n' });
+    expect(verdicts['T02@user-chat']).toEqual({ status: 'mitigated', treatment: 'accept', likelihood: 'likely' });
+  });
+
+  it('rebuilds a whole stored model and rejects non-models', () => {
+    let n = 0;
+    const model = sanitizeModel(poisonedDraft, () => `gen-${n++}`)!;
+    expect(model.savedAt).toBe('2026-10-07T00:00:00.000Z');
+    expect(model.verdicts['T01@gen-0'].status).toBe('unreviewed');
+    expect(model.profile.graph!.nodes[0].id).toBe('gen-0');
+    expect(sanitizeModel(null)).toBeNull();
+    expect(sanitizeModel({ profile: { components: 'nope' } })).toBeNull();
+    expect(sanitizeModel({ profile: { components: [] } })).toEqual({
+      profile: { name: '', components: [], exposure: 'internal', dataClass: 'internal' },
+      verdicts: {},
+    });
   });
 });
