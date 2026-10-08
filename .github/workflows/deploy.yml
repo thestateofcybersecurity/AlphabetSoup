@@ -7,10 +7,12 @@ on:
     branches: [main]
   workflow_dispatch:
 
+# Least privilege: the build job runs on pull requests and executes npm ci
+# (dependency lifecycle scripts) plus Playwright, so it gets read-only. The
+# Pages and OIDC grants live on the deploy job alone, where the github-pages
+# environment already scopes them.
 permissions:
   contents: read
-  pages: write
-  id-token: write
 
 concurrency:
   group: pages-${{ github.ref }}
@@ -24,8 +26,8 @@ jobs:
     # have run to GitHub's six-hour default.
     timeout-minutes: 15
     steps:
-      - uses: actions/checkout@v7
-      - uses: actions/setup-node@v7
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
         with:
           node-version: 22
           cache: npm
@@ -37,9 +39,7 @@ jobs:
       - run: npm run build
       - run: npx playwright install --with-deps chromium
       - run: npx playwright test
-      - uses: actions/configure-pages@v6
-        if: github.event_name != 'pull_request'
-      - uses: actions/upload-pages-artifact@v5
+      - uses: actions/upload-pages-artifact@fc324d3547104276b827a68afc52ff2a11cc49c9 # v5.0.0
         if: github.event_name != 'pull_request'
         with:
           path: dist
@@ -50,12 +50,19 @@ jobs:
     runs-on: ubuntu-latest
     # Publishing the artifact takes seconds; this only guards a stuck upload.
     timeout-minutes: 10
+    permissions:
+      pages: write
+      id-token: write
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
     steps:
+      # configure-pages reads the Pages site through the API (nothing in the
+      # build consumes its outputs), so it runs here with the pages grant
+      # rather than widening the build job.
+      - uses: actions/configure-pages@45bfe0192ca1faeb007ade9deae92b16b8254a0d # v6.0.0
       - id: deployment
-        uses: actions/deploy-pages@v5
+        uses: actions/deploy-pages@368f82528645a54fb793d4d04e342629a3f51346 # v5.0.1
 
   # Tell IndexNow-family search engines (Bing, and through it the indexes
   # behind ChatGPT search and Copilot) what just changed, instead of waiting
@@ -69,7 +76,7 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 5
     steps:
-      - uses: actions/checkout@v7
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
       - name: Ping IndexNow with fresh URLs
         run: |
           KEY="cas2026indexnow8f41b2c7d5e9a638"
