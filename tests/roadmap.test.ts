@@ -13,6 +13,8 @@ import {
   kpiAttainmentCounts,
   milestoneProgress,
   nextStatus,
+  parsePlanState,
+  parseStartMonth,
   planLoad,
   planProgress,
   planToCsv,
@@ -294,5 +296,51 @@ describe('program effort estimates', () => {
     const load = planLoad(plan, {});
     const sum = Object.values(load).reduce((s, l) => s + l.hours, 0);
     expect(Math.round(sum)).toBe(Math.round(total));
+  });
+});
+
+describe('plan state import validation', () => {
+  it('keeps well-formed entries and drops malformed ones', () => {
+    const state = parsePlanState({
+      good: {
+        quarter: 'Q2',
+        status: 'in-progress',
+        owner: 'Dana',
+        date: '2026-03-01',
+        note: 'kickoff',
+        kpiStatus: { '0': 'met', '1': 'bogus', '2': 7 },
+        milestonesDone: { '0': true, '1': 'yes' },
+      },
+      badStatus: { quarter: 'Q1', status: 'done now' },
+      badQuarter: { quarter: 'Q9', status: 'done' },
+      notAnObject: 'done',
+      stringsOnly: { quarter: 'Q1', status: 'done', owner: ['a'], note: 3, date: null },
+    });
+    expect(state).toEqual({
+      good: {
+        quarter: 'Q2',
+        status: 'in-progress',
+        owner: 'Dana',
+        date: '2026-03-01',
+        note: 'kickoff',
+        kpiStatus: { '0': 'met' },
+        milestonesDone: { '0': true },
+      },
+      stringsOnly: { quarter: 'Q1', status: 'done' },
+    });
+  });
+
+  it('refuses anything that is not an object so the caller can show an error', () => {
+    expect(parsePlanState(null)).toBeNull();
+    expect(parsePlanState('{}')).toBeNull();
+    expect(parsePlanState([{ quarter: 'Q1', status: 'done' }])).toBeNull();
+    expect(parsePlanState({})).toEqual({});
+  });
+
+  it('accepts only a YYYY-MM start month', () => {
+    expect(parseStartMonth('2026-03')).toBe('2026-03');
+    expect(parseStartMonth('2026-13')).toBeNull();
+    expect(parseStartMonth('March')).toBeNull();
+    expect(parseStartMonth(202603)).toBeNull();
   });
 });

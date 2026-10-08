@@ -66,6 +66,27 @@ export interface Annotation {
 }
 export type Annotations = Record<string, Annotation>;
 
+/**
+ * Rebuild annotations from untrusted input (an imported file, localStorage),
+ * in the parseFeed() style: keep only well-typed fields, drop the rest, and
+ * return null when the input is not an object so a bad file can be refused
+ * instead of silently replacing the user's notes.
+ */
+export function parseAnnotations(raw: unknown): Annotations | null {
+  if (typeof raw !== 'object' || raw === null || Array.isArray(raw)) return null;
+  const out: Annotations = {};
+  for (const [id, entry] of Object.entries(raw as Record<string, unknown>)) {
+    if (typeof entry !== 'object' || entry === null || Array.isArray(entry)) continue;
+    const { note, flagged, reviewed } = entry as Record<string, unknown>;
+    const annotation: Annotation = {};
+    if (typeof note === 'string') annotation.note = note;
+    if (typeof flagged === 'boolean') annotation.flagged = flagged;
+    if (typeof reviewed === 'boolean') annotation.reviewed = reviewed;
+    if (Object.keys(annotation).length > 0) out[id] = annotation;
+  }
+  return out;
+}
+
 export interface GroupScore {
   id: string;
   name: string;
