@@ -4292,5 +4292,199 @@
         "href": "/?q=ATLAS"
       }
     ]
+  },
+  {
+    "slug": "llmnr-nbtns-poisoning",
+    "title": "LLMNR and NBT-NS Poisoning: Find It, Then Turn It Off",
+    "description": "Why LLMNR and NBT-NS poisoning still opens most Windows pentests, how to detect it on UDP 5355 and 137, the exact GPO names, and why SMB signing matters more.",
+    "category": "Spotlight",
+    "author": "Parker Brissette",
+    "date": "2026-10-12",
+    "readingMinutes": 5,
+    "tags": [
+      "llmnr",
+      "nbt-ns",
+      "responder",
+      "smb-signing",
+      "active-directory"
+    ],
+    "body": [
+      {
+        "type": "p",
+        "text": "Everyone says turn off [LLMNR](/?q=LLMNR) and NBT-NS and the finding goes away. Do it. But that's the half of the attack that hurts less."
+      },
+      {
+        "type": "p",
+        "text": "The half that hurts is the relay, and the setting that stops it lives somewhere else."
+      },
+      {
+        "type": "p",
+        "text": "This is the finding I keep seeing at the top of internal pentest reports, year after year."
+      },
+      {
+        "type": "p",
+        "text": "It's also the one that gets fixed last, because it's \"just a GPO\" and nobody on the team owns the GPO."
+      },
+      {
+        "type": "h2",
+        "text": "Why a typo asks the whole subnet"
+      },
+      {
+        "type": "p",
+        "text": "Windows tries the hosts file and DNS first. When DNS comes back empty, it falls back to LLMNR on UDP 5355, multicast to 224.0.0.252, and then to NBT-NS, broadcast on UDP 137."
+      },
+      {
+        "type": "p",
+        "text": "So every mistyped share path is a question shouted at everyone on the segment. So is every mapped drive pointing at a file server that got decommissioned in 2019, and every app still hardcoded to a hostname nobody remembers."
+      },
+      {
+        "type": "p",
+        "text": "Nobody on that subnet is supposed to answer unless they own the name."
+      },
+      {
+        "type": "p",
+        "text": "Nothing enforces that."
+      },
+      {
+        "type": "h2",
+        "text": "What Responder does with the question"
+      },
+      {
+        "type": "p",
+        "text": "Responder answers every one of those questions with \"yes, that's me.\" The victim believes it, tries to authenticate, and hands over an [NTLM](/?q=NTLM)v2 challenge-response."
+      },
+      {
+        "type": "p",
+        "text": "Inveigh does the same job in PowerShell or .NET when you can't drop a Python tool on the box. (Responder came out of Trustwave SpiderLabs over a decade ago. A lot of internal testers still run it before their coffee's done.)"
+      },
+      {
+        "type": "p",
+        "text": "From there it goes one of two ways. ATT&CK files both under T1557.001."
+      },
+      {
+        "type": "list",
+        "items": [
+          "**Crack it offline.** Hashcat mode 5600 takes NetNTLMv2. A strong password survives this. A Summer2026! does not.",
+          "**Relay it.** Impacket's ntlmrelayx forwards the authentication live to a host that doesn't require [SMB](/?q=SMB) signing. No cracking, so password strength doesn't matter at all. If the victim is a local admin on the target, the attacker is too."
+        ]
+      },
+      {
+        "type": "p",
+        "text": "That second path is why I won't let anyone rate this as a medium. I've argued that one more times than I can count."
+      },
+      {
+        "type": "h2",
+        "text": "Watch 5355 and 137 before you touch a GPO"
+      },
+      {
+        "type": "p",
+        "text": "If you can't switch it off tomorrow because someone is worried about a line-of-business app, detect it first."
+      },
+      {
+        "type": "p",
+        "text": "Pull flow data for UDP 5355 and UDP 137 and look at the responses, not the queries."
+      },
+      {
+        "type": "p",
+        "text": "Queries are noise. A healthy network has very few LLMNR responses, and they come from the host that owns the name. One machine answering for dozens of different names it has no business owning is Responder, or something just as bad."
+      },
+      {
+        "type": "p",
+        "text": "The cheap trick is a canary."
+      },
+      {
+        "type": "p",
+        "text": "Have a box ask LLMNR for a name that doesn't exist on a schedule, and alert if anything answers. Respounder is an open-source tool built for exactly this."
+      },
+      {
+        "type": "p",
+        "text": "In CIS v8 terms the flow logging is Safeguard 13.6 and the sensor is 13.3. Both are IG2."
+      },
+      {
+        "type": "h2",
+        "text": "The two settings, in the words the console uses"
+      },
+      {
+        "type": "p",
+        "text": "Neither of these is findable by guessing, so here they are verbatim."
+      },
+      {
+        "type": "list",
+        "items": [
+          "**LLMNR:** Computer Configuration, Administrative Templates, Network, DNS Client, **Turn off multicast name resolution**, set to Enabled. That writes EnableMulticast = 0 under HKLM\\Software\\Policies\\Microsoft\\Windows NT\\DNSClient.",
+          "**NBT-NS:** there's no clean GPO. It's per adapter, under IPv4, Advanced, the WINS tab, **Disable NetBIOS over TCP/IP**. At scale, push DHCP option 001 in the Microsoft vendor class with a value of 0x2. The other route is a startup script that sets NetbiosOptions to 2 on every Tcpip_{GUID} key under HKLM\\SYSTEM\\CurrentControlSet\\Services\\NetBT\\Parameters\\Interfaces."
+        ]
+      },
+      {
+        "type": "p",
+        "text": "I don't care which NBT-NS route you take."
+      },
+      {
+        "type": "p",
+        "text": "DHCP misses anything with a static IP, and the script misses anything that isn't domain joined. Pick the one that covers more of your fleet and clean up the rest by hand."
+      },
+      {
+        "type": "p",
+        "text": "I'd test on one OU for a week first. The thing that breaks is almost always a printer or an old app resolving a short name that DNS never had."
+      },
+      {
+        "type": "h2",
+        "text": "Where I disagree with the usual fix"
+      },
+      {
+        "type": "p",
+        "text": "Here's my hill. SMB signing matters more than either of those settings."
+      },
+      {
+        "type": "p",
+        "text": "Turn off LLMNR and NBT-NS and Responder still has mDNS on UDP 5353, which it poisons just as happily. An attacker on the segment has other ways to coerce authentication anyway. Require signing and the relay half breaks no matter how the hash got captured. The GPO you want is **Microsoft network server: Digitally sign communications (always)**, alongside the client-side twin."
+      },
+      {
+        "type": "p",
+        "text": "Windows 11 24H2 shipped in late 2024 with signing required by default. Your Server 2016 file server didn't get that memo."
+      },
+      {
+        "type": "p",
+        "text": "If you're the admin with a pentest readout on Friday, that file server is what to fix this week."
+      },
+      {
+        "type": "p",
+        "text": "CIS puts disabling unnecessary services at Safeguard 4.8, and that's IG2, which surprises people. In IG1 it only shows up through 4.1, the secure configuration process. I'd treat it as IG1 anyway. You can check where you stand with the [CIS IG1 assessment](/assess/?a=cis-ig1) and the [CIS Controls overview](/frameworks/cis/)."
+      },
+      {
+        "type": "p",
+        "text": "What I don't know is Microsoft's timeline. In April 2022 they said they were ramping down both protocols in favor of mDNS."
+      },
+      {
+        "type": "p",
+        "text": "It's October 2026 and LLMNR is still on by default, and I can't tell you when that flips."
+      },
+      {
+        "type": "p",
+        "text": "Don't wait for it. Turn the two protocols off, but if you only get one change through the change board this quarter, make it signing."
+      }
+    ],
+    "related": [
+      {
+        "label": "Look up LLMNR in the glossary",
+        "href": "/?q=LLMNR"
+      },
+      {
+        "label": "What NTLM is",
+        "href": "/?q=NTLM"
+      },
+      {
+        "label": "Look up SMB in the glossary",
+        "href": "/?q=SMB"
+      },
+      {
+        "label": "The CIS Controls in plain English",
+        "href": "/frameworks/cis/"
+      },
+      {
+        "label": "Run the CIS IG1 assessment",
+        "href": "/assess/?a=cis-ig1"
+      }
+    ]
   }
 ]
