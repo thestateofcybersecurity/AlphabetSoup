@@ -59,7 +59,7 @@
     },
     {
       "slug": "nordvpn-review-what-a-vpn-does",
-      "title": "NordVPN Review: What a VPN Actually Protects (and What It Never Will)",
+      "title": "NordVPN Review: What NordVPN Does, and What No VPN Can Fix",
       "category": "Spotlight",
       "brief": "An honest practitioner review of NordVPN. Open with a clear one-sentence affiliate disclosure near the top that links to /disclosure/ (the post contains affiliate links and the site may earn a commission at no extra cost to the reader). Be direct that a VPN is not a silver bullet: it encrypts traffic in transit and hides your IP from the local network and your ISP, but it does not stop phishing, malware, credential theft, or a breached service leaking your data, and HTTPS already protects most sessions. Then cover where NordVPN genuinely earns a place in a layered setup: public Wi-Fi and travel, untrusted networks, IP privacy, and testing region-dependent behavior. Discuss NordLynx (WireGuard) performance, the independently audited no-logs policy, and why the bundled Threat Protection feature is a nice extra but no replacement for real endpoint protection. Briefly contrast consumer VPNs with corporate remote-access VPNs and with zero trust approaches like ZTNA and SASE so readers understand the category. Close with who should buy it (frequent travelers, public Wi-Fi users, privacy-conscious readers) and who can skip it. Every NordVPN call-to-action link in the post must use the tracking URL https://www.anrdoezrs.net/click-8024903-13756265 with plain-language anchor text.",
       "links": [
@@ -297,6 +297,44 @@
       ]
     },
     {
+      "slug": "cis-controls-v8-safeguards-by-asset-type",
+      "title": "CIS Controls v8 Safeguards: All 153, by Asset Type and IG",
+      "category": "Explainer",
+      "brief": "Search Console shows people looking up individual CIS safeguards by number (4.2, 4.5, 4.11) and landing on this site's safeguard pages at positions 6 to 9. Write the companion reference one level below the 18-control overview: walk the 153 safeguards control by control, grouped by the asset type CIS assigns (devices, software, data, users, network, documentation) and tagged by the lowest Implementation Group that needs them. For each control, name the two or three safeguards a small team gets the most out of and say what done looks like in one sentence. Keep the official safeguard numbering visible so identifier searches match, and link the per-safeguard pages and the IG1, IG2 and IG3 views inline rather than repeating their text.",
+      "links": [
+        "/frameworks/cis/",
+        "/frameworks/cis/ig1.html",
+        "/frameworks/cis/4-2.html",
+        "/tools/crosswalk/",
+        "/?q=CIS"
+      ]
+    },
+    {
+      "slug": "iso-27001-annex-a-controls-spreadsheet",
+      "title": "ISO 27001 Annex A Controls Spreadsheet: The Columns That Matter",
+      "category": "Explainer",
+      "brief": "People search for an ISO 27001 Annex A controls spreadsheet and this site already ranks near position 8 for it without a page built for that intent. Write for the person who has been asked to build a Statement of Applicability in a spreadsheet: list the columns that make it useful to an auditor (control ID, control name, applicable yes or no, justification, implementation status, owner, evidence location, linked risk) and explain each one with a worked example row. Cover the 2022 structure of 93 controls across four themes (organizational, people, physical, technological), the 11 new controls, and the common mistake of marking controls not applicable without a risk-based reason. Point to the site's ISO reference and the Framework Crosswalk for mapping the same rows to SOC 2 and NIST CSF.",
+      "links": [
+        "/frameworks/iso/",
+        "/tools/crosswalk/",
+        "/tools/trust-package/",
+        "/?q=ISMS"
+      ]
+    },
+    {
+      "slug": "dfars-7012-compliance-checklist",
+      "title": "DFARS 252.204-7012 Compliance Checklist for Small Suppliers",
+      "category": "Explainer",
+      "brief": "Write a checklist for a small defense supplier who has found DFARS 252.204-7012 in a contract and needs to know what to do this quarter, a narrower and more practical angle than the clause explainer already published. Order the list by what auditors and primes ask for first: identify where CUI lives, scope the systems that touch it, self-assess against the 110 NIST SP 800-171 requirements, post a score to SPRS, write the system security plan and plan of action, line up the 72-hour cyber incident reporting path to DC3 and the medium-assurance certificate it needs, and confirm cloud providers meet FedRAMP Moderate equivalency. Say plainly where 7012 stops and CMMC Level 2 begins, and link the CMMC self-assessment and the glossary entries for DFARS, CUI and CMMC inline.",
+      "links": [
+        "/assess/cmmc/",
+        "/?q=DFARS",
+        "/?q=CUI",
+        "/?q=CMMC",
+        "/tools/reg-mapper/"
+      ]
+    },
+    {
       "slug": "dfars-7012-explained",
       "title": "DFARS 252.204-7012: What the Clause Actually Requires",
       "category": "Explainer",
@@ -372,6 +410,39 @@
       ]
     },
     {
+      "slug": "cissp-study-approach",
+      "title": "A Sane Way to Study for the CISSP",
+      "category": "Career",
+      "brief": "A realistic CISSP study approach that respects a working professional's time: how to think in the exam's mindset, what to prioritize across the eight domains, and how to practice without burning out.",
+      "links": [
+        "/quiz/",
+        "/careers/"
+      ]
+    },
+    {
+      "slug": "zero-trust-maturity-model-small-team",
+      "title": "Zero Trust Maturity Model: Five Pillars on a Small-Team Budget",
+      "category": "Explainer",
+      "brief": "Write for an IT lead at a small agency or company with two or three people who has been told to adopt zero trust and has no budget line for it. Walk the CISA Zero Trust Maturity Model v2.0 pillar by pillar (identity, devices, networks, applications and workloads, data) plus the three cross-cutting capabilities, and for each pillar say what the Initial stage looks like in practice and the single cheapest move toward Advanced, such as phishing-resistant MFA on admin accounts for identity, a device inventory with EDR for devices, and replacing a flat VPN with per-app access for networks. Be plain that zero trust is not a product, that vendors selling ZTNA and SASE are selling one pillar, and that most small teams should aim for Advanced on identity and devices before touching the others. Close by pointing to the site's zero trust maturity self-assessment so the reader can score each pillar, and link the ZTA, ZTNA and SASE glossary pages inline.",
+      "links": [
+        "/assess/?a=zero-trust",
+        "/definitions/zta.html",
+        "/definitions/ztna.html",
+        "/definitions/sase.html"
+      ]
+    },
+    {
+      "slug": "phishing-mfa-fatigue-resistant-auth",
+      "title": "Phishing, MFA Fatigue, and Phishing-Resistant Authentication",
+      "category": "Spotlight",
+      "brief": "Explain why not all MFA is equal: how attackers defeat push-based MFA with fatigue and proxy phishing, and how phishing-resistant methods (FIDO2, passkeys) close the gap.",
+      "links": [
+        "/?q=MFA",
+        "/?q=FIDO",
+        "/tools/runbook/"
+      ]
+    },
+    {
       "slug": "mitre-atlas-tactics-explained",
       "title": "All 16 MITRE ATLAS Tactics, AML.TA0000 to AML.TA0015, Explained",
       "category": "Explainer",
@@ -421,16 +492,6 @@
       ]
     },
     {
-      "slug": "cissp-study-approach",
-      "title": "A Sane Way to Study for the CISSP",
-      "category": "Career",
-      "brief": "A realistic CISSP study approach that respects a working professional's time: how to think in the exam's mindset, what to prioritize across the eight domains, and how to practice without burning out.",
-      "links": [
-        "/quiz/",
-        "/careers/"
-      ]
-    },
-    {
       "slug": "sle-ale-aro-risk-math",
       "title": "SLE, ALE, and ARO: The Risk Math, Worked Out Once",
       "category": "Explainer",
@@ -471,17 +532,6 @@
       "links": [
         "/careers/",
         "/tools/"
-      ]
-    },
-    {
-      "slug": "phishing-mfa-fatigue-resistant-auth",
-      "title": "Phishing, MFA Fatigue, and Phishing-Resistant Authentication",
-      "category": "Spotlight",
-      "brief": "Explain why not all MFA is equal: how attackers defeat push-based MFA with fatigue and proxy phishing, and how phishing-resistant methods (FIDO2, passkeys) close the gap.",
-      "links": [
-        "/?q=MFA",
-        "/?q=FIDO",
-        "/tools/runbook/"
       ]
     },
     {
