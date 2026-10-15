@@ -4486,5 +4486,266 @@
         "href": "/assess/?a=cis-ig1"
       }
     ]
+  },
+  {
+    "slug": "otp-hotp-totp-which-protects-you",
+    "title": "OTP, HOTP, and TOTP: Which One Is Actually Protecting You",
+    "description": "SMS codes, counter-based HOTP, and time-based TOTP all answer to the name OTP. One barely counts, and none of them stops a phishing kit. Here is the ranking.",
+    "category": "Explainer",
+    "author": "Parker Brissette",
+    "date": "2026-10-15",
+    "readingMinutes": 5,
+    "tags": [
+      "otp",
+      "totp",
+      "hotp",
+      "mfa",
+      "fido2"
+    ],
+    "body": [
+      {
+        "type": "p",
+        "text": "Everyone says turn on [MFA](/?q=MFA), and the questionnaire that asked has no box for which kind."
+      },
+      {
+        "type": "p",
+        "text": "[OTP](/?q=OTP) is three different things wearing one name, and the one most of your users have is the one doing the least."
+      },
+      {
+        "type": "p",
+        "text": "So, which one is protecting you?"
+      },
+      {
+        "type": "p",
+        "text": "Whichever one you've got is protecting you from password reuse."
+      },
+      {
+        "type": "p",
+        "text": "None of the three is protecting you from phishing."
+      },
+      {
+        "type": "h2",
+        "text": "Start with the code that arrives by text"
+      },
+      {
+        "type": "p",
+        "text": "An SMS code is a one-time password in the loosest sense. The server picks six random digits, stores them, and texts them to a phone number it trusts."
+      },
+      {
+        "type": "p",
+        "text": "The code isn't the weak part. The phone number is."
+      },
+      {
+        "type": "p",
+        "text": "A SIM swap moves that number to a handset the attacker holds, and from then on every code lands with them."
+      },
+      {
+        "type": "p",
+        "text": "The FCC's SIM swap rules took effect in July 2024 and make carriers authenticate the customer before a port. That helps at the margin and does nothing about a bribed store employee."
+      },
+      {
+        "type": "p",
+        "text": "[NIST](/?q=NIST) put SMS and voice codes in the RESTRICTED bucket of SP 800-63B in June 2017."
+      },
+      {
+        "type": "p",
+        "text": "Nine years later it still ticks the MFA box on every vendor questionnaire and insurance renewal I've seen."
+      },
+      {
+        "type": "p",
+        "text": "That's the thing I keep arguing about. SMS is better than nothing. The argument is whether a form that can't tell SMS from a hardware key is measuring anything at all."
+      },
+      {
+        "type": "h2",
+        "text": "HOTP, the counter nobody chose on purpose"
+      },
+      {
+        "type": "p",
+        "text": "[HOTP](/?q=HOTP) is RFC 4226, from December 2005. Take a shared secret and a counter, run [HMAC](/?q=HMAC)-SHA1 over them, chop the result down to six digits."
+      },
+      {
+        "type": "p",
+        "text": "Both sides keep the counter."
+      },
+      {
+        "type": "p",
+        "text": "Press the button, the counter goes up, a new code comes out."
+      },
+      {
+        "type": "p",
+        "text": "You've almost certainly used one."
+      },
+      {
+        "type": "p",
+        "text": "The OTP slot on a YubiKey can run OATH-HOTP. The old bank fobs with a button and no clock were HOTP, or something proprietary that worked the same way."
+      },
+      {
+        "type": "p",
+        "text": "The problem is drift."
+      },
+      {
+        "type": "p",
+        "text": "Press the button four times in your pocket and the token's counter is four ahead of the server's. RFC 4226 handles that with a look-ahead window, and every implementation picks a different width for it."
+      },
+      {
+        "type": "p",
+        "text": "A HOTP code also doesn't expire. Phish one at 9:00 and it's still good at noon, as long as the real user hasn't pressed the button since."
+      },
+      {
+        "type": "p",
+        "text": "Nobody picks HOTP for a new rollout in 2026. It's what you inherit."
+      },
+      {
+        "type": "h2",
+        "text": "TOTP, the same math on a 30-second clock"
+      },
+      {
+        "type": "p",
+        "text": "[TOTP](/?q=TOTP) is RFC 6238, May 2011, and it's HOTP with one substitution. The counter becomes the Unix time divided by 30."
+      },
+      {
+        "type": "p",
+        "text": "That's the whole trick."
+      },
+      {
+        "type": "p",
+        "text": "Same HMAC, same shared secret, same six digits, and no button to press because the clock is the counter."
+      },
+      {
+        "type": "p",
+        "text": "The RFC's test vectors use SHA-1, and so does nearly every authenticator app on your phone (Google Authenticator still defaults to it). That's fine. HMAC doesn't care about SHA-1's collision problems, and nobody has shown an attack on HMAC-SHA1 that matters here."
+      },
+      {
+        "type": "p",
+        "text": "Most servers accept one step either side, so a code is really good for about 90 seconds."
+      },
+      {
+        "type": "p",
+        "text": "Plenty for what comes next."
+      },
+      {
+        "type": "p",
+        "text": "The part people miss is that \"shared secret\" means the server has your seed. Every seed, for every user."
+      },
+      {
+        "type": "p",
+        "text": "Twilio's Authy service found that out in July 2024, when an unauthenticated endpoint let someone pull 33 million phone numbers tied to Authy accounts."
+      },
+      {
+        "type": "p",
+        "text": "The seeds weren't in that haul. The service holding your second factor is still a target, and last I checked Authy won't let you export your seeds out of it."
+      },
+      {
+        "type": "p",
+        "text": "Google Authenticator added cloud sync in April 2023 and shipped it without end-to-end encryption. Convenient, and one more place your seeds live."
+      },
+      {
+        "type": "h2",
+        "text": "So which one survives a phishing kit"
+      },
+      {
+        "type": "p",
+        "text": "None of them."
+      },
+      {
+        "type": "p",
+        "text": "Evilginx has been public since 2017."
+      },
+      {
+        "type": "p",
+        "text": "It sits between the user and the real login page. It forwards the password, forwards the TOTP code inside the 30-second window, and keeps the session cookie that comes back."
+      },
+      {
+        "type": "p",
+        "text": "Microsoft reported in July 2022 that one [AiTM](/?q=AiTM) campaign had hit more than 10,000 organizations since September 2021. Those were tenants with MFA turned on."
+      },
+      {
+        "type": "p",
+        "text": "SMS, HOTP, and TOTP all fail the same way here, because the code is something a user can type."
+      },
+      {
+        "type": "p",
+        "text": "Anything a user can type, a user can type into the wrong page."
+      },
+      {
+        "type": "p",
+        "text": "[FIDO2](/?q=FIDO2) is where that stops."
+      },
+      {
+        "type": "p",
+        "text": "The credential is bound to the origin. A key registered for login.microsoftonline.com won't sign a challenge from a lookalike domain, whatever the page says."
+      },
+      {
+        "type": "p",
+        "text": "OMB M-22-09 required phishing-resistant MFA across federal agencies in January 2022. CISA's fact sheet from October 2022 says the same thing to everyone else."
+      },
+      {
+        "type": "p",
+        "text": "Here's my hill."
+      },
+      {
+        "type": "p",
+        "text": "Admins go on FIDO2 before anyone spends a meeting arguing about which authenticator app the rest of the company uses."
+      },
+      {
+        "type": "h2",
+        "text": "What I'd actually do this quarter"
+      },
+      {
+        "type": "p",
+        "text": "If you're the one answering the cyber insurance renewal this month, the MFA question is a yes or no. SMS gets you the yes."
+      },
+      {
+        "type": "p",
+        "text": "It's still the weakest yes on the form, and the broker knows it."
+      },
+      {
+        "type": "p",
+        "text": "Rank the work like this."
+      },
+      {
+        "type": "list",
+        "items": [
+          "**Admins first.** Anyone holding Global Administrator, Domain Admin, or the equivalent gets hardware FIDO2 keys, two each, this quarter. That's [CIS](/frameworks/cis/) Safeguard 6.5, and it's IG1, so it's on the list for the smallest companies too.",
+          "**Everyone else gets an app-based TOTP, not SMS.** I honestly don't care which app. Microsoft Authenticator, Google Authenticator, the one built into 1Password, whatever your people will keep. Pick on seed export, not on logo.",
+          "**Backup codes.** Google hands out 10. Print them. The lockout ticket costs more than the paper.",
+          "**Kill SMS as a fallback** once the app is enrolled. An attacker who can trigger \"send a code by text instead\" gets to choose the weakest factor you left switched on."
+        ]
+      },
+      {
+        "type": "p",
+        "text": "One thing I don't know."
+      },
+      {
+        "type": "p",
+        "text": "NIST called SMS restricted in 2017, and in 2026 it's still an accepted answer on nearly every form I see. I can't tell you when that changes, and I've stopped predicting it."
+      },
+      {
+        "type": "p",
+        "text": "What I can tell you is that the OTP checkbox was never the control. The control is what the user can't be talked into typing."
+      }
+    ],
+    "related": [
+      {
+        "label": "Look up OTP in the glossary",
+        "href": "/?q=OTP"
+      },
+      {
+        "label": "What TOTP is",
+        "href": "/?q=TOTP"
+      },
+      {
+        "label": "What HOTP is",
+        "href": "/?q=HOTP"
+      },
+      {
+        "label": "FIDO2, where phishing resistance starts",
+        "href": "/?q=FIDO2"
+      },
+      {
+        "label": "CIS Controls framework guide",
+        "href": "/frameworks/cis/"
+      }
+    ]
   }
 ]
