@@ -4747,5 +4747,220 @@
         "href": "/frameworks/cis/"
       }
     ]
+  },
+  {
+    "slug": "nerc-cip-for-utilities",
+    "title": "NERC CIP for Utilities, in Plain English",
+    "description": "NERC CIP for people arriving from IT: high, medium, and low impact, the ESP and PSP, the 35-day and 24-hour clocks, CIP-013, and what the RSAW really asks for.",
+    "category": "Explainer",
+    "author": "Parker Brissette",
+    "date": "2026-10-19",
+    "readingMinutes": 5,
+    "tags": [
+      "nerc-cip",
+      "ics",
+      "ot-security",
+      "utilities",
+      "compliance"
+    ],
+    "body": [
+      {
+        "type": "p",
+        "text": "Everyone coming over from the IT side says [NERC](/?q=NERC) CIP is NIST CSF with more paperwork. That misses the part that gets utilities fined."
+      },
+      {
+        "type": "p",
+        "text": "The control families do overlap. The dates don't exist anywhere else."
+      },
+      {
+        "type": "p",
+        "text": "If you're the IT security lead who just inherited the utility's CIP program, and the regional entity's audit notice is already on your desk, read this first. I'd open the standards second."
+      },
+      {
+        "type": "h2",
+        "text": "Where the IT crowd is right"
+      },
+      {
+        "type": "p",
+        "text": "CIP is 13 standards, CIP-002 through CIP-015 with CIP-001 retired, and most of them map onto things you already run."
+      },
+      {
+        "type": "p",
+        "text": "CIP-004 is access management and training. CIP-005 is network segmentation. CIP-007 is hardening and logging. CIP-010 is change management. CIP-013 is supply chain."
+      },
+      {
+        "type": "p",
+        "text": "Lay those next to [NIST CSF](/frameworks/nist-csf/) Protect and Detect and you'll find a home for nearly every requirement. The [crosswalk tool](/tools/crosswalk/) will do most of that mapping for you."
+      },
+      {
+        "type": "p",
+        "text": "So yes, the overlap is real. A utility with a decent IT security program has the bones, and I'll concede that to anyone."
+      },
+      {
+        "type": "p",
+        "text": "What it doesn't have is the clock."
+      },
+      {
+        "type": "h2",
+        "text": "Categorization is the whole game"
+      },
+      {
+        "type": "p",
+        "text": "CIP-002 makes you sort every BES Cyber System into high, medium, or low impact, and everything else in the program hangs off that answer."
+      },
+      {
+        "type": "p",
+        "text": "High is control centers. Medium is the big iron: generation over 1,500 MW aggregate in a single Interconnection, transmission at 500 kV and up, and a handful of other criteria in Attachment 1. Low is everything else that touches the bulk electric system."
+      },
+      {
+        "type": "p",
+        "text": "Most of the fleet is low, and that's where I'd spend the first month."
+      },
+      {
+        "type": "p",
+        "text": "What I keep seeing from people reading CIP for the first time is that they read \"low impact\" as \"out of scope\" and skip ahead to the medium requirements. That's the hill I'll die on. Low impact is not no impact."
+      },
+      {
+        "type": "p",
+        "text": "CIP-003 Attachment 1 still wants all of this at every low-impact site:"
+      },
+      {
+        "type": "list",
+        "items": [
+          "Security awareness reinforced at least every 15 calendar months.",
+          "Physical access controls on the asset and on the networking gear in front of it.",
+          "Electronic access controls at the boundary, including inbound and outbound rules for routable protocols.",
+          "A cyber security incident response plan, tested every 36 months.",
+          "A transient device and removable media policy.",
+          "Vendor electronic remote access, added by CIP-003-9 and effective April 1, 2026."
+        ]
+      },
+      {
+        "type": "p",
+        "text": "You redo the categorization every 15 calendar months. I'd keep every dated copy, because the auditor will ask for the one from two cycles ago."
+      },
+      {
+        "type": "h2",
+        "text": "The dates are the difference"
+      },
+      {
+        "type": "p",
+        "text": "Here's a NIST CSF 2.0 outcome, PR.PS-02: software is maintained, replaced, and removed commensurate with risk. There's no number in it."
+      },
+      {
+        "type": "p",
+        "text": "Here's CIP-007 R2 on the same subject."
+      },
+      {
+        "type": "list",
+        "items": [
+          "**35 calendar days** to evaluate each new security patch from a tracked source for applicability.",
+          "**35 more** to apply it, or to write a dated mitigation plan and then actually follow the plan.",
+          "Miss either window on one device and you have a potential noncompliance to self-report."
+        ]
+      },
+      {
+        "type": "p",
+        "text": "I think that 35-day clock is the hardest single requirement for an IT team to absorb, and the last line is why. CIP is zero defect. There's no risk-accepted checkbox, only a self-report and a mitigation plan."
+      },
+      {
+        "type": "p",
+        "text": "It's like that all the way through."
+      },
+      {
+        "type": "p",
+        "text": "24 hours to revoke remote and unescorted physical access after a termination, under CIP-004 R5. Log review at least every 15 calendar days, under CIP-007 R4. Training every 15 months, and a 7-year criminal history check refreshed every 7 years for anyone who gets a badge. Those are the three I'd put on the wall."
+      },
+      {
+        "type": "p",
+        "text": "And 1 hour to report a Reportable Cyber Security Incident to the E-ISAC and CISA, a CIP-008-6 rule that went live January 1, 2021. Attempts count too."
+      },
+      {
+        "type": "p",
+        "text": "An [ICS](/?q=ICS) engineer will tell you that's because a breaker trip isn't a data breach. I'm with them on that one."
+      },
+      {
+        "type": "h2",
+        "text": "Two perimeters, not one"
+      },
+      {
+        "type": "p",
+        "text": "CIP doesn't say segment. It draws two literal perimeters and makes you defend both."
+      },
+      {
+        "type": "p",
+        "text": "The Electronic Security Perimeter in CIP-005 is the network boundary around your medium and high systems. Every access point gets listed, and every interactive remote session goes through an Intermediate System with MFA."
+      },
+      {
+        "type": "p",
+        "text": "The Physical Security Perimeter in CIP-006 is the fence, the badge reader, and the visitor log, which you keep for 90 calendar days."
+      },
+      {
+        "type": "p",
+        "text": "(The ESP idea predates zero trust by more than a decade, and CIP still thinks in walls. CIP-015, the internal network security monitoring standard FERC approved in 2025, is the first one that assumes the wall leaks.)"
+      },
+      {
+        "type": "p",
+        "text": "Supply chain got its own standard in CIP-013, in force since October 1, 2020. It wants a documented procurement risk process and it wants you to control vendor remote access, which is the piece most [SCADA](/?q=SCADA) vendors still push back on."
+      },
+      {
+        "type": "p",
+        "text": "Which firewall you build the ESP on, I genuinely don't care. The auditor won't either, as long as the access point list is dated."
+      },
+      {
+        "type": "h2",
+        "text": "What the audit actually asks for"
+      },
+      {
+        "type": "p",
+        "text": "Your regional entity (one of six: MRO, NPCC, ReliabilityFirst, SERC, Texas RE, WECC) audits entities with medium or high systems about every 3 years."
+      },
+      {
+        "type": "p",
+        "text": "They send RSAWs ahead of time, one worksheet per standard, and each one asks for evidence against every requirement part. Not the policy. The dated artifact that proves the policy ran."
+      },
+      {
+        "type": "p",
+        "text": "Nobody passes a CIP audit on a good narrative. They pass it on 15 months of screenshots with timestamps."
+      },
+      {
+        "type": "p",
+        "text": "The penalty math is why, and it's the number I'd lead with when the budget conversation gets hard. The statute allows up to $1 million per day per violation, a 2005 figure that's been adjusted upward since. The 2019 settlement widely reported as Duke Energy ran $10 million across 127 violations of 13 CIP standards. Most of those were access management and documentation failures, not an intrusion."
+      },
+      {
+        "type": "p",
+        "text": "One thing I don't know yet is CIP-015. As of October 2026 nobody has been audited against it and the compliance dates are still years out. I can't tell you how strictly the word \"collect\" will be read when the first RSAW for it shows up."
+      },
+      {
+        "type": "p",
+        "text": "So concede the overlap. I do. Run NIST CSF or [CIS](/frameworks/cis/) as your program if you like."
+      },
+      {
+        "type": "p",
+        "text": "Then put every CIP date on a calendar that one named person owns. My bet is the auditor isn't reading your framework. They're reading the timestamps."
+      }
+    ],
+    "related": [
+      {
+        "label": "NERC CIP in the glossary",
+        "href": "/?q=NERC"
+      },
+      {
+        "label": "ICS, defined",
+        "href": "/?q=ICS"
+      },
+      {
+        "label": "SCADA, defined",
+        "href": "/?q=SCADA"
+      },
+      {
+        "label": "NIST CSF 2.0 hub",
+        "href": "/frameworks/nist-csf/"
+      },
+      {
+        "label": "Framework crosswalk tool",
+        "href": "/tools/crosswalk/"
+      }
+    ]
   }
 ]
