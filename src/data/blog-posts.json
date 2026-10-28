@@ -4962,5 +4962,232 @@
         "href": "/tools/crosswalk/"
       }
     ]
+  },
+  {
+    "slug": "ferpa-for-edtech-vendors",
+    "title": "FERPA for EdTech Vendors, in Plain English",
+    "description": "FERPA from the vendor side: who it binds, the school official exception's three conditions, directory information, and what districts ask you to evidence.",
+    "category": "Explainer",
+    "author": "Parker Brissette",
+    "date": "2026-10-28",
+    "readingMinutes": 5,
+    "tags": [
+      "ferpa",
+      "edtech",
+      "student-privacy",
+      "compliance",
+      "vendor-risk"
+    ],
+    "body": [
+      {
+        "type": "p",
+        "text": "[FERPA](/?q=FERPA) doesn't apply to your company. That's the first thing I get straight with EdTech founders, and it's the opposite of what the sales deck says."
+      },
+      {
+        "type": "p",
+        "text": "The law binds schools. Districts and universities that take money from the US Department of Education, and nobody else."
+      },
+      {
+        "type": "p",
+        "text": "So the question I get asked most, does FERPA apply to us, has a short answer. No."
+      },
+      {
+        "type": "p",
+        "text": "The long answer is worse for you than yes would've been."
+      },
+      {
+        "type": "h2",
+        "text": "Who the law actually binds"
+      },
+      {
+        "type": "p",
+        "text": "FERPA is from 1974, codified at 20 U.S.C. 1232g with the regulations at 34 CFR Part 99, and every obligation in it lands on the \"educational agency or institution.\""
+      },
+      {
+        "type": "p",
+        "text": "The penalty is losing federal education funding. In 52 years the Department has never once pulled it."
+      },
+      {
+        "type": "p",
+        "text": "There's no private right of action either. The Supreme Court closed that door in Gonzaga University v. Doe in 2002, so a parent can't sue the school under FERPA, and they can't sue you."
+      },
+      {
+        "type": "p",
+        "text": "Here's the hill I'll die on: stop putting \"FERPA compliant\" on the pricing page."
+      },
+      {
+        "type": "p",
+        "text": "Nobody certifies that, and the district's counsel knows it."
+      },
+      {
+        "type": "p",
+        "text": "What you are is a party the school is allowed to hand records to, under one exception, on three conditions."
+      },
+      {
+        "type": "h2",
+        "text": "The three conditions in 99.31(a)(1)(i)(B)"
+      },
+      {
+        "type": "p",
+        "text": "An education record is anything directly related to a student that the school maintains, or that a party acting for the school maintains. That second clause is you."
+      },
+      {
+        "type": "p",
+        "text": "Your gradebook, your reading-level scores, the chat log in your tutoring app. All of it becomes an education record the moment a school is the customer."
+      },
+      {
+        "type": "p",
+        "text": "The school can't disclose any of it without parental consent unless an exception in 99.31 applies. The one your contract leans on is the school official exception, extended to contractors in the December 2008 amendments."
+      },
+      {
+        "type": "p",
+        "text": "Read it clause by clause. The district's lawyer will, and so do I."
+      },
+      {
+        "type": "list",
+        "items": [
+          "You perform an institutional service the school would otherwise use its own employees for. A learning platform qualifies. An ad network doesn't.",
+          "You're under the **direct control** of the school with respect to how the records are used and maintained. This is the one that kills product roadmaps.",
+          "You're subject to 99.33(a): no redisclosure of [PII](/?q=PII), and no use for any purpose other than the one the school disclosed it for."
+        ]
+      },
+      {
+        "type": "p",
+        "text": "Direct control is where I argue with founders."
+      },
+      {
+        "type": "p",
+        "text": "\"We only use it to improve the product\" is a redisclosure problem unless the contract names that specific use. If the data trains your recommendation model for other customers, the school isn't controlling that use."
+      },
+      {
+        "type": "h2",
+        "text": "Directory information and the 45-day clock"
+      },
+      {
+        "type": "p",
+        "text": "Directory information is the list in 99.3 the school can publish without consent: name, grade level, email, photo, dates of attendance, honors."
+      },
+      {
+        "type": "p",
+        "text": "Student ID numbers can only be there if the ID alone can't open a record."
+      },
+      {
+        "type": "p",
+        "text": "Parents get to opt out under 99.37. Your roster sync needs a field for that flag, and it's the first thing I check in any product that pushes data back to a public-facing page."
+      },
+      {
+        "type": "p",
+        "text": "The rights belong to the parent until the student turns 18 or enrolls in college, then they transfer to the \"eligible student.\" Inspect and review within 45 days, under 99.10. Request an amendment, under 99.20. Complain to the Student Privacy Policy Office."
+      },
+      {
+        "type": "p",
+        "text": "Those requests arrive at the school and get forwarded to you, and the 45 days started when the parent asked, not when the ticket hit your queue."
+      },
+      {
+        "type": "p",
+        "text": "(That office used to be the Family Policy Compliance Office, and plenty of district templates still say FPCO. I don't correct it in the redline. It isn't worth the meeting.)"
+      },
+      {
+        "type": "h2",
+        "text": "The state laws added everything FERPA left out"
+      },
+      {
+        "type": "p",
+        "text": "FERPA says nothing about encryption. Nothing about breach notification."
+      },
+      {
+        "type": "p",
+        "text": "The only security language in it is \"reasonable methods\" in 99.31(a)(1)(ii), and that clause is about who at the school can see a record."
+      },
+      {
+        "type": "p",
+        "text": "The states filled the gap, and they wrote the rules for you by name."
+      },
+      {
+        "type": "p",
+        "text": "California's SOPIPA, in force since January 1, 2016, bans targeted advertising and the sale of student data outright."
+      },
+      {
+        "type": "p",
+        "text": "New York's Education Law 2-d requires every contractor to align with the [NIST CSF](/frameworks/nist-csf/), sign a data privacy agreement, and report a breach to the district within 7 calendar days. It even borrows its encryption standard from HIPAA's HITECH guidance rather than writing one."
+      },
+      {
+        "type": "p",
+        "text": "Illinois' SOPPA, as amended effective July 1, 2021, gives you 30 days and makes the district post your agreement on its website."
+      },
+      {
+        "type": "p",
+        "text": "What I keep seeing is vendors answering those questionnaires in FERPA language. The district isn't asking a FERPA question. It's asking a 2-d question, and 2-d has a NIST control number behind it."
+      },
+      {
+        "type": "p",
+        "text": "Then there's [COPPA](/?q=COPPA) for anyone under 13, which the FTC does enforce. Edmodo found out in May 2023, with a $6 million order for collecting more than it needed from students and using it for ads. The 2025 rule rewrite left school consent where it was: educational purposes only, never yours."
+      },
+      {
+        "type": "h2",
+        "text": "The exhibit the district will actually read"
+      },
+      {
+        "type": "p",
+        "text": "When a district sends you the Student Data Privacy Consortium's national agreement, or its own DPA, one question is really being asked."
+      },
+      {
+        "type": "p",
+        "text": "Can you evidence the controls, with dates?"
+      },
+      {
+        "type": "p",
+        "text": "Not the policy. The artifact. What I'd have ready before the first call:"
+      },
+      {
+        "type": "list",
+        "items": [
+          "A [SOC 2](/?q=SOC%202) Type II report or an ISO 27001 certificate, with the student data system inside the scope section.",
+          "Encryption at rest and in transit, with the algorithm named.",
+          "[MFA](/?q=MFA) on every administrative path, including the support portal. PowerSchool's breach, disclosed in January 2025, came through a single support-portal credential.",
+          "A breach notice commitment that beats the shortest state clock you sell into. 7 days if New York is a customer.",
+          "A data disposition exhibit with a deletion date and a certificate, not a sentence that says \"upon request.\"",
+          "A written no-secondary-use statement, which is the direct-control condition from 99.31 in plain words."
+        ]
+      },
+      {
+        "type": "p",
+        "text": "I genuinely don't care whether you sign the SDPC template or paper it with your own agreement, as long as the exhibits match what you actually run."
+      },
+      {
+        "type": "p",
+        "text": "If you're the founder who got the DPA on Tuesday and the board vote that approves the purchase is in three weeks, build the [trust package](/tools/trust-package/) first. Argue clause language second. The [regulation mapper](/tools/reg-mapper/) will show you which state rules your customer list drags in."
+      },
+      {
+        "type": "p",
+        "text": "One thing I don't know is whether PowerSchool, which touched more districts than Illuminate did in 2022, finally gets the Department to use the funding penalty. My bet is still no."
+      },
+      {
+        "type": "p",
+        "text": "FERPA doesn't apply to you. Everything built on top of it does, and that's the part I'd read before you reply to the questionnaire."
+      }
+    ],
+    "related": [
+      {
+        "label": "FERPA in the glossary",
+        "href": "/?q=FERPA"
+      },
+      {
+        "label": "PII, defined",
+        "href": "/?q=PII"
+      },
+      {
+        "label": "COPPA, defined",
+        "href": "/?q=COPPA"
+      },
+      {
+        "label": "Regulation mapper",
+        "href": "/tools/reg-mapper/"
+      },
+      {
+        "label": "Trust package builder",
+        "href": "/tools/trust-package/"
+      }
+    ]
   }
 ]
