@@ -968,6 +968,18 @@ ${FW_EXTRA_CSS}</style>
   );
 });
 
+const isAtlas = (entry: { frameworkCode?: string }): boolean => entry.frameworkCode === 'ATLAS';
+const atlasKind = (entry: { category: string }): string => (entry.category.includes('Tactic') ? 'Tactic' : 'Technique');
+const atlasSearchName = (entry: { code: string; framework: string; frameworkCode?: string; title: string }): string =>
+  isAtlas(entry) ? `${entry.code} ${entry.title}` : `${entry.code} (${entry.framework})`;
+/** "MITRE ATLAS Tactic Explained", dropping "Explained" when the full title would pass 70 chars. */
+const atlasTitleSubject = (entry: { code: string; frameworkCode?: string; title: string; category: string }): string | undefined => {
+  if (!isAtlas(entry)) return undefined;
+  const base = `MITRE ATLAS ${atlasKind(entry)}`;
+  const full = `${base} Explained`;
+  return `${entry.code} ${entry.title}: ${full}`.length <= 70 ? full : base;
+};
+
 // 4b. AI security framework pages (NIST AI RMF, OWASP LLM Top 10, MITRE ATLAS, ISO/IEC 42001).
 ai.forEach((entry, i) => {
   const prevEntry = ai[i - 1];
@@ -978,8 +990,11 @@ ai.forEach((entry, i) => {
       id: entry.code,
       kickerTop: `${entry.framework} / ${entry.title.length <= 40 ? entry.title : entry.category}`,
       heading: entry.official,
-      searchName: `${entry.code} (${entry.framework})`,
-      titleSubject: entry.titleSubject ?? entry.title,
+      // ATLAS pages reach page one on bare-ID searches ("aml.ta0012", "privilege
+      // escalation aml.ta0012") yet earn no clicks with the framework name in
+      // front, so lead with the ID and name and push "MITRE ATLAS" to the subject.
+      searchName: atlasSearchName(entry),
+      titleSubject: atlasTitleSubject(entry) ?? entry.titleSubject ?? entry.title,
       metaphor: entry.metaphor,
       translation: entry.translation,
       description: entry.metaDescription,

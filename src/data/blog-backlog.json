@@ -321,6 +321,48 @@
       ]
     },
     {
+      "slug": "cybersecurity-metrics-for-the-board",
+      "title": "Cybersecurity Metrics for the Board: The Few Directors Read",
+      "category": "Explainer",
+      "brief": "Write for the security leader who has a board slot next quarter and a dashboard with forty numbers on it. The point of the post is subtraction: a board reads five to eight metrics, and each one has to answer a question a director would actually ask, such as are we exposed, would we notice, how fast would we recover, and is it getting better. Pick the metrics from the site's board metrics builder data and group them under those questions: critical asset EDR coverage and MFA coverage on critical systems for exposure, mean time to detect and mean time to respond on critical incidents for noticing, backup restore test success for recovery, and critical vulnerability patch latency, open critical vulnerabilities past SLA and high-risk vendors unremediated for trend. Say plainly which popular numbers to leave off the board deck and why, including raw counts of blocked attacks, total vulnerabilities found, and phishing click rates presented without a trend line, because a number with no target and no direction invites the wrong question. Explain the KPI versus KRI distinction in one paragraph, since boards increasingly ask for risk indicators rather than activity counts, and show one worked example of a metric written the way a board wants it: current value, target, trend over four quarters, and the decision it supports. Close with the SEC disclosure rules and NIST CSF 2.0 Govern function as the reason directors are asking for this now, and point to the builder so the reader can assemble their own slide.",
+      "links": [
+        "/tools/board-metrics/",
+        "/?q=KRI",
+        "/?q=KPI",
+        "/?q=MTTD",
+        "/?q=MTTR",
+        "/?q=CISO"
+      ]
+    },
+    {
+      "slug": "cis-implementation-groups-ig1-ig2-ig3",
+      "title": "CIS Implementation Groups: IG1 vs IG2 vs IG3, Which One Is Yours",
+      "category": "Explainer",
+      "brief": "Answer the question Search Console shows people asking around the CIS Controls hub: what the three Implementation Groups are and how to tell which one applies. Define IG1, IG2, and IG3 as cumulative tiers of the 153 v8 safeguards (56, then 130, then all 153) rather than three separate frameworks, and explain the selection logic CIS gives: IG1 for small or low-complexity organizations with limited IT and security staff where downtime is tolerable, IG2 for organizations with dedicated staff that store sensitive client or enterprise data and face regulatory pressure, IG3 for organizations with security experts whose assets hold data subject to oversight or whose outages cause significant public harm. Give a plain self-assessment: headcount in IT, whether anyone's job is security, what kinds of data you hold, and what a breach costs others, with the honest note that most teams searching this are IG1 and should say so rather than claim IG2. Show what jumps between tiers in concrete safeguard terms (asset inventory gets active discovery, logging gets centralized, access gets MFA everywhere). Close with how to document the choice for an auditor or customer questionnaire and link each group to its full safeguard list.",
+      "links": [
+        "/frameworks/cis/",
+        "/frameworks/cis/ig1.html",
+        "/frameworks/cis/ig2.html",
+        "/frameworks/cis/ig3.html",
+        "/assess/?a=cis-ig1",
+        "/blog/cis-controls-ig1-starter.html"
+      ]
+    },
+    {
+      "slug": "cybersecurity-skills-matrix-small-team",
+      "title": "Cybersecurity Skills Matrix: Build One for a Five-Person Team",
+      "category": "Explainer",
+      "brief": "Walk a security lead through building a skills matrix for a small team without buying a workforce platform. Start with what the matrix is for: seeing who can cover what when someone is out, deciding what to train next, and defending headcount or training budget with a picture instead of an anecdote. Use a public taxonomy for the rows so the team does not invent its own: pick the NICE Framework work roles or competency areas that match the team's actual duties (incident response, vulnerability management, identity and access, cloud security, GRC, security engineering) and keep it to 12 to 20 rows. Define a four-level scale in plain words (aware, can do with help, can do alone, can teach) and insist on self-assessment plus a manager pass to calibrate. Give a worked example as a table for a team of five showing the gaps that pop out, such as one person owning all cloud knowledge. Then turn gaps into actions: cross-training pairs, a certification or course per quarter, hiring criteria for the next role. Note the traps: using it for performance reviews, which kills honest self-ratings, and letting it rot, so set a six-month refresh. Offer a downloadable starter sheet description and map the exercise to the CIS and NIST CSF asks for defined security roles and training.",
+      "links": [
+        "/careers/",
+        "/?q=NICE",
+        "/?q=GRC",
+        "/frameworks/nist-csf/",
+        "/frameworks/cis/",
+        "/blog/first-90-days-security-leader.html"
+      ]
+    },
+    {
       "slug": "ferpa-for-edtech-vendors",
       "title": "FERPA for EdTech Vendors, in Plain English",
       "category": "Explainer",
@@ -355,20 +397,6 @@
         "/?q=HITECH",
         "/?q=PHI",
         "/tools/reg-mapper/"
-      ]
-    },
-    {
-      "slug": "cybersecurity-metrics-for-the-board",
-      "title": "Cybersecurity Metrics for the Board: The Few Directors Read",
-      "category": "Explainer",
-      "brief": "Write for the security leader who has a board slot next quarter and a dashboard with forty numbers on it. The point of the post is subtraction: a board reads five to eight metrics, and each one has to answer a question a director would actually ask, such as are we exposed, would we notice, how fast would we recover, and is it getting better. Pick the metrics from the site's board metrics builder data and group them under those questions: critical asset EDR coverage and MFA coverage on critical systems for exposure, mean time to detect and mean time to respond on critical incidents for noticing, backup restore test success for recovery, and critical vulnerability patch latency, open critical vulnerabilities past SLA and high-risk vendors unremediated for trend. Say plainly which popular numbers to leave off the board deck and why, including raw counts of blocked attacks, total vulnerabilities found, and phishing click rates presented without a trend line, because a number with no target and no direction invites the wrong question. Explain the KPI versus KRI distinction in one paragraph, since boards increasingly ask for risk indicators rather than activity counts, and show one worked example of a metric written the way a board wants it: current value, target, trend over four quarters, and the decision it supports. Close with the SEC disclosure rules and NIST CSF 2.0 Govern function as the reason directors are asking for this now, and point to the builder so the reader can assemble their own slide.",
-      "links": [
-        "/tools/board-metrics/",
-        "/?q=KRI",
-        "/?q=KPI",
-        "/?q=MTTD",
-        "/?q=MTTR",
-        "/?q=CISO"
       ]
     },
     {
