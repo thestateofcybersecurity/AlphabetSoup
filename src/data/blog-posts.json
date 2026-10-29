@@ -5189,5 +5189,205 @@
         "href": "/tools/trust-package/"
       }
     ]
+  },
+  {
+    "slug": "forensics-certification-comparison",
+    "title": "CHFI vs GCFA vs CCE: Choosing a Digital Forensics Certification",
+    "description": "CHFI, GCFA, and CCE answer three different hiring questions. Cost, renewal, DoD 8570 status, and why a documented case portfolio still beats all three.",
+    "category": "Career",
+    "author": "Parker Brissette",
+    "date": "2026-10-29",
+    "readingMinutes": 5,
+    "tags": [
+      "career",
+      "dfir",
+      "certifications",
+      "digital forensics",
+      "incident response"
+    ],
+    "body": [
+      {
+        "type": "p",
+        "text": "\"Certs don't matter in [DFIR](/?q=DFIR), just build a portfolio.\" I hear that in every Discord thread about getting into forensics, and it's half right."
+      },
+      {
+        "type": "p",
+        "text": "The half it gets wrong decides whether a human ever opens the portfolio."
+      },
+      {
+        "type": "p",
+        "text": "So here's where I land on [CHFI](/?q=CHFI), [GCFA](/?q=GCFA), and CCE, the three certifications people actually weigh, after conceding the point the portfolio crowd has earned."
+      },
+      {
+        "type": "h2",
+        "text": "Where the portfolio crowd is right"
+      },
+      {
+        "type": "p",
+        "text": "Nobody has ever been hired to testify about a disk image because of a logo on a resume."
+      },
+      {
+        "type": "p",
+        "text": "What I keep seeing on resumes that cross my desk is a cert line with nothing under it. CHFI, a year, done. No case, no write-up, no image they've ever actually worked."
+      },
+      {
+        "type": "p",
+        "text": "Compare that with a candidate who pulled a NIST CFReDS image, timelined it in Plaso, and wrote six pages on what the user did with the machine. NIST has given those images away for roughly two decades, and most applicants have never heard of them."
+      },
+      {
+        "type": "p",
+        "text": "Second candidate wins. I'd be surprised to meet a hiring manager who'd argue."
+      },
+      {
+        "type": "p",
+        "text": "That's the hill. A documented case portfolio beats all three certs, and I'll die on it."
+      },
+      {
+        "type": "p",
+        "text": "Now the part they skip."
+      },
+      {
+        "type": "h2",
+        "text": "The resume has to survive a filter first"
+      },
+      {
+        "type": "p",
+        "text": "In 2026 a keyword filter reads your resume before a person does. At any employer touching DoD work, that filter has a name."
+      },
+      {
+        "type": "p",
+        "text": "DoD 8570 listed CHFI and GCFA as approved baseline certifications for the CSSP Incident Responder role. CCE was never on the list."
+      },
+      {
+        "type": "p",
+        "text": "8570 is on its way out. DoDM 8140.03 landed in February 2023 and moves the services to work-role qualification matrices, and the services are still publishing their own tables."
+      },
+      {
+        "type": "p",
+        "text": "Whether CHFI keeps its seat on the incident responder tables once that settles, I don't know. Nobody does yet. My read is that the HR filter outlives the manual that created it, because nobody rewrites a job template when a DoDM changes."
+      },
+      {
+        "type": "p",
+        "text": "But say you're the SOC analyst with a training budget that expires December 31 and a manager who needs a cert name on the form. The filter is your real constraint, and the portfolio won't get you past it."
+      },
+      {
+        "type": "h2",
+        "text": "What the three exams actually test"
+      },
+      {
+        "type": "p",
+        "text": "The three aren't competing for the same job, which is the thing a head-to-head comparison hides."
+      },
+      {
+        "type": "list",
+        "items": [
+          "**CHFI** is EC-Council's exam, 150 multiple-choice questions in 4 hours, exam code 312-49. Version 11 shipped in 2024. You can pass it without ever touching a disk image.",
+          "**GCFA** is the exam attached to SANS FOR508, with 82 questions in 3 hours. Open book, proctored, and the CyberLive items drop you into a live VM. It's a memory and intrusion exam far more than a classic disk forensics one.",
+          "**CCE** is the ISFCE's examiner credential. A written test first, then a practical where you work forensic images and write reports that a human examiner grades. It's the only one of the three where someone reads your report."
+        ]
+      },
+      {
+        "type": "p",
+        "text": "On a 2026 IR engagement, \"forensics\" means memory and fleet-wide timelines, and that's the GCFA material."
+      },
+      {
+        "type": "p",
+        "text": "A court means something else by the word. Chain of custody, and a report that opposing counsel can't pull apart. That's CCE."
+      },
+      {
+        "type": "p",
+        "text": "I don't think CHFI is a bad exam. It's a survey exam marketed like a specialist one, and it goes deep on neither side. The FOR508 labs run on SIFT, and if that name means nothing to you, that's the gap GCFA closes and CHFI doesn't."
+      },
+      {
+        "type": "p",
+        "text": "(GIAC exams are open book, by the way, and people still fail them, mostly because they spent the study time building an index of the books instead of learning them)."
+      },
+      {
+        "type": "h2",
+        "text": "The 20x price spread"
+      },
+      {
+        "type": "p",
+        "text": "Here's the number I think should drive the decision more than it does."
+      },
+      {
+        "type": "p",
+        "text": "CCE runs under $500 for the whole process, and ISFCE recertifies you every two years."
+      },
+      {
+        "type": "p",
+        "text": "The CHFI voucher alone sits in the $650 range, but EC-Council expects official training. Skip it and you pay a $100 eligibility fee and show two years of documented experience. Realistic all-in with a course is $2,000 to $3,000, and renewal is 120 ECE credits over three years plus an annual membership fee."
+      },
+      {
+        "type": "p",
+        "text": "GCFA is the outlier. FOR508 lists north of $8,000, the exam attempt adds about $1,000 when it's bundled with the course, and GIAC wants 36 CPEs plus a renewal fee every four years. Call it $9,000 before travel."
+      },
+      {
+        "type": "p",
+        "text": "That's close to a 20x spread between CCE and GCFA. Examiner salaries don't spread 20x."
+      },
+      {
+        "type": "p",
+        "text": "Commercial IR consultancy pay runs well above municipal lab pay, and that gap is what the GCFA price buys access to."
+      },
+      {
+        "type": "p",
+        "text": "Who pays matters more than the sticker. If your employer is covering it, take FOR508 and the GCFA and stop reading. If you're paying, I'd rather see $500 on a CCE and the other $8,500 on lab gear and a year of evenings than one week in a hotel ballroom."
+      },
+      {
+        "type": "h2",
+        "text": "Which one, then"
+      },
+      {
+        "type": "p",
+        "text": "I give three answers, because it's three questions."
+      },
+      {
+        "type": "list",
+        "items": [
+          "Going after a cleared role or a DoD contractor seat where HR runs the 8570 list? CHFI. It's the cheaper of the two on the incident responder list, and nobody has told me it's coming off.",
+          "Aiming at a commercial IR bench, the kind that gets the ransomware call at 2 a.m.? GCFA, and only if someone else is paying or you've already been doing the work for a year and need the credential to match.",
+          "Want to testify? CCE."
+        ]
+      },
+      {
+        "type": "p",
+        "text": "GCFE, the Windows forensics exam attached to FOR500, is the one I see people confuse with GCFA. If your work is single-host examinations rather than intrusions, that's the SANS cert you actually want, at the same price."
+      },
+      {
+        "type": "p",
+        "text": "Autopsy or the SIFT workstation for your home lab, I genuinely don't care which one you pick. Work the image, write the report, put the report on GitHub."
+      },
+      {
+        "type": "p",
+        "text": "So yes, I'll give the portfolio crowd the point about what gets you hired. The cert is what gets the portfolio opened."
+      },
+      {
+        "type": "p",
+        "text": "Pick the one that matches the door you're knocking on, pay for it once, and spend the rest on disk images and the hours to work them. The [careers hub](/careers/) has the role ladders, and the [quiz](/quiz/) will tell you fast whether the FOR508 material is already over your head or already under it."
+      }
+    ],
+    "related": [
+      {
+        "label": "Cybersecurity careers hub",
+        "href": "/careers/"
+      },
+      {
+        "label": "Test your security knowledge",
+        "href": "/quiz/"
+      },
+      {
+        "label": "DFIR in the glossary",
+        "href": "/?q=DFIR"
+      },
+      {
+        "label": "GCFA in the glossary",
+        "href": "/?q=GCFA"
+      },
+      {
+        "label": "Security skills matrix",
+        "href": "/tools/skills-matrix/"
+      }
+    ]
   }
 ]
