@@ -5538,5 +5538,208 @@
         "href": "/tools/reg-mapper/"
       }
     ]
+  },
+  {
+    "slug": "cybersecurity-metrics-for-the-board",
+    "title": "Cybersecurity Metrics for the Board: The Few Directors Read",
+    "description": "A board reads five to eight security metrics. The ones that answer what directors ask, the ones to cut, and how to write one with a target and trend.",
+    "category": "Explainer",
+    "author": "Parker Brissette",
+    "date": "2026-11-02",
+    "readingMinutes": 5,
+    "tags": [
+      "board reporting",
+      "metrics",
+      "ciso",
+      "governance",
+      "kri"
+    ],
+    "body": [
+      {
+        "type": "p",
+        "text": "A board deck with forty security metrics on it isn't a report. It's a place to hide."
+      },
+      {
+        "type": "p",
+        "text": "Directors read five to eight numbers."
+      },
+      {
+        "type": "p",
+        "text": "What I keep seeing is the rest of the deck doing real damage, because the question that comes back from the table lands on whichever number had no target next to it."
+      },
+      {
+        "type": "p",
+        "text": "If you're the [CISO](/?q=CISO) with a board slot next quarter and a dashboard that grew to forty lines over three years, your first job is deleting thirty-two of them. The eight that survive below come from our [board metrics builder](/tools/board-metrics/), sorted under the four questions a director actually asks."
+      },
+      {
+        "type": "h2",
+        "text": "1. Are we exposed?"
+      },
+      {
+        "type": "list",
+        "items": [
+          "**Critical asset EDR coverage.** Good at 98%, act below 90%.",
+          "**MFA coverage on critical systems and privileged accounts.** Target 100%. Not 98.",
+          "**Critical vulnerability patch latency.** Days from disclosure to fix. Good at 15, act past 30, and track anything on the [CISA KEV catalog](https://www.cisa.gov/known-exploited-vulnerabilities-catalog) separately because those have a known attacker attached."
+        ]
+      },
+      {
+        "type": "p",
+        "text": "The MFA target is the hill I'll die on."
+      },
+      {
+        "type": "p",
+        "text": "A privileged account without MFA isn't 2% of your risk. It's the account the attacker is looking for."
+      },
+      {
+        "type": "p",
+        "text": "Change Healthcare's February 2024 ransomware attack started at a Citrix remote access portal with no MFA on it, by the CEO's own account to the Senate Finance Committee that May."
+      },
+      {
+        "type": "p",
+        "text": "One missing login prompt, and a claims clearinghouse was down for weeks."
+      },
+      {
+        "type": "h2",
+        "text": "2. Would we notice?"
+      },
+      {
+        "type": "p",
+        "text": "Two numbers here."
+      },
+      {
+        "type": "p",
+        "text": "[MTTD](/?q=MTTD) in days and [MTTR](/?q=MTTR) in hours, both scoped to critical incidents. The builder bands them at one day and eight hours for good, seven days and 24 hours before you act."
+      },
+      {
+        "type": "p",
+        "text": "I report MTTD, but I don't fully trust it, and I haven't found a version I'd defend without a footnote."
+      },
+      {
+        "type": "p",
+        "text": "You only learn when an intrusion started after you've found it, usually from a forensic timeline, so the number is computed backward and a quiet quarter can produce a gorgeous figure that says nothing about what nobody found."
+      },
+      {
+        "type": "p",
+        "text": "(Mandiant's M-Trends 2024 put the global median dwell time at 10 days, down from 16 the year before, which is a decent sanity check to hold next to your own.)"
+      },
+      {
+        "type": "p",
+        "text": "Put the incident count beside it. MTTD of 0.5 days across 2 incidents is a different claim than 0.5 across 40."
+      },
+      {
+        "type": "h2",
+        "text": "3. Could we recover?"
+      },
+      {
+        "type": "p",
+        "text": "One metric. Backup restore test success."
+      },
+      {
+        "type": "p",
+        "text": "It's the only recovery number that isn't a promise."
+      },
+      {
+        "type": "p",
+        "text": "The RTO in your business continuity plan is an intention someone typed in 2022. A restore test either came back or it didn't, and the builder sets good at 95% and act below 80%."
+      },
+      {
+        "type": "p",
+        "text": "Show the denominator. 19 of 20 restores and 1 of 1 are not the same sentence."
+      },
+      {
+        "type": "h2",
+        "text": "4. Is it getting better?"
+      },
+      {
+        "type": "list",
+        "items": [
+          "**Open critical vulnerabilities past SLA.** A count. Target zero, act at 10.",
+          "**High-risk vendors unremediated.** Target zero, act at 5. This is the one third-party number a director can follow."
+        ]
+      },
+      {
+        "type": "p",
+        "text": "This is where [KPI](/?q=KPI) versus [KRI](/?q=KRI) matters. A KPI tells the board how well the security team did its work, like patches shipped or courses completed. A KRI tells them how much risk is sitting in the business today, against a threshold that forces a decision when it's crossed."
+      },
+      {
+        "type": "p",
+        "text": "Boards ask for the second kind now. I genuinely don't care which label ends up on your slide. I care that the number has a target and a direction."
+      },
+      {
+        "type": "p",
+        "text": "Here's one written the way a board reads it. The figures are made up so nobody mistakes them for a benchmark."
+      },
+      {
+        "type": "quote",
+        "text": "Open critical vulnerabilities past SLA: 6. Target: 0. Last four quarters: 14, 11, 9, 6. Decision: approve a second monthly patch window for the ERP cluster, which owns 4 of the 6."
+      },
+      {
+        "type": "p",
+        "text": "Four quarters is the minimum. With two, a director can't tell a dip from a direction."
+      },
+      {
+        "type": "p",
+        "text": "And if the metric can't name a decision, move it to the appendix."
+      },
+      {
+        "type": "h2",
+        "text": "5. Cut these"
+      },
+      {
+        "type": "list",
+        "items": [
+          "**Blocked attacks.** The count goes up when attackers get busier and when your email vendor changes how it counts. Neither is your doing, and there's no target to hold it against.",
+          "**Total vulnerabilities found.** It climbs every time you scan more assets, so it punishes the quarter you did the right thing.",
+          "**Phishing click rate with no trend line.** One number invites one question. Who clicked?"
+        ]
+      },
+      {
+        "type": "p",
+        "text": "Training completion goes too. It's a fine KPI for the security committee, and the builder includes it at a 95% target, but a director can't do anything with it."
+      },
+      {
+        "type": "h2",
+        "text": "Why they're asking now"
+      },
+      {
+        "type": "p",
+        "text": "The SEC adopted its cybersecurity disclosure rules on July 26, 2023. Item 106 of Regulation S-K has public companies describe board oversight of cyber risk in every 10-K, and Form 8-K Item 1.05 gives four business days after a materiality call."
+      },
+      {
+        "type": "p",
+        "text": "By November 2026 that's three annual report cycles of directors signing language about oversight they now want numbers to back."
+      },
+      {
+        "type": "p",
+        "text": "[NIST CSF 2.0](/frameworks/nist-csf/) pushed the same way in February 2024 when it added the Govern function. GV.OV-03 expects risk management performance to be evaluated and adjusted, which is a board metric written as a control."
+      },
+      {
+        "type": "p",
+        "text": "Build your eight in the [board metrics builder](/tools/board-metrics/). Then delete one more."
+      }
+    ],
+    "related": [
+      {
+        "label": "Board metrics builder",
+        "href": "/tools/board-metrics/"
+      },
+      {
+        "label": "KRI in the glossary",
+        "href": "/?q=KRI"
+      },
+      {
+        "label": "KPI in the glossary",
+        "href": "/?q=KPI"
+      },
+      {
+        "label": "MTTD in the glossary",
+        "href": "/?q=MTTD"
+      },
+      {
+        "label": "MTTR in the glossary",
+        "href": "/?q=MTTR"
+      }
+    ]
   }
 ]
