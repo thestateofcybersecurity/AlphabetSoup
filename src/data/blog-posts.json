@@ -5389,5 +5389,154 @@
         "href": "/tools/skills-matrix/"
       }
     ]
+  },
+  {
+    "slug": "hitech-vs-hipaa",
+    "title": "HITECH vs HIPAA: What the Amendment Actually Changed",
+    "description": "HITECH isn't a second rulebook. What the 2009 amendment changed in HIPAA: breach notification, business associate liability, penalty tiers, and audits.",
+    "category": "Explainer",
+    "author": "Parker Brissette",
+    "date": "2026-11-02",
+    "readingMinutes": 5,
+    "tags": [
+      "hipaa",
+      "hitech",
+      "healthcare",
+      "compliance",
+      "phi"
+    ],
+    "body": [
+      {
+        "type": "p",
+        "text": "Nobody complies with HITECH. You comply with [HIPAA](/?q=HIPAA) as [HITECH](/?q=HITECH) rewrote it."
+      },
+      {
+        "type": "p",
+        "text": "What I keep seeing on vendor trust pages is two badges side by side, \"HIPAA compliant\" and \"HITECH compliant,\" as if somebody passed two audits. There's no HITECH certification. HHS doesn't recognize a HIPAA certification either. I'd take one dated risk analysis over both badges."
+      },
+      {
+        "type": "p",
+        "text": "So the useful question is narrower. What did a 2009 law change that a 1996 law didn't already do?"
+      },
+      {
+        "type": "h2",
+        "text": "What was already there in 1996?"
+      },
+      {
+        "type": "p",
+        "text": "HIPAA was signed on August 21, 1996, and most of it is about keeping health coverage when you change jobs. The parts security people live in came later as HHS rules. The Privacy Rule took effect in 2003 and the Security Rule in 2005."
+      },
+      {
+        "type": "p",
+        "text": "Those rules bound covered entities, meaning health plans, clearinghouses, and providers that bill electronically."
+      },
+      {
+        "type": "p",
+        "text": "Business associates were reached only through contract. If a hospital's billing vendor mishandled [PHI](/?q=PHI), HHS had no direct line to the vendor. The hospital had a contract claim and that was about it."
+      },
+      {
+        "type": "p",
+        "text": "Enforcement was thin too. Civil penalties topped out at $100 per violation and $25,000 a year for identical violations, and OCR didn't issue its first civil money penalty until 2011."
+      },
+      {
+        "type": "h2",
+        "text": "So what did HITECH actually add?"
+      },
+      {
+        "type": "p",
+        "text": "HITECH passed on February 17, 2009 (it's Title XIII of ARRA, the stimulus bill, and most of the act is about paying hospitals to adopt electronic health records, so only a slice of it touches privacy and security at all). That slice did four things you still feel."
+      },
+      {
+        "type": "list",
+        "items": [
+          "**Breach notification.** HIPAA had no federal duty to tell anyone. Now it's 45 CFR 164.400 through 164.414, with a 60-day outer limit to notify individuals and media notice once 500 residents of a state are hit.",
+          "**Direct liability for business associates.** The Security Rule's safeguards and parts of the Privacy Rule now apply to them by law.",
+          "**Tiered penalties.**",
+          "**Audits and state AGs.** HHS was told to audit, and state attorneys general got standing to sue under HIPAA."
+        ]
+      },
+      {
+        "type": "p",
+        "text": "Most of it didn't bite until the Omnibus Rule. HHS published that in January 2013 with a compliance date of September 23, 2013. The same rule replaced the old \"risk of harm\" breach test with a presumption of breach unless a four-factor assessment shows a low probability of compromise."
+      },
+      {
+        "type": "h2",
+        "text": "Is a business associate on the hook directly?"
+      },
+      {
+        "type": "p",
+        "text": "Yes. This is the one I'll argue about all day."
+      },
+      {
+        "type": "p",
+        "text": "If you're the security lead at a SaaS company and a hospital's vendor questionnaire is due Friday, the business associate agreement you signed isn't the ceiling of your obligations. OCR can investigate and fine you without the hospital lifting a finger. Its May 2019 fact sheet lists the provisions a business associate is directly liable for, and skipping the Security Rule risk analysis is on it."
+      },
+      {
+        "type": "p",
+        "text": "The Omnibus Rule pushed this downstream as well. A subcontractor of yours that touches PHI is a business associate in its own right, and you owe it the same agreement you signed upstream."
+      },
+      {
+        "type": "h2",
+        "text": "What does the money look like now?"
+      },
+      {
+        "type": "p",
+        "text": "HITECH created four culpability tiers, from \"did not know\" up to \"willful neglect, not corrected.\" Per-violation amounts ran from $100 to $50,000 with a $1.5 million annual cap per identical provision. They've been adjusted for inflation every year since, so pull the current table instead of quoting 2009 numbers."
+      },
+      {
+        "type": "p",
+        "text": "In April 2019 HHS said it would apply lower annual caps by tier, starting at $25,000 for the bottom tier. That's enforcement discretion, not statute, and it can be withdrawn."
+      },
+      {
+        "type": "p",
+        "text": "Then on January 5, 2021, Congress amended HITECH again. Public Law 116-321 tells HHS to weigh whether you had recognized security practices in place for the prior 12 months when it sets a fine or scopes an audit. The [NIST CSF](/frameworks/nist-csf/) counts, and so does 405(d) HICP. A framework adopted the week after the breach letter doesn't."
+      },
+      {
+        "type": "p",
+        "text": "Which framework? If you're asking me, I genuinely don't care. Pick the one your team will actually keep evidence for, because the 12 months of evidence is what gets weighed."
+      },
+      {
+        "type": "h2",
+        "text": "Did the audits ever matter?"
+      },
+      {
+        "type": "p",
+        "text": "Section 13411 required HHS to audit. The pilot ran in 2011 and 2012 against 115 covered entities, and phase 2 followed in 2016 and 2017 with business associates included. OCR's 2020 report on phase 2 found most audited entities hadn't done an adequate risk analysis."
+      },
+      {
+        "type": "p",
+        "text": "That finding hasn't aged. OCR launched a Risk Analysis Initiative in October 2024 because the same gap kept showing up in its settlements. I don't expect that list to get shorter soon."
+      },
+      {
+        "type": "p",
+        "text": "What I can't tell you is where the Security Rule goes next. HHS proposed a rewrite in January 2025 that would drop the \"addressable\" label and make encryption and MFA mandatory. I don't know if or when a final rule lands, so check the Federal Register before you budget around it."
+      },
+      {
+        "type": "p",
+        "text": "So when the questionnaire asks about HITECH, I'd answer about HIPAA. Point to your breach notification procedure, the date of your last risk analysis, and a year of framework evidence. If you answer to more than one regime, the [regulation mapper](/tools/reg-mapper/) shows where HIPAA overlaps the rest."
+      },
+      {
+        "type": "p",
+        "text": "That's the amendment. Everything else is 1996."
+      }
+    ],
+    "related": [
+      {
+        "label": "HIPAA in the glossary",
+        "href": "/?q=HIPAA"
+      },
+      {
+        "label": "HITECH in the glossary",
+        "href": "/?q=HITECH"
+      },
+      {
+        "label": "PHI in the glossary",
+        "href": "/?q=PHI"
+      },
+      {
+        "label": "Regulation mapper",
+        "href": "/tools/reg-mapper/"
+      }
+    ]
   }
 ]
