@@ -1,0 +1,90 @@
+name: Auto-merge scheduled blog posts
+
+# The scheduled cloud blog routine pushes one new post to a claude/blog-<slug>
+# branch. Cloud sessions cannot merge, and GitHub Actions in this repo cannot
+# open pull requests, so this workflow verifies the branch and merges it to
+# main itself. It refuses anything other than exactly one appended post.
+on:
+  push:
+    branches: ['claude/blog-**']
+
+permissions:
+  contents: write
+  actions: write
+  issues: write
+
+concurrency:
+  group: blog-automerge
+  cancel-in-progress: false
+
+jobs:
+  verify-and-merge:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          fetch-depth: 0
+
+      - name: Only one appended post in blog-posts.json
+        run: |
+          set -euo pipefail
+          git fetch -q origin main
+          changed=$(git diff --name-only origin/main...HEAD)
+          echo "Changed files: $changed"
+          if [ "$changed" != "src/data/blog-posts.json" ]; then
+            echo "::error::Branch changes files other than src/data/blog-posts.json"; exit 1
+          fi
+          git show origin/main:src/data/blog-posts.json > /tmp/base.json
+          base=$(jq length /tmp/base.json); head=$(jq length src/data/blog-posts.json)
+          if [ $((head - base)) -ne 1 ]; then
+            echo "::error::Expected exactly one new post (base $base, head $head)"; exit 1
+          fi
+          if ! diff <(jq -S ".[0:$base]" /tmp/base.json) <(jq -S ".[0:$base]" src/data/blog-posts.json) >/dev/null; then
+            echo "::error::Existing posts were modified"; exit 1
+          fi
+          if grep -qF "$(printf '\xe2\x80\x94')" src/data/blog-posts.json; then
+            echo "::error::Em dash found in blog-posts.json"; exit 1
+          fi
+
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - run: npm audit --audit-level=moderate
+      - run: npm run validate:data
+      - run: npm test
+      - run: npx tsc --noEmit
+      - run: npm run build
+      - name: Built page exists
+        run: test -f "dist/blog/$(jq -r '.[-1].slug' src/data/blog-posts.json).html"
+      - run: npx playwright install --with-deps chromium
+      - run: npx playwright test
+
+      - name: Merge to main and deploy
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          title=$(jq -r '.[-1].title' src/data/blog-posts.json)
+          git config user.name thestateofcybersecurity
+          git config user.email parkerbriss@gmail.com
+          git checkout -q -B main origin/main
+          git merge --no-ff "$GITHUB_SHA" -m "Merge scheduled blog post: $title"
+          git push origin main
+          git push origin --delete "$GITHUB_REF_NAME"
+          # Pushes made with GITHUB_TOKEN do not trigger other workflows, so start the deploy explicitly.
+          gh workflow run deploy.yml --ref main
+
+      - name: Open an issue if the post was not merged
+        if: failure()
+        env:
+          GH_TOKEN: ${{ github.token }}
+          GH_REPO: ${{ github.repository }}
+          RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+        run: |
+          gh label create blog-automerge-failure --color B60205 --description "A scheduled blog post failed verification" 2>/dev/null || true
+          gh issue create --label blog-automerge-failure \
+            --title "Scheduled blog post not merged: $GITHUB_REF_NAME" \
+            --body "The auto-merge workflow failed for \`$GITHUB_REF_NAME\`, so the post was not published. Run: $RUN_URL"
