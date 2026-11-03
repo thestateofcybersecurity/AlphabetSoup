@@ -5962,6 +5962,7 @@
   "MFA": {
     "expansion": "Multi-Factor Authentication",
     "display": "MFA",
+    "seoTitle": "What Is MFA? Multi-Factor Authentication Explained",
     "category": "identity",
     "difficulty": "easy",
     "explanation": "MFA requires two or more different types of proof before granting access, such as something you know, something you have, and something you are. Even if a password is stolen, an attacker still needs the additional factor to log in. It is one of the most effective single controls against account takeover.",
@@ -9800,6 +9801,7 @@
   "TOTP": {
     "expansion": "Time-Based One-Time Password",
     "display": "TOTP",
+    "seoTitle": "What Is TOTP? Time-Based One-Time Passwords Explained",
     "category": "identity",
     "difficulty": "medium",
     "explanation": "TOTP generates short-lived codes by combining a shared secret with the current time, usually in 30-second windows. It is the algorithm behind most authenticator apps like Google Authenticator. Because codes expire quickly and never repeat, they are far stronger than static passwords, though they can still be phished in real time.",
@@ -10302,6 +10304,7 @@
   "VPN": {
     "expansion": "Virtual Private Network",
     "display": "VPN",
+    "seoTitle": "What Is a VPN? What It Protects and What It Never Will",
     "category": "network",
     "difficulty": "easy",
     "explanation": "A VPN creates an encrypted tunnel between a device and a remote network over an untrusted network like the internet. Companies use it to let remote workers reach internal systems as if they were in the office. It protects traffic from eavesdropping, though the VPN concentrator itself becomes a high-value target that must be patched and monitored.",
@@ -10395,6 +10398,7 @@
   "WAF": {
     "expansion": "Web Application Firewall",
     "display": "WAF",
+    "seoTitle": "What Is a WAF? Web Application Firewalls Explained",
     "category": "appsec",
     "difficulty": "easy",
     "explanation": "A WAF sits in front of a web application and inspects HTTP traffic, blocking requests that match attack patterns like SQL injection or cross-site scripting. It protects applications in production, buying teams time to fix underlying vulnerabilities in code. A WAF is a compensating control rather than a cure, since determined attackers can often find bypasses for rule-based filtering.",
