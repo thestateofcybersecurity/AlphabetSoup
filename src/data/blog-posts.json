@@ -4962,5 +4962,784 @@
         "href": "/tools/crosswalk/"
       }
     ]
+  },
+  {
+    "slug": "ferpa-for-edtech-vendors",
+    "title": "FERPA for EdTech Vendors, in Plain English",
+    "description": "FERPA from the vendor side: who it binds, the school official exception's three conditions, directory information, and what districts ask you to evidence.",
+    "category": "Explainer",
+    "author": "Parker Brissette",
+    "date": "2026-10-28",
+    "readingMinutes": 5,
+    "tags": [
+      "ferpa",
+      "edtech",
+      "student-privacy",
+      "compliance",
+      "vendor-risk"
+    ],
+    "body": [
+      {
+        "type": "p",
+        "text": "[FERPA](/?q=FERPA) doesn't apply to your company. That's the first thing I get straight with EdTech founders, and it's the opposite of what the sales deck says."
+      },
+      {
+        "type": "p",
+        "text": "The law binds schools. Districts and universities that take money from the US Department of Education, and nobody else."
+      },
+      {
+        "type": "p",
+        "text": "So the question I get asked most, does FERPA apply to us, has a short answer. No."
+      },
+      {
+        "type": "p",
+        "text": "The long answer is worse for you than yes would've been."
+      },
+      {
+        "type": "h2",
+        "text": "Who the law actually binds"
+      },
+      {
+        "type": "p",
+        "text": "FERPA is from 1974, codified at 20 U.S.C. 1232g with the regulations at 34 CFR Part 99, and every obligation in it lands on the \"educational agency or institution.\""
+      },
+      {
+        "type": "p",
+        "text": "The penalty is losing federal education funding. In 52 years the Department has never once pulled it."
+      },
+      {
+        "type": "p",
+        "text": "There's no private right of action either. The Supreme Court closed that door in Gonzaga University v. Doe in 2002, so a parent can't sue the school under FERPA, and they can't sue you."
+      },
+      {
+        "type": "p",
+        "text": "Here's the hill I'll die on: stop putting \"FERPA compliant\" on the pricing page."
+      },
+      {
+        "type": "p",
+        "text": "Nobody certifies that, and the district's counsel knows it."
+      },
+      {
+        "type": "p",
+        "text": "What you are is a party the school is allowed to hand records to, under one exception, on three conditions."
+      },
+      {
+        "type": "h2",
+        "text": "The three conditions in 99.31(a)(1)(i)(B)"
+      },
+      {
+        "type": "p",
+        "text": "An education record is anything directly related to a student that the school maintains, or that a party acting for the school maintains. That second clause is you."
+      },
+      {
+        "type": "p",
+        "text": "Your gradebook, your reading-level scores, the chat log in your tutoring app. All of it becomes an education record the moment a school is the customer."
+      },
+      {
+        "type": "p",
+        "text": "The school can't disclose any of it without parental consent unless an exception in 99.31 applies. The one your contract leans on is the school official exception, extended to contractors in the December 2008 amendments."
+      },
+      {
+        "type": "p",
+        "text": "Read it clause by clause. The district's lawyer will, and so do I."
+      },
+      {
+        "type": "list",
+        "items": [
+          "You perform an institutional service the school would otherwise use its own employees for. A learning platform qualifies. An ad network doesn't.",
+          "You're under the **direct control** of the school with respect to how the records are used and maintained. This is the one that kills product roadmaps.",
+          "You're subject to 99.33(a): no redisclosure of [PII](/?q=PII), and no use for any purpose other than the one the school disclosed it for."
+        ]
+      },
+      {
+        "type": "p",
+        "text": "Direct control is where I argue with founders."
+      },
+      {
+        "type": "p",
+        "text": "\"We only use it to improve the product\" is a redisclosure problem unless the contract names that specific use. If the data trains your recommendation model for other customers, the school isn't controlling that use."
+      },
+      {
+        "type": "h2",
+        "text": "Directory information and the 45-day clock"
+      },
+      {
+        "type": "p",
+        "text": "Directory information is the list in 99.3 the school can publish without consent: name, grade level, email, photo, dates of attendance, honors."
+      },
+      {
+        "type": "p",
+        "text": "Student ID numbers can only be there if the ID alone can't open a record."
+      },
+      {
+        "type": "p",
+        "text": "Parents get to opt out under 99.37. Your roster sync needs a field for that flag, and it's the first thing I check in any product that pushes data back to a public-facing page."
+      },
+      {
+        "type": "p",
+        "text": "The rights belong to the parent until the student turns 18 or enrolls in college, then they transfer to the \"eligible student.\" Inspect and review within 45 days, under 99.10. Request an amendment, under 99.20. Complain to the Student Privacy Policy Office."
+      },
+      {
+        "type": "p",
+        "text": "Those requests arrive at the school and get forwarded to you, and the 45 days started when the parent asked, not when the ticket hit your queue."
+      },
+      {
+        "type": "p",
+        "text": "(That office used to be the Family Policy Compliance Office, and plenty of district templates still say FPCO. I don't correct it in the redline. It isn't worth the meeting.)"
+      },
+      {
+        "type": "h2",
+        "text": "The state laws added everything FERPA left out"
+      },
+      {
+        "type": "p",
+        "text": "FERPA says nothing about encryption. Nothing about breach notification."
+      },
+      {
+        "type": "p",
+        "text": "The only security language in it is \"reasonable methods\" in 99.31(a)(1)(ii), and that clause is about who at the school can see a record."
+      },
+      {
+        "type": "p",
+        "text": "The states filled the gap, and they wrote the rules for you by name."
+      },
+      {
+        "type": "p",
+        "text": "California's SOPIPA, in force since January 1, 2016, bans targeted advertising and the sale of student data outright."
+      },
+      {
+        "type": "p",
+        "text": "New York's Education Law 2-d requires every contractor to align with the [NIST CSF](/frameworks/nist-csf/), sign a data privacy agreement, and report a breach to the district within 7 calendar days. It even borrows its encryption standard from HIPAA's HITECH guidance rather than writing one."
+      },
+      {
+        "type": "p",
+        "text": "Illinois' SOPPA, as amended effective July 1, 2021, gives you 30 days and makes the district post your agreement on its website."
+      },
+      {
+        "type": "p",
+        "text": "What I keep seeing is vendors answering those questionnaires in FERPA language. The district isn't asking a FERPA question. It's asking a 2-d question, and 2-d has a NIST control number behind it."
+      },
+      {
+        "type": "p",
+        "text": "Then there's [COPPA](/?q=COPPA) for anyone under 13, which the FTC does enforce. Edmodo found out in May 2023, with a $6 million order for collecting more than it needed from students and using it for ads. The 2025 rule rewrite left school consent where it was: educational purposes only, never yours."
+      },
+      {
+        "type": "h2",
+        "text": "The exhibit the district will actually read"
+      },
+      {
+        "type": "p",
+        "text": "When a district sends you the Student Data Privacy Consortium's national agreement, or its own DPA, one question is really being asked."
+      },
+      {
+        "type": "p",
+        "text": "Can you evidence the controls, with dates?"
+      },
+      {
+        "type": "p",
+        "text": "Not the policy. The artifact. What I'd have ready before the first call:"
+      },
+      {
+        "type": "list",
+        "items": [
+          "A [SOC 2](/?q=SOC%202) Type II report or an ISO 27001 certificate, with the student data system inside the scope section.",
+          "Encryption at rest and in transit, with the algorithm named.",
+          "[MFA](/?q=MFA) on every administrative path, including the support portal. PowerSchool's breach, disclosed in January 2025, came through a single support-portal credential.",
+          "A breach notice commitment that beats the shortest state clock you sell into. 7 days if New York is a customer.",
+          "A data disposition exhibit with a deletion date and a certificate, not a sentence that says \"upon request.\"",
+          "A written no-secondary-use statement, which is the direct-control condition from 99.31 in plain words."
+        ]
+      },
+      {
+        "type": "p",
+        "text": "I genuinely don't care whether you sign the SDPC template or paper it with your own agreement, as long as the exhibits match what you actually run."
+      },
+      {
+        "type": "p",
+        "text": "If you're the founder who got the DPA on Tuesday and the board vote that approves the purchase is in three weeks, build the [trust package](/tools/trust-package/) first. Argue clause language second. The [regulation mapper](/tools/reg-mapper/) will show you which state rules your customer list drags in."
+      },
+      {
+        "type": "p",
+        "text": "One thing I don't know is whether PowerSchool, which touched more districts than Illuminate did in 2022, finally gets the Department to use the funding penalty. My bet is still no."
+      },
+      {
+        "type": "p",
+        "text": "FERPA doesn't apply to you. Everything built on top of it does, and that's the part I'd read before you reply to the questionnaire."
+      }
+    ],
+    "related": [
+      {
+        "label": "FERPA in the glossary",
+        "href": "/?q=FERPA"
+      },
+      {
+        "label": "PII, defined",
+        "href": "/?q=PII"
+      },
+      {
+        "label": "COPPA, defined",
+        "href": "/?q=COPPA"
+      },
+      {
+        "label": "Regulation mapper",
+        "href": "/tools/reg-mapper/"
+      },
+      {
+        "label": "Trust package builder",
+        "href": "/tools/trust-package/"
+      }
+    ]
+  },
+  {
+    "slug": "forensics-certification-comparison",
+    "title": "CHFI vs GCFA vs CCE: Choosing a Digital Forensics Certification",
+    "description": "CHFI, GCFA, and CCE answer three different hiring questions. Cost, renewal, DoD 8570 status, and why a documented case portfolio still beats all three.",
+    "category": "Career",
+    "author": "Parker Brissette",
+    "date": "2026-10-29",
+    "readingMinutes": 5,
+    "tags": [
+      "career",
+      "dfir",
+      "certifications",
+      "digital forensics",
+      "incident response"
+    ],
+    "body": [
+      {
+        "type": "p",
+        "text": "\"Certs don't matter in [DFIR](/?q=DFIR), just build a portfolio.\" I hear that in every Discord thread about getting into forensics, and it's half right."
+      },
+      {
+        "type": "p",
+        "text": "The half it gets wrong decides whether a human ever opens the portfolio."
+      },
+      {
+        "type": "p",
+        "text": "So here's where I land on [CHFI](/?q=CHFI), [GCFA](/?q=GCFA), and CCE, the three certifications people actually weigh, after conceding the point the portfolio crowd has earned."
+      },
+      {
+        "type": "h2",
+        "text": "Where the portfolio crowd is right"
+      },
+      {
+        "type": "p",
+        "text": "Nobody has ever been hired to testify about a disk image because of a logo on a resume."
+      },
+      {
+        "type": "p",
+        "text": "What I keep seeing on resumes that cross my desk is a cert line with nothing under it. CHFI, a year, done. No case, no write-up, no image they've ever actually worked."
+      },
+      {
+        "type": "p",
+        "text": "Compare that with a candidate who pulled a NIST CFReDS image, timelined it in Plaso, and wrote six pages on what the user did with the machine. NIST has given those images away for roughly two decades, and most applicants have never heard of them."
+      },
+      {
+        "type": "p",
+        "text": "Second candidate wins. I'd be surprised to meet a hiring manager who'd argue."
+      },
+      {
+        "type": "p",
+        "text": "That's the hill. A documented case portfolio beats all three certs, and I'll die on it."
+      },
+      {
+        "type": "p",
+        "text": "Now the part they skip."
+      },
+      {
+        "type": "h2",
+        "text": "The resume has to survive a filter first"
+      },
+      {
+        "type": "p",
+        "text": "In 2026 a keyword filter reads your resume before a person does. At any employer touching DoD work, that filter has a name."
+      },
+      {
+        "type": "p",
+        "text": "DoD 8570 listed CHFI and GCFA as approved baseline certifications for the CSSP Incident Responder role. CCE was never on the list."
+      },
+      {
+        "type": "p",
+        "text": "8570 is on its way out. DoDM 8140.03 landed in February 2023 and moves the services to work-role qualification matrices, and the services are still publishing their own tables."
+      },
+      {
+        "type": "p",
+        "text": "Whether CHFI keeps its seat on the incident responder tables once that settles, I don't know. Nobody does yet. My read is that the HR filter outlives the manual that created it, because nobody rewrites a job template when a DoDM changes."
+      },
+      {
+        "type": "p",
+        "text": "But say you're the SOC analyst with a training budget that expires December 31 and a manager who needs a cert name on the form. The filter is your real constraint, and the portfolio won't get you past it."
+      },
+      {
+        "type": "h2",
+        "text": "What the three exams actually test"
+      },
+      {
+        "type": "p",
+        "text": "The three aren't competing for the same job, which is the thing a head-to-head comparison hides."
+      },
+      {
+        "type": "list",
+        "items": [
+          "**CHFI** is EC-Council's exam, 150 multiple-choice questions in 4 hours, exam code 312-49. Version 11 shipped in 2024. You can pass it without ever touching a disk image.",
+          "**GCFA** is the exam attached to SANS FOR508, with 82 questions in 3 hours. Open book, proctored, and the CyberLive items drop you into a live VM. It's a memory and intrusion exam far more than a classic disk forensics one.",
+          "**CCE** is the ISFCE's examiner credential. A written test first, then a practical where you work forensic images and write reports that a human examiner grades. It's the only one of the three where someone reads your report."
+        ]
+      },
+      {
+        "type": "p",
+        "text": "On a 2026 IR engagement, \"forensics\" means memory and fleet-wide timelines, and that's the GCFA material."
+      },
+      {
+        "type": "p",
+        "text": "A court means something else by the word. Chain of custody, and a report that opposing counsel can't pull apart. That's CCE."
+      },
+      {
+        "type": "p",
+        "text": "I don't think CHFI is a bad exam. It's a survey exam marketed like a specialist one, and it goes deep on neither side. The FOR508 labs run on SIFT, and if that name means nothing to you, that's the gap GCFA closes and CHFI doesn't."
+      },
+      {
+        "type": "p",
+        "text": "(GIAC exams are open book, by the way, and people still fail them, mostly because they spent the study time building an index of the books instead of learning them)."
+      },
+      {
+        "type": "h2",
+        "text": "The 20x price spread"
+      },
+      {
+        "type": "p",
+        "text": "Here's the number I think should drive the decision more than it does."
+      },
+      {
+        "type": "p",
+        "text": "CCE runs under $500 for the whole process, and ISFCE recertifies you every two years."
+      },
+      {
+        "type": "p",
+        "text": "The CHFI voucher alone sits in the $650 range, but EC-Council expects official training. Skip it and you pay a $100 eligibility fee and show two years of documented experience. Realistic all-in with a course is $2,000 to $3,000, and renewal is 120 ECE credits over three years plus an annual membership fee."
+      },
+      {
+        "type": "p",
+        "text": "GCFA is the outlier. FOR508 lists north of $8,000, the exam attempt adds about $1,000 when it's bundled with the course, and GIAC wants 36 CPEs plus a renewal fee every four years. Call it $9,000 before travel."
+      },
+      {
+        "type": "p",
+        "text": "That's close to a 20x spread between CCE and GCFA. Examiner salaries don't spread 20x."
+      },
+      {
+        "type": "p",
+        "text": "Commercial IR consultancy pay runs well above municipal lab pay, and that gap is what the GCFA price buys access to."
+      },
+      {
+        "type": "p",
+        "text": "Who pays matters more than the sticker. If your employer is covering it, take FOR508 and the GCFA and stop reading. If you're paying, I'd rather see $500 on a CCE and the other $8,500 on lab gear and a year of evenings than one week in a hotel ballroom."
+      },
+      {
+        "type": "h2",
+        "text": "Which one, then"
+      },
+      {
+        "type": "p",
+        "text": "I give three answers, because it's three questions."
+      },
+      {
+        "type": "list",
+        "items": [
+          "Going after a cleared role or a DoD contractor seat where HR runs the 8570 list? CHFI. It's the cheaper of the two on the incident responder list, and nobody has told me it's coming off.",
+          "Aiming at a commercial IR bench, the kind that gets the ransomware call at 2 a.m.? GCFA, and only if someone else is paying or you've already been doing the work for a year and need the credential to match.",
+          "Want to testify? CCE."
+        ]
+      },
+      {
+        "type": "p",
+        "text": "GCFE, the Windows forensics exam attached to FOR500, is the one I see people confuse with GCFA. If your work is single-host examinations rather than intrusions, that's the SANS cert you actually want, at the same price."
+      },
+      {
+        "type": "p",
+        "text": "Autopsy or the SIFT workstation for your home lab, I genuinely don't care which one you pick. Work the image, write the report, put the report on GitHub."
+      },
+      {
+        "type": "p",
+        "text": "So yes, I'll give the portfolio crowd the point about what gets you hired. The cert is what gets the portfolio opened."
+      },
+      {
+        "type": "p",
+        "text": "Pick the one that matches the door you're knocking on, pay for it once, and spend the rest on disk images and the hours to work them. The [careers hub](/careers/) has the role ladders, and the [quiz](/quiz/) will tell you fast whether the FOR508 material is already over your head or already under it."
+      }
+    ],
+    "related": [
+      {
+        "label": "Cybersecurity careers hub",
+        "href": "/careers/"
+      },
+      {
+        "label": "Test your security knowledge",
+        "href": "/quiz/"
+      },
+      {
+        "label": "DFIR in the glossary",
+        "href": "/?q=DFIR"
+      },
+      {
+        "label": "GCFA in the glossary",
+        "href": "/?q=GCFA"
+      },
+      {
+        "label": "Security skills matrix",
+        "href": "/tools/skills-matrix/"
+      }
+    ]
+  },
+  {
+    "slug": "hitech-vs-hipaa",
+    "title": "HITECH vs HIPAA: What the Amendment Actually Changed",
+    "description": "HITECH isn't a second rulebook. What the 2009 amendment changed in HIPAA: breach notification, business associate liability, penalty tiers, and audits.",
+    "category": "Explainer",
+    "author": "Parker Brissette",
+    "date": "2026-11-02",
+    "readingMinutes": 5,
+    "tags": [
+      "hipaa",
+      "hitech",
+      "healthcare",
+      "compliance",
+      "phi"
+    ],
+    "body": [
+      {
+        "type": "p",
+        "text": "Nobody complies with HITECH. You comply with [HIPAA](/?q=HIPAA) as [HITECH](/?q=HITECH) rewrote it."
+      },
+      {
+        "type": "p",
+        "text": "What I keep seeing on vendor trust pages is two badges side by side, \"HIPAA compliant\" and \"HITECH compliant,\" as if somebody passed two audits. There's no HITECH certification. HHS doesn't recognize a HIPAA certification either. I'd take one dated risk analysis over both badges."
+      },
+      {
+        "type": "p",
+        "text": "So the useful question is narrower. What did a 2009 law change that a 1996 law didn't already do?"
+      },
+      {
+        "type": "h2",
+        "text": "What was already there in 1996?"
+      },
+      {
+        "type": "p",
+        "text": "HIPAA was signed on August 21, 1996, and most of it is about keeping health coverage when you change jobs. The parts security people live in came later as HHS rules. The Privacy Rule took effect in 2003 and the Security Rule in 2005."
+      },
+      {
+        "type": "p",
+        "text": "Those rules bound covered entities, meaning health plans, clearinghouses, and providers that bill electronically."
+      },
+      {
+        "type": "p",
+        "text": "Business associates were reached only through contract. If a hospital's billing vendor mishandled [PHI](/?q=PHI), HHS had no direct line to the vendor. The hospital had a contract claim and that was about it."
+      },
+      {
+        "type": "p",
+        "text": "Enforcement was thin too. Civil penalties topped out at $100 per violation and $25,000 a year for identical violations, and OCR didn't issue its first civil money penalty until 2011."
+      },
+      {
+        "type": "h2",
+        "text": "So what did HITECH actually add?"
+      },
+      {
+        "type": "p",
+        "text": "HITECH passed on February 17, 2009 (it's Title XIII of ARRA, the stimulus bill, and most of the act is about paying hospitals to adopt electronic health records, so only a slice of it touches privacy and security at all). That slice did four things you still feel."
+      },
+      {
+        "type": "list",
+        "items": [
+          "**Breach notification.** HIPAA had no federal duty to tell anyone. Now it's 45 CFR 164.400 through 164.414, with a 60-day outer limit to notify individuals and media notice once 500 residents of a state are hit.",
+          "**Direct liability for business associates.** The Security Rule's safeguards and parts of the Privacy Rule now apply to them by law.",
+          "**Tiered penalties.**",
+          "**Audits and state AGs.** HHS was told to audit, and state attorneys general got standing to sue under HIPAA."
+        ]
+      },
+      {
+        "type": "p",
+        "text": "Most of it didn't bite until the Omnibus Rule. HHS published that in January 2013 with a compliance date of September 23, 2013. The same rule replaced the old \"risk of harm\" breach test with a presumption of breach unless a four-factor assessment shows a low probability of compromise."
+      },
+      {
+        "type": "h2",
+        "text": "Is a business associate on the hook directly?"
+      },
+      {
+        "type": "p",
+        "text": "Yes. This is the one I'll argue about all day."
+      },
+      {
+        "type": "p",
+        "text": "If you're the security lead at a SaaS company and a hospital's vendor questionnaire is due Friday, the business associate agreement you signed isn't the ceiling of your obligations. OCR can investigate and fine you without the hospital lifting a finger. Its May 2019 fact sheet lists the provisions a business associate is directly liable for, and skipping the Security Rule risk analysis is on it."
+      },
+      {
+        "type": "p",
+        "text": "The Omnibus Rule pushed this downstream as well. A subcontractor of yours that touches PHI is a business associate in its own right, and you owe it the same agreement you signed upstream."
+      },
+      {
+        "type": "h2",
+        "text": "What does the money look like now?"
+      },
+      {
+        "type": "p",
+        "text": "HITECH created four culpability tiers, from \"did not know\" up to \"willful neglect, not corrected.\" Per-violation amounts ran from $100 to $50,000 with a $1.5 million annual cap per identical provision. They've been adjusted for inflation every year since, so pull the current table instead of quoting 2009 numbers."
+      },
+      {
+        "type": "p",
+        "text": "In April 2019 HHS said it would apply lower annual caps by tier, starting at $25,000 for the bottom tier. That's enforcement discretion, not statute, and it can be withdrawn."
+      },
+      {
+        "type": "p",
+        "text": "Then on January 5, 2021, Congress amended HITECH again. Public Law 116-321 tells HHS to weigh whether you had recognized security practices in place for the prior 12 months when it sets a fine or scopes an audit. The [NIST CSF](/frameworks/nist-csf/) counts, and so does 405(d) HICP. A framework adopted the week after the breach letter doesn't."
+      },
+      {
+        "type": "p",
+        "text": "Which framework? If you're asking me, I genuinely don't care. Pick the one your team will actually keep evidence for, because the 12 months of evidence is what gets weighed."
+      },
+      {
+        "type": "h2",
+        "text": "Did the audits ever matter?"
+      },
+      {
+        "type": "p",
+        "text": "Section 13411 required HHS to audit. The pilot ran in 2011 and 2012 against 115 covered entities, and phase 2 followed in 2016 and 2017 with business associates included. OCR's 2020 report on phase 2 found most audited entities hadn't done an adequate risk analysis."
+      },
+      {
+        "type": "p",
+        "text": "That finding hasn't aged. OCR launched a Risk Analysis Initiative in October 2024 because the same gap kept showing up in its settlements. I don't expect that list to get shorter soon."
+      },
+      {
+        "type": "p",
+        "text": "What I can't tell you is where the Security Rule goes next. HHS proposed a rewrite in January 2025 that would drop the \"addressable\" label and make encryption and MFA mandatory. I don't know if or when a final rule lands, so check the Federal Register before you budget around it."
+      },
+      {
+        "type": "p",
+        "text": "So when the questionnaire asks about HITECH, I'd answer about HIPAA. Point to your breach notification procedure, the date of your last risk analysis, and a year of framework evidence. If you answer to more than one regime, the [regulation mapper](/tools/reg-mapper/) shows where HIPAA overlaps the rest."
+      },
+      {
+        "type": "p",
+        "text": "That's the amendment. Everything else is 1996."
+      }
+    ],
+    "related": [
+      {
+        "label": "HIPAA in the glossary",
+        "href": "/?q=HIPAA"
+      },
+      {
+        "label": "HITECH in the glossary",
+        "href": "/?q=HITECH"
+      },
+      {
+        "label": "PHI in the glossary",
+        "href": "/?q=PHI"
+      },
+      {
+        "label": "Regulation mapper",
+        "href": "/tools/reg-mapper/"
+      }
+    ]
+  },
+  {
+    "slug": "cybersecurity-metrics-for-the-board",
+    "title": "Cybersecurity Metrics for the Board: The Few Directors Read",
+    "description": "A board reads five to eight security metrics. The ones that answer what directors ask, the ones to cut, and how to write one with a target and trend.",
+    "category": "Explainer",
+    "author": "Parker Brissette",
+    "date": "2026-11-02",
+    "readingMinutes": 5,
+    "tags": [
+      "board reporting",
+      "metrics",
+      "ciso",
+      "governance",
+      "kri"
+    ],
+    "body": [
+      {
+        "type": "p",
+        "text": "A board deck with forty security metrics on it isn't a report. It's a place to hide."
+      },
+      {
+        "type": "p",
+        "text": "Directors read five to eight numbers."
+      },
+      {
+        "type": "p",
+        "text": "What I keep seeing is the rest of the deck doing real damage, because the question that comes back from the table lands on whichever number had no target next to it."
+      },
+      {
+        "type": "p",
+        "text": "If you're the [CISO](/?q=CISO) with a board slot next quarter and a dashboard that grew to forty lines over three years, your first job is deleting thirty-two of them. The eight that survive below come from our [board metrics builder](/tools/board-metrics/), sorted under the four questions a director actually asks."
+      },
+      {
+        "type": "h2",
+        "text": "1. Are we exposed?"
+      },
+      {
+        "type": "list",
+        "items": [
+          "**Critical asset EDR coverage.** Good at 98%, act below 90%.",
+          "**MFA coverage on critical systems and privileged accounts.** Target 100%. Not 98.",
+          "**Critical vulnerability patch latency.** Days from disclosure to fix. Good at 15, act past 30, and track anything on the [CISA KEV catalog](https://www.cisa.gov/known-exploited-vulnerabilities-catalog) separately because those have a known attacker attached."
+        ]
+      },
+      {
+        "type": "p",
+        "text": "The MFA target is the hill I'll die on."
+      },
+      {
+        "type": "p",
+        "text": "A privileged account without MFA isn't 2% of your risk. It's the account the attacker is looking for."
+      },
+      {
+        "type": "p",
+        "text": "Change Healthcare's February 2024 ransomware attack started at a Citrix remote access portal with no MFA on it, by the CEO's own account to the Senate Finance Committee that May."
+      },
+      {
+        "type": "p",
+        "text": "One missing login prompt, and a claims clearinghouse was down for weeks."
+      },
+      {
+        "type": "h2",
+        "text": "2. Would we notice?"
+      },
+      {
+        "type": "p",
+        "text": "Two numbers here."
+      },
+      {
+        "type": "p",
+        "text": "[MTTD](/?q=MTTD) in days and [MTTR](/?q=MTTR) in hours, both scoped to critical incidents. The builder bands them at one day and eight hours for good, seven days and 24 hours before you act."
+      },
+      {
+        "type": "p",
+        "text": "I report MTTD, but I don't fully trust it, and I haven't found a version I'd defend without a footnote."
+      },
+      {
+        "type": "p",
+        "text": "You only learn when an intrusion started after you've found it, usually from a forensic timeline, so the number is computed backward and a quiet quarter can produce a gorgeous figure that says nothing about what nobody found."
+      },
+      {
+        "type": "p",
+        "text": "(Mandiant's M-Trends 2024 put the global median dwell time at 10 days, down from 16 the year before, which is a decent sanity check to hold next to your own.)"
+      },
+      {
+        "type": "p",
+        "text": "Put the incident count beside it. MTTD of 0.5 days across 2 incidents is a different claim than 0.5 across 40."
+      },
+      {
+        "type": "h2",
+        "text": "3. Could we recover?"
+      },
+      {
+        "type": "p",
+        "text": "One metric. Backup restore test success."
+      },
+      {
+        "type": "p",
+        "text": "It's the only recovery number that isn't a promise."
+      },
+      {
+        "type": "p",
+        "text": "The RTO in your business continuity plan is an intention someone typed in 2022. A restore test either came back or it didn't, and the builder sets good at 95% and act below 80%."
+      },
+      {
+        "type": "p",
+        "text": "Show the denominator. 19 of 20 restores and 1 of 1 are not the same sentence."
+      },
+      {
+        "type": "h2",
+        "text": "4. Is it getting better?"
+      },
+      {
+        "type": "list",
+        "items": [
+          "**Open critical vulnerabilities past SLA.** A count. Target zero, act at 10.",
+          "**High-risk vendors unremediated.** Target zero, act at 5. This is the one third-party number a director can follow."
+        ]
+      },
+      {
+        "type": "p",
+        "text": "This is where [KPI](/?q=KPI) versus [KRI](/?q=KRI) matters. A KPI tells the board how well the security team did its work, like patches shipped or courses completed. A KRI tells them how much risk is sitting in the business today, against a threshold that forces a decision when it's crossed."
+      },
+      {
+        "type": "p",
+        "text": "Boards ask for the second kind now. I genuinely don't care which label ends up on your slide. I care that the number has a target and a direction."
+      },
+      {
+        "type": "p",
+        "text": "Here's one written the way a board reads it. The figures are made up so nobody mistakes them for a benchmark."
+      },
+      {
+        "type": "quote",
+        "text": "Open critical vulnerabilities past SLA: 6. Target: 0. Last four quarters: 14, 11, 9, 6. Decision: approve a second monthly patch window for the ERP cluster, which owns 4 of the 6."
+      },
+      {
+        "type": "p",
+        "text": "Four quarters is the minimum. With two, a director can't tell a dip from a direction."
+      },
+      {
+        "type": "p",
+        "text": "And if the metric can't name a decision, move it to the appendix."
+      },
+      {
+        "type": "h2",
+        "text": "5. Cut these"
+      },
+      {
+        "type": "list",
+        "items": [
+          "**Blocked attacks.** The count goes up when attackers get busier and when your email vendor changes how it counts. Neither is your doing, and there's no target to hold it against.",
+          "**Total vulnerabilities found.** It climbs every time you scan more assets, so it punishes the quarter you did the right thing.",
+          "**Phishing click rate with no trend line.** One number invites one question. Who clicked?"
+        ]
+      },
+      {
+        "type": "p",
+        "text": "Training completion goes too. It's a fine KPI for the security committee, and the builder includes it at a 95% target, but a director can't do anything with it."
+      },
+      {
+        "type": "h2",
+        "text": "Why they're asking now"
+      },
+      {
+        "type": "p",
+        "text": "The SEC adopted its cybersecurity disclosure rules on July 26, 2023. Item 106 of Regulation S-K has public companies describe board oversight of cyber risk in every 10-K, and Form 8-K Item 1.05 gives four business days after a materiality call."
+      },
+      {
+        "type": "p",
+        "text": "By November 2026 that's three annual report cycles of directors signing language about oversight they now want numbers to back."
+      },
+      {
+        "type": "p",
+        "text": "[NIST CSF 2.0](/frameworks/nist-csf/) pushed the same way in February 2024 when it added the Govern function. GV.OV-03 expects risk management performance to be evaluated and adjusted, which is a board metric written as a control."
+      },
+      {
+        "type": "p",
+        "text": "Build your eight in the [board metrics builder](/tools/board-metrics/). Then delete one more."
+      }
+    ],
+    "related": [
+      {
+        "label": "Board metrics builder",
+        "href": "/tools/board-metrics/"
+      },
+      {
+        "label": "KRI in the glossary",
+        "href": "/?q=KRI"
+      },
+      {
+        "label": "KPI in the glossary",
+        "href": "/?q=KPI"
+      },
+      {
+        "label": "MTTD in the glossary",
+        "href": "/?q=MTTD"
+      },
+      {
+        "label": "MTTR in the glossary",
+        "href": "/?q=MTTR"
+      }
+    ]
   }
 ]
