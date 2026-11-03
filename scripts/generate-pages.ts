@@ -980,6 +980,21 @@ const atlasTitleSubject = (entry: { code: string; frameworkCode?: string; title:
   return `${entry.code} ${entry.title}: ${full}`.length <= 70 ? full : base;
 };
 
+// The ATLAS pages are the best-ranking cluster after Cyberdle, but each page
+// linked only to its neighbors. Give every ATLAS page the tactics post (the
+// cluster's click earner) and the other tactics, so crawlers and readers can
+// move across the whole matrix from any entry point.
+const atlasTactics = ai.filter((entry) => isAtlas(entry) && atlasKind(entry) === 'Tactic');
+const atlasLinks = (entry: { code: string; frameworkCode?: string }): Array<{ label: string; href: string }> | undefined =>
+  isAtlas(entry)
+    ? [
+        { label: 'All 16 tactics explained', href: '../../blog/mitre-atlas-tactics-explained.html' },
+        ...atlasTactics
+          .filter((tactic) => tactic.code !== entry.code)
+          .map((tactic) => ({ label: `${tactic.code} ${tactic.title}`, href: `${frameworkSlug(tactic.code)}.html` })),
+      ]
+    : undefined;
+
 // 4b. AI security framework pages (NIST AI RMF, OWASP LLM Top 10, MITRE ATLAS, ISO/IEC 42001).
 ai.forEach((entry, i) => {
   const prevEntry = ai[i - 1];
@@ -1005,6 +1020,8 @@ ai.forEach((entry, i) => {
       // Keep prev/next within the same framework (do not cross AI RMF -> OWASP).
       prev: prevEntry?.frameworkCode === entry.frameworkCode ? prevEntry.code : undefined,
       next: nextEntry?.frameworkCode === entry.frameworkCode ? nextEntry.code : undefined,
+      mapped: atlasLinks(entry),
+      mappedLabel: isAtlas(entry) ? 'MITRE ATLAS tactics' : undefined,
       accent: '#6d4a9c',
       accentDark: '#b79be0',
     }),
