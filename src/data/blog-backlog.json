@@ -363,6 +363,48 @@
       ]
     },
     {
+      "slug": "mfa-vs-2fa-and-passkeys",
+      "title": "MFA vs 2FA: The Difference, and Why Passkeys Change the Answer",
+      "category": "Explainer",
+      "brief": "Settle the question people type into search: is 2FA the same as MFA. Define the three factor types (something you know, have, are) and say plainly that 2FA is MFA with exactly two factors, so every 2FA setup is MFA but not every MFA setup is 2FA. Then make the point that matters more than the label: two factors of the same type, such as a password plus a security question, is not real MFA, and the second factor's strength varies a lot. Rank the common second factors from weakest to strongest with one line each: SMS codes (SIM swap and interception), email codes, TOTP authenticator apps, push approvals (and MFA fatigue), and phishing-resistant FIDO2 security keys and passkeys. Explain why passkeys blur the old count, since a passkey on a phone combines possession and a biometric or PIN in one step, and why that is a good thing rather than a loophole. Give a practical recommendation by audience: individuals turn on an authenticator app or passkey everywhere it is offered and keep a hardware key for email and banking, small teams enforce MFA on email, VPN, and admin accounts first. Point to the MFA, 2FA, and TOTP definitions and the OTP, HOTP, and TOTP post for depth, and mention a password manager with passkey support and a hardware key as the two purchases that make this easy.",
+      "links": [
+        "/?q=MFA",
+        "/?q=2FA",
+        "/?q=TOTP",
+        "/?q=FIDO2",
+        "/blog/otp-hotp-totp-which-protects-you.html",
+        "/blog/nordpass-review-password-manager-step-one.html"
+      ]
+    },
+    {
+      "slug": "passkeys-vs-passwords-fido2",
+      "title": "Passkeys vs Passwords: What FIDO2 Actually Fixes and What It Doesn't",
+      "category": "Spotlight",
+      "brief": "Explain passkeys for a reader who keeps seeing the prompt and wants to know whether to say yes. Start with the mechanism in plain words: a passkey is a FIDO2 key pair where the private key never leaves your device and the site only stores a public key, so there is no shared secret to phish, reuse, or leak in a breach. Name the standards without drowning in them: FIDO2 is WebAuthn in the browser plus CTAP to the authenticator, and U2F is the older second-factor-only ancestor that security keys still support. Be honest about what passkeys fix (phishing, credential stuffing, password reuse, server-side password breaches) and what they do not (a compromised device, account recovery flows that fall back to SMS or email, session token theft after login, and sites that still keep a password on the account). Compare the two places a passkey can live: synced passkeys in a platform or password manager, which are convenient and survive a lost phone, and device-bound passkeys on a hardware security key, which are the strongest option for email, banking, and admin accounts. Give a short rollout order for an individual and for a small team, and link the FIDO2, U2F, and WebAuthn definitions and the phishing-resistant authentication material for depth.",
+      "links": [
+        "/?q=FIDO2",
+        "/?q=U2F",
+        "/?q=WebAuthn",
+        "/?q=MFA",
+        "/blog/mfa-vs-2fa-and-passkeys.html",
+        "/blog/nordpass-review-password-manager-step-one.html"
+      ]
+    },
+    {
+      "slug": "soc2-vs-iso-27001",
+      "title": "SOC 2 vs ISO 27001: Which One a Small Company Should Do First",
+      "category": "Explainer",
+      "brief": "Help a founder or first security hire who has a customer asking for SOC 2 or ISO 27001 and budget for one. Explain what each one is in a sentence: SOC 2 is an attestation report a CPA firm writes against the AICPA Trust Services Criteria, and ISO 27001 is a certification an accredited body issues against a management system standard with the Annex A controls as its reference set. Lay out the differences that decide the choice in a short table: who asks for it (US SaaS buyers lean SOC 2, European and global enterprise buyers lean ISO 27001), what you get (a report you share under NDA versus a certificate you can publish), scope (chosen systems and criteria versus an ISMS scope), timeline (a Type I point in time, a Type II over a three to twelve month window, ISO with a Stage 1 and Stage 2 audit then surveillance audits), and rough effort. Make the practical point that the control work overlaps heavily, so the second one is much cheaper than the first, and show the overlap through the site's crosswalk. Recommend a default: pick the one your largest prospective customers name in their security questionnaires, and if nobody has asked yet, start with SOC 2 Type I for a US-focused SaaS company and ISO 27001 for a company selling into Europe. Link the SOC 2 criteria pages, the Annex A tour, and the SOC 2 readiness post.",
+      "links": [
+        "/frameworks/soc2/",
+        "/frameworks/iso/",
+        "/tools/crosswalk/",
+        "/blog/soc2-readiness-in-plain-english.html",
+        "/blog/iso-27001-annex-a-tour.html",
+        "/?q=ISMS"
+      ]
+    },
+    {
       "slug": "ferpa-for-edtech-vendors",
       "title": "FERPA for EdTech Vendors, in Plain English",
       "category": "Explainer",
