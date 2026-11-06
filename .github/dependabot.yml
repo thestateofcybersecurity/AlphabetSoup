@@ -1,0 +1,31 @@
+# Keeps the SHA-pinned actions and the npm dev dependencies current.
+# Actions are pinned to commits with a version comment; Dependabot rewrites
+# both when a new release lands. The npm audit gate in deploy.yml fails
+# closed, so a weekly PR here is how a fixed advisory reaches main without
+# anyone noticing the gate is red first.
+version: 2
+updates:
+  - package-ecosystem: github-actions
+    directory: /
+    schedule:
+      interval: weekly
+      day: monday
+      time: "09:00"
+      timezone: America/New_York
+    labels: [dependencies, github-actions]
+  - package-ecosystem: npm
+    directory: /
+    schedule:
+      interval: weekly
+      day: monday
+      time: "09:00"
+      timezone: America/New_York
+    labels: [dependencies, npm]
+    groups:
+      # One PR for the font packages and one for the tooling, so a routine
+      # week is two reviews, not ten.
+      fonts:
+        patterns: ["@fontsource/*", "@fontsource-variable/*"]
+      tooling:
+        patterns: ["*"]
+        exclude-patterns: ["@fontsource/*", "@fontsource-variable/*"]

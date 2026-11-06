@@ -3,6 +3,7 @@ import raw from '../src/data/assessment.json';
 import {
   cisControlFromReference,
   concerns,
+  parseAnnotations,
   readinessBand,
   scoreAssessment,
 } from '../src/lib/assessment';
@@ -144,5 +145,25 @@ describe('cisControlFromReference', () => {
   it('finds CIS references in the real dataset', () => {
     const found = data.questions.some((q) => q.references.some((r) => cisControlFromReference(r)));
     expect(found).toBe(true);
+  });
+});
+
+describe('annotation import validation', () => {
+  it('keeps well-typed fields and drops the rest', () => {
+    expect(
+      parseAnnotations({
+        q1: { note: 'check backups', flagged: true, reviewed: 'yes' },
+        q2: { flagged: 1, note: ['x'] },
+        q3: 'flagged',
+        q4: { reviewed: false, extra: 'ignored' },
+      }),
+    ).toEqual({ q1: { note: 'check backups', flagged: true }, q4: { reviewed: false } });
+  });
+
+  it('refuses non-objects so the importer can show an error instead of replacing notes', () => {
+    expect(parseAnnotations(null)).toBeNull();
+    expect(parseAnnotations('notes')).toBeNull();
+    expect(parseAnnotations([{ note: 'x' }])).toBeNull();
+    expect(parseAnnotations({})).toEqual({});
   });
 });

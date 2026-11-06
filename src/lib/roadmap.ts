@@ -2,6 +2,7 @@ import type { CisData, CsfData } from './frameworks';
 import { CSF_FUNCTIONS } from './frameworks';
 import { cisControlFromReference } from './assessment';
 import type { Answers, AssessmentData } from './assessment';
+import { neutralizeFormula } from './csv';
 
 export type Quarter = 'Onboarding' | 'Q1' | 'Q2' | 'Q3' | 'Q4';
 export type TaskStatus = 'planned' | 'in-progress' | 'done';
@@ -48,6 +49,52 @@ export type PlanState = Record<string, TaskState>;
 
 export const QUARTERS: Quarter[] = ['Onboarding', 'Q1', 'Q2', 'Q3', 'Q4'];
 export const STATUS_CYCLE: TaskStatus[] = ['planned', 'in-progress', 'done'];
+
+export const isQuarter = (value: unknown): value is Quarter => QUARTERS.includes(value as Quarter);
+export const isTaskStatus = (value: unknown): value is TaskStatus => STATUS_CYCLE.includes(value as TaskStatus);
+export const isKpiStatus = (value: unknown): value is KpiStatus => KPI_STATUS_CYCLE.includes(value as KpiStatus);
+
+const isRecord = (value: unknown): value is Record<string, unknown> =>
+  typeof value === 'object' && value !== null && !Array.isArray(value);
+
+/**
+ * Rebuild a plan state from untrusted input (an imported file, localStorage).
+ *
+ * Mirrors parseFeed() in news.ts: coerce what can be coerced, drop what
+ * cannot, never trust a shape. A task entry needs a known quarter and status
+ * (both land in class names and column lookups, and an unknown value used to
+ * blank the page or make tasks vanish); the free-text fields must be strings;
+ * the per-index maps keep only well-typed entries. Returns null when the
+ * input is not an object at all, so callers can tell "bad file" from "empty".
+ */
+export function parsePlanState(raw: unknown): PlanState | null {
+  if (!isRecord(raw)) return null;
+  const state: PlanState = {};
+  for (const [taskId, entry] of Object.entries(raw)) {
+    if (!isRecord(entry) || !isQuarter(entry.quarter) || !isTaskStatus(entry.status)) continue;
+    const task: TaskState = { quarter: entry.quarter, status: entry.status };
+    if (typeof entry.owner === 'string') task.owner = entry.owner;
+    if (typeof entry.date === 'string') task.date = entry.date;
+    if (typeof entry.note === 'string') task.note = entry.note;
+    if (isRecord(entry.kpiStatus)) {
+      const kpiStatus: Record<string, KpiStatus> = {};
+      for (const [index, value] of Object.entries(entry.kpiStatus)) if (isKpiStatus(value)) kpiStatus[index] = value;
+      task.kpiStatus = kpiStatus;
+    }
+    if (isRecord(entry.milestonesDone)) {
+      const milestonesDone: Record<string, boolean> = {};
+      for (const [index, value] of Object.entries(entry.milestonesDone)) if (typeof value === 'boolean') milestonesDone[index] = value;
+      task.milestonesDone = milestonesDone;
+    }
+    state[taskId] = task;
+  }
+  return state;
+}
+
+/** A start month as the roadmap stores it (YYYY-MM), or null. */
+export function parseStartMonth(raw: unknown): string | null {
+  return typeof raw === 'string' && /^\d{4}-(0[1-9]|1[0-2])$/.test(raw) ? raw : null;
+}
 
 /** Optional per-item depth (objective, KPIs, standards) merged into framework tasks. */
 export interface GoalDepth {
@@ -378,8 +425,10 @@ export function quarterDateRange(start: string, quarter: Quarter): string {
   return `${sLabel} to ${eLabel}`;
 }
 
-const csvEscape = (value: string): string =>
-  /[",\n]/.test(value) ? `"${value.replace(/"/g, '""')}"` : value;
+const csvEscape = (raw: string): string => {
+  const value = neutralizeFormula(raw);
+  return /[",\n]/.test(value) ? `"${value.replace(/"/g, '""')}"` : value;
+};
 
 export function planToCsv(tasks: RoadmapTask[], state: PlanState): string {
   const rows = [
