@@ -5741,5 +5741,169 @@
         "href": "/?q=MTTR"
       }
     ]
+  },
+  {
+    "slug": "cis-implementation-groups-ig1-ig2-ig3",
+    "title": "CIS Implementation Groups: IG1 vs IG2 vs IG3, Which One Is Yours",
+    "description": "CIS IG1, IG2 and IG3 aren't three frameworks. They're cumulative cuts of 153 safeguards. How to tell which one you're in, and why most teams are IG1.",
+    "category": "Explainer",
+    "author": "Parker Brissette",
+    "date": "2026-11-05",
+    "readingMinutes": 5,
+    "tags": [
+      "cis controls",
+      "implementation groups",
+      "ig1",
+      "compliance",
+      "small business"
+    ],
+    "body": [
+      {
+        "type": "p",
+        "text": "CIS Implementation Groups aren't three frameworks. They're one list of 153 safeguards, cut in two places."
+      },
+      {
+        "type": "p",
+        "text": "And most people searching for the difference are IG1. I think they should say so out loud."
+      },
+      {
+        "type": "h2",
+        "text": "One list, two cuts"
+      },
+      {
+        "type": "p",
+        "text": "[CIS](/?q=CIS) Controls v8 came out in May 2021 with 153 safeguards across 18 controls. IG1 takes 56 of them. IG2 adds 74 more, for 130. IG3 adds the last 23."
+      },
+      {
+        "type": "p",
+        "text": "Read those numbers again."
+      },
+      {
+        "type": "p",
+        "text": "The jump from IG1 to IG2 is bigger than all of IG1. IG3 gets treated like the summit, and it's the shortest climb of the three."
+      },
+      {
+        "type": "p",
+        "text": "Three controls have no IG1 safeguards at all: Control 13 (network monitoring and defense), Control 16 (application software security) and Control 18 (penetration testing). So if your plan for 2027 includes a pen test program, that's Safeguard 18.1, and it's IG2 work."
+      },
+      {
+        "type": "p",
+        "text": "The 23 IG3 additions read like a specialist's job list. Safeguard 3.14 logs access to sensitive data. 12.8 puts admin work on dedicated machines. 13.10 does application layer filtering. 18.5 runs internal pen tests on a schedule. None of it is hard to understand. All of it needs someone who does only that."
+      },
+      {
+        "type": "p",
+        "text": "(CIS shipped v8.1 in June 2024 and added a Govern function so the Controls line up with [NIST CSF](/?q=NIST%20CSF) 2.0. The tiers still work the same way.)"
+      },
+      {
+        "type": "h2",
+        "text": "MFA was never the advanced stuff"
+      },
+      {
+        "type": "p",
+        "text": "A lot of small teams assume IG1 is the easy list and the serious controls start at IG2."
+      },
+      {
+        "type": "p",
+        "text": "[MFA](/?q=MFA) is the counterexample I point to. Safeguards 6.3, 6.4 and 6.5 require it on externally exposed apps, on remote network access and on admin accounts. All three are IG1. So is 11.4, an isolated copy of your recovery data. So is 17.1, a named person who handles incidents. Unique passwords (5.2) and a written vulnerability management process (7.1) are in there too."
+      },
+      {
+        "type": "p",
+        "text": "What actually changes at IG2 is centralization. You collect audit logs at IG1 under 8.2. At IG2 you centralize them under 8.9 and review them on a schedule under 8.11. Anti-malware goes from deployed (10.1) to centrally managed (10.6). Your asset inventory from 1.1 gets an active discovery tool behind it in 1.3."
+      },
+      {
+        "type": "p",
+        "text": "Every one of those needs somebody watching a console."
+      },
+      {
+        "type": "h2",
+        "text": "Count the people before the data"
+      },
+      {
+        "type": "p",
+        "text": "CIS describes the groups by who you employ and what you'd lose."
+      },
+      {
+        "type": "list",
+        "items": [
+          "**IG1:** limited IT and security expertise, mostly business data, downtime you can live with for a while.",
+          "**IG2:** staff whose job is running IT, sensitive client or company data, some regulatory pressure.",
+          "**IG3:** security specialists in separate disciplines, data under regulatory oversight, or an outage that would cause real public harm."
+        ]
+      },
+      {
+        "type": "p",
+        "text": "Plenty of small firms read the IG2 line and think they hold client data, so they must be IG2. I'd flip the order and ask the staffing question first."
+      },
+      {
+        "type": "p",
+        "text": "Is there anyone on payroll whose job description says security? Not \"also handles the firewall.\" Says it."
+      },
+      {
+        "type": "p",
+        "text": "If the answer is no, you're IG1 whatever data you hold, because nobody's there to run 74 more safeguards. The data question tells you how fast you need to grow out of IG1. It doesn't tell you where you are today. The public harm test for IG3 is about hospitals, utilities and anyone whose downtime hurts people outside the building. I'd guess that isn't most of you reading this."
+      },
+      {
+        "type": "h2",
+        "text": "Write IG1 on the questionnaire"
+      },
+      {
+        "type": "p",
+        "text": "This is the hill I'll die on."
+      },
+      {
+        "type": "p",
+        "text": "What I keep seeing is small teams claiming IG2 on customer questionnaires because IG1 sounds like a beginner grade. Then the customer asks for evidence of log review under 8.11, and there isn't any. A claimed IG2 you can't evidence is worse than an honest IG1. One is a gap. The other is a misrepresentation sitting in somebody's vendor risk file."
+      },
+      {
+        "type": "p",
+        "text": "If you're the IT manager with a customer questionnaire due Friday, don't overthink the wording. Something like this works."
+      },
+      {
+        "type": "quote",
+        "text": "We implement CIS Controls v8 Implementation Group 1, last assessed November 2026, with Safeguards 6.7 and 8.9 from IG2 also in place."
+      },
+      {
+        "type": "p",
+        "text": "Then attach the assessment."
+      },
+      {
+        "type": "p",
+        "text": "Saying IG1 ages better, too. \"IG1, plus 8.9 and 6.7 by Q2 2027\" tells a reviewer you know where you're headed. A bare IG2 checkbox tells them nothing they can check."
+      },
+      {
+        "type": "p",
+        "text": "Track it in a spreadsheet or a [GRC](/?q=GRC) platform. I honestly don't care which. An auditor cares that the date on it is recent and every gap has an owner's name next to it."
+      },
+      {
+        "type": "p",
+        "text": "What I don't know yet is whether cyber insurers will start asking for the IG level by name. Some applications already read like IG1 in disguise, with questions on MFA for remote access and offline backups. I haven't seen one use the term."
+      },
+      {
+        "type": "p",
+        "text": "Run the [IG1 assessment](/assess/?a=cis-ig1) before you answer anything, and if you want the basics first, start with our [IG1 starter guide](/blog/cis-controls-ig1-starter.html). Then read the [IG2 list](/frameworks/cis/ig2.html) as next year's roadmap. It isn't your current grade, and nobody's going to think less of you for saying so."
+      }
+    ],
+    "related": [
+      {
+        "label": "CIS Controls hub",
+        "href": "/frameworks/cis/"
+      },
+      {
+        "label": "All 56 IG1 safeguards",
+        "href": "/frameworks/cis/ig1.html"
+      },
+      {
+        "label": "All 130 IG2 safeguards",
+        "href": "/frameworks/cis/ig2.html"
+      },
+      {
+        "label": "All 153 IG3 safeguards",
+        "href": "/frameworks/cis/ig3.html"
+      },
+      {
+        "label": "Run the CIS IG1 assessment",
+        "href": "/assess/?a=cis-ig1"
+      }
+    ]
   }
 ]
