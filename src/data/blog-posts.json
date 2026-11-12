@@ -5905,5 +5905,196 @@
         "href": "/assess/?a=cis-ig1"
       }
     ]
+  },
+  {
+    "slug": "cybersecurity-skills-matrix-small-team",
+    "title": "Cybersecurity Skills Matrix: Build One for a Five-Person Team",
+    "description": "A skills matrix for a five-person security team: NICE rows, a four-level scale, a worked example, and why it dies once it touches performance reviews.",
+    "category": "Explainer",
+    "author": "Parker Brissette",
+    "date": "2026-11-12",
+    "readingMinutes": 5,
+    "tags": [
+      "skills matrix",
+      "nice framework",
+      "security leadership",
+      "team building",
+      "careers"
+    ],
+    "body": [
+      {
+        "type": "p",
+        "text": "A skills matrix isn't an HR document. It's a map of who you can't afford to lose."
+      },
+      {
+        "type": "p",
+        "text": "On a five-person security team that map is short, and usually a little scary. So here's one for a made-up team of five, taken apart row by row."
+      },
+      {
+        "type": "h2",
+        "text": "Row names: borrow them"
+      },
+      {
+        "type": "p",
+        "text": "What I keep seeing is a matrix where someone typed the rows from memory. You get \"Firewalls,\" \"Cloud stuff,\" and \"Splunk,\" which is a product, not a skill."
+      },
+      {
+        "type": "p",
+        "text": "Use the [NICE Framework](/?q=NICE) instead. NIST republished it as SP 800-181 Rev. 1 in November 2020, and the March 2024 components release lists 41 work roles across seven categories. (The 2017 version had 52. For this exercise, fewer is better.)"
+      },
+      {
+        "type": "p",
+        "text": "Pick the 12 to 20 that match what your team does on an ordinary Tuesday. I'd rather see 12 honest rows than 40 aspirational ones. For our five, six of them carry most of the weight:"
+      },
+      {
+        "type": "list",
+        "items": [
+          "Incident response.",
+          "Vulnerability management.",
+          "Identity and access.",
+          "Cloud security.",
+          "Security engineering.",
+          "[GRC](/?q=GRC) and audit support."
+        ]
+      },
+      {
+        "type": "p",
+        "text": "Work roles or competency areas? I genuinely don't care which you pick. I care that the row names came from somewhere other than your head, so next year's lead can read them."
+      },
+      {
+        "type": "h2",
+        "text": "Four levels, in words"
+      },
+      {
+        "type": "list",
+        "items": [
+          "**1. Aware.** Knows it exists and who to call.",
+          "**2. Can do with help.** Gets it done with someone checking.",
+          "**3. Can do alone.** You'd hand them the ticket at 4 p.m. on a Friday.",
+          "**4. Can teach.** Could train the next hire without notes."
+        ]
+      },
+      {
+        "type": "p",
+        "text": "No zero. No five. I'd pick four every time."
+      },
+      {
+        "type": "p",
+        "text": "A five-point scale gives everyone a middle to hide in, and people hide there. Everyone rates themselves first. Then the lead does a pass, and the two of you talk about every cell where the numbers differ by 2 or more."
+      },
+      {
+        "type": "p",
+        "text": "I think that conversation is most of the value. The spreadsheet's the receipt."
+      },
+      {
+        "type": "h2",
+        "text": "The matrix, row by row"
+      },
+      {
+        "type": "p",
+        "text": "Our made-up team is a lead, two SOC analysts, one security engineer and one GRC analyst. Scores run 1 to 4, in that order:"
+      },
+      {
+        "type": "list",
+        "items": [
+          "Incident response: 3, 3, 2, 2, 1.",
+          "Vulnerability management: 2, 2, 3, 3, 1.",
+          "Identity and access: 2, 1, 2, 3, 2.",
+          "Cloud security: 1, 1, 1, 4, 1.",
+          "Security engineering: 2, 1, 1, 4, 1.",
+          "GRC and audit support: 3, 1, 1, 1, 4."
+        ]
+      },
+      {
+        "type": "p",
+        "text": "Read it by row, not by person."
+      },
+      {
+        "type": "p",
+        "text": "Cloud security has one 4 and four 1s. The engineer is the only person who can change your AWS service control policies without asking. When they take two weeks off in August, cloud has zero coverage."
+      },
+      {
+        "type": "p",
+        "text": "GRC is the same picture. If that analyst leaves in March, your [SOC 2](/?q=SOC%202) evidence collection walks out the door with them."
+      },
+      {
+        "type": "p",
+        "text": "Incident response looks healthy with two 3s. It isn't. Nobody's a 4, so nobody on the team can train the next analyst, and every new hire learns IR from whoever's on shift."
+      },
+      {
+        "type": "h2",
+        "text": "Gaps turn into three actions"
+      },
+      {
+        "type": "p",
+        "text": "Cross-training pairs come first. The engineer and the second analyst pair on cloud for one quarter. The goal is one more 2 on that row, not a second expert."
+      },
+      {
+        "type": "p",
+        "text": "Then one course or cert per person per quarter, aimed at a row rather than at a résumé. The first analyst going from 1 to 2 on identity is worth more to this team than another generic cert. The [careers hub](/careers/) maps certs to roles if you need a starting list."
+      },
+      {
+        "type": "p",
+        "text": "Then the hiring profile. Your next req isn't \"security analyst.\" It's someone who walks in at 3 on cloud and 2 on security engineering."
+      },
+      {
+        "type": "p",
+        "text": "If you're the lead walking into a January budget review to defend that req, bring the cloud row and nothing else. One 4 and four 1s does more than any story about how busy everyone is."
+      },
+      {
+        "type": "h2",
+        "text": "The two ways it dies"
+      },
+      {
+        "type": "p",
+        "text": "It dies the day it touches a performance review. This is my hill. Once a 2 can cost someone a raise, every self-rating drifts to 3 and the matrix stops telling you anything true."
+      },
+      {
+        "type": "p",
+        "text": "It also dies of neglect. Put a refresh on the calendar every six months, May and November work fine, and date the sheet in the top corner. An undated matrix is a guess."
+      },
+      {
+        "type": "p",
+        "text": "One thing I still haven't solved is a row for judgment. Who stays calm at 2 a.m. in an incident doesn't map to any NICE work role, and I haven't found a scale for it that doesn't turn into a popularity contest."
+      },
+      {
+        "type": "h2",
+        "text": "What the frameworks already ask for"
+      },
+      {
+        "type": "p",
+        "text": "You're probably on the hook for this already. [NIST CSF 2.0](/frameworks/nist-csf/), published February 2024, has GV.RR-02 for established roles and responsibilities and PR.AT-02 for training people in specialized roles."
+      },
+      {
+        "type": "p",
+        "text": "[CIS Controls](/frameworks/cis/) v8 has Safeguard 14.9, role-specific security awareness and skills training, starting at IG2. An auditor testing either one wants evidence that your specialists are trained for their jobs. A dated matrix with a quarterly training plan attached is that evidence."
+      },
+      {
+        "type": "p",
+        "text": "Build it in a spreadsheet in one afternoon, or start from the [skills matrix tool](/tools/skills-matrix/), which keeps everything in your browser. If you're new in the seat, it's a natural week-three task in your [first 90 days](/blog/first-90-days-security-leader.html). Then go read the cloud row again."
+      }
+    ],
+    "related": [
+      {
+        "label": "Team skills matrix tool",
+        "href": "/tools/skills-matrix/"
+      },
+      {
+        "label": "Cybersecurity careers hub",
+        "href": "/careers/"
+      },
+      {
+        "label": "NIST CSF 2.0 hub",
+        "href": "/frameworks/nist-csf/"
+      },
+      {
+        "label": "CIS Controls hub",
+        "href": "/frameworks/cis/"
+      },
+      {
+        "label": "Your first 90 days as a security leader",
+        "href": "/blog/first-90-days-security-leader.html"
+      }
+    ]
   }
 ]
