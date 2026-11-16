@@ -6096,5 +6096,179 @@
         "href": "/blog/first-90-days-security-leader.html"
       }
     ]
+  },
+  {
+    "slug": "mfa-vs-2fa-and-passkeys",
+    "title": "MFA vs 2FA: The Difference, and Why Passkeys Change the Answer",
+    "description": "2FA is MFA with exactly two factors. What matters is which factor: SMS, TOTP, push, or a passkey, ranked weakest to strongest, plus what to turn on first.",
+    "category": "Explainer",
+    "author": "Parker Brissette",
+    "date": "2026-11-16",
+    "readingMinutes": 5,
+    "tags": [
+      "mfa",
+      "2fa",
+      "passkeys",
+      "fido2",
+      "authentication"
+    ],
+    "body": [
+      {
+        "type": "p",
+        "text": "Is [2FA](/?q=2FA) the same as [MFA](/?q=MFA)? Yes. And it's the least useful question you can ask about a login."
+      },
+      {
+        "type": "p",
+        "text": "2FA is MFA with exactly two factors. Every 2FA setup is MFA. Not every MFA setup is 2FA, because a few use three."
+      },
+      {
+        "type": "p",
+        "text": "That's the whole answer to the search."
+      },
+      {
+        "type": "p",
+        "text": "The question that decides whether an account gets taken over is which two factors, and how a phishing page handles them."
+      },
+      {
+        "type": "h2",
+        "text": "Do both factors actually count?"
+      },
+      {
+        "type": "p",
+        "text": "Only if they come from different types. There are three:"
+      },
+      {
+        "type": "list",
+        "items": [
+          "**Know:** a password, a PIN, the name of your first car.",
+          "**Have:** a phone, a hardware key, a smart card.",
+          "**Are:** a fingerprint or a face."
+        ]
+      },
+      {
+        "type": "p",
+        "text": "A password plus a security question is two things you know. That isn't MFA. It's one factor asked twice."
+      },
+      {
+        "type": "p",
+        "text": "NIST already said so. SP 800-63B, published in June 2017, tells verifiers not to use knowledge-based questions at all. Plenty of banks still ask for your first car anyway."
+      },
+      {
+        "type": "h2",
+        "text": "Which second factor is worth having?"
+      },
+      {
+        "type": "p",
+        "text": "This is where the label stops mattering and the type of second factor starts. Here's how I rank them, weakest to strongest:"
+      },
+      {
+        "type": "list",
+        "items": [
+          "**SMS codes.** A SIM swap moves the number, and every code goes with it. NIST put SMS in the restricted bucket back in 2017.",
+          "**Email codes.** Only as strong as the inbox, which is usually guarded by... a password.",
+          "**[TOTP](/?q=TOTP) apps.** No carrier involved. A phishing page can still relay the six digits inside the 30-second window.",
+          "**Push approvals.** Fine until somebody sends 50 of them at 1 a.m.",
+          "**[FIDO2](/?q=FIDO2) keys and passkeys.** The browser checks the domain before anything gets signed, so a lookalike site gets nothing."
+        ]
+      },
+      {
+        "type": "p",
+        "text": "Phishing-resistant MFA on email and admin accounts is the hill I'll die on. I'll take a clunky key on a lanyard over a slick push prompt every time. Everything above the last line loses to a relay kit, and the [OTP, HOTP, and TOTP post](/blog/otp-hotp-totp-which-protects-you.html) walks through how Evilginx does it."
+      },
+      {
+        "type": "h2",
+        "text": "Why does push get its own fight?"
+      },
+      {
+        "type": "p",
+        "text": "Push is the one I argue about most with people who already turned MFA on. It feels modern. It fails in a very human way."
+      },
+      {
+        "type": "p",
+        "text": "In September 2022 an attacker holding an Uber contractor's password kept firing push requests at them. Then they messaged the contractor on WhatsApp, claiming to be Uber IT. The contractor accepted."
+      },
+      {
+        "type": "p",
+        "text": "What I keep seeing is push that got rolled out in 2020, when everyone went remote overnight, and nobody has looked at the settings since."
+      },
+      {
+        "type": "p",
+        "text": "Microsoft made number matching mandatory for Authenticator push on May 8, 2023. You type the two digits from the login screen into the app, which kills the blind tap. A proxy page can still show the user the right number."
+      },
+      {
+        "type": "h2",
+        "text": "So is a passkey one factor or two?"
+      },
+      {
+        "type": "p",
+        "text": "Two. It just doesn't look like it."
+      },
+      {
+        "type": "p",
+        "text": "A passkey on your phone is one tap. Under the hood it's a private key on a device you hold, unlocked by your face or your PIN. Possession plus biometric, or possession plus knowledge, in one step."
+      },
+      {
+        "type": "p",
+        "text": "People see one step and call it single-factor. That's backwards. It beats the two-step code on the thing that counts, because the key never leaves the device and only signs for the real domain."
+      },
+      {
+        "type": "p",
+        "text": "Apple and Google signed on to passkeys alongside Microsoft on May 5, 2022. Google made them the default sign-in for personal accounts in October 2023. NIST's April 2024 supplement to 800-63B accepted synced passkeys at AAL2."
+      },
+      {
+        "type": "p",
+        "text": "What I don't know yet is how account recovery holds up across vendors. If losing your phone drops you back to an SMS reset, the passkey was decoration. I haven't seen enough recovery flows to say most sites got that right."
+      },
+      {
+        "type": "h2",
+        "text": "What should you turn on first?"
+      },
+      {
+        "type": "p",
+        "text": "For yourself, an authenticator app or a passkey everywhere it's offered. Then a hardware key for email and banking, since email is the reset button for everything else. (Buy keys in pairs. Register the spare, then put it in a drawer you'll remember.)"
+      },
+      {
+        "type": "p",
+        "text": "Which password manager holds your passkeys? I genuinely don't care. Bitwarden and NordPass both store and sync them now, and so does the keychain that shipped with your phone. Pick the one you'll actually open, and if you want one opinion, there's a [NordPass review](/blog/nordpass-review-password-manager-step-one.html) here."
+      },
+      {
+        "type": "p",
+        "text": "For a small team, [CIS Controls](/frameworks/cis/) v8 already gives you the order. Safeguard 6.3 is MFA on externally exposed apps, 6.4 is remote network access, 6.5 is admin accounts. In practice that means email, then VPN, then every admin login."
+      },
+      {
+        "type": "p",
+        "text": "I'd rather you get email covered this week than plan all three for next quarter."
+      },
+      {
+        "type": "p",
+        "text": "If you're the one person answering the MFA question on the cyber insurance renewal due Friday, tick yes only once all three are covered. Then write which factor in the notes field, even though the form didn't ask."
+      },
+      {
+        "type": "p",
+        "text": "So, 2FA or MFA? Call it whatever the form calls it. In November 2026 the word that matters is phishing-resistant, and a passkey is the cheapest way to get there."
+      }
+    ],
+    "related": [
+      {
+        "label": "OTP, HOTP, TOTP: which one protects you",
+        "href": "/blog/otp-hotp-totp-which-protects-you.html"
+      },
+      {
+        "label": "NordPass review: password manager as step one",
+        "href": "/blog/nordpass-review-password-manager-step-one.html"
+      },
+      {
+        "label": "FIDO2 in the glossary",
+        "href": "/?q=FIDO2"
+      },
+      {
+        "label": "TOTP in the glossary",
+        "href": "/?q=TOTP"
+      },
+      {
+        "label": "CIS Controls hub",
+        "href": "/frameworks/cis/"
+      }
+    ]
   }
 ]
