@@ -6270,5 +6270,194 @@
         "href": "/frameworks/cis/"
       }
     ]
+  },
+  {
+    "slug": "passkeys-vs-passwords-fido2",
+    "title": "Passkeys vs Passwords: What FIDO2 Actually Fixes and What It Doesn't",
+    "description": "Passkeys stop phishing and credential stuffing. They don't fix the password still on the account, SMS recovery, or stolen session cookies. Here's the order.",
+    "category": "Spotlight",
+    "author": "Parker Brissette",
+    "date": "2026-11-19",
+    "readingMinutes": 5,
+    "tags": [
+      "passkeys",
+      "fido2",
+      "webauthn",
+      "authentication",
+      "mfa"
+    ],
+    "body": [
+      {
+        "type": "p",
+        "text": "Everyone says passkeys finally kill the password. On most accounts I look at, the password is still there, sitting right next to the passkey."
+      },
+      {
+        "type": "p",
+        "text": "That's the part of the pitch I disagree with."
+      },
+      {
+        "type": "p",
+        "text": "The crypto is real, and if you keep seeing the \"create a passkey?\" prompt, tap yes. Just know what you bought and what you didn't."
+      },
+      {
+        "type": "h2",
+        "text": "Where the passkey crowd is right"
+      },
+      {
+        "type": "p",
+        "text": "A passkey is a [FIDO2](/?q=FIDO2) key pair. The private key stays on your phone or your security key. The site keeps only the public key, so there's nothing shared to phish and nothing on the server worth stealing."
+      },
+      {
+        "type": "p",
+        "text": "FIDO2 is two specs stapled together. [WebAuthn](/?q=WebAuthn) is the browser half, a W3C Recommendation since March 2019. CTAP is how the browser talks to the authenticator. [U2F](/?q=U2F) is the older second-factor-only ancestor, and most security keys still speak it."
+      },
+      {
+        "type": "p",
+        "text": "Server breaches are where this pays off. LinkedIn lost 6.5 million password hashes in 2012, and four years later the real count turned out to be about 117 million."
+      },
+      {
+        "type": "p",
+        "text": "(Yes, the same LinkedIn these posts get syndicated to. Small world.)"
+      },
+      {
+        "type": "p",
+        "text": "Breach a passkey-only site and you walk away with public keys."
+      },
+      {
+        "type": "p",
+        "text": "They're public. That's the point."
+      },
+      {
+        "type": "p",
+        "text": "Credential stuffing dies too. Mandiant's June 2024 report on the Snowflake customer breaches put about 165 organizations in scope. The attackers used passwords infostealers had lifted as far back as 2020, on accounts with no MFA. A passkey-only login gives a stolen password list nothing to try."
+      },
+      {
+        "type": "h2",
+        "text": "The password is still on the account"
+      },
+      {
+        "type": "p",
+        "text": "Here's what I keep seeing. Someone adds a passkey to their Microsoft or Google account, feels done, and never touches the password again. It still works on the sign-in page."
+      },
+      {
+        "type": "p",
+        "text": "An attacker doesn't have to beat your passkey. They phish the password you forgot was there."
+      },
+      {
+        "type": "p",
+        "text": "Microsoft has let personal accounts delete the password entirely since September 2021, and it made new accounts passwordless by default in May 2025. Google, last I checked, still keeps a password on the account and just lets you skip it."
+      },
+      {
+        "type": "p",
+        "text": "Every account made before those defaults has a password you probably reused somewhere."
+      },
+      {
+        "type": "h2",
+        "text": "Recovery is the real front door"
+      },
+      {
+        "type": "p",
+        "text": "Lost-phone recovery is where I'd attack a passkey account. If the reset is a code to your phone number, the account is as strong as your carrier's retail counter. If it's an email link, it's as strong as that inbox."
+      },
+      {
+        "type": "p",
+        "text": "MGM's September 2023 breach didn't need to beat any authenticator."
+      },
+      {
+        "type": "p",
+        "text": "The attackers called the IT help desk, posed as an employee, and got access reset. MGM put the hit to its quarter at about $100 million."
+      },
+      {
+        "type": "p",
+        "text": "This is my hill. If recovery falls back to SMS, or to a help desk that resets on a name and a birthday, you haven't rolled out passkeys. You've added one more way in."
+      },
+      {
+        "type": "h2",
+        "text": "The cookie walks out after login"
+      },
+      {
+        "type": "p",
+        "text": "Passkeys protect the login. They do nothing for the session after it."
+      },
+      {
+        "type": "p",
+        "text": "Infostealers worked that out years ago. They copy session cookies off an infected laptop and replay them from somewhere else, and the attacker never sees a sign-in prompt at all. Microsoft said Lumma Stealer infected more than 394,000 Windows computers in the two months before its May 2025 takedown. Any of those laptops could have had a passkey on it. Didn't matter. The cookie is the proof you already logged in, so once it's gone the login is over."
+      },
+      {
+        "type": "p",
+        "text": "If malware owns the machine you're signed in on, it doesn't need your passkey. It has your session."
+      },
+      {
+        "type": "p",
+        "text": "What helps here is short session lifetimes and EDR that catches the stealer before it phones home. More passkeys won't."
+      },
+      {
+        "type": "h2",
+        "text": "Synced keys, hardware keys, and the order to do it in"
+      },
+      {
+        "type": "p",
+        "text": "Synced passkeys live in iCloud Keychain, Google Password Manager, or a manager like [NordPass](/blog/nordpass-review-password-manager-step-one.html). Lose the phone and they come back on the new one."
+      },
+      {
+        "type": "p",
+        "text": "Under NIST SP 800-63B they top out at AAL2. AAL3 wants a key that can't be copied off the device."
+      },
+      {
+        "type": "p",
+        "text": "Device-bound passkeys live on a hardware key and never leave it. That's what I want on email, banking, and every admin account. YubiKey or Titan, USB-C or NFC? I don't care."
+      },
+      {
+        "type": "p",
+        "text": "Get whatever fits your laptop and your phone."
+      },
+      {
+        "type": "p",
+        "text": "What I don't know yet is whether moving passkeys between providers will hold up. The FIDO Alliance published draft Credential Exchange specs in October 2024, and Apple shipped passkey import and export with iOS 26 in 2025. I haven't seen it survive a messy migration yet."
+      },
+      {
+        "type": "p",
+        "text": "The order I'd go in:"
+      },
+      {
+        "type": "list",
+        "items": [
+          "**For you:** say yes to the passkey prompt everywhere it shows up. Then delete the password where the site allows it, and check what recovery falls back to.",
+          "**Hardware keys on email first.** Every other reset lands in that inbox.",
+          "**For a small team:** admins, then email, then everyone. Turn off SMS as a sign-in and recovery method for admins the same day.",
+          "**Write down how the help desk verifies someone who lost both keys.** Then test it."
+        ]
+      },
+      {
+        "type": "p",
+        "text": "If you're the only admin at a 15-person shop and you promised the owner passkeys by December 31, start with the four or five accounts that can reset everyone else's. The [MFA vs 2FA post](/blog/mfa-vs-2fa-and-passkeys.html) has the [MFA](/?q=MFA) order if you need it for the rest."
+      },
+      {
+        "type": "p",
+        "text": "So should you tap yes on the prompt? Yes. Then go find the password it was supposed to replace."
+      }
+    ],
+    "related": [
+      {
+        "label": "MFA vs 2FA, and why passkeys change the answer",
+        "href": "/blog/mfa-vs-2fa-and-passkeys.html"
+      },
+      {
+        "label": "NordPass review: password manager as step one",
+        "href": "/blog/nordpass-review-password-manager-step-one.html"
+      },
+      {
+        "label": "FIDO2 in the glossary",
+        "href": "/?q=FIDO2"
+      },
+      {
+        "label": "WebAuthn in the glossary",
+        "href": "/?q=WebAuthn"
+      },
+      {
+        "label": "U2F in the glossary",
+        "href": "/?q=U2F"
+      }
+    ]
   }
 ]
