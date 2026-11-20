@@ -9,6 +9,7 @@ import {
   concerns,
   defaultAnswerConfig,
   latestDelta,
+  parseAnnotations,
   readinessBand,
   recordSnapshot,
   scoreAssessment,
@@ -197,7 +198,7 @@ function loadAnswers(): void {
     answers = {};
   }
   try {
-    annotations = JSON.parse(localStorage.getItem(notesKey()) ?? '{}') as Annotations;
+    annotations = parseAnnotations(JSON.parse(localStorage.getItem(notesKey()) ?? '{}')) ?? {};
   } catch {
     annotations = {};
   }
@@ -837,16 +838,30 @@ function importFromFile(file: File): void {
   reader.onload = () => {
     try {
       const parsed = JSON.parse(String(reader.result)) as {
-        assessment?: string;
-        answers?: Record<string, string>;
-        annotations?: Annotations;
+        assessment?: unknown;
+        answers?: unknown;
+        annotations?: unknown;
       };
-      if (parsed.assessment && parsed.assessment !== current.id) {
-        alert(`That file is for "${parsed.assessment}", not this assessment.`);
+      if (typeof parsed !== 'object' || parsed === null) throw new Error('not an object');
+      if (parsed.assessment !== undefined && parsed.assessment !== current.id) {
+        alert(`That file is for "${String(parsed.assessment)}", not this assessment.`);
         return;
       }
-      if (parsed.answers) answers = migrateAnswers(parsed.answers);
-      if (parsed.annotations) annotations = parsed.annotations;
+      // Validate every section before writing any of it, so a bad file
+      // leaves the current session untouched instead of half-replacing it.
+      const importedAnswers =
+        parsed.answers === undefined
+          ? null
+          : typeof parsed.answers === 'object' && parsed.answers !== null && !Array.isArray(parsed.answers)
+            ? migrateAnswers(parsed.answers as Record<string, string>)
+            : undefined;
+      const importedAnnotations = parsed.annotations === undefined ? null : parseAnnotations(parsed.annotations);
+      if (importedAnswers === undefined || importedAnnotations === undefined || importedAnnotations === null && parsed.annotations !== undefined) {
+        alert('That file is not a saved assessment: its answers or notes are malformed.');
+        return;
+      }
+      if (importedAnswers) answers = importedAnswers;
+      if (importedAnnotations) annotations = importedAnnotations;
       saveAnswers();
       saveAnnotations();
       renderResults();

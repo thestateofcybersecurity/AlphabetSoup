@@ -1,0 +1,33 @@
+{
+  "version": "2.3.0",
+  "summary": { "title": "Poisoned model", "owner": "Attacker", "description": "Cell ids carry attribute breakouts", "id": 0 },
+  "detail": {
+    "contributors": [],
+    "reviewer": "",
+    "diagrams": [
+      {
+        "id": 0,
+        "title": "Main flow",
+        "diagramType": "STRIDE",
+        "version": "2.3.0",
+        "cells": [
+          { "id": "\" onload=\"x", "shape": "actor", "position": { "x": 40, "y": 200 }, "size": { "width": 100, "height": 60 },
+            "data": { "type": "tm.Actor", "name": "Customer", "description": "External user", "threats": [] } },
+          { "id": "x\"><img src=x onerror=\"document.documentElement.setAttribute('data-poc','fired')\">", "shape": "process", "position": { "x": 400, "y": 200 }, "size": { "width": 100, "height": 100 },
+            "data": { "type": "tm.Process", "name": "Chat backend", "description": "Handles prompts", "threats": [
+              { "title": "Carried threat", "status": "Open", "severity": "Medium", "type": "Spoofing",
+                "description": "Preserved verbatim.", "mitigation": "None." }
+            ] } },
+          { "id": "safe-store", "shape": "store", "position": { "x": 400, "y": 400 }, "size": { "width": 100, "height": 60 },
+            "data": { "type": "tm.Store", "name": "Transcript store", "description": "Chat history", "threats": [] } },
+          { "id": "f\"><script>bad</script>", "shape": "flow", "source": { "cell": "\" onload=\"x" }, "target": { "cell": "x\"><img src=x onerror=\"document.documentElement.setAttribute('data-poc','fired')\">" },
+            "data": { "type": "tm.Flow", "name": "Chat", "isPublicNetwork": true, "threats": [] } },
+          { "id": "flow-2", "shape": "flow", "source": { "cell": "x\"><img src=x onerror=\"document.documentElement.setAttribute('data-poc','fired')\">" }, "target": { "cell": "safe-store" },
+            "data": { "type": "tm.Flow", "name": "Store transcript", "threats": [] } }
+        ]
+      }
+    ],
+    "diagramTop": 1,
+    "threatTop": 1
+  }
+}

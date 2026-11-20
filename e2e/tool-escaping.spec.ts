@@ -70,3 +70,89 @@ test('a hostile value already in localStorage cannot inject on load', async ({ p
   await expect(page.locator('[data-pwned]')).toHaveCount(0);
   await expect(page.locator('[onload]')).toHaveCount(0);
 });
+
+/**
+ * Pentest 2026-10-07, finding M1. The AI Threat Modeler interpolates node
+ * and flow ids, verdict keys, and verdict status into innerHTML attributes.
+ * Those values come from imported Threat Dragon files, the stored draft, the
+ * saved-models list, and backups restored through /my/, so a poisoned
+ * localStorage must boot the tool without executing anything.
+ */
+const POC_ID = 'x"><img src=x onerror="document.documentElement.setAttribute(\'data-poc\',\'fired\')">';
+const POC_STATUS = '" data-pwned="yes';
+
+test('a poisoned AI Threat Modeler draft cannot inject through diagram ids on load', async ({ page }) => {
+  await page.goto('/tools/ai-threat-model/');
+  await page.evaluate((id) => {
+    const profile = {
+      name: 'PoC',
+      components: [],
+      exposure: 'internal',
+      dataClass: 'internal',
+      graph: {
+        nodes: [
+          { id, kind: 'process', label: 'node', sub: '', zone: 'app', x: 300, y: 100 },
+          { id: 'ok', kind: 'store', label: 'store', sub: '', zone: 'outside', x: 480, y: 100 },
+        ],
+        flows: [{ id: '" onload="x', from: id, to: 'ok', kind: 'plain', label: 'flow' }],
+      },
+    };
+    localStorage.setItem('alphabetsoup:ai-threat:draft', JSON.stringify({ profile, verdicts: {} }));
+    localStorage.setItem('alphabetsoup:ai-threat:models', JSON.stringify([{ profile, verdicts: {}, savedAt: '2026-10-07T00:00:00.000Z' }]));
+  }, POC_ID);
+  await page.reload();
+
+  await expect(page.locator('#tm-canvas')).toBeVisible();
+  expect(await page.evaluate(() => document.documentElement.getAttribute('data-poc'))).toBeNull();
+  await expect(page.locator('#tm-canvas-wrap img')).toHaveCount(0);
+  await expect(page.locator('[onerror], [onload], [data-pwned]')).toHaveCount(0);
+  // The graph survived: both nodes and the flow render, under selector-safe ids.
+  await expect(page.locator('.tmd-node')).toHaveCount(2);
+  await expect(page.locator('.tmd-flow')).toHaveCount(1);
+  for (const id of await page.locator('.tmd-node').evaluateAll((els) => els.map((e) => e.getAttribute('data-node-id')))) {
+    expect(id).toMatch(/^[A-Za-z0-9_-]+$/);
+  }
+  expect(await page.locator('.tmd-flow').getAttribute('data-flow-id')).toMatch(/^[A-Za-z0-9_-]+$/);
+});
+
+test('a poisoned verdict status cannot inject through the card and register markup', async ({ page }) => {
+  await page.goto('/tools/ai-threat-model/');
+  await page.evaluate((status) => {
+    localStorage.setItem(
+      'alphabetsoup:ai-threat:draft',
+      JSON.stringify({
+        profile: { name: 'PoC', components: ['user-chat'], exposure: 'internal', dataClass: 'internal' },
+        verdicts: {
+          'T01@user-chat': { status, treatment: status, note: 'kept' },
+          ['T02@user-chat' + status]: { status: 'applies' },
+        },
+      }),
+    );
+  }, POC_STATUS);
+  await page.reload();
+
+  await page.locator('button[data-step="2"]').click();
+  await expect(page.locator('.tm-card').first()).toBeVisible();
+  await expect(page.locator('[data-pwned]')).toHaveCount(0);
+  // The bad status fell back to unreviewed instead of landing in a class.
+  const first = page.locator('.tm-card[data-key="T01@user-chat"]');
+  await expect(first).toHaveCount(1);
+  await expect(first).toHaveClass(/^tm-card$/);
+
+  await page.locator('button[data-step="4"]').click();
+  await expect(page.locator('.tm-table')).toBeVisible();
+  await expect(page.locator('[data-pwned]')).toHaveCount(0);
+  await expect(page.locator('.tm-table tbody tr').first()).toHaveClass(/^tm-row-unreviewed$/);
+});
+
+test('importing a poisoned Threat Dragon file cannot inject through cell ids', async ({ page }) => {
+  await page.goto('/tools/ai-threat-model/');
+  await page.locator('#tm-import').setInputFiles('e2e/fixtures/td-poisoned.json');
+  await expect(page.locator('#tm-import-status')).toContainText('Imported "Poisoned model"');
+  await expect(page.locator('#tm-canvas')).toBeVisible();
+  expect(await page.evaluate(() => document.documentElement.getAttribute('data-poc'))).toBeNull();
+  await expect(page.locator('#tm-canvas-wrap img')).toHaveCount(0);
+  await expect(page.locator('[onerror], [onload]')).toHaveCount(0);
+  await expect(page.locator('.tmd-node')).toHaveCount(3);
+  await expect(page.locator('.tmd-flow')).toHaveCount(2);
+});

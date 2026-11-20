@@ -12,6 +12,7 @@ import {
   renderItems,
   renderStatus,
 } from './lib/news';
+import { TURNSTILE_SITE_KEY } from './lib/config';
 
 const HEADLINE_LIMIT = 40;
 const CLAMP = 10;
@@ -195,22 +196,82 @@ async function loadDirectory(): Promise<void> {
  * clear error message when the Worker is unreachable.
  */
 const ALERTS_URL = 'https://alerts.cybersecurityalphabetsoup.com/subscribe';
+const TURNSTILE_SCRIPT = 'https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit';
+
+declare global {
+  interface Window {
+    turnstile?: {
+      render(
+        container: HTMLElement,
+        options: {
+          sitekey: string;
+          callback: (token: string) => void;
+          'expired-callback'?: () => void;
+          'error-callback'?: () => void;
+        },
+      ): string;
+      reset(widgetId?: string): void;
+    };
+  }
+}
+
+/**
+ * Optional bot check on the subscribe form, opt-in through TURNSTILE_SITE_KEY.
+ * With an empty key this is a no-op: nothing loads, nothing renders, and the
+ * request body is exactly what it was, so the site stays CSP-clean. With a
+ * key, the Turnstile script is loaded on demand, the widget renders inside
+ * the form, and the token is sent as `turnstileToken` for the Worker to
+ * verify. Tokens are single-use, so the widget is reset after every attempt.
+ */
+function mountTurnstile(form: HTMLFormElement, onToken: (token: string | null) => void): { reset: () => void } {
+  if (!TURNSTILE_SITE_KEY) return { reset: () => undefined };
+  const slot = document.createElement('div');
+  slot.className = 'alert-turnstile';
+  form.querySelector('button')?.before(slot);
+  let widgetId: string | undefined;
+  const script = document.createElement('script');
+  script.src = TURNSTILE_SCRIPT;
+  script.async = true;
+  script.addEventListener('load', () => {
+    widgetId = window.turnstile?.render(slot, {
+      sitekey: TURNSTILE_SITE_KEY,
+      callback: (token) => onToken(token),
+      'expired-callback': () => onToken(null),
+      'error-callback': () => onToken(null),
+    });
+  });
+  document.head.append(script);
+  return {
+    reset: () => {
+      onToken(null);
+      window.turnstile?.reset(widgetId);
+    },
+  };
+}
 
 function wireAlertForm(): void {
   const form = document.getElementById('alert-form') as HTMLFormElement | null;
   const status = document.getElementById('alert-status') as HTMLParagraphElement | null;
   if (!form || !status) return;
+  let turnstileToken: string | null = null;
+  const turnstile = mountTurnstile(form, (token) => {
+    turnstileToken = token;
+  });
   form.addEventListener('submit', (event) => {
     event.preventDefault();
     const submit = form.querySelector('button') as HTMLButtonElement;
     const email = (form.elements.namedItem('email') as HTMLInputElement).value;
     const terms = (form.elements.namedItem('terms') as HTMLInputElement).value;
+    if (TURNSTILE_SITE_KEY && !turnstileToken) {
+      status.textContent = 'Complete the verification check first.';
+      return;
+    }
     submit.disabled = true;
     status.textContent = 'Subscribing…';
     void fetch(ALERTS_URL, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ email, terms }),
+      body: JSON.stringify({ email, terms, ...(turnstileToken ? { turnstileToken } : {}) }),
     })
       .then(async (response) => {
         const body = (await response.json()) as { ok?: boolean; message?: string; error?: string };
@@ -226,6 +287,7 @@ function wireAlertForm(): void {
       })
       .finally(() => {
         submit.disabled = false;
+        turnstile.reset();
       });
   });
 }

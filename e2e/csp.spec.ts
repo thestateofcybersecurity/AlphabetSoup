@@ -31,6 +31,9 @@ const PAGES = [
   '/frameworks/cis/1-1.html',
   '/categories/cloud.html',
   '/blog/',
+  // The subscribe form's optional Turnstile widget loads only when
+  // TURNSTILE_SITE_KEY is set; with it empty the page must stay clean.
+  '/news/',
 ];
 
 test('every page type ships no executable inline script', async ({ page }) => {
