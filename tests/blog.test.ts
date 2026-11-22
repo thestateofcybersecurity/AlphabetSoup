@@ -155,6 +155,6 @@ describe('validateBlogPosts', () => {
   });
 
   it('still refuses an em dash', () => {
-    expect(validateBlogPosts([post({ title: 'CISSP — practice questions' })]).join('\n')).toMatch(/em dash/);
+    expect(validateBlogPosts([post({ title: `CISSP ${String.fromCharCode(0x2014)} practice questions` })]).join('\n')).toMatch(/em dash/);
   });
 });

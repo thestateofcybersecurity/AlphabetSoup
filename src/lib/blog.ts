@@ -25,6 +25,9 @@ export const BLOG_BLOCK_TYPES: ReadonlySet<string> = new Set(['p', 'h2', 'list',
 /** Slugs that would overwrite a generated page other than the post itself (dist/blog/index.html). */
 export const RESERVED_BLOG_SLUGS: ReadonlySet<string> = new Set(['index']);
 
+/** U+2014, spelled as a code point so this file does not contain the character it bans. */
+const EM_DASH = String.fromCharCode(0x2014);
+
 const SLUG = /^[a-z0-9-]+$/;
 const ISO_DATE = /^\d{4}-\d{2}-\d{2}$/;
 const INLINE_LINK = /\[[^\]]+\]\(([^)]+)\)/g;
@@ -98,7 +101,7 @@ export function validateBlogPosts(posts: unknown): string[] {
       }
     }
 
-    if (JSON.stringify(p).includes('—')) out.push(`${w}: em dash`);
+    if (JSON.stringify(p).includes(EM_DASH)) out.push(`${w}: em dash`);
   });
   return out;
 }
