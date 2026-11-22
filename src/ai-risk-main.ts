@@ -99,7 +99,7 @@ function refChips(refs: string[]): string {
   return refs
     .map(
       (code) =>
-        `<a class="rt-ref" href="../../frameworks/ai/?q=${encodeURIComponent(code)}" title="Read ${esc(code)} in plain English">${esc(code)}</a>`,
+        `<a class="rt-ref" href="../../frameworks/ai/?q=${encodeURIComponent(code)}" title="Read ${escAttr(code)} in plain English">${esc(code)}</a>`,
     )
     .join('');
 }

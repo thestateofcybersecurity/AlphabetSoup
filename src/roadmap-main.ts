@@ -5,7 +5,7 @@ import vcisoRaw from './data/vciso-tasks.json';
 import programRaw from './data/security-program.json';
 import roadmapKpisRaw from './data/roadmap-kpis.json';
 import type { CisData, CsfData } from './lib/frameworks';
-import { cisControlsAssessment, cisIg1Assessment, csfAssessment } from './lib/assessment';
+import { cisControlsAssessment, cisIg1Assessment, csfAssessment, parseAnswers } from './lib/assessment';
 import { copyWithToast } from './lib/share';
 import type { Answers, AssessmentData } from './lib/assessment';
 import {
@@ -17,6 +17,8 @@ import {
   kpiAttainmentCounts,
   milestoneProgress,
   nextStatus,
+  parsePlanState,
+  parseStartMonth,
   planLoad,
   planProgress,
   planToCsv,
@@ -99,7 +101,8 @@ function assessmentAnswers(id: string): Answers {
     const raw =
       localStorage.getItem(`alphabetsoup:assessment:${id}`) ??
       (id === 'ransomware' ? localStorage.getItem('alphabetsoup:assessment') : null);
-    return raw ? (JSON.parse(raw) as Answers) : {};
+    // Stored state is untrusted; a null or mistyped value reads as no answers.
+    return raw ? parseAnswers(JSON.parse(raw)) : {};
   } catch {
     return {};
   }
@@ -130,13 +133,16 @@ function thisMonth(): string {
 }
 
 function loadState(): void {
+  // Stored state is user-editable (and writable by a /my/ restore), so it
+  // goes through the same validator as an imported file.
   try {
-    state = JSON.parse(localStorage.getItem(storageKey()) ?? '{}') as PlanState;
+    state = parsePlanState(JSON.parse(localStorage.getItem(storageKey()) ?? '{}')) ?? {};
   } catch {
     state = {};
   }
   try {
-    startMonth = (JSON.parse(localStorage.getItem(metaKey()) ?? '{}') as { start?: string }).start ?? thisMonth();
+    const meta: unknown = JSON.parse(localStorage.getItem(metaKey()) ?? '{}');
+    startMonth = parseStartMonth((meta as { start?: unknown } | null)?.start) ?? thisMonth();
   } catch {
     startMonth = thisMonth();
   }
@@ -181,7 +187,14 @@ function threatModelTasks(): RoadmapTask[] | null {
   if (!threatLoading) {
     threatLoading = true;
     void Promise.all([import('./lib/ai-threat'), import('./data/ai-threat-model.json')]).then(([lib, raw]) => {
-      threatTasks = lib.threatPlan(raw.default as never, readThreatModels()) as RoadmapTask[];
+      // The stored models are untrusted (user-editable, restorable from a
+      // backup), and this page reads them raw. Rebuild each one with the
+      // Threat Modeler's own sanitizer so a type-confused entry is coerced or
+      // dropped instead of throwing here and leaving this source empty.
+      const models = readThreatModels()
+        .map((model) => lib.sanitizeModel(model))
+        .filter((model): model is NonNullable<typeof model> => model !== null);
+      threatTasks = lib.threatPlan(raw.default as never, models as never) as RoadmapTask[];
       render();
     });
   }
@@ -683,30 +696,49 @@ function exportJson(): void {
   download(`roadmap-${source()}.json`, JSON.stringify(payload, null, 2), 'application/json');
 }
 
+const SOURCES: Source[] = ['program', 'csf', 'cis', 'vciso', 'gaps', 'threat'];
+
+/** A <select> only accepts a value it already offers; anything else is ignored. */
+function selectIfOffered(id: string, value: unknown): void {
+  const select = sel(id);
+  if (typeof value === 'string' && [...select.options].some((o) => o.value === value)) select.value = value;
+}
+
+/**
+ * Import a saved roadmap. The file is untrusted: every field is validated
+ * before it touches the page, and a file whose plan state is not an object
+ * is rejected with a message rather than rendered. Nothing is written until
+ * the whole file has passed, so a bad file leaves the current plan intact.
+ */
 function importJson(file: File): void {
   const reader = new FileReader();
   reader.onload = () => {
+    let parsed: unknown;
     try {
-      const parsed = JSON.parse(String(reader.result)) as {
-        source?: Source;
-        ig?: string;
-        pkg?: string;
-        gaps?: string;
-        start?: string;
-        state?: PlanState;
-      };
-      if (parsed.source) sel('plan-source').value = parsed.source;
-      if (parsed.ig) sel('plan-ig').value = parsed.ig;
-      if (parsed.pkg) sel('plan-pkg').value = parsed.pkg;
-      if (parsed.gaps) sel('plan-gaps-assessment').value = parsed.gaps;
-      state = parsed.state ?? {};
-      startMonth = parsed.start ?? thisMonth();
-      (byId('plan-start') as HTMLInputElement).value = startMonth;
-      saveState();
-      render();
+      parsed = JSON.parse(String(reader.result));
     } catch {
       alert('That file could not be read as a saved roadmap.');
+      return;
     }
+    if (typeof parsed !== 'object' || parsed === null || Array.isArray(parsed)) {
+      alert('That file could not be read as a saved roadmap.');
+      return;
+    }
+    const file = parsed as Record<string, unknown>;
+    const imported = parsePlanState(file.state ?? {});
+    if (!imported) {
+      alert('That file is not a saved roadmap: its plan state is malformed.');
+      return;
+    }
+    if (typeof file.source === 'string' && SOURCES.includes(file.source as Source)) sel('plan-source').value = file.source;
+    selectIfOffered('plan-ig', file.ig);
+    selectIfOffered('plan-pkg', file.pkg);
+    selectIfOffered('plan-gaps-assessment', file.gaps);
+    state = imported;
+    startMonth = parseStartMonth(file.start) ?? thisMonth();
+    (byId('plan-start') as HTMLInputElement).value = startMonth;
+    saveState();
+    render();
   };
   reader.readAsText(file);
 }

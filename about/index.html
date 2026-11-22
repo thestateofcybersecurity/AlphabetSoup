@@ -241,28 +241,9 @@
       <a href="../privacy/">Privacy</a> &middot; <a href="../disclosure/">Affiliate disclosure</a>
     </p>
   </footer>
-  <script>
-    // Verification links for the credential pills above. Paste a Credly (or
-    // issuer) URL next to a credential and its pill becomes a link; leave it
-    // empty and the pill stays plain text. No other wiring needed.
-    (function () {
-      var CRED_LINKS = {
-        'CISSP': '',
-        'CISSP-ISSMP': '',
-        'CISM': '',
-        'CCSK': 'https://www.credly.com/badges/24988584-4c83-4885-8fe9-fe53fe22efb1',
-        'CCZT': 'https://www.credly.com/badges/ff4f4f9b-d775-4ca8-aa68-d4fee83d4a7f',
-        'CEH': '',
-        'CHFI': ''
-      };
-      document.querySelectorAll('.cred-pill[data-cred]').forEach(function (pill) {
-        var url = CRED_LINKS[pill.getAttribute('data-cred')];
-        if (url) {
-          pill.setAttribute('href', url);
-          pill.setAttribute('target', '_blank');
-        }
-      });
-    })();
-  </script>
+  <!-- Credential pill links live in /about.js (public/about.js): the site ships
+       no executable inline script, so a script-src 'self' policy stays possible
+       (e2e/csp.spec.ts checks every built page). -->
+  <script src="/about.js" defer></script>
 </body>
 </html>

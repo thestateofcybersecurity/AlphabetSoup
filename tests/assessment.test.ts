@@ -3,6 +3,9 @@ import raw from '../src/data/assessment.json';
 import {
   cisControlFromReference,
   concerns,
+  parseAnnotations,
+  parseAnswers,
+  parseHistory,
   readinessBand,
   scoreAssessment,
 } from '../src/lib/assessment';
@@ -144,5 +147,64 @@ describe('cisControlFromReference', () => {
   it('finds CIS references in the real dataset', () => {
     const found = data.questions.some((q) => q.references.some((r) => cisControlFromReference(r)));
     expect(found).toBe(true);
+  });
+});
+
+describe('annotation import validation', () => {
+  it('keeps well-typed fields and drops the rest', () => {
+    expect(
+      parseAnnotations({
+        q1: { note: 'check backups', flagged: true, reviewed: 'yes' },
+        q2: { flagged: 1, note: ['x'] },
+        q3: 'flagged',
+        q4: { reviewed: false, extra: 'ignored' },
+      }),
+    ).toEqual({ q1: { note: 'check backups', flagged: true }, q4: { reviewed: false } });
+  });
+
+  it('refuses non-objects so the importer can show an error instead of replacing notes', () => {
+    expect(parseAnnotations(null)).toBeNull();
+    expect(parseAnnotations('notes')).toBeNull();
+    expect(parseAnnotations([{ note: 'x' }])).toBeNull();
+    expect(parseAnnotations({})).toEqual({});
+  });
+});
+
+/**
+ * Pentest 2026-11-22, finding N5: the assessment picker reads every started
+ * assessment's history on load, and the roadmap's gap source reads stored
+ * answers. Both used to trust the stored JSON shape and threw on a value a
+ * restored backup can write.
+ */
+describe('stored history and answers are rebuilt, never trusted', () => {
+  it('parseHistory keeps only dated, numeric snapshots', () => {
+    for (const raw of [null, undefined, 7, 'x', {}, { date: '2026-07-01', overall: 40 }]) expect(parseHistory(raw)).toEqual([]);
+    expect(
+      parseHistory([
+        null,
+        7,
+        'x',
+        { date: 7, overall: 40 },
+        { date: null, overall: 40 },
+        { date: '2026-07-01' },
+        { date: '2026-07-01', overall: '40' },
+        { date: 'July 1', overall: 40 },
+        { date: '2026-07-01', overall: 40, extra: 'dropped' },
+        { date: '2026-07-20', overall: 55 },
+      ]),
+    ).toEqual([
+      { date: '2026-07-01', overall: 40 },
+      { date: '2026-07-20', overall: 55 },
+    ]);
+  });
+
+  it('parseAnswers keeps only known answer states', () => {
+    for (const raw of [null, undefined, 7, 'x', [], ['yes']]) expect(parseAnswers(raw)).toEqual({});
+    expect(parseAnswers({ a: 'yes', b: 'no', c: 'na', d: 'alt', e: 'maybe', f: null, g: { x: 1 }, h: 1 })).toEqual({
+      a: 'yes',
+      b: 'no',
+      c: 'na',
+      d: 'alt',
+    });
   });
 });

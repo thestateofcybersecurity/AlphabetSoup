@@ -1,3 +1,5 @@
+import { csvCell } from './csv';
+
 /**
  * Control Crosswalk Mapper: deterministic coverage and gap math over the curated
  * domain-level crosswalk in src/data/crosswalk.json. A domain is "implemented"
@@ -91,7 +93,7 @@ export function gapRegister(
 export function gapCsv(data: CrosswalkData, rows: GapRow[], scope: ReadonlySet<FrameworkId>): string {
   const scoped = data.frameworks.filter((f) => scope.has(f.id));
   const header = ['Domain', 'Requirements unlocked', ...scoped.map((f) => f.short)];
-  const cell = (v: string): string => (/[",\n]/.test(v) ? `"${v.replace(/"/g, '""')}"` : v);
+  const cell = csvCell;
   const lines = [header.join(',')];
   for (const row of rows) {
     lines.push(

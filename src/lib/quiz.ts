@@ -121,6 +121,41 @@ function addDays(date: string, days: number): string {
 
 export type QuizProgress = Record<string, DeckProgress>;
 
+/**
+ * Rebuild quiz progress from untrusted input (localStorage, a restored
+ * backup). The deck grid indexes this object on every load, so a stored
+ * `null` used to throw and leave the quiz page with no decks at all
+ * (pentest 2026-11-22, N5). Anything that is not an object reads as no
+ * progress; each deck keeps only well-typed fields.
+ */
+export function parseQuizProgress(raw: unknown): QuizProgress {
+  const isRecord = (value: unknown): value is Record<string, unknown> =>
+    typeof value === 'object' && value !== null && !Array.isArray(value);
+  const count = (value: unknown): number => (typeof value === 'number' && Number.isFinite(value) && value >= 0 ? value : 0);
+  if (!isRecord(raw)) return {};
+  const progress: QuizProgress = {};
+  for (const [slug, entry] of Object.entries(raw)) {
+    if (!isRecord(entry)) continue;
+    const deck: DeckProgress = { attempts: count(entry.attempts), best: count(entry.best), missed: {} };
+    if (isRecord(entry.missed)) {
+      for (const [question, misses] of Object.entries(entry.missed)) {
+        if (typeof misses === 'number' && Number.isFinite(misses)) deck.missed[question] = misses;
+      }
+    }
+    if (isRecord(entry.schedule)) {
+      const schedule: Record<string, ScheduleEntry> = {};
+      for (const [question, state] of Object.entries(entry.schedule)) {
+        if (isRecord(state) && typeof state.box === 'number' && Number.isFinite(state.box) && typeof state.due === 'string') {
+          schedule[question] = { box: state.box, due: state.due };
+        }
+      }
+      deck.schedule = schedule;
+    }
+    progress[slug] = deck;
+  }
+  return progress;
+}
+
 export interface RoundOutcome {
   /** Percent score; omit for review-only rounds. */
   percent?: number;

@@ -1,3 +1,5 @@
+import { csvCell } from './csv';
+
 /**
  * Cloud Security Baseline Generator: deterministic prioritization over the
  * per-provider control ruleset in src/data/cloud-baseline.json. Controls are
@@ -116,7 +118,7 @@ export function complianceCoverage(data: CloudBaselineData, selection: Selection
 export function planCsv(data: CloudBaselineData, selection: Selection): string {
   const providerName = new Map(data.providers.map((p) => [p.id, p.name]));
   const header = ['Window', 'Provider', 'Domain', 'Priority', 'Control', 'CIS reference', 'Compliance'];
-  const cell = (v: string): string => (/[",\n]/.test(v) ? `"${v.replace(/"/g, '""')}"` : v);
+  const cell = csvCell;
   const lines = [header.join(',')];
   for (const { window, controls } of buildPlan(data, selection).windows) {
     for (const c of controls) {

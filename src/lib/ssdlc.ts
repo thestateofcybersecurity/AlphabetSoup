@@ -1,3 +1,5 @@
+import { csvCell } from './csv';
+
 /**
  * Secure SDLC Gap Checker: deterministic maturity scoring and adoption-plan
  * ordering over the practice rubric in src/data/ssdlc.json. Each practice has a
@@ -122,7 +124,7 @@ export function adoptionPlan(data: SsdlcData, levels: Readonly<Record<string, nu
 /** CSV of the sequenced adoption plan for export. */
 export function planCsv(plan: PlanItem[]): string {
   const header = ['Order', 'Practice', 'Phase', 'Move from', 'Move to', 'Leverage', 'Friction', 'SSDF'];
-  const cell = (v: string): string => (/[",\n]/.test(v) ? `"${v.replace(/"/g, '""')}"` : v);
+  const cell = csvCell;
   const lines = [header.join(',')];
   plan.forEach((item, index) => {
     lines.push(

@@ -286,3 +286,40 @@ describe('formatting helpers', () => {
     expect(formatBytes(2048)).toBe('2.0 KB');
   });
 });
+
+/**
+ * Pentest 2026-11-22, finding N5. Both summaries run on every render of /my/,
+ * the page that holds the only "erase everything" control. A backup restored
+ * through that page can store any JSON under these keys, and a value of the
+ * wrong shape used to throw, which left the dashboard blank with every
+ * button dead. Neither may throw, whatever is stored.
+ */
+describe('summaries never throw on a stored value of the wrong shape', () => {
+  const WRONG = ['null', '7', 'true', '"text"', '[]', '[null]', '[1,2]', '{"cissp":null}', '{"cissp":7}', '{"cissp":{"attempts":"3","best":{},"missed":null}}', '{"cissp":{"attempts":2,"best":"x","missed":[1]}}'];
+
+  it('quizSummary reads anything unexpected as no progress', () => {
+    for (const raw of WRONG) expect(() => quizSummary(raw), raw).not.toThrow();
+    expect(quizSummary('null')).toBeNull();
+    expect(quizSummary('[]')).toBeNull();
+    expect(quizSummary('{"cissp":null}')).toBeNull();
+    // Mistyped numbers count as zero instead of concatenating or becoming NaN.
+    expect(quizSummary('{"a":{"attempts":2,"best":"x"},"b":{"attempts":"9","best":90}}')).toEqual({
+      decksStarted: 1,
+      totalRounds: 2,
+      bestAverage: 0,
+      dueForReview: 0,
+    });
+  });
+
+  it('assessmentSummaries skips malformed histories and malformed snapshots', () => {
+    const item = (value: string): StoredItem => ({ key: `${PREFIX}assessment-history:cpg`, value, bytes: 0 });
+    for (const raw of [...WRONG, '{"date":"2026-07-01","overall":40}', '[{"date":7,"overall":40}]', '[{"date":"2026-07-01","overall":"40"}]']) {
+      expect(() => assessmentSummaries([item(raw)]), raw).not.toThrow();
+      expect(assessmentSummaries([item(raw)]), raw).toEqual([]);
+    }
+    // Good snapshots survive next to bad ones.
+    expect(assessmentSummaries([item('[null,{"date":"2026-07-01","overall":40},"x",{"date":"2026-07-02","overall":55}]')])).toEqual([
+      { id: 'cpg', latest: 55, delta: 15, date: '2026-07-02' },
+    ]);
+  });
+});

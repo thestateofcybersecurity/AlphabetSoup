@@ -17,6 +17,7 @@ import {
   migrateVerdicts,
   registerCsv,
   riskFor,
+  sanitizeModel,
   summarize,
   importThreatDragon,
   linddunSummary,
@@ -24,6 +25,7 @@ import {
   threatModelReport,
   zoneAt,
 } from './lib/ai-threat';
+import { escAttr } from './lib/escape';
 
 const data = threatRaw as ThreatModelData;
 
@@ -57,17 +59,30 @@ let dragging: { id: string; dx: number; dy: number; moved: boolean } | null = nu
 
 const $ = <T extends HTMLElement = HTMLElement>(sel: string) => document.querySelector(sel) as T;
 
+/**
+ * Text context only (between tags): the textContent round trip escapes & < >
+ * but not quotes. Anything interpolated inside a quoted attribute, value="..."
+ * above all, must use escAttr() instead, or a quote in the value closes the
+ * attribute and the rest is parsed as new attributes (pentest 2026-11-22, N1).
+ * tests/escaping-guard.test.ts fails the build if esc() reappears in one.
+ */
 function esc(text: string): string {
   const div = document.createElement('div');
   div.textContent = text;
   return div.innerHTML;
 }
 
+/**
+ * Stored state is untrusted: localStorage is user-editable, shared on the
+ * origin, and writable by a restored backup. sanitizeModel() rebuilds the
+ * shape, forces ids selector-safe, and allowlists the verdict enums before
+ * anything is interpolated into markup.
+ */
 function loadDraft(): void {
   try {
-    const raw = JSON.parse(localStorage.getItem(DRAFT_KEY) ?? 'null') as ModelState | null;
-    if (raw && typeof raw === 'object' && raw.profile && Array.isArray(raw.profile.components)) {
-      state = { profile: raw.profile, verdicts: migrateVerdicts(data, raw.profile, raw.verdicts ?? {}) };
+    const raw = sanitizeModel(JSON.parse(localStorage.getItem(DRAFT_KEY) ?? 'null'));
+    if (raw) {
+      state = { profile: raw.profile, verdicts: migrateVerdicts(data, raw.profile, raw.verdicts) };
       canvasMode = !!raw.profile.graph;
     }
   } catch {
@@ -125,14 +140,14 @@ function renderStep1(host: HTMLElement): void {
   host.innerHTML = `
     <p class="tm-lede">Describe the system first. Nothing is concluded from an empty form: the candidate threat list is derived from exactly what you select here, and each proposal will tell you which answer surfaced it.</p>
     <label class="tm-field"><span class="tm-label">System name</span>
-      <input id="tm-name" type="text" placeholder="e.g. Support ticket summarizer" value="${esc(p.name)}" />
+      <input id="tm-name" type="text" placeholder="e.g. Support ticket summarizer" value="${escAttr(p.name)}" />
     </label>
     <div class="tm-two">
       <label class="tm-field"><span class="tm-label">Owner</span>
-        <input id="tm-owner-field" type="text" placeholder="Accountable for the system" value="${esc(p.owner ?? '')}" />
+        <input id="tm-owner-field" type="text" placeholder="Accountable for the system" value="${escAttr(p.owner ?? '')}" />
       </label>
       <label class="tm-field"><span class="tm-label">Reviewer</span>
-        <input id="tm-reviewer-field" type="text" placeholder="Who reviews this model" value="${esc(p.reviewer ?? '')}" />
+        <input id="tm-reviewer-field" type="text" placeholder="Who reviews this model" value="${escAttr(p.reviewer ?? '')}" />
       </label>
     </div>
     <div class="tm-mode-row" role="tablist" aria-label="How to describe the system">
@@ -315,7 +330,7 @@ function diagramSvg(interactive: boolean): string {
       const isSource = interactive && connectFrom === n.id;
       const stroke = isSelected || isSource ? 'var(--tomato-deep)' : 'var(--tomato)';
       const width = isSelected || isSource ? 2.5 : 1;
-      return `<g${interactive ? ` class="tmd-node" data-node-id="${n.id}" tabindex="-1"` : ''}>` +
+      return `<g${interactive ? ` class="tmd-node" data-node-id="${escAttr(n.id)}" tabindex="-1"` : ''}>` +
         `<rect x="${n.x}" y="${n.y}" width="${n.w}" height="${n.h}" rx="8" fill="var(--paper-raised)" stroke="${stroke}" stroke-width="${width}"/>` +
         `<text x="${n.x + 10}" y="${n.y + 19}" class="tmd-title">${esc(n.label)}</text>` +
         `<text x="${n.x + 10}" y="${n.y + 35}" class="tmd-sub">${esc(n.sub || n.kind)}</text></g>`;
@@ -345,7 +360,7 @@ function diagramSvg(interactive: boolean): string {
       // and the fat transparent stroke keeps the whole length clickable.
       const anchor = badge || `<circle cx="${mx}" cy="${my}" r="9" fill="transparent" stroke="var(--line)" stroke-width="1" stroke-dasharray="2 3"/>`;
       const hit = `<line x1="${f.x1}" y1="${f.y1}" x2="${f.x2}" y2="${f.y2}" stroke="transparent" stroke-width="14" class="tmd-flow-hit"/>`;
-      return `<g class="tmd-flow" data-flow-id="${f.id}">${line}${hit}${anchor}</g>`;
+      return `<g class="tmd-flow" data-flow-id="${escAttr(f.id)}">${line}${hit}${anchor}</g>`;
     })
     .join('');
   return `<figure class="tm-diagram"><svg ${interactive ? 'id="tm-canvas" tabindex="0" ' : ''}width="100%" viewBox="0 0 ${layout.width} ${layout.height}" role="${interactive ? 'application' : 'img'}" aria-label="${interactive ? 'Editable data flow diagram; use the toolbar to add elements' : 'Data flow diagram derived from the described system'}">` +
@@ -395,7 +410,7 @@ function renderProps(): void {
     host.innerHTML = `
       <div class="tm-props-row">
         <label class="tm-field tm-grow"><span class="tm-label">${esc(node.kind)} label</span>
-          <input id="tm-node-label" type="text" value="${esc(node.label)}" /></label>
+          <input id="tm-node-label" type="text" value="${escAttr(node.label)}" /></label>
         <span class="tm-hint">Zone: ${esc(ZONE_COLUMNS.find((z) => z.id === node.zone)?.label ?? '')}</span>
         <button type="button" class="tm-btn tm-btn-sm tm-btn-quiet" id="tm-delete-sel">Delete element</button>
       </div>`;
@@ -726,7 +741,7 @@ function renderStep2(host: HTMLElement): void {
 
 function refChips(refs: string[]): string {
   return refs
-    .map((code) => `<a class="tm-ref" href="../../frameworks/ai/?q=${encodeURIComponent(code)}" title="Read ${esc(code)} in plain English">${esc(code)}</a>`)
+    .map((code) => `<a class="tm-ref" href="../../frameworks/ai/?q=${encodeURIComponent(code)}" title="Read ${escAttr(code)} in plain English">${esc(code)}</a>`)
     .join('');
 }
 
@@ -738,12 +753,12 @@ function threatCard(instance: FlowInstance): string {
     <div class="tm-scale" role="radiogroup" aria-label="${kind === 'lik' ? 'Likelihood' : 'Impact'}">
       <span class="tm-scale-label">${kind === 'lik' ? 'Likelihood' : 'Impact'}</span>
       ${options.map((o) => `
-        <label class="tm-scale-opt${chosen === o.id ? ' selected' : ''}" title="${esc(o.detail)}">
-          <input type="radio" name="${kind}-${key}" value="${o.id}" ${chosen === o.id ? 'checked' : ''} />${esc(o.label)}
+        <label class="tm-scale-opt${chosen === o.id ? ' selected' : ''}" title="${escAttr(o.detail)}">
+          <input type="radio" name="${kind}-${escAttr(key)}" value="${escAttr(o.id)}" ${chosen === o.id ? 'checked' : ''} />${esc(o.label)}
         </label>`).join('')}
     </div>`;
   return `
-    <article class="tm-card${verdict.status !== 'unreviewed' ? ` tm-${verdict.status}` : ''}" data-key="${key}" data-threat="${threat.id}">
+    <article class="tm-card${verdict.status !== 'unreviewed' ? ` tm-${escAttr(verdict.status)}` : ''}" data-key="${escAttr(key)}" data-threat="${escAttr(threat.id)}">
       <header class="tm-card-head">
         <span class="tm-id">${threat.id}</span>
         <h4 class="tm-card-title">${esc(threat.title)}</h4>
@@ -764,7 +779,7 @@ function threatCard(instance: FlowInstance): string {
           ${risk ? `<span class="tm-risk tm-risk-${risk}">${risk}</span>` : '<span class="tm-hint">Pick both scales to rate this threat.</span>'}
         </div>` : ''}
       ${verdict.status === 'mitigated' || verdict.status === 'not-applicable' ? `
-        <input class="tm-note" type="text" placeholder="${verdict.status === 'mitigated' ? 'How is it mitigated?' : 'Why does it not apply?'}" value="${esc(verdict.note ?? '')}" />` : ''}
+        <input class="tm-note" type="text" placeholder="${verdict.status === 'mitigated' ? 'How is it mitigated?' : 'Why does it not apply?'}" value="${escAttr(verdict.note ?? '')}" />` : ''}
     </article>`;
 }
 
@@ -780,7 +795,7 @@ function renderStep3(host: HTMLElement): void {
       const verdict = verdictFor(key);
       const risk = riskFor(data, verdict.likelihood, verdict.impact);
       return `
-      <article class="tm-card" data-key="${key}" data-threat="${threat.id}">
+      <article class="tm-card" data-key="${escAttr(key)}" data-threat="${escAttr(threat.id)}">
         <header class="tm-card-head">
           <span class="tm-id">${threat.id}</span>
           <h4 class="tm-card-title">${esc(threat.title)} <span class="tm-flow-tag">${esc(flow.label)}</span></h4>
@@ -792,7 +807,7 @@ function renderStep3(host: HTMLElement): void {
         <div class="tm-treat-row">
           <button type="button" class="tm-vbtn${verdict.treatment === 'mitigate' ? ' on' : ''}" data-treat="mitigate">Mitigate now</button>
           <button type="button" class="tm-vbtn${verdict.treatment === 'accept' ? ' on' : ''}" data-treat="accept">Accept for now</button>
-          <input class="tm-owner" type="text" placeholder="Owner" value="${esc(verdict.owner ?? '')}" aria-label="Owner for ${threat.id}" />
+          <input class="tm-owner" type="text" placeholder="Owner" value="${escAttr(verdict.owner ?? '')}" aria-label="Owner for ${escAttr(threat.id)}" />
         </div>
         ${verdict.treatment ? residualRow(key, verdict) : ''}
       </article>`;
@@ -844,8 +859,8 @@ function residualRow(key: string, verdict: ThreatVerdict): string {
     <div class="tm-scale" role="radiogroup" aria-label="Residual ${kind === 'rlik' ? 'likelihood' : 'impact'}">
       <span class="tm-scale-label">${kind === 'rlik' ? 'Likelihood' : 'Impact'}</span>
       ${options.map((o) => `
-        <label class="tm-scale-opt${chosen === o.id ? ' selected' : ''}" title="${esc(o.detail)}">
-          <input type="radio" name="${kind}-${key}" value="${o.id}" ${chosen === o.id ? 'checked' : ''} />${esc(o.label)}
+        <label class="tm-scale-opt${chosen === o.id ? ' selected' : ''}" title="${escAttr(o.detail)}">
+          <input type="radio" name="${kind}-${escAttr(key)}" value="${escAttr(o.id)}" ${chosen === o.id ? 'checked' : ''} />${esc(o.label)}
         </label>`).join('')}
     </div>`;
   return `
@@ -898,7 +913,7 @@ function renderStep4(host: HTMLElement): void {
           const v = verdictFor(key);
           const risk = riskFor(data, v.likelihood, v.impact);
           const residual = riskFor(data, v.residualLikelihood, v.residualImpact);
-          return `<tr class="tm-row-${v.status}">
+          return `<tr class="tm-row-${escAttr(v.status)}">
             <td>${threat.id}</td><td>${esc(threat.title)}</td><td>${esc(flow.label)}</td><td>${esc(boundary)}</td>
             <td>${v.status === 'unreviewed' ? '<em>unreviewed</em>' : esc(v.status)}</td>
             <td>${risk ? `<span class="tm-risk tm-risk-${risk}">${risk}</span>` : ''}</td>
@@ -950,7 +965,7 @@ function renderStep4(host: HTMLElement): void {
     } else if (models[index]) {
       state = {
         profile: models[index].profile,
-        verdicts: migrateVerdicts(data, models[index].profile, models[index].verdicts ?? {}),
+        verdicts: migrateVerdicts(data, models[index].profile, models[index].verdicts),
       };
       canvasMode = !!models[index].profile.graph;
       saveDraft();
@@ -981,10 +996,8 @@ function download(filename: string, content: string, type: string): void {
 
 function loadModels(): ModelState[] {
   try {
-    const raw = JSON.parse(localStorage.getItem(MODELS_KEY) ?? '[]');
-    return Array.isArray(raw)
-      ? raw.filter((m): m is ModelState => !!m && typeof m === 'object' && !!(m as ModelState).profile)
-      : [];
+    const raw: unknown = JSON.parse(localStorage.getItem(MODELS_KEY) ?? '[]');
+    return Array.isArray(raw) ? raw.map((m) => sanitizeModel(m)).filter((m): m is ModelState => m !== null) : [];
   } catch {
     return [];
   }

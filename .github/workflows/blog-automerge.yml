@@ -4,25 +4,34 @@ name: Auto-merge scheduled blog posts
 # branch. Cloud sessions cannot merge, and GitHub Actions in this repo cannot
 # open pull requests, so this workflow verifies the branch and merges it to
 # main itself. It refuses anything other than exactly one appended post.
+#
+# Nobody reads the post before it is published, so the gates below are the
+# review. `npm run validate:data` is the one that judges the content: it
+# type-checks every field and refuses any link target that is not http(s) or
+# a site path (src/lib/blog.ts), and the e2e suite scans every built page for
+# inline script and script-scheme URLs (e2e/csp.spec.ts).
 on:
   push:
     branches: ['claude/blog-**']
 
-permissions:
-  contents: write
-  actions: write
-  issues: write
+# Least privilege, the same split as deploy.yml: nothing is granted at
+# workflow level. The verify job installs dependencies (npm lifecycle
+# scripts), builds, and drives a browser, so its token is read-only. Only the
+# merge job, which runs git and gh and nothing from node_modules, can write.
+permissions: {}
 
 concurrency:
   group: blog-automerge
   cancel-in-progress: false
 
 jobs:
-  verify-and-merge:
+  verify:
     runs-on: ubuntu-latest
     timeout-minutes: 20
+    permissions:
+      contents: read
     steps:
-      - uses: actions/checkout@v7
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           fetch-depth: 0
 
@@ -47,7 +56,7 @@ jobs:
             echo "::error::Em dash found in blog-posts.json"; exit 1
           fi
 
-      - uses: actions/setup-node@v7
+      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
         with:
           node-version: 22
           cache: npm
@@ -62,11 +71,27 @@ jobs:
       - run: npx playwright install --with-deps chromium
       - run: npx playwright test
 
+  # Runs only after verify succeeded, on the same commit (github.sha does not
+  # move within a run). Nothing from the branch executes here: the steps are
+  # git, jq, and gh.
+  merge:
+    needs: verify
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    permissions:
+      contents: write
+      actions: write
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          fetch-depth: 0
+
       - name: Merge to main and deploy
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
           set -euo pipefail
+          git fetch -q origin main
           title=$(jq -r '.[-1].title' src/data/blog-posts.json)
           git config user.name thestateofcybersecurity
           git config user.email parkerbriss@gmail.com
@@ -77,14 +102,26 @@ jobs:
           # Pushes made with GITHUB_TOKEN do not trigger other workflows, so start the deploy explicitly.
           gh workflow run deploy.yml --ref main
 
+  # Anything short of a clean merge opens an issue. Not `failure()`: a job
+  # killed by timeout-minutes concludes `cancelled`, which failure() ignores
+  # (the same reasoning as notify-failure in deploy.yml).
+  notify-failure:
+    if: always() && (needs.verify.result != 'success' || needs.merge.result != 'success')
+    needs: [verify, merge]
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    permissions:
+      issues: write
+    steps:
       - name: Open an issue if the post was not merged
-        if: failure()
         env:
           GH_TOKEN: ${{ github.token }}
           GH_REPO: ${{ github.repository }}
           RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+          VERIFY_RESULT: ${{ needs.verify.result }}
+          MERGE_RESULT: ${{ needs.merge.result }}
         run: |
           gh label create blog-automerge-failure --color B60205 --description "A scheduled blog post failed verification" 2>/dev/null || true
           gh issue create --label blog-automerge-failure \
             --title "Scheduled blog post not merged: $GITHUB_REF_NAME" \
-            --body "The auto-merge workflow failed for \`$GITHUB_REF_NAME\`, so the post was not published. Run: $RUN_URL"
+            --body "The auto-merge workflow failed for \`$GITHUB_REF_NAME\`, so the post was not published. Job results: verify \`$VERIFY_RESULT\`, merge \`$MERGE_RESULT\`. Run: $RUN_URL"

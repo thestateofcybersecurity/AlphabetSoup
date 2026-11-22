@@ -1,3 +1,5 @@
+import { csvCell } from './csv';
+
 /**
  * Team Skills Matrix and Growth Planner: deterministic coverage, bus-factor,
  * growth-plan, and hiring-need math over the competency model in
@@ -138,7 +140,7 @@ export function resilientCoverage(data: SkillsData, members: Member[]): number {
 
 /** CSV of the full member-by-competency matrix. */
 export function matrixCsv(data: SkillsData, members: Member[]): string {
-  const cell = (v: string): string => (/[",\n]/.test(v) ? `"${v.replace(/"/g, '""')}"` : v);
+  const cell = csvCell;
   const header = ['Member', ...data.competencies.map((c) => c.name)];
   const lines = [header.map(cell).join(',')];
   for (const member of members) {

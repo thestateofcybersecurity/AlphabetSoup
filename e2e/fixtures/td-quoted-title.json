@@ -1,0 +1,26 @@
+{
+  "version": "2.3.0",
+  "summary": { "title": "Vendor model\" autofocus onfocus=\"document.documentElement.setAttribute('data-poc','fired')\" data-pwned=\"yes", "owner": "Owner\" data-pwned=\"owner", "description": "Quote-bearing free text", "id": 0 },
+  "detail": {
+    "contributors": [],
+    "reviewer": "Reviewer\" data-pwned=\"reviewer",
+    "diagrams": [
+      {
+        "id": 0,
+        "title": "Main flow",
+        "diagramType": "STRIDE",
+        "version": "2.3.0",
+        "cells": [
+          { "id": "actor-1", "shape": "actor", "position": { "x": 40, "y": 200 }, "size": { "width": 100, "height": 60 },
+            "data": { "type": "tm.Actor", "name": "Customer\" data-pwned=\"label", "description": "External user", "threats": [] } },
+          { "id": "proc-1", "shape": "process", "position": { "x": 400, "y": 200 }, "size": { "width": 100, "height": 100 },
+            "data": { "type": "tm.Process", "name": "Chat backend", "description": "Handles prompts", "threats": [] } },
+          { "id": "flow-1", "shape": "flow", "source": { "cell": "actor-1" }, "target": { "cell": "proc-1" },
+            "data": { "type": "tm.Flow", "name": "Chat", "isPublicNetwork": true, "threats": [] } }
+        ]
+      }
+    ],
+    "diagramTop": 1,
+    "threatTop": 1
+  }
+}

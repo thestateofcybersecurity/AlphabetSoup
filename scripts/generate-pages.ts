@@ -4,7 +4,7 @@ import { resolveLegacySlug, slugForKey } from '../src/lib/slug';
 import { frameworkSlug } from '../src/lib/frameworks';
 import { relatedFor } from '../src/lib/related';
 import { renderGeneratedNav } from '../src/lib/site-nav';
-import { escHtml, renderInline } from '../src/lib/inline';
+import { escHtml, isSafeHref, renderInline } from '../src/lib/inline';
 import { byDateDesc } from '../src/lib/about';
 import { renderFontLinks } from '../src/lib/fonts';
 import { categorySlug, categoryTitle, decksTesting, postsMentioning } from '../src/lib/deep-links';
@@ -637,9 +637,17 @@ function blockHtml(block: BlogBlock): string {
   return `<p>${renderInline(block.text ?? '')}</p>`;
 }
 
+/**
+ * A "Go deeper" chip. The href is authored data, and for scheduled posts it
+ * reaches production through the auto-merge workflow with no human review,
+ * so it gets the same scheme allowlist as inline links: escaping alone would
+ * happily emit href="javascript:..." (pentest 2026-11-22, N2). validate-data
+ * refuses such a post first; this is the second lock on the same door.
+ */
 const relatedChip = (r: { label: string; href: string }): string => {
-  const external = /^https?:\/\//.test(r.href);
-  return `<a href="${esc(r.href)}"${external ? ' rel="noopener" target="_blank"' : ''}>${esc(r.label)} &rarr;</a>`;
+  const href = isSafeHref(r.href) ? r.href.trim() : '#';
+  const external = /^https?:\/\//.test(href);
+  return `<a href="${esc(href)}"${external ? ' rel="noopener" target="_blank"' : ''}>${esc(r.label)} &rarr;</a>`;
 };
 
 function blogHead(

@@ -8,6 +8,7 @@ import type {
   WorkloadId,
 } from './lib/cloud-baseline';
 import { buildPlan, complianceCoverage, planCsv } from './lib/cloud-baseline';
+import { escAttr } from './lib/escape';
 
 const data = dataRaw as CloudBaselineData;
 
@@ -161,7 +162,7 @@ function controlCard(c: Control): string {
     .join('');
   return `
     <li class="cb-control${doneNow ? ' done' : ''}" data-id="${c.id}">
-      <input type="checkbox" ${doneNow ? 'checked' : ''} aria-label="Mark done: ${esc(c.title)}" />
+      <input type="checkbox" ${doneNow ? 'checked' : ''} aria-label="Mark done: ${escAttr(c.title)}" />
       <div class="cb-control-body">
         <div class="cb-control-top">
           <span class="cb-control-title">${esc(c.title)}</span>

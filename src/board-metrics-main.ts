@@ -360,16 +360,28 @@ function initRegister(): void {
       renderRegister();
       return;
     }
-    selected = new Set(entry.selected.filter((id) => byId.has(id)));
+    // Register entries are stored state too: apply the checks loadState()
+    // applies, so a type-confused entry is coerced instead of throwing later
+    // (meta.org.trim on a non-string) or carrying a non-number into the report.
+    const text = (value: unknown): string => (typeof value === 'string' ? value : '');
+    selected = new Set(entry.selected.filter((id): id is string => typeof id === 'string' && byId.has(id)));
     values = {};
-    for (const [id, v] of Object.entries(entry.values ?? {})) {
-      if (byId.has(id) && v && typeof v === 'object') values[id] = v;
+    const storedValues: unknown = entry.values;
+    for (const [id, v] of Object.entries(storedValues && typeof storedValues === 'object' ? storedValues : {})) {
+      if (!byId.has(id) || !v || typeof v !== 'object') continue;
+      const pair = v as ValuePair;
+      values[id] = {
+        current: typeof pair.current === 'number' ? pair.current : undefined,
+        prior: typeof pair.prior === 'number' ? pair.prior : undefined,
+      };
     }
+    const storedMeta: Partial<Record<keyof ReportMeta, unknown>> =
+      entry.meta && typeof entry.meta === 'object' ? entry.meta : {};
     meta = {
-      org: entry.meta?.org ?? '',
-      period: entry.meta?.period ?? '',
-      highlight: entry.meta?.highlight ?? '',
-      ask: entry.meta?.ask ?? '',
+      org: text(storedMeta.org),
+      period: text(storedMeta.period),
+      highlight: text(storedMeta.highlight),
+      ask: text(storedMeta.ask),
     };
     persistState();
     syncMetaFields();
