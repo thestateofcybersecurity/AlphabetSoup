@@ -11,6 +11,7 @@ import {
   scheduledCount,
   scorePercent,
   shuffledChoices,
+  parseQuizProgress,
 } from '../src/lib/quiz';
 import type { ChoiceDeck, Deck, DeckMeta, FlipDeck, QuizProgress } from '../src/lib/quiz';
 import deckIndex from '../src/data/quiz/index.json';
@@ -139,5 +140,39 @@ describe('spaced repetition', () => {
     const progress = recordRound({}, 'deck', { percent: 80, missedQuestions: ['Q1'], correctQuestions: [] });
     expect(progress.deck.schedule).toEqual({});
     expect(progress.deck.missed.Q1).toBe(1);
+  });
+});
+
+/**
+ * Pentest 2026-11-22, finding N5: stored quiz progress is untrusted, and the
+ * deck grid indexes it on every load. A stored `null` used to throw there.
+ */
+describe('parseQuizProgress', () => {
+  it('reads anything that is not an object as no progress', () => {
+    for (const raw of [null, undefined, 7, true, 'text', [], [{ attempts: 1 }]]) {
+      expect(parseQuizProgress(raw)).toEqual({});
+    }
+  });
+
+  it('keeps well-formed progress exactly', () => {
+    const stored = {
+      cissp: { attempts: 3, best: 80, missed: { 'What is CIA?': 2 }, schedule: { 'What is CIA?': { box: 2, due: '2026-12-01' } } },
+      ceh: { attempts: 1, best: 60, missed: {} },
+    };
+    expect(parseQuizProgress(JSON.parse(JSON.stringify(stored)))).toEqual(stored);
+  });
+
+  it('drops malformed decks and coerces malformed fields', () => {
+    expect(
+      parseQuizProgress({
+        gone: null,
+        alsoGone: 7,
+        odd: { attempts: '3', best: {}, missed: [1, 2], schedule: 'soon' },
+        mixed: { attempts: 2, best: 50, missed: { a: 1, b: 'x', c: null }, schedule: { a: { box: 1, due: '2026-12-01' }, b: { box: '1', due: 5 }, c: null } },
+      }),
+    ).toEqual({
+      odd: { attempts: 0, best: 0, missed: {} },
+      mixed: { attempts: 2, best: 50, missed: { a: 1 }, schedule: { a: { box: 1, due: '2026-12-01' } } },
+    });
   });
 });

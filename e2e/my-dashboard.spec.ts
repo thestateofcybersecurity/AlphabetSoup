@@ -204,3 +204,41 @@ test('is excluded from search indexing', async ({ page }) => {
   const sitemap = await (await page.request.get('/sitemap.xml')).text();
   expect(sitemap).not.toContain('/my/');
 });
+
+/**
+ * Pentest 2026-11-22, finding N5. This page holds the only "erase everything"
+ * control, and it summarizes stored values on every render. A restored backup
+ * can store any JSON under the site's keys; a quiz value of null, or a null
+ * snapshot in an assessment history, used to throw during render, before the
+ * buttons were wired, so the dashboard stayed blank and nothing on it worked
+ * on any later visit.
+ */
+test('a backup with values of the wrong shape cannot take the dashboard down', async ({ page }) => {
+  const errors: string[] = [];
+  page.on('pageerror', (error) => errors.push(error.message));
+  await seed(page, { [`${PREFIX}theme`]: 'dark' });
+  await uploadBackup(page, {
+    format: 'cybersecurity-alphabet-soup/backup',
+    version: 1,
+    exportedAt: 'x',
+    items: {
+      [`${PREFIX}quiz`]: 'null',
+      [`${PREFIX}assessment-history:ransomware`]: '[null]',
+      [`${PREFIX}assessment-history:cpg`]: '{"date":"2026-07-01"}',
+    },
+  });
+  await expect(page.locator('.my-msg')).toContainText(/Restored 3 items/);
+
+  // The next visit renders, lists the keys, and raises nothing.
+  await page.reload();
+  await expect(page.locator('#my-sections .my-row').first()).toBeVisible();
+  await expect(page.locator('#my-sections')).toContainText(`${PREFIX}quiz`);
+  expect(errors).toEqual([]);
+
+  // And the way out still works: erase removes the poisoned keys.
+  page.on('dialog', (d) => void d.accept());
+  await page.getByRole('button', { name: /erase everything/i }).click();
+  await expect(page.locator('.my-empty .big')).toHaveText('Nothing saved yet.');
+  expect(await page.evaluate(() => Object.keys(localStorage).filter((k) => k.startsWith('alphabetsoup:')))).toEqual([]);
+  expect(errors).toEqual([]);
+});

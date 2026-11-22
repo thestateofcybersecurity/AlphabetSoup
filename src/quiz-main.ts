@@ -9,6 +9,7 @@ import {
   recordRound,
   reviewSession,
   scorePercent,
+  parseQuizProgress,
   shuffle,
   shuffledChoices,
 } from './lib/quiz';
@@ -40,7 +41,7 @@ let roundMissed: number[] = [];
 
 function loadProgress(): QuizProgress {
   try {
-    return JSON.parse(localStorage.getItem(PROGRESS_KEY) ?? '{}') as QuizProgress;
+    return parseQuizProgress(JSON.parse(localStorage.getItem(PROGRESS_KEY) ?? '{}'));
   } catch {
     return {};
   }

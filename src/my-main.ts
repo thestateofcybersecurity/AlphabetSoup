@@ -162,8 +162,24 @@ function render(): void {
     renderEmpty();
     return;
   }
-  renderSummary(items);
-  renderSections(items);
+  // This page holds the only "erase everything" control, so nothing a stored
+  // value does may take it down. The summaries are defensive on their own;
+  // this is the backstop: if one still throws, say so and leave the backup,
+  // restore and erase buttons (already shown above) working.
+  try {
+    renderSummary(items);
+    renderSections(items);
+  } catch {
+    byId('my-summary').innerHTML = '';
+    byId('my-sections').innerHTML = '';
+    byId('my-summary').appendChild(
+      el(
+        'p',
+        'my-msg bad',
+        `Some of the ${items.length} saved ${items.length === 1 ? 'item' : 'items'} could not be read. You can still download a backup or erase everything below.`,
+      ),
+    );
+  }
 }
 
 /* -------------------------------- actions ------------------------------- */
@@ -225,7 +241,8 @@ function eraseEverything(): void {
 }
 
 function main(): void {
-  render();
+  // Buttons first, render second: the controls must work even if the first
+  // render fails (pentest 2026-11-22, N5).
   byId('export-btn').addEventListener('click', download);
   byId('erase-btn').addEventListener('click', eraseEverything);
 
@@ -243,6 +260,7 @@ function main(): void {
         file.value = '';
       });
   });
+  render();
 }
 
 main();

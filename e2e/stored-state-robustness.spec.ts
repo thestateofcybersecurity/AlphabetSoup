@@ -114,3 +114,18 @@ test('the roadmap reads type-confused threat models without throwing', async ({ 
   await expect(page.locator('.task-card').first()).toBeVisible();
   expect(errors).toEqual([]);
 });
+
+test('the quiz page renders its decks whatever is stored as quiz progress', async ({ page }) => {
+  // Pentest 2026-11-22, N5: a stored `null` here threw in the deck grid and left the page empty.
+  const errors = watchErrors(page);
+  for (const stored of ['null', '7', '[]', '"text"', '{"cissp":null}', '{"cissp":{"attempts":"x","missed":7,"schedule":"x"}}']) {
+    await page.goto('/quiz/');
+    await page.evaluate((value) => {
+      localStorage.clear();
+      localStorage.setItem('alphabetsoup:quiz', value);
+    }, stored);
+    await page.reload();
+    await expect(page.locator('#deck-grid').locator('button, a').first()).toBeVisible();
+  }
+  expect(errors).toEqual([]);
+});

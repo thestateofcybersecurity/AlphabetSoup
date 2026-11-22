@@ -165,31 +165,41 @@ export interface QuizSummary {
 }
 
 interface DeckProgressLike {
-  attempts?: number;
-  best?: number;
-  missed?: Record<string, unknown>;
+  attempts?: unknown;
+  best?: unknown;
+  missed?: unknown;
 }
 
-/** Headline quiz numbers, from stored progress alone. */
+const isRecord = (value: unknown): value is Record<string, unknown> =>
+  typeof value === 'object' && value !== null && !Array.isArray(value);
+const count = (value: unknown): number => (typeof value === 'number' && Number.isFinite(value) ? value : 0);
+
+/**
+ * Headline quiz numbers, from stored progress alone.
+ *
+ * The stored value is untrusted (hand-edited, or written by a restored
+ * backup), and this runs on every render of the page that holds the "erase
+ * everything" button, so it must never throw: anything that is not the
+ * expected shape reads as "no quiz progress" (pentest 2026-11-22, N5).
+ */
 export function quizSummary(raw: string | null): QuizSummary | null {
   if (!raw) return null;
-  let parsed: Record<string, DeckProgressLike>;
+  let parsed: unknown;
   try {
-    parsed = JSON.parse(raw) as Record<string, DeckProgressLike>;
+    parsed = JSON.parse(raw);
   } catch {
     return null;
   }
-  const decks = Object.values(parsed).filter((d) => (d?.attempts ?? 0) > 0);
+  if (!isRecord(parsed)) return null;
+  const all: DeckProgressLike[] = Object.values(parsed).filter(isRecord);
+  const decks = all.filter((d) => count(d.attempts) > 0);
   if (decks.length === 0) return null;
-  const bests = decks.map((d) => d.best ?? 0);
+  const bests = decks.map((d) => count(d.best));
   return {
     decksStarted: decks.length,
-    totalRounds: decks.reduce((sum, d) => sum + (d.attempts ?? 0), 0),
+    totalRounds: decks.reduce((sum, d) => sum + count(d.attempts), 0),
     bestAverage: Math.round(bests.reduce((a, b) => a + b, 0) / bests.length),
-    dueForReview: Object.values(parsed).reduce(
-      (sum, d) => sum + Object.keys(d?.missed ?? {}).length,
-      0,
-    ),
+    dueForReview: all.reduce((sum, d) => sum + (isRecord(d.missed) ? Object.keys(d.missed).length : 0), 0),
   };
 }
 
@@ -213,13 +223,19 @@ export function assessmentSummaries(items: StoredItem[]): AssessmentSummary[] {
   for (const item of items) {
     const match = /^assessment-history:(.+)$/.exec(item.key.slice(PREFIX.length));
     if (!match) continue;
-    let history: { date: string; overall: number }[];
+    let stored: unknown;
     try {
-      history = JSON.parse(item.value) as { date: string; overall: number }[];
+      stored = JSON.parse(item.value);
     } catch {
       continue;
     }
-    if (!Array.isArray(history) || history.length === 0) continue;
+    // Untrusted, like quizSummary(): keep only well-formed snapshots, so a
+    // null or mistyped entry cannot throw during the dashboard's render.
+    const history = (Array.isArray(stored) ? stored : []).filter(
+      (snap): snap is { date: string; overall: number } =>
+        isRecord(snap) && typeof snap.date === 'string' && typeof snap.overall === 'number' && Number.isFinite(snap.overall),
+    );
+    if (history.length === 0) continue;
     const latest = history[history.length - 1];
     const previous = history.length > 1 ? history[history.length - 2] : null;
     out.push({
