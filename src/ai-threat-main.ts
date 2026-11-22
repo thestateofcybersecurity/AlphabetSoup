@@ -59,6 +59,13 @@ let dragging: { id: string; dx: number; dy: number; moved: boolean } | null = nu
 
 const $ = <T extends HTMLElement = HTMLElement>(sel: string) => document.querySelector(sel) as T;
 
+/**
+ * Text context only (between tags): the textContent round trip escapes & < >
+ * but not quotes. Anything interpolated inside a quoted attribute, value="..."
+ * above all, must use escAttr() instead, or a quote in the value closes the
+ * attribute and the rest is parsed as new attributes (pentest 2026-11-22, N1).
+ * tests/escaping-guard.test.ts fails the build if esc() reappears in one.
+ */
 function esc(text: string): string {
   const div = document.createElement('div');
   div.textContent = text;
@@ -133,14 +140,14 @@ function renderStep1(host: HTMLElement): void {
   host.innerHTML = `
     <p class="tm-lede">Describe the system first. Nothing is concluded from an empty form: the candidate threat list is derived from exactly what you select here, and each proposal will tell you which answer surfaced it.</p>
     <label class="tm-field"><span class="tm-label">System name</span>
-      <input id="tm-name" type="text" placeholder="e.g. Support ticket summarizer" value="${esc(p.name)}" />
+      <input id="tm-name" type="text" placeholder="e.g. Support ticket summarizer" value="${escAttr(p.name)}" />
     </label>
     <div class="tm-two">
       <label class="tm-field"><span class="tm-label">Owner</span>
-        <input id="tm-owner-field" type="text" placeholder="Accountable for the system" value="${esc(p.owner ?? '')}" />
+        <input id="tm-owner-field" type="text" placeholder="Accountable for the system" value="${escAttr(p.owner ?? '')}" />
       </label>
       <label class="tm-field"><span class="tm-label">Reviewer</span>
-        <input id="tm-reviewer-field" type="text" placeholder="Who reviews this model" value="${esc(p.reviewer ?? '')}" />
+        <input id="tm-reviewer-field" type="text" placeholder="Who reviews this model" value="${escAttr(p.reviewer ?? '')}" />
       </label>
     </div>
     <div class="tm-mode-row" role="tablist" aria-label="How to describe the system">
@@ -403,7 +410,7 @@ function renderProps(): void {
     host.innerHTML = `
       <div class="tm-props-row">
         <label class="tm-field tm-grow"><span class="tm-label">${esc(node.kind)} label</span>
-          <input id="tm-node-label" type="text" value="${esc(node.label)}" /></label>
+          <input id="tm-node-label" type="text" value="${escAttr(node.label)}" /></label>
         <span class="tm-hint">Zone: ${esc(ZONE_COLUMNS.find((z) => z.id === node.zone)?.label ?? '')}</span>
         <button type="button" class="tm-btn tm-btn-sm tm-btn-quiet" id="tm-delete-sel">Delete element</button>
       </div>`;
@@ -734,7 +741,7 @@ function renderStep2(host: HTMLElement): void {
 
 function refChips(refs: string[]): string {
   return refs
-    .map((code) => `<a class="tm-ref" href="../../frameworks/ai/?q=${encodeURIComponent(code)}" title="Read ${esc(code)} in plain English">${esc(code)}</a>`)
+    .map((code) => `<a class="tm-ref" href="../../frameworks/ai/?q=${encodeURIComponent(code)}" title="Read ${escAttr(code)} in plain English">${esc(code)}</a>`)
     .join('');
 }
 
@@ -746,7 +753,7 @@ function threatCard(instance: FlowInstance): string {
     <div class="tm-scale" role="radiogroup" aria-label="${kind === 'lik' ? 'Likelihood' : 'Impact'}">
       <span class="tm-scale-label">${kind === 'lik' ? 'Likelihood' : 'Impact'}</span>
       ${options.map((o) => `
-        <label class="tm-scale-opt${chosen === o.id ? ' selected' : ''}" title="${esc(o.detail)}">
+        <label class="tm-scale-opt${chosen === o.id ? ' selected' : ''}" title="${escAttr(o.detail)}">
           <input type="radio" name="${kind}-${escAttr(key)}" value="${escAttr(o.id)}" ${chosen === o.id ? 'checked' : ''} />${esc(o.label)}
         </label>`).join('')}
     </div>`;
@@ -772,7 +779,7 @@ function threatCard(instance: FlowInstance): string {
           ${risk ? `<span class="tm-risk tm-risk-${risk}">${risk}</span>` : '<span class="tm-hint">Pick both scales to rate this threat.</span>'}
         </div>` : ''}
       ${verdict.status === 'mitigated' || verdict.status === 'not-applicable' ? `
-        <input class="tm-note" type="text" placeholder="${verdict.status === 'mitigated' ? 'How is it mitigated?' : 'Why does it not apply?'}" value="${esc(verdict.note ?? '')}" />` : ''}
+        <input class="tm-note" type="text" placeholder="${verdict.status === 'mitigated' ? 'How is it mitigated?' : 'Why does it not apply?'}" value="${escAttr(verdict.note ?? '')}" />` : ''}
     </article>`;
 }
 
@@ -800,7 +807,7 @@ function renderStep3(host: HTMLElement): void {
         <div class="tm-treat-row">
           <button type="button" class="tm-vbtn${verdict.treatment === 'mitigate' ? ' on' : ''}" data-treat="mitigate">Mitigate now</button>
           <button type="button" class="tm-vbtn${verdict.treatment === 'accept' ? ' on' : ''}" data-treat="accept">Accept for now</button>
-          <input class="tm-owner" type="text" placeholder="Owner" value="${esc(verdict.owner ?? '')}" aria-label="Owner for ${threat.id}" />
+          <input class="tm-owner" type="text" placeholder="Owner" value="${escAttr(verdict.owner ?? '')}" aria-label="Owner for ${escAttr(threat.id)}" />
         </div>
         ${verdict.treatment ? residualRow(key, verdict) : ''}
       </article>`;
@@ -852,7 +859,7 @@ function residualRow(key: string, verdict: ThreatVerdict): string {
     <div class="tm-scale" role="radiogroup" aria-label="Residual ${kind === 'rlik' ? 'likelihood' : 'impact'}">
       <span class="tm-scale-label">${kind === 'rlik' ? 'Likelihood' : 'Impact'}</span>
       ${options.map((o) => `
-        <label class="tm-scale-opt${chosen === o.id ? ' selected' : ''}" title="${esc(o.detail)}">
+        <label class="tm-scale-opt${chosen === o.id ? ' selected' : ''}" title="${escAttr(o.detail)}">
           <input type="radio" name="${kind}-${escAttr(key)}" value="${escAttr(o.id)}" ${chosen === o.id ? 'checked' : ''} />${esc(o.label)}
         </label>`).join('')}
     </div>`;
