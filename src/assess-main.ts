@@ -10,6 +10,7 @@ import {
   defaultAnswerConfig,
   latestDelta,
   parseAnnotations,
+  parseHistory,
   readinessBand,
   recordSnapshot,
   scoreAssessment,
@@ -236,7 +237,7 @@ function annotationFor(id: string): Annotation {
 
 function loadHistory(): Snapshot[] {
   try {
-    return JSON.parse(localStorage.getItem(historyKey()) ?? '[]') as Snapshot[];
+    return parseHistory(JSON.parse(localStorage.getItem(historyKey()) ?? '[]'));
   } catch {
     return [];
   }
@@ -302,7 +303,7 @@ function answersFor(id: string): Answers {
 
 function historyFor(id: string): Snapshot[] {
   try {
-    return JSON.parse(localStorage.getItem(`alphabetsoup:assessment-history:${id}`) ?? '[]') as Snapshot[];
+    return parseHistory(JSON.parse(localStorage.getItem(`alphabetsoup:assessment-history:${id}`) ?? '[]'));
   } catch {
     return [];
   }

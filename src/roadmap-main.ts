@@ -5,7 +5,7 @@ import vcisoRaw from './data/vciso-tasks.json';
 import programRaw from './data/security-program.json';
 import roadmapKpisRaw from './data/roadmap-kpis.json';
 import type { CisData, CsfData } from './lib/frameworks';
-import { cisControlsAssessment, cisIg1Assessment, csfAssessment } from './lib/assessment';
+import { cisControlsAssessment, cisIg1Assessment, csfAssessment, parseAnswers } from './lib/assessment';
 import { copyWithToast } from './lib/share';
 import type { Answers, AssessmentData } from './lib/assessment';
 import {
@@ -101,7 +101,8 @@ function assessmentAnswers(id: string): Answers {
     const raw =
       localStorage.getItem(`alphabetsoup:assessment:${id}`) ??
       (id === 'ransomware' ? localStorage.getItem('alphabetsoup:assessment') : null);
-    return raw ? (JSON.parse(raw) as Answers) : {};
+    // Stored state is untrusted; a null or mistyped value reads as no answers.
+    return raw ? parseAnswers(JSON.parse(raw)) : {};
   } catch {
     return {};
   }

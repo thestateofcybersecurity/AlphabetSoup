@@ -129,3 +129,36 @@ test('the quiz page renders its decks whatever is stored as quiz progress', asyn
   }
   expect(errors).toEqual([]);
 });
+
+test('the assessment picker and the gap roadmap survive malformed history and answers', async ({ page }) => {
+  // Pentest 2026-11-22, N5: any of these in a restored backup left /assess/ blank.
+  const errors = watchErrors(page);
+  const cases: [string, string][] = [
+    ['alphabetsoup:assessment-history:ransomware', 'null'],
+    ['alphabetsoup:assessment-history:ransomware', '7'],
+    ['alphabetsoup:assessment-history:ransomware', '{}'],
+    ['alphabetsoup:assessment-history:ransomware', '[null]'],
+    ['alphabetsoup:assessment-history:ransomware', '[{"date":null,"overall":"x"}]'],
+    ['alphabetsoup:assessment:ransomware', 'null'],
+    ['alphabetsoup:assessment:ransomware', '7'],
+    ['alphabetsoup:assessment-notes:ransomware', 'null'],
+  ];
+  for (const [key, value] of cases) {
+    await page.goto('/assess/');
+    await page.evaluate(
+      ([k, v]) => {
+        localStorage.clear();
+        localStorage.setItem('alphabetsoup:assessment:ransomware', '{"DB:B.Q01":"yes","DB:B.Q02":"no"}');
+        localStorage.setItem(k, v);
+      },
+      [key, value],
+    );
+    await page.goto('/assess/');
+    await expect(page.locator('.posture-strip').first()).toBeVisible();
+    await page.goto('/assess/?a=ransomware');
+    await expect(page.locator('#assess-form, form, .question').first()).toBeVisible();
+    await page.goto('/roadmap/?source=gaps&a=ransomware');
+    await expect(page.locator('#plan-source')).toHaveValue('gaps');
+  }
+  expect(errors).toEqual([]);
+});

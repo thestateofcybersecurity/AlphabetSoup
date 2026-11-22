@@ -285,6 +285,44 @@ export interface Snapshot {
 
 const HISTORY_CAP = 24;
 
+/**
+ * Rebuild a score history from untrusted input (localStorage, a restored
+ * backup). The assessment picker reads every started assessment's history on
+ * load, and a stored `null`, a non-array, or a snapshot without a date used
+ * to throw there and leave /assess/ blank (pentest 2026-11-22, N5). Keeps
+ * only snapshots with a YYYY-MM-DD date and a finite score.
+ */
+export function parseHistory(raw: unknown): Snapshot[] {
+  if (!Array.isArray(raw)) return [];
+  return raw
+    .filter(
+      (snap): snap is Snapshot =>
+        typeof snap === 'object' &&
+        snap !== null &&
+        typeof (snap as Snapshot).date === 'string' &&
+        /^\d{4}-\d{2}-\d{2}$/.test((snap as Snapshot).date) &&
+        typeof (snap as Snapshot).overall === 'number' &&
+        Number.isFinite((snap as Snapshot).overall),
+    )
+    .map((snap) => ({ date: snap.date, overall: snap.overall }));
+}
+
+const ANSWER_STATES: AnswerState[] = ['yes', 'no', 'na', 'alt'];
+
+/**
+ * Rebuild stored answers from untrusted input: an object whose values are
+ * known answer states. Anything else (null, an array, a number) reads as no
+ * answers, and unknown values are dropped.
+ */
+export function parseAnswers(raw: unknown): Answers {
+  if (typeof raw !== 'object' || raw === null || Array.isArray(raw)) return {};
+  const out: Answers = {};
+  for (const [id, value] of Object.entries(raw as Record<string, unknown>)) {
+    if ((ANSWER_STATES as unknown[]).includes(value)) out[id] = value as AnswerState;
+  }
+  return out;
+}
+
 /** Add or update today's snapshot; one per day, oldest dropped past the cap. */
 export function recordSnapshot(history: Snapshot[], overall: number, date: string): Snapshot[] {
   const kept = history.filter((snapshot) => snapshot.date !== date);

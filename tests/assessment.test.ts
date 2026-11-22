@@ -4,6 +4,8 @@ import {
   cisControlFromReference,
   concerns,
   parseAnnotations,
+  parseAnswers,
+  parseHistory,
   readinessBand,
   scoreAssessment,
 } from '../src/lib/assessment';
@@ -165,5 +167,44 @@ describe('annotation import validation', () => {
     expect(parseAnnotations('notes')).toBeNull();
     expect(parseAnnotations([{ note: 'x' }])).toBeNull();
     expect(parseAnnotations({})).toEqual({});
+  });
+});
+
+/**
+ * Pentest 2026-11-22, finding N5: the assessment picker reads every started
+ * assessment's history on load, and the roadmap's gap source reads stored
+ * answers. Both used to trust the stored JSON shape and threw on a value a
+ * restored backup can write.
+ */
+describe('stored history and answers are rebuilt, never trusted', () => {
+  it('parseHistory keeps only dated, numeric snapshots', () => {
+    for (const raw of [null, undefined, 7, 'x', {}, { date: '2026-07-01', overall: 40 }]) expect(parseHistory(raw)).toEqual([]);
+    expect(
+      parseHistory([
+        null,
+        7,
+        'x',
+        { date: 7, overall: 40 },
+        { date: null, overall: 40 },
+        { date: '2026-07-01' },
+        { date: '2026-07-01', overall: '40' },
+        { date: 'July 1', overall: 40 },
+        { date: '2026-07-01', overall: 40, extra: 'dropped' },
+        { date: '2026-07-20', overall: 55 },
+      ]),
+    ).toEqual([
+      { date: '2026-07-01', overall: 40 },
+      { date: '2026-07-20', overall: 55 },
+    ]);
+  });
+
+  it('parseAnswers keeps only known answer states', () => {
+    for (const raw of [null, undefined, 7, 'x', [], ['yes']]) expect(parseAnswers(raw)).toEqual({});
+    expect(parseAnswers({ a: 'yes', b: 'no', c: 'na', d: 'alt', e: 'maybe', f: null, g: { x: 1 }, h: 1 })).toEqual({
+      a: 'yes',
+      b: 'no',
+      c: 'na',
+      d: 'alt',
+    });
   });
 });
