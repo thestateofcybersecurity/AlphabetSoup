@@ -2,7 +2,7 @@ import type { CisData, CsfData } from './frameworks';
 import { CSF_FUNCTIONS } from './frameworks';
 import { cisControlFromReference } from './assessment';
 import type { Answers, AssessmentData } from './assessment';
-import { neutralizeFormula } from './csv';
+import { csvCell } from './csv';
 
 export type Quarter = 'Onboarding' | 'Q1' | 'Q2' | 'Q3' | 'Q4';
 export type TaskStatus = 'planned' | 'in-progress' | 'done';
@@ -425,10 +425,7 @@ export function quarterDateRange(start: string, quarter: Quarter): string {
   return `${sLabel} to ${eLabel}`;
 }
 
-const csvEscape = (raw: string): string => {
-  const value = neutralizeFormula(raw);
-  return /[",\n]/.test(value) ? `"${value.replace(/"/g, '""')}"` : value;
-};
+const csvEscape = csvCell;
 
 export function planToCsv(tasks: RoadmapTask[], state: PlanState): string {
   const rows = [

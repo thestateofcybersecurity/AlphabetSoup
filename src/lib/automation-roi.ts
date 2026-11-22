@@ -1,3 +1,5 @@
+import { csvCell } from './csv';
+
 /**
  * Automation ROI Ranker: transparent, deterministic math over a user-entered
  * task inventory. Hours saved per month = monthly volume * minutes / 60,
@@ -123,7 +125,7 @@ export function capacityModel(data: AutomationData, scored: ScoredTask[]): Capac
 /** CSV of the ranked backlog for export. */
 export function backlogCsv(scored: ScoredTask[]): string {
   const header = ['Rank', 'Task', 'Category', 'Volume/mo', 'Min each', 'Sensitivity', 'Hours now', 'Hours saved', 'Pattern'];
-  const cell = (v: string): string => (/[",\n]/.test(v) ? `"${v.replace(/"/g, '""')}"` : v);
+  const cell = csvCell;
   const lines = [header.join(',')];
   scored.forEach((s, i) => {
     lines.push(

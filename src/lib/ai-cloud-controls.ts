@@ -6,7 +6,7 @@
  * native service names. All functions are pure.
  */
 
-import { neutralizeFormula } from './csv';
+import { csvCell } from './csv';
 
 export type ProviderId = 'aws' | 'azure' | 'gcp';
 export type TierId = 'answers' | 'connects' | 'acts';
@@ -255,10 +255,6 @@ export function providerName(data: AiCloudControlsData, provider: ProviderId): s
   return data.providers.find((p) => p.id === provider)?.name ?? provider;
 }
 
-const csvCell = (raw: string): string => {
-  const value = neutralizeFormula(raw);
-  return /[",\n]/.test(value) ? `"${value.replace(/"/g, '""')}"` : value;
-};
 
 /** The columns every export shares, before the provider service columns. */
 function csvPrefix(data: AiCloudControlsData, control: Control): string[] {

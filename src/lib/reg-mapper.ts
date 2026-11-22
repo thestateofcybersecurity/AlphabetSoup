@@ -1,3 +1,5 @@
+import { csvCell } from './csv';
+
 /**
  * Regulatory Applicability Mapper: deterministic rule evaluation over the
  * curated regulation dataset in src/data/regulations.json. A profile (the user's
@@ -106,7 +108,7 @@ export function profileSize(profile: Profile): number {
 
 /** CSV of the combined action plan for export. */
 export function planCsv(plan: PlanItem[]): string {
-  const cell = (v: string): string => (/[",\n]/.test(v) ? `"${v.replace(/"/g, '""')}"` : v);
+  const cell = csvCell;
   const lines = ['Action,Driven by'];
   for (const item of plan) lines.push([item.action, item.regulations.join(' ')].map(cell).join(','));
   return lines.join('\n');

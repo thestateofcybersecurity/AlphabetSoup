@@ -14,3 +14,14 @@ const FORMULA_LEAD = /^[=+\-@\t\r]/;
 export function neutralizeFormula(value: string): string {
   return FORMULA_LEAD.test(value) ? `'${value}` : value;
 }
+
+/**
+ * One CSV cell: formula triggers neutralized, then quoted when the value
+ * holds a quote, a comma, or a line break (CR as well as LF, since some
+ * readers end a row on either). Every exporter that writes a value a user
+ * typed, or could have restored from a backup, goes through this.
+ */
+export function csvCell(raw: string): string {
+  const value = neutralizeFormula(raw);
+  return /[",\n\r]/.test(value) ? `"${value.replace(/"/g, '""')}"` : value;
+}
