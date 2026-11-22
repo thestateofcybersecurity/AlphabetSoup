@@ -12,6 +12,7 @@ import {
   serviceFor,
   tierBreakdown,
 } from './lib/ai-cloud-controls';
+import { escAttr } from './lib/escape';
 
 const data = dataRaw as AiCloudControlsData;
 
@@ -154,7 +155,7 @@ function refChips(refs: string[]): string {
     .map((code) => {
       const framework = refFramework(code);
       const title = framework ? `${framework.name} ${code}, in plain English` : `See ${code} in plain English`;
-      return `<a class="ac-ref" href="../../frameworks/ai/?q=${encodeURIComponent(code)}" title="${esc(title)}">${esc(code)}</a>`;
+      return `<a class="ac-ref" href="../../frameworks/ai/?q=${encodeURIComponent(code)}" title="${escAttr(title)}">${esc(code)}</a>`;
     })
     .join('');
 }
@@ -225,7 +226,7 @@ function renderResult(): void {
   const groupsHtml = comparing()
     ? comparisonByLayer(data, sel)
         .map(
-          (g) => `<section class="ac-layer" aria-label="${esc(g.name)} controls">
+          (g) => `<section class="ac-layer" aria-label="${escAttr(g.name)} controls">
         <h3>${esc(g.name)} <span class="ac-layer-count">${g.rows.length}</span></h3>
         <p class="ac-layer-hint">${esc(g.hint)}</p>
         <ul class="ac-list ac-list-compare">${g.rows.map(comparisonHtml).join('')}</ul>
@@ -234,7 +235,7 @@ function renderResult(): void {
         .join('')
     : groupByLayer(data, sel)
         .map(
-          (g) => `<section class="ac-layer" aria-label="${esc(g.name)} controls">
+          (g) => `<section class="ac-layer" aria-label="${escAttr(g.name)} controls">
         <h3>${esc(g.name)} <span class="ac-layer-count">${g.controls.length}</span></h3>
         <p class="ac-layer-hint">${esc(g.hint)}</p>
         <ul class="ac-list">${g.controls.map(controlHtml).join('')}</ul>

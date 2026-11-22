@@ -1,6 +1,7 @@
 import crosswalkRaw from './data/crosswalk.json';
 import type { CrosswalkData, FrameworkId } from './lib/crosswalk';
 import { coverage, gapCsv, gapRegister } from './lib/crosswalk';
+import { escAttr } from './lib/escape';
 
 const data = crosswalkRaw as CrosswalkData;
 
@@ -93,7 +94,7 @@ function renderScope(): void {
 function chipFor(fid: FrameworkId, code: string): string {
   const base = FRAMEWORK_LINK[fid];
   if (base) {
-    return `<a class="cw-chip" href="${base}?q=${encodeURIComponent(code)}" title="Read ${esc(code)} in plain English">${esc(code)}</a>`;
+    return `<a class="cw-chip" href="${base}?q=${encodeURIComponent(code)}" title="Read ${escAttr(code)} in plain English">${esc(code)}</a>`;
   }
   return `<span class="cw-chip">${esc(code)}</span>`;
 }
@@ -120,7 +121,7 @@ function renderControls(): void {
       const done = implemented.has(c.id);
       return `
       <li class="cw-control${done ? ' done' : ''}" data-id="${c.id}">
-        <input type="checkbox" ${done ? 'checked' : ''} aria-label="We run: ${esc(c.domain)}" />
+        <input type="checkbox" ${done ? 'checked' : ''} aria-label="We run: ${escAttr(c.domain)}" />
         <div class="cw-control-body">
           <label class="cw-control-title">${esc(c.domain)}</label>
           <p class="cw-control-summary">${esc(c.summary)}</p>
