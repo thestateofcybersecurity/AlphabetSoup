@@ -1,4 +1,5 @@
 import { validateThreatModel } from '../src/lib/ai-threat';
+import { BLOG_CATEGORIES, BLOG_TITLE_MAX, validateBlogPosts } from '../src/lib/blog';
 import { readFileSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
 import { validateData } from '../src/data/validate';
@@ -406,27 +407,6 @@ interface BacklogTopic {
   links: string[];
 }
 
-interface BlogPost {
-  slug: string;
-  title: string;
-  description: string;
-  category: string;
-  author: string;
-  date: string;
-  readingMinutes: number;
-  tags: string[];
-  body: { type: string; text?: string; items?: string[] }[];
-  related: { label: string; href: string }[];
-}
-
-/**
- * Max blog title length. A published post and the backlog topic it comes from
- * share this cap, so an over-length backlog title is caught when it is written
- * rather than after a post has been drafted against it.
- */
-const BLOG_TITLE_MAX = 70;
-const BLOG_CATEGORIES = new Set(['Explainer', 'Career', 'Spotlight']);
-
 /** Structural checks for backlog topics, which become blog posts verbatim. */
 function validateBacklog(topics: BacklogTopic[]): string[] {
   const out: string[] = [];
@@ -443,34 +423,6 @@ function validateBacklog(topics: BacklogTopic[]): string[] {
     if (!t.brief?.trim()) out.push(`${w}: missing brief`);
     if (!Array.isArray(t.links) || !t.links.length) out.push(`${w}: no links`);
     if (JSON.stringify(t).includes('\u2014')) out.push(`${w}: em dash`);
-  }
-  return out;
-}
-
-/** Structural checks for blog posts. */
-function validateBlog(posts: BlogPost[]): string[] {
-  const out: string[] = [];
-  const cats = BLOG_CATEGORIES;
-  const types = new Set(['p', 'h2', 'list', 'quote']);
-  const seen = new Set<string>();
-  for (const p of posts) {
-    const w = p.slug || '?';
-    if (seen.has(p.slug)) out.push(`duplicate slug ${w}`);
-    seen.add(p.slug);
-    if (!/^[a-z0-9-]+$/.test(p.slug)) out.push(`${w}: bad slug`);
-    if (!p.title?.trim() || p.title.length > BLOG_TITLE_MAX) {
-      out.push(`${w}: title length ${p.title?.length ?? 0}, max ${BLOG_TITLE_MAX}`);
-    }
-    if (!p.description || p.description.length < 100 || p.description.length > 170) out.push(`${w}: description length`);
-    if (!cats.has(p.category)) out.push(`${w}: bad category ${p.category}`);
-    if (!p.author?.trim()) out.push(`${w}: missing author`);
-    if (!/^\d{4}-\d{2}-\d{2}$/.test(p.date)) out.push(`${w}: bad date`);
-    if (!Number.isInteger(p.readingMinutes) || p.readingMinutes < 1) out.push(`${w}: bad readingMinutes`);
-    if (!Array.isArray(p.tags) || p.tags.length < 2) out.push(`${w}: too few tags`);
-    if (!Array.isArray(p.body) || p.body.length < 4) out.push(`${w}: body too short`);
-    for (const b of p.body ?? []) if (!types.has(b.type)) out.push(`${w}: bad block type ${b.type}`);
-    if (!Array.isArray(p.related) || !p.related.length) out.push(`${w}: no related links`);
-    if (JSON.stringify(p).includes('—')) out.push(`${w}: em dash`);
   }
   return out;
 }
@@ -499,7 +451,7 @@ const scorecard = load<{ cards: { id: string; onTheJobTool: { status: string } }
 );
 const skillsMatrix = load<SkillsMatrix>('../src/data/skills-matrix.json');
 const threatModel = load<Parameters<typeof validateThreatModel>[0]>('../src/data/ai-threat-model.json');
-const blogPosts = load<BlogPost[]>('../src/data/blog-posts.json');
+const blogPosts = load<{ slug: string }[]>('../src/data/blog-posts.json');
 const blogBacklog = load<{ topics: BacklogTopic[] }>('../src/data/blog-backlog.json');
 const affiliates = load<{
   partners: Record<string, { name: string; url: string; network: string; blurb: string; direct?: boolean }>;
@@ -551,7 +503,7 @@ const problems = [
   ...validateRegulations(regulations).map((e) => `regulations: ${e}`),
   ...validateSkillsMatrix(skillsMatrix, new Set(scorecard.cards.map((c) => c.id))).map((e) => `skills-matrix: ${e}`),
   ...validateThreatModel(threatModel).map((e) => `ai-threat-model: ${e}`),
-  ...validateBlog(blogPosts).map((e) => `blog: ${e}`),
+  ...validateBlogPosts(blogPosts).map((e) => `blog: ${e}`),
   ...validateBacklog(blogBacklog.topics).map((e) => `blog backlog: ${e}`),
   ...(() => {
     // Affiliate placements point definition pages at partner /go/ redirects, so

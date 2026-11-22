@@ -27,8 +27,23 @@ export function escHtml(value: string): string {
 /** A link or a bold run, whichever opens first. */
 const SPAN = /\[([^\]]+)\]\(([^)]+)\)|\*\*([^*]+)\*\*/;
 
-/** Hrefs we will emit: absolute http(s), site-absolute, relative, or an anchor. */
-const SAFE_HREF = /^(https?:\/\/|\/|\.\.?\/|#)/;
+/**
+ * Hrefs we will emit: absolute http(s), site-absolute, relative, or an anchor.
+ * Anything else (javascript:, data:, vbscript:, a bare word) is refused. A
+ * site-absolute path may not start with "//" or "/\": browsers read both as
+ * protocol-relative, which would turn an internal-looking link into an
+ * external one.
+ */
+const SAFE_HREF = /^(https?:\/\/|\/(?![/\\])|\.\.?\/|#)/;
+
+/**
+ * Whether an authored href is one the generator may write into href="...".
+ * Shared by the inline renderer, the blog "Go deeper" chips, and the blog
+ * data validator, so a link scheme is judged in exactly one place.
+ */
+export function isSafeHref(href: unknown): boolean {
+  return typeof href === 'string' && SAFE_HREF.test(href.trim());
+}
 
 export function renderInline(raw: string): string {
   let out = '';
@@ -47,7 +62,7 @@ export function renderInline(raw: string): string {
 
 function anchor(label: string, rawHref: string): string {
   const href = rawHref.trim();
-  const safe = SAFE_HREF.test(href) ? href : '#';
+  const safe = isSafeHref(href) ? href : '#';
   const external = /^https?:\/\//.test(safe);
   const attrs = external ? ' rel="noopener" target="_blank"' : '';
   return `<a href="${escHtml(safe)}"${attrs}>${renderInline(label)}</a>`;
