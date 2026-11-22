@@ -186,7 +186,14 @@ function threatModelTasks(): RoadmapTask[] | null {
   if (!threatLoading) {
     threatLoading = true;
     void Promise.all([import('./lib/ai-threat'), import('./data/ai-threat-model.json')]).then(([lib, raw]) => {
-      threatTasks = lib.threatPlan(raw.default as never, readThreatModels()) as RoadmapTask[];
+      // The stored models are untrusted (user-editable, restorable from a
+      // backup), and this page reads them raw. Rebuild each one with the
+      // Threat Modeler's own sanitizer so a type-confused entry is coerced or
+      // dropped instead of throwing here and leaving this source empty.
+      const models = readThreatModels()
+        .map((model) => lib.sanitizeModel(model))
+        .filter((model): model is NonNullable<typeof model> => model !== null);
+      threatTasks = lib.threatPlan(raw.default as never, models as never) as RoadmapTask[];
       render();
     });
   }

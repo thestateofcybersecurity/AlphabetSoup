@@ -95,11 +95,37 @@ function clearSavedSession(): void {
   }
 }
 
+/**
+ * A saved session is stored state, so its shape is checked before it is
+ * resumed: indexes must be whole numbers and the position must point at a
+ * question. Anything else reads as "no session" rather than throwing while
+ * the first question renders. resumeSession() also checks the indexes
+ * against the deck once it has loaded.
+ */
+const isIndexList = (value: unknown): value is number[] =>
+  Array.isArray(value) && value.every((n) => Number.isInteger(n) && n >= 0);
+
+function isResumable(saved: SavedSession): boolean {
+  const s: Partial<QuizSession> | null = saved.session && typeof saved.session === 'object' ? saved.session : null;
+  return (
+    typeof saved.slug === 'string' &&
+    s !== null &&
+    isIndexList(s.order) &&
+    isIndexList(s.missed) &&
+    Number.isInteger(s.position) &&
+    Number.isInteger(s.correct) &&
+    (s.position as number) >= 0 &&
+    (s.position as number) < s.order.length &&
+    isIndexList(saved.roundCorrect) &&
+    isIndexList(saved.roundMissed)
+  );
+}
+
 function loadSavedSession(): SavedSession | null {
   try {
     const raw = localStorage.getItem(SESSION_KEY);
     const saved = raw ? (JSON.parse(raw) as SavedSession) : null;
-    return saved && saved.session.position < saved.session.order.length ? saved : null;
+    return saved && isResumable(saved) ? saved : null;
   } catch {
     return null;
   }
@@ -243,8 +269,14 @@ async function startDeck(meta: DeckMeta, count: number, exam: boolean): Promise<
 async function resumeSession(saved: SavedSession): Promise<void> {
   const meta = deckIndex.find((m) => m.slug === saved.slug);
   if (!meta) return;
+  const deck = await loadDeck(meta.slug);
+  // The stored order must point at questions this deck actually has.
+  if (saved.session.order.some((index) => index >= deck.questions.length)) {
+    clearSavedSession();
+    return;
+  }
   currentMeta = meta;
-  currentDeck = await loadDeck(meta.slug);
+  currentDeck = deck;
   session = saved.session;
   fullRound = saved.fullRound;
   examMode = saved.exam;

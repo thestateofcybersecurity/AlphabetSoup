@@ -346,7 +346,8 @@ function initRegister(): void {
     }
     const validIds = new Set(data.controls.map((c) => c.id));
     implemented = new Set(entry.implemented.filter((x) => validIds.has(x)));
-    const nextScope = entry.scope?.filter((x) => allFrameworkIds.includes(x)) ?? allFrameworkIds;
+    // Stored state: scope may be anything after a hand edit or a restored backup.
+    const nextScope = Array.isArray(entry.scope) ? entry.scope.filter((x) => allFrameworkIds.includes(x)) : allFrameworkIds;
     scope = new Set(nextScope.length > 0 ? nextScope : allFrameworkIds);
     persistState();
     renderScopeSelection();
