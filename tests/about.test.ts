@@ -107,8 +107,13 @@ describe('about page build-time sections', () => {
   it('every credential pill has a CRED_LINKS entry, and wired URLs are Credly badge pages', () => {
     const pills = [...aboutHtml.matchAll(/data-cred="([^"]+)"/g)].map((m) => m[1]);
     expect(pills.length).toBeGreaterThan(0);
+    // The map lives in public/about.js, not inline in the page: the site ships
+    // no executable inline script (e2e/csp.spec.ts).
+    const aboutJs = readFileSync(new URL('../public/about.js', import.meta.url), 'utf8');
+    expect(aboutHtml).toContain('<script src="/about.js" defer></script>');
+    expect(aboutHtml).not.toContain('CRED_LINKS = {');
     const mapping: Record<string, string> = {};
-    for (const m of aboutHtml.matchAll(/'([A-Z-]+)':\s*'([^']*)'/g)) mapping[m[1]] = m[2];
+    for (const m of aboutJs.matchAll(/'([A-Z-]+)':\s*'([^']*)'/g)) mapping[m[1]] = m[2];
     for (const pill of pills) {
       expect(mapping, `pill ${pill} missing from CRED_LINKS`).toHaveProperty(pill);
       const url = mapping[pill];
