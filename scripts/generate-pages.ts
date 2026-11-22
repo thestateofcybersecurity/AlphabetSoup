@@ -968,6 +968,33 @@ ${FW_EXTRA_CSS}</style>
   );
 });
 
+const isAtlas = (entry: { frameworkCode?: string }): boolean => entry.frameworkCode === 'ATLAS';
+const atlasKind = (entry: { category: string }): string => (entry.category.includes('Tactic') ? 'Tactic' : 'Technique');
+const atlasSearchName = (entry: { code: string; framework: string; frameworkCode?: string; title: string }): string =>
+  isAtlas(entry) ? `${entry.code} ${entry.title}` : `${entry.code} (${entry.framework})`;
+/** "MITRE ATLAS Tactic Explained", dropping "Explained" when the full title would pass 70 chars. */
+const atlasTitleSubject = (entry: { code: string; frameworkCode?: string; title: string; category: string }): string | undefined => {
+  if (!isAtlas(entry)) return undefined;
+  const base = `MITRE ATLAS ${atlasKind(entry)}`;
+  const full = `${base} Explained`;
+  return `${entry.code} ${entry.title}: ${full}`.length <= 70 ? full : base;
+};
+
+// The ATLAS pages are the best-ranking cluster after Cyberdle, but each page
+// linked only to its neighbors. Give every ATLAS page the tactics post (the
+// cluster's click earner) and the other tactics, so crawlers and readers can
+// move across the whole matrix from any entry point.
+const atlasTactics = ai.filter((entry) => isAtlas(entry) && atlasKind(entry) === 'Tactic');
+const atlasLinks = (entry: { code: string; frameworkCode?: string }): Array<{ label: string; href: string }> | undefined =>
+  isAtlas(entry)
+    ? [
+        { label: 'All 16 tactics explained', href: '../../blog/mitre-atlas-tactics-explained.html' },
+        ...atlasTactics
+          .filter((tactic) => tactic.code !== entry.code)
+          .map((tactic) => ({ label: `${tactic.code} ${tactic.title}`, href: `${frameworkSlug(tactic.code)}.html` })),
+      ]
+    : undefined;
+
 // 4b. AI security framework pages (NIST AI RMF, OWASP LLM Top 10, MITRE ATLAS, ISO/IEC 42001).
 ai.forEach((entry, i) => {
   const prevEntry = ai[i - 1];
@@ -978,8 +1005,11 @@ ai.forEach((entry, i) => {
       id: entry.code,
       kickerTop: `${entry.framework} / ${entry.title.length <= 40 ? entry.title : entry.category}`,
       heading: entry.official,
-      searchName: `${entry.code} (${entry.framework})`,
-      titleSubject: entry.titleSubject ?? entry.title,
+      // ATLAS pages reach page one on bare-ID searches ("aml.ta0012", "privilege
+      // escalation aml.ta0012") yet earn no clicks with the framework name in
+      // front, so lead with the ID and name and push "MITRE ATLAS" to the subject.
+      searchName: atlasSearchName(entry),
+      titleSubject: atlasTitleSubject(entry) ?? entry.titleSubject ?? entry.title,
       metaphor: entry.metaphor,
       translation: entry.translation,
       description: entry.metaDescription,
@@ -990,6 +1020,8 @@ ai.forEach((entry, i) => {
       // Keep prev/next within the same framework (do not cross AI RMF -> OWASP).
       prev: prevEntry?.frameworkCode === entry.frameworkCode ? prevEntry.code : undefined,
       next: nextEntry?.frameworkCode === entry.frameworkCode ? nextEntry.code : undefined,
+      mapped: atlasLinks(entry),
+      mappedLabel: isAtlas(entry) ? 'MITRE ATLAS tactics' : undefined,
       accent: '#6d4a9c',
       accentDark: '#b79be0',
     }),

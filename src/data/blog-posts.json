@@ -4133,5 +4133,2331 @@
         "href": "/assess/?a=nist-800171"
       }
     ]
+  },
+  {
+    "slug": "mitre-atlas-tactics-explained",
+    "title": "All 16 MITRE ATLAS Tactics, AML.TA0000 to AML.TA0015, Explained",
+    "description": "All 16 MITRE ATLAS tactics in the order an attack on an AI system runs, why the AML.TA numbers look scrambled, and the two tactics ATT&CK doesn't have.",
+    "category": "Explainer",
+    "author": "Parker Brissette",
+    "date": "2026-10-08",
+    "readingMinutes": 6,
+    "tags": [
+      "mitre-atlas",
+      "ai-security",
+      "threat-modeling",
+      "adversarial-ml",
+      "mitre-attack"
+    ],
+    "body": [
+      {
+        "type": "p",
+        "text": "[MITRE ATLAS](/?q=ATLAS) isn't a security framework. It's a catalog of how people break AI systems, and if you already know [ATT&CK](/?q=MITRE%20ATT%26CK), only two of its 16 tactics are new to you."
+      },
+      {
+        "type": "p",
+        "text": "So why does the matrix start at AML.TA0002?"
+      },
+      {
+        "type": "h2",
+        "text": "Why the numbers look scrambled"
+      },
+      {
+        "type": "p",
+        "text": "The two tactics ATT&CK doesn't have got the first two IDs. AI Model Access is AML.TA0000 and AI Attack Staging is AML.TA0001."
+      },
+      {
+        "type": "p",
+        "text": "The ATT&CK names came next. Reconnaissance through Impact took TA0002 to TA0011. Then [Privilege Escalation](/frameworks/ai/aml-ta0012.html) (TA0012) and [Credential Access](/frameworks/ai/aml-ta0013.html) (TA0013) were added and took the next free numbers, with Command and Control (TA0014) and Lateral Movement (TA0015) after those. The IDs record when a tactic joined. They say nothing about where it sits in an attack."
+      },
+      {
+        "type": "p",
+        "text": "Both AI tactics used to say ML instead of AI. Same tactics, new label, and I don't care which one you type into the ticket as long as the ID is right. (AML here means adversarial machine learning, not anti-money laundering. Your BSA officer will get confused by that exactly once.)"
+      },
+      {
+        "type": "p",
+        "text": "The whole thing traces back to the Adversarial ML Threat Matrix that MITRE and Microsoft published in October 2020."
+      },
+      {
+        "type": "h2",
+        "text": "What order an attack actually runs in"
+      },
+      {
+        "type": "p",
+        "text": "Here's the matrix re-sorted the way a real attack against a model unfolds, with one technique per tactic. Each name links to the site's page for it."
+      },
+      {
+        "type": "list",
+        "items": [
+          "[Reconnaissance](/frameworks/ai/aml-ta0002.html), AML.TA0002. Find out which model you run and what's been published about breaking it. Example: AML.T0001, Search Open AI Vulnerability Analysis.",
+          "[Resource Development](/frameworks/ai/aml-ta0003.html), AML.TA0003. Build the kit before touching you. Example: AML.T0020, Training Data Poisoning, which lives here and not under Impact.",
+          "[Initial Access](/frameworks/ai/aml-ta0004.html), AML.TA0004. Get a foothold. Example: AML.T0010, AI Supply Chain Compromise.",
+          "[AI Model Access](/frameworks/ai/aml-ta0000.html), AML.TA0000. Get a way to send the model inputs and read its outputs. Example: AML.T0040, AI Model Inference API Access.",
+          "[Execution](/frameworks/ai/aml-ta0005.html), AML.TA0005. Run something. Example: AML.T0051, LLM Prompt Injection.",
+          "[Persistence](/frameworks/ai/aml-ta0006.html), AML.TA0006. Stay in after a restart or a new session. Example: AML.T0070, RAG Poisoning.",
+          "[Privilege Escalation](/frameworks/ai/aml-ta0012.html), AML.TA0012. Get the model to do what its guardrails say it can't. Example: AML.T0054, LLM Jailbreak.",
+          "[Defense Evasion](/frameworks/ai/aml-ta0007.html), AML.TA0007. Slip past the classifier that's supposed to catch you. Example: AML.T0015, Evade AI Model.",
+          "[Credential Access](/frameworks/ai/aml-ta0013.html), AML.TA0013. Steal the keys. Example: AML.T0083, Credentials from AI Agent Configuration.",
+          "[Discovery](/frameworks/ai/aml-ta0008.html), AML.TA0008. Map what the model and its tools can reach. Example: AML.T0069, Discover LLM System Information.",
+          "[Lateral Movement](/frameworks/ai/aml-ta0015.html), AML.TA0015. Move from the AI system into the rest of the estate. Example: AML.T0091, Use Alternate Authentication Material.",
+          "[Collection](/frameworks/ai/aml-ta0009.html), AML.TA0009. Gather the valuable stuff. Example: AML.T0035, AI Artifact Collection.",
+          "[AI Attack Staging](/frameworks/ai/aml-ta0001.html), AML.TA0001. Build and test the attack offline before firing it at the real target. Example: AML.T0005, Create Proxy AI Model.",
+          "[Command and Control](/frameworks/ai/aml-ta0014.html), AML.TA0014. Keep a line back to the attacker. Example: AML.T0072, Reverse Shell.",
+          "[Exfiltration](/frameworks/ai/aml-ta0010.html), AML.TA0010. Get it out. Example: AML.T0024, Exfiltration via AI Inference API.",
+          "[Impact](/frameworks/ai/aml-ta0011.html), AML.TA0011. Do the damage, or run up the bill. Example: AML.T0034, Cost Harvesting."
+        ]
+      },
+      {
+        "type": "h2",
+        "text": "The two tactics ATT&CK people skip"
+      },
+      {
+        "type": "p",
+        "text": "Start with model access, the attacker's channel to the model. Usually that's the inference API (AML.T0040). Sometimes it's the weights themselves (AML.T0044, Full AI Model Access), and for a camera or sensor model it can be standing in front of it (AML.T0041)."
+      },
+      {
+        "type": "p",
+        "text": "AI Attack Staging is the attacker's lab."
+      },
+      {
+        "type": "p",
+        "text": "They query your model enough times to train a lookalike (AML.T0005). Then they craft adversarial inputs against the lookalike on their own hardware, where you can't see them (AML.T0043, Craft Adversarial Data), and fire a handful of tests at your production model to confirm it works (AML.T0042, Verify Attack). All you'll ever hold is a burst of API calls that looked like ordinary traffic. That's why I ask for inference API logs before I ask for anything else on an AI review."
+      },
+      {
+        "type": "p",
+        "text": "What I keep seeing is AI threat models that skip both of these and spend four pages on prompt injection. Prompt injection matters, and I'd never drop it. It's also the one technique everybody already knows to look for."
+      },
+      {
+        "type": "h2",
+        "text": "Where ATLAS stops being useful"
+      },
+      {
+        "type": "p",
+        "text": "ATLAS is a threat catalog. It isn't a control set, and I'll argue with anyone who puts it in an audit scope. It does publish mitigations under AML.M codes, but there's no assessment procedure and nothing an auditor can mark met or not met."
+      },
+      {
+        "type": "p",
+        "text": "For the application layer, use the OWASP Top 10 for LLM Applications, where LLM01 is prompt injection. For governance, use [NIST AI RMF](/?q=AI%20RMF) 1.0 from January 2023, starting with GOVERN 1. Both sit next to ATLAS on the [AI frameworks page](/frameworks/ai/)."
+      },
+      {
+        "type": "p",
+        "text": "Here's what I don't know. The site's copy of ATLAS carries 101 techniques as of October 2026, and most of the newest IDs, AML.T0099 through AML.T0115, are about agents and their tools. I'd expect some of those to get merged or renamed before that corner of the matrix settles down."
+      },
+      {
+        "type": "h2",
+        "text": "Using it on one real feature"
+      },
+      {
+        "type": "p",
+        "text": "If you're the one shipping a customer-facing RAG chatbot before the November change freeze, don't map it to all 16 tactics. Pick five techniques that fit that one feature. For a RAG bot I'd start with these."
+      },
+      {
+        "type": "list",
+        "items": [
+          "AML.T0051, LLM Prompt Injection.",
+          "AML.T0070, RAG Poisoning, because anyone who can edit a page in the index can edit your answers.",
+          "AML.T0056, Extract LLM System Prompt.",
+          "AML.T0057, LLM Data Leakage.",
+          "AML.T0034, Cost Harvesting."
+        ]
+      },
+      {
+        "type": "p",
+        "text": "Then run those five through the [AI threat model tool](/tools/ai-threat-model/) and get each one tied to a framework reference and an owner."
+      },
+      {
+        "type": "p",
+        "text": "Five rows you'll defend in a review beat 101 rows nobody reads."
+      }
+    ],
+    "related": [
+      {
+        "label": "AI security frameworks in plain English",
+        "href": "/frameworks/ai/"
+      },
+      {
+        "label": "AML.TA0012, Privilege Escalation",
+        "href": "/frameworks/ai/aml-ta0012.html"
+      },
+      {
+        "label": "AML.TA0013, Credential Access",
+        "href": "/frameworks/ai/aml-ta0013.html"
+      },
+      {
+        "label": "Threat model an AI feature",
+        "href": "/tools/ai-threat-model/"
+      },
+      {
+        "label": "Look up ATLAS in the glossary",
+        "href": "/?q=ATLAS"
+      }
+    ]
+  },
+  {
+    "slug": "llmnr-nbtns-poisoning",
+    "title": "LLMNR and NBT-NS Poisoning: Find It, Then Turn It Off",
+    "description": "Why LLMNR and NBT-NS poisoning still opens most Windows pentests, how to detect it on UDP 5355 and 137, the exact GPO names, and why SMB signing matters more.",
+    "category": "Spotlight",
+    "author": "Parker Brissette",
+    "date": "2026-10-12",
+    "readingMinutes": 5,
+    "tags": [
+      "llmnr",
+      "nbt-ns",
+      "responder",
+      "smb-signing",
+      "active-directory"
+    ],
+    "body": [
+      {
+        "type": "p",
+        "text": "Everyone says turn off [LLMNR](/?q=LLMNR) and NBT-NS and the finding goes away. Do it. But that's the half of the attack that hurts less."
+      },
+      {
+        "type": "p",
+        "text": "The half that hurts is the relay, and the setting that stops it lives somewhere else."
+      },
+      {
+        "type": "p",
+        "text": "This is the finding I keep seeing at the top of internal pentest reports, year after year."
+      },
+      {
+        "type": "p",
+        "text": "It's also the one that gets fixed last, because it's \"just a GPO\" and nobody on the team owns the GPO."
+      },
+      {
+        "type": "h2",
+        "text": "Why a typo asks the whole subnet"
+      },
+      {
+        "type": "p",
+        "text": "Windows tries the hosts file and DNS first. When DNS comes back empty, it falls back to LLMNR on UDP 5355, multicast to 224.0.0.252, and then to NBT-NS, broadcast on UDP 137."
+      },
+      {
+        "type": "p",
+        "text": "So every mistyped share path is a question shouted at everyone on the segment. So is every mapped drive pointing at a file server that got decommissioned in 2019, and every app still hardcoded to a hostname nobody remembers."
+      },
+      {
+        "type": "p",
+        "text": "Nobody on that subnet is supposed to answer unless they own the name."
+      },
+      {
+        "type": "p",
+        "text": "Nothing enforces that."
+      },
+      {
+        "type": "h2",
+        "text": "What Responder does with the question"
+      },
+      {
+        "type": "p",
+        "text": "Responder answers every one of those questions with \"yes, that's me.\" The victim believes it, tries to authenticate, and hands over an [NTLM](/?q=NTLM)v2 challenge-response."
+      },
+      {
+        "type": "p",
+        "text": "Inveigh does the same job in PowerShell or .NET when you can't drop a Python tool on the box. (Responder came out of Trustwave SpiderLabs over a decade ago. A lot of internal testers still run it before their coffee's done.)"
+      },
+      {
+        "type": "p",
+        "text": "From there it goes one of two ways. ATT&CK files both under T1557.001."
+      },
+      {
+        "type": "list",
+        "items": [
+          "**Crack it offline.** Hashcat mode 5600 takes NetNTLMv2. A strong password survives this. A Summer2026! does not.",
+          "**Relay it.** Impacket's ntlmrelayx forwards the authentication live to a host that doesn't require [SMB](/?q=SMB) signing. No cracking, so password strength doesn't matter at all. If the victim is a local admin on the target, the attacker is too."
+        ]
+      },
+      {
+        "type": "p",
+        "text": "That second path is why I won't let anyone rate this as a medium. I've argued that one more times than I can count."
+      },
+      {
+        "type": "h2",
+        "text": "Watch 5355 and 137 before you touch a GPO"
+      },
+      {
+        "type": "p",
+        "text": "If you can't switch it off tomorrow because someone is worried about a line-of-business app, detect it first."
+      },
+      {
+        "type": "p",
+        "text": "Pull flow data for UDP 5355 and UDP 137 and look at the responses, not the queries."
+      },
+      {
+        "type": "p",
+        "text": "Queries are noise. A healthy network has very few LLMNR responses, and they come from the host that owns the name. One machine answering for dozens of different names it has no business owning is Responder, or something just as bad."
+      },
+      {
+        "type": "p",
+        "text": "The cheap trick is a canary."
+      },
+      {
+        "type": "p",
+        "text": "Have a box ask LLMNR for a name that doesn't exist on a schedule, and alert if anything answers. Respounder is an open-source tool built for exactly this."
+      },
+      {
+        "type": "p",
+        "text": "In CIS v8 terms the flow logging is Safeguard 13.6 and the sensor is 13.3. Both are IG2."
+      },
+      {
+        "type": "h2",
+        "text": "The two settings, in the words the console uses"
+      },
+      {
+        "type": "p",
+        "text": "Neither of these is findable by guessing, so here they are verbatim."
+      },
+      {
+        "type": "list",
+        "items": [
+          "**LLMNR:** Computer Configuration, Administrative Templates, Network, DNS Client, **Turn off multicast name resolution**, set to Enabled. That writes EnableMulticast = 0 under HKLM\\Software\\Policies\\Microsoft\\Windows NT\\DNSClient.",
+          "**NBT-NS:** there's no clean GPO. It's per adapter, under IPv4, Advanced, the WINS tab, **Disable NetBIOS over TCP/IP**. At scale, push DHCP option 001 in the Microsoft vendor class with a value of 0x2. The other route is a startup script that sets NetbiosOptions to 2 on every Tcpip_{GUID} key under HKLM\\SYSTEM\\CurrentControlSet\\Services\\NetBT\\Parameters\\Interfaces."
+        ]
+      },
+      {
+        "type": "p",
+        "text": "I don't care which NBT-NS route you take."
+      },
+      {
+        "type": "p",
+        "text": "DHCP misses anything with a static IP, and the script misses anything that isn't domain joined. Pick the one that covers more of your fleet and clean up the rest by hand."
+      },
+      {
+        "type": "p",
+        "text": "I'd test on one OU for a week first. The thing that breaks is almost always a printer or an old app resolving a short name that DNS never had."
+      },
+      {
+        "type": "h2",
+        "text": "Where I disagree with the usual fix"
+      },
+      {
+        "type": "p",
+        "text": "Here's my hill. SMB signing matters more than either of those settings."
+      },
+      {
+        "type": "p",
+        "text": "Turn off LLMNR and NBT-NS and Responder still has mDNS on UDP 5353, which it poisons just as happily. An attacker on the segment has other ways to coerce authentication anyway. Require signing and the relay half breaks no matter how the hash got captured. The GPO you want is **Microsoft network server: Digitally sign communications (always)**, alongside the client-side twin."
+      },
+      {
+        "type": "p",
+        "text": "Windows 11 24H2 shipped in late 2024 with signing required by default. Your Server 2016 file server didn't get that memo."
+      },
+      {
+        "type": "p",
+        "text": "If you're the admin with a pentest readout on Friday, that file server is what to fix this week."
+      },
+      {
+        "type": "p",
+        "text": "CIS puts disabling unnecessary services at Safeguard 4.8, and that's IG2, which surprises people. In IG1 it only shows up through 4.1, the secure configuration process. I'd treat it as IG1 anyway. You can check where you stand with the [CIS IG1 assessment](/assess/?a=cis-ig1) and the [CIS Controls overview](/frameworks/cis/)."
+      },
+      {
+        "type": "p",
+        "text": "What I don't know is Microsoft's timeline. In April 2022 they said they were ramping down both protocols in favor of mDNS."
+      },
+      {
+        "type": "p",
+        "text": "It's October 2026 and LLMNR is still on by default, and I can't tell you when that flips."
+      },
+      {
+        "type": "p",
+        "text": "Don't wait for it. Turn the two protocols off, but if you only get one change through the change board this quarter, make it signing."
+      }
+    ],
+    "related": [
+      {
+        "label": "Look up LLMNR in the glossary",
+        "href": "/?q=LLMNR"
+      },
+      {
+        "label": "What NTLM is",
+        "href": "/?q=NTLM"
+      },
+      {
+        "label": "Look up SMB in the glossary",
+        "href": "/?q=SMB"
+      },
+      {
+        "label": "The CIS Controls in plain English",
+        "href": "/frameworks/cis/"
+      },
+      {
+        "label": "Run the CIS IG1 assessment",
+        "href": "/assess/?a=cis-ig1"
+      }
+    ]
+  },
+  {
+    "slug": "otp-hotp-totp-which-protects-you",
+    "title": "OTP, HOTP, and TOTP: Which One Is Actually Protecting You",
+    "description": "SMS codes, counter-based HOTP, and time-based TOTP all answer to the name OTP. One barely counts, and none of them stops a phishing kit. Here is the ranking.",
+    "category": "Explainer",
+    "author": "Parker Brissette",
+    "date": "2026-10-15",
+    "readingMinutes": 5,
+    "tags": [
+      "otp",
+      "totp",
+      "hotp",
+      "mfa",
+      "fido2"
+    ],
+    "body": [
+      {
+        "type": "p",
+        "text": "Everyone says turn on [MFA](/?q=MFA), and the questionnaire that asked has no box for which kind."
+      },
+      {
+        "type": "p",
+        "text": "[OTP](/?q=OTP) is three different things wearing one name, and the one most of your users have is the one doing the least."
+      },
+      {
+        "type": "p",
+        "text": "So, which one is protecting you?"
+      },
+      {
+        "type": "p",
+        "text": "Whichever one you've got is protecting you from password reuse."
+      },
+      {
+        "type": "p",
+        "text": "None of the three is protecting you from phishing."
+      },
+      {
+        "type": "h2",
+        "text": "Start with the code that arrives by text"
+      },
+      {
+        "type": "p",
+        "text": "An SMS code is a one-time password in the loosest sense. The server picks six random digits, stores them, and texts them to a phone number it trusts."
+      },
+      {
+        "type": "p",
+        "text": "The code isn't the weak part. The phone number is."
+      },
+      {
+        "type": "p",
+        "text": "A SIM swap moves that number to a handset the attacker holds, and from then on every code lands with them."
+      },
+      {
+        "type": "p",
+        "text": "The FCC's SIM swap rules took effect in July 2024 and make carriers authenticate the customer before a port. That helps at the margin and does nothing about a bribed store employee."
+      },
+      {
+        "type": "p",
+        "text": "[NIST](/?q=NIST) put SMS and voice codes in the RESTRICTED bucket of SP 800-63B in June 2017."
+      },
+      {
+        "type": "p",
+        "text": "Nine years later it still ticks the MFA box on every vendor questionnaire and insurance renewal I've seen."
+      },
+      {
+        "type": "p",
+        "text": "That's the thing I keep arguing about. SMS is better than nothing. The argument is whether a form that can't tell SMS from a hardware key is measuring anything at all."
+      },
+      {
+        "type": "h2",
+        "text": "HOTP, the counter nobody chose on purpose"
+      },
+      {
+        "type": "p",
+        "text": "[HOTP](/?q=HOTP) is RFC 4226, from December 2005. Take a shared secret and a counter, run [HMAC](/?q=HMAC)-SHA1 over them, chop the result down to six digits."
+      },
+      {
+        "type": "p",
+        "text": "Both sides keep the counter."
+      },
+      {
+        "type": "p",
+        "text": "Press the button, the counter goes up, a new code comes out."
+      },
+      {
+        "type": "p",
+        "text": "You've almost certainly used one."
+      },
+      {
+        "type": "p",
+        "text": "The OTP slot on a YubiKey can run OATH-HOTP. The old bank fobs with a button and no clock were HOTP, or something proprietary that worked the same way."
+      },
+      {
+        "type": "p",
+        "text": "The problem is drift."
+      },
+      {
+        "type": "p",
+        "text": "Press the button four times in your pocket and the token's counter is four ahead of the server's. RFC 4226 handles that with a look-ahead window, and every implementation picks a different width for it."
+      },
+      {
+        "type": "p",
+        "text": "A HOTP code also doesn't expire. Phish one at 9:00 and it's still good at noon, as long as the real user hasn't pressed the button since."
+      },
+      {
+        "type": "p",
+        "text": "Nobody picks HOTP for a new rollout in 2026. It's what you inherit."
+      },
+      {
+        "type": "h2",
+        "text": "TOTP, the same math on a 30-second clock"
+      },
+      {
+        "type": "p",
+        "text": "[TOTP](/?q=TOTP) is RFC 6238, May 2011, and it's HOTP with one substitution. The counter becomes the Unix time divided by 30."
+      },
+      {
+        "type": "p",
+        "text": "That's the whole trick."
+      },
+      {
+        "type": "p",
+        "text": "Same HMAC, same shared secret, same six digits, and no button to press because the clock is the counter."
+      },
+      {
+        "type": "p",
+        "text": "The RFC's test vectors use SHA-1, and so does nearly every authenticator app on your phone (Google Authenticator still defaults to it). That's fine. HMAC doesn't care about SHA-1's collision problems, and nobody has shown an attack on HMAC-SHA1 that matters here."
+      },
+      {
+        "type": "p",
+        "text": "Most servers accept one step either side, so a code is really good for about 90 seconds."
+      },
+      {
+        "type": "p",
+        "text": "Plenty for what comes next."
+      },
+      {
+        "type": "p",
+        "text": "The part people miss is that \"shared secret\" means the server has your seed. Every seed, for every user."
+      },
+      {
+        "type": "p",
+        "text": "Twilio's Authy service found that out in July 2024, when an unauthenticated endpoint let someone pull 33 million phone numbers tied to Authy accounts."
+      },
+      {
+        "type": "p",
+        "text": "The seeds weren't in that haul. The service holding your second factor is still a target, and last I checked Authy won't let you export your seeds out of it."
+      },
+      {
+        "type": "p",
+        "text": "Google Authenticator added cloud sync in April 2023 and shipped it without end-to-end encryption. Convenient, and one more place your seeds live."
+      },
+      {
+        "type": "h2",
+        "text": "So which one survives a phishing kit"
+      },
+      {
+        "type": "p",
+        "text": "None of them."
+      },
+      {
+        "type": "p",
+        "text": "Evilginx has been public since 2017."
+      },
+      {
+        "type": "p",
+        "text": "It sits between the user and the real login page. It forwards the password, forwards the TOTP code inside the 30-second window, and keeps the session cookie that comes back."
+      },
+      {
+        "type": "p",
+        "text": "Microsoft reported in July 2022 that one [AiTM](/?q=AiTM) campaign had hit more than 10,000 organizations since September 2021. Those were tenants with MFA turned on."
+      },
+      {
+        "type": "p",
+        "text": "SMS, HOTP, and TOTP all fail the same way here, because the code is something a user can type."
+      },
+      {
+        "type": "p",
+        "text": "Anything a user can type, a user can type into the wrong page."
+      },
+      {
+        "type": "p",
+        "text": "[FIDO2](/?q=FIDO2) is where that stops."
+      },
+      {
+        "type": "p",
+        "text": "The credential is bound to the origin. A key registered for login.microsoftonline.com won't sign a challenge from a lookalike domain, whatever the page says."
+      },
+      {
+        "type": "p",
+        "text": "OMB M-22-09 required phishing-resistant MFA across federal agencies in January 2022. CISA's fact sheet from October 2022 says the same thing to everyone else."
+      },
+      {
+        "type": "p",
+        "text": "Here's my hill."
+      },
+      {
+        "type": "p",
+        "text": "Admins go on FIDO2 before anyone spends a meeting arguing about which authenticator app the rest of the company uses."
+      },
+      {
+        "type": "h2",
+        "text": "What I'd actually do this quarter"
+      },
+      {
+        "type": "p",
+        "text": "If you're the one answering the cyber insurance renewal this month, the MFA question is a yes or no. SMS gets you the yes."
+      },
+      {
+        "type": "p",
+        "text": "It's still the weakest yes on the form, and the broker knows it."
+      },
+      {
+        "type": "p",
+        "text": "Rank the work like this."
+      },
+      {
+        "type": "list",
+        "items": [
+          "**Admins first.** Anyone holding Global Administrator, Domain Admin, or the equivalent gets hardware FIDO2 keys, two each, this quarter. That's [CIS](/frameworks/cis/) Safeguard 6.5, and it's IG1, so it's on the list for the smallest companies too.",
+          "**Everyone else gets an app-based TOTP, not SMS.** I honestly don't care which app. Microsoft Authenticator, Google Authenticator, the one built into 1Password, whatever your people will keep. Pick on seed export, not on logo.",
+          "**Backup codes.** Google hands out 10. Print them. The lockout ticket costs more than the paper.",
+          "**Kill SMS as a fallback** once the app is enrolled. An attacker who can trigger \"send a code by text instead\" gets to choose the weakest factor you left switched on."
+        ]
+      },
+      {
+        "type": "p",
+        "text": "One thing I don't know."
+      },
+      {
+        "type": "p",
+        "text": "NIST called SMS restricted in 2017, and in 2026 it's still an accepted answer on nearly every form I see. I can't tell you when that changes, and I've stopped predicting it."
+      },
+      {
+        "type": "p",
+        "text": "What I can tell you is that the OTP checkbox was never the control. The control is what the user can't be talked into typing."
+      }
+    ],
+    "related": [
+      {
+        "label": "Look up OTP in the glossary",
+        "href": "/?q=OTP"
+      },
+      {
+        "label": "What TOTP is",
+        "href": "/?q=TOTP"
+      },
+      {
+        "label": "What HOTP is",
+        "href": "/?q=HOTP"
+      },
+      {
+        "label": "FIDO2, where phishing resistance starts",
+        "href": "/?q=FIDO2"
+      },
+      {
+        "label": "CIS Controls framework guide",
+        "href": "/frameworks/cis/"
+      }
+    ]
+  },
+  {
+    "slug": "nerc-cip-for-utilities",
+    "title": "NERC CIP for Utilities, in Plain English",
+    "description": "NERC CIP for people arriving from IT: high, medium, and low impact, the ESP and PSP, the 35-day and 24-hour clocks, CIP-013, and what the RSAW really asks for.",
+    "category": "Explainer",
+    "author": "Parker Brissette",
+    "date": "2026-10-19",
+    "readingMinutes": 5,
+    "tags": [
+      "nerc-cip",
+      "ics",
+      "ot-security",
+      "utilities",
+      "compliance"
+    ],
+    "body": [
+      {
+        "type": "p",
+        "text": "Everyone coming over from the IT side says [NERC](/?q=NERC) CIP is NIST CSF with more paperwork. That misses the part that gets utilities fined."
+      },
+      {
+        "type": "p",
+        "text": "The control families do overlap. The dates don't exist anywhere else."
+      },
+      {
+        "type": "p",
+        "text": "If you're the IT security lead who just inherited the utility's CIP program, and the regional entity's audit notice is already on your desk, read this first. I'd open the standards second."
+      },
+      {
+        "type": "h2",
+        "text": "Where the IT crowd is right"
+      },
+      {
+        "type": "p",
+        "text": "CIP is 13 standards, CIP-002 through CIP-015 with CIP-001 retired, and most of them map onto things you already run."
+      },
+      {
+        "type": "p",
+        "text": "CIP-004 is access management and training. CIP-005 is network segmentation. CIP-007 is hardening and logging. CIP-010 is change management. CIP-013 is supply chain."
+      },
+      {
+        "type": "p",
+        "text": "Lay those next to [NIST CSF](/frameworks/nist-csf/) Protect and Detect and you'll find a home for nearly every requirement. The [crosswalk tool](/tools/crosswalk/) will do most of that mapping for you."
+      },
+      {
+        "type": "p",
+        "text": "So yes, the overlap is real. A utility with a decent IT security program has the bones, and I'll concede that to anyone."
+      },
+      {
+        "type": "p",
+        "text": "What it doesn't have is the clock."
+      },
+      {
+        "type": "h2",
+        "text": "Categorization is the whole game"
+      },
+      {
+        "type": "p",
+        "text": "CIP-002 makes you sort every BES Cyber System into high, medium, or low impact, and everything else in the program hangs off that answer."
+      },
+      {
+        "type": "p",
+        "text": "High is control centers. Medium is the big iron: generation over 1,500 MW aggregate in a single Interconnection, transmission at 500 kV and up, and a handful of other criteria in Attachment 1. Low is everything else that touches the bulk electric system."
+      },
+      {
+        "type": "p",
+        "text": "Most of the fleet is low, and that's where I'd spend the first month."
+      },
+      {
+        "type": "p",
+        "text": "What I keep seeing from people reading CIP for the first time is that they read \"low impact\" as \"out of scope\" and skip ahead to the medium requirements. That's the hill I'll die on. Low impact is not no impact."
+      },
+      {
+        "type": "p",
+        "text": "CIP-003 Attachment 1 still wants all of this at every low-impact site:"
+      },
+      {
+        "type": "list",
+        "items": [
+          "Security awareness reinforced at least every 15 calendar months.",
+          "Physical access controls on the asset and on the networking gear in front of it.",
+          "Electronic access controls at the boundary, including inbound and outbound rules for routable protocols.",
+          "A cyber security incident response plan, tested every 36 months.",
+          "A transient device and removable media policy.",
+          "Vendor electronic remote access, added by CIP-003-9 and effective April 1, 2026."
+        ]
+      },
+      {
+        "type": "p",
+        "text": "You redo the categorization every 15 calendar months. I'd keep every dated copy, because the auditor will ask for the one from two cycles ago."
+      },
+      {
+        "type": "h2",
+        "text": "The dates are the difference"
+      },
+      {
+        "type": "p",
+        "text": "Here's a NIST CSF 2.0 outcome, PR.PS-02: software is maintained, replaced, and removed commensurate with risk. There's no number in it."
+      },
+      {
+        "type": "p",
+        "text": "Here's CIP-007 R2 on the same subject."
+      },
+      {
+        "type": "list",
+        "items": [
+          "**35 calendar days** to evaluate each new security patch from a tracked source for applicability.",
+          "**35 more** to apply it, or to write a dated mitigation plan and then actually follow the plan.",
+          "Miss either window on one device and you have a potential noncompliance to self-report."
+        ]
+      },
+      {
+        "type": "p",
+        "text": "I think that 35-day clock is the hardest single requirement for an IT team to absorb, and the last line is why. CIP is zero defect. There's no risk-accepted checkbox, only a self-report and a mitigation plan."
+      },
+      {
+        "type": "p",
+        "text": "It's like that all the way through."
+      },
+      {
+        "type": "p",
+        "text": "24 hours to revoke remote and unescorted physical access after a termination, under CIP-004 R5. Log review at least every 15 calendar days, under CIP-007 R4. Training every 15 months, and a 7-year criminal history check refreshed every 7 years for anyone who gets a badge. Those are the three I'd put on the wall."
+      },
+      {
+        "type": "p",
+        "text": "And 1 hour to report a Reportable Cyber Security Incident to the E-ISAC and CISA, a CIP-008-6 rule that went live January 1, 2021. Attempts count too."
+      },
+      {
+        "type": "p",
+        "text": "An [ICS](/?q=ICS) engineer will tell you that's because a breaker trip isn't a data breach. I'm with them on that one."
+      },
+      {
+        "type": "h2",
+        "text": "Two perimeters, not one"
+      },
+      {
+        "type": "p",
+        "text": "CIP doesn't say segment. It draws two literal perimeters and makes you defend both."
+      },
+      {
+        "type": "p",
+        "text": "The Electronic Security Perimeter in CIP-005 is the network boundary around your medium and high systems. Every access point gets listed, and every interactive remote session goes through an Intermediate System with MFA."
+      },
+      {
+        "type": "p",
+        "text": "The Physical Security Perimeter in CIP-006 is the fence, the badge reader, and the visitor log, which you keep for 90 calendar days."
+      },
+      {
+        "type": "p",
+        "text": "(The ESP idea predates zero trust by more than a decade, and CIP still thinks in walls. CIP-015, the internal network security monitoring standard FERC approved in 2025, is the first one that assumes the wall leaks.)"
+      },
+      {
+        "type": "p",
+        "text": "Supply chain got its own standard in CIP-013, in force since October 1, 2020. It wants a documented procurement risk process and it wants you to control vendor remote access, which is the piece most [SCADA](/?q=SCADA) vendors still push back on."
+      },
+      {
+        "type": "p",
+        "text": "Which firewall you build the ESP on, I genuinely don't care. The auditor won't either, as long as the access point list is dated."
+      },
+      {
+        "type": "h2",
+        "text": "What the audit actually asks for"
+      },
+      {
+        "type": "p",
+        "text": "Your regional entity (one of six: MRO, NPCC, ReliabilityFirst, SERC, Texas RE, WECC) audits entities with medium or high systems about every 3 years."
+      },
+      {
+        "type": "p",
+        "text": "They send RSAWs ahead of time, one worksheet per standard, and each one asks for evidence against every requirement part. Not the policy. The dated artifact that proves the policy ran."
+      },
+      {
+        "type": "p",
+        "text": "Nobody passes a CIP audit on a good narrative. They pass it on 15 months of screenshots with timestamps."
+      },
+      {
+        "type": "p",
+        "text": "The penalty math is why, and it's the number I'd lead with when the budget conversation gets hard. The statute allows up to $1 million per day per violation, a 2005 figure that's been adjusted upward since. The 2019 settlement widely reported as Duke Energy ran $10 million across 127 violations of 13 CIP standards. Most of those were access management and documentation failures, not an intrusion."
+      },
+      {
+        "type": "p",
+        "text": "One thing I don't know yet is CIP-015. As of October 2026 nobody has been audited against it and the compliance dates are still years out. I can't tell you how strictly the word \"collect\" will be read when the first RSAW for it shows up."
+      },
+      {
+        "type": "p",
+        "text": "So concede the overlap. I do. Run NIST CSF or [CIS](/frameworks/cis/) as your program if you like."
+      },
+      {
+        "type": "p",
+        "text": "Then put every CIP date on a calendar that one named person owns. My bet is the auditor isn't reading your framework. They're reading the timestamps."
+      }
+    ],
+    "related": [
+      {
+        "label": "NERC CIP in the glossary",
+        "href": "/?q=NERC"
+      },
+      {
+        "label": "ICS, defined",
+        "href": "/?q=ICS"
+      },
+      {
+        "label": "SCADA, defined",
+        "href": "/?q=SCADA"
+      },
+      {
+        "label": "NIST CSF 2.0 hub",
+        "href": "/frameworks/nist-csf/"
+      },
+      {
+        "label": "Framework crosswalk tool",
+        "href": "/tools/crosswalk/"
+      }
+    ]
+  },
+  {
+    "slug": "ferpa-for-edtech-vendors",
+    "title": "FERPA for EdTech Vendors, in Plain English",
+    "description": "FERPA from the vendor side: who it binds, the school official exception's three conditions, directory information, and what districts ask you to evidence.",
+    "category": "Explainer",
+    "author": "Parker Brissette",
+    "date": "2026-10-28",
+    "readingMinutes": 5,
+    "tags": [
+      "ferpa",
+      "edtech",
+      "student-privacy",
+      "compliance",
+      "vendor-risk"
+    ],
+    "body": [
+      {
+        "type": "p",
+        "text": "[FERPA](/?q=FERPA) doesn't apply to your company. That's the first thing I get straight with EdTech founders, and it's the opposite of what the sales deck says."
+      },
+      {
+        "type": "p",
+        "text": "The law binds schools. Districts and universities that take money from the US Department of Education, and nobody else."
+      },
+      {
+        "type": "p",
+        "text": "So the question I get asked most, does FERPA apply to us, has a short answer. No."
+      },
+      {
+        "type": "p",
+        "text": "The long answer is worse for you than yes would've been."
+      },
+      {
+        "type": "h2",
+        "text": "Who the law actually binds"
+      },
+      {
+        "type": "p",
+        "text": "FERPA is from 1974, codified at 20 U.S.C. 1232g with the regulations at 34 CFR Part 99, and every obligation in it lands on the \"educational agency or institution.\""
+      },
+      {
+        "type": "p",
+        "text": "The penalty is losing federal education funding. In 52 years the Department has never once pulled it."
+      },
+      {
+        "type": "p",
+        "text": "There's no private right of action either. The Supreme Court closed that door in Gonzaga University v. Doe in 2002, so a parent can't sue the school under FERPA, and they can't sue you."
+      },
+      {
+        "type": "p",
+        "text": "Here's the hill I'll die on: stop putting \"FERPA compliant\" on the pricing page."
+      },
+      {
+        "type": "p",
+        "text": "Nobody certifies that, and the district's counsel knows it."
+      },
+      {
+        "type": "p",
+        "text": "What you are is a party the school is allowed to hand records to, under one exception, on three conditions."
+      },
+      {
+        "type": "h2",
+        "text": "The three conditions in 99.31(a)(1)(i)(B)"
+      },
+      {
+        "type": "p",
+        "text": "An education record is anything directly related to a student that the school maintains, or that a party acting for the school maintains. That second clause is you."
+      },
+      {
+        "type": "p",
+        "text": "Your gradebook, your reading-level scores, the chat log in your tutoring app. All of it becomes an education record the moment a school is the customer."
+      },
+      {
+        "type": "p",
+        "text": "The school can't disclose any of it without parental consent unless an exception in 99.31 applies. The one your contract leans on is the school official exception, extended to contractors in the December 2008 amendments."
+      },
+      {
+        "type": "p",
+        "text": "Read it clause by clause. The district's lawyer will, and so do I."
+      },
+      {
+        "type": "list",
+        "items": [
+          "You perform an institutional service the school would otherwise use its own employees for. A learning platform qualifies. An ad network doesn't.",
+          "You're under the **direct control** of the school with respect to how the records are used and maintained. This is the one that kills product roadmaps.",
+          "You're subject to 99.33(a): no redisclosure of [PII](/?q=PII), and no use for any purpose other than the one the school disclosed it for."
+        ]
+      },
+      {
+        "type": "p",
+        "text": "Direct control is where I argue with founders."
+      },
+      {
+        "type": "p",
+        "text": "\"We only use it to improve the product\" is a redisclosure problem unless the contract names that specific use. If the data trains your recommendation model for other customers, the school isn't controlling that use."
+      },
+      {
+        "type": "h2",
+        "text": "Directory information and the 45-day clock"
+      },
+      {
+        "type": "p",
+        "text": "Directory information is the list in 99.3 the school can publish without consent: name, grade level, email, photo, dates of attendance, honors."
+      },
+      {
+        "type": "p",
+        "text": "Student ID numbers can only be there if the ID alone can't open a record."
+      },
+      {
+        "type": "p",
+        "text": "Parents get to opt out under 99.37. Your roster sync needs a field for that flag, and it's the first thing I check in any product that pushes data back to a public-facing page."
+      },
+      {
+        "type": "p",
+        "text": "The rights belong to the parent until the student turns 18 or enrolls in college, then they transfer to the \"eligible student.\" Inspect and review within 45 days, under 99.10. Request an amendment, under 99.20. Complain to the Student Privacy Policy Office."
+      },
+      {
+        "type": "p",
+        "text": "Those requests arrive at the school and get forwarded to you, and the 45 days started when the parent asked, not when the ticket hit your queue."
+      },
+      {
+        "type": "p",
+        "text": "(That office used to be the Family Policy Compliance Office, and plenty of district templates still say FPCO. I don't correct it in the redline. It isn't worth the meeting.)"
+      },
+      {
+        "type": "h2",
+        "text": "The state laws added everything FERPA left out"
+      },
+      {
+        "type": "p",
+        "text": "FERPA says nothing about encryption. Nothing about breach notification."
+      },
+      {
+        "type": "p",
+        "text": "The only security language in it is \"reasonable methods\" in 99.31(a)(1)(ii), and that clause is about who at the school can see a record."
+      },
+      {
+        "type": "p",
+        "text": "The states filled the gap, and they wrote the rules for you by name."
+      },
+      {
+        "type": "p",
+        "text": "California's SOPIPA, in force since January 1, 2016, bans targeted advertising and the sale of student data outright."
+      },
+      {
+        "type": "p",
+        "text": "New York's Education Law 2-d requires every contractor to align with the [NIST CSF](/frameworks/nist-csf/), sign a data privacy agreement, and report a breach to the district within 7 calendar days. It even borrows its encryption standard from HIPAA's HITECH guidance rather than writing one."
+      },
+      {
+        "type": "p",
+        "text": "Illinois' SOPPA, as amended effective July 1, 2021, gives you 30 days and makes the district post your agreement on its website."
+      },
+      {
+        "type": "p",
+        "text": "What I keep seeing is vendors answering those questionnaires in FERPA language. The district isn't asking a FERPA question. It's asking a 2-d question, and 2-d has a NIST control number behind it."
+      },
+      {
+        "type": "p",
+        "text": "Then there's [COPPA](/?q=COPPA) for anyone under 13, which the FTC does enforce. Edmodo found out in May 2023, with a $6 million order for collecting more than it needed from students and using it for ads. The 2025 rule rewrite left school consent where it was: educational purposes only, never yours."
+      },
+      {
+        "type": "h2",
+        "text": "The exhibit the district will actually read"
+      },
+      {
+        "type": "p",
+        "text": "When a district sends you the Student Data Privacy Consortium's national agreement, or its own DPA, one question is really being asked."
+      },
+      {
+        "type": "p",
+        "text": "Can you evidence the controls, with dates?"
+      },
+      {
+        "type": "p",
+        "text": "Not the policy. The artifact. What I'd have ready before the first call:"
+      },
+      {
+        "type": "list",
+        "items": [
+          "A [SOC 2](/?q=SOC%202) Type II report or an ISO 27001 certificate, with the student data system inside the scope section.",
+          "Encryption at rest and in transit, with the algorithm named.",
+          "[MFA](/?q=MFA) on every administrative path, including the support portal. PowerSchool's breach, disclosed in January 2025, came through a single support-portal credential.",
+          "A breach notice commitment that beats the shortest state clock you sell into. 7 days if New York is a customer.",
+          "A data disposition exhibit with a deletion date and a certificate, not a sentence that says \"upon request.\"",
+          "A written no-secondary-use statement, which is the direct-control condition from 99.31 in plain words."
+        ]
+      },
+      {
+        "type": "p",
+        "text": "I genuinely don't care whether you sign the SDPC template or paper it with your own agreement, as long as the exhibits match what you actually run."
+      },
+      {
+        "type": "p",
+        "text": "If you're the founder who got the DPA on Tuesday and the board vote that approves the purchase is in three weeks, build the [trust package](/tools/trust-package/) first. Argue clause language second. The [regulation mapper](/tools/reg-mapper/) will show you which state rules your customer list drags in."
+      },
+      {
+        "type": "p",
+        "text": "One thing I don't know is whether PowerSchool, which touched more districts than Illuminate did in 2022, finally gets the Department to use the funding penalty. My bet is still no."
+      },
+      {
+        "type": "p",
+        "text": "FERPA doesn't apply to you. Everything built on top of it does, and that's the part I'd read before you reply to the questionnaire."
+      }
+    ],
+    "related": [
+      {
+        "label": "FERPA in the glossary",
+        "href": "/?q=FERPA"
+      },
+      {
+        "label": "PII, defined",
+        "href": "/?q=PII"
+      },
+      {
+        "label": "COPPA, defined",
+        "href": "/?q=COPPA"
+      },
+      {
+        "label": "Regulation mapper",
+        "href": "/tools/reg-mapper/"
+      },
+      {
+        "label": "Trust package builder",
+        "href": "/tools/trust-package/"
+      }
+    ]
+  },
+  {
+    "slug": "forensics-certification-comparison",
+    "title": "CHFI vs GCFA vs CCE: Choosing a Digital Forensics Certification",
+    "description": "CHFI, GCFA, and CCE answer three different hiring questions. Cost, renewal, DoD 8570 status, and why a documented case portfolio still beats all three.",
+    "category": "Career",
+    "author": "Parker Brissette",
+    "date": "2026-10-29",
+    "readingMinutes": 5,
+    "tags": [
+      "career",
+      "dfir",
+      "certifications",
+      "digital forensics",
+      "incident response"
+    ],
+    "body": [
+      {
+        "type": "p",
+        "text": "\"Certs don't matter in [DFIR](/?q=DFIR), just build a portfolio.\" I hear that in every Discord thread about getting into forensics, and it's half right."
+      },
+      {
+        "type": "p",
+        "text": "The half it gets wrong decides whether a human ever opens the portfolio."
+      },
+      {
+        "type": "p",
+        "text": "So here's where I land on [CHFI](/?q=CHFI), [GCFA](/?q=GCFA), and CCE, the three certifications people actually weigh, after conceding the point the portfolio crowd has earned."
+      },
+      {
+        "type": "h2",
+        "text": "Where the portfolio crowd is right"
+      },
+      {
+        "type": "p",
+        "text": "Nobody has ever been hired to testify about a disk image because of a logo on a resume."
+      },
+      {
+        "type": "p",
+        "text": "What I keep seeing on resumes that cross my desk is a cert line with nothing under it. CHFI, a year, done. No case, no write-up, no image they've ever actually worked."
+      },
+      {
+        "type": "p",
+        "text": "Compare that with a candidate who pulled a NIST CFReDS image, timelined it in Plaso, and wrote six pages on what the user did with the machine. NIST has given those images away for roughly two decades, and most applicants have never heard of them."
+      },
+      {
+        "type": "p",
+        "text": "Second candidate wins. I'd be surprised to meet a hiring manager who'd argue."
+      },
+      {
+        "type": "p",
+        "text": "That's the hill. A documented case portfolio beats all three certs, and I'll die on it."
+      },
+      {
+        "type": "p",
+        "text": "Now the part they skip."
+      },
+      {
+        "type": "h2",
+        "text": "The resume has to survive a filter first"
+      },
+      {
+        "type": "p",
+        "text": "In 2026 a keyword filter reads your resume before a person does. At any employer touching DoD work, that filter has a name."
+      },
+      {
+        "type": "p",
+        "text": "DoD 8570 listed CHFI and GCFA as approved baseline certifications for the CSSP Incident Responder role. CCE was never on the list."
+      },
+      {
+        "type": "p",
+        "text": "8570 is on its way out. DoDM 8140.03 landed in February 2023 and moves the services to work-role qualification matrices, and the services are still publishing their own tables."
+      },
+      {
+        "type": "p",
+        "text": "Whether CHFI keeps its seat on the incident responder tables once that settles, I don't know. Nobody does yet. My read is that the HR filter outlives the manual that created it, because nobody rewrites a job template when a DoDM changes."
+      },
+      {
+        "type": "p",
+        "text": "But say you're the SOC analyst with a training budget that expires December 31 and a manager who needs a cert name on the form. The filter is your real constraint, and the portfolio won't get you past it."
+      },
+      {
+        "type": "h2",
+        "text": "What the three exams actually test"
+      },
+      {
+        "type": "p",
+        "text": "The three aren't competing for the same job, which is the thing a head-to-head comparison hides."
+      },
+      {
+        "type": "list",
+        "items": [
+          "**CHFI** is EC-Council's exam, 150 multiple-choice questions in 4 hours, exam code 312-49. Version 11 shipped in 2024. You can pass it without ever touching a disk image.",
+          "**GCFA** is the exam attached to SANS FOR508, with 82 questions in 3 hours. Open book, proctored, and the CyberLive items drop you into a live VM. It's a memory and intrusion exam far more than a classic disk forensics one.",
+          "**CCE** is the ISFCE's examiner credential. A written test first, then a practical where you work forensic images and write reports that a human examiner grades. It's the only one of the three where someone reads your report."
+        ]
+      },
+      {
+        "type": "p",
+        "text": "On a 2026 IR engagement, \"forensics\" means memory and fleet-wide timelines, and that's the GCFA material."
+      },
+      {
+        "type": "p",
+        "text": "A court means something else by the word. Chain of custody, and a report that opposing counsel can't pull apart. That's CCE."
+      },
+      {
+        "type": "p",
+        "text": "I don't think CHFI is a bad exam. It's a survey exam marketed like a specialist one, and it goes deep on neither side. The FOR508 labs run on SIFT, and if that name means nothing to you, that's the gap GCFA closes and CHFI doesn't."
+      },
+      {
+        "type": "p",
+        "text": "(GIAC exams are open book, by the way, and people still fail them, mostly because they spent the study time building an index of the books instead of learning them)."
+      },
+      {
+        "type": "h2",
+        "text": "The 20x price spread"
+      },
+      {
+        "type": "p",
+        "text": "Here's the number I think should drive the decision more than it does."
+      },
+      {
+        "type": "p",
+        "text": "CCE runs under $500 for the whole process, and ISFCE recertifies you every two years."
+      },
+      {
+        "type": "p",
+        "text": "The CHFI voucher alone sits in the $650 range, but EC-Council expects official training. Skip it and you pay a $100 eligibility fee and show two years of documented experience. Realistic all-in with a course is $2,000 to $3,000, and renewal is 120 ECE credits over three years plus an annual membership fee."
+      },
+      {
+        "type": "p",
+        "text": "GCFA is the outlier. FOR508 lists north of $8,000, the exam attempt adds about $1,000 when it's bundled with the course, and GIAC wants 36 CPEs plus a renewal fee every four years. Call it $9,000 before travel."
+      },
+      {
+        "type": "p",
+        "text": "That's close to a 20x spread between CCE and GCFA. Examiner salaries don't spread 20x."
+      },
+      {
+        "type": "p",
+        "text": "Commercial IR consultancy pay runs well above municipal lab pay, and that gap is what the GCFA price buys access to."
+      },
+      {
+        "type": "p",
+        "text": "Who pays matters more than the sticker. If your employer is covering it, take FOR508 and the GCFA and stop reading. If you're paying, I'd rather see $500 on a CCE and the other $8,500 on lab gear and a year of evenings than one week in a hotel ballroom."
+      },
+      {
+        "type": "h2",
+        "text": "Which one, then"
+      },
+      {
+        "type": "p",
+        "text": "I give three answers, because it's three questions."
+      },
+      {
+        "type": "list",
+        "items": [
+          "Going after a cleared role or a DoD contractor seat where HR runs the 8570 list? CHFI. It's the cheaper of the two on the incident responder list, and nobody has told me it's coming off.",
+          "Aiming at a commercial IR bench, the kind that gets the ransomware call at 2 a.m.? GCFA, and only if someone else is paying or you've already been doing the work for a year and need the credential to match.",
+          "Want to testify? CCE."
+        ]
+      },
+      {
+        "type": "p",
+        "text": "GCFE, the Windows forensics exam attached to FOR500, is the one I see people confuse with GCFA. If your work is single-host examinations rather than intrusions, that's the SANS cert you actually want, at the same price."
+      },
+      {
+        "type": "p",
+        "text": "Autopsy or the SIFT workstation for your home lab, I genuinely don't care which one you pick. Work the image, write the report, put the report on GitHub."
+      },
+      {
+        "type": "p",
+        "text": "So yes, I'll give the portfolio crowd the point about what gets you hired. The cert is what gets the portfolio opened."
+      },
+      {
+        "type": "p",
+        "text": "Pick the one that matches the door you're knocking on, pay for it once, and spend the rest on disk images and the hours to work them. The [careers hub](/careers/) has the role ladders, and the [quiz](/quiz/) will tell you fast whether the FOR508 material is already over your head or already under it."
+      }
+    ],
+    "related": [
+      {
+        "label": "Cybersecurity careers hub",
+        "href": "/careers/"
+      },
+      {
+        "label": "Test your security knowledge",
+        "href": "/quiz/"
+      },
+      {
+        "label": "DFIR in the glossary",
+        "href": "/?q=DFIR"
+      },
+      {
+        "label": "GCFA in the glossary",
+        "href": "/?q=GCFA"
+      },
+      {
+        "label": "Security skills matrix",
+        "href": "/tools/skills-matrix/"
+      }
+    ]
+  },
+  {
+    "slug": "hitech-vs-hipaa",
+    "title": "HITECH vs HIPAA: What the Amendment Actually Changed",
+    "description": "HITECH isn't a second rulebook. What the 2009 amendment changed in HIPAA: breach notification, business associate liability, penalty tiers, and audits.",
+    "category": "Explainer",
+    "author": "Parker Brissette",
+    "date": "2026-11-02",
+    "readingMinutes": 5,
+    "tags": [
+      "hipaa",
+      "hitech",
+      "healthcare",
+      "compliance",
+      "phi"
+    ],
+    "body": [
+      {
+        "type": "p",
+        "text": "Nobody complies with HITECH. You comply with [HIPAA](/?q=HIPAA) as [HITECH](/?q=HITECH) rewrote it."
+      },
+      {
+        "type": "p",
+        "text": "What I keep seeing on vendor trust pages is two badges side by side, \"HIPAA compliant\" and \"HITECH compliant,\" as if somebody passed two audits. There's no HITECH certification. HHS doesn't recognize a HIPAA certification either. I'd take one dated risk analysis over both badges."
+      },
+      {
+        "type": "p",
+        "text": "So the useful question is narrower. What did a 2009 law change that a 1996 law didn't already do?"
+      },
+      {
+        "type": "h2",
+        "text": "What was already there in 1996?"
+      },
+      {
+        "type": "p",
+        "text": "HIPAA was signed on August 21, 1996, and most of it is about keeping health coverage when you change jobs. The parts security people live in came later as HHS rules. The Privacy Rule took effect in 2003 and the Security Rule in 2005."
+      },
+      {
+        "type": "p",
+        "text": "Those rules bound covered entities, meaning health plans, clearinghouses, and providers that bill electronically."
+      },
+      {
+        "type": "p",
+        "text": "Business associates were reached only through contract. If a hospital's billing vendor mishandled [PHI](/?q=PHI), HHS had no direct line to the vendor. The hospital had a contract claim and that was about it."
+      },
+      {
+        "type": "p",
+        "text": "Enforcement was thin too. Civil penalties topped out at $100 per violation and $25,000 a year for identical violations, and OCR didn't issue its first civil money penalty until 2011."
+      },
+      {
+        "type": "h2",
+        "text": "So what did HITECH actually add?"
+      },
+      {
+        "type": "p",
+        "text": "HITECH passed on February 17, 2009 (it's Title XIII of ARRA, the stimulus bill, and most of the act is about paying hospitals to adopt electronic health records, so only a slice of it touches privacy and security at all). That slice did four things you still feel."
+      },
+      {
+        "type": "list",
+        "items": [
+          "**Breach notification.** HIPAA had no federal duty to tell anyone. Now it's 45 CFR 164.400 through 164.414, with a 60-day outer limit to notify individuals and media notice once 500 residents of a state are hit.",
+          "**Direct liability for business associates.** The Security Rule's safeguards and parts of the Privacy Rule now apply to them by law.",
+          "**Tiered penalties.**",
+          "**Audits and state AGs.** HHS was told to audit, and state attorneys general got standing to sue under HIPAA."
+        ]
+      },
+      {
+        "type": "p",
+        "text": "Most of it didn't bite until the Omnibus Rule. HHS published that in January 2013 with a compliance date of September 23, 2013. The same rule replaced the old \"risk of harm\" breach test with a presumption of breach unless a four-factor assessment shows a low probability of compromise."
+      },
+      {
+        "type": "h2",
+        "text": "Is a business associate on the hook directly?"
+      },
+      {
+        "type": "p",
+        "text": "Yes. This is the one I'll argue about all day."
+      },
+      {
+        "type": "p",
+        "text": "If you're the security lead at a SaaS company and a hospital's vendor questionnaire is due Friday, the business associate agreement you signed isn't the ceiling of your obligations. OCR can investigate and fine you without the hospital lifting a finger. Its May 2019 fact sheet lists the provisions a business associate is directly liable for, and skipping the Security Rule risk analysis is on it."
+      },
+      {
+        "type": "p",
+        "text": "The Omnibus Rule pushed this downstream as well. A subcontractor of yours that touches PHI is a business associate in its own right, and you owe it the same agreement you signed upstream."
+      },
+      {
+        "type": "h2",
+        "text": "What does the money look like now?"
+      },
+      {
+        "type": "p",
+        "text": "HITECH created four culpability tiers, from \"did not know\" up to \"willful neglect, not corrected.\" Per-violation amounts ran from $100 to $50,000 with a $1.5 million annual cap per identical provision. They've been adjusted for inflation every year since, so pull the current table instead of quoting 2009 numbers."
+      },
+      {
+        "type": "p",
+        "text": "In April 2019 HHS said it would apply lower annual caps by tier, starting at $25,000 for the bottom tier. That's enforcement discretion, not statute, and it can be withdrawn."
+      },
+      {
+        "type": "p",
+        "text": "Then on January 5, 2021, Congress amended HITECH again. Public Law 116-321 tells HHS to weigh whether you had recognized security practices in place for the prior 12 months when it sets a fine or scopes an audit. The [NIST CSF](/frameworks/nist-csf/) counts, and so does 405(d) HICP. A framework adopted the week after the breach letter doesn't."
+      },
+      {
+        "type": "p",
+        "text": "Which framework? If you're asking me, I genuinely don't care. Pick the one your team will actually keep evidence for, because the 12 months of evidence is what gets weighed."
+      },
+      {
+        "type": "h2",
+        "text": "Did the audits ever matter?"
+      },
+      {
+        "type": "p",
+        "text": "Section 13411 required HHS to audit. The pilot ran in 2011 and 2012 against 115 covered entities, and phase 2 followed in 2016 and 2017 with business associates included. OCR's 2020 report on phase 2 found most audited entities hadn't done an adequate risk analysis."
+      },
+      {
+        "type": "p",
+        "text": "That finding hasn't aged. OCR launched a Risk Analysis Initiative in October 2024 because the same gap kept showing up in its settlements. I don't expect that list to get shorter soon."
+      },
+      {
+        "type": "p",
+        "text": "What I can't tell you is where the Security Rule goes next. HHS proposed a rewrite in January 2025 that would drop the \"addressable\" label and make encryption and MFA mandatory. I don't know if or when a final rule lands, so check the Federal Register before you budget around it."
+      },
+      {
+        "type": "p",
+        "text": "So when the questionnaire asks about HITECH, I'd answer about HIPAA. Point to your breach notification procedure, the date of your last risk analysis, and a year of framework evidence. If you answer to more than one regime, the [regulation mapper](/tools/reg-mapper/) shows where HIPAA overlaps the rest."
+      },
+      {
+        "type": "p",
+        "text": "That's the amendment. Everything else is 1996."
+      }
+    ],
+    "related": [
+      {
+        "label": "HIPAA in the glossary",
+        "href": "/?q=HIPAA"
+      },
+      {
+        "label": "HITECH in the glossary",
+        "href": "/?q=HITECH"
+      },
+      {
+        "label": "PHI in the glossary",
+        "href": "/?q=PHI"
+      },
+      {
+        "label": "Regulation mapper",
+        "href": "/tools/reg-mapper/"
+      }
+    ]
+  },
+  {
+    "slug": "cybersecurity-metrics-for-the-board",
+    "title": "Cybersecurity Metrics for the Board: The Few Directors Read",
+    "description": "A board reads five to eight security metrics. The ones that answer what directors ask, the ones to cut, and how to write one with a target and trend.",
+    "category": "Explainer",
+    "author": "Parker Brissette",
+    "date": "2026-11-02",
+    "readingMinutes": 5,
+    "tags": [
+      "board reporting",
+      "metrics",
+      "ciso",
+      "governance",
+      "kri"
+    ],
+    "body": [
+      {
+        "type": "p",
+        "text": "A board deck with forty security metrics on it isn't a report. It's a place to hide."
+      },
+      {
+        "type": "p",
+        "text": "Directors read five to eight numbers."
+      },
+      {
+        "type": "p",
+        "text": "What I keep seeing is the rest of the deck doing real damage, because the question that comes back from the table lands on whichever number had no target next to it."
+      },
+      {
+        "type": "p",
+        "text": "If you're the [CISO](/?q=CISO) with a board slot next quarter and a dashboard that grew to forty lines over three years, your first job is deleting thirty-two of them. The eight that survive below come from our [board metrics builder](/tools/board-metrics/), sorted under the four questions a director actually asks."
+      },
+      {
+        "type": "h2",
+        "text": "1. Are we exposed?"
+      },
+      {
+        "type": "list",
+        "items": [
+          "**Critical asset EDR coverage.** Good at 98%, act below 90%.",
+          "**MFA coverage on critical systems and privileged accounts.** Target 100%. Not 98.",
+          "**Critical vulnerability patch latency.** Days from disclosure to fix. Good at 15, act past 30, and track anything on the [CISA KEV catalog](https://www.cisa.gov/known-exploited-vulnerabilities-catalog) separately because those have a known attacker attached."
+        ]
+      },
+      {
+        "type": "p",
+        "text": "The MFA target is the hill I'll die on."
+      },
+      {
+        "type": "p",
+        "text": "A privileged account without MFA isn't 2% of your risk. It's the account the attacker is looking for."
+      },
+      {
+        "type": "p",
+        "text": "Change Healthcare's February 2024 ransomware attack started at a Citrix remote access portal with no MFA on it, by the CEO's own account to the Senate Finance Committee that May."
+      },
+      {
+        "type": "p",
+        "text": "One missing login prompt, and a claims clearinghouse was down for weeks."
+      },
+      {
+        "type": "h2",
+        "text": "2. Would we notice?"
+      },
+      {
+        "type": "p",
+        "text": "Two numbers here."
+      },
+      {
+        "type": "p",
+        "text": "[MTTD](/?q=MTTD) in days and [MTTR](/?q=MTTR) in hours, both scoped to critical incidents. The builder bands them at one day and eight hours for good, seven days and 24 hours before you act."
+      },
+      {
+        "type": "p",
+        "text": "I report MTTD, but I don't fully trust it, and I haven't found a version I'd defend without a footnote."
+      },
+      {
+        "type": "p",
+        "text": "You only learn when an intrusion started after you've found it, usually from a forensic timeline, so the number is computed backward and a quiet quarter can produce a gorgeous figure that says nothing about what nobody found."
+      },
+      {
+        "type": "p",
+        "text": "(Mandiant's M-Trends 2024 put the global median dwell time at 10 days, down from 16 the year before, which is a decent sanity check to hold next to your own.)"
+      },
+      {
+        "type": "p",
+        "text": "Put the incident count beside it. MTTD of 0.5 days across 2 incidents is a different claim than 0.5 across 40."
+      },
+      {
+        "type": "h2",
+        "text": "3. Could we recover?"
+      },
+      {
+        "type": "p",
+        "text": "One metric. Backup restore test success."
+      },
+      {
+        "type": "p",
+        "text": "It's the only recovery number that isn't a promise."
+      },
+      {
+        "type": "p",
+        "text": "The RTO in your business continuity plan is an intention someone typed in 2022. A restore test either came back or it didn't, and the builder sets good at 95% and act below 80%."
+      },
+      {
+        "type": "p",
+        "text": "Show the denominator. 19 of 20 restores and 1 of 1 are not the same sentence."
+      },
+      {
+        "type": "h2",
+        "text": "4. Is it getting better?"
+      },
+      {
+        "type": "list",
+        "items": [
+          "**Open critical vulnerabilities past SLA.** A count. Target zero, act at 10.",
+          "**High-risk vendors unremediated.** Target zero, act at 5. This is the one third-party number a director can follow."
+        ]
+      },
+      {
+        "type": "p",
+        "text": "This is where [KPI](/?q=KPI) versus [KRI](/?q=KRI) matters. A KPI tells the board how well the security team did its work, like patches shipped or courses completed. A KRI tells them how much risk is sitting in the business today, against a threshold that forces a decision when it's crossed."
+      },
+      {
+        "type": "p",
+        "text": "Boards ask for the second kind now. I genuinely don't care which label ends up on your slide. I care that the number has a target and a direction."
+      },
+      {
+        "type": "p",
+        "text": "Here's one written the way a board reads it. The figures are made up so nobody mistakes them for a benchmark."
+      },
+      {
+        "type": "quote",
+        "text": "Open critical vulnerabilities past SLA: 6. Target: 0. Last four quarters: 14, 11, 9, 6. Decision: approve a second monthly patch window for the ERP cluster, which owns 4 of the 6."
+      },
+      {
+        "type": "p",
+        "text": "Four quarters is the minimum. With two, a director can't tell a dip from a direction."
+      },
+      {
+        "type": "p",
+        "text": "And if the metric can't name a decision, move it to the appendix."
+      },
+      {
+        "type": "h2",
+        "text": "5. Cut these"
+      },
+      {
+        "type": "list",
+        "items": [
+          "**Blocked attacks.** The count goes up when attackers get busier and when your email vendor changes how it counts. Neither is your doing, and there's no target to hold it against.",
+          "**Total vulnerabilities found.** It climbs every time you scan more assets, so it punishes the quarter you did the right thing.",
+          "**Phishing click rate with no trend line.** One number invites one question. Who clicked?"
+        ]
+      },
+      {
+        "type": "p",
+        "text": "Training completion goes too. It's a fine KPI for the security committee, and the builder includes it at a 95% target, but a director can't do anything with it."
+      },
+      {
+        "type": "h2",
+        "text": "Why they're asking now"
+      },
+      {
+        "type": "p",
+        "text": "The SEC adopted its cybersecurity disclosure rules on July 26, 2023. Item 106 of Regulation S-K has public companies describe board oversight of cyber risk in every 10-K, and Form 8-K Item 1.05 gives four business days after a materiality call."
+      },
+      {
+        "type": "p",
+        "text": "By November 2026 that's three annual report cycles of directors signing language about oversight they now want numbers to back."
+      },
+      {
+        "type": "p",
+        "text": "[NIST CSF 2.0](/frameworks/nist-csf/) pushed the same way in February 2024 when it added the Govern function. GV.OV-03 expects risk management performance to be evaluated and adjusted, which is a board metric written as a control."
+      },
+      {
+        "type": "p",
+        "text": "Build your eight in the [board metrics builder](/tools/board-metrics/). Then delete one more."
+      }
+    ],
+    "related": [
+      {
+        "label": "Board metrics builder",
+        "href": "/tools/board-metrics/"
+      },
+      {
+        "label": "KRI in the glossary",
+        "href": "/?q=KRI"
+      },
+      {
+        "label": "KPI in the glossary",
+        "href": "/?q=KPI"
+      },
+      {
+        "label": "MTTD in the glossary",
+        "href": "/?q=MTTD"
+      },
+      {
+        "label": "MTTR in the glossary",
+        "href": "/?q=MTTR"
+      }
+    ]
+  },
+  {
+    "slug": "cis-implementation-groups-ig1-ig2-ig3",
+    "title": "CIS Implementation Groups: IG1 vs IG2 vs IG3, Which One Is Yours",
+    "description": "CIS IG1, IG2 and IG3 aren't three frameworks. They're cumulative cuts of 153 safeguards. How to tell which one you're in, and why most teams are IG1.",
+    "category": "Explainer",
+    "author": "Parker Brissette",
+    "date": "2026-11-05",
+    "readingMinutes": 5,
+    "tags": [
+      "cis controls",
+      "implementation groups",
+      "ig1",
+      "compliance",
+      "small business"
+    ],
+    "body": [
+      {
+        "type": "p",
+        "text": "CIS Implementation Groups aren't three frameworks. They're one list of 153 safeguards, cut in two places."
+      },
+      {
+        "type": "p",
+        "text": "And most people searching for the difference are IG1. I think they should say so out loud."
+      },
+      {
+        "type": "h2",
+        "text": "One list, two cuts"
+      },
+      {
+        "type": "p",
+        "text": "[CIS](/?q=CIS) Controls v8 came out in May 2021 with 153 safeguards across 18 controls. IG1 takes 56 of them. IG2 adds 74 more, for 130. IG3 adds the last 23."
+      },
+      {
+        "type": "p",
+        "text": "Read those numbers again."
+      },
+      {
+        "type": "p",
+        "text": "The jump from IG1 to IG2 is bigger than all of IG1. IG3 gets treated like the summit, and it's the shortest climb of the three."
+      },
+      {
+        "type": "p",
+        "text": "Three controls have no IG1 safeguards at all: Control 13 (network monitoring and defense), Control 16 (application software security) and Control 18 (penetration testing). So if your plan for 2027 includes a pen test program, that's Safeguard 18.1, and it's IG2 work."
+      },
+      {
+        "type": "p",
+        "text": "The 23 IG3 additions read like a specialist's job list. Safeguard 3.14 logs access to sensitive data. 12.8 puts admin work on dedicated machines. 13.10 does application layer filtering. 18.5 runs internal pen tests on a schedule. None of it is hard to understand. All of it needs someone who does only that."
+      },
+      {
+        "type": "p",
+        "text": "(CIS shipped v8.1 in June 2024 and added a Govern function so the Controls line up with [NIST CSF](/?q=NIST%20CSF) 2.0. The tiers still work the same way.)"
+      },
+      {
+        "type": "h2",
+        "text": "MFA was never the advanced stuff"
+      },
+      {
+        "type": "p",
+        "text": "A lot of small teams assume IG1 is the easy list and the serious controls start at IG2."
+      },
+      {
+        "type": "p",
+        "text": "[MFA](/?q=MFA) is the counterexample I point to. Safeguards 6.3, 6.4 and 6.5 require it on externally exposed apps, on remote network access and on admin accounts. All three are IG1. So is 11.4, an isolated copy of your recovery data. So is 17.1, a named person who handles incidents. Unique passwords (5.2) and a written vulnerability management process (7.1) are in there too."
+      },
+      {
+        "type": "p",
+        "text": "What actually changes at IG2 is centralization. You collect audit logs at IG1 under 8.2. At IG2 you centralize them under 8.9 and review them on a schedule under 8.11. Anti-malware goes from deployed (10.1) to centrally managed (10.6). Your asset inventory from 1.1 gets an active discovery tool behind it in 1.3."
+      },
+      {
+        "type": "p",
+        "text": "Every one of those needs somebody watching a console."
+      },
+      {
+        "type": "h2",
+        "text": "Count the people before the data"
+      },
+      {
+        "type": "p",
+        "text": "CIS describes the groups by who you employ and what you'd lose."
+      },
+      {
+        "type": "list",
+        "items": [
+          "**IG1:** limited IT and security expertise, mostly business data, downtime you can live with for a while.",
+          "**IG2:** staff whose job is running IT, sensitive client or company data, some regulatory pressure.",
+          "**IG3:** security specialists in separate disciplines, data under regulatory oversight, or an outage that would cause real public harm."
+        ]
+      },
+      {
+        "type": "p",
+        "text": "Plenty of small firms read the IG2 line and think they hold client data, so they must be IG2. I'd flip the order and ask the staffing question first."
+      },
+      {
+        "type": "p",
+        "text": "Is there anyone on payroll whose job description says security? Not \"also handles the firewall.\" Says it."
+      },
+      {
+        "type": "p",
+        "text": "If the answer is no, you're IG1 whatever data you hold, because nobody's there to run 74 more safeguards. The data question tells you how fast you need to grow out of IG1. It doesn't tell you where you are today. The public harm test for IG3 is about hospitals, utilities and anyone whose downtime hurts people outside the building. I'd guess that isn't most of you reading this."
+      },
+      {
+        "type": "h2",
+        "text": "Write IG1 on the questionnaire"
+      },
+      {
+        "type": "p",
+        "text": "This is the hill I'll die on."
+      },
+      {
+        "type": "p",
+        "text": "What I keep seeing is small teams claiming IG2 on customer questionnaires because IG1 sounds like a beginner grade. Then the customer asks for evidence of log review under 8.11, and there isn't any. A claimed IG2 you can't evidence is worse than an honest IG1. One is a gap. The other is a misrepresentation sitting in somebody's vendor risk file."
+      },
+      {
+        "type": "p",
+        "text": "If you're the IT manager with a customer questionnaire due Friday, don't overthink the wording. Something like this works."
+      },
+      {
+        "type": "quote",
+        "text": "We implement CIS Controls v8 Implementation Group 1, last assessed November 2026, with Safeguards 6.7 and 8.9 from IG2 also in place."
+      },
+      {
+        "type": "p",
+        "text": "Then attach the assessment."
+      },
+      {
+        "type": "p",
+        "text": "Saying IG1 ages better, too. \"IG1, plus 8.9 and 6.7 by Q2 2027\" tells a reviewer you know where you're headed. A bare IG2 checkbox tells them nothing they can check."
+      },
+      {
+        "type": "p",
+        "text": "Track it in a spreadsheet or a [GRC](/?q=GRC) platform. I honestly don't care which. An auditor cares that the date on it is recent and every gap has an owner's name next to it."
+      },
+      {
+        "type": "p",
+        "text": "What I don't know yet is whether cyber insurers will start asking for the IG level by name. Some applications already read like IG1 in disguise, with questions on MFA for remote access and offline backups. I haven't seen one use the term."
+      },
+      {
+        "type": "p",
+        "text": "Run the [IG1 assessment](/assess/?a=cis-ig1) before you answer anything, and if you want the basics first, start with our [IG1 starter guide](/blog/cis-controls-ig1-starter.html). Then read the [IG2 list](/frameworks/cis/ig2.html) as next year's roadmap. It isn't your current grade, and nobody's going to think less of you for saying so."
+      }
+    ],
+    "related": [
+      {
+        "label": "CIS Controls hub",
+        "href": "/frameworks/cis/"
+      },
+      {
+        "label": "All 56 IG1 safeguards",
+        "href": "/frameworks/cis/ig1.html"
+      },
+      {
+        "label": "All 130 IG2 safeguards",
+        "href": "/frameworks/cis/ig2.html"
+      },
+      {
+        "label": "All 153 IG3 safeguards",
+        "href": "/frameworks/cis/ig3.html"
+      },
+      {
+        "label": "Run the CIS IG1 assessment",
+        "href": "/assess/?a=cis-ig1"
+      }
+    ]
+  },
+  {
+    "slug": "cybersecurity-skills-matrix-small-team",
+    "title": "Cybersecurity Skills Matrix: Build One for a Five-Person Team",
+    "description": "A skills matrix for a five-person security team: NICE rows, a four-level scale, a worked example, and why it dies once it touches performance reviews.",
+    "category": "Explainer",
+    "author": "Parker Brissette",
+    "date": "2026-11-12",
+    "readingMinutes": 5,
+    "tags": [
+      "skills matrix",
+      "nice framework",
+      "security leadership",
+      "team building",
+      "careers"
+    ],
+    "body": [
+      {
+        "type": "p",
+        "text": "A skills matrix isn't an HR document. It's a map of who you can't afford to lose."
+      },
+      {
+        "type": "p",
+        "text": "On a five-person security team that map is short, and usually a little scary. So here's one for a made-up team of five, taken apart row by row."
+      },
+      {
+        "type": "h2",
+        "text": "Row names: borrow them"
+      },
+      {
+        "type": "p",
+        "text": "What I keep seeing is a matrix where someone typed the rows from memory. You get \"Firewalls,\" \"Cloud stuff,\" and \"Splunk,\" which is a product, not a skill."
+      },
+      {
+        "type": "p",
+        "text": "Use the [NICE Framework](/?q=NICE) instead. NIST republished it as SP 800-181 Rev. 1 in November 2020, and the March 2024 components release lists 41 work roles across seven categories. (The 2017 version had 52. For this exercise, fewer is better.)"
+      },
+      {
+        "type": "p",
+        "text": "Pick the 12 to 20 that match what your team does on an ordinary Tuesday. I'd rather see 12 honest rows than 40 aspirational ones. For our five, six of them carry most of the weight:"
+      },
+      {
+        "type": "list",
+        "items": [
+          "Incident response.",
+          "Vulnerability management.",
+          "Identity and access.",
+          "Cloud security.",
+          "Security engineering.",
+          "[GRC](/?q=GRC) and audit support."
+        ]
+      },
+      {
+        "type": "p",
+        "text": "Work roles or competency areas? I genuinely don't care which you pick. I care that the row names came from somewhere other than your head, so next year's lead can read them."
+      },
+      {
+        "type": "h2",
+        "text": "Four levels, in words"
+      },
+      {
+        "type": "list",
+        "items": [
+          "**1. Aware.** Knows it exists and who to call.",
+          "**2. Can do with help.** Gets it done with someone checking.",
+          "**3. Can do alone.** You'd hand them the ticket at 4 p.m. on a Friday.",
+          "**4. Can teach.** Could train the next hire without notes."
+        ]
+      },
+      {
+        "type": "p",
+        "text": "No zero. No five. I'd pick four every time."
+      },
+      {
+        "type": "p",
+        "text": "A five-point scale gives everyone a middle to hide in, and people hide there. Everyone rates themselves first. Then the lead does a pass, and the two of you talk about every cell where the numbers differ by 2 or more."
+      },
+      {
+        "type": "p",
+        "text": "I think that conversation is most of the value. The spreadsheet's the receipt."
+      },
+      {
+        "type": "h2",
+        "text": "The matrix, row by row"
+      },
+      {
+        "type": "p",
+        "text": "Our made-up team is a lead, two SOC analysts, one security engineer and one GRC analyst. Scores run 1 to 4, in that order:"
+      },
+      {
+        "type": "list",
+        "items": [
+          "Incident response: 3, 3, 2, 2, 1.",
+          "Vulnerability management: 2, 2, 3, 3, 1.",
+          "Identity and access: 2, 1, 2, 3, 2.",
+          "Cloud security: 1, 1, 1, 4, 1.",
+          "Security engineering: 2, 1, 1, 4, 1.",
+          "GRC and audit support: 3, 1, 1, 1, 4."
+        ]
+      },
+      {
+        "type": "p",
+        "text": "Read it by row, not by person."
+      },
+      {
+        "type": "p",
+        "text": "Cloud security has one 4 and four 1s. The engineer is the only person who can change your AWS service control policies without asking. When they take two weeks off in August, cloud has zero coverage."
+      },
+      {
+        "type": "p",
+        "text": "GRC is the same picture. If that analyst leaves in March, your [SOC 2](/?q=SOC%202) evidence collection walks out the door with them."
+      },
+      {
+        "type": "p",
+        "text": "Incident response looks healthy with two 3s. It isn't. Nobody's a 4, so nobody on the team can train the next analyst, and every new hire learns IR from whoever's on shift."
+      },
+      {
+        "type": "h2",
+        "text": "Gaps turn into three actions"
+      },
+      {
+        "type": "p",
+        "text": "Cross-training pairs come first. The engineer and the second analyst pair on cloud for one quarter. The goal is one more 2 on that row, not a second expert."
+      },
+      {
+        "type": "p",
+        "text": "Then one course or cert per person per quarter, aimed at a row rather than at a résumé. The first analyst going from 1 to 2 on identity is worth more to this team than another generic cert. The [careers hub](/careers/) maps certs to roles if you need a starting list."
+      },
+      {
+        "type": "p",
+        "text": "Then the hiring profile. Your next req isn't \"security analyst.\" It's someone who walks in at 3 on cloud and 2 on security engineering."
+      },
+      {
+        "type": "p",
+        "text": "If you're the lead walking into a January budget review to defend that req, bring the cloud row and nothing else. One 4 and four 1s does more than any story about how busy everyone is."
+      },
+      {
+        "type": "h2",
+        "text": "The two ways it dies"
+      },
+      {
+        "type": "p",
+        "text": "It dies the day it touches a performance review. This is my hill. Once a 2 can cost someone a raise, every self-rating drifts to 3 and the matrix stops telling you anything true."
+      },
+      {
+        "type": "p",
+        "text": "It also dies of neglect. Put a refresh on the calendar every six months, May and November work fine, and date the sheet in the top corner. An undated matrix is a guess."
+      },
+      {
+        "type": "p",
+        "text": "One thing I still haven't solved is a row for judgment. Who stays calm at 2 a.m. in an incident doesn't map to any NICE work role, and I haven't found a scale for it that doesn't turn into a popularity contest."
+      },
+      {
+        "type": "h2",
+        "text": "What the frameworks already ask for"
+      },
+      {
+        "type": "p",
+        "text": "You're probably on the hook for this already. [NIST CSF 2.0](/frameworks/nist-csf/), published February 2024, has GV.RR-02 for established roles and responsibilities and PR.AT-02 for training people in specialized roles."
+      },
+      {
+        "type": "p",
+        "text": "[CIS Controls](/frameworks/cis/) v8 has Safeguard 14.9, role-specific security awareness and skills training, starting at IG2. An auditor testing either one wants evidence that your specialists are trained for their jobs. A dated matrix with a quarterly training plan attached is that evidence."
+      },
+      {
+        "type": "p",
+        "text": "Build it in a spreadsheet in one afternoon, or start from the [skills matrix tool](/tools/skills-matrix/), which keeps everything in your browser. If you're new in the seat, it's a natural week-three task in your [first 90 days](/blog/first-90-days-security-leader.html). Then go read the cloud row again."
+      }
+    ],
+    "related": [
+      {
+        "label": "Team skills matrix tool",
+        "href": "/tools/skills-matrix/"
+      },
+      {
+        "label": "Cybersecurity careers hub",
+        "href": "/careers/"
+      },
+      {
+        "label": "NIST CSF 2.0 hub",
+        "href": "/frameworks/nist-csf/"
+      },
+      {
+        "label": "CIS Controls hub",
+        "href": "/frameworks/cis/"
+      },
+      {
+        "label": "Your first 90 days as a security leader",
+        "href": "/blog/first-90-days-security-leader.html"
+      }
+    ]
+  },
+  {
+    "slug": "mfa-vs-2fa-and-passkeys",
+    "title": "MFA vs 2FA: The Difference, and Why Passkeys Change the Answer",
+    "description": "2FA is MFA with exactly two factors. What matters is which factor: SMS, TOTP, push, or a passkey, ranked weakest to strongest, plus what to turn on first.",
+    "category": "Explainer",
+    "author": "Parker Brissette",
+    "date": "2026-11-16",
+    "readingMinutes": 5,
+    "tags": [
+      "mfa",
+      "2fa",
+      "passkeys",
+      "fido2",
+      "authentication"
+    ],
+    "body": [
+      {
+        "type": "p",
+        "text": "Is [2FA](/?q=2FA) the same as [MFA](/?q=MFA)? Yes. And it's the least useful question you can ask about a login."
+      },
+      {
+        "type": "p",
+        "text": "2FA is MFA with exactly two factors. Every 2FA setup is MFA. Not every MFA setup is 2FA, because a few use three."
+      },
+      {
+        "type": "p",
+        "text": "That's the whole answer to the search."
+      },
+      {
+        "type": "p",
+        "text": "The question that decides whether an account gets taken over is which two factors, and how a phishing page handles them."
+      },
+      {
+        "type": "h2",
+        "text": "Do both factors actually count?"
+      },
+      {
+        "type": "p",
+        "text": "Only if they come from different types. There are three:"
+      },
+      {
+        "type": "list",
+        "items": [
+          "**Know:** a password, a PIN, the name of your first car.",
+          "**Have:** a phone, a hardware key, a smart card.",
+          "**Are:** a fingerprint or a face."
+        ]
+      },
+      {
+        "type": "p",
+        "text": "A password plus a security question is two things you know. That isn't MFA. It's one factor asked twice."
+      },
+      {
+        "type": "p",
+        "text": "NIST already said so. SP 800-63B, published in June 2017, tells verifiers not to use knowledge-based questions at all. Plenty of banks still ask for your first car anyway."
+      },
+      {
+        "type": "h2",
+        "text": "Which second factor is worth having?"
+      },
+      {
+        "type": "p",
+        "text": "This is where the label stops mattering and the type of second factor starts. Here's how I rank them, weakest to strongest:"
+      },
+      {
+        "type": "list",
+        "items": [
+          "**SMS codes.** A SIM swap moves the number, and every code goes with it. NIST put SMS in the restricted bucket back in 2017.",
+          "**Email codes.** Only as strong as the inbox, which is usually guarded by... a password.",
+          "**[TOTP](/?q=TOTP) apps.** No carrier involved. A phishing page can still relay the six digits inside the 30-second window.",
+          "**Push approvals.** Fine until somebody sends 50 of them at 1 a.m.",
+          "**[FIDO2](/?q=FIDO2) keys and passkeys.** The browser checks the domain before anything gets signed, so a lookalike site gets nothing."
+        ]
+      },
+      {
+        "type": "p",
+        "text": "Phishing-resistant MFA on email and admin accounts is the hill I'll die on. I'll take a clunky key on a lanyard over a slick push prompt every time. Everything above the last line loses to a relay kit, and the [OTP, HOTP, and TOTP post](/blog/otp-hotp-totp-which-protects-you.html) walks through how Evilginx does it."
+      },
+      {
+        "type": "h2",
+        "text": "Why does push get its own fight?"
+      },
+      {
+        "type": "p",
+        "text": "Push is the one I argue about most with people who already turned MFA on. It feels modern. It fails in a very human way."
+      },
+      {
+        "type": "p",
+        "text": "In September 2022 an attacker holding an Uber contractor's password kept firing push requests at them. Then they messaged the contractor on WhatsApp, claiming to be Uber IT. The contractor accepted."
+      },
+      {
+        "type": "p",
+        "text": "What I keep seeing is push that got rolled out in 2020, when everyone went remote overnight, and nobody has looked at the settings since."
+      },
+      {
+        "type": "p",
+        "text": "Microsoft made number matching mandatory for Authenticator push on May 8, 2023. You type the two digits from the login screen into the app, which kills the blind tap. A proxy page can still show the user the right number."
+      },
+      {
+        "type": "h2",
+        "text": "So is a passkey one factor or two?"
+      },
+      {
+        "type": "p",
+        "text": "Two. It just doesn't look like it."
+      },
+      {
+        "type": "p",
+        "text": "A passkey on your phone is one tap. Under the hood it's a private key on a device you hold, unlocked by your face or your PIN. Possession plus biometric, or possession plus knowledge, in one step."
+      },
+      {
+        "type": "p",
+        "text": "People see one step and call it single-factor. That's backwards. It beats the two-step code on the thing that counts, because the key never leaves the device and only signs for the real domain."
+      },
+      {
+        "type": "p",
+        "text": "Apple and Google signed on to passkeys alongside Microsoft on May 5, 2022. Google made them the default sign-in for personal accounts in October 2023. NIST's April 2024 supplement to 800-63B accepted synced passkeys at AAL2."
+      },
+      {
+        "type": "p",
+        "text": "What I don't know yet is how account recovery holds up across vendors. If losing your phone drops you back to an SMS reset, the passkey was decoration. I haven't seen enough recovery flows to say most sites got that right."
+      },
+      {
+        "type": "h2",
+        "text": "What should you turn on first?"
+      },
+      {
+        "type": "p",
+        "text": "For yourself, an authenticator app or a passkey everywhere it's offered. Then a hardware key for email and banking, since email is the reset button for everything else. (Buy keys in pairs. Register the spare, then put it in a drawer you'll remember.)"
+      },
+      {
+        "type": "p",
+        "text": "Which password manager holds your passkeys? I genuinely don't care. Bitwarden and NordPass both store and sync them now, and so does the keychain that shipped with your phone. Pick the one you'll actually open, and if you want one opinion, there's a [NordPass review](/blog/nordpass-review-password-manager-step-one.html) here."
+      },
+      {
+        "type": "p",
+        "text": "For a small team, [CIS Controls](/frameworks/cis/) v8 already gives you the order. Safeguard 6.3 is MFA on externally exposed apps, 6.4 is remote network access, 6.5 is admin accounts. In practice that means email, then VPN, then every admin login."
+      },
+      {
+        "type": "p",
+        "text": "I'd rather you get email covered this week than plan all three for next quarter."
+      },
+      {
+        "type": "p",
+        "text": "If you're the one person answering the MFA question on the cyber insurance renewal due Friday, tick yes only once all three are covered. Then write which factor in the notes field, even though the form didn't ask."
+      },
+      {
+        "type": "p",
+        "text": "So, 2FA or MFA? Call it whatever the form calls it. In November 2026 the word that matters is phishing-resistant, and a passkey is the cheapest way to get there."
+      }
+    ],
+    "related": [
+      {
+        "label": "OTP, HOTP, TOTP: which one protects you",
+        "href": "/blog/otp-hotp-totp-which-protects-you.html"
+      },
+      {
+        "label": "NordPass review: password manager as step one",
+        "href": "/blog/nordpass-review-password-manager-step-one.html"
+      },
+      {
+        "label": "FIDO2 in the glossary",
+        "href": "/?q=FIDO2"
+      },
+      {
+        "label": "TOTP in the glossary",
+        "href": "/?q=TOTP"
+      },
+      {
+        "label": "CIS Controls hub",
+        "href": "/frameworks/cis/"
+      }
+    ]
+  },
+  {
+    "slug": "passkeys-vs-passwords-fido2",
+    "title": "Passkeys vs Passwords: What FIDO2 Actually Fixes and What It Doesn't",
+    "description": "Passkeys stop phishing and credential stuffing. They don't fix the password still on the account, SMS recovery, or stolen session cookies. Here's the order.",
+    "category": "Spotlight",
+    "author": "Parker Brissette",
+    "date": "2026-11-19",
+    "readingMinutes": 5,
+    "tags": [
+      "passkeys",
+      "fido2",
+      "webauthn",
+      "authentication",
+      "mfa"
+    ],
+    "body": [
+      {
+        "type": "p",
+        "text": "Everyone says passkeys finally kill the password. On most accounts I look at, the password is still there, sitting right next to the passkey."
+      },
+      {
+        "type": "p",
+        "text": "That's the part of the pitch I disagree with."
+      },
+      {
+        "type": "p",
+        "text": "The crypto is real, and if you keep seeing the \"create a passkey?\" prompt, tap yes. Just know what you bought and what you didn't."
+      },
+      {
+        "type": "h2",
+        "text": "Where the passkey crowd is right"
+      },
+      {
+        "type": "p",
+        "text": "A passkey is a [FIDO2](/?q=FIDO2) key pair. The private key stays on your phone or your security key. The site keeps only the public key, so there's nothing shared to phish and nothing on the server worth stealing."
+      },
+      {
+        "type": "p",
+        "text": "FIDO2 is two specs stapled together. [WebAuthn](/?q=WebAuthn) is the browser half, a W3C Recommendation since March 2019. CTAP is how the browser talks to the authenticator. [U2F](/?q=U2F) is the older second-factor-only ancestor, and most security keys still speak it."
+      },
+      {
+        "type": "p",
+        "text": "Server breaches are where this pays off. LinkedIn lost 6.5 million password hashes in 2012, and four years later the real count turned out to be about 117 million."
+      },
+      {
+        "type": "p",
+        "text": "(Yes, the same LinkedIn these posts get syndicated to. Small world.)"
+      },
+      {
+        "type": "p",
+        "text": "Breach a passkey-only site and you walk away with public keys."
+      },
+      {
+        "type": "p",
+        "text": "They're public. That's the point."
+      },
+      {
+        "type": "p",
+        "text": "Credential stuffing dies too. Mandiant's June 2024 report on the Snowflake customer breaches put about 165 organizations in scope. The attackers used passwords infostealers had lifted as far back as 2020, on accounts with no MFA. A passkey-only login gives a stolen password list nothing to try."
+      },
+      {
+        "type": "h2",
+        "text": "The password is still on the account"
+      },
+      {
+        "type": "p",
+        "text": "Here's what I keep seeing. Someone adds a passkey to their Microsoft or Google account, feels done, and never touches the password again. It still works on the sign-in page."
+      },
+      {
+        "type": "p",
+        "text": "An attacker doesn't have to beat your passkey. They phish the password you forgot was there."
+      },
+      {
+        "type": "p",
+        "text": "Microsoft has let personal accounts delete the password entirely since September 2021, and it made new accounts passwordless by default in May 2025. Google, last I checked, still keeps a password on the account and just lets you skip it."
+      },
+      {
+        "type": "p",
+        "text": "Every account made before those defaults has a password you probably reused somewhere."
+      },
+      {
+        "type": "h2",
+        "text": "Recovery is the real front door"
+      },
+      {
+        "type": "p",
+        "text": "Lost-phone recovery is where I'd attack a passkey account. If the reset is a code to your phone number, the account is as strong as your carrier's retail counter. If it's an email link, it's as strong as that inbox."
+      },
+      {
+        "type": "p",
+        "text": "MGM's September 2023 breach didn't need to beat any authenticator."
+      },
+      {
+        "type": "p",
+        "text": "The attackers called the IT help desk, posed as an employee, and got access reset. MGM put the hit to its quarter at about $100 million."
+      },
+      {
+        "type": "p",
+        "text": "This is my hill. If recovery falls back to SMS, or to a help desk that resets on a name and a birthday, you haven't rolled out passkeys. You've added one more way in."
+      },
+      {
+        "type": "h2",
+        "text": "The cookie walks out after login"
+      },
+      {
+        "type": "p",
+        "text": "Passkeys protect the login. They do nothing for the session after it."
+      },
+      {
+        "type": "p",
+        "text": "Infostealers worked that out years ago. They copy session cookies off an infected laptop and replay them from somewhere else, and the attacker never sees a sign-in prompt at all. Microsoft said Lumma Stealer infected more than 394,000 Windows computers in the two months before its May 2025 takedown. Any of those laptops could have had a passkey on it. Didn't matter. The cookie is the proof you already logged in, so once it's gone the login is over."
+      },
+      {
+        "type": "p",
+        "text": "If malware owns the machine you're signed in on, it doesn't need your passkey. It has your session."
+      },
+      {
+        "type": "p",
+        "text": "What helps here is short session lifetimes and EDR that catches the stealer before it phones home. More passkeys won't."
+      },
+      {
+        "type": "h2",
+        "text": "Synced keys, hardware keys, and the order to do it in"
+      },
+      {
+        "type": "p",
+        "text": "Synced passkeys live in iCloud Keychain, Google Password Manager, or a manager like [NordPass](/blog/nordpass-review-password-manager-step-one.html). Lose the phone and they come back on the new one."
+      },
+      {
+        "type": "p",
+        "text": "Under NIST SP 800-63B they top out at AAL2. AAL3 wants a key that can't be copied off the device."
+      },
+      {
+        "type": "p",
+        "text": "Device-bound passkeys live on a hardware key and never leave it. That's what I want on email, banking, and every admin account. YubiKey or Titan, USB-C or NFC? I don't care."
+      },
+      {
+        "type": "p",
+        "text": "Get whatever fits your laptop and your phone."
+      },
+      {
+        "type": "p",
+        "text": "What I don't know yet is whether moving passkeys between providers will hold up. The FIDO Alliance published draft Credential Exchange specs in October 2024, and Apple shipped passkey import and export with iOS 26 in 2025. I haven't seen it survive a messy migration yet."
+      },
+      {
+        "type": "p",
+        "text": "The order I'd go in:"
+      },
+      {
+        "type": "list",
+        "items": [
+          "**For you:** say yes to the passkey prompt everywhere it shows up. Then delete the password where the site allows it, and check what recovery falls back to.",
+          "**Hardware keys on email first.** Every other reset lands in that inbox.",
+          "**For a small team:** admins, then email, then everyone. Turn off SMS as a sign-in and recovery method for admins the same day.",
+          "**Write down how the help desk verifies someone who lost both keys.** Then test it."
+        ]
+      },
+      {
+        "type": "p",
+        "text": "If you're the only admin at a 15-person shop and you promised the owner passkeys by December 31, start with the four or five accounts that can reset everyone else's. The [MFA vs 2FA post](/blog/mfa-vs-2fa-and-passkeys.html) has the [MFA](/?q=MFA) order if you need it for the rest."
+      },
+      {
+        "type": "p",
+        "text": "So should you tap yes on the prompt? Yes. Then go find the password it was supposed to replace."
+      }
+    ],
+    "related": [
+      {
+        "label": "MFA vs 2FA, and why passkeys change the answer",
+        "href": "/blog/mfa-vs-2fa-and-passkeys.html"
+      },
+      {
+        "label": "NordPass review: password manager as step one",
+        "href": "/blog/nordpass-review-password-manager-step-one.html"
+      },
+      {
+        "label": "FIDO2 in the glossary",
+        "href": "/?q=FIDO2"
+      },
+      {
+        "label": "WebAuthn in the glossary",
+        "href": "/?q=WebAuthn"
+      },
+      {
+        "label": "U2F in the glossary",
+        "href": "/?q=U2F"
+      }
+    ]
   }
 ]
