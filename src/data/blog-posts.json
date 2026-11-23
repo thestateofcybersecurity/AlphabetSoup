@@ -6459,5 +6459,198 @@
         "href": "/?q=U2F"
       }
     ]
+  },
+  {
+    "slug": "soc2-vs-iso-27001",
+    "title": "SOC 2 vs ISO 27001: Which One a Small Company Should Do First",
+    "description": "SOC 2 or ISO 27001 first? Your biggest prospect already picked. How they differ on paper, timeline, and scope, and the default I'd pick.",
+    "category": "Explainer",
+    "author": "Parker Brissette",
+    "date": "2026-11-23",
+    "readingMinutes": 5,
+    "tags": [
+      "soc2",
+      "iso-27001",
+      "compliance",
+      "audit",
+      "startups"
+    ],
+    "body": [
+      {
+        "type": "p",
+        "text": "SOC 2 versus ISO 27001 isn't a decision you get to make."
+      },
+      {
+        "type": "p",
+        "text": "Your biggest prospect already made it, and it's sitting in their security questionnaire."
+      },
+      {
+        "type": "p",
+        "text": "I keep watching small companies burn a month arguing about which one is more rigorous."
+      },
+      {
+        "type": "p",
+        "text": "Wrong argument."
+      },
+      {
+        "type": "p",
+        "text": "You've got one budget line and a customer asking. Here's how I'd spend it."
+      },
+      {
+        "type": "h2",
+        "text": "They aren't the same kind of paper"
+      },
+      {
+        "type": "p",
+        "text": "A [SOC 2](/frameworks/soc2/) report is a CPA firm's opinion on your controls, measured against the AICPA's 2017 Trust Services Criteria. You hand it out under NDA, one buyer at a time."
+      },
+      {
+        "type": "p",
+        "text": "An [ISO 27001](/frameworks/iso/) certificate comes from a certification body, ideally one accredited by someone like ANAB or UKAS. It says your [ISMS](/?q=ISMS) meets the standard. You can post it on your website."
+      },
+      {
+        "type": "p",
+        "text": "(Nobody is \"SOC 2 certified,\" whatever the badge in the footer says. There's no certificate. There's a report, and page one is an opinion letter signed by an auditor.)"
+      },
+      {
+        "type": "p",
+        "text": "That difference matters more than the control lists do."
+      },
+      {
+        "type": "p",
+        "text": "A procurement team can check a certificate in a registry in two minutes. A SOC 2 report runs dozens of pages, and they have to actually read it, or at least skim the exceptions."
+      },
+      {
+        "type": "h2",
+        "text": "Who asks for which"
+      },
+      {
+        "type": "p",
+        "text": "US SaaS buyers lean SOC 2."
+      },
+      {
+        "type": "p",
+        "text": "European buyers and big global enterprises lean ISO 27001, because a certificate travels across borders and a CPA attestation is a very American artifact."
+      },
+      {
+        "type": "p",
+        "text": "So pull the last 5 security questionnaires your sales team got and count the mentions."
+      },
+      {
+        "type": "p",
+        "text": "Look at the form itself too. The SIG and the CSA's CAIQ both leave room to attach a report or certificate instead of answering line by line. Whichever document your buyer's form names there is the one that saves you the most hours."
+      },
+      {
+        "type": "p",
+        "text": "If you're the first security hire and sales needs something before a Q1 close, read the exact wording first."
+      },
+      {
+        "type": "p",
+        "text": "\"SOC 2 or equivalent\" means they'll take ISO. \"SOC 2 Type II\" means they won't."
+      },
+      {
+        "type": "h2",
+        "text": "The timelines don't line up"
+      },
+      {
+        "type": "list",
+        "items": [
+          "**SOC 2 Type I:** your controls are designed and in place on a single date. Fastest thing you can hand a buyer.",
+          "**SOC 2 Type II:** your controls operated over a window of 3 to 12 months, and the auditor tested samples from it.",
+          "**ISO 27001:** a Stage 1 audit of your documents, then a Stage 2 audit of whether you live them. The certificate lasts 3 years, with surveillance audits in years 2 and 3.",
+          "**Scope:** you pick it either way."
+        ]
+      },
+      {
+        "type": "p",
+        "text": "A Type I covers one day, so the buyer's reviewer will ask when your Type II window starts. Have a date ready before the call."
+      },
+      {
+        "type": "p",
+        "text": "SOC 2 scope is the systems you name plus the criteria categories you choose. Security is the only mandatory category. I'd add Availability when a contract has an uptime SLA in it, and leave the other three alone until somebody asks."
+      },
+      {
+        "type": "p",
+        "text": "ISO scope lives in your ISMS scope statement under clause 4.3, and certification bodies push back on scopes drawn too narrow to mean anything."
+      },
+      {
+        "type": "p",
+        "text": "What I don't know is how much longer a Type I keeps getting deals through."
+      },
+      {
+        "type": "p",
+        "text": "I'm seeing more questionnaires ask for Type II by name. I can't tell you yet whether that's a trend or just my inbox."
+      },
+      {
+        "type": "h2",
+        "text": "The second one is cheaper, for a reason people miss"
+      },
+      {
+        "type": "p",
+        "text": "The control work overlaps heavily. Access reviews, change management, vendor risk, incident response, logging. The [crosswalk](/tools/crosswalk/) maps the SOC 2 common criteria to Annex A so you can see it control by control."
+      },
+      {
+        "type": "p",
+        "text": "Annex A in the 2022 revision has 93 controls in four themes, down from 114 in the 2013 version. As of November 2026, a certificate still citing 27001:2013 is dead, since the transition window closed October 31, 2025."
+      },
+      {
+        "type": "p",
+        "text": "Clauses 4 through 10 are where ISO costs you. It wants a management system running: a documented risk assessment, a Statement of Applicability, internal audits under clause 9.2, and a management review under 9.3. SOC 2 never asks you to run that machine. So SOC 2 first means building the ISMS later, from scratch. ISO first means the SOC 2 auditor mostly reads evidence you already collect. That's the one structural edge I'll give ISO-first."
+      },
+      {
+        "type": "p",
+        "text": "Which compliance platform you buy to collect evidence, Vanta or Drata or Secureframe? I genuinely don't care."
+      },
+      {
+        "type": "p",
+        "text": "Pick the one your auditor already knows how to read."
+      },
+      {
+        "type": "h2",
+        "text": "What I'd pick"
+      },
+      {
+        "type": "p",
+        "text": "This is my hill."
+      },
+      {
+        "type": "p",
+        "text": "Don't pick ISO because it sounds more serious, and don't pick SOC 2 because a competitor has the badge. Pick the one your largest prospects name."
+      },
+      {
+        "type": "p",
+        "text": "If nobody has asked yet and you sell mostly in the US, my default is SOC 2 Type I. Then roll straight into a Type II window so the first one isn't a dead end. Selling into Europe? Start with ISO 27001 and plan the SOC 2 for year 2."
+      },
+      {
+        "type": "p",
+        "text": "Before you sign an engagement letter, read the [SOC 2 readiness post](/blog/soc2-readiness-in-plain-english.html) and the [Annex A tour](/blog/iso-27001-annex-a-tour.html). If your [GRC](/?q=GRC) budget is one person, that person should read both."
+      },
+      {
+        "type": "p",
+        "text": "Ask the customer. They've already told you."
+      }
+    ],
+    "related": [
+      {
+        "label": "SOC 2 readiness in plain English",
+        "href": "/blog/soc2-readiness-in-plain-english.html"
+      },
+      {
+        "label": "ISO 27001 Annex A, a tour",
+        "href": "/blog/iso-27001-annex-a-tour.html"
+      },
+      {
+        "label": "SOC 2 Trust Services Criteria",
+        "href": "/frameworks/soc2/"
+      },
+      {
+        "label": "ISO 27001 Annex A controls",
+        "href": "/frameworks/iso/"
+      },
+      {
+        "label": "Framework crosswalk",
+        "href": "/tools/crosswalk/"
+      }
+    ]
   }
 ]
