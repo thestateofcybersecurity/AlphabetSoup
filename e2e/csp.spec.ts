@@ -38,8 +38,8 @@ const PAGES = [
   // links now come from /about.js.
   '/about/',
   '/tools/ai-threat-model/',
-  // The subscribe form's optional Turnstile widget loads only when
-  // TURNSTILE_SITE_KEY is set; with it empty the page must stay clean.
+  // The subscribe form's Turnstile script is injected at runtime, and only
+  // when a visitor first touches the form, so the built page stays clean.
   '/news/',
 ];
 

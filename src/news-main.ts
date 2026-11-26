@@ -216,35 +216,59 @@ declare global {
 }
 
 /**
- * Optional bot check on the subscribe form, opt-in through TURNSTILE_SITE_KEY.
- * With an empty key this is a no-op: nothing loads, nothing renders, and the
- * request body is exactly what it was, so the site stays CSP-clean. With a
- * key, the Turnstile script is loaded on demand, the widget renders inside
- * the form, and the token is sent as `turnstileToken` for the Worker to
- * verify. Tokens are single-use, so the widget is reset after every attempt.
+ * Bot check on the subscribe form, switched by TURNSTILE_SITE_KEY. With an
+ * empty key this is a no-op: nothing loads, nothing renders, and the request
+ * body carries no token.
+ *
+ * With a key, nothing is requested from Cloudflare until the visitor first
+ * touches the form. That keeps the page free of third-party requests for
+ * readers who never subscribe, and it means the widget always renders into a
+ * visible form (the form sits in a tab panel that starts hidden). The token
+ * is sent as `turnstileToken` for the Worker to verify. Tokens are
+ * single-use, so the widget is reset after every attempt.
  */
-function mountTurnstile(form: HTMLFormElement, onToken: (token: string | null) => void): { reset: () => void } {
-  if (!TURNSTILE_SITE_KEY) return { reset: () => undefined };
-  const slot = document.createElement('div');
-  slot.className = 'alert-turnstile';
-  form.querySelector('button')?.before(slot);
+function mountTurnstile(
+  form: HTMLFormElement,
+  onToken: (token: string | null) => void,
+  onUnavailable: () => void,
+): { ensure: () => void; reset: () => void } {
+  if (!TURNSTILE_SITE_KEY) return { ensure: () => undefined, reset: () => undefined };
   let widgetId: string | undefined;
-  const script = document.createElement('script');
-  script.src = TURNSTILE_SCRIPT;
-  script.async = true;
-  script.addEventListener('load', () => {
-    widgetId = window.turnstile?.render(slot, {
-      sitekey: TURNSTILE_SITE_KEY,
-      callback: (token) => onToken(token),
-      'expired-callback': () => onToken(null),
-      'error-callback': () => onToken(null),
+  let started = false;
+  const ensure = (): void => {
+    if (started) return;
+    started = true;
+    const slot = document.createElement('div');
+    slot.className = 'alert-turnstile';
+    form.querySelector('button')?.before(slot);
+    const script = document.createElement('script');
+    script.src = TURNSTILE_SCRIPT;
+    script.async = true;
+    script.addEventListener('load', () => {
+      widgetId = window.turnstile?.render(slot, {
+        sitekey: TURNSTILE_SITE_KEY,
+        callback: (token) => onToken(token),
+        'expired-callback': () => onToken(null),
+        'error-callback': () => onToken(null),
+      });
     });
-  });
-  document.head.append(script);
+    script.addEventListener('error', () => {
+      // Blocked or offline: clear up so the next touch can try again.
+      script.remove();
+      slot.remove();
+      started = false;
+      onUnavailable();
+    });
+    document.head.append(script);
+  };
+  for (const type of ['focusin', 'pointerdown', 'input']) {
+    form.addEventListener(type, ensure, { once: true, passive: true });
+  }
   return {
+    ensure,
     reset: () => {
       onToken(null);
-      window.turnstile?.reset(widgetId);
+      if (widgetId !== undefined) window.turnstile?.reset(widgetId);
     },
   };
 }
@@ -254,16 +278,25 @@ function wireAlertForm(): void {
   const status = document.getElementById('alert-status') as HTMLParagraphElement | null;
   if (!form || !status) return;
   let turnstileToken: string | null = null;
-  const turnstile = mountTurnstile(form, (token) => {
-    turnstileToken = token;
-  });
+  const turnstile = mountTurnstile(
+    form,
+    (token) => {
+      turnstileToken = token;
+    },
+    () => {
+      status.textContent =
+        'The verification check could not load. Allow challenges.cloudflare.com in your browser or content blocker, then try again.';
+    },
+  );
   form.addEventListener('submit', (event) => {
     event.preventDefault();
     const submit = form.querySelector('button') as HTMLButtonElement;
     const email = (form.elements.namedItem('email') as HTMLInputElement).value;
     const terms = (form.elements.namedItem('terms') as HTMLInputElement).value;
     if (TURNSTILE_SITE_KEY && !turnstileToken) {
-      status.textContent = 'Complete the verification check first.';
+      // Covers a form submitted before it was ever touched (autofill, Enter).
+      turnstile.ensure();
+      status.textContent = 'Finish the verification check above the button, then press it again.';
       return;
     }
     submit.disabled = true;
