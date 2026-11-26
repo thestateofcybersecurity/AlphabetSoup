@@ -6652,5 +6652,189 @@
         "href": "/tools/crosswalk/"
       }
     ]
+  },
+  {
+    "slug": "encryption-at-rest-vs-in-transit",
+    "title": "Encryption at Rest vs In Transit: Key Management Is the Hard Part",
+    "description": "Encrypted at rest with AES-256 and in transit with TLS is on every trust page. Here's what it leaves out, and why key access is the part that fails.",
+    "category": "Spotlight",
+    "author": "Parker Brissette",
+    "date": "2026-11-26",
+    "readingMinutes": 5,
+    "tags": [
+      "encryption",
+      "key-management",
+      "tls",
+      "cloud-security",
+      "kms"
+    ],
+    "body": [
+      {
+        "type": "p",
+        "text": "\"Encrypted at rest and in transit\" is the least useful sentence on a trust page."
+      },
+      {
+        "type": "p",
+        "text": "It's true on almost every page that prints it. That's the problem."
+      },
+      {
+        "type": "p",
+        "text": "Here's the version I see most, give or take the wording."
+      },
+      {
+        "type": "quote",
+        "text": "All customer data is encrypted at rest using AES-256 and in transit using TLS 1.2 or higher."
+      },
+      {
+        "type": "p",
+        "text": "Every word of that can be true at a company where any engineer can read any customer record. So I'll take it apart."
+      },
+      {
+        "type": "h2",
+        "text": "\"Encrypted at rest\" is a default now"
+      },
+      {
+        "type": "p",
+        "text": "AWS started encrypting every new S3 object by default on January 5, 2023, and you can't switch that off. Azure Storage has encrypted every account by default for years, and that can't be disabled either."
+      },
+      {
+        "type": "p",
+        "text": "So a vendor claiming encryption at rest is mostly claiming they didn't fight their cloud provider."
+      },
+      {
+        "type": "p",
+        "text": "What it protects against is real but narrow. A drive walks out of a data center. A decommissioned disk doesn't get wiped. Someone copies raw storage without going through the API."
+      },
+      {
+        "type": "p",
+        "text": "It does nothing against someone who logs in."
+      },
+      {
+        "type": "p",
+        "text": "Storage decrypts for any caller with the right permissions. That's the design working as intended."
+      },
+      {
+        "type": "h2",
+        "text": "AES-256 is the part nobody needs to read"
+      },
+      {
+        "type": "p",
+        "text": "I don't care whether the page says [AES](/?q=AES)-128 or AES-256."
+      },
+      {
+        "type": "p",
+        "text": "Nobody is getting into your customer data by breaking AES. NIST SP 800-57 still rates 128-bit security strength as acceptable past 2030, and I've never read a breach writeup that started with a broken cipher."
+      },
+      {
+        "type": "p",
+        "text": "The algorithm name is on the page because it's the easiest thing to be specific about. It sounds technical and costs nothing to say."
+      },
+      {
+        "type": "h2",
+        "text": "TLS 1.2 or higher, measured where?"
+      },
+      {
+        "type": "p",
+        "text": "RFC 8996 formally deprecated [TLS](/?q=TLS) 1.0 and 1.1 in March 2021. \"1.2 or higher\" is the floor. It isn't a brag."
+      },
+      {
+        "type": "p",
+        "text": "The question I ask is where the TLS ends. Plenty of stacks terminate it at the load balancer and send plain HTTP to the app tier inside the VPC."
+      },
+      {
+        "type": "p",
+        "text": "That setup can pass an assessment. [PCI DSS](/?q=PCI%20DSS) v4.0 Requirement 4.2.1 asks for strong cryptography over open, public networks, and the inside of your VPC isn't one."
+      },
+      {
+        "type": "p",
+        "text": "I'd encrypt the internal hop anyway. \"It was inside the VPC\" reads badly in an incident report."
+      },
+      {
+        "type": "p",
+        "text": "In transit has its own key problem too. We just call the keys certificates. Since March 15, 2026, public TLS certificates max out at 200 days, and the CA/Browser Forum schedule takes that down to 47 days by 2029."
+      },
+      {
+        "type": "p",
+        "text": "I honestly don't know yet whether that cuts outages or causes more of them. Teams with automated renewal won't notice. Teams running on a calendar reminder and one person who remembers the process are about to find out."
+      },
+      {
+        "type": "p",
+        "text": "(Heartbleed, CVE-2014-0160, was the 2014 reminder that a server's private key sits in process memory, and process memory can leak. Revocation never worked well after that, which is half the case for shorter certs.)"
+      },
+      {
+        "type": "h2",
+        "text": "The sentence that isn't there"
+      },
+      {
+        "type": "p",
+        "text": "The trust page never says who can call decrypt."
+      },
+      {
+        "type": "p",
+        "text": "This is the hill I'll die on. Encryption at rest is an access control problem with a crypto label on it. If your app's IAM role has kms:Decrypt on the production key, so does anyone who steals that role."
+      },
+      {
+        "type": "p",
+        "text": "Capital One in 2019 is the case everyone in cloud security knows. An SSRF got the attacker credentials for an IAM role. The data in S3 was encrypted. The role was allowed to read it, so S3 decrypted it on request, and roughly 106 million people ended up in the breach notice."
+      },
+      {
+        "type": "p",
+        "text": "What I keep seeing is a questionnaire answer that says AES-256 with real confidence. Then I ask who holds decrypt on the production key, and the room goes quiet. I ask whether the CI pipeline's role is on that list. It usually is. Nobody added it on purpose. Someone needed a deploy to work in a hurry, granted kms:* to get past the error, and moved on."
+      },
+      {
+        "type": "p",
+        "text": "I think rotation gets more airtime than it deserves. AWS [KMS](/?q=KMS) automatic rotation runs yearly by default and keeps the old key material, so last year's data still decrypts. Good hygiene. It does nothing if the wrong role can use the key today."
+      },
+      {
+        "type": "p",
+        "text": "PCI DSS v4.0 puts the real work in Requirements 3.6 and 3.7, covering how keys are stored, who the custodians are, and how keys get retired. That list is worth copying even if you never touch a card number."
+      },
+      {
+        "type": "p",
+        "text": "Custody is the last question. For most SaaS companies, a customer-managed key in KMS with a tight key policy is where I'd stop. Your own [HSM](/?q=HSM) or BYOK makes sense when a contract demands it, and I've rarely seen it earn its keep otherwise."
+      },
+      {
+        "type": "h2",
+        "text": "If the questionnaire is due Friday"
+      },
+      {
+        "type": "p",
+        "text": "If you're the one filling out a prospect's security questionnaire due Friday, and it asks you to describe key management, don't paste the AES-256 line. Write these three facts instead."
+      },
+      {
+        "type": "list",
+        "items": [
+          "Which keys protect production data, and whether your cloud provider or your team manages them.",
+          "Which roles and people can use those keys to decrypt, and how often that list gets reviewed.",
+          "What happens to access when a key is retired or someone who held it leaves."
+        ]
+      },
+      {
+        "type": "p",
+        "text": "If you can't answer the second one, that's your actual finding. An auditor will look for it under [SOC 2](/frameworks/soc2/) CC6.1. The [cloud baseline tool](/tools/cloud-baseline/) is a decent place to check the rest of your storage and key settings."
+      },
+      {
+        "type": "p",
+        "text": "Encryption is the easy half. Every major cloud hands it to you for free now. The keys are the half you actually have to run."
+      }
+    ],
+    "related": [
+      {
+        "label": "AES in the glossary",
+        "href": "/?q=AES"
+      },
+      {
+        "label": "TLS in the glossary",
+        "href": "/?q=TLS"
+      },
+      {
+        "label": "Cloud security baseline tool",
+        "href": "/tools/cloud-baseline/"
+      },
+      {
+        "label": "SOC 2 Trust Services Criteria",
+        "href": "/frameworks/soc2/"
+      }
+    ]
   }
 ]
