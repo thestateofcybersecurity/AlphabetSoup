@@ -14,7 +14,7 @@ Checked against the built `dist/` and the e2e CSP guard (`e2e/csp.spec.ts`) on 2
 | Cloudflare Web Analytics beacon | Injected at the edge, loads `https://static.cloudflareinsights.com/beacon.min.js` and posts to `https://cloudflareinsights.com/cdn-cgi/rum` | `script-src https://static.cloudflareinsights.com`, `connect-src https://cloudflareinsights.com` |
 | News feeds | `src/news-main.ts` fetches JSON from `https://thestateofcybersecurity.github.io/ransomwareRSS/` (host-allowlisted in `buildValidatedUrl`) | `connect-src https://thestateofcybersecurity.github.io` |
 | Alert subscription | `src/news-main.ts` POSTs JSON to `https://alerts.cybersecurityalphabetsoup.com/subscribe` | `connect-src https://alerts.cybersecurityalphabetsoup.com`, `form-action https://alerts.cybersecurityalphabetsoup.com` |
-| Turnstile (opt-in, off until `TURNSTILE_SITE_KEY` is set in `src/lib/config.ts`) | Loads `https://challenges.cloudflare.com/turnstile/v0/api.js` and renders an iframe from the same origin | `script-src https://challenges.cloudflare.com`, `frame-src https://challenges.cloudflare.com` |
+| Turnstile (on since 2026-11; `TURNSTILE_SITE_KEY` in `src/lib/config.ts`) | When a visitor first touches the alert form, loads `https://challenges.cloudflare.com/turnstile/v0/api.js` and renders an iframe from the same origin | `script-src https://challenges.cloudflare.com`, `frame-src https://challenges.cloudflare.com` |
 | Fonts | Self-hosted woff2 under `/fonts/` (`e2e/csp.spec.ts` fails the build on any external font origin) | `font-src 'self'` |
 | Images | Site images, OG images, favicons; `https:` left open for blog and tool content that references third-party images | `img-src 'self' data: https:` |
 | Downloads | Exports use `URL.createObjectURL` on an `<a download>`; downloads are not governed by CSP, nothing needed | |
@@ -125,5 +125,5 @@ Note that `PUT` on the phase entrypoint replaces every rule in that phase; if th
 ## When the policy has to change
 
 - A new third-party script, font, or fetch target fails `e2e/csp.spec.ts` first (it allowlists nothing), which is the prompt to update this file and the rule together.
-- Setting `TURNSTILE_SITE_KEY` needs no change: `challenges.cloudflare.com` is already in `script-src` and `frame-src`.
+- Turnstile is live on the alert form, so `challenges.cloudflare.com` must stay in `script-src` and `frame-src`. Dropping either breaks every alert subscription, because the Worker refuses requests without a token.
 - `cyberdle.cybersecurityalphabetsoup.com` is also GitHub Pages behind this zone; the same rule with a `cyberdle` host match and that site's own origins applies there (its policy is not covered by this file).

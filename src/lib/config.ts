@@ -4,14 +4,20 @@
  */
 
 /**
- * Cloudflare Turnstile site key for the /news/ subscribe form.
+ * Cloudflare Turnstile site key for the /news/ subscribe form. Site keys are
+ * public; the matching secret lives only on the alerts Worker
+ * (TURNSTILE_SECRET_KEY), which verifies every token server-side.
  *
- * Empty (the default) disables the widget entirely: no script is loaded, no
- * element is rendered, and the subscribe request body is unchanged. Set it
- * to the site key from the Cloudflare dashboard (Turnstile, widget for
- * www.cybersecurityalphabetsoup.com) once the alerts Worker has its matching
- * secret; the Worker verifies the token server-side when that secret is set.
- * When this is non-empty the CSP must allow https://challenges.cloudflare.com
- * in script-src and frame-src (see docs/cloudflare-headers.md).
+ * The widget "Alphabet Soup and TSOC forms" is shared with
+ * thestateofcybersecurity.us and allows both domains. The Turnstile script
+ * is loaded only when a visitor first touches the form, so pages stay free
+ * of third-party requests for everyone else.
+ *
+ * Set this to '' to switch the widget off: nothing loads, nothing renders,
+ * and the request carries no token. Only do that after removing the Worker
+ * secret, or every subscription is refused.
+ *
+ * The CSP must allow https://challenges.cloudflare.com in script-src and
+ * frame-src (see docs/cloudflare-headers.md).
  */
-export const TURNSTILE_SITE_KEY = '';
+export const TURNSTILE_SITE_KEY = '0x4AAAAAAGTgelu-VKr5BSIY';

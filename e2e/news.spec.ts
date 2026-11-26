@@ -151,39 +151,86 @@ test('each section falls back independently when its feed is down', async ({ pag
   await expect(page.locator('#dir-status a')).toHaveAttribute('href', `${BASE}feeds.opml`);
 });
 
-test('alert form submits to the Worker and reports both outcomes', async ({ page }) => {
-  await stubAll(page);
-  // Turnstile is opt-in through TURNSTILE_SITE_KEY; with the key empty the
-  // page must make no request to challenges.cloudflare.com and the body
-  // must carry no token, so the site stays CSP-clean and the Worker
-  // contract unchanged.
-  const turnstileRequests: string[] = [];
-  page.on('request', (request) => {
-    if (new URL(request.url()).hostname === 'challenges.cloudflare.com') turnstileRequests.push(request.url());
+const TURNSTILE_API = 'https://challenges.cloudflare.com/turnstile/v0/api.js*';
+const SUBSCRIBE_URL = 'https://alerts.cybersecurityalphabetsoup.com/subscribe';
+
+/**
+ * Stands in for Cloudflare's Turnstile script so the suite never talks to
+ * Cloudflare. `solves: true` hands back a fresh token on render and on every
+ * reset, the way a passed challenge does; `solves: false` renders a widget
+ * that never produces a token.
+ */
+async function stubTurnstile(page: import('@playwright/test').Page, solves: boolean): Promise<string[]> {
+  const requests: string[] = [];
+  await page.route(TURNSTILE_API, (route) => {
+    requests.push(route.request().url());
+    return route.fulfill({
+      contentType: 'application/javascript',
+      body: `(() => {
+        let n = 0;
+        let cb = () => {};
+        window.turnstile = {
+          render(container, options) {
+            container.setAttribute('data-sitekey', options.sitekey);
+            cb = options.callback;
+            if (${String(solves)}) setTimeout(() => cb('stub-token-' + ++n), 0);
+            return 'stub-widget';
+          },
+          reset() {
+            if (${String(solves)}) setTimeout(() => cb('stub-token-' + ++n), 0);
+          },
+        };
+      })();`,
+    });
   });
-  let sentBody: unknown = null;
-  await page.route('https://alerts.cybersecurityalphabetsoup.com/subscribe', (route) => {
-    sentBody = route.request().postDataJSON();
+  return requests;
+}
+
+test('alert form loads Turnstile on first touch and sends its token to the Worker', async ({ page }) => {
+  await stubAll(page);
+  const turnstileRequests = await stubTurnstile(page, true);
+  const sentBodies: unknown[] = [];
+  await page.route(SUBSCRIBE_URL, (route) => {
+    sentBodies.push(route.request().postDataJSON());
     return route.fulfill({
       contentType: 'application/json',
       body: JSON.stringify({ ok: true, message: 'Check your inbox: confirm to start alerts.' }),
     });
   });
   await page.goto('/news/#ransomware');
+  await expect(page.locator('#alert-form')).toBeVisible();
 
-  await page.fill('#alert-email', 'user@example.com');
-  await page.fill('#alert-terms', 'Example Corp, example.com');
-  await page.click('.alert-submit');
-  await expect(page.locator('#alert-status')).toContainText('Check your inbox');
-  await expect(page.locator('#alert-form')).toBeHidden();
-  expect(sentBody).toEqual({ email: 'user@example.com', terms: 'Example Corp, example.com' });
+  // Reading the page costs no request to Cloudflare and renders no widget.
   expect(turnstileRequests).toEqual([]);
   await expect(page.locator('.alert-turnstile')).toHaveCount(0);
 
-  // Error path: a fresh page whose Worker rejects the request.
-  await page.route('https://alerts.cybersecurityalphabetsoup.com/subscribe', (route) =>
-    route.fulfill({ status: 429, contentType: 'application/json', body: JSON.stringify({ error: 'Too many requests.' }) }),
-  );
+  await page.fill('#alert-email', 'user@example.com');
+  await page.fill('#alert-terms', 'Example Corp, example.com');
+  // Touching the form loads the script once and renders one widget with a key.
+  await expect(page.locator('.alert-turnstile')).toHaveCount(1);
+  await expect(page.locator('.alert-turnstile')).toHaveAttribute('data-sitekey', /^0x4/);
+  expect(turnstileRequests).toHaveLength(1);
+
+  await page.click('.alert-submit');
+  await expect(page.locator('#alert-status')).toContainText('Check your inbox');
+  await expect(page.locator('#alert-form')).toBeHidden();
+  expect(sentBodies).toEqual([
+    { email: 'user@example.com', terms: 'Example Corp, example.com', turnstileToken: 'stub-token-1' },
+  ]);
+});
+
+test('alert form reports a Worker error and asks for a fresh token on the retry', async ({ page }) => {
+  await stubAll(page);
+  await stubTurnstile(page, true);
+  const sentBodies: Array<{ turnstileToken?: string }> = [];
+  await page.route(SUBSCRIBE_URL, (route) => {
+    sentBodies.push(route.request().postDataJSON() as { turnstileToken?: string });
+    return route.fulfill({
+      status: 429,
+      contentType: 'application/json',
+      body: JSON.stringify({ error: 'Too many requests.' }),
+    });
+  });
   await page.goto('/news/');
   await page.click('#tab-ransomware');
   await page.fill('#alert-email', 'user@example.com');
@@ -191,6 +238,46 @@ test('alert form submits to the Worker and reports both outcomes', async ({ page
   await page.click('.alert-submit');
   await expect(page.locator('#alert-status')).toContainText('Too many requests');
   await expect(page.locator('#alert-form')).toBeVisible();
+
+  // Tokens are single-use: the second attempt must carry a different one.
+  await expect(page.locator('.alert-submit')).toBeEnabled();
+  await page.click('.alert-submit');
+  await expect.poll(() => sentBodies.length).toBe(2);
+  expect(sentBodies[0].turnstileToken).toBe('stub-token-1');
+  expect(sentBodies[1].turnstileToken).toBe('stub-token-2');
+});
+
+test('alert form sends nothing until the verification check has passed', async ({ page }) => {
+  await stubAll(page);
+  await stubTurnstile(page, false);
+  let posts = 0;
+  await page.route(SUBSCRIBE_URL, (route) => {
+    posts += 1;
+    return route.fulfill({ contentType: 'application/json', body: JSON.stringify({ ok: true }) });
+  });
+  await page.goto('/news/#ransomware');
+  await page.fill('#alert-email', 'user@example.com');
+  await page.fill('#alert-terms', 'Example Corp');
+  await expect(page.locator('.alert-turnstile')).toHaveCount(1);
+  await page.click('.alert-submit');
+  await expect(page.locator('#alert-status')).toContainText('Finish the verification check');
+  await expect(page.locator('#alert-form')).toBeVisible();
+  expect(posts).toBe(0);
+});
+
+test('alert form says so when the verification script is blocked', async ({ page }) => {
+  await stubAll(page);
+  await page.route(TURNSTILE_API, (route) => route.abort());
+  let posts = 0;
+  await page.route(SUBSCRIBE_URL, (route) => {
+    posts += 1;
+    return route.fulfill({ contentType: 'application/json', body: JSON.stringify({ ok: true }) });
+  });
+  await page.goto('/news/#ransomware');
+  await page.fill('#alert-email', 'user@example.com');
+  await expect(page.locator('#alert-status')).toContainText('could not load');
+  await expect(page.locator('.alert-turnstile')).toHaveCount(0);
+  expect(posts).toBe(0);
 });
 
 test('advertises both RSS feeds in the head and marks News current in the nav', async ({
